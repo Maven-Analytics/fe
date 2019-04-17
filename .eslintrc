@@ -1,0 +1,12 @@
+{
+  "extends": ["xo", "plugin:react/recommended"],
+  "env": {
+    "mocha": true
+  },
+  "plugins": ["mocha", "react"],
+  "rules": {
+    "indent": ["error", 2],
+    "camelcase": "off",
+    "mocha/no-exclusive-tests": "error"
+  }
+}
