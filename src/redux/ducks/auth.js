@@ -1,0 +1,23 @@
+import * as utils from '../../utils/duckHelpers';
+
+export const types = {
+  REAUTHENTICATE_REQUEST: 'REAUTHENTICATE_REQUEST',
+  REAUTHENTICATE_SUCCESS: 'REAUTHENTICATE_SUCCESS',
+  REAUTHENTICATE_FAILURE: 'REAUTHENTICATE_FAILURE',
+  LOGIN_REQUEST: 'LOGIN_REQUEST',
+  LOGIN_SUCCESS: 'LOGIN_SUCCESS',
+  LOGIN_FAILURE: 'LOGIN_FAILURE',
+  REGISTER_REQUEST: 'REGISTER_REQUEST',
+  REGISTER_SUCCESS: 'REGISTER_SUCCESS',
+  REGISTER_FAILURE: 'REGISTER_FAILURE',
+  LOGOUT_REQUEST: 'LOGOUT_REQUEST',
+  LOGOUT_SUCCESS: 'LOGOUT_SUCCESS',
+  LOGOUT_FAILURE: 'LOGOUT_FAILURE'
+};
+
+export const actions = {
+  reauthenticate: obj => utils.action(types.REAUTHENTICATE_REQUEST, obj),
+  login: obj => utils.action(types.LOGIN_REQUEST, obj),
+  logout: obj => utils.action(types.LOGOUT_REQUEST, obj),
+  register: obj => utils.action(types.REGISTER_REQUEST, obj)
+};
