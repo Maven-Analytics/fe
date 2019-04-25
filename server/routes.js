@@ -54,6 +54,12 @@ module.exports = app => {
       });
 
       server.route({
+        method: 'POST',
+        path: '/api/v1/userSync',
+        handler: require('./controllers/user/sync')
+      });
+
+      server.route({
         method: 'GET',
         path: '/private',
         handler: () => {

@@ -3,12 +3,15 @@ const Boom = require('boom');
 const {User} = require('mv-models');
 const {login} = require('../../utils/auth');
 const jwt = require('../../utils/jwt');
+const userSync = require('../../utils/userSync');
 
 module.exports = async (request, h) => {
   let data = request.payload;
 
   const res = await makeRequest(data);
   const user = await findUser(res.id);
+
+  await userSync(user.email);
 
   return login(h, user, data.redirectTo);
 };
