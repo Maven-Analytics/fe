@@ -22,6 +22,7 @@ function * reauthenticateRequest({payload: {token}}) {
   }
 
   try {
+    console.log('here');
     const data = yield reauthenticate(token);
 
     yield all([
@@ -128,7 +129,7 @@ async function authReq(type, data) {
 }
 
 function reauthenticate(token) {
-  return axios.get('/api/v1/me', {
+  return axios.get(`${process.env.APP_URL}/api/v1/me`, {
     headers: {
       authorization: token
     }
