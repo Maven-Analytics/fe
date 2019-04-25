@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon ./server.js",
     "build": "next build src",
-    "start": "NODE_ENV=production node server.js src"
+    "start": "NODE_ENV=production node server.js"
   },
   "author": "",
   "license": "ISC",

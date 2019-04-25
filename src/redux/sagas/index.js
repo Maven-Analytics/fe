@@ -122,13 +122,13 @@ function logout() {
 }
 
 async function authReq(type, data) {
-  return axios.post(`http://localhost:3000/api/v1/${type}`, data)
+  return axios.post(`/api/v1/${type}`, data)
     .then(res => res.data)
     .then(response => response.data);
 }
 
 function reauthenticate(token) {
-  return axios.get('http://localhost:3000/api/v1/me', {
+  return axios.get('/api/v1/me', {
     headers: {
       authorization: token
     }
