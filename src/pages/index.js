@@ -32,14 +32,13 @@ class Home extends Component {
     this.props.actions.login({
       email: this.state.email,
       password: this.state.password,
-      redirectTo: 'http://localhost:3000/about'
+      redirectTo: 'http://maven.info:3000/about'
     });
   }
 
   render() {
     const {email, password} = this.state;
     const {loading, error} = this.props;
-
     return (
       <Layout>
         <form onSubmit={this.handleSubmit}>

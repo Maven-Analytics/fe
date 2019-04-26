@@ -22,7 +22,6 @@ function * reauthenticateRequest({payload: {token}}) {
   }
 
   try {
-    console.log('here');
     const data = yield reauthenticate(token);
 
     yield all([
@@ -40,8 +39,8 @@ function * reauthenticateRequest({payload: {token}}) {
     ]);
   } catch (error) {
     yield put({
-      type: authTypes.REAUTHENTICATE_SUCCESS,
-      payload: error.response.data
+      type: authTypes.REAUTHENTICATE_FAILURE,
+      payload: error.response ? error.response.data : error.message
     });
   }
 }

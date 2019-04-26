@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./server.js",
+    "dev": "NODE_ENV=development nodemon -L ./server.js",
     "build": "next build src",
     "start": "NODE_ENV=production node server.js"
   },
