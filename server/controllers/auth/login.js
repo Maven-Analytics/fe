@@ -15,7 +15,7 @@ module.exports = async (request, h) => {
 };
 
 async function auth(email, password) {
-  return axios.post(`${process.env.API_HOST}/api/v1/auth`, {
+  return axios.post('http://api:3000/api/v1/auth', {
     email,
     password
   })

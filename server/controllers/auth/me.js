@@ -21,6 +21,6 @@ module.exports = async request => {
 };
 
 function getUser(id) {
-  return axios.get(`${process.env.API_HOST}/api/v1/user/${id}`)
+  return axios.get(`http://api:3000/api/v1/user/${id}`)
     .then(res => res.data.data[0]);
 }
