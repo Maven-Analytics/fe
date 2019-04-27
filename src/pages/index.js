@@ -32,7 +32,7 @@ class Home extends Component {
     this.props.actions.login({
       email: this.state.email,
       password: this.state.password,
-      redirectTo: 'http://maven.info:3000/about'
+      redirectTo: `${process.env.HOST_SELF}/about`
     });
   }
 
