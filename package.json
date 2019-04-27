@@ -30,7 +30,6 @@
     "immutable": "^4.0.0-rc.12",
     "js-cookie": "^2.2.0",
     "jsonwebtoken": "^8.5.1",
-    "mv-models": "git+https://1b3e4b65685e89c58e76c84766dc71ab27550361:x-oauth-basic@github.com/maxbaun/mv-models.git#v0.0.15",
     "next": "^8.0.4",
     "next-redux-saga": "^4.0.1",
     "next-redux-wrapper": "^3.0.0-alpha.2",

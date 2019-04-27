@@ -1,6 +1,5 @@
 const axios = require('axios');
 const Boom = require('boom');
-const {User} = require('mv-models');
 const {login} = require('../../utils/auth');
 const jwt = require('../../utils/jwt');
 const userSync = require('../../utils/userSync');
@@ -36,10 +35,7 @@ async function makeRequest(data) {
     });
 }
 
-async function findUser(id) {
-  return User.findOne({
-    where: {
-      id
-    }
-  });
+function findUser(id) {
+  return axios.get(`${process.env.API_HOST}/api/v1/user/${id}`)
+    .then(res => res.data.data[0]);
 }
