@@ -12,7 +12,7 @@ module.exports = async (request, h) => {
 
   await userSync(user.email);
 
-  return login(h, user, data.redirectTo);
+  return login(h, user, `//${request.info.host}/about`);
 };
 
 async function makeRequest(data) {

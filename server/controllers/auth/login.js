@@ -8,7 +8,7 @@ module.exports = async (request, h) => {
   try {
     let user = await auth(data.email, data.password);
 
-    return login(h, user, data.redirectTo);
+    return login(h, user, `//${request.info.host}/about`);
   } catch (error) {
     return error;
   }
