@@ -1,5 +1,6 @@
 import {all, put, takeLatest} from 'redux-saga/effects';
 import axios from 'axios';
+import Router from 'next/router';
 
 import {types as authTypes} from '../ducks/auth';
 import {types as userTypes} from '../ducks/user';
@@ -14,6 +15,8 @@ function * logoutRequest() {
       type: userTypes.USER_UNSET
     })
   ]);
+
+  Router.push('/');
 }
 
 function * reauthenticateRequest({payload: {token}}) {

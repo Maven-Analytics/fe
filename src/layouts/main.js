@@ -26,6 +26,7 @@ class Layout extends Component {
               <div>
                 <p>Logged In as {user.get('email')}</p>
                 <button onClick={this.props.actions.logout}>Logout</button>
+                <a href={`//${process.env.THINKIFIC_SUBDOMAIN}.thinkific.com`}>Go To Thinkific</a>
               </div>
             ) : null}
           </div>

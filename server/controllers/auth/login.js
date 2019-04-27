@@ -1,7 +1,6 @@
 const axios = require('axios');
 const Boom = require('boom');
 const {login} = require('../../utils/auth');
-const userSync = require('../../utils/userSync');
 
 module.exports = async (request, h) => {
   let data = request.payload;
@@ -20,5 +19,12 @@ async function auth(email, password) {
     email,
     password
   })
-    .then(res => res.data.data.user);
+    .then(res => res.data.data.user)
+    .catch(err => {
+      if (err.response.data) {
+        throw new Boom(err.response.data.message, err.response.data);
+      } else {
+        throw Boom.boomify(err, err.response.data);
+      }
+    });
 }
