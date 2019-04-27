@@ -3,7 +3,7 @@ const jwt = require('./jwt');
 
 module.exports = async email => {
   await makeRequest('/webhooks/v1/accredibleSync', email);
-  await makeRequest('/webhooks/v1/thinkificEnrollmentSync', email);
+  // await makeRequest('/webhooks/v1/thinkificEnrollmentSync', email);
 
   return true;
 }

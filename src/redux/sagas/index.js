@@ -38,6 +38,7 @@ function * reauthenticateRequest({payload: {token}}) {
       })
     ]);
   } catch (error) {
+    console.log(error);
     yield put({
       type: authTypes.REAUTHENTICATE_FAILURE,
       payload: error.response ? error.response.data : error.message

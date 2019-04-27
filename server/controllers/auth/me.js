@@ -1,4 +1,4 @@
-const {User} = require('mv-models');
+const axios = require('axios');
 
 module.exports = async request => {
   const id = request.auth && request.auth.credentials ? request.auth.credentials.id : null;
@@ -9,17 +9,18 @@ module.exports = async request => {
     };
   }
 
-  let user = await User.findOne({
-    where: {
-      id: request.auth.credentials.id
-    }
-  });
+  const user = await getUser(id);
 
   return {
     success: true,
     data: {
       token: request.auth.token,
-      user: user.safeReturn()
+      user
     }
   };
 };
+
+function getUser(id) {
+  return axios.get(`${process.env.API_HOST}/api/v1/user/${id}`)
+    .then(res => res.data.data[0]);
+}

@@ -1,4 +1,4 @@
-const {User} = require('mv-models');
+const axios = require('axios');
 
 module.exports = {
   name: 'auth',
@@ -23,11 +23,16 @@ async function validate(decoded) {
     return {isValid: false};
   }
 
-  const user = await User.findOne({where: {email: decoded.email}});
+  const user = await getUser(decoded.email);
 
   if (!user) {
     return {isValid: false};
   }
 
   return {isValid: true};
+}
+
+function getUser(email) {
+  return axios.get(`${process.env.API_HOST}/api/v1/user/?email=${email}`)
+    .then(res => res.data.data[0]);
 }

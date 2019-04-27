@@ -1,5 +1,5 @@
+const axios = require('axios');
 const Boom = require('boom');
-const {User} = require('mv-models');
 const {login} = require('../../utils/auth');
 const userSync = require('../../utils/userSync');
 
@@ -7,11 +7,7 @@ module.exports = async (request, h) => {
   let data = request.payload;
 
   try {
-    data = validate(data);
-
-    let user = await findUser(data);
-    user = await user.login(data.password);
-    await userSync(user.email);
+    let user = await auth(data.email, data.password);
 
     return login(h, user, data.redirectTo);
   } catch (error) {
@@ -19,24 +15,10 @@ module.exports = async (request, h) => {
   }
 };
 
-function validate(data) {
-  if (!data.email || data.email === '' || !data.password || data.password === '') {
-    throw Boom.badRequest('Email & password are required.');
-  }
-
-  return data;
-}
-
-async function findUser(data) {
-  const user = await User.findOne({
-    where: {
-      email: data.email
-    }
-  });
-
-  if (user) {
-    return user;
-  }
-
-  throw Boom.notFound(`User with email ${data.email} not found`);
+async function auth(email, password) {
+  return axios.post(`${process.env.API_HOST}/api/v1/auth`, {
+    email,
+    password
+  })
+    .then(res => res.data.data.user);
 }

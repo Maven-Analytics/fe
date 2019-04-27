@@ -15,8 +15,8 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: ''
+      email: 'maxbaun@gmail.com',
+      password: 'password'
     };
 
     this.handleChange = this.handleChange.bind(this);
