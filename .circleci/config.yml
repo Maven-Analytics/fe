@@ -1,0 +1,33 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:jessie
+    steps:
+      - checkout
+      - run:
+          name: install-npm
+          command: npm install
+      - run:
+          name: test
+          command: npm test
+  deploy:
+    docker:
+      - image: circleci/node:jessie
+    steps:
+      - checkout
+      - run:
+          name: push
+          command: curl -X POST https://hooks.cloud66.com/stacks/redeploy/${CLOUD66_DEPLOYMENT_KEY}?services=fe
+workflows:
+  version: 2
+  workflow:
+    jobs:
+    - build
+    - deploy:
+        requires:
+          - build
+        filters:
+          branches:
+            only:
+              - master

@@ -1,4 +1,5 @@
 const axios = require('axios');
+const {runSync} = require('../../utils/user');
 
 module.exports = async request => {
   const id = request.auth && request.auth.credentials ? request.auth.credentials.id : null;
@@ -10,6 +11,8 @@ module.exports = async request => {
   }
 
   const user = await getUser(id);
+
+  runSync(user);
 
   return {
     success: true,

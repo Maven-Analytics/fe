@@ -2,7 +2,7 @@ const axios = require('axios');
 const Boom = require('boom');
 const {login} = require('../../utils/auth');
 const jwt = require('../../utils/jwt');
-const userSync = require('../../utils/userSync');
+const {runSync} = require('../../utils/user');
 
 module.exports = async (request, h) => {
   let data = request.payload;
@@ -10,7 +10,7 @@ module.exports = async (request, h) => {
   const res = await makeRequest(data);
   const user = await findUser(res.id);
 
-  await userSync(user.email);
+  await runSync(user);
 
   return login(h, user, `${request.info.referrer}about`);
 };

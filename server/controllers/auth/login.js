@@ -1,12 +1,15 @@
 const axios = require('axios');
 const Boom = require('boom');
 const {login} = require('../../utils/auth');
+const {runSync} = require('../../utils/user');
 
 module.exports = async (request, h) => {
   let data = request.payload;
 
   try {
     let user = await auth(data.email, data.password);
+
+    runSync(user);
 
     return login(h, user, `${request.info.referrer}about`);
   } catch (error) {
