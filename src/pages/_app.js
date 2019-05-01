@@ -4,9 +4,13 @@ import App, {Container} from 'next/app';
 import withRedux from 'next-redux-wrapper';
 import withReduxSaga from 'next-redux-saga';
 import {fromJS} from 'immutable';
+import {TransitionGroup, Transition} from 'react-transition-group';
 import initStore from '../redux/store';
 import {actions as authActions} from '../redux/ducks/auth';
 import {getCookie} from '../utils/cookies';
+import {enter, exit} from '../utils/animations';
+
+import Main from '../layouts/main';
 
 class MavenApp extends App {
   static async getInitialProps({Component, ctx}) {
@@ -30,10 +34,23 @@ class MavenApp extends App {
   render() {
     const {Component, pageProps, store} = this.props;
 
+    const {pathname} = this.props.router;
+
     return (
       <Container>
         <Provider store={store}>
-          <Component {...pageProps} />
+          <Main>
+            <TransitionGroup component={null}>
+              <Transition
+                key={pathname}
+                onEnter={(node, appears) => enter(Component.animationTimeline, node, appears)}
+                onExit={exit}
+                timeout={{enter: 100, exit: 150}}
+              >
+                <Component {...pageProps} />
+              </Transition>
+            </TransitionGroup>
+          </Main>
         </Provider>
       </Container>
     );

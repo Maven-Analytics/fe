@@ -1,10 +1,11 @@
 import React from 'react';
-import Layout from '../layouts/main';
 
 const About = () => (
-  <Layout>
-    <h1 className="test">This is the  About page </h1>
-  </Layout>
+  <div className="view">
+    <div className="container">
+      <h1>This is the  About page </h1>
+    </div>
+  </div>
 );
 
 export default About;

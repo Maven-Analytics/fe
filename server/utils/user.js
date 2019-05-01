@@ -7,7 +7,6 @@ module.exports = {
 const SYNC_TIME = 300000; // 5 mins
 
 async function runSync(user) {
-  console.log(shouldSync(user))
   if (shouldSync(user)) {
     await syncUser(user);
   }
@@ -26,7 +25,6 @@ function syncUser(user) {
 
 function shouldSync(user) {
   const {last_sync} = user;
-  console.log(last_sync);
 
   if (!last_sync) {
     return true;

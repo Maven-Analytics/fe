@@ -31,7 +31,7 @@ class Layout extends Component {
             ) : null}
           </div>
         </header>
-        <div className="container">
+        <div className="page-wrapper">
           {children}
         </div>
       </div>

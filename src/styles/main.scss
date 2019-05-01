@@ -1,4 +1,8 @@
-.test {
-  color: red;
-  @extend .mt-3;
+.page-wrapper {
+  position: relative;
 }
+
+.view {
+  width: 100%;
+}
+

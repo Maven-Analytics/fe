@@ -1,3 +1,5 @@
+const Joi = require('@hapi/joi');
+
 const {pathWrapper, defaultHandlerWrapper, nextHandlerWrapper} = require('./nextWrapper');
 
 module.exports = app => {
@@ -16,8 +18,14 @@ module.exports = app => {
       server.route({
         method: 'POST',
         path: '/api/v1/login',
-        config: {
-          auth: false
+        options: {
+          auth: false,
+          validate: {
+            payload: {
+              email: Joi.string().email().required(),
+              password: Joi.string().required()
+            }
+          }
         },
         handler: require('./controllers/auth/login')
       });
@@ -25,7 +33,7 @@ module.exports = app => {
       server.route({
         method: 'POST',
         path: '/api/v1/logout',
-        config: {
+        options: {
           auth: {
             mode: 'try'
           }
@@ -36,8 +44,16 @@ module.exports = app => {
       server.route({
         method: 'POST',
         path: '/api/v1/register',
-        config: {
-          auth: false
+        options: {
+          auth: false,
+          validate: {
+            payload: {
+              email: Joi.string().email().required(),
+              password: Joi.string().required(),
+              first_name: Joi.string().required(),
+              last_name: Joi.string().required()
+            }
+          }
         },
         handler: require('./controllers/auth/register')
       });
@@ -51,22 +67,6 @@ module.exports = app => {
           }
         },
         handler: require('./controllers/auth/me')
-      });
-
-      server.route({
-        method: 'POST',
-        path: '/api/v1/userSync',
-        handler: require('./controllers/user/sync')
-      });
-
-      server.route({
-        method: 'GET',
-        path: '/private',
-        handler: () => {
-          return {
-            text: 'here'
-          };
-        }
       });
 
       server.route({
