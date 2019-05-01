@@ -21,6 +21,7 @@ class Layout extends Component {
             <Link href="/"><a>Login</a></Link>
             <Link href="/register"><a>Register</a></Link>
             <Link href="/about"><a>About</a></Link>
+            <Link href="/styleguide"><a>Style Guide</a></Link>
 
             {user && !user.isEmpty() ? (
               <div>

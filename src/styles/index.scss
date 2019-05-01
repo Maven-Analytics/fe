@@ -1,5 +1,19 @@
+@import './0_utilities/variables';
+@import './0_utilities/settings.colors';
+@import './0_utilities/settings.fonts';
+@import './0_utilities/settings.spacing';
+
 @import '~bootstrap/scss/bootstrap-reboot';
 @import '~bootstrap/scss/bootstrap-grid';
 @import '~bootstrap/scss/utilities';
 
-@import 'main';
+@import './1_core/html/root';
+@import './1_core/html/typography';
+@import './1_core/html/forms';
+@import './1_core/html/links';
+
+@import './3_components/buttons';
+
+.view {
+  width: 100%;
+}

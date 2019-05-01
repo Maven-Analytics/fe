@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import Link from 'next/link';
 import {TimelineMax as Timeline, Power1} from 'gsap';
 
 import {selectors as userSelectors} from '../redux/ducks/user';
@@ -47,12 +48,25 @@ class Home extends Component {
           <div className="col-12 col-sm-6">
             <form onSubmit={this.handleSubmit}>
               <h1>Login</h1>
-              {error ? <h5>{error}</h5> : null}
-              <input type="text" placeholer="email" onChange={state(this.handleChange, 'email')} value={email} required/>
-              <br/>
-              <input type="password" placeholder="password" onChange={state(this.handleChange, 'password')} value={password} required/>
-              <br/>
-              <input type="submit" value="Login" disabled={loading} />
+              <div className="form-group">
+                <label htmlFor="email">Email Address</label>
+                <input type="text" name="email" id="email" placeholer="email" className="input" onChange={state(this.handleChange, 'email')} value={email} required/>
+              </div>
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input type="password" name="password" id="password" placeholder="password" className="input" onChange={state(this.handleChange, 'password')} value={password} required/>
+              </div>
+              <div className="form-message">
+                {error ? (
+                  <p className="form-text small error">{error}</p>
+                ) : null}
+              </div>
+              <div className="form-footer">
+                <span className="submit">
+                  <button className="btn btn--primary" type="submit" value="Login" disabled={loading}>Login</button>
+                </span>
+                <Link href="/forgot"><a className="small">Forgot Password</a></Link>
+              </div>
             </form>
           </div>
         </div>
@@ -84,7 +98,7 @@ Home.propTypes = {
 Home.animationTimeline = node => {
   const timeline = new Timeline({paused: true});
   const h1 = node.querySelector('h1');
-  const inputs = node.querySelectorAll('input');
+  const inputs = [...node.querySelectorAll('input'), ...node.querySelectorAll('.submit')];
 
   timeline
     .from(node, DEFAULT_VIEW_ANIMATION_TIME, DEFAULT_VIEW_ANIMATION_FROM)

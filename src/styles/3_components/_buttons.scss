@@ -1,0 +1,101 @@
+.btn {
+  $border-width: 3px;
+
+  background-color: transparent;
+  border: $border-width solid $gray-dark;
+  border-radius: 19.5px;
+  color: $gray-dark;
+  display: inline-block;
+  font-family: $font-body;
+  font-size: 1.2rem;
+  font-weight: 900;
+  line-height: 1.25;
+  min-width: 130px;
+  padding: 1rem 2.5rem;
+  user-select: none;
+  vertical-align: middle;
+  text-align: center;
+  text-transform: uppercase;
+  transition: background-color .2s ease-in-out, color .2s ease-in-out, border-color .2s ease-in-out, box-shadow .2s ease-in-out;
+  white-space: nowrap;
+
+  &:hover {
+    border-color: $body-color;
+    color: $body-color;
+    text-decoration: none;
+  }
+
+  &:active {
+    transform: translate3d(0, 2px, 0);
+  }
+
+  &:focus,
+  &.focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba($blue, .5);
+  }
+
+  &:disabled,
+  &.disabled {
+    border-color: $gray-lighter;
+    color: $gray-lighter;
+    pointer-events: none;
+  }
+
+  &--primary {
+    background-clip: padding-box;
+    background-color: $white;
+    border-color: transparent;
+    color: $gray-dark;
+    position: relative;
+
+    &::before {
+      background: $brand-gradient;
+      bottom: 0;
+      border-radius: inherit;
+      content: ' ';
+      left: 0;
+      margin: -($border-width);
+      position: absolute;
+      right: 0;
+      top: 0;
+      transition: background .2s ease-in-out;
+      z-index: -1;
+    }
+
+    &::after {
+      background: $brand-gradient;
+      bottom: 0;
+      border-radius: inherit;
+      content: ' ';
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: -1;
+    }
+
+    &:hover {
+      background-color: transparent;
+      border-color: transparent;
+      color: $black;
+    }
+
+    &:focus,
+    .focus {
+      box-shadow: none;
+
+      &::before {
+        background: $blue;
+      }
+    }
+
+    &:disabled,
+    &.disabled {
+      border-color: transparent;
+      color: inherit;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
+}

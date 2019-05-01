@@ -1,0 +1,119 @@
+.input {
+  background-color: $gray-lighter;
+  background-clip: padding-box;
+  border: 1px solid $gray-lighter;
+  color: $gray-light;
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 400;
+  height: 45px;
+  padding: 1.3rem 2rem;
+  width: 100%;
+
+  &:focus {
+    border-color: $gray;
+    outline: none;
+  }
+
+  // Unstyle the caret on `<select>`s in IE10+.
+  &::-ms-expand {
+    background-color: transparent;
+    border: 0;
+  }
+
+  // Placeholder
+  &::placeholder {
+    color: $gray-light;
+    // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526.
+    opacity: 1;
+  }
+
+  // Disabled and read-only inputs
+  //
+  // HTML5 says that controls under a fieldset > legend:first-child won't be
+  // disabled if the fieldset is disabled. Due to implementation difficulty, we
+  // don't honor that edge case; we style them as disabled anyway.
+  &:disabled,
+  &[readonly] {
+    background-color: $gray;
+    // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655.
+    opacity: 1;
+  }
+}
+
+select.input {
+  &:focus::-ms-value {
+    // Suppress the nested default white text on blue background highlight given to
+    // the selected option text when the (still closed) <select> receives focus
+    // in IE and (under certain conditions) Edge, as it looks bad and cannot be made to
+    // match the appearance of the native widget.
+    // See https://github.com/twbs/bootstrap/issues/19398.
+    color: $gray-light;
+    background-color: $gray-lighter;
+  }
+}
+
+label {
+  color: $gray;
+  margin-bottom: $spacing-unit--ss;
+}
+
+.form-group {
+  margin-bottom: $spacing-unit;
+}
+
+.form-text {
+  color: $gray;
+  display: block;
+  margin-top: $spacing-unit--xs;
+
+  &.error {
+    color: $red;
+  }
+}
+
+.form-message {
+  min-height: 2rem;
+
+  p {
+    margin: 0;
+  }
+
+  & + .form-footer {
+    margin-top: $spacing-unit--ss;
+  }
+}
+
+.form-footer {
+  align-items: center;
+  display: flex;
+  margin-top: $spacing-unit--l;
+
+  > *:not(:last-child) {
+    margin-right: $spacing-unit--l;
+  }
+}
+
+.checkbox {
+  display: block;
+  padding-left: 1.5rem;
+  position: relative;
+
+  input {
+    margin-left: -1.5rem;
+    margin-top: .3rem;
+    position: absolute;
+
+    &[disabled] ~ label {
+      color: $gray-lighter;
+    }
+
+    &:focus {
+      outline-color: $gray;
+    }
+  }
+
+  label {
+    margin-bottom: 0;
+  }
+}
