@@ -4,13 +4,17 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {TimelineMax as Timeline, Power1} from 'gsap';
+import Link from 'next/link';
 
 import {selectors as userSelectors} from '../redux/ducks/user';
 import {actions as authActions} from '../redux/ducks/auth';
 import {selectors as loadingSelectors} from '../redux/ducks/loading';
 import {selectors as errorSelectors} from '../redux/ducks/error';
 import {state} from '../utils/componentHelpers';
+import Image from '../components/image';
 import {DEFAULT_VIEW_ANIMATION_TIME, DEFAULT_VIEW_ANIMATION_FROM} from '../utils/animations';
+import Auth from '../components/auth';
+import countries from '../utils/countries';
 
 class Register extends Component {
   constructor(props) {
@@ -19,7 +23,8 @@ class Register extends Component {
       email: props.user ? props.user.get('email') : '',
       password: '',
       first_name: props.user ? props.user.get('first_name') : '',
-      last_name: props.user ? props.user.get('last_name') : ''
+      last_name: props.user ? props.user.get('last_name') : '',
+      country: props.user ? props.user.get('country') : ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -41,36 +46,92 @@ class Register extends Component {
   }
 
   render() {
-    const {email, password, first_name, last_name} = this.state;
+    const {email, password, first_name, last_name, country} = this.state;
     const {loading, error} = this.props;
 
     return (
-      <div className="view">
-        <div className="content">
-          <div className="content__inner">
-            <div className="row">
-              <div className="col-12 col-sm-6">
-                <img src="//source.unsplash.com/1000x1700" style={{maxWidth: '100%', height: 'auto', width: '100%'}} alt=""/>
-              </div>
-              <div className="col-12 col-sm-6">
-                <form onSubmit={this.handleSubmit}>
-                  <h1>Register</h1>
-                  {error ? <h5>{error}</h5> : null}
-                  <input type="email" placeholder="email" onChange={state(this.handleChange, 'email')} value={email}/>
-                  <br/>
-                  <input type="password" placeholder="password" onChange={state(this.handleChange, 'password')} value={password}/>
-                  <br/>
-                  <input type="text" placeholder="first_name" onChange={state(this.handleChange, 'first_name')} value={first_name}/>
-                  <br/>
-                  <input type="text" placeholder="last_name" onChange={state(this.handleChange, 'last_name')} value={last_name}/>
-                  <br/>
-                  <input type="submit" value="Register" disabled={loading}/>
-                </form>
-              </div>
-            </div>
+      <Auth imageAlt="Image Alt" imageSrc="//images.unsplash.com/photo-1556151450-61a07fc5964e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=720&h=1024&fit=crop&ixid=eyJhcHBfaWQiOjF9">
+        <form onSubmit={this.handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="email">Email Address</label>
+            <input
+              required
+              className="input"
+              id="email"
+              name="email"
+              onChange={state(this.handleChange, 'email')}
+              placeholder="Email"
+              value={email}
+              type="email"
+            />
           </div>
-        </div>
-      </div>
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              required
+              className="input"
+              id="password"
+              name="password"
+              onChange={state(this.handleChange, 'password')}
+              placeholder="Password"
+              value={password}
+              type="password"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="first_name">First Name</label>
+            <input
+              required
+              className="input"
+              id="first_name"
+              name="first_name"
+              onChange={state(this.handleChange, 'first_name')}
+              placeholder="First Name"
+              value={first_name}
+              type="text"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="last_name">Last Name</label>
+            <input
+              required
+              className="input"
+              id="last_name"
+              name="last_name"
+              onChange={state(this.handleChange, 'last_name')}
+              placeholder="last_name"
+              value={last_name}
+              type="text"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="country">Country</label>
+            <select
+              required
+              className="input"
+              onChange={state(this.handleChange, 'country')}
+              id="country"
+              name="country"
+              value={country}
+            >
+              {countries.map(c => {
+                return (
+                  <option key={c.value} value={c.value}>{c.label}</option>
+                );
+              })}
+            </select>
+          </div>
+          <div className="form-message">
+            {error ? (
+              <p className="form-text small error">{error}</p>
+            ) : null}
+          </div>
+          <div className="form-footer">
+            <button type="submit" className="btn btn--primary" disabled={loading}>Register</button>
+            <Link href="/"><a className="small">Already have an account?</a></Link>
+          </div>
+        </form>
+      </Auth>
     );
   }
 }
@@ -98,12 +159,10 @@ Register.propTypes = {
 
 Register.animationTimeline = node => {
   const timeline = new Timeline({paused: true});
-  const h1 = node.querySelector('h1');
-  const inputs = node.querySelectorAll('input');
+  const inputs = [...node.querySelectorAll('.form-group'), ...node.querySelectorAll('.form-footer')];
 
   timeline
-    .from(node, DEFAULT_VIEW_ANIMATION_TIME, DEFAULT_VIEW_ANIMATION_FROM)
-    .from(h1, 0.4, {autoAlpha: 0, x: 10, ease: Power1.easeInOut})
+    // .from(h1, 0.4, {autoAlpha: 0, x: 10, ease: Power1.easeInOut})
     .staggerFrom(inputs, 0.3, {autoAlpha: 0, y: 20, ease: Power1.easeInOut}, 0.1);
 
   return timeline;

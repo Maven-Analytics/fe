@@ -10,14 +10,15 @@ import {actions as authActions} from '../redux/ducks/auth';
 import {selectors as loadingSelectors} from '../redux/ducks/loading';
 import {selectors as errorSelectors} from '../redux/ducks/error';
 import {state} from '../utils/componentHelpers';
+import Auth from '../components/auth';
 import {DEFAULT_VIEW_ANIMATION_TIME, DEFAULT_VIEW_ANIMATION_FROM} from '../utils/animations';
 
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: 'max@d3applications.com',
-      password: 'password'
+      email: '',
+      password: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -40,37 +41,32 @@ class Home extends Component {
     const {email, password} = this.state;
     const {loading, error} = this.props;
     return (
-      <div className="view">
-        <div className="row">
-          <div className="col-12 col-sm-6">
-            <img src="//source.unsplash.com/1000x1700" style={{maxWidth: '100%', height: 'auto', width: '100%'}} alt=""/>
+      <Auth imageAlt="Image Alt" imageSrc="//images.unsplash.com/photo-1556151450-61a07fc5964e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=720&h=1024&fit=crop&ixid=eyJhcHBfaWQiOjF9">
+        <form onSubmit={this.handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="email">Email Address</label>
+            <input type="text" name="email" id="email" placeholder="Email Address" className="input" onChange={state(this.handleChange, 'email')} value={email} required/>
           </div>
-          <div className="col-12 col-sm-6">
-            <form onSubmit={this.handleSubmit}>
-              <h1>Login</h1>
-              <div className="form-group">
-                <label htmlFor="email">Email Address</label>
-                <input type="text" name="email" id="email" placeholer="email" className="input" onChange={state(this.handleChange, 'email')} value={email} required/>
-              </div>
-              <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <input type="password" name="password" id="password" placeholder="password" className="input" onChange={state(this.handleChange, 'password')} value={password} required/>
-              </div>
-              <div className="form-message">
-                {error ? (
-                  <p className="form-text small error">{error}</p>
-                ) : null}
-              </div>
-              <div className="form-footer">
-                <span className="submit">
-                  <button className="btn btn--primary" type="submit" value="Login" disabled={loading}>Login</button>
-                </span>
-                <Link href="/forgot"><a className="small">Forgot Password</a></Link>
-              </div>
-            </form>
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input type="password" name="password" id="password" placeholder="Password" className="input" onChange={state(this.handleChange, 'password')} value={password} required/>
           </div>
-        </div>
-      </div>
+          <div className="form-message">
+            {error ? (
+              <p className="form-text small error">{error}</p>
+            ) : null}
+          </div>
+          <div className="form-footer">
+            <span className="submit">
+              <button className="btn btn--primary" type="submit" value="Login" disabled={loading}>Login</button>
+            </span>
+            <span>
+              <Link href="/forgot"><a className="small d-block">Forgot Password</a></Link>
+              <Link href="/register"><a className="small d-block">Register</a></Link>
+            </span>
+          </div>
+        </form>
+      </Auth>
     );
   }
 }
@@ -97,12 +93,11 @@ Home.propTypes = {
 
 Home.animationTimeline = node => {
   const timeline = new Timeline({paused: true});
-  const h1 = node.querySelector('h1');
-  const inputs = [...node.querySelectorAll('input'), ...node.querySelectorAll('.submit')];
+  // const h1 = node.querySelector('h1');
+  const inputs = [...node.querySelectorAll('.form-group'), ...node.querySelectorAll('.form-footer')];
 
   timeline
-    .from(node, DEFAULT_VIEW_ANIMATION_TIME, DEFAULT_VIEW_ANIMATION_FROM)
-    .from(h1, 0.4, {autoAlpha: 0, x: 10, ease: Power1.easeInOut})
+    // .from(h1, 0.4, {autoAlpha: 0, x: 10, ease: Power1.easeInOut})
     .staggerFrom(inputs, 0.3, {autoAlpha: 0, y: 20, ease: Power1.easeInOut}, 0.1);
 
   return timeline;

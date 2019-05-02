@@ -1,0 +1,49 @@
+.auth {
+  background-color: $white;
+
+  @include media-breakpoint-up(md) {
+    bottom: 0;
+    min-height: 100vh;
+    left: 0;
+    right: 0;
+    top: 0;
+    position: fixed;
+    width: 100%;
+  }
+
+  .container-fluid,
+  .container-fluid > .row {
+    @include media-breakpoint-up(md) {
+      min-height: 100vh;
+    }
+  }
+
+  &__image {
+    display: none;
+    margin: 0 -#{$spacing-unit};
+
+    @include media-breakpoint-up(md) {
+      display: block;
+    }
+  }
+
+  &__form {
+    padding: $spacing-unit--l 0;
+
+    @include media-breakpoint-up(md) {
+      height: 100%;
+      padding: $spacing-unit--xl 0;
+    }
+  }
+
+  &__logo {
+    margin: 0 auto $spacing-unit--lml;
+    width: 242px;
+
+    .image {
+      height: 0;
+      overflow: hidden;
+      padding-top: 24%;
+    }
+  }
+}

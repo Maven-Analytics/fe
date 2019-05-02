@@ -11,8 +11,10 @@
 @import './1_core/html/typography';
 @import './1_core/html/forms';
 @import './1_core/html/links';
+@import './1_core/html/images';
+@import './1_core/html/buttons';
 
-@import './3_components/buttons';
+@import './3_components/auth';
 
 .view {
   width: 100%;
