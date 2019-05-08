@@ -941,7 +941,8 @@ export default [
   },
   {
     value: 'US',
-    label: 'United States of America'
+    label: 'United States of America',
+    selected: true
   },
   {
     value: 'UM',

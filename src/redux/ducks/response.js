@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
   // Store whether a request is happening at the moment or not
   // e.g. will be true when receiving ACTIONNAME_REQUEST
   //      and false when receiving ACTIONNAME_SUCCESS / ACTIONNAME_FAILURE
-  return state.set(requestName, requestState === 'SUCCESS' ? payload.message : null);
+  return state.set(requestName, requestState === 'SUCCESS' ? payload && payload.message ? payload.message : null : null);
 };
 
 const getResponse = actions => {

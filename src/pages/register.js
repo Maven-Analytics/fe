@@ -24,7 +24,7 @@ class Register extends Component {
       password: '',
       first_name: props.user ? props.user.get('first_name') : '',
       last_name: props.user ? props.user.get('last_name') : '',
-      country: props.user ? props.user.get('country') : ''
+      country: props.user ? props.user.get('country') : 'US'
     };
 
     this.handleChange = this.handleChange.bind(this);
