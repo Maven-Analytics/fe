@@ -134,7 +134,11 @@ class Register extends Component {
             ) : null}
           </div>
           <div className="form-footer">
-            <button type="submit" className="btn btn--primary" disabled={loading}>Register</button>
+            <span className="submit">
+              <button type="submit" className="btn btn--primary" disabled={loading}>
+                <span className="text">Register</span>
+              </button>
+            </span>
             <Link href="/login"><a className="small">Already have an account?</a></Link>
           </div>
         </form>

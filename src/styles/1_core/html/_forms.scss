@@ -88,6 +88,7 @@ label {
   align-items: center;
   display: flex;
   margin-top: $spacing-unit--l;
+  transform: matrix(1, 0, 0, 1, 0, 0);
 
   > *:not(:last-child) {
     margin-right: $spacing-unit--l;
