@@ -1,5 +1,5 @@
 const axios = require('axios');
-const Boom = require('boom');
+const {handleApiError} = require('../../utils/error');
 
 module.exports = async request => {
   let data = request.payload;
@@ -25,13 +25,5 @@ async function reset(email, password, token) {
     token
   })
     .then(res => res.data)
-    .catch(err => {
-      if (err.response && err.response.data) {
-        throw new Boom(err.response.data.message, err.response.data);
-      } else {
-        throw Boom.boomify(err, {
-          message: err.message
-        });
-      }
-    });
+    .catch(handleApiError);
 }
