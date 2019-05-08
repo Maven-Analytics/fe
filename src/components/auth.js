@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
 
 import Image from './image';
 
@@ -17,7 +18,11 @@ const Auth = ({imageSrc, imageAlt, children}) => {
             <div className="row h-100 align-items-md-center">
               <div className="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
                 <div id="auth-form" className="auth__form">
-                  <Image src="//via.placeholder.com/242x58/20E2D7/fff?text=Maven%20Logo" alt="Maven Analytics Logo" modifier="auth__logo"/>
+                  <Link href="/">
+                    <a>
+                      <Image src="//via.placeholder.com/242x58/20E2D7/fff?text=Maven%20Logo" alt="Maven Analytics Logo" modifier="auth__logo"/>
+                    </a>
+                  </Link>
                   {children}
                 </div>
               </div>
