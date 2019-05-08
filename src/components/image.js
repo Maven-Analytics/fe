@@ -6,7 +6,8 @@ class Image extends Component {
     super(props);
 
     this.state = {
-      loaded: !props.preload
+      loaded: !props.preload,
+      shouldPreload: props.preload
     };
 
     this.img = createRef();
@@ -16,6 +17,10 @@ class Image extends Component {
   componentDidMount() {
     if (this.img && this.img.current && this.img.current.complete) {
       this.handleLoad();
+    } else {
+      this.setState({
+        shouldPreload: true
+      });
     }
   }
 
@@ -29,10 +34,10 @@ class Image extends Component {
 
   render() {
     const {src, modifier, alt} = this.props;
-    const {loaded} = this.state;
+    const {loaded, shouldPreload} = this.state;
 
     return (
-      <div className={`image ${loaded ? 'loaded' : ''} ${modifier ? modifier : ''}`}>
+      <div className={`image ${shouldPreload ? 'image--preload' : ''} ${loaded ? 'loaded' : ''} ${modifier ? modifier : ''}`}>
         <img ref={this.img} onLoad={this.handleLoad} src={src} alt={alt}/>
       </div>
     );

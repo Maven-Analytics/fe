@@ -11,9 +11,9 @@ import {actions as authActions} from '../redux/ducks/auth';
 import {selectors as loadingSelectors} from '../redux/ducks/loading';
 import {selectors as errorSelectors} from '../redux/ducks/error';
 import {state} from '../utils/componentHelpers';
-import Image from './image';
+import Image from '../components/image';
 import {DEFAULT_VIEW_ANIMATION_TIME, DEFAULT_VIEW_ANIMATION_FROM} from '../utils/animations';
-import Auth from './auth';
+import Auth from '../components/auth';
 import countries from '../utils/countries';
 
 class Register extends Component {
@@ -51,7 +51,7 @@ class Register extends Component {
 
     return (
       // <Auth imageAlt="Image Alt" imageSrc="//images.unsplash.com/photo-1556151450-61a07fc5964e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=720&h=1024&fit=crop&ixid=eyJhcHBfaWQiOjF9">
-      <div>
+      <Auth imageSrc="//images.unsplash.com/photo-1556151450-61a07fc5964e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=720&h=1024&fit=crop&ixid=eyJhcHBfaWQiOjF9">
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <label htmlFor="email">Email Address</label>
@@ -79,31 +79,37 @@ class Register extends Component {
               type="password"
             />
           </div>
-          <div className="form-group">
-            <label htmlFor="first_name">First Name</label>
-            <input
-              required
-              className="input"
-              id="first_name"
-              name="first_name"
-              onChange={state(this.handleChange, 'first_name')}
-              placeholder="First Name"
-              value={first_name}
-              type="text"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="last_name">Last Name</label>
-            <input
-              required
-              className="input"
-              id="last_name"
-              name="last_name"
-              onChange={state(this.handleChange, 'last_name')}
-              placeholder="last_name"
-              value={last_name}
-              type="text"
-            />
+          <div className="row">
+            <div className="col-sm-6">
+              <div className="form-group">
+                <label htmlFor="first_name">First Name</label>
+                <input
+                  required
+                  className="input"
+                  id="first_name"
+                  name="first_name"
+                  onChange={state(this.handleChange, 'first_name')}
+                  placeholder="First Name"
+                  value={first_name}
+                  type="text"
+                />
+              </div>
+            </div>
+            <div className="col-sm-6">
+              <div className="form-group">
+                <label htmlFor="last_name">Last Name</label>
+                <input
+                  required
+                  className="input"
+                  id="last_name"
+                  name="last_name"
+                  onChange={state(this.handleChange, 'last_name')}
+                  placeholder="last_name"
+                  value={last_name}
+                  type="text"
+                />
+              </div>
+            </div>
           </div>
           <div className="form-group">
             <label htmlFor="country">Country</label>
@@ -129,10 +135,10 @@ class Register extends Component {
           </div>
           <div className="form-footer">
             <button type="submit" className="btn btn--primary" disabled={loading}>Register</button>
-            <Link as="/login" href="/auth?form=Login"><a className="small">Already have an account?</a></Link>
+            <Link href="/login"><a className="small">Already have an account?</a></Link>
           </div>
         </form>
-      </div>
+      </Auth>
     );
   }
 }

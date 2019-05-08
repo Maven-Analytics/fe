@@ -17,20 +17,11 @@ module.exports = app => {
 
       server.route({
         method: 'GET',
-        path: '/login',
+        path: '/reset/{token}',
         config: {
           auth: false
         },
-        handler: pathWrapper(app, '/auth')
-      });
-
-      server.route({
-        method: 'GET',
-        path: '/register',
-        config: {
-          auth: false
-        },
-        handler: pathWrapper(app, '/auth')
+        handler: pathWrapper(app, '/reset')
       });
 
       server.route({
@@ -46,6 +37,36 @@ module.exports = app => {
           }
         },
         handler: require('./controllers/auth/login')
+      });
+
+      server.route({
+        method: 'POST',
+        path: '/api/v1/reset',
+        options: {
+          auth: false,
+          validate: {
+            payload: {
+              email: Joi.string().email().required(),
+              password: Joi.string().required(),
+              token: Joi.string().required()
+            }
+          }
+        },
+        handler: require('./controllers/auth/reset')
+      });
+
+      server.route({
+        method: 'POST',
+        path: '/api/v1/forgot',
+        options: {
+          auth: false,
+          validate: {
+            payload: {
+              email: Joi.string().email().required()
+            }
+          }
+        },
+        handler: require('./controllers/auth/forgot')
       });
 
       server.route({

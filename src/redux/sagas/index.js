@@ -4,6 +4,7 @@ import Router from 'next/router';
 
 import {types as authTypes} from '../ducks/auth';
 import {types as userTypes} from '../ducks/user';
+import {types as responseTypes} from '../ducks/response';
 
 function * logoutRequest() {
   yield logout();
@@ -79,6 +80,46 @@ function * loginRequest({payload}) {
   }
 }
 
+function * forgotRequest({payload}) {
+  try {
+    const data = yield forgot(payload);
+
+    yield all([
+      put({
+        type: authTypes.FORGOT_SUCCESS,
+        payload: {
+          ...data
+        }
+      })
+    ]);
+  } catch (error) {
+    yield put({
+      type: authTypes.FORGOT_FAILURE,
+      payload: error.response.data
+    });
+  }
+}
+
+function * resetRequest({payload}) {
+  try {
+    const data = yield reset(payload);
+
+    yield all([
+      put({
+        type: authTypes.RESET_SUCCESS,
+        payload: {
+          ...data
+        }
+      })
+    ]);
+  } catch (error) {
+    yield put({
+      type: authTypes.RESET_FAILURE,
+      payload: error.response.data
+    });
+  }
+}
+
 function * registerRequest({payload}) {
   try {
     const data = yield register(payload);
@@ -109,8 +150,18 @@ function * rootSaga() {
     takeLatest(authTypes.REAUTHENTICATE_REQUEST, reauthenticateRequest),
     takeLatest(authTypes.LOGIN_REQUEST, loginRequest),
     takeLatest(authTypes.REGISTER_REQUEST, registerRequest),
-    takeLatest(authTypes.LOGOUT_REQUEST, logoutRequest)
+    takeLatest(authTypes.LOGOUT_REQUEST, logoutRequest),
+    takeLatest(authTypes.FORGOT_REQUEST, forgotRequest),
+    takeLatest(authTypes.RESET_REQUEST, resetRequest)
   ]);
+}
+
+function reset({email, password, token}) {
+  return authReq('reset', {email, password, token});
+}
+
+function forgot({email}) {
+  return authReq('forgot', {email});
 }
 
 function login({email, password, redirectTo}) {

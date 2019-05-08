@@ -41,7 +41,7 @@ class Login extends Component {
     const {email, password} = this.state;
     const {loading, error} = this.props;
     return (
-      <div>
+      <Auth imageSrc="//images.unsplash.com/photo-1556151450-61a07fc5964e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=720&h=1024&fit=crop&ixid=eyJhcHBfaWQiOjF9">
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <label htmlFor="email">Email Address</label>
@@ -62,11 +62,11 @@ class Login extends Component {
             </span>
             <span>
               <Link href="/forgot"><a className="small d-block">Forgot Password</a></Link>
-              <Link as="/register" href="/auth?form=Register"><a className="small d-block">Register</a></Link>
+              <Link href="/register"><a className="small d-block">Register</a></Link>
             </span>
           </div>
         </form>
-      </div>
+      </Auth>
     );
   }
 }
@@ -98,7 +98,7 @@ Login.animationTimeline = node => {
   const form = node.querySelector('#auth-form');
 
   timeline
-    .from(form, 2, {authAlpha: 0, ease: Power1.easeInOut})
+    // .from(form, 2, {authAlpha: 0, ease: Power1.easeInOut})
     // .from(img, 2, {autoAlpha: 0, ease: Power1.easeInOut})
     .staggerFrom(inputs, 0.3, {autoAlpha: 0, y: 20, ease: Power1.easeInOut}, 0.1);
 

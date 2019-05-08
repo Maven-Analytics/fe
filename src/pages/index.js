@@ -38,7 +38,9 @@ class Home extends Component {
   render() {
     return (
       <Main>
-        This is the homepage
+        <div className="view">
+          This is the homepage
+        </div>
       </Main>
     );
   }
@@ -58,20 +60,6 @@ const mapDispatchToProps = function (dispatch) {
 
 Home.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired
-};
-
-Home.animationTimeline = node => {
-  const timeline = new Timeline({paused: true});
-  const inputs = [...node.querySelectorAll('.form-group'), ...node.querySelectorAll('.form-footer')];
-  // const logo = node.querySelector('.auth__logo');
-  const form = node.querySelector('#auth-form');
-
-  timeline
-    .from(form, 2, {authAlpha: 0, ease: Power1.easeInOut})
-    // .from(img, 2, {autoAlpha: 0, ease: Power1.easeInOut})
-    .staggerFrom(inputs, 0.3, {autoAlpha: 0, y: 20, ease: Power1.easeInOut}, 0.1);
-
-  return timeline;
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

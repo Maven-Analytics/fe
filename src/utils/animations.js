@@ -20,7 +20,6 @@ const defaultTimeline = node => {
 };
 
 export const enter = (timeline, node, appears) => {
-  console.log(timeline);
   const delay = appears ? 0 : 0.5;
   let t = timeline ? timeline(node, delay) : defaultTimeline(node, delay);
 

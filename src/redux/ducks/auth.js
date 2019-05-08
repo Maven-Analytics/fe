@@ -12,12 +12,20 @@ export const types = {
   REGISTER_FAILURE: 'REGISTER_FAILURE',
   LOGOUT_REQUEST: 'LOGOUT_REQUEST',
   LOGOUT_SUCCESS: 'LOGOUT_SUCCESS',
-  LOGOUT_FAILURE: 'LOGOUT_FAILURE'
+  LOGOUT_FAILURE: 'LOGOUT_FAILURE',
+  FORGOT_REQUEST: 'FORGOT_REQUEST',
+  FORGOT_SUCCESS: 'FORGOT_SUCCESS',
+  FORGOT_FAILURE: 'FORGOT_FAILURE',
+  RESET_REQUEST: 'RESET_REQUEST',
+  RESET_SUCCESS: 'RESET_SUCCESS',
+  RESET_FAILURE: 'RESET_FAILURE'
 };
 
 export const actions = {
   reauthenticate: obj => utils.action(types.REAUTHENTICATE_REQUEST, obj),
   login: obj => utils.action(types.LOGIN_REQUEST, obj),
   logout: obj => utils.action(types.LOGOUT_REQUEST, obj),
+  forgot: obj => utils.action(types.FORGOT_REQUEST, obj),
+  reset: obj => utils.action(types.RESET_REQUEST, obj),
   register: obj => utils.action(types.REGISTER_REQUEST, obj)
 };
