@@ -16,6 +16,24 @@ module.exports = app => {
       });
 
       server.route({
+        method: 'GET',
+        path: '/login',
+        config: {
+          auth: false
+        },
+        handler: pathWrapper(app, '/auth')
+      });
+
+      server.route({
+        method: 'GET',
+        path: '/register',
+        config: {
+          auth: false
+        },
+        handler: pathWrapper(app, '/auth')
+      });
+
+      server.route({
         method: 'POST',
         path: '/api/v1/login',
         options: {

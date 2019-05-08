@@ -9,9 +9,7 @@ import {selectors as userSelectors} from '../redux/ducks/user';
 import {actions as authActions} from '../redux/ducks/auth';
 import {selectors as loadingSelectors} from '../redux/ducks/loading';
 import {selectors as errorSelectors} from '../redux/ducks/error';
-import {state} from '../utils/componentHelpers';
-import Auth from '../components/auth';
-import {DEFAULT_VIEW_ANIMATION_TIME, DEFAULT_VIEW_ANIMATION_FROM} from '../utils/animations';
+import Main from '../layouts/main';
 
 class Home extends Component {
   constructor(props) {
@@ -38,42 +36,15 @@ class Home extends Component {
   }
 
   render() {
-    const {email, password} = this.state;
-    const {loading, error} = this.props;
     return (
-      <Auth imageAlt="Image Alt" imageSrc="//images.unsplash.com/photo-1556151450-61a07fc5964e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=720&h=1024&fit=crop&ixid=eyJhcHBfaWQiOjF9">
-        <form onSubmit={this.handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="email">Email Address</label>
-            <input type="text" name="email" id="email" placeholder="Email Address" className="input" onChange={state(this.handleChange, 'email')} value={email} required/>
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input type="password" name="password" id="password" placeholder="Password" className="input" onChange={state(this.handleChange, 'password')} value={password} required/>
-          </div>
-          <div className="form-message">
-            {error ? (
-              <p className="form-text small error">{error}</p>
-            ) : null}
-          </div>
-          <div className="form-footer">
-            <span className="submit">
-              <button className="btn btn--primary" type="submit" value="Login" disabled={loading}>Login</button>
-            </span>
-            <span>
-              <Link href="/forgot"><a className="small d-block">Forgot Password</a></Link>
-              <Link href="/register"><a className="small d-block">Register</a></Link>
-            </span>
-          </div>
-        </form>
-      </Auth>
+      <Main>
+        This is the homepage
+      </Main>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  loading: loadingSelectors.getLoading(['LOGIN'])(state),
-  error: errorSelectors.getError(['LOGIN'])(state),
   user: userSelectors.getUser(state)
 });
 
@@ -86,18 +57,18 @@ const mapDispatchToProps = function (dispatch) {
 };
 
 Home.propTypes = {
-  actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  loading: PropTypes.bool.isRequired,
-  error: PropTypes.string.isRequired
+  actions: PropTypes.objectOf(PropTypes.func).isRequired
 };
 
 Home.animationTimeline = node => {
   const timeline = new Timeline({paused: true});
-  // const h1 = node.querySelector('h1');
   const inputs = [...node.querySelectorAll('.form-group'), ...node.querySelectorAll('.form-footer')];
+  // const logo = node.querySelector('.auth__logo');
+  const form = node.querySelector('#auth-form');
 
   timeline
-    // .from(h1, 0.4, {autoAlpha: 0, x: 10, ease: Power1.easeInOut})
+    .from(form, 2, {authAlpha: 0, ease: Power1.easeInOut})
+    // .from(img, 2, {autoAlpha: 0, ease: Power1.easeInOut})
     .staggerFrom(inputs, 0.3, {autoAlpha: 0, y: 20, ease: Power1.easeInOut}, 0.1);
 
   return timeline;

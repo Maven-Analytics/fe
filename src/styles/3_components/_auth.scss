@@ -18,6 +18,10 @@
     }
   }
 
+  &__image-wrap {
+    height: 100%;
+  }
+
   &__image {
     display: none;
     margin: 0 -#{$spacing-unit};
@@ -37,13 +41,12 @@
   }
 
   &__logo {
-    margin: 0 auto $spacing-unit--lml;
+    @include aspect-ratio(242, 58);
+    margin: 0 auto $spacing-unit--l;
     width: 242px;
 
-    .image {
-      height: 0;
-      overflow: hidden;
-      padding-top: 24%;
+    @include media-breakpoint-up(md) {
+      margin-bottom: $spacing-unit--lml;
     }
   }
 }

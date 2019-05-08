@@ -10,7 +10,7 @@ import {actions as authActions} from '../redux/ducks/auth';
 import {getCookie} from '../utils/cookies';
 import {enter, exit} from '../utils/animations';
 
-import Main from '../layouts/main';
+import '../styles/index.scss';
 
 class MavenApp extends App {
   static async getInitialProps({Component, ctx}) {
@@ -39,18 +39,16 @@ class MavenApp extends App {
     return (
       <Container>
         <Provider store={store}>
-          <Main>
-            <TransitionGroup component={null}>
-              <Transition
-                key={pathname}
-                onEnter={(node, appears) => enter(Component.animationTimeline, node, appears)}
-                onExit={exit}
-                timeout={{enter: 100, exit: 150}}
-              >
-                <Component {...pageProps} />
-              </Transition>
-            </TransitionGroup>
-          </Main>
+          <TransitionGroup component={null}>
+            <Transition
+              key={pathname}
+              onEnter={(node, appears) => enter(Component.animationTimeline, node, appears)}
+              onExit={exit}
+              timeout={{enter: 100, exit: 150}}
+            >
+              <Component {...pageProps} />
+            </Transition>
+          </TransitionGroup>
         </Provider>
       </Container>
     );

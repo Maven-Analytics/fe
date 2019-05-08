@@ -11,9 +11,9 @@ import {actions as authActions} from '../redux/ducks/auth';
 import {selectors as loadingSelectors} from '../redux/ducks/loading';
 import {selectors as errorSelectors} from '../redux/ducks/error';
 import {state} from '../utils/componentHelpers';
-import Image from '../components/image';
+import Image from './image';
 import {DEFAULT_VIEW_ANIMATION_TIME, DEFAULT_VIEW_ANIMATION_FROM} from '../utils/animations';
-import Auth from '../components/auth';
+import Auth from './auth';
 import countries from '../utils/countries';
 
 class Register extends Component {
@@ -50,7 +50,8 @@ class Register extends Component {
     const {loading, error} = this.props;
 
     return (
-      <Auth imageAlt="Image Alt" imageSrc="//images.unsplash.com/photo-1556151450-61a07fc5964e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=720&h=1024&fit=crop&ixid=eyJhcHBfaWQiOjF9">
+      // <Auth imageAlt="Image Alt" imageSrc="//images.unsplash.com/photo-1556151450-61a07fc5964e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=720&h=1024&fit=crop&ixid=eyJhcHBfaWQiOjF9">
+      <div>
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <label htmlFor="email">Email Address</label>
@@ -128,10 +129,10 @@ class Register extends Component {
           </div>
           <div className="form-footer">
             <button type="submit" className="btn btn--primary" disabled={loading}>Register</button>
-            <Link href="/"><a className="small">Already have an account?</a></Link>
+            <Link as="/login" href="/auth?form=Login"><a className="small">Already have an account?</a></Link>
           </div>
         </form>
-      </Auth>
+      </div>
     );
   }
 }

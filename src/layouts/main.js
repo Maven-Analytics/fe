@@ -8,8 +8,6 @@ import {bindActionCreators} from 'redux';
 import {selectors as userSelectors} from '../redux/ducks/user';
 import {actions as authActions} from '../redux/ducks/auth';
 
-import '../styles/index.scss';
-
 class Layout extends Component {
   render() {
     const {children, user} = this.props;
@@ -18,7 +16,7 @@ class Layout extends Component {
       <div>
         <header>
           <div className="container">
-            <Link href="/"><a>Login</a></Link>
+            <Link href="/login"><a>Login</a></Link>
             <Link href="/register"><a>Register</a></Link>
             <Link href="/about"><a>About</a></Link>
             <Link href="/styleguide"><a>Style Guide</a></Link>

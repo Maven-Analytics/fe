@@ -19,6 +19,10 @@ class Image extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return (nextProps.preload && nextState.loaded && !this.state.loaded);
+  }
+
   handleLoad() {
     this.setState({loaded: true});
   }

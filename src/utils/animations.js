@@ -12,13 +12,15 @@ export const DEFAULT_VIEW_ANIMATION_FROM = {
 
 const defaultTimeline = node => {
   const timeline = new Timeline({paused: true});
+  const view = node.querySelector('.view');
 
-  timeline.from(node, DEFAULT_VIEW_ANIMATION_TIME, DEFAULT_VIEW_ANIMATION_FROM);
+  timeline.from(view, DEFAULT_VIEW_ANIMATION_TIME, DEFAULT_VIEW_ANIMATION_FROM);
 
   return timeline;
 };
 
 export const enter = (timeline, node, appears) => {
+  console.log(timeline);
   const delay = appears ? 0 : 0.5;
   let t = timeline ? timeline(node, delay) : defaultTimeline(node, delay);
 
