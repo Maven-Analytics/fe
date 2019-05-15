@@ -168,8 +168,8 @@ function login({email, password, redirectTo}) {
   return authReq('login', {email, password, redirectTo});
 }
 
-function register({email, password, first_name, last_name, redirectTo}) {
-  return authReq('register', {email, password, first_name, last_name, redirectTo});
+function register({email, password, first_name, last_name, country, redirectTo}) {
+  return authReq('register', {email, password, first_name, country, last_name, redirectTo});
 }
 
 function logout() {
