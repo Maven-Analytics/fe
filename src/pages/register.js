@@ -24,7 +24,8 @@ class Register extends Component {
       password: '',
       first_name: props.user ? props.user.get('first_name') : '',
       last_name: props.user ? props.user.get('last_name') : '',
-      country: props.user ? props.user.get('country') : 'US'
+      country: props.user ? props.user.get('country') : 'US',
+      postal_code: props.user ? props.user.get('postal_code') : ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -42,12 +43,13 @@ class Register extends Component {
       password: this.state.password,
       first_name: this.state.first_name,
       last_name: this.state.last_name,
-      country: this.state.country
+      country: this.state.country,
+      postal_code: this.state.postal_code
     });
   }
 
   render() {
-    const {email, password, first_name, last_name, country} = this.state;
+    const {email, password, first_name, last_name, country, postal_code} = this.state;
     const {loading, error} = this.props;
 
     return (
@@ -128,6 +130,19 @@ class Register extends Component {
                 );
               })}
             </select>
+          </div>
+          <div className="form-group">
+            <label htmlFor="postal_code">Postal Code</label>
+            <input
+              required
+              className="input"
+              id="postal_code"
+              name="postal_code"
+              onChange={state(this.handleChange, 'postal_code')}
+              placeholder="Postal Code"
+              value={postal_code}
+              type="text"
+            />
           </div>
           <div className="form-message">
             {error ? (

@@ -90,7 +90,9 @@ module.exports = app => {
               email: Joi.string().email().required(),
               password: Joi.string().required(),
               first_name: Joi.string().required(),
-              last_name: Joi.string().required()
+              last_name: Joi.string().required(),
+              country: Joi.string().required(),
+              postal_code: Joi.number().integer().required()
             }
           }
         },
