@@ -15,8 +15,17 @@ module.exports = {
   getLoginToken,
   getSsoUrl,
   login,
+  logout,
   COOKIE_OPTIONS
 };
+
+async function logout(h) {
+  return h
+    .response({
+      success: true
+    })
+    .unstate('token', COOKIE_OPTIONS);
+}
 
 async function login(h, user, redirectTo) {
   let ssoUrl = await getSsoUrl(user, redirectTo);

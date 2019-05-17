@@ -1,9 +1,5 @@
-const {COOKIE_OPTIONS} = require('../../utils/auth');
+const {logout} = require('../../utils/auth');
 
 module.exports = async (request, h) => {
-  return h
-    .response({
-      success: true
-    })
-    .unstate('token', COOKIE_OPTIONS);
+  return logout(h);
 };

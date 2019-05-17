@@ -1,6 +1,6 @@
 const Hapi = require('hapi');
 const next = require('next');
-const Boom = require('boom');
+const Boom = require('@hapi/boom');
 const dev = process.env.NODE_ENV !== 'production';
 const port = parseInt(process.env.PORT || 3000, 10);
 
