@@ -1,0 +1,159 @@
+.global-header {
+  $self: &;
+
+  @mixin desktopHeader {
+    @include media-breakpoint-up(lg) {
+      @content;
+    }
+  }
+
+  .headroom {
+    background-color: $black;
+    transition: background-color .15s ease-in;
+
+    &--pinned {
+      background-color: $black;
+    }
+  }
+
+  &__inner {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: .8rem 0;
+
+    @include desktopHeader {
+      justify-content: flex-start;
+      padding: 2.7rem 0;
+    }
+  }
+
+  &__brand {
+    align-items: center;
+    display: flex;
+    height: 40px;
+    flex: 0 1 167px;
+    width: 167px;
+
+    @include desktopHeader {
+      height: 46px;
+      flex: 0 1 192px;
+      margin-right: $spacing-unit--l + .5rem;
+      width: 192px;
+    }
+  }
+
+  nav {
+    align-items: center;
+    display: none;
+    flex: 1;
+    justify-content: space-between;
+
+    @include desktopHeader {
+      display: flex;
+      font-size: 1.1rem;
+      line-height: 1.3rem;
+      text-transform: uppercase;
+    }
+
+    ul {
+      @include list-unstyled();
+
+      @include desktopHeader {
+        @include list-inline();
+        align-items: center;
+        margin: 0;
+      }
+
+      &:not(:last-child) {
+        @include desktopHeader {
+          margin-right: $spacing-unit--l;
+        }
+      }
+
+      li {
+        &:not(:last-child) {
+          @include desktopHeader {
+            margin-right: $spacing-unit--l;
+          }
+        }
+
+        a {
+          color: $white;
+          position: relative;
+
+          svg {
+            color: $blue;
+            font-size: 1.4rem;
+            margin-right: $spacing-unit--ss;
+          }
+
+          &:not(.btn) {
+            align-items: center;
+            display: flex;
+            white-space: nowrap;
+
+            &::after {
+              background: $brand-gradient;
+              bottom: -5px;
+              height: 1px;
+              left: 0;
+              position: absolute;
+              transition: width .15s ease-in-out;
+              width: 0;
+
+              @include desktopHeader() {
+                content: ' ';
+              }
+            }
+          }
+
+          &.btn {
+            &:hover {
+              color: $black;
+            }
+          }
+
+          &:not(.btn) {
+            &:hover {
+              color: $white;
+              text-decoration: none;
+
+              &::after {
+                @include desktopHeader() {
+                  width: 100%;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &:last-child {
+      ul {
+        li {
+          &:not(:last-child) {
+            @include desktopHeader() {
+              margin-right: $spacing-unit--mdl;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  button {
+    color: $white;
+    display: block;
+
+    @include desktopHeader {
+      display: none;
+    }
+  }
+
+  &__hamburg {
+    height: 42px;
+    width: 44px;
+  }
+}

@@ -1,0 +1,109 @@
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import Link from 'next/link';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+
+import Logo from './logo';
+import CloseIcon from './closeButton';
+import {click, ref} from '../utils/componentHelpers';
+import {menuLinksMain, menuLinksRegister} from '../constants';
+
+class MobileMenu extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      startY: 0
+    };
+
+    this.handleTouchStart = this.handleTouchStart.bind(this);
+    this.handleTouchMove = this.handleTouchMove.bind(this);
+    this.menuContainer = null;
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!prevProps.isActive && this.props.isActive) {
+      this.menuContainer.scrollTo(0, 0);
+    }
+  }
+
+  handleTouchStart(e) {
+    this.setState({
+      startY: e.touches && e.touches[0] ? e.touches[0].clientY : 0
+    });
+  }
+
+  handleTouchMove(e) {
+    const {startY} = this.state;
+
+    const currentY = e.touches && e.touches[0] ? e.touches[0].clientY : 0
+
+    const movingDown = currentY < startY;
+
+    const distToBottom = this.menuContainer.scrollHeight - this.menuContainer.offsetHeight - this.menuContainer.scrollTop;
+
+    if (distToBottom < 1 && movingDown) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+  }
+
+  render() {
+    const {isActive, offmenuToggle} = this.props;
+    const className = ['mobile-menu'];
+
+    if (isActive) {
+      className.push('open');
+    }
+
+    return (
+      <div className={className.join(' ')}>
+        <div className="mobile-menu__fog"/>
+        <div className="mobile-menu__inner">
+          <div className="container">
+            <CloseIcon className="mobile-menu__close" onClick={click(offmenuToggle, 'mobileMenu')}/>
+            <div ref={ref.call(this, 'menuContainer')} onTouchStart={this.handleTouchStart} onTouchMove={this.handleTouchMove} className="mobile-menu__container">
+              <Link href="/">
+                <a className="mobile-menu__brand">
+                  <Logo/>
+                </a>
+              </Link>
+              <nav>
+                <ul>
+                  {menuLinksMain.map(link => {
+                    return (
+                      <li key={link.get('title')}>
+                        <Link href={link.get('url')}><a>{link.get('title')}</a></Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+                <ul>
+                  {menuLinksRegister.map(link => {
+                    return (
+                      <li key={link.get('title')}>
+                        <Link href={link.get('url')}>
+                          <a className={link.get('btn') ? 'btn btn--primary-solid' : ''}>
+                            {link.get('icon') ? <FontAwesomeIcon icon={link.get('icon').toJS()}/> : null}
+                            {link.get('title')}
+                          </a>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+MobileMenu.propTypes = {
+  offmenuToggle: PropTypes.func.isRequired,
+  isActive: PropTypes.bool.isRequired
+};
+
+export default MobileMenu;

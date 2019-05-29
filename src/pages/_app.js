@@ -5,6 +5,13 @@ import withRedux from 'next-redux-wrapper';
 import withReduxSaga from 'next-redux-saga';
 import {fromJS} from 'immutable';
 import {TransitionGroup, Transition} from 'react-transition-group';
+
+import {library} from '@fortawesome/fontawesome-svg-core';
+import {faTimes} from '@fortawesome/free-solid-svg-icons';
+import {faUser} from '@fortawesome/free-regular-svg-icons';
+
+library.add(faUser, faTimes);
+
 import initStore from '../redux/store';
 import {actions as authActions} from '../redux/ducks/auth';
 import {getCookie} from '../utils/cookies';

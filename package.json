@@ -21,6 +21,11 @@
     "redux-logger": "^3.0.6"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.18",
+    "@fortawesome/free-brands-svg-icons": "^5.8.2",
+    "@fortawesome/free-regular-svg-icons": "^5.8.2",
+    "@fortawesome/free-solid-svg-icons": "^5.8.2",
+    "@fortawesome/react-fontawesome": "^0.1.4",
     "@hapi/boom": "^7.4.2",
     "@hapi/joi": "^15.0.1",
     "@zeit/next-sass": "^1.0.1",
@@ -33,6 +38,7 @@
     "immutable": "^4.0.0-rc.12",
     "js-cookie": "^2.2.0",
     "jsonwebtoken": "^8.5.1",
+    "lodash.debounce": "^4.0.8",
     "next": "^8.0.4",
     "next-redux-saga": "^4.0.1",
     "next-redux-wrapper": "^3.0.0-alpha.2",
@@ -42,6 +48,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-gsap": "^1.2.0",
+    "react-headroom": "^2.2.8",
     "react-immutable-proptypes": "^2.1.0",
     "react-redux": "^7.0.2",
     "react-scrollmagic": "^2.1.0",

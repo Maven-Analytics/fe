@@ -102,15 +102,26 @@ export function intToList(int, properties = List()) {
   return list;
 }
 
-export function isHome() {
-  const path = compact(window.location.pathname.split('/'));
-
-  return path.length === 1;
-}
-
 export function camelCase(str) {
   return str
     .replace(/\s(.)/g, later => later.toUpperCase())
     .replace(/\s/g, '')
     .replace(/^(.)/, first => first.toLowerCase());
+}
+
+/**
+ * Get how far a user has scrolled down a page
+ * @return {Number} Y coordinate for how far a user has scrolled down a page
+ */
+export function getCurrentScrollY() {
+  return window.scrollY ? window.scrollY : window.pageYOffset ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop
+}
+
+/**
+ * Return a new function wrapping a callback in an animation frame request
+ * @param {function} callback the function to be called
+ * @return {function} a function that can be called that will only trigger the callback when an animation frame is available
+ */
+export function raf(callback) {
+  return e => window.requestAnimationFrame(() => callback(e));
 }

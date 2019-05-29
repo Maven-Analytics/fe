@@ -1,19 +1,25 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import Link from 'next/link';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
+import GlobalHeader from '../components/globalHeader';
+import MobileMenu from '../components/mobileMenu';
+
 import {selectors as userSelectors} from '../redux/ducks/user';
 import {actions as authActions} from '../redux/ducks/auth';
+import {selectors as stateSelectors, actions as stateActions} from '../redux/ducks/state';
 
 class Layout extends Component {
   render() {
-    const {children, user} = this.props;
+    const {children, user, actions, state} = this.props;
 
     return (
-      <div>
+      <Fragment>
+        <GlobalHeader state={state} offmenuToggle={actions.offmenuToggle}/>
+        <MobileMenu isActive={state.get('mobileMenu')} offmenuToggle={actions.offmenuToggle}/>
         <header>
           <div className="container">
             <Link href="/login"><a>Login</a></Link>
@@ -31,10 +37,10 @@ class Layout extends Component {
             ) : null}
           </div>
         </header>
-        <div className="page-wrapper">
+        <main id="main" className="page-wrapper">
           {children}
-        </div>
-      </div>
+        </main>
+      </Fragment>
     );
   }
 }
@@ -42,16 +48,19 @@ class Layout extends Component {
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
   user: ImmutablePropTypes.map.isRequired,
-  actions: PropTypes.objectOf(PropTypes.func).isRequired
+  actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  state: ImmutablePropTypes.map.isRequired
 };
 
 const mapStateToProps = state => ({
-  user: userSelectors.getUser(state)
+  user: userSelectors.getUser(state),
+  state: stateSelectors.getState(state)
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    ...authActions
+    ...authActions,
+    ...stateActions
   }, dispatch)
 });
 

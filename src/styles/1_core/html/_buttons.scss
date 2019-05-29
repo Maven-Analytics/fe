@@ -43,25 +43,14 @@
   }
 
   &--primary {
-    background-clip: padding-box;
-    background-color: $white;
-    border-color: transparent;
+    @include border-gradient(3px);
+    border: none;
     color: $gray-dark;
-    position: relative;
-
-    &::before {
-      background: $brand-gradient;
-      bottom: 0;
-      border-radius: inherit;
-      content: ' ';
-      left: 0;
-      margin: -($border-width);
-      position: absolute;
-      right: 0;
-      top: 0;
-      transition: background .2s ease-in-out;
-      z-index: -1;
-    }
+    height: 40px;
+    max-width: 130px;
+    overflow: hidden;
+    padding: 1.2rem 2.5rem;
+    width: 130px;
 
     &::after {
       background: $brand-gradient;
@@ -69,9 +58,11 @@
       border-radius: inherit;
       content: ' ';
       left: 0;
+      opacity: 0;
       position: absolute;
       right: 0;
       top: 0;
+      transition: opacity .2s ease-in-out;
       z-index: -1;
     }
 
@@ -79,14 +70,18 @@
       background-color: transparent;
       border-color: transparent;
       color: $black;
+
+      &::after {
+        opacity: 1;
+      }
     }
 
     &:focus,
     .focus {
       box-shadow: none;
 
-      &::before {
-        background: $blue;
+      &::after {
+        opacity: 1;
       }
     }
 
@@ -96,6 +91,21 @@
       color: inherit;
       opacity: 0.5;
       pointer-events: none;
+    }
+  }
+
+  &--primary-solid {
+    background: $brand-gradient;
+    border: none;
+    color: $black;
+
+    &:hover {
+      background-color: transparent;
+      color: $black;
+
+      &::after {
+        opacity: 0;
+      }
     }
   }
 }

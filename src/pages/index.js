@@ -38,8 +38,34 @@ class Home extends Component {
   render() {
     return (
       <Main>
-        <div className="view">
-          This is the homepage
+        <div className="container">
+          <h1>Homepage</h1>
+          <h1>Homepage</h1>
+          <h1>Homepage</h1>
+          <h1>Homepage</h1>
+          <h1>Homepage</h1>
+          <h1>Homepage</h1>
+          <h1>Homepage</h1>
+          <h1>Homepage</h1>
+          <h1>Homepage</h1>
+          <h1>Homepage</h1>
+          <h1>Homepage</h1>
+          <h1>Homepage</h1>
+          <h1>Homepage</h1>
+          <h1>Homepage</h1>
+          <h1>Homepage</h1>
+          <h1>Homepage</h1>
+          <h1>Homepage</h1>
+          <h1>Homepage</h1>
+          <h1>Homepage</h1>
+          <h1>Homepage</h1>
+          <h1>Homepage</h1>
+          <h1>Homepage</h1>
+          <h1>Homepage</h1>
+          <h1>Homepage</h1>
+          <h1>Homepage</h1>
+          <h1>Homepage</h1>
+          <h1>Homepage</h1>
         </div>
       </Main>
     );

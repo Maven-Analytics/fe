@@ -1,7 +1,8 @@
-import {all, put, takeLatest} from 'redux-saga/effects';
+import {all, put, takeLatest, fork} from 'redux-saga/effects';
 import axios from 'axios';
 import Router from 'next/router';
 
+import {watchState} from './state';
 import {types as authTypes} from '../ducks/auth';
 import {types as userTypes} from '../ducks/user';
 import {types as responseTypes} from '../ducks/response';
@@ -152,7 +153,8 @@ function * rootSaga() {
     takeLatest(authTypes.REGISTER_REQUEST, registerRequest),
     takeLatest(authTypes.LOGOUT_REQUEST, logoutRequest),
     takeLatest(authTypes.FORGOT_REQUEST, forgotRequest),
-    takeLatest(authTypes.RESET_REQUEST, resetRequest)
+    takeLatest(authTypes.RESET_REQUEST, resetRequest),
+    fork(watchState)
   ]);
 }
 

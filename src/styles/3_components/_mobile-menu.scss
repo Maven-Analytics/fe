@@ -1,0 +1,140 @@
+.mobile-menu {
+  $self: &;
+  bottom: 0;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  transition: visibility 0s .2s;
+  visibility: hidden;
+  width: 100%;
+  z-index: index($globalIndex, mobileMenu);
+
+  &__fog {
+    background: $black;
+    bottom: 0;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    opacity: 0;
+    right: 0;
+    top: 0;
+    transition: opacity .15s ease-in;
+    width: 100%;
+    z-index: index($globalIndex, mobileMenu);
+  }
+
+  &__inner {
+    background-color: $black;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    transition: all .2s cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    transition-property: transform, opacity;
+    transform: translate3d(100%, 0, 0);
+    width: 100%;
+    z-index: index($globalIndex, mobileMenu);
+
+    .container {
+      height: 100%;
+      position: relative;
+    }
+  }
+
+  &__close {
+    color: $blue;
+    position: absolute;
+    right: 2rem;
+    top: 1.5rem;
+
+    .hamburger {
+      &-box,
+      &-inner,
+      &-inner::before,
+      &-inner::after {
+        width: 20px;
+      }
+
+      &-box {
+        height: 20px;
+      }
+
+      &-inner::before {
+        display: none;
+      }
+    }
+  }
+
+  &__container {
+    height: 100%;
+    overflow: auto;
+    padding: 5rem 2.5rem;
+  }
+
+  &__brand {
+    display: block;
+    height: 39px;
+    margin: 0 auto $spacing-unit--xlx;
+    width: 157px;
+  }
+
+  nav {
+    font-size: 1.3rem;
+    font-weight: 900;
+    text-align: center;
+    text-transform: uppercase;
+
+    ul {
+      @include list-unstyled();
+
+      &:not(:last-child) {
+        border-bottom: 1px solid rgba($gray-border, .3);
+        margin-bottom: $spacing-unit--lmm;
+        padding-bottom: $spacing-unit;
+      }
+
+      li {
+        margin: 0 0 $spacing-unit--mdl;
+
+        a {
+          &:not(.btn) {
+            color: $white;
+
+            &:hover,
+            &:active,
+            &.active {
+              color: $yellow;
+            }
+          }
+
+          &.btn {
+            margin-top: $spacing-unit--sm;
+            font-size: .85em;
+            width: 143px;
+          }
+
+          svg {
+            color: $blue;
+            font-size: 1.1em;
+            margin-right: $spacing-unit;
+          }
+        }
+      }
+    }
+  }
+
+  &.open {
+    visibility: visible;
+    transition: none;
+
+    #{$self}__fog {
+      opacity: 1;
+    }
+
+    #{$self}__inner {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+}

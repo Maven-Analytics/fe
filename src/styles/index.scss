@@ -1,8 +1,12 @@
 @import './0_utilities/mixins.aspect-ratio';
+@import './0_utilities/mixins.list';
+@import './0_utilities/mixins.gradient';
 @import './0_utilities/variables';
 @import './0_utilities/settings.colors';
 @import './0_utilities/settings.fonts';
+@import './0_utilities/settings.icons';
 @import './0_utilities/settings.spacing';
+@import './0_utilities/settings.z-index';
 
 @import '~bootstrap/scss/bootstrap-reboot';
 @import '~bootstrap/scss/bootstrap-grid';
@@ -15,8 +19,16 @@
 @import './1_core/html/images';
 @import './1_core/html/buttons';
 
+@import './2_pieces/hamburger';
+@import './2_pieces/logo';
+@import './2_pieces/close-icon';
+
+
 @import './3_components/auth';
 @import './3_components/scroll';
+@import './3_components/mobile-menu';
+
+@import './4_regions/global-header';
 
 .view {
   width: 100%;
