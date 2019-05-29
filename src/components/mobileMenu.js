@@ -18,12 +18,12 @@ class MobileMenu extends Component {
 
     this.handleTouchStart = this.handleTouchStart.bind(this);
     this.handleTouchMove = this.handleTouchMove.bind(this);
-    this.menuContainer = null;
+    this.menuScroll = null;
   }
 
   componentDidUpdate(prevProps) {
     if (!prevProps.isActive && this.props.isActive) {
-      this.menuContainer.scrollTo(0, 0);
+      this.menuScroll.scrollTo(0, 0);
     }
   }
 
@@ -40,7 +40,7 @@ class MobileMenu extends Component {
 
     const movingDown = currentY < startY;
 
-    const distToBottom = this.menuContainer.scrollHeight - this.menuContainer.offsetHeight - this.menuContainer.scrollTop;
+    const distToBottom = this.menuScroll.scrollHeight - this.menuScroll.offsetHeight - this.menuScroll.scrollTop;
 
     if (distToBottom < 1 && movingDown) {
       e.stopPropagation();
@@ -62,37 +62,39 @@ class MobileMenu extends Component {
         <div className="mobile-menu__inner">
           <div className="container">
             <CloseIcon className="mobile-menu__close" onClick={click(offmenuToggle, 'mobileMenu')}/>
-            <div ref={ref.call(this, 'menuContainer')} onTouchStart={this.handleTouchStart} onTouchMove={this.handleTouchMove} className="mobile-menu__container">
-              <Link href="/">
-                <a className="mobile-menu__brand">
-                  <Logo/>
-                </a>
-              </Link>
-              <nav>
-                <ul>
-                  {menuLinksMain.map(link => {
-                    return (
-                      <li key={link.get('title')}>
-                        <Link href={link.get('url')}><a>{link.get('title')}</a></Link>
-                      </li>
-                    );
-                  })}
-                </ul>
-                <ul>
-                  {menuLinksRegister.map(link => {
-                    return (
-                      <li key={link.get('title')}>
-                        <Link href={link.get('url')}>
-                          <a className={link.get('btn') ? 'btn btn--primary-solid' : ''}>
-                            {link.get('icon') ? <FontAwesomeIcon icon={link.get('icon').toJS()}/> : null}
-                            {link.get('title')}
-                          </a>
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </nav>
+            <div ref={ref.call(this, 'menuScroll')} onTouchStart={this.handleTouchStart} onTouchMove={this.handleTouchMove} className="mobile-menu__scroll">
+              <div className="mobile-menu__container">
+                <Link href="/">
+                  <a className="mobile-menu__brand">
+                    <Logo height={39} width={157}/>
+                  </a>
+                </Link>
+                <nav>
+                  <ul>
+                    {menuLinksMain.map(link => {
+                      return (
+                        <li key={link.get('title')}>
+                          <Link href={link.get('url')}><a>{link.get('title')}</a></Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                  <ul>
+                    {menuLinksRegister.map(link => {
+                      return (
+                        <li key={link.get('title')}>
+                          <Link href={link.get('url')}>
+                            <a className={link.get('btn') ? 'btn btn--primary-solid' : ''}>
+                              {link.get('icon') ? <FontAwesomeIcon icon={link.get('icon').toJS()}/> : null}
+                              {link.get('title')}
+                            </a>
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </nav>
+              </div>
             </div>
           </div>
         </div>

@@ -46,7 +46,7 @@
     color: $blue;
     position: absolute;
     right: 2rem;
-    top: 1.5rem;
+    top: .5rem;
 
     .hamburger {
       &-box,
@@ -66,9 +66,12 @@
     }
   }
 
-  &__container {
+  &__scroll {
     height: 100%;
     overflow: auto;
+  }
+
+  &__container {
     padding: 5rem 2.5rem;
   }
 
