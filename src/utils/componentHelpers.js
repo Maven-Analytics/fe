@@ -114,7 +114,7 @@ export function camelCase(str) {
  * @return {Number} Y coordinate for how far a user has scrolled down a page
  */
 export function getCurrentScrollY() {
-  return window.scrollY ? window.scrollY : window.pageYOffset ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop
+  return window.scrollY ? window.scrollY : window.pageYOffset ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
 }
 
 /**
@@ -124,4 +124,43 @@ export function getCurrentScrollY() {
  */
 export function raf(callback) {
   return e => window.requestAnimationFrame(() => callback(e));
+}
+
+export function canUseDOM() {
+  return Boolean(typeof window !== 'undefined' && window.document && window.document.createElement);
+}
+
+export function isScrolledIntoView(element, offset = 0, useDOM) {
+  if (!useDOM) {
+    return false;
+  }
+
+  const elementTop = element.getBoundingClientRect().top - offset;
+  const elementBottom = element.getBoundingClientRect().bottom + offset;
+  return elementTop <= getWindowHeight(useDOM) && elementBottom >= 0;
+}
+
+export function getNodeHeight(useDOM, node) {
+  if (!useDOM) {
+    return 0;
+  }
+
+  if (!node) {
+    return getWindowHeight(useDOM);
+  }
+
+  return node.clientHeight;
+}
+
+export function getWindowHeight(useDOM) {
+  if (!useDOM) {
+    return 0;
+  }
+
+  const w = window;
+  const d = document;
+  const e = d.documentElement;
+  const g = d.getElementsByTagName('body')[0];
+
+  return w.innerHeight || e.clientHeight || g.clientHeight;
 }

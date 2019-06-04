@@ -21,7 +21,7 @@ class GlobalHeader extends Component {
             <div className="global-header__inner">
               <Link href="/">
                 <a className="global-header__brand">
-                  <Logo width={192} height={46}/>
+                  <Logo/>
                 </a>
               </Link>
               <nav>

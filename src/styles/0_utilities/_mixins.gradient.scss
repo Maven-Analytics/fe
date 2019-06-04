@@ -16,3 +16,9 @@
     // width: calc(100% + #{$border-width});
   }
 }
+
+@mixin gradient-font() {
+  background: linear-gradient(to right, $blue, $yellow);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

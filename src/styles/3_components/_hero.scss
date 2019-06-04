@@ -1,0 +1,96 @@
+.hero {
+  height: calc(100vh - #{$header-height-mobile});
+
+  @include collapseUp {
+    height: 100vh;
+  }
+
+  &__background {
+    background-color: rgba($black, 0.5);
+    height: 100%;
+
+    .image {
+      // padding-top: 62.42%;
+
+      @include collapseUp {
+      }
+    }
+
+    img {
+      object-fit: cover;
+    }
+
+    *[class^='react-parallax'] {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  &__content {
+    color: $white;
+    position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
+    width: 100%;
+
+    h1 {
+      font-size: 3.4rem;
+      line-height: .9;
+      margin: 0 0 .5rem;
+      text-transform: uppercase;
+
+      @include media-breakpoint-up(md) {
+        font-size: 5.6rem;
+      }
+
+      span {
+        @include gradient-font;
+        font-weight: 700;
+      }
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.1;
+      margin: $spacing-unit 0 $spacing-unit--l;
+      padding-left: 20px;
+      position: relative;
+
+      @include media-breakpoint-up(md) {
+        font-size: 1.8rem;
+        margin: $spacing-unit--l 0 $spacing-unit--ll;
+        padding-left: 30px;
+      }
+
+      svg {
+        color: $blue;
+        height: 20px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 20px;
+      }
+    }
+
+    a {
+      font-size: 1rem;
+
+      @include media-breakpoint-up(md) {
+        border-radius: 27.5px;
+        font-size: 1.4rem;
+        padding: 1.6rem 2.5rem;
+        min-width: 230px;
+      }
+    }
+  }
+
+  &__content-inner {
+    max-width: 270px;
+    padding: $spacing-unit--xxl 0;
+
+    @include media-breakpoint-up(md) {
+      max-width: 710px;
+      padding: $spacing-unit--xxxl 0;
+    }
+  }
+}

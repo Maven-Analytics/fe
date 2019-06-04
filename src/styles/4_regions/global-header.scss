@@ -2,14 +2,25 @@
   $self: &;
 
   @mixin desktopHeader {
-    @include media-breakpoint-up(lg) {
+    @include collapseUp() {
       @content;
     }
+  }
+
+  @include desktopHeader() {
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
   }
 
   .headroom {
     background-color: $black;
     transition: background-color .15s ease-in;
+
+    @include desktopHeader {
+      background-color: transparent;
+    }
 
     &--pinned {
       background-color: $black;
@@ -31,9 +42,9 @@
   &__brand {
     align-items: center;
     display: flex;
-    height: 40px;
-    flex: 0 1 167px;
-    width: 167px;
+    height: 28px;
+    flex: 0 1 120px;
+    width: 120px;
 
     @include desktopHeader {
       height: 46px;

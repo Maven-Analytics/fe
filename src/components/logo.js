@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const Logo = ({height, width}) => {
   return (
-    <div className="logo" style={{height, width}}>
+    <div className="logo" style={{height: height ? height : null, width: width ? width : null}}>
       {/* <img src="/static/img/logo-light.svg" alt="Maven Analytics Logo"/> */}
       <svg viewBox="0 0 640.01 153.09">
         <defs>
@@ -41,11 +41,6 @@ const Logo = ({height, width}) => {
 Logo.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number
-};
-
-Logo.defaultProps = {
-  width: 640,
-  height: 159
 };
 
 export default Logo;

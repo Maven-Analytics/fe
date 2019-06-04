@@ -1,0 +1,7 @@
+$collapseSize: lg;
+
+@mixin collapseUp {
+  @include media-breakpoint-up($collapseSize) {
+    @content;
+  }
+}

@@ -1,11 +1,13 @@
 @import './0_utilities/mixins.aspect-ratio';
 @import './0_utilities/mixins.list';
 @import './0_utilities/mixins.gradient';
+@import './0_utilities/mixins.media-queries';
 @import './0_utilities/variables';
 @import './0_utilities/settings.colors';
 @import './0_utilities/settings.fonts';
 @import './0_utilities/settings.icons';
 @import './0_utilities/settings.spacing';
+@import './0_utilities/settings.sizes';
 @import './0_utilities/settings.z-index';
 
 @import '~bootstrap/scss/bootstrap-reboot';
@@ -18,6 +20,7 @@
 @import './1_core/html/links';
 @import './1_core/html/images';
 @import './1_core/html/buttons';
+@import './1_core/html/headings';
 
 @import './2_pieces/hamburger';
 @import './2_pieces/logo';
@@ -27,6 +30,7 @@
 @import './3_components/auth';
 @import './3_components/scroll';
 @import './3_components/mobile-menu';
+@import './3_components/hero';
 
 @import './4_regions/global-header';
 

@@ -7,10 +7,10 @@ import {fromJS} from 'immutable';
 import {TransitionGroup, Transition} from 'react-transition-group';
 
 import {library} from '@fortawesome/fontawesome-svg-core';
-import {faTimes} from '@fortawesome/free-solid-svg-icons';
+import {faTimes, faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import {faUser} from '@fortawesome/free-regular-svg-icons';
 
-library.add(faUser, faTimes);
+library.add(faUser, faTimes, faChevronRight);
 
 import initStore from '../redux/store';
 import {actions as authActions} from '../redux/ducks/auth';

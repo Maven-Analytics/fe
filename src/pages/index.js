@@ -10,6 +10,7 @@ import {actions as authActions} from '../redux/ducks/auth';
 import {selectors as loadingSelectors} from '../redux/ducks/loading';
 import {selectors as errorSelectors} from '../redux/ducks/error';
 import Main from '../layouts/main';
+import Hero from '../components/hero';
 
 class Home extends Component {
   constructor(props) {
@@ -38,7 +39,9 @@ class Home extends Component {
   render() {
     return (
       <Main>
+        <Hero/>
         <div className="container">
+
           <h1>Homepage</h1>
           <h1>Homepage</h1>
           <h1>Homepage</h1>

@@ -20,7 +20,7 @@ class Layout extends Component {
       <Fragment>
         <GlobalHeader state={state} offmenuToggle={actions.offmenuToggle}/>
         <MobileMenu isActive={state.get('mobileMenu')} offmenuToggle={actions.offmenuToggle}/>
-        <header>
+        {/* <header>
           <div className="container">
             <Link href="/login"><a>Login</a></Link>
             <Link href="/register"><a>Register</a></Link>
@@ -36,7 +36,7 @@ class Layout extends Component {
               </div>
             ) : null}
           </div>
-        </header>
+        </header> */}
         <main id="main" className="page-wrapper">
           {children}
         </main>

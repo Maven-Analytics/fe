@@ -4,6 +4,7 @@ img {
 }
 
 .image {
+  height: 0;
   position: relative;
 
   img {
@@ -15,11 +16,16 @@ img {
   }
 
   &--preload {
+    background-color: $gray;
+    transition: background-color .2s ease-out;
+
     img {
       opacity: 0;
     }
 
     &.loaded {
+      background-color: transparent;
+
       img {
         opacity: 1;
         transition: opacity .2s ease-in;
