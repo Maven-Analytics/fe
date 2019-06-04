@@ -2,7 +2,7 @@ import React, {Component, Fragment, createRef} from 'react';
 import PropTypes from 'prop-types';
 import throttle from 'lodash.throttle';
 
-import {isScrolledIntoView, canUseDOM} from '../utils/componentHelpers';
+import {isScrolledIntoView, canUseDOM, noop} from '../utils/componentHelpers';
 
 class TrackVisibility extends Component {
   constructor(props) {
@@ -17,41 +17,71 @@ class TrackVisibility extends Component {
   }
 
   componentDidMount() {
+    this.addListeners();
+  }
+
+  componentWillUnmount() {
+    this.removeListeners();
+  }
+
+  addListeners() {
     window.addEventListener('scroll', this.handleScroll);
     this.handleScroll();
   }
 
-  componentWillUnmount() {
+  removeListeners() {
     window.removeEventListener('scroll', this.handleScroll);
   }
 
   handleScroll() {
-    if (isScrolledIntoView(this.el.current, 0, canUseDOM())) {
+    if (isScrolledIntoView(this.el.current, this.props.offset, canUseDOM())) {
+      this.removeListeners();
+
       this.setState({
         inView: true
       });
+
+      this.props.onShow();
     }
   }
 
   render() {
-    const {children, className} = this.props;
+    const {className, alwaysShow} = this.props;
     const {inView} = this.state;
 
     return (
       <div ref={this.el} className={className}>
-        {inView ? children : null}
+        {inView ? this.renderChildren(inView) : alwaysShow ? this.renderChildren(inView) : null}
       </div>
     );
+  }
+
+  renderChildren(inView) {
+    const {children} = this.props;
+
+    if (typeof children === 'function') {
+      return children(inView);
+    }
+
+    return children;
   }
 }
 
 TrackVisibility.propTypes = {
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]).isRequired,
+  className: PropTypes.string,
+  onShow: PropTypes.func,
+  alwaysShow: PropTypes.bool,
+  offset: PropTypes.number,
+  once: PropTypes.bool
 };
 
 TrackVisibility.defaultProps = {
-  className: ''
+  className: '',
+  onShow: noop,
+  alwaysShow: false,
+  offset: 0,
+  once: true
 };
 
 export default TrackVisibility;

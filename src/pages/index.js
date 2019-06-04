@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import {fromJS} from 'immutable';
 import Link from 'next/link';
 import {TimelineMax as Timeline, Power1} from 'gsap';
 
@@ -11,6 +12,7 @@ import {selectors as loadingSelectors} from '../redux/ducks/loading';
 import {selectors as errorSelectors} from '../redux/ducks/error';
 import Main from '../layouts/main';
 import Hero from '../components/hero';
+import StatCounter from '../components/statCounter';
 
 class Home extends Component {
   constructor(props) {
@@ -40,6 +42,29 @@ class Home extends Component {
     return (
       <Main>
         <Hero/>
+        <StatCounter
+          stats={fromJS([
+            {
+              value: 158,
+              text: 'Countries Represented'
+            },
+            {
+              value: 300,
+              text: 'Training Videos',
+              postFix: '+'
+            },
+            {
+              value: 5000,
+              text: '5-Star Reviews',
+              postFix: '+'
+            },
+            {
+              value: 100,
+              text: 'Happy Students',
+              postFix: 'K+'
+            }
+          ])}
+        />
         <div className="container">
 
           <h1>Homepage</h1>

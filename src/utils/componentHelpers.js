@@ -137,6 +137,7 @@ export function isScrolledIntoView(element, offset = 0, useDOM) {
 
   const elementTop = element.getBoundingClientRect().top - offset;
   const elementBottom = element.getBoundingClientRect().bottom + offset;
+
   return elementTop <= getWindowHeight(useDOM) && elementBottom >= 0;
 }
 
