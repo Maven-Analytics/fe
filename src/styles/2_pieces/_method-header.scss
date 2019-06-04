@@ -1,0 +1,38 @@
+.method-header {
+  margin: 0 0 $spacing-unit--l;
+
+  @include media-breakpoint-up(lg) {
+    margin: -2rem 0 $spacing-unit--ll;
+  }
+
+  h2 {
+    font-size: .9rem;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+
+    @include media-breakpoint-up(lg) {
+      font-size: 1.6rem;
+      text-align: left;
+    }
+
+    span:first-child {
+      display: block;
+      letter-spacing: 4px;
+
+      @include media-breakpoint-up(lg) {
+        margin-bottom: .2rem;
+      }
+    }
+
+    span:nth-child(2) {
+      background: $brand-gradient;
+      font-size: 3.3em;
+      padding: 4px 6px;
+
+      @include media-breakpoint-up(lg) {
+        font-size: 3.4em;
+      }
+    }
+  }
+}

@@ -1,5 +1,7 @@
-import React, {Component} from 'react';
+import {Component} from 'react';
 import PropTypes from 'prop-types';
+
+import {canUseDOM} from '../utils/componentHelpers';
 
 const Breakpoints = {
   sm: 576,
@@ -62,7 +64,7 @@ class MediaQuery extends Component {
     const {mediaQuery} = this.state;
     const {children} = this.props;
 
-    if (typeof window === 'undefined') {
+    if (!canUseDOM()) {
       return children;
     }
 

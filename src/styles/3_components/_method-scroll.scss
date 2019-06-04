@@ -1,0 +1,145 @@
+.method-scroll {
+  display: none;
+
+  @mixin breakpoint() {
+    @include media-breakpoint-up(lg) {
+      @content;
+    }
+  }
+
+  @include breakpoint() {
+    display: block;
+  }
+
+  &__wrap {
+    @include breakpoint() {
+      height: 100vh;
+      width: 100%;
+    }
+  }
+
+  &__inner {
+    @include breakpoint() {
+      padding: $header-height-desktop 0;
+    }
+  }
+
+  &__content {
+    @include breakpoint() {
+      height: 512px;
+      padding-left: $spacing-unit;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: calc(50% - 20px);
+    }
+
+    @include media-breakpoint-up(xl) {
+      padding-left: 115px;
+      width: calc(50% - 75px);
+    }
+  }
+
+  &__images {
+    background-image: url('/static/img/browser@2x.png');
+    background-size: 839px 512px;
+    box-shadow: 20px 20px 40px 0 rgba(0,0,0,0.1);
+    display: none;
+
+    @include breakpoint() {
+      display: block;
+      flex: 0 0 839px;
+      height: 512px;
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translate3d(0, -50%, 0);
+      width: 839px;
+    }
+  }
+
+  &__image {
+    background-image: url('/static/img/browser@2x.png');
+    background-size: 839px 512px;
+    @include breakpoint() {
+      height: 100%;
+      opacity: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      transition: all .2s ease-in-out;
+      width: 100%;
+    }
+
+    &.active {
+      @include breakpoint() {
+        opacity: 1;
+      }
+
+      .image-2 {
+        @include breakpoint() {
+          opacity: 1;
+          transform: translateX(0);
+          transition: all .2s .2 ease-in;
+        }
+      }
+    }
+
+    .image-1 {
+      @include breakpoint() {
+        height: 408px;
+        left: 39px;
+        position: absolute;
+        top: 80px;
+        width: 767px;
+      }
+    }
+
+    .image-2 {
+      @include breakpoint() {
+        left: -40px;
+        opacity: 0;
+        transform: translateX(100px);
+        transition: all .2s ease-in;
+      }
+
+      @include media-breakpoint-up(xl) {
+        left: -75px;
+      }
+    }
+  }
+
+  &__items {
+    @include breakpoint() {
+      padding-left: $spacing-unit;
+      position: relative;
+    }
+  }
+
+  .method-item {
+    @include breakpoint() {
+      margin: 0 0 $spacing-unit--l;
+      opacity: 0.3;
+      overflow: hidden;
+      max-height: 40px;
+      transition: all .2s ease-in-out;
+    }
+
+    &.active {
+      @include breakpoint() {
+        max-height: 200px;
+        opacity: 1;
+
+        .method-item__description {
+          opacity: 1;
+          transform: translate3d(0, 0, 0);
+        }
+
+        .btn {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+    }
+  }
+}

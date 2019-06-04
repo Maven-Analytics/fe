@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import throttle from 'lodash.throttle';
 
 import {isScrolledIntoView, canUseDOM, noop} from '../utils/componentHelpers';
+import { join } from 'path';
 
 class TrackVisibility extends Component {
   constructor(props) {
@@ -35,24 +36,26 @@ class TrackVisibility extends Component {
 
   handleScroll() {
     if (isScrolledIntoView(this.el.current, this.props.offset, canUseDOM())) {
-      this.removeListeners();
+      setTimeout(() => {
+        this.removeListeners();
 
-      this.setState({
-        inView: true
-      });
+        this.setState({
+          inView: true
+        });
 
-      this.props.onShow();
+        this.props.onShow();
+      }, this.props.delay)
     }
   }
 
   render() {
-    const {className, alwaysShow} = this.props;
+    const {className, alwaysShow, tag: Tag, inViewClass, style} = this.props;
     const {inView} = this.state;
 
     return (
-      <div ref={this.el} className={className}>
+      <Tag ref={this.el} className={[className, inView ? inViewClass : ''].join(' ')} style={style}>
         {inView ? this.renderChildren(inView) : alwaysShow ? this.renderChildren(inView) : null}
-      </div>
+      </Tag>
     );
   }
 
@@ -73,7 +76,11 @@ TrackVisibility.propTypes = {
   onShow: PropTypes.func,
   alwaysShow: PropTypes.bool,
   offset: PropTypes.number,
-  once: PropTypes.bool
+  once: PropTypes.bool,
+  tag: PropTypes.string,
+  inViewClass: PropTypes.string,
+  style: PropTypes.object,
+  delay: PropTypes.number
 };
 
 TrackVisibility.defaultProps = {
@@ -81,7 +88,9 @@ TrackVisibility.defaultProps = {
   onShow: noop,
   alwaysShow: false,
   offset: 0,
-  once: true
+  once: true,
+  tag: 'div',
+  delay: 0
 };
 
 export default TrackVisibility;

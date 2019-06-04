@@ -1,0 +1,23 @@
+.scroller {
+  $width: 115px;
+  $height: 6px;
+  height: 100%;
+  left: -($width);
+  position: absolute;
+  top: 0;
+  width: $width;
+
+  div {
+    height: calc(100% - #{$height});
+    transform: translate3d(0, 0, 0);
+    width: 100%;
+
+    &::before {
+      background: $brand-gradient;
+      content: ' ';
+      height: $height;
+      position: absolute;
+      width: 100%;
+    }
+  }
+}

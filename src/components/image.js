@@ -2,6 +2,7 @@ import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 
 import {noop} from '../utils/componentHelpers';
+import TrackVisibility from './trackVisibility';
 
 class Image extends Component {
   constructor(props) {
@@ -36,13 +37,14 @@ class Image extends Component {
   }
 
   render() {
-    const {src, modifier, alt, srcSet, style} = this.props;
+    const {src, modifier, alt, srcSet, style, wrapStyle, onlyInView} = this.props;
     const {loaded, shouldPreload} = this.state;
+    const Tag = onlyInView ? TrackVisibility : 'div';
 
     return (
-      <div className={`image ${shouldPreload ? 'image--preload' : ''} ${loaded ? 'loaded' : ''} ${modifier ? modifier : ''}`}>
+      <Tag className={`image ${shouldPreload ? 'image--preload' : ''} ${loaded ? 'loaded' : ''} ${modifier ? modifier : ''}`} style={wrapStyle}>
         <img ref={this.img} style={style} onLoad={this.handleLoad} src={src} alt={alt} srcSet={srcSet} sizes="100vw"/>
-      </div>
+      </Tag>
     );
   }
 }
@@ -54,13 +56,16 @@ Image.propTypes = {
   preload: PropTypes.bool,
   srcSet: PropTypes.string,
   onLoad: PropTypes.func,
-  style: PropTypes.object
+  style: PropTypes.object,
+  wrapStyle: PropTypes.object,
+  onlyInView: PropTypes.bool
 };
 
 Image.defaultProps = {
   preload: false,
   onLoad: noop,
-  style: {}
+  style: {},
+  onlyInView: false
 };
 
 export default Image;

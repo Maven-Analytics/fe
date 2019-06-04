@@ -13,6 +13,97 @@ import {selectors as errorSelectors} from '../redux/ducks/error';
 import Main from '../layouts/main';
 import Hero from '../components/hero';
 import StatCounter from '../components/statCounter';
+import MethodScroll from '../components/methodScroll';
+import MethodMobile from '../components/methodMobile';
+import MediaQuery from '../components/mediaQuery';
+
+const methodItems = [
+  {
+    text: 1,
+    img: '/static/img/step1-browser.png',
+    imgRetina: '/static/img/step1-browser@2x.png',
+    img2: '/static/img/step1-popout.png',
+    img2Retina: '/static/img/step1-popout@2x.png',
+    width: 480,
+    height: 287,
+    top: 241,
+    title: 'Tell Us About Yourself',
+    description: 'Take a quick survey so we can match your learning needs with the best Maven Analytics courses and paths.',
+    linkTitle: 'TAKE SURVEY',
+    linkHref: '/',
+    imgMobile: {
+      src: '/static/img/step1-mobile.png',
+      alt: 'Match your learning needs with the best Maven Analytics courses and paths',
+      srcSet: '/static/img/step1-mobile.png 834w, /static/img/step1-mobile.png 1668w',
+      width: 834,
+      height: 512
+    }
+  },
+  {
+    text: 2,
+    img: '/static/img/step2-browser.png',
+    imgRetina: '/static/img/step2-browser@2x.png',
+    img2: '/static/img/step2-popout.png',
+    img2Retina: '/static/img/step2-popout@2x.png',
+    width: 479,
+    height: 347,
+    top: 232,
+    title: 'Measure Your Baseline Skills',
+    description: 'Test your skills with some of our in-depth practice assessments. We’ll match your current skills with the right courses and paths',
+    linkTitle: 'TAKE ASSESSMENT',
+    linkHref: '/',
+    imgMobile: {
+      src: '/static/img/step2-mobile.png',
+      alt: 'We’ll match your current skills with the right courses and paths',
+      srcSet: '/static/img/step2-mobile.png 834w, /static/img/step2-mobile.png 1668w',
+      width: 834,
+      height: 549
+    }
+  },
+  {
+    text: 3,
+    img: '/static/img/step3-browser.png',
+    imgRetina: '/static/img/step3-browser@2x.png',
+    img2: '/static/img/step3-popout.png',
+    img2Retina: '/static/img/step3-popout@2x.png',
+    ratio: '61.17%',
+    width: 698,
+    height: 427,
+    top: 234,
+    title: 'Learn & Expand Your Expertise',
+    description: 'Take self-paced online courses with comprehensive videos, detailed course materials, and one-on-one support, specific to your learning goals and ambitions. ',
+    linkTitle: 'VIEW COURSES & PATHS',
+    linkHref: '/',
+    imgMobile: {
+      src: '/static/img/step3-mobile.png',
+      alt: 'Online courses.',
+      srcSet: '/static/img/step3-mobile.png 838w, /static/img/step3-mobile.png 1676w',
+      width: 838,
+      height: 631
+    }
+  },
+  {
+    text: 4,
+    img: '/static/img/step4-browser.png',
+    imgRetina: '/static/img/step4-browser@2x.png',
+    img2: '/static/img/step4-popout.png',
+    img2Retina: '/static/img/step4-popout@2x.png',
+    width: 581,
+    height: 427,
+    top: 161,
+    title: 'Track & Promote Your Achievements',
+    description: 'Earn certified credentials and badges for each course and path completed.  Promote your talents and achieve your certified data rockstar status.',
+    linkTitle: 'VIEW CREDENTIALS',
+    linkHref: '/',
+    imgMobile: {
+      src: '/static/img/step4-mobile.png',
+      alt: 'Online courses.',
+      srcSet: '/static/img/step4-mobile.png 838w, /static/img/step4-mobile.png 1676w',
+      width: 838,
+      height: 558
+    }
+  }
+];
 
 class Home extends Component {
   constructor(props) {
@@ -65,6 +156,10 @@ class Home extends Component {
             }
           ])}
         />
+        <MethodMobile items={methodItems}/>
+
+        <MethodScroll items={methodItems}/>
+
         <div className="container">
 
           <h1>Homepage</h1>

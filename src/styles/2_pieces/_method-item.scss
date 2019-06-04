@@ -1,0 +1,68 @@
+.method-item {
+  display: flex;
+
+  &__step {
+    color: $gray-medium-2;
+    font-size: 2.6rem;
+    font-weight: 700;
+    line-height: 45px;
+    margin-right: $spacing-unit--half;
+
+    @include media-breakpoint-up(lg) {
+      color: $black;
+      font-size: 4.5rem;
+      line-height: 40px;
+      margin-right: $spacing-unit;
+    }
+
+    @include media-breakpoint-up(xl) {
+      margin-right: 2.5rem;
+    }
+  }
+
+  &__title {
+    align-items: center;
+    display: flex;
+    font-family: $font-body;
+    font-size: 1.6rem;
+    font-weight: 700;
+    height: 45px;
+    line-height: 30px;
+    margin-bottom: $spacing-unit--sm;
+
+    @include media-breakpoint-up(lg) {
+      height: 40px;
+      font-size: 2.4rem;
+      line-height: 30px;
+      margin-bottom: $spacing-unit--sm;
+    }
+  }
+
+  &__description {
+    color: $gray-medium-2;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: $spacing-unit--half;
+
+    @include media-breakpoint-up(lg) {
+      font-size: 1.6rem;
+      line-height: 1.5;
+      margin-bottom: $spacing-unit;
+      opacity: 0;
+      transform: translate3d(0, -10px, 0);
+      transition: all .2s .2s ease-in-out;
+    }
+  }
+
+  .btn {
+    @include media-breakpoint-up(lg) {
+      opacity: 0;
+      transform: scale(0.9);
+      transition: all .2s .3s ease-in-out;
+    }
+  }
+
+  .image {
+    margin-top: $spacing-unit--md;
+  }
+}
