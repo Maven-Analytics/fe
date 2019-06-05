@@ -22,10 +22,10 @@ const Hero = () => {
       <TrackVisibility className="hero__background">
         <MediaQuery min="lg">
           <ParallaxBg
-            src="/static/img/home-hero-mobile.png"
+            src="/static/img/home-hero-mobile.jpg"
             srcSet="
-              /static/img/home-hero-mobile.png 1000w,
-              /static/img/home-hero-desktop.png 2307w
+              /static/img/home-hero-mobile.jpg 1000w,
+              /static/img/home-hero-desktop.jpg 2307w
             "
           />
         </MediaQuery>
@@ -33,10 +33,10 @@ const Hero = () => {
           <Image
             preload
             modifier="image--cover"
-            src="/static/img/home-hero-mobile.png"
+            src="/static/img/home-hero-mobile.jpg"
             srcSet="
-              /static/img/home-hero-mobile.png 1000w,
-              /static/img/home-hero-desktop.png 2307w
+              /static/img/home-hero-mobile.jpg 1000w,
+              /static/img/home-hero-desktop.jpg 2307w
             "
           />
         </MediaQuery>
