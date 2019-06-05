@@ -17,6 +17,7 @@ import MethodScroll from '../sections/methodScroll';
 import MethodMobile from '../sections/methodMobile';
 import Mission from '../sections/mission';
 import TrendingCourses from '../sections/trendingCourses';
+import Clients from '../sections/clients';
 
 const methodItems = [
   {
@@ -138,6 +139,37 @@ const Courses = fromJS([
   }
 ]);
 
+const HappyClients = fromJS([
+  {
+    name: 'Beam',
+    image: '/static/img/client-logo-1.png'
+  },
+  {
+    name: '1010Data',
+    image: '/static/img/client-logo-2.png'
+  },
+  {
+    name: 'Cogniscient Media',
+    image: '/static/img/client-logo-3.png'
+  },
+  {
+    name: 'McCann Worldgroup',
+    image: '/static/img/client-logo-4.png'
+  },
+  {
+    name: 'Johnson & Johnson',
+    image: '/static/img/client-logo-5.png'
+  },
+  {
+    name: 'Toms of Maine',
+    image: '/static/img/client-logo-6.png'
+  },
+  {
+    name: 'Wayfair',
+    image: '/static/img/client-logo-7.png'
+  }
+]);
+
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -166,9 +198,7 @@ class Home extends Component {
     return (
       <Main>
         <Hero/>
-        <TrendingCourses
-          courses={fromJS([...Courses.map((course, index) => course.set('id', index)), ...Courses.map((course, index) => course.set('id', index + 4)), ...Courses.map((course, index) => course.set('id', index + 8))])}
-        />
+
         <StatCounter
           stats={fromJS([
             {
@@ -221,6 +251,10 @@ class Home extends Component {
 
           <MethodScroll items={methodItems}/>
         </div>
+        <TrendingCourses
+          courses={fromJS([...Courses.map((course, index) => course.set('id', index)), ...Courses.map((course, index) => course.set('id', index + 4)), ...Courses.map((course, index) => course.set('id', index + 8))])}
+        />
+        <Clients clients={HappyClients}/>
         <div  className="container">
 
           <h1>Homepage</h1>

@@ -1,0 +1,76 @@
+.clients {
+  padding: 3.1rem 0 3.8rem;
+
+  @include media-breakpoint-up(md) {
+    padding: 7rem 0 6.3rem;
+  }
+
+  header {
+    color: $black;
+    margin: 0 0 $spacing-unit;
+    text-align: center;
+
+    @include media-breakpoint-up(md) {
+      margin: 0 0 $spacing-unit--md;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      margin: 0;
+      text-transform: uppercase;
+
+      @include media-breakpoint-up(md) {
+        font-size: 1.6rem;
+        letter-spacing: 4px;
+      }
+    }
+  }
+
+  .carousel {
+    &:not(.flickity-enabled) {
+      display: flex;
+      overflow: hidden;
+      width: 100%;
+
+      .carousel-slide {
+        flex: 0 0 50%;
+        height: 50px;
+
+        @include media-breakpoint-up(md) {
+          flex: 0 0 20%;
+        }
+
+        // @include media-breakpoint-up(lg) {
+        //   flex: 0 0 33.33333%;
+        // }
+
+        // @include media-breakpoint-up(xl) {
+        //   flex: 0 0 25%;
+        // }
+      }
+    }
+
+    .carousel-slide {
+      height: 50px;
+      width: 50%;
+
+      @include media-breakpoint-up(md) {
+        width: 20%;
+      }
+
+      .image {
+        height: 100%;
+        text-align: center;
+        width: auto;
+
+        img {
+          height: 100%;
+          position: relative;
+          width: auto;
+        }
+      }
+    }
+  }
+}
