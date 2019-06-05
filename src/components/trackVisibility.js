@@ -37,7 +37,7 @@ class TrackVisibility extends Component {
 
   handleScroll() {
     setTimeout(() => {
-      if (this.el && this.el.current && isElementXPercentInViewport(this.el.current, 0)) {
+      if (this.el && this.el.current && isElementXPercentInViewport(this.el.current, this.props.offset)) {
         this.removeListeners();
 
         this.setState({
