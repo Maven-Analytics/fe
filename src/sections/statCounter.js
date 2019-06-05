@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
 
-import TrackVisibility from './trackVisibility';
-import Countup from './countup';
+import TrackVisibility from '../components/trackVisibility';
+import Countup from '../components/countup';
 
 class StatCounter extends Component {
   constructor(props) {

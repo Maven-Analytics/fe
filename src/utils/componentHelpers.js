@@ -126,32 +126,32 @@ export function raf(callback) {
   return e => window.requestAnimationFrame(() => callback(e));
 }
 
+export function innerHtml(html) {
+  return {__html: html};
+}
+
 export function canUseDOM() {
   return Boolean(typeof window !== 'undefined' && window.document && window.document.createElement);
 }
+
+export const isElementXPercentInViewport = function (el, percentVisible = 0) {
+  let rect = el.getBoundingClientRect();
+  let windowHeight = (window.innerHeight || document.documentElement.clientHeight);
+
+  return !(
+    Math.floor(100 - (((rect.top >= 0 ? 0 : rect.top) / Number(-(rect.height / 1))) * 100)) < percentVisible ||
+    Math.floor(100 - (((rect.bottom - windowHeight) / rect.height) * 100)) < percentVisible
+  );
+};
 
 export function isScrolledIntoView(element, offset = 0, useDOM) {
   if (!useDOM) {
     return false;
   }
 
-  const rect = element.getBoundingClientRect();
-
-  // const elementTop = element.getBoundingClientRect().top - offset;
-  // const elementBottom = element.getBoundingClientRect().bottom + offset;
-
-  const windowHeight = getWindowHeight(useDOM);
-  const clientHeight = document.documentElement.clientHeight;
-
-  const inView = (
-    rect.top - offset >= 0 &&
-    rect.bottom <= (windowHeight || clientHeight) &&
-    Boolean(element.offsetParent) // Ensures it has a parent that is visible
-  );
-
-  return inView;
-
-  // return elementTop <= getWindowHeight(useDOM) && elementBottom >= 0;
+  const elementTop = element.getBoundingClientRect().top - offset;
+  const elementBottom = element.getBoundingClientRect().bottom + offset;
+  return elementTop <= getWindowHeight(useDOM) && elementBottom >= 0;
 }
 
 export function getNodeHeight(useDOM, node) {

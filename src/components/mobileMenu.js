@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 import Logo from './logo';
 import CloseIcon from './closeButton';
+import MaIcon from './maIcon';
 import {click, ref} from '../utils/componentHelpers';
 import {menuLinksMain, menuLinksRegister} from '../constants';
 
@@ -85,7 +85,7 @@ class MobileMenu extends Component {
                         <li key={link.get('title')}>
                           <Link href={link.get('url')}>
                             <a className={link.get('btn') ? 'btn btn--primary-solid' : ''}>
-                              {link.get('icon') ? <FontAwesomeIcon icon={link.get('icon').toJS()}/> : null}
+                              {link.get('icon') ? <MaIcon icon={link.get('icon')}/> : null}
                               {link.get('title')}
                             </a>
                           </Link>

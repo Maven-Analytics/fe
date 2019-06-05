@@ -21,11 +21,6 @@
     "redux-logger": "^3.0.6"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.18",
-    "@fortawesome/free-brands-svg-icons": "^5.8.2",
-    "@fortawesome/free-regular-svg-icons": "^5.8.2",
-    "@fortawesome/free-solid-svg-icons": "^5.8.2",
-    "@fortawesome/react-fontawesome": "^0.1.4",
     "@hapi/boom": "^7.4.2",
     "@hapi/joi": "^15.0.1",
     "@zeit/next-sass": "^1.0.1",
@@ -60,6 +55,7 @@
     "redux": "^4.0.1",
     "redux-immutable": "^4.0.0",
     "redux-saga": "^1.0.2",
+    "remarkable": "^1.7.1",
     "reselect": "^4.0.0"
   },
   "nodemonConfig": {

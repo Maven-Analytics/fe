@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import MethodItem from './methodItem';
-import MethodHeader from './methodHeader';
-import TrackVisibility from './trackVisibility';
+import MethodItem from '../components/methodItem';
+import MethodHeader from '../components/methodHeader';
+import TrackVisibility from '../components/trackVisibility';
 
 const MethodMobile = ({items}) => {
   return (

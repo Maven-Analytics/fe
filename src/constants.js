@@ -27,7 +27,7 @@ export const menuLinksRegister = fromJS([
   {
     title: 'Login',
     url: '/login',
-    icon: ['far', 'user']
+    icon: 'user'
   },
   {
     title: 'Sign Up',

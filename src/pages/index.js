@@ -11,11 +11,11 @@ import {actions as authActions} from '../redux/ducks/auth';
 import {selectors as loadingSelectors} from '../redux/ducks/loading';
 import {selectors as errorSelectors} from '../redux/ducks/error';
 import Main from '../layouts/main';
-import Hero from '../components/hero';
-import StatCounter from '../components/statCounter';
-import MethodScroll from '../components/methodScroll';
-import MethodMobile from '../components/methodMobile';
-import MediaQuery from '../components/mediaQuery';
+import Hero from '../sections/hero';
+import StatCounter from '../sections/statCounter';
+import MethodScroll from '../sections/methodScroll';
+import MethodMobile from '../sections/methodMobile';
+import Mission from '../sections/mission';
 
 const methodItems = [
   {
@@ -105,6 +105,9 @@ const methodItems = [
   }
 ];
 
+const MissionContent = `## THERE'S A BETTER WAY TO **BUILD YOUR SKILLS**
+Your time is valuable; don’t spend it sifting through courses, webinars and bootcamps trying to figure out where to start. Think of us as your personal team of instructors, experts, mentors and guides, here to **simplify the learning process** and **help you develop the exact skills you need.**`;
+
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -156,11 +159,36 @@ class Home extends Component {
             }
           ])}
         />
-        <MethodMobile items={methodItems}/>
 
-        <MethodScroll items={methodItems}/>
 
-        <div className="container">
+        <Mission
+          scrollTo="#method"
+          content={MissionContent}
+          icons={fromJS([
+            {
+              title: 'Self-paced courses',
+              icon: 'play'
+            },
+            {
+              title: 'Skills assessments',
+              icon: 'quiz'
+            },
+            {
+              title: 'Verified credentisla',
+              icon: 'badge'
+            },
+            {
+              title: 'Team training',
+              icon: 'team'
+            }
+          ])}
+        />
+        <div id="method">
+          <MethodMobile items={methodItems}/>
+
+          <MethodScroll items={methodItems}/>
+        </div>
+        <div  className="container">
 
           <h1>Homepage</h1>
           <h1>Homepage</h1>

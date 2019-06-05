@@ -9,8 +9,7 @@ class Image extends Component {
     super(props);
 
     this.state = {
-      loaded: !props.preload,
-      shouldPreload: props.preload
+      loaded: false
     };
 
     this.img = createRef();
@@ -28,7 +27,7 @@ class Image extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return ((nextProps.preload && nextState.loaded && !this.state.loaded) || (nextProps.style !== this.props.style));
+    return ((nextState.loaded && !this.state.loaded) || (nextProps.style !== this.props.style));
   }
 
   handleLoad() {
@@ -72,7 +71,6 @@ Image.propTypes = {
   src: PropTypes.string.isRequired,
   modifier: PropTypes.string,
   alt: PropTypes.string,
-  preload: PropTypes.bool,
   srcSet: PropTypes.string,
   onLoad: PropTypes.func,
   style: PropTypes.object,
@@ -81,7 +79,6 @@ Image.propTypes = {
 };
 
 Image.defaultProps = {
-  preload: false,
   onLoad: noop,
   style: {},
   cover: false

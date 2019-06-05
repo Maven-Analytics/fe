@@ -32,17 +32,19 @@
 @import './2_pieces/method-item';
 @import './2_pieces/method-header';
 @import './2_pieces/scroller';
+@import './2_pieces/scroll-to-next';
 
 
 @import './3_components/auth';
 @import './3_components/scroll';
-@import './3_components/mobile-menu';
-@import './3_components/hero';
-@import './3_components/stat-counter';
-@import './3_components/method-scroll';
-@import './3_components/method-mobile';
 
 @import './4_regions/global-header';
+@import './4_regions/mobile-menu';
+@import './4_regions/hero';
+@import './4_regions/stat-counter';
+@import './4_regions/method-scroll';
+@import './4_regions/method-mobile';
+@import './4_regions/mission';
 
 .view {
   width: 100%;

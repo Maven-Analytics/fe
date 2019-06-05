@@ -2,11 +2,11 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Controller, Scene} from 'react-scrollmagic';
 
-import Image from './image';
-import MethodItem from './methodItem';
-import MethodHeader from './methodHeader';
-import Scroller from './scroller';
-import TrackVisibility from './trackVisibility';
+import Image from '../components/image';
+import MethodItem from '../components/methodItem';
+import MethodHeader from '../components/methodHeader';
+import Scroller from '../components/scroller';
+import TrackVisibility from '../components/trackVisibility';
 
 class MethodScroll extends Component {
   constructor(props) {

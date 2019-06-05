@@ -7,6 +7,7 @@
     grid-column-gap: $spacing-unit--l;
     grid-row-gap: $spacing-unit--l;
     grid-template-columns: 1fr 1fr;
+    margin: 0;
     padding: $spacing-unit--l 0;
 
     @include media-breakpoint-up(lg) {

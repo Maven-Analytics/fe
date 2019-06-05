@@ -5,12 +5,12 @@ import debounce from 'lodash.debounce';
 import Headroom from 'react-headroom';
 import Link from 'next/link';
 import {fromJS, Map} from 'immutable';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 import {getCurrentScrollY, raf, ref, click} from '../utils/componentHelpers';
 import Logo from './logo';
 import Hamburger from './hamburger';
 import {menuLinksMain, menuLinksRegister} from '../constants';
+import MaIcon from './maIcon';
 
 class GlobalHeader extends Component {
   render() {
@@ -40,7 +40,7 @@ class GlobalHeader extends Component {
                       <li key={link.get('title')}>
                         <Link href={link.get('url')}>
                           <a className={link.get('btn') ? 'btn btn--primary' : ''}>
-                            {link.get('icon') ? <FontAwesomeIcon icon={link.get('icon').toJS()}/> : null}
+                            {link.get('icon') ? <MaIcon icon={link.get('icon')}/> : null}
                             {link.get('title')}
                           </a>
                         </Link>

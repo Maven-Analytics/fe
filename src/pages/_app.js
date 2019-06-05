@@ -7,12 +7,6 @@ import {fromJS} from 'immutable';
 import {TransitionGroup, Transition} from 'react-transition-group';
 import * as FontFaceObserver from 'fontfaceobserver';
 
-import {library} from '@fortawesome/fontawesome-svg-core';
-import {faTimes, faChevronRight} from '@fortawesome/free-solid-svg-icons';
-import {faUser} from '@fortawesome/free-regular-svg-icons';
-
-library.add(faUser, faTimes, faChevronRight);
-
 import initStore from '../redux/store';
 import {actions as authActions} from '../redux/ducks/auth';
 import {getCookie} from '../utils/cookies';
@@ -45,11 +39,22 @@ class MavenApp extends App {
       new FontFaceObserver('D-DIN')
     ];
 
-    const promises = fonts.map(font => font.load());
+    const icons = [
+      new FontFaceObserver('maicon')
+    ];
 
-    Promise.all(promises)
+    const fontPromises = fonts.map(font => font.load());
+
+    const iconPromises = icons.map(icon => icon.load());
+
+    Promise.all(fontPromises)
       .then(() => {
         document.body.classList.add('fonts-loaded');
+      });
+
+    Promise.all(iconPromises)
+      .then(() => {
+        document.body.classList.add('icons-loaded');
       });
   }
 

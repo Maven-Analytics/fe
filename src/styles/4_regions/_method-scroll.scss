@@ -28,11 +28,11 @@
   &__content {
     @include breakpoint() {
       height: 512px;
-      padding-left: $spacing-unit;
+      padding-left: 50px;
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      width: calc(50% - 20px);
+      width: calc(60% - 20px);
     }
 
     @include media-breakpoint-up(xl) {
@@ -51,11 +51,15 @@
       display: block;
       flex: 0 0 839px;
       height: 512px;
-      left: 50%;
+      left: 60%;
       position: absolute;
       top: 50%;
       transform: translate3d(0, -50%, 0);
       width: 839px;
+    }
+
+    @include media-breakpoint-up(xl) {
+      left: 60%;
     }
   }
 

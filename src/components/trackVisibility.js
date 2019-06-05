@@ -2,7 +2,7 @@ import React, {Component, Fragment, createRef} from 'react';
 import PropTypes from 'prop-types';
 import throttle from 'lodash.throttle';
 
-import {isScrolledIntoView, canUseDOM, noop} from '../utils/componentHelpers';
+import {isElementXPercentInViewport, noop} from '../utils/componentHelpers';
 
 class TrackVisibility extends Component {
   constructor(props) {
@@ -37,7 +37,7 @@ class TrackVisibility extends Component {
 
   handleScroll() {
     setTimeout(() => {
-      if (this.el && this.el.current && isScrolledIntoView(this.el.current, this.props.offset, canUseDOM())) {
+      if (this.el && this.el.current && isElementXPercentInViewport(this.el.current, 0)) {
         this.removeListeners();
 
         this.setState({
