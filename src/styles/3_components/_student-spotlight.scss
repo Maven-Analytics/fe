@@ -1,0 +1,174 @@
+.student-spotlight {
+  @mixin breakpoint() {
+    @include media-breakpoint-up(md) {
+      @content;
+    }
+  }
+
+  &__header {
+    align-items: center;
+    display: flex;
+    margin: 0 0 $spacing-unit--mdl;
+
+    @include breakpoint() {
+      margin: 0 0 $spacing-unit--l;
+    }
+
+    .image {
+      $borderWidth: 3px;
+
+      background: $brand-gradient;
+      border-radius: 50%;
+      height: 77px;
+      margin-right: $spacing-unit;
+      overflow: hidden;
+      padding: $borderWidth;
+      width: 77px;
+
+      @include breakpoint() {
+        flex: 0 0 118px;
+        height: 118px;
+        margin-right: $spacing-unit--mdl;
+        width: 118px;
+      }
+
+      img {
+        border-radius: 50%;
+        height: calc(100% - #{$borderWidth * 2});
+        left: $borderWidth;
+        top: $borderWidth;
+        width: calc(100% - #{$borderWidth * 2});
+      }
+    }
+
+    .meta {
+      font-size: 1.2rem;
+      line-height: 1.25;
+
+      @include breakpoint() {
+        font-size: 1.6rem;
+        line-height: 1.18;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      .name {
+        color: $yellow;
+        font-weight: 700;
+        margin-bottom: $spacing-unit--half;
+        text-transform: uppercase;
+
+        @include breakpoint() {
+          font-size: 1.125em;
+        }
+      }
+
+      .title {
+        font-weight: 700;
+        margin-bottom: .1rem;
+      }
+
+      .location {
+        font-style: italic;
+      }
+    }
+  }
+
+  &__courses {
+    margin-bottom: $spacing-unit--md;
+
+    @include breakpoint() {
+      margin-bottom: $spacing-unit--ll;
+    }
+
+    p {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: $spacing-unit--ss;
+      text-transform: uppercase;
+
+      @include breakpoint() {
+        font-size: 1.4rem;
+        margin-bottom: $spacing-unit;
+      }
+    }
+
+    ul {
+      @include list-unstyled();
+
+      @include breakpoint() {
+        padding-left: $spacing-unit;
+      }
+
+      li {
+        align-items: center;
+        display: flex;
+        font-size: 1.2rem;
+        margin-bottom: $spacing-unit--sm;
+        white-space: nowrap;
+
+        @include breakpoint() {
+          font-size: 1.6rem;
+          margin-bottom: $spacing-unit--ss;
+        }
+
+        i {
+          color: $yellow;
+          margin-right: $spacing-unit;
+        }
+      }
+    }
+  }
+
+  &__quote {
+    font-size: 1.2rem;
+    line-height: 1.6666;
+    margin-bottom: $spacing-unit--mdl;
+    padding: $spacing-unit--l $spacing-unit 0 $spacing-unit;
+    position: relative;
+
+    &::before {
+      @include gradient-font();
+      content: "“";
+      font-family: 'Georgia';
+      font-size: 6.2rem;
+      left: 0;
+      line-height: 1;
+      position: absolute;
+      top: 0;
+
+      @include breakpoint() {
+        font-size: 13.2rem;
+      }
+    }
+
+    @include breakpoint() {
+      font-size: 2rem;
+      line-height: 1.5;
+      margin-bottom: $spacing-unit--ll;
+      padding: 3rem 0 0 7rem;
+    }
+  }
+
+  &__callout {
+    background: $brand-gradient;
+    color: $black;
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1;
+    padding: .5rem .7rem;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 0 auto;
+    max-width: 231px;
+
+    @include breakpoint() {
+      font-size: 2.8rem;
+      margin: 0;
+      max-width: none;
+      padding: $spacing-unit $spacing-unit--md;
+    }
+  }
+}

@@ -41,6 +41,7 @@
 
 // Lato
 @include font-face('Lato', '/static/fonts/Lato/Lato-Regular', 400, normal);
+@include font-face('Lato', '/static/fonts/Lato/Lato-Italic', 400, italic);
 @include font-face('Lato', '/static/fonts/Lato/Lato-Black', 900, normal);
 
 // D-DIN

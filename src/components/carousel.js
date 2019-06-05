@@ -22,6 +22,22 @@ class Carousel extends Component {
     this.initCarousel();
   }
 
+  componentDidUpdate(prevProps) {
+    const {activeIndex} = this.props;
+
+    if (prevProps.activeIndex !== activeIndex) {
+      this.goToSlide(activeIndex);
+    }
+  }
+
+  goToSlide(index) {
+    if (!this.flickity) {
+      return;
+    }
+
+    this.flickity.select(index);
+  }
+
   async initCarousel() {
     if (!canUseDOM()) {
       return;
@@ -48,7 +64,8 @@ class Carousel extends Component {
 
 Carousel.propTypes = {
   children: PropTypes.node.isRequired,
-  options: PropTypes.object
+  options: PropTypes.object,
+  activeIndex: PropTypes.number
 };
 
 Carousel.defaultProps = {

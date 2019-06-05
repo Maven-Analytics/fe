@@ -1,0 +1,45 @@
+.student-spotlights {
+  color: $white;
+  padding: 5rem 0 8rem;
+  position: relative;
+
+  @include media-breakpoint-up(lg) {
+    padding: 10rem 0 13rem;
+  }
+
+  &__background {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: -1;
+  }
+
+  &__header {
+    margin: 0 0 $spacing-unit--mdl;
+    text-align: center;
+
+    @include media-breakpoint-up(lg) {
+      margin: 0 0 $spacing-unit--xlx;
+    }
+
+    h2 {
+      font-size: 2.8rem;
+      line-height: .8;
+      margin: 0;
+      text-transform: uppercase;
+
+      @include media-breakpoint-up(lg) {
+        font-size: 5.5rem;
+        line-height: 1.05;
+      }
+    }
+  }
+
+  .carousel {
+    .carousel-slide {
+      width: 100%;
+    }
+  }
+}

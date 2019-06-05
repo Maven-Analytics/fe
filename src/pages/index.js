@@ -18,6 +18,7 @@ import MethodMobile from '../sections/methodMobile';
 import Mission from '../sections/mission';
 import TrendingCourses from '../sections/trendingCourses';
 import Clients from '../sections/clients';
+import StudentSpotlights from '../sections/studentSpotlights';
 
 const methodItems = [
   {
@@ -254,7 +255,9 @@ class Home extends Component {
         <TrendingCourses
           courses={fromJS([...Courses.map((course, index) => course.set('id', index)), ...Courses.map((course, index) => course.set('id', index + 4)), ...Courses.map((course, index) => course.set('id', index + 8))])}
         />
+        <StudentSpotlights/>
         <Clients clients={HappyClients}/>
+
         <div  className="container">
 
           <h1>Homepage</h1>
