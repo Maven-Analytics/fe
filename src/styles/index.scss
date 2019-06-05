@@ -17,6 +17,7 @@
 @import '~bootstrap/scss/mixins/grid-framework';
 @import '~bootstrap/scss/mixins/grid';
 @import '~bootstrap/scss/grid';
+@import '~flickity/css/flickity.css';
 
 @import './1_core/html/root';
 @import './1_core/html/typography';
@@ -25,6 +26,7 @@
 @import './1_core/html/images';
 @import './1_core/html/buttons';
 @import './1_core/html/headings';
+@import './1_core/html/grid';
 
 @import './2_pieces/hamburger';
 @import './2_pieces/logo';
@@ -37,6 +39,7 @@
 
 @import './3_components/auth';
 @import './3_components/scroll';
+@import './3_components/card-trending-course';
 
 @import './4_regions/global-header';
 @import './4_regions/mobile-menu';
@@ -45,6 +48,7 @@
 @import './4_regions/method-scroll';
 @import './4_regions/method-mobile';
 @import './4_regions/mission';
+@import './4_regions/trending-courses';
 
 .view {
   width: 100%;

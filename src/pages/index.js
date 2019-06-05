@@ -16,6 +16,7 @@ import StatCounter from '../sections/statCounter';
 import MethodScroll from '../sections/methodScroll';
 import MethodMobile from '../sections/methodMobile';
 import Mission from '../sections/mission';
+import TrendingCourses from '../sections/trendingCourses';
 
 const methodItems = [
   {
@@ -108,6 +109,35 @@ const methodItems = [
 const MissionContent = `## THERE'S A BETTER WAY TO **BUILD YOUR SKILLS**
 Your time is valuable; don’t spend it sifting through courses, webinars and bootcamps trying to figure out where to start. Think of us as your personal team of instructors, experts, mentors and guides, here to **simplify the learning process** and **help you develop the exact skills you need.**`;
 
+const Courses = fromJS([
+  {
+    title: 'Power Query, Power Pivot and DAX',
+    difficulty: 3,
+    link: '/',
+    image: '//via.placeholder.com/253x102',
+    recommended: true
+  },
+  {
+    title: 'Data Visualization with Excel Charts & Graphs',
+    difficulty: 3,
+    link: '/',
+    image: '//via.placeholder.com/253x102'
+  },
+  {
+    title: 'Up and Running with Power BI Desktop',
+    difficulty: 3,
+    link: '/',
+    image: '//via.placeholder.com/253x102',
+    recommended: true
+  },
+  {
+    title: 'Publishing to Power BI Service',
+    difficulty: 3,
+    link: '/',
+    image: '//via.placeholder.com/253x102'
+  }
+]);
+
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -136,6 +166,9 @@ class Home extends Component {
     return (
       <Main>
         <Hero/>
+        <TrendingCourses
+          courses={fromJS([...Courses.map((course, index) => course.set('id', index)), ...Courses.map((course, index) => course.set('id', index + 4)), ...Courses.map((course, index) => course.set('id', index + 8))])}
+        />
         <StatCounter
           stats={fromJS([
             {

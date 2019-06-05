@@ -1,0 +1,7 @@
+.container {
+  &--lg {
+    @include media-breakpoint-up(xl) {
+      max-width: 1200px;
+    }
+  }
+}

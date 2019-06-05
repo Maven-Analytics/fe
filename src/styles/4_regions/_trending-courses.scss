@@ -1,0 +1,94 @@
+.trending-courses {
+  background: $brand-gradient;
+  padding: 2.5rem 0 2.8rem;
+
+  @include media-breakpoint-up(lg) {
+    padding: 5.5rem 0 6.8rem;
+  }
+
+  header {
+    color: $black;
+    margin: 0 0 $spacing-unit;
+    text-align: center;
+
+    @include media-breakpoint-up(md) {
+      margin: 0 0 $spacing-unit--md;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      margin: 0;
+      text-transform: uppercase;
+
+      @include media-breakpoint-up(md) {
+        font-size: 1.6rem;
+        letter-spacing: 4px;
+      }
+    }
+  }
+
+  .carousel {
+    &:not(.flickity-enabled) {
+      display: flex;
+      overflow: hidden;
+      width: 100%;
+
+      .carousel-slide {
+        flex: 0 0 100%;
+        height: 235px;
+
+        @include media-breakpoint-up(md) {
+          flex: 0 0 50%;
+        }
+
+        @include media-breakpoint-up(lg) {
+          flex: 0 0 33.33333%;
+        }
+
+        @include media-breakpoint-up(xl) {
+          flex: 0 0 25%;
+        }
+      }
+    }
+
+    .carousel-slide {
+      width: 100%;
+
+      @include media-breakpoint-up(md) {
+        width: calc(50% - 10px);
+      }
+
+      @include media-breakpoint-up(lg) {
+        width: calc(33.33333% - 10px);
+      }
+
+      @include media-breakpoint-up(xl) {
+        width: calc(25% - 10px);
+      }
+
+      .card-trending-course {
+        margin: 0 auto 2.1rem;
+        height: 100%;
+
+        @include media-breakpoint-up(lg) {
+          margin: 0 auto 3.1rem;
+        }
+      }
+    }
+
+    .flickity-page-dots {
+      bottom: -20px;
+
+      .dot {
+        background: $white;
+        opacity: .45;
+
+        &.is-selected {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

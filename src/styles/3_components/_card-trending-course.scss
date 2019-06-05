@@ -1,0 +1,112 @@
+.card-trending-course {
+  background-color: $white;
+  box-shadow: 5px 5px 10px 0 rgba(0,0,0,0.2);
+  max-width: 275px;
+  padding: 8px;
+
+  &__image {
+    position: relative;
+
+    .image {
+      padding-bottom: 40.31%;
+
+      img {
+        z-index: index($globalIndex, cardImage);
+      }
+    }
+
+    .overlay {
+      background: $brand-gradient;
+      bottom: 0;
+      left: 0;
+      opacity: .75;
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: index($globalIndex, cardImageOverlay);
+    }
+
+    .recommended {
+      align-items: center;
+      background-color: $white;
+      color: $gray-darker;
+      display: flex;
+      font-size: .9rem;
+      font-weight: 700;
+      left: -8px;
+      padding: $spacing-unit--sm $spacing-unit;
+      position: absolute;
+      top: 8px;
+      z-index: index($globalIndex, cardImageContent);
+
+      i {
+        @include gradient-font();
+        color: $white;
+        font-size: 1.5rem;
+        margin-right: .9rem;
+      }
+    }
+  }
+
+  &__inner {
+    padding: $spacing-unit 1.8rem;
+
+    h4 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      height: 42px;
+      line-height: 1.3;
+      margin-bottom: $spacing-unit;
+
+      @at-root .fonts-loaded & {
+        font-family: $font-body;
+      }
+    }
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .difficulty {
+    align-items: flex-end;
+    display: flex;
+
+    .label {
+      color: $gray-dark;
+      font-size: .9rem;
+      font-weight: 700;
+      margin-right: $spacing-unit--ss;
+      padding-bottom: 1px;
+    }
+
+    .graphic {
+      span {
+        background-color: $gray-light-2;
+        display: inline-block;
+        opacity: 0.33;
+        width: 5px;
+
+        &:not(:last-child) {
+          margin-right: .4rem;
+        }
+
+        &.active {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  .btn {
+    display: block;
+    font-size: .9rem;
+    flex: 0 0 93px;
+    height: 24px;
+    line-height: 19px;
+    min-width: 0;
+    padding: 0;
+    width: 93px;
+  }
+}

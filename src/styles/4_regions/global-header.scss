@@ -17,6 +17,7 @@
   .headroom {
     background-color: $black;
     transition: background-color .15s ease-in;
+    z-index: index($globalIndex, globalHeader) !important;
 
     @include desktopHeader {
       background-color: transparent;

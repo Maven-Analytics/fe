@@ -107,4 +107,17 @@
       }
     }
   }
+
+  &--secondary {
+    background-color: $blue;
+    border-color: $blue;
+    border-radius: 0;
+    color: $white;
+
+    &:hover {
+      background-color: transparent;
+      border-color: $blue;
+      color: $black;
+    }
+  }
 }
