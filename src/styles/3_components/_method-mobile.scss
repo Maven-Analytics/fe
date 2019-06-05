@@ -1,5 +1,10 @@
 .method-mobile {
   display: block;
+  padding: $spacing-unit--md 0;
+
+  @include media-breakpoint-up(sm) {
+    padding: $spacing-unit--l 0;
+  }
 
   @include media-breakpoint-up(lg) {
     display: none;
