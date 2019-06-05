@@ -86,9 +86,7 @@ class MethodScroll extends Component {
                               srcSet={`${item.img2} 1x, ${item.img2Retina} 2x`}
                               wrapStyle={{
                                 width: item.width,
-                                height: item.height
-                              }}
-                              style={{
+                                height: item.height,
                                 top: item.top
                               }}
                             />

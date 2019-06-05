@@ -8,10 +8,21 @@
   ul {
     @include list-unstyled();
 
+    @include media-breakpoint-up(sm) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-row-gap: $spacing-unit--l;
+      grid-column-gap: $spacing-unit--l;
+    }
+
     li {
       opacity: 0;
       margin-bottom: $spacing-unit--xl;
       transition: opacity .2s ease-in;
+
+      @include media-breakpoint-up(sm) {
+        margin-bottom: 0;
+      }
 
       &.active {
         opacity: 1;

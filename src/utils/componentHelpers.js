@@ -135,10 +135,23 @@ export function isScrolledIntoView(element, offset = 0, useDOM) {
     return false;
   }
 
-  const elementTop = element.getBoundingClientRect().top - offset;
-  const elementBottom = element.getBoundingClientRect().bottom + offset;
+  const rect = element.getBoundingClientRect();
 
-  return elementTop <= getWindowHeight(useDOM) && elementBottom >= 0;
+  // const elementTop = element.getBoundingClientRect().top - offset;
+  // const elementBottom = element.getBoundingClientRect().bottom + offset;
+
+  const windowHeight = getWindowHeight(useDOM);
+  const clientHeight = document.documentElement.clientHeight;
+
+  const inView = (
+    rect.top - offset >= 0 &&
+    rect.bottom <= (windowHeight || clientHeight) &&
+    Boolean(element.offsetParent) // Ensures it has a parent that is visible
+  );
+
+  return inView;
+
+  // return elementTop <= getWindowHeight(useDOM) && elementBottom >= 0;
 }
 
 export function getNodeHeight(useDOM, node) {

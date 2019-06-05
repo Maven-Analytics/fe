@@ -109,7 +109,7 @@ class ParallaxBg extends Component {
       <div ref={this.el} style={{overflow: 'hidden', height: '100%', width: '100%'}}>
         <Image
           preload
-          modifier="image--cover"
+          cover
           src={src}
           alt={alt}
           srcSet={srcSet}

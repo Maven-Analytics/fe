@@ -6,7 +6,7 @@
     font-size: 2.6rem;
     font-weight: 700;
     line-height: 45px;
-    margin-right: $spacing-unit--half;
+    margin-right: $spacing-unit--ss;
 
     @include media-breakpoint-up(lg) {
       color: $black;
@@ -27,7 +27,7 @@
     font-weight: 700;
     height: 45px;
     line-height: 30px;
-    margin-bottom: $spacing-unit--sm;
+    margin-bottom: 0;
 
     @at-root .fonts-loaded & {
       font-family: $font-body;
@@ -45,12 +45,13 @@
     color: $gray-medium-2;
     font-size: 1.2rem;
     line-height: 1.6;
-    margin-bottom: $spacing-unit--half;
+    margin-bottom: $spacing-unit;
 
     @include media-breakpoint-up(lg) {
       font-size: 1.6rem;
       line-height: 1.5;
       margin-bottom: $spacing-unit;
+      max-width: none;
       opacity: 0;
       transform: translate3d(0, -10px, 0);
       transition: all .2s .2s ease-in-out;

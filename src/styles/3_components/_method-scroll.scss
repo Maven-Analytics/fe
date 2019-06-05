@@ -81,7 +81,7 @@
         @include breakpoint() {
           opacity: 1;
           transform: translateX(0);
-          transition: all .2s .2 ease-in;
+          transition: all .2s .2s ease-in;
         }
       }
     }

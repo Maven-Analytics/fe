@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import throttle from 'lodash.throttle';
 
 import {isScrolledIntoView, canUseDOM, noop} from '../utils/componentHelpers';
-import { join } from 'path';
 
 class TrackVisibility extends Component {
   constructor(props) {
@@ -27,11 +26,13 @@ class TrackVisibility extends Component {
 
   addListeners() {
     window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener('resize', this.handleScroll);
     this.handleScroll();
   }
 
   removeListeners() {
     window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener('resize', this.handleScroll);
   }
 
   handleScroll() {

@@ -36,15 +36,34 @@ class Image extends Component {
     this.setState({loaded: true});
   }
 
+  getWrapClassList() {
+    const {cover, modifier} = this.props;
+    const {loaded} = this.state;
+
+    const classList = ['image'];
+
+    if (modifier) {
+      classList.push(modifier);
+    }
+
+    if (loaded) {
+      classList.push('loaded');
+    }
+
+    if (cover) {
+      classList.push('image--cover');
+    }
+
+    return classList.join(' ');
+  }
+
   render() {
-    const {src, modifier, alt, srcSet, style, wrapStyle, onlyInView} = this.props;
-    const {loaded, shouldPreload} = this.state;
-    const Tag = onlyInView ? TrackVisibility : 'div';
+    const {src, alt, srcSet, style, wrapStyle} = this.props;
 
     return (
-      <Tag className={`image ${shouldPreload ? 'image--preload' : ''} ${loaded ? 'loaded' : ''} ${modifier ? modifier : ''}`} style={wrapStyle}>
-        <img ref={this.img} style={style} onLoad={this.handleLoad} src={src} alt={alt} srcSet={srcSet} sizes="100vw"/>
-      </Tag>
+      <TrackVisibility className={this.getWrapClassList()} style={wrapStyle}>
+        <img ref={this.img} style={style} onLoad={this.handleLoad} src={src} alt={alt} srcSet={srcSet}/>
+      </TrackVisibility>
     );
   }
 }
@@ -58,14 +77,14 @@ Image.propTypes = {
   onLoad: PropTypes.func,
   style: PropTypes.object,
   wrapStyle: PropTypes.object,
-  onlyInView: PropTypes.bool
+  cover: PropTypes.bool
 };
 
 Image.defaultProps = {
   preload: false,
   onLoad: noop,
   style: {},
-  onlyInView: false
+  cover: false
 };
 
 export default Image;
