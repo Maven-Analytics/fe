@@ -9,12 +9,16 @@ html {
 
 body {
   color: $body-color;
-  font-family: $font-body;
   font-size: 1.4rem;
   line-height: 1.25;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  &.fonts-loaded {
+    font-family: $font-body;
+    font-weight: 400;
+  }
 
   &.mobile-menu-open {
     overflow: hidden;

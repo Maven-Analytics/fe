@@ -3,9 +3,12 @@ h2,
 h3,
 h5,
 h6 {
-  font-family: $font-heading;
   font-weight: 400;
   letter-spacing: initial;
+
+  @at-root .fonts-loaded & {
+    font-family: $font-heading;
+  }
 }
 
 h1 {

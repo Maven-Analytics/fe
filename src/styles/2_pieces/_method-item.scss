@@ -23,12 +23,15 @@
   &__title {
     align-items: center;
     display: flex;
-    font-family: $font-body;
     font-size: 1.6rem;
     font-weight: 700;
     height: 45px;
     line-height: 30px;
     margin-bottom: $spacing-unit--sm;
+
+    @at-root .fonts-loaded & {
+      font-family: $font-body;
+    }
 
     @include media-breakpoint-up(lg) {
       height: 40px;

@@ -5,7 +5,7 @@ import {Controller, Scene} from 'react-scrollmagic';
 import Image from './image';
 import MethodItem from './methodItem';
 import MethodHeader from './methodHeader';
-import Scroller from './Scroller';
+import Scroller from './scroller';
 import TrackVisibility from './trackVisibility';
 
 class MethodScroll extends Component {

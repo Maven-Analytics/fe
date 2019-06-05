@@ -5,6 +5,7 @@ import withRedux from 'next-redux-wrapper';
 import withReduxSaga from 'next-redux-saga';
 import {fromJS} from 'immutable';
 import {TransitionGroup, Transition} from 'react-transition-group';
+import * as FontFaceObserver from 'fontfaceobserver';
 
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {faTimes, faChevronRight} from '@fortawesome/free-solid-svg-icons';
@@ -36,6 +37,20 @@ class MavenApp extends App {
         ...(Component.getInitialProps ? await Component.getInitialProps(ctx) : {})
       }
     };
+  }
+
+  componentDidMount() {
+    const fonts = [
+      new FontFaceObserver('Lato'),
+      new FontFaceObserver('D-DIN')
+    ];
+
+    const promises = fonts.map(font => font.load());
+
+    Promise.all(promises)
+      .then(() => {
+        document.body.classList.add('fonts-loaded');
+      });
   }
 
   render() {

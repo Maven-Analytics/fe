@@ -35,8 +35,8 @@ class TrackVisibility extends Component {
   }
 
   handleScroll() {
-    if (isScrolledIntoView(this.el.current, this.props.offset, canUseDOM())) {
-      setTimeout(() => {
+    setTimeout(() => {
+      if (this.el && this.el.current && isScrolledIntoView(this.el.current, this.props.offset, canUseDOM())) {
         this.removeListeners();
 
         this.setState({
@@ -44,8 +44,8 @@ class TrackVisibility extends Component {
         });
 
         this.props.onShow();
-      }, this.props.delay)
-    }
+      }
+    }, this.props.delay);
   }
 
   render() {

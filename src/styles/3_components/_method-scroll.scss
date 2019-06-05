@@ -1,5 +1,6 @@
 .method-scroll {
   display: none;
+  position: relative;
 
   @mixin breakpoint() {
     @include media-breakpoint-up(lg) {
