@@ -1,8 +1,7 @@
 import React, {Component, createRef} from 'react';
-import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
 
-import {canUseDOM} from '../utils/componentHelpers';
+import {canUseDOM, noop} from '../utils/componentHelpers';
 
 class Carousel extends Component {
   constructor(props) {
@@ -49,13 +48,17 @@ class Carousel extends Component {
       ...this.defaultOptions,
       ...this.props.options
     });
+
+    this.flickity.on('change', index => {
+      this.props.onChange(index);
+    });
   }
 
   render() {
-    const {children} = this.props;
+    const {children, className} = this.props;
 
     return (
-      <div ref={this.el} className="carousel">
+      <div ref={this.el} className={`carousel ${className}`}>
         {children}
       </div>
     );
@@ -65,11 +68,15 @@ class Carousel extends Component {
 Carousel.propTypes = {
   children: PropTypes.node.isRequired,
   options: PropTypes.object,
-  activeIndex: PropTypes.number
+  activeIndex: PropTypes.number,
+  className: PropTypes.string,
+  onChange: PropTypes.func
 };
 
 Carousel.defaultProps = {
-  options: {}
+  options: {},
+  className: '',
+  onChange: noop
 };
 
 export default Carousel;

@@ -37,9 +37,79 @@
     }
   }
 
-  .carousel {
+  .carousel:not(.student-spotlights__nav) {
+    &:not(.flickity-enabled) {
+      display: flex;
+
+      .carousel-slide {
+        flex: 0 0 100%;
+      }
+    }
+
     .carousel-slide {
       width: 100%;
+    }
+  }
+
+  &__nav {
+    margin-top: 5.2rem;
+
+    @include media-breakpoint-up(lg) {
+      margin-top: 8rem;
+    }
+
+    &:not(.flickity-enabled) {
+      display: flex;
+
+      .carousel-slide {
+        flex: 0 0 40px;
+      }
+    }
+
+    .carousel-slide {
+      $borderWidth: 3px;
+      height: 40px;
+      margin: 0 1.1rem;
+      opacity: .45;
+      width: 40px;
+
+      button {
+        background-color: transparent;
+        border: none;
+        display: block;
+        height: 100%;
+        padding: 0;
+        width: 100%;
+
+        &:focus {
+          outline: none;
+        }
+
+        .image {
+          border-radius: 50%;
+          height: 100%;
+          overflow: hidden;
+          width: 100%;
+
+          img {
+            border-radius: 50%;
+            height: calc(100% - #{$borderWidth * 2});
+            left: $borderWidth;
+            top: $borderWidth;
+            width: calc(100% - #{$borderWidth * 2});
+          }
+        }
+      }
+
+      &.is-selected,
+      &:focus,
+      &:focus-within {
+        opacity: 1;
+
+        .image {
+          background-color: $gray-light;
+        }
+      }
     }
   }
 }

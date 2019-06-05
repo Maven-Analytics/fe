@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as ImmutablePropTypes from 'react-immutable-proptypes';
-import {List} from 'immutable';
 
 import Image from './image';
 import Markdown from './markdown';
@@ -50,13 +48,13 @@ StudentSpotlight.propTypes = {
   title: PropTypes.string,
   location: PropTypes.string,
   quote: PropTypes.string,
-  courses: ImmutablePropTypes.list,
+  courses: PropTypes.array,
   callout: PropTypes.string,
   image: PropTypes.string
 };
 
 StudentSpotlight.defaultProps = {
-  courses: List()
+  courses: []
 };
 
 export default StudentSpotlight;

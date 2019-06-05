@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import {fromJS} from 'immutable';
+import * as ImmutablePropTypes from 'react-immutable-proptypes';
+import {fromJS, List} from 'immutable';
 
 import {click} from '../utils/componentHelpers';
 import ParallaxBg from '../components/parallaxBg';
@@ -27,6 +27,9 @@ class StudentSpotlights extends Component {
   }
 
   render() {
+    const {spotlights} = this.props;
+    const {activeIndex} = this.state;
+
     return (
       <div className="student-spotlights">
         <div className="student-spotlights__background">
@@ -40,26 +43,43 @@ class StudentSpotlights extends Component {
           <header className="student-spotlights__header">
             <h2>Student <strong>Spotlight</strong></h2>
           </header>
-          <Carousel options={{pageDots: false}}>
-            <CarouselSlide>
-              <StudentSpotlight
-                image="/static/img/students/Celia_Alves.jpg"
-                name="Celia Alves"
-                title="Certified Data Rockstar"
-                location="Ontario, Canada"
-                quote="When I was hired to develop a custom reporting solution for client who runs a medical clinic, I quickly realized that the case would be much more challenging than expected. I’d have to pull records from several systems, build data models and DAX measures to tie it all together, and generate reports and analyses using VBA and Power Pivot. The tools that I learned from Maven Analytics were critical to getting the job done, and my client is absolutely thrilled with the results!"
-                callout="Rocked Her Toughest Project"
-                courses={fromJS([
-                  'Intro to Power Query, Power Pivot & DAX',
-                  'Excel VBA & Macros'
-                ])}
-              />
-            </CarouselSlide>
+          <Carousel activeIndex={activeIndex} options={{pageDots: false}} onChange={this.handleNavClick}>
+            {spotlights.map(spotlight => (
+              <CarouselSlide key={spotlight.get('name')}>
+                <StudentSpotlight {...spotlight.toJS()}/>
+              </CarouselSlide>
+            ))}
+          </Carousel>
+          <Carousel
+            activeIndex={activeIndex}
+            className="student-spotlights__nav"
+            options={{
+              pageDots: false,
+              usePercent: false,
+              cellAlign: 'center'
+            }}
+            onChange={this.handleNavClick}
+          >
+            {spotlights.map((spotlight, index) => (
+              <CarouselSlide key={spotlight.get('image')}>
+                <button onClick={click(this.handleNavClick, index)}>
+                  <Image cover src={spotlight.get('image')}/>
+                </button>
+              </CarouselSlide>
+            ))}
           </Carousel>
         </div>
       </div>
     );
   }
 }
+
+StudentSpotlights.propTypes = {
+  spotlights: ImmutablePropTypes.list
+};
+
+StudentSpotlights.defaultProps = {
+  spotlights: List()
+};
 
 export default StudentSpotlights;

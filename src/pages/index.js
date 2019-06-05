@@ -171,6 +171,105 @@ const HappyClients = fromJS([
   }
 ]);
 
+const Spotlights = fromJS([
+  {
+    image: '/static/img/students/Celia.jpg',
+    name: 'Celia',
+    title: 'Certified Data Rockstar',
+    location: 'Ontario, Canada',
+    courses: [
+      'Intro to Power Query, Power Pivot & DAX',
+      'Excel VBA & Macros'
+    ],
+    callout: 'Rocked Her Toughest Project',
+    quote: 'When I was hired to develop a custom reporting solution for client who runs a medical clinic, I quickly realized that the case would be much more challenging than expected. I’d have to pull records from several systems, build data models and DAX measures to tie it all together, and generate reports and analyses using VBA and Power Pivot. The tools that I learned from Maven Analytics were critical to getting the job done, and my client is absolutely thrilled with the results!'
+  },
+  {
+    image: '/static/img/students/Alex.jpg',
+    name: 'Alex',
+    title: 'Certified Data Rockstar',
+    location: 'Ontario, Canada',
+    courses: [
+      'Intro to Power Query, Power Pivot & DAX',
+      'Excel VBA & Macros'
+    ],
+    callout: 'Rocked Her Toughest Project',
+    quote: 'When I was hired to develop a custom reporting solution for client who runs a medical clinic, I quickly realized that the case would be much more challenging than expected. I’d have to pull records from several systems, build data models and DAX measures to tie it all together, and generate reports and analyses using VBA and Power Pivot. The tools that I learned from Maven Analytics were critical to getting the job done, and my client is absolutely thrilled with the results!'
+  },
+  {
+    image: '/static/img/students/Jessica.jpg',
+    name: 'Jessica',
+    title: 'Certified Data Rockstar',
+    location: 'Ontario, Canada',
+    courses: [
+      'Intro to Power Query, Power Pivot & DAX',
+      'Excel VBA & Macros'
+    ],
+    callout: 'Rocked Her Toughest Project',
+    quote: 'When I was hired to develop a custom reporting solution for client who runs a medical clinic, I quickly realized that the case would be much more challenging than expected. I’d have to pull records from several systems, build data models and DAX measures to tie it all together, and generate reports and analyses using VBA and Power Pivot. The tools that I learned from Maven Analytics were critical to getting the job done, and my client is absolutely thrilled with the results!'
+  },
+  {
+    image: '/static/img/students/Ryan.jpg',
+    name: 'Ryan',
+    title: 'Certified Data Rockstar',
+    location: 'Ontario, Canada',
+    courses: [
+      'Intro to Power Query, Power Pivot & DAX',
+      'Excel VBA & Macros'
+    ],
+    callout: 'Rocked Her Toughest Project',
+    quote: 'When I was hired to develop a custom reporting solution for client who runs a medical clinic, I quickly realized that the case would be much more challenging than expected. I’d have to pull records from several systems, build data models and DAX measures to tie it all together, and generate reports and analyses using VBA and Power Pivot. The tools that I learned from Maven Analytics were critical to getting the job done, and my client is absolutely thrilled with the results!'
+  },
+  {
+    image: '/static/img/students/Sean.jpg',
+    name: 'Sean',
+    title: 'Certified Data Rockstar',
+    location: 'Ontario, Canada',
+    courses: [
+      'Intro to Power Query, Power Pivot & DAX',
+      'Excel VBA & Macros'
+    ],
+    callout: 'Rocked Her Toughest Project',
+    quote: 'When I was hired to develop a custom reporting solution for client who runs a medical clinic, I quickly realized that the case would be much more challenging than expected. I’d have to pull records from several systems, build data models and DAX measures to tie it all together, and generate reports and analyses using VBA and Power Pivot. The tools that I learned from Maven Analytics were critical to getting the job done, and my client is absolutely thrilled with the results!'
+  },
+  {
+    image: '/static/img/students/Stephen.jpg',
+    name: 'Stephen',
+    title: 'Certified Data Rockstar',
+    location: 'Ontario, Canada',
+    courses: [
+      'Intro to Power Query, Power Pivot & DAX',
+      'Excel VBA & Macros'
+    ],
+    callout: 'Rocked Her Toughest Project',
+    quote: 'When I was hired to develop a custom reporting solution for client who runs a medical clinic, I quickly realized that the case would be much more challenging than expected. I’d have to pull records from several systems, build data models and DAX measures to tie it all together, and generate reports and analyses using VBA and Power Pivot. The tools that I learned from Maven Analytics were critical to getting the job done, and my client is absolutely thrilled with the results!'
+  },
+  {
+    image: '/static/img/students/Vincent.jpg',
+    name: 'Vincent',
+    title: 'Certified Data Rockstar',
+    location: 'Ontario, Canada',
+    courses: [
+      'Intro to Power Query, Power Pivot & DAX',
+      'Excel VBA & Macros'
+    ],
+    callout: 'Rocked Her Toughest Project',
+    quote: 'When I was hired to develop a custom reporting solution for client who runs a medical clinic, I quickly realized that the case would be much more challenging than expected. I’d have to pull records from several systems, build data models and DAX measures to tie it all together, and generate reports and analyses using VBA and Power Pivot. The tools that I learned from Maven Analytics were critical to getting the job done, and my client is absolutely thrilled with the results!'
+  },
+  {
+    image: '/static/img/students/Zach.jpg',
+    name: 'Zach',
+    title: 'Certified Data Rockstar',
+    location: 'Ontario, Canada',
+    courses: [
+      'Intro to Power Query, Power Pivot & DAX',
+      'Excel VBA & Macros'
+    ],
+    callout: 'Rocked Her Toughest Project',
+    quote: 'When I was hired to develop a custom reporting solution for client who runs a medical clinic, I quickly realized that the case would be much more challenging than expected. I’d have to pull records from several systems, build data models and DAX measures to tie it all together, and generate reports and analyses using VBA and Power Pivot. The tools that I learned from Maven Analytics were critical to getting the job done, and my client is absolutely thrilled with the results!'
+  }
+]);
+
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -255,7 +354,7 @@ class Home extends Component {
         <TrendingCourses
           courses={fromJS([...Courses.map((course, index) => course.set('id', index)), ...Courses.map((course, index) => course.set('id', index + 4)), ...Courses.map((course, index) => course.set('id', index + 8))])}
         />
-        <StudentSpotlights/>
+        <StudentSpotlights spotlights={Spotlights}/>
         <Clients clients={HappyClients}/>
 
         <div  className="container">
