@@ -56,11 +56,27 @@ class Image extends Component {
     return classList.join(' ');
   }
 
+  getWrapStyle() {
+    const {wrapStyle, placeholderColor} = this.props;
+    const {loaded} = this.state;
+
+    let style = {...wrapStyle};
+
+    if (!loaded) {
+      style = {
+        ...style,
+        backgroundColor: placeholderColor
+      };
+    }
+
+    return style;
+  }
+
   render() {
-    const {src, alt, srcSet, style, wrapStyle} = this.props;
+    const {src, alt, srcSet, style} = this.props;
 
     return (
-      <TrackVisibility className={this.getWrapClassList()} style={wrapStyle}>
+      <TrackVisibility className={this.getWrapClassList()} style={this.getWrapStyle()}>
         <img ref={this.img} style={style} onLoad={this.handleLoad} src={src} alt={alt} srcSet={srcSet}/>
       </TrackVisibility>
     );
@@ -75,13 +91,15 @@ Image.propTypes = {
   onLoad: PropTypes.func,
   style: PropTypes.object,
   wrapStyle: PropTypes.object,
-  cover: PropTypes.bool
+  cover: PropTypes.bool,
+  placeholderColor: PropTypes.string
 };
 
 Image.defaultProps = {
   onLoad: noop,
   style: {},
-  cover: false
+  cover: false,
+  placeholderColor: '#F6F6F6'
 };
 
 export default Image;

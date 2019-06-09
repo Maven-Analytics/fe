@@ -349,7 +349,6 @@ class Home extends Component {
         />
         <div id="method">
           <MethodMobile items={methodItems}/>
-
           <MethodScroll items={methodItems}/>
         </div>
         <TrendingCourses

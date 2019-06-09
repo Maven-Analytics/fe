@@ -23,7 +23,6 @@ const MethodItem = ({title, description, image, linkTitle, linkHref, active, ste
         {image ? (
           <Image
             {...image}
-            onlyInView
             preload
             wrapStyle={{
               paddingBottom: `${image.height / image.width * 100}%`

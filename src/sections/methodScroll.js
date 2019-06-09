@@ -20,8 +20,6 @@ class MethodScroll extends Component {
   }
 
   componentDidMount() {
-    console.log(this.items.current.querySelectorAll('.method-item'));
-    console.log(this.items.current.offsetHeight);
     this.setState({
       duration: window.innerHeight * 3
     });
@@ -74,20 +72,19 @@ class MethodScroll extends Component {
                         return (
                           <TrackVisibility key={item.img} className={classList.join(' ')}>
                             <Image
-                              preload
-                              onlyInView
                               modifier="image-1"
                               src={item.img}
                               srcSet={`${item.img} 1x, ${item.imgRetina} 2x`}
+                              placeholderColor="transparent"
                               wrapStyle={{
                                 paddingTop: '53.19%'
                               }}
                             />
                             <Image
-                              onlyInView
                               modifier="image-2"
                               src={item.img2}
                               srcSet={`${item.img2} 1x, ${item.img2Retina} 2x`}
+                              placeholderColor="transparent"
                               wrapStyle={{
                                 width: item.width,
                                 height: item.height,

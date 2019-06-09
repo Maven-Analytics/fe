@@ -37,7 +37,7 @@ class TrackVisibility extends Component {
 
   handleScroll() {
     setTimeout(() => {
-      if (this.el && this.el.current && isElementXPercentInViewport(this.el.current, this.props.offset)) {
+      if (this.el && this.el.current && this.el.current.offsetParent && isElementXPercentInViewport(this.el.current, this.props.offset)) {
         this.removeListeners();
 
         this.setState({
@@ -63,6 +63,10 @@ class TrackVisibility extends Component {
   renderChildren(inView) {
     const {children} = this.props;
 
+    if (!children) {
+      return null;
+    }
+
     if (typeof children === 'function') {
       return children(inView);
     }
@@ -72,7 +76,7 @@ class TrackVisibility extends Component {
 }
 
 TrackVisibility.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]).isRequired,
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   className: PropTypes.string,
   onShow: PropTypes.func,
   alwaysShow: PropTypes.bool,
