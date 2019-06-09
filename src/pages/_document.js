@@ -23,9 +23,9 @@ class MyDocument extends Document {
 
           <meta name="viewport" content="initial-scale=1.0, width=device-width" key="viewport"/>
 
-          <link rel="preload" href="/static/fonts/maicon/fonts/maicon.woff2?1qo22k" as="font" type="font/woff2" crossOrigin/>
-          <link rel="preload" href="/static/fonts/DIN/D-DIN.woff2" as="font" type="font/woff2" crossOrigin/>
-          <link rel="preload" href="/static/fonts/Lato-Regular.woff2" as="font" type="font/woff2" crossOrigin/>
+          <link rel="preload" href="/static/fonts/maicon/fonts/maicon.woff2?1qo22k" as="font" type="font/woff2"/>
+          <link rel="preload" href="/static/fonts/DIN/D-DIN.woff2" as="font" type="font/woff2"/>
+          <link rel="preload" href="/static/fonts/Lato/Lato-Regular.woff2" as="font" type="font/woff2"/>
         </Head>
         <body>
           <Main/>
