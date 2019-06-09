@@ -1,0 +1,154 @@
+.global-footer {
+  background-color: $black;
+  color: $gray-light;
+  padding: $spacing-unit--xlx 0 $spacing-unit--l;
+
+  @include media-breakpoint-up(lg) {
+    padding: 10rem 0 7.5rem;
+  }
+
+  .logo {
+    width: 132px;
+
+    @include media-breakpoint-up(lg) {
+      width: 192px;
+    }
+  }
+
+  ul {
+    @include list-unstyled();
+  }
+
+  a {
+    color: $gray-light;
+
+    &:hover {
+      color: $yellow;
+      text-decoration: none;
+    }
+  }
+
+  &__description {
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6667;
+      margin: $spacing-unit--ss 0 $spacing-unit--mdl;
+
+      @include media-breakpoint-up(lg) {
+        font-size: 1.6rem;
+        line-height: 1.375;
+        margin: $spacing-unit--mdl 0;
+      }
+    }
+  }
+
+  &__menu {
+    p {
+      color: $white;
+      font-size: 1.1rem;
+      font-weight: 700;
+      line-height: 1.18;
+      margin: 0 0 1.4rem;
+      text-transform: uppercase;
+
+      @include media-breakpoint-up(lg) {
+        font-size: 1.4rem;
+        line-height: 1.2;
+      }
+    }
+
+    ul {
+      margin: 0 0 $spacing-unit--xlx;
+
+      @include media-breakpoint-up(lg) {
+        margin: 0;
+      }
+
+      li {
+        font-size: 1.2rem;
+        line-height: 1.25;
+        margin: 0 0 1.7rem;
+
+        @include media-breakpoint-up(lg) {
+          font-size: 1.4rem;
+          line-height: 1.2;
+          margin: 0 0 $spacing-unit;
+        }
+      }
+    }
+  }
+
+  .subscribe {
+    label {
+      font-size: 1.1rem;
+      line-height: 1.18;
+      margin: 0 0 $spacing-unit--xs;
+
+      @include media-breakpoint-up(lg) {
+        font-size: 1.4rem;
+        line-height: 1.2;
+      }
+    }
+
+    small {
+      font-size: 1rem;
+      font-style: italic;
+      margin: $spacing-unit 0 0;
+
+      @include media-breakpoint-up(lg) {
+        font-size: 1.2rem;
+      }
+    }
+
+    input {
+      background-color: $black-dark;
+      border: none;
+      color: $gray-light;
+      font-size: 1rem;
+
+      @include media-breakpoint-up(lg) {
+        font-size: 1.2rem;
+      }
+
+      &::placeholder {
+        opacity: .2;
+      }
+    }
+
+    .form-group {
+      background-color: $black-dark;
+
+      button {
+        color: $white;
+      }
+    }
+  }
+
+  &__contact {
+    margin: $spacing-unit--l 0 0;
+
+    @include media-breakpoint-up(lg) {
+      margin: $spacing-unit--lml 0 0;
+    }
+
+    ul {
+      margin: 0;
+
+      li {
+        align-items: center;
+        display: flex;
+        font-size: 1.2rem;
+
+        @include media-breakpoint-up(lg) {
+          font-size: 1.4rem;
+        }
+
+        i {
+          @include gradient-font();
+          font-size: 2rem;
+          margin-right: 1.1rem;
+        }
+      }
+    }
+  }
+}

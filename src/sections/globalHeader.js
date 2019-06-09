@@ -7,10 +7,10 @@ import Link from 'next/link';
 import {fromJS, Map} from 'immutable';
 
 import {getCurrentScrollY, raf, ref, click} from '../utils/componentHelpers';
-import Logo from './logo';
-import Hamburger from './hamburger';
+import Logo from '../components/logo';
+import Hamburger from '../components/hamburger';
 import {menuLinksMain, menuLinksRegister} from '../constants';
-import MaIcon from './maIcon';
+import MaIcon from '../components/maIcon';
 
 class GlobalHeader extends Component {
   render() {

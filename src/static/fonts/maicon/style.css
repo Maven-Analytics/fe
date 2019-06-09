@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'maicon';
-  src:  url('fonts/maicon.eot?x5w2tf');
-  src:  url('fonts/maicon.eot?x5w2tf#iefix') format('embedded-opentype'),
-    url('fonts/maicon.woff2?x5w2tf') format('woff2'),
-    url('fonts/maicon.ttf?x5w2tf') format('truetype'),
-    url('fonts/maicon.woff?x5w2tf') format('woff'),
-    url('fonts/maicon.svg?x5w2tf#maicon') format('svg');
+  src:  url('fonts/maicon.eot?ppea6c');
+  src:  url('fonts/maicon.eot?ppea6c#iefix') format('embedded-opentype'),
+    url('fonts/maicon.woff2?ppea6c') format('woff2'),
+    url('fonts/maicon.ttf?ppea6c') format('truetype'),
+    url('fonts/maicon.woff?ppea6c') format('woff'),
+    url('fonts/maicon.svg?ppea6c#maicon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -25,6 +25,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.maicon-envelope:before {
+  content: "\e90a";
+}
 .maicon-check:before {
   content: "\e909";
 }

@@ -35,3 +35,48 @@ export const menuLinksRegister = fromJS([
     btn: true
   }
 ]);
+
+export const footerLinks = fromJS([
+  {
+    title: 'Learn',
+    links: [
+      {
+        text: 'Get Started',
+        url: '/'
+      },
+      {
+        text: 'Skills Assessments',
+        url: '/'
+      },
+      {
+        text: 'Courses',
+        url: '/'
+      },
+      {
+        text: 'Learning Paths',
+        url: '/'
+      },
+      {
+        text: 'Team Training',
+        url: '/'
+      }
+    ]
+  },
+  {
+    title: 'Resources',
+    links: [
+      {
+        text: 'Success Stories',
+        url: '/'
+      },
+      {
+        text: 'Certified Credentials',
+        url: '/'
+      },
+      {
+        text: 'FAQ',
+        url: '/'
+      }
+    ]
+  }
+]);

@@ -5,8 +5,9 @@ import Link from 'next/link';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import GlobalHeader from '../components/globalHeader';
+import GlobalHeader from '../sections/globalHeader';
 import MobileMenu from '../components/mobileMenu';
+import GlobalFooter from '../sections/globalFooter';
 
 import {selectors as userSelectors} from '../redux/ducks/user';
 import {actions as authActions} from '../redux/ducks/auth';
@@ -40,6 +41,7 @@ class Layout extends Component {
         <main id="main" className="page-wrapper">
           {children}
         </main>
+        <GlobalFooter description="Award-winning courses to help you master the most sought-after analytics and business intelligence skills.  Customized training that helps everyday people become data rockstars. "/>
       </Fragment>
     );
   }
