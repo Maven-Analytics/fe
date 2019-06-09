@@ -119,6 +119,12 @@
       padding-left: $spacing-unit;
       position: relative;
     }
+
+    .scroller {
+      height: 216px;
+      max-height: 250px;
+      top: 20px;
+    }
   }
 
   .method-item {

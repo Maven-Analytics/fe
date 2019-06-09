@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import {Controller, Scene} from 'react-scrollmagic';
 
@@ -15,9 +15,13 @@ class MethodScroll extends Component {
     this.state = {
       duration: 4000
     };
+
+    this.items = createRef();
   }
 
   componentDidMount() {
+    console.log(this.items.current.querySelectorAll('.method-item'));
+    console.log(this.items.current.offsetHeight);
     this.setState({
       duration: window.innerHeight * 3
     });
@@ -44,7 +48,7 @@ class MethodScroll extends Component {
                   <div className="method-scroll__inner">
                     <div className="method-scroll__content">
                       <MethodHeader/>
-                      <div className="method-scroll__items">
+                      <div ref={this.items} className="method-scroll__items">
                         <Scroller progress={progress}/>
                         {items.map((item, index) => (
                           <MethodItem
