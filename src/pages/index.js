@@ -358,36 +358,6 @@ class Home extends Component {
         <StudentSpotlights spotlights={Spotlights}/>
         <Clients clients={HappyClients}/>
         <CtaSection/>
-        <div  className="container">
-
-          <h1>Homepage</h1>
-          <h1>Homepage</h1>
-          <h1>Homepage</h1>
-          <h1>Homepage</h1>
-          <h1>Homepage</h1>
-          <h1>Homepage</h1>
-          <h1>Homepage</h1>
-          <h1>Homepage</h1>
-          <h1>Homepage</h1>
-          <h1>Homepage</h1>
-          <h1>Homepage</h1>
-          <h1>Homepage</h1>
-          <h1>Homepage</h1>
-          <h1>Homepage</h1>
-          <h1>Homepage</h1>
-          <h1>Homepage</h1>
-          <h1>Homepage</h1>
-          <h1>Homepage</h1>
-          <h1>Homepage</h1>
-          <h1>Homepage</h1>
-          <h1>Homepage</h1>
-          <h1>Homepage</h1>
-          <h1>Homepage</h1>
-          <h1>Homepage</h1>
-          <h1>Homepage</h1>
-          <h1>Homepage</h1>
-          <h1>Homepage</h1>
-        </div>
       </Main>
     );
   }

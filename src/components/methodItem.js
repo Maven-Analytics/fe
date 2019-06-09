@@ -19,7 +19,7 @@ const MethodItem = ({title, description, image, linkTitle, linkHref, active, ste
       <span className="method-item__content">
         <p className="method-item__title">{title}</p>
         <p className="method-item__description">{description}</p>
-        <Link href={linkHref}><a className="btn btn--primary-solid">{linkTitle}</a></Link>
+        <Link href={linkHref}><a tabIndex={active ? 0 : -1} className="btn btn--primary-solid">{linkTitle}</a></Link>
         {image ? (
           <Image
             {...image}

@@ -78,6 +78,7 @@
     &:focus,
     .focus {
       box-shadow: none;
+      color: $black;
 
       &::after {
         opacity: 1;
