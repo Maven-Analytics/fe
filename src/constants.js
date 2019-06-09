@@ -80,3 +80,18 @@ export const footerLinks = fromJS([
     ]
   }
 ]);
+
+export const copyLinks = fromJS([
+  {
+    url: '/',
+    text: 'Terms & Conditions'
+  },
+  {
+    url: '/',
+    text: 'Privacy'
+  },
+  {
+    url: '/',
+    text: 'Contact'
+  }
+]);

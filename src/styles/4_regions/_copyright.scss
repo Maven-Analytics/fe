@@ -1,0 +1,62 @@
+.copyright {
+  @mixin fontSize() {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0 0 $spacing-unit--ss;
+
+    @include media-breakpoint-up(md) {
+      font-size: 1.2rem;
+      line-height: 1.25;
+    }
+  }
+
+  background-color: $black-light;
+  color: $gray-copy;
+  padding: 1.7rem 0;
+  text-align: center;
+
+  @include media-breakpoint-up(md) {
+    padding: 2.2rem 0;
+    text-align: left;
+  }
+
+  .row {
+    align-items: center;
+  }
+
+  ul li,
+  p {
+    @include fontSize();
+  }
+
+  p,
+  a {
+    color: inherit;
+  }
+
+  p {
+    span {
+      margin: 0 .5rem;
+    }
+  }
+
+  a {
+    &:hover {
+      color: $yellow;
+    }
+  }
+
+  ul {
+    @include list-inline();
+    justify-content: center;
+    margin: 0;
+
+    @include media-breakpoint-up(md) {
+      justify-content: flex-end;
+    }
+
+    li {
+      margin: 0 $spacing-unit;
+    }
+  }
+}

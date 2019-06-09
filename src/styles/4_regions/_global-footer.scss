@@ -1,10 +1,18 @@
 .global-footer {
   background-color: $black;
   color: $gray-light;
-  padding: $spacing-unit--xlx 0 $spacing-unit--l;
+  padding: $spacing-unit--xlx 0 0;
 
   @include media-breakpoint-up(lg) {
-    padding: 10rem 0 7.5rem;
+    padding: 10rem 0 0;
+  }
+
+  &__inner {
+    margin: 0 0 $spacing-unit--l;
+
+    @include media-breakpoint-up(lg) {
+      margin: 0 0 7.5rem;
+    }
   }
 
   .logo {
@@ -24,7 +32,6 @@
 
     &:hover {
       color: $yellow;
-      text-decoration: none;
     }
   }
 
