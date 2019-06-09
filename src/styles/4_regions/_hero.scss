@@ -1,19 +1,15 @@
 .hero {
-  height: calc(100vh - #{$header-height-mobile});
-
-  @include collapseUp {
-    height: 100vh;
-  }
+  position: relative;
 
   &__background {
     background-color: rgba($black, 0.5);
     height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: -1;
 
     .image {
-      // padding-top: 62.42%;
-
-      @include collapseUp {
-      }
+      padding-top: 62.42%;
     }
 
     img {
@@ -28,10 +24,6 @@
 
   &__content {
     color: $white;
-    position: absolute;
-    transform: translateY(-50%);
-    top: 50%;
-    width: 100%;
 
     h1 {
       font-size: 3.4rem;
@@ -92,11 +84,14 @@
 
   &__content-inner {
     max-width: 270px;
-    padding: $spacing-unit--xxl 0;
+    padding: 5vh 0 10vh;
 
     @include media-breakpoint-up(md) {
       max-width: 710px;
-      padding: $spacing-unit--xxxl 0;
+    }
+
+    @include media-breakpoint-up(lg) {
+      padding: calc(10vh + #{$header-height-desktop}) 0 28vh;
     }
   }
 }

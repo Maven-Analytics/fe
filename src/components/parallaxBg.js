@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import throttle from 'lodash.throttle';
 
 import Image from './image';
-import {canUseDOM, isScrolledIntoView, getNodeHeight} from '../utils/componentHelpers';
+import {canUseDOM, isScrolledIntoView, getNodeHeight, isTouchDevice} from '../utils/componentHelpers';
 
 const strength = 800;
 
@@ -12,7 +12,8 @@ class ParallaxBg extends Component {
     super(props);
 
     this.state = {
-      imgStyle: {}
+      imgStyle: {},
+      enabled: false
     };
 
     this.el = createRef();
@@ -21,15 +22,23 @@ class ParallaxBg extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll);
-    window.addEventListener('resize', this.handleResize);
-    this.handleResize();
-    this.handleScroll();
+    if (!isTouchDevice()) {
+      window.addEventListener('scroll', this.handleScroll);
+      window.addEventListener('resize', this.handleResize);
+      this.handleResize();
+      this.handleScroll();
+
+      this.setState({
+        enabled: true
+      });
+    }
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
-    window.removeEventListener('resize', this.handleResize);
+    if (!isTouchDevice()) {
+      window.removeEventListener('scroll', this.handleScroll);
+      window.removeEventListener('resize', this.handleResize);
+    }
   }
 
   handleScroll() {
@@ -41,8 +50,10 @@ class ParallaxBg extends Component {
   }
 
   handleResize() {
+    const {current: el} = this.el;
+
     this.setState(this.updateImgStyle({
-      height: window.innerHeight + strength,
+      height: el.offsetHeight + strength,
       width: 'auto',
       left: '50%',
       transform: 'translate3d(-50%, 0, 0)',
@@ -86,7 +97,12 @@ class ParallaxBg extends Component {
       return 0;
     }
 
+    if (!node) {
+      return 0;
+    }
+
     const element = node;
+
     const {top, height} = element.getBoundingClientRect();
     const parentHeight = getNodeHeight(useDOM);
     const maxHeight = height > parentHeight ? height : parentHeight;
@@ -103,16 +119,17 @@ class ParallaxBg extends Component {
 
   render() {
     const {src, alt, srcSet} = this.props;
-    const {imgStyle} = this.state;
+    const {imgStyle, enabled} = this.state;
+    const wrapStyle = {overflow: 'hidden', height: '100%', width: '100%'};
 
     return (
-      <div ref={this.el} style={{overflow: 'hidden', height: '100%', width: '100%'}}>
+      <div ref={this.el} style={wrapStyle}>
         <Image
           cover
           src={src}
           alt={alt}
           srcSet={srcSet}
-          style={imgStyle}
+          style={enabled ? imgStyle : {}}
         />
       </div>
     );

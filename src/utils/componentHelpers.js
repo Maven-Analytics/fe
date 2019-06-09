@@ -135,6 +135,10 @@ export function canUseDOM() {
 }
 
 export const isElementXPercentInViewport = function (el, percentVisible = 0) {
+  if (!el) {
+    return false;
+  }
+
   let rect = el.getBoundingClientRect();
   let windowHeight = (window.innerHeight || document.documentElement.clientHeight);
 
@@ -177,4 +181,8 @@ export function getWindowHeight(useDOM) {
   const g = d.getElementsByTagName('body')[0];
 
   return w.innerHeight || e.clientHeight || g.clientHeight;
+}
+
+export function isTouchDevice() {
+  return canUseDOM ? 'ontouchstart' in document.documentElement : false;
 }
