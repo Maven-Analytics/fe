@@ -130,7 +130,6 @@
 
   &.open {
     visibility: visible;
-    transition: none;
 
     #{$self}__fog {
       opacity: 1;
