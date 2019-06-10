@@ -36,7 +36,12 @@ class StudentSpotlights extends Component {
         <div className="student-spotlights__background">
           <ParallaxBg
             src="/static/img/student-spotlight-bg-1440.jpg"
-            srcset="/static/img/student-spotlight-bg-1440.jpg 1440w, /static/img/student-spotlight-bg-2880.jpg 2880w"
+            srcset={`
+              /static/img/student-spotlight-bg-1440.webp 1440w,
+              /static/img/student-spotlight-bg-1440.jpg 1440w,
+              /static/img/student-spotlight-bg-2880.webp 2880w,
+              /static/img/student-spotlight-bg-2880.jpg 2880w
+            `}
             alt="Student Spotlight"
           />
         </div>

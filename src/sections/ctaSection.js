@@ -20,7 +20,12 @@ const CtaSection = ({content, linkUrl, linkText}) => {
         placeholderColoe="#20E2D7"
         modifier="cta-section__background"
         src="/static/img/cta-bg.jpg"
-        srcSet="/static/img/cta-bg.jpg 1440w, /static/img/cta-bg@2x.jpg 2880w"
+        srcSet={`
+          /static/img/cta-bg.webp 1440w,
+          /static/img/cta-bg.jpg 1440w,
+          /static/img/cta-bg@2x.webp 2880w,
+          /static/img/cta-bg@2x.jpg 2880w,
+        `}
       />
       <div className="cta-section__content">
         <Markdown content={content}/>

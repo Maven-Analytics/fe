@@ -11,7 +11,9 @@ const Hero = () => {
           placeholderColor="#252525"
           src="/static/img/home-hero-mobile.jpg"
           srcSet="
+            /static/img/home-hero-mobile.webp 1000w,
             /static/img/home-hero-mobile.jpg 1000w,
+            /static/img/home-hero-desktop.webp 2307w,
             /static/img/home-hero-desktop.jpg 2307w
           "
         />

@@ -1,7 +1,7 @@
 import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 
-import {noop} from '../utils/componentHelpers';
+import {noop, canUseDOM} from '../utils/componentHelpers';
 import TrackVisibility from './trackVisibility';
 
 class Image extends Component {
@@ -71,13 +71,47 @@ class Image extends Component {
     return style;
   }
 
+  renderSources() {
+    const ieVersion = canUseDOM() && document.documentMode ? document.documentMode : -1;
+    const {sources} = this.props;
+
+    if (!sources) {
+      return null;
+    }
+
+    const mappedSources = sources.map((source, index) => {
+      if (source.srcSet === null) {
+        return null;
+      }
+
+      return (
+        <source
+          key={`sources-${index}`}
+          srcSet={source.srcSet}
+          media={source.media}
+          type={source.type}
+        />
+      );
+    });
+
+    // IE9 requires the sources to be wrapped around an <audio> tag.
+    if (ieVersion === 9) {
+      return <video style={{display: 'none'}}>{mappedSources}</video>;
+    }
+
+    return mappedSources;
+  }
+
   render() {
     const {src, alt, srcSet, style, placeholderColor} = this.props;
 
     return (
       <TrackVisibility className={this.getWrapClassList()} style={this.getWrapStyle()}>
-        <div className="loader" style={{backgroundColor: placeholderColor}}></div>
-        <img ref={this.img} style={style} onLoad={this.handleLoad} src={src} alt={alt} srcSet={srcSet}/>
+        <div className="loader" style={{backgroundColor: placeholderColor}}/>
+        <picture ref={this.img} onLoad={this.handleLoad}  style={style}>
+          {this.renderSources()}
+          <img style={style} src={src} alt={alt} srcSet={srcSet}/>
+        </picture>
       </TrackVisibility>
     );
   }
@@ -92,7 +126,8 @@ Image.propTypes = {
   style: PropTypes.object,
   wrapStyle: PropTypes.object,
   cover: PropTypes.bool,
-  placeholderColor: PropTypes.string
+  placeholderColor: PropTypes.string,
+  sources: PropTypes.array
 };
 
 Image.defaultProps = {

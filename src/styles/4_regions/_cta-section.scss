@@ -3,14 +3,11 @@
   position: relative;
 
   &__background {
+    background-color: $black;
     height: 100%;
     position: absolute;
     width: 100%;
     z-index: -1;
-
-    &.loaded {
-      background-color: $black;
-    }
 
     img {
       height: 210px;
