@@ -23,7 +23,7 @@
   }
 
   @font-face {
-    font-display: swap;
+    font-display: optional;
     font-family: quote($name);
     font-style: $style;
     font-weight: $weight;
