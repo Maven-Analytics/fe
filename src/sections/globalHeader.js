@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
-import debounce from 'lodash.debounce';
 import Headroom from 'react-headroom';
 import Link from 'next/link';
-import {fromJS, Map} from 'immutable';
+import {Map} from 'immutable';
 
-import {getCurrentScrollY, raf, ref, click} from '../utils/componentHelpers';
+import {click} from '../utils/componentHelpers';
 import Logo from '../components/logo';
 import Hamburger from '../components/hamburger';
 import {menuLinksMain, menuLinksRegister} from '../constants';

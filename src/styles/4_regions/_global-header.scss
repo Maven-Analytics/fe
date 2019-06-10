@@ -174,4 +174,25 @@
     height: 42px;
     width: 44px;
   }
+
+  &--checkout {
+    @include desktopHeader() {
+      background-color: $black;
+      position: static;
+    }
+
+    nav {
+      ul {
+        li {
+          a {
+            &:not(.btn) {
+              &::after {
+                content: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

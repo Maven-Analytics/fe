@@ -2,7 +2,7 @@
   @mixin fontSize() {
     font-size: 1rem;
     line-height: 1.5;
-    margin: 0 0 $spacing-unit--ss;
+    margin: 0;
 
     @include media-breakpoint-up(md) {
       font-size: 1.2rem;
