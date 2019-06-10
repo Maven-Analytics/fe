@@ -9,7 +9,7 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html className="fonts-loaded">
         <Head>
           {/* FAVICON */}
           <link rel="shortcut icon" type="image/x-icon" href="/static/favicon/favicon.ico" />

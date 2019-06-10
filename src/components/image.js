@@ -57,15 +57,14 @@ class Image extends Component {
   }
 
   getWrapStyle() {
-    const {wrapStyle, placeholderColor} = this.props;
+    const {wrapStyle} = this.props;
     const {loaded} = this.state;
 
     let style = {...wrapStyle};
 
     if (!loaded) {
       style = {
-        ...style,
-        backgroundColor: placeholderColor
+        ...style
       };
     }
 
@@ -73,10 +72,11 @@ class Image extends Component {
   }
 
   render() {
-    const {src, alt, srcSet, style} = this.props;
+    const {src, alt, srcSet, style, placeholderColor} = this.props;
 
     return (
       <TrackVisibility className={this.getWrapClassList()} style={this.getWrapStyle()}>
+        <div className="loader" style={{backgroundColor: placeholderColor}}></div>
         <img ref={this.img} style={style} onLoad={this.handleLoad} src={src} alt={alt} srcSet={srcSet}/>
       </TrackVisibility>
     );
