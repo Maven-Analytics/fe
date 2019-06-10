@@ -5,7 +5,7 @@ import withRedux from 'next-redux-wrapper';
 import withReduxSaga from 'next-redux-saga';
 import {fromJS} from 'immutable';
 import {TransitionGroup, Transition} from 'react-transition-group';
-// import * as FontFaceObserver from 'fontfaceobserver';
+import * as FontFaceObserver from 'fontfaceobserver';
 
 import initStore from '../redux/store';
 import {actions as authActions} from '../redux/ducks/auth';
@@ -39,23 +39,23 @@ class MavenApp extends App {
     //   new FontFaceObserver('D-DIN')
     // ];
 
-    // const icons = [
-    //   new FontFaceObserver('maicon')
-    // ];
+    const icons = [
+      new FontFaceObserver('maicon')
+    ];
 
     // const fontPromises = fonts.map(font => font.load());
 
-    // const iconPromises = icons.map(icon => icon.load());
+    const iconPromises = icons.map(icon => icon.load());
 
     // Promise.all(fontPromises)
     //   .then(() => {
     //     document.body.classList.add('fonts-loaded');
     //   });
 
-    // Promise.all(iconPromises)
-    //   .then(() => {
-    //     document.body.classList.add('icons-loaded');
-    //   });
+    Promise.all(iconPromises)
+      .then(() => {
+        document.body.classList.add('icons-loaded');
+      });
   }
 
   render() {
