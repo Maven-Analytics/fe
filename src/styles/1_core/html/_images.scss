@@ -45,18 +45,4 @@ img {
       width: 100%;
     }
   }
-
-  &--gradient {
-    &::after {
-      background: $brand-gradient;
-      bottom: 0;
-      content: ' ';
-      height: 100%;
-      left: 0;
-      opacity: 0.67;
-      position: absolute;
-      right: 0;
-      top: 0;
-    }
-  }
 }
