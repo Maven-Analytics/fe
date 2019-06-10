@@ -62,9 +62,9 @@ $systemSerif: 'Apple Garamond', 'Baskerville', 'Times New Roman', 'Droid Serif',
 
 $font-body: 'Lato', $systemFont;
 
-$font-heading: 'D-DIN', $systemSerif;
-$font-heading-condensed: 'D-DIN Condensed', $systemSerif;
-$font-heading-expanded: 'D-DIN Expanded', $systemSerif;
+$font-heading: 'D-DIN', $systemFont;
+$font-heading-condensed: 'D-DIN Condensed', $systemFont;
+$font-heading-expanded: 'D-DIN Expanded', $systemFont;
 
 
 // ========================================================================= //
