@@ -5,10 +5,11 @@ import {List} from 'immutable';
 import Carousel from '../components/carousel';
 import CarouselSlide from '../components/carouselSlide';
 import Image from '../components/image';
+import TrackVisibility from '../components/trackVisibility';
 
 const Clients = ({clients}) => {
   return (
-    <div className="clients">
+    <TrackVisibility className="clients">
       <div className="container">
         <header>
           <h2>SOME OF OUR HAPPY CLIENTS</h2>
@@ -29,7 +30,7 @@ const Clients = ({clients}) => {
           ))}
         </Carousel>
       </div>
-    </div>
+    </TrackVisibility>
   );
 };
 

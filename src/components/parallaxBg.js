@@ -118,7 +118,7 @@ class ParallaxBg extends Component {
   }
 
   render() {
-    const {src, alt, srcSet} = this.props;
+    const {src, alt, srcSet, placeholderColor} = this.props;
     const {imgStyle, enabled} = this.state;
     const wrapStyle = {overflow: 'hidden', height: '100%', width: '100%'};
 
@@ -126,6 +126,7 @@ class ParallaxBg extends Component {
       <div ref={this.el} style={wrapStyle}>
         <Image
           cover
+          placeholderColor={placeholderColor}
           src={src}
           alt={alt}
           srcSet={srcSet}
@@ -141,7 +142,8 @@ ParallaxBg.propTypes = {
   modifier: PropTypes.string,
   alt: PropTypes.string,
   preload: PropTypes.bool,
-  srcSet: PropTypes.string
+  srcSet: PropTypes.string,
+  placeholderColor: PropTypes.string
 };
 
 ParallaxBg.defaultProps = {

@@ -13,6 +13,7 @@ const Mission = ({content, icons, scrollTo}) => {
     <div className="mission">
       <div className="mission__background">
         <ParallaxBg
+          placeholderColor="#252525"
           src="/static/img/mission-bg.jpg"
         />
       </div>

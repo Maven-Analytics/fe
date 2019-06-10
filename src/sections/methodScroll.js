@@ -30,7 +30,7 @@ class MethodScroll extends Component {
     const {items} = this.props;
 
     return (
-      <div className="method-scroll">
+      <TrackVisibility className="method-scroll">
         <Controller>
           <Scene
             pin
@@ -101,7 +101,7 @@ class MethodScroll extends Component {
             }}
           </Scene>
         </Controller>
-      </div>
+      </TrackVisibility>
     );
   }
 }

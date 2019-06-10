@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
-import {fromJS, List} from 'immutable';
+import {List} from 'immutable';
 
 import {click} from '../utils/componentHelpers';
 import ParallaxBg from '../components/parallaxBg';
@@ -8,6 +8,7 @@ import Image from '../components/image';
 import Carousel from '../components/carousel';
 import CarouselSlide from '../components/carouselSlide';
 import StudentSpotlight from '../components/studentSpotlight';
+import TrackVisibility from '../components/trackVisibility';
 
 class StudentSpotlights extends Component {
   constructor(props) {
@@ -31,7 +32,7 @@ class StudentSpotlights extends Component {
     const {activeIndex} = this.state;
 
     return (
-      <div className="student-spotlights">
+      <TrackVisibility className="student-spotlights">
         <div className="student-spotlights__background">
           <ParallaxBg
             src="/static/img/student-spotlight-bg-1440.jpg"
@@ -69,7 +70,7 @@ class StudentSpotlights extends Component {
             ))}
           </Carousel>
         </div>
-      </div>
+      </TrackVisibility>
     );
   }
 }

@@ -8,6 +8,7 @@ const Hero = () => {
     <div className="hero">
       <div className="hero__background">
         <ParallaxBg
+          placeholderColor="#252525"
           src="/static/img/home-hero-mobile.jpg"
           srcSet="
             /static/img/home-hero-mobile.jpg 1000w,

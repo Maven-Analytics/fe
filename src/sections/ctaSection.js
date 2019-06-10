@@ -4,6 +4,7 @@ import Link from 'next/link';
 
 import Image from '../components/image';
 import Markdown from '../components/markdown';
+import TrackVisibility from '../components/trackVisibility';
 
 const defaultContent = `
 ## Ready to become a
@@ -13,9 +14,10 @@ Sign up today for a **10-Day Free Trial** and find out!`;
 
 const CtaSection = ({content, linkUrl, linkText}) => {
   return (
-    <div className="cta-section">
+    <TrackVisibility className="cta-section">
       <Image
         cover
+        placeholderColoe="#20E2D7"
         modifier="cta-section__background"
         src="/static/img/cta-bg.jpg"
         srcSet="/static/img/cta-bg.jpg 1440w, /static/img/cta-bg@2x.jpg 2880w"
@@ -26,9 +28,9 @@ const CtaSection = ({content, linkUrl, linkText}) => {
           <a className="btn btn--primary-solid">{linkText}</a>
         </Link>
       </div>
-    </div>
+    </TrackVisibility>
   );
-}
+};
 
 CtaSection.propTypes = {
   title: PropTypes.string,
