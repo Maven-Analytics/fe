@@ -11,7 +11,7 @@ module.exports = async (request, h) => {
 
     runSync(user);
 
-    return login(h, user, `${process.env.HOST_APP}/about`);
+    return login(h, user, data.redirectTo);
   } catch (error) {
     return error;
   }

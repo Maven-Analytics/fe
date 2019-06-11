@@ -33,7 +33,8 @@ class Login extends Component {
     e.preventDefault();
     this.props.actions.login({
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
+      redirectTo: process.env.HOST_APP
     });
   }
 

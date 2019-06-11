@@ -43,7 +43,7 @@ One monthly subscription. Access to ALL courses, paths and personalized learning
 - Regular updates and new course content
 `;
 
-const Checkout = ({children, activeStep, title, nextStep, nextDisabled}) => {
+const Checkout = ({children, activeStep, title}) => {
   return (
     <Fragment>
       <CheckoutHeader/>
@@ -68,16 +68,6 @@ const Checkout = ({children, activeStep, title, nextStep, nextDisabled}) => {
               <div className="layout-checkout__content">
                 <h1 className="layout-checkout__title">{title}</h1>
                 {children}
-                <div className="layout-checkout__footer">
-                  <Link href={nextStep}>
-                    <a className={`btn btn--primary-solid ${nextDisabled ? 'disabled' : ''}`}>
-                      Next Step
-                    </a>
-                  </Link>
-                  <Link href="/login">
-                    <a>Already have an account?</a>
-                  </Link>
-                </div>
               </div>
               <Markdown className="layout-checkout__promo" content={promoMd}/>
             </div>
@@ -94,9 +84,7 @@ const Checkout = ({children, activeStep, title, nextStep, nextDisabled}) => {
 Checkout.propTypes = {
   children: PropTypes.node.isRequired,
   activeStep: PropTypes.number,
-  title: PropTypes.string,
-  nextStep: PropTypes.string.isRequired,
-  nextDisabled: PropTypes.bool.isRequired
+  title: PropTypes.string
 };
 
 Checkout.defaultProps = {

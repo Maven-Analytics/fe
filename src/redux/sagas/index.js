@@ -147,6 +147,27 @@ function * registerRequest({payload}) {
   }
 }
 
+function * ssoRequest({payload}) {
+  try {
+    const data = yield sso(payload);
+
+    yield all([
+      put({
+        type: authTypes.SSO_SUCCESS
+      })
+    ]);
+
+    if (data.ssoUrl) {
+      window.location = data.ssoUrl;
+    }
+  } catch (error) {
+    yield put({
+      type: authTypes.SSO_FAILURE,
+      payload: error.response ? error.response.data : error.message
+    });
+  }
+}
+
 function * rootSaga() {
   yield all([
     takeLatest(authTypes.REAUTHENTICATE_REQUEST, reauthenticateRequest),
@@ -155,9 +176,14 @@ function * rootSaga() {
     takeLatest(authTypes.LOGOUT_REQUEST, logoutRequest),
     takeLatest(authTypes.FORGOT_REQUEST, forgotRequest),
     takeLatest(authTypes.RESET_REQUEST, resetRequest),
+    takeLatest(authTypes.SSO_REQUEST, ssoRequest),
     fork(watchState),
     fork(watchCheckout)
   ]);
+}
+
+function sso({redirectTo}) {
+  return authReq('sso', {redirectTo});
 }
 
 function reset({email, password, token}) {

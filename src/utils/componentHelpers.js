@@ -50,6 +50,10 @@ export function state(func, key) {
   return e => (func && typeof func === 'function') ? func({[key]: e.target.value}) : null;
 }
 
+export function stateCheck(func, key) {
+  return e => (func && typeof func === 'function') ? func({[key]: e.target.checked}) : null;
+}
+
 export function input(func, val) {
   return e => (func && typeof func === 'function') ? func(val || e.target.value) : null;
 }

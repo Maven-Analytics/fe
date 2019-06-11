@@ -18,7 +18,10 @@ export const types = {
   FORGOT_FAILURE: 'FORGOT_FAILURE',
   RESET_REQUEST: 'RESET_REQUEST',
   RESET_SUCCESS: 'RESET_SUCCESS',
-  RESET_FAILURE: 'RESET_FAILURE'
+  RESET_FAILURE: 'RESET_FAILURE',
+  SSO_REQUEST: 'SSO_REQUEST',
+  SSO_SUCCESS: 'SSO_SUCCESS',
+  SSO_FAILURE: 'SSO_FAILURE'
 };
 
 export const actions = {
@@ -27,5 +30,6 @@ export const actions = {
   logout: obj => utils.action(types.LOGOUT_REQUEST, obj),
   forgot: obj => utils.action(types.FORGOT_REQUEST, obj),
   reset: obj => utils.action(types.RESET_REQUEST, obj),
-  register: obj => utils.action(types.REGISTER_REQUEST, obj)
+  register: obj => utils.action(types.REGISTER_REQUEST, obj),
+  sso: obj => utils.action(types.SSO_REQUEST, obj)
 };

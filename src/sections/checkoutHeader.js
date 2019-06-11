@@ -20,7 +20,7 @@ class CheckoutHeader extends Component {
               </ul>
               <ul>
                 <li>
-                  <Link href="/">
+                  <Link href="/login">
                     <a>
                       <MaIcon icon="user"/>
                       Login

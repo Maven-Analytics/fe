@@ -32,11 +32,28 @@ module.exports = app => {
           validate: {
             payload: {
               email: Joi.string().email().required(),
-              password: Joi.string().required()
+              password: Joi.string().required(),
+              redirectTo: Joi.string().required()
             }
           }
         },
         handler: require('./controllers/auth/login')
+      });
+
+      server.route({
+        method: 'POST',
+        path: '/api/v1/sso',
+        options: {
+          auth: {
+            mode: 'required'
+          },
+          validate: {
+            payload: {
+              redirectTo: Joi.string().required()
+            }
+          }
+        },
+        handler: require('./controllers/auth/sso')
       });
 
       server.route({
@@ -92,7 +109,8 @@ module.exports = app => {
               first_name: Joi.string().required(),
               last_name: Joi.string().required(),
               country: Joi.string().required(),
-              postal_code: Joi.number().integer().required()
+              postal_code: Joi.number().integer().required(),
+              redirectTo: Joi.string().required()
             }
           }
         },

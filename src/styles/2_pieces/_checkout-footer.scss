@@ -1,0 +1,37 @@
+.checkout-footer {
+  margin-top: $spacing-unit--mdl;
+
+  @include collapseUp() {
+    margin-top: $spacing-unit--l;
+  }
+
+  .form-message {
+    margin-bottom: $spacing-unit;
+  }
+
+  .btn {
+    @include collapseUp() {
+      align-items: center;
+      border-radius: 27.5px;
+      display: inline-flex;
+      font-size: 1.4rem;
+      justify-content: center;
+      height: 50px;
+      min-width: 230px;
+    }
+  }
+
+  .helper-links {
+    margin-top: $spacing-unit--l;
+
+    a {
+      color: $white;
+      font-size: 1.2rem;
+      text-decoration: underline;
+
+      @include collapseUp() {
+        font-size: 1.4rem;
+      }
+    }
+  }
+}
