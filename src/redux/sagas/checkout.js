@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import {types as checkoutTypes} from '../ducks/checkout';
 import {setCookie} from '../../utils/cookies';
+import config from '../../config';
 
 export function * watchCheckout() {
   yield takeLatest(checkoutTypes.CHECKOUT_REQUEST, onCheckoutRequest);
@@ -59,7 +60,7 @@ function updateCheckout(plan) {
 }
 
 function getCheckout(token, isServer) {
-  const baseUrl = isServer ? 'http://localhost:3000' : process.env.HOST_APP;
+  const baseUrl = isServer ? 'http://localhost:3000' : config.HOST_APP;
   return axios.get(`${baseUrl}/api/v1/checkout/${token}`)
     .then(res => res.data)
     .then(response => response.data);

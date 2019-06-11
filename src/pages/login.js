@@ -11,6 +11,7 @@ import {selectors as loadingSelectors} from '../redux/ducks/loading';
 import {selectors as errorSelectors} from '../redux/ducks/error';
 import {state} from '../utils/componentHelpers';
 import Auth from '../components/auth';
+import config from '../config';
 
 class Login extends Component {
   constructor(props) {
@@ -30,11 +31,10 @@ class Login extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log(process.env.HOST_APP);
     this.props.actions.login({
       email: this.state.email,
       password: this.state.password,
-      redirectTo: process.env.HOST_APP
+      redirectTo: config.HOST_APP
     });
   }
 

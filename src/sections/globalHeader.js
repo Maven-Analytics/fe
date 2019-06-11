@@ -10,6 +10,7 @@ import Logo from '../components/logo';
 import Hamburger from '../components/hamburger';
 import {menuLinksMain, menuLinksRegister} from '../constants';
 import MaIcon from '../components/maIcon';
+import HeaderAuth from '../components/headerAuth';
 
 class GlobalHeader extends Component {
   render() {
@@ -33,20 +34,7 @@ class GlobalHeader extends Component {
                     );
                   })}
                 </ul>
-                <ul>
-                  {menuLinksRegister.map(link => {
-                    return (
-                      <li key={link.get('title')}>
-                        <Link href={link.get('url')}>
-                          <a className={link.get('btn') ? 'btn btn--primary' : ''}>
-                            {link.get('icon') ? <MaIcon icon={link.get('icon')}/> : null}
-                            {link.get('title')}
-                          </a>
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </ul>
+                <HeaderAuth showContact showRegister/>
               </nav>
               <Hamburger isActive={this.props.state.get('mobileMenu')} onClick={click(this.props.offmenuToggle, 'mobileMenu')}/>
             </div>

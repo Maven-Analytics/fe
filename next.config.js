@@ -7,7 +7,11 @@ module.exports = withPlugins(
   [
     withSass
   ], {
-    env: {
+    // env: {
+    //   HOST_APP: process.env.HOST_APP,
+    //   THINKIFIC_SUBDOMAIN: process.env.THINKIFIC_SUBDOMAIN
+    // },
+    publicRuntimeConfig: {
       HOST_APP: process.env.HOST_APP,
       THINKIFIC_SUBDOMAIN: process.env.THINKIFIC_SUBDOMAIN
     },
@@ -29,6 +33,11 @@ module.exports = withPlugins(
           new OptimizeCSSAssetsPlugin({})
         );
       }
+
+      // config.plugins.push(new webpack.DefinePlugin({
+      //   'process.env.HOST_APP': JSON.stringify(process.env.HOST_APP),
+      //   'process.env.THINKIFIC_SUBDOMAIN': JSON.stringify(process.env.THINKIFIC_SUBDOMAIN)
+      // }));
 
       return config;
     },

@@ -7,6 +7,7 @@ import CloseIcon from './closeButton';
 import MaIcon from './maIcon';
 import {click, ref} from '../utils/componentHelpers';
 import {menuLinksMain, menuLinksRegister} from '../constants';
+import HeaderAuth from './headerAuth';
 
 class MobileMenu extends Component {
   constructor(props) {
@@ -79,20 +80,7 @@ class MobileMenu extends Component {
                       );
                     })}
                   </ul>
-                  <ul>
-                    {menuLinksRegister.map(link => {
-                      return (
-                        <li key={link.get('title')}>
-                          <Link href={link.get('url')}>
-                            <a className={link.get('btn') ? 'btn btn--primary-solid' : ''}>
-                              {link.get('icon') ? <MaIcon icon={link.get('icon')}/> : null}
-                              {link.get('title')}
-                            </a>
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ul>
+                  <HeaderAuth showContact showRegister/>
                 </nav>
               </div>
             </div>

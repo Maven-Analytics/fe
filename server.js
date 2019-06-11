@@ -4,9 +4,9 @@ const Boom = require('@hapi/boom');
 const dev = process.env.NODE_ENV !== 'production';
 const port = parseInt(process.env.PORT || 3000, 10);
 
-if (dev) {
-  require('dotenv').config();
-}
+// if (dev) {
+//   require('dotenv').config();
+// }
 
 const app = next({dev, dir: 'src'});
 

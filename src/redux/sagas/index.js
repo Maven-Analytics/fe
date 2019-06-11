@@ -7,6 +7,7 @@ import {types as authTypes} from '../ducks/auth';
 import {types as userTypes} from '../ducks/user';
 import {types as responseTypes} from '../ducks/response';
 import {watchCheckout} from './checkout';
+import config from '../../config';
 
 function * logoutRequest() {
   yield logout();
@@ -213,7 +214,7 @@ async function authReq(type, data) {
 }
 
 function reauthenticate(token, isServer) {
-  const baseUrl = isServer ? 'http://localhost:3000' : process.env.HOST_APP;
+  const baseUrl = isServer ? 'http://localhost:3000' : config.HOST_APP;
 
   return axios.get(`${baseUrl}/api/v1/me`, {
     headers: {
