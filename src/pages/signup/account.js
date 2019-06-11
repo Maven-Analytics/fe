@@ -19,10 +19,10 @@ import CheckoutFooter from '../../components/checkoutFooter';
 
 class SignupAccount extends Component {
   static async getInitialProps(ctx) {
-    const {res} = ctx;
-    const checkoutToken = getCookie('checkout', ctx);
+    const {res, store} = ctx;
+    const checkout = store.getState().get('checkout');
 
-    if (!checkoutToken) {
+    if (!checkout || checkout.isEmpty()) {
       if (res) {
         res.writeHead(302, {
           Location: '/signup'

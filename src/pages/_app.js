@@ -20,18 +20,17 @@ class MavenApp extends App {
     const {store, isServer} = ctx;
 
     const token = getCookie('token', ctx);
-    const checkoutToken = getCookie('checkout', ctx);
+    // const checkoutToken = getCookie('checkout', ctx);
 
-    console.log(checkoutToken);
     const user = store.getState().getIn(['user', 'user']);
 
     if (token && token !== '' && (!user || user.isEmpty())) {
       store.dispatch(authActions.reauthenticate({token, ctx, isServer}));
     }
 
-    if (checkoutToken && checkoutToken !== '') {
-      store.dispatch(checkoutActions.getCheckout({token: checkoutToken, isServer}));
-    }
+    // if (checkoutToken && checkoutToken !== '') {
+    //   store.dispatch(checkoutActions.getCheckout({token: checkoutToken, isServer}));
+    // }
 
     return {
       isServer,

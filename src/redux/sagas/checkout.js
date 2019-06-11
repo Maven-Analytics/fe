@@ -11,15 +11,14 @@ export function * watchCheckout() {
 
 function * onCheckoutRequest({payload: {plan}}) {
   try {
-    const data = yield updateCheckout(plan);
+    // const data = yield updateCheckout(plan);
+    // setCookie('checkout', data.token);
 
     yield all([
       put({
         type: checkoutTypes.CHECKOUT_SUCCESS
       })
     ]);
-
-    setCookie('checkout', data.token);
   } catch (error) {
     console.log(error);
     yield put({
