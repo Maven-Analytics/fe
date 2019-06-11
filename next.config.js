@@ -8,8 +8,8 @@ module.exports = withPlugins(
     withSass
   ], {
     env: {
-      HOST_APP: process.env.HOST_APP || 'http://maven.info:3000',
-      THINKIFIC_SUBDOMAIN: process.env.THINKIFIC_SUBDOMAIN || 'mavenanalytics'
+      HOST_APP: process.env.HOST_APP,
+      THINKIFIC_SUBDOMAIN: process.env.THINKIFIC_SUBDOMAIN
     },
     webpack: (config, {isServer}) => {
       if (isServer) {
