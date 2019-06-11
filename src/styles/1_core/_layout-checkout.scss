@@ -1,0 +1,147 @@
+.layout-checkout {
+  color: $gray-light-2;
+  position: relative;
+
+  &__background {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+
+    .image {
+      &::after {
+        background-color: rgba($black-light, .88);
+        content: ' ';
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+      }
+    }
+  }
+
+  &__wrap {
+    min-height: calc(100vh - #{$header-height-mobile});
+    padding: $spacing-unit--mdl 0;
+
+    @include collapseUp() {
+      min-height: calc(100vh - #{$header-height-desktop + $copyright-height-desktop});
+    }
+  }
+
+  &__row {
+    @include collapseUp() {
+      display: flex;
+    }
+  }
+
+  &__content,
+  &__promo {
+    padding-top: $spacing-unit--l;
+  }
+
+  &__content {
+    @include collapseUp() {
+      flex: 1 1 60%;
+      padding-right: 5vw;
+    }
+  }
+
+  &__promo {
+    font-size: 1.4rem;
+    line-height: 1.5;
+
+    @include collapseUp() {
+      flex: 1 1 40%;
+      font-size: 1.8rem;
+    }
+
+    h2 {
+      color: $white;
+      font-size: 2.1em;
+      line-height: .94;
+      text-transform: uppercase;
+
+      @include collapseUp() {
+        width: 470px;
+      }
+
+      strong {
+        @include gradient-font();
+        font-size: 1.3em;
+        line-height: .78;
+      }
+
+      &:last-of-type {
+        margin-bottom: $spacing-unit;
+      }
+    }
+
+    ul {
+      @include list-unstyled();
+      margin-top: $spacing-unit;
+      padding-left: 2rem;
+
+      @include collapseUp {
+        padding-left: 4.5rem;
+      }
+
+      li {
+        color: $white;
+        font-size: 1em;
+        line-height: 1.55;
+        margin-bottom: .4em;
+        padding-left: 20px;
+        position: relative;
+
+        @include collapseUp {
+          padding-left: 40px;
+        }
+
+        &::before {
+          color: $yellow;
+          content: '\e909';
+          font-family: 'maicon';
+          left: 0;
+          position: absolute;
+        }
+      }
+    }
+  }
+
+  &__title {
+    color: $white;
+    font-size: 2.3rem;
+    font-weight: 700;
+    margin: 0 0 $spacing-unit--l;
+    text-transform: uppercase;
+  }
+
+  &__footer {
+    margin-top: $spacing-unit--mdl;
+
+    @include collapseUp() {
+      margin-top: $spacing-unit--l;
+    }
+
+    .btn {
+      @include collapseUp() {
+        border-radius: 27.5px;
+        font-size: 1.4rem;
+        height: 50px;
+        min-width: 230px;
+      }
+    }
+
+    .helper {
+      color: $white;
+      font-size: 1.2rem;
+      text-decoration: underline;
+
+      @include collapseUp() {
+        font-size: 1.4rem;
+      }
+    }
+  }
+}

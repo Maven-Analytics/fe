@@ -111,6 +111,36 @@ module.exports = app => {
       });
 
       server.route({
+        method: 'PUT',
+        path: '/api/v1/checkout',
+        options: {
+          auth: {
+            mode: 'try'
+          },
+          validate: {
+            payload: {
+              plan: Joi.object().keys({
+                id: Joi.any().required(),
+                checkoutUrl: Joi.string().required()
+              })
+            }
+          }
+        },
+        handler: require('./controllers/checkout/update')
+      });
+
+      server.route({
+        method: 'GET',
+        path: '/api/v1/checkout/{token}',
+        options: {
+          auth: {
+            mode: 'try'
+          }
+        },
+        handler: require('./controllers/checkout/get')
+      });
+
+      server.route({
         method: 'GET',
         path: '/_next/{p*}' /* next specific routes */,
         handler: nextHandlerWrapper(app),

@@ -6,3 +6,8 @@ a:not(.btn) {
     color: $blue-gray;
   }
 }
+
+a:disabled {
+  pointer-events: none;
+  user-select: none;
+}

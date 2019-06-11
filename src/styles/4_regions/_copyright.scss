@@ -20,6 +20,10 @@
     text-align: left;
   }
 
+  @include collapseUp() {
+    height: $copyright-height-desktop;
+  }
+
   .row {
     align-items: center;
   }

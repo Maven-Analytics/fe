@@ -107,6 +107,12 @@
         opacity: 0;
       }
     }
+
+    &:disabled,
+    &.disabled {
+      color: $black;
+      opacity: .43;
+    }
   }
 
   &--secondary {

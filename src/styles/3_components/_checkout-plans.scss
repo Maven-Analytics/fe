@@ -1,0 +1,9 @@
+.checkout-plans {
+  ul {
+    @include list-unstyled();
+
+    li {
+      margin-bottom: $spacing-unit;
+    }
+  }
+}

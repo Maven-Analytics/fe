@@ -6,6 +6,7 @@ import {watchState} from './state';
 import {types as authTypes} from '../ducks/auth';
 import {types as userTypes} from '../ducks/user';
 import {types as responseTypes} from '../ducks/response';
+import {watchCheckout} from './checkout';
 
 function * logoutRequest() {
   yield logout();
@@ -21,13 +22,13 @@ function * logoutRequest() {
   Router.push('/');
 }
 
-function * reauthenticateRequest({payload: {token}}) {
+function * reauthenticateRequest({payload: {token, isServer}}) {
   if (!token) {
     return;
   }
 
   try {
-    const data = yield reauthenticate(token);
+    const data = yield reauthenticate(token, isServer);
 
     yield all([
       put({
@@ -154,7 +155,8 @@ function * rootSaga() {
     takeLatest(authTypes.LOGOUT_REQUEST, logoutRequest),
     takeLatest(authTypes.FORGOT_REQUEST, forgotRequest),
     takeLatest(authTypes.RESET_REQUEST, resetRequest),
-    fork(watchState)
+    fork(watchState),
+    fork(watchCheckout)
   ]);
 }
 
@@ -184,8 +186,10 @@ async function authReq(type, data) {
     .then(response => response.data);
 }
 
-function reauthenticate(token) {
-  return axios.get(`${process.env.APP_URL}/api/v1/me`, {
+function reauthenticate(token, isServer) {
+  const baseUrl = isServer ? 'http://localhost:3000' : process.env.HOST_APP;
+
+  return axios.get(`${baseUrl}/api/v1/me`, {
     headers: {
       authorization: token
     }

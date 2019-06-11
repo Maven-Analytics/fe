@@ -1,4 +1,4 @@
-import nookies from 'nookies';
+import nookies, {parseCookies} from 'nookies';
 
 const cookieConfig = {
   maxAge: 30 * 24 * 60 * 60,
@@ -14,6 +14,13 @@ export const removeCookie = (key, ctx = {}) => {
 };
 
 export const getCookie = (key, ctx = {}) => {
-  const cookies = nookies.get(ctx);
+  let cookies = {};
+
+  if (ctx.isServer) {
+    cookies = nookies.get(ctx);
+  } else {
+    cookies = parseCookies({});
+  }
+
   return cookies[key];
 };

@@ -1,0 +1,52 @@
+.checkout-steps {
+  ul {
+    @include list-inline();
+    margin: 0;
+
+    li {
+      align-items: center;
+      display: flex;
+      font-size: 1.2rem;
+      font-weight: 700;
+      opacity: .2;
+
+      @include collapseUp() {
+        font-size: 1.4rem;
+      }
+
+      &:not(:last-child) {
+        margin-right: $spacing-unit;
+
+        @include collapseUp() {
+          margin-right: $spacing-unit--mdl;
+        }
+
+        a {
+          margin-right: $spacing-unit;
+
+          @include collapseUp() {
+            margin-right: $spacing-unit--mdl;
+          }
+        }
+      }
+
+      &.enabled {
+        opacity: 1;
+
+        a {
+          color: $gray-light;
+        }
+      }
+
+      &.active {
+        a {
+          color: $yellow;
+        }
+
+        i {
+          opacity: .47;
+        }
+      }
+    }
+  }
+}

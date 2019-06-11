@@ -1,0 +1,124 @@
+.checkout-plan {
+  $self: &;
+  background: transparent;
+  border: none;
+  color: $gray-light;
+  font-size: 1.4rem;
+  opacity: 0.83;
+  padding: 5px;
+  text-align: left;
+  transition: all .2s ease-in-out;
+
+  @include collapseUp() {
+    font-size: 1.6rem;
+  }
+
+  &__inner {
+    display: flex;
+    padding: 1.6rem 3.6rem .8rem 2.4rem;
+
+    @include media-breakpoint-up(xl) {
+      padding: 1.8rem 2.4rem 2.3rem 3.2rem;
+    }
+  }
+
+  &__content {
+    span {
+      display: block;
+      color: $yellow;
+      font-size: .8em;
+      font-weight: 700;
+      letter-spacing: 3px;
+      line-height: 1;
+      margin: -.2em 0 .4em;
+      text-transform: uppercase;
+    }
+
+    h4 {
+      color: $white;
+      font-size: 1.7em;
+      margin-bottom: .3em;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+
+  &__check {
+    background-color: transparent;
+    flex: 0 0 38px;
+    height: 38px;
+    margin-right: 2rem;
+    padding: 2px;
+    position: relative;
+    width: 38px;
+
+    @include media-breakpoint-up(xl) {
+      margin-right: 4rem;
+    }
+
+    i {
+      color: $yellow;
+      font-size: 2.3rem;
+      left: 50%;
+      opacity: 0;
+      position: absolute;
+      top: 50%;
+      transform: translate3d(-50%, -50%, 0);
+      transition: opacity .3s ease-in-out;
+      z-index: 1;
+    }
+
+    &::before,
+    &::after {
+      background: transparent;
+      content: ' ';
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: 0;
+    }
+
+    &::before {
+      background-repeat: no-repeat;
+      border: 2px solid $gray-border;
+      height: calc(100% + 4px);
+      left: -2px;
+      top: -2px;
+      width: calc(100% + 4px);
+    }
+  }
+
+  &.selected,
+  &:focus {
+    background: $brand-gradient;
+    outline: none;
+
+    #{$self}__inner {
+      background-color: #313131;
+    }
+  }
+
+  &.selected {
+    box-shadow: 10px 10px 30px 0 rgba(0,0,0,0.3);
+    opacity: 1;
+
+    #{$self}__check {
+      &::before {
+        border: none;
+        background: $brand-gradient;
+      }
+
+      &::after {
+        background-color: #313131;
+      }
+
+      i {
+        opacity: 1;
+      }
+    }
+  }
+}

@@ -1,15 +1,88 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
+import {fromJS} from 'immutable';
+import Link from 'next/link';
 
 import CheckoutHeader from '../sections/checkoutHeader';
 import Copyright from '../sections/copyright';
+import Image from '../components/image';
+import CheckoutSteps from '../components/checkoutSteps';
+import Markdown from '../components/markdown';
 
-const Checkout = ({children}) => {
+import '../styles/checkout.scss';
+
+const checkoutLinks = fromJS([
+  {
+    text: 'Choose your plan',
+    url: '/signup'
+  },
+  {
+    text: 'Account Setup',
+    url: '/signup/account'
+  },
+  {
+    text: 'Confirm & Pay',
+    url: '/'
+  }
+]);
+
+const promoMd = `
+## YOU’RE ONE STEP
+## CLOSER TO BECOMING A
+## **Data Rockstar**
+
+One monthly subscription. Access to ALL courses, paths and personalized learning experiences. 100% satisfaction guaranteed. No obligation cancel anytime.
+
+- Unlimited access to ALL COURSES & PATHS
+- Personalized learning paths & course plans
+- Hands-on demos and course materials
+- Skills assessments & benchmarks
+- 1-on-1 Instructor support
+- Completion Certifications & Accredations
+- 100% Satisfaction Guarantee
+- Regular updates and new course content
+`;
+
+const Checkout = ({children, activeStep, title, nextStep, nextDisabled}) => {
   return (
     <Fragment>
       <CheckoutHeader/>
-      <main id="main" className="page-wrapper">
-        {children}
+      <main id="main" className="layout-checkout">
+        <div className="layout-checkout__background">
+          <Image
+            cover
+            placeholderColor="#252525"
+            src="/static/img/home-hero-mobile.jpg"
+            srcSet="
+              /static/img/home-hero-mobile.webp 1000w,
+              /static/img/home-hero-mobile.jpg 1000w,
+              /static/img/home-hero-desktop.webp 2307w,
+              /static/img/home-hero-desktop.jpg 2307w
+            "
+          />
+        </div>
+        <div className="layout-checkout__wrap">
+          <div className="container">
+            <CheckoutSteps links={checkoutLinks} activeIndex={activeStep}/>
+            <div className="layout-checkout__row">
+              <div className="layout-checkout__content">
+                <h1 className="layout-checkout__title">{title}</h1>
+                {children}
+                <div className="layout-checkout__footer">
+                  <Link href={nextStep}>
+                    <a className={`btn btn--primary-solid ${nextDisabled ? 'disabled' : ''}`}>
+                      Next Step
+                    </a>
+                  </Link>
+                  <Link href="/login">
+                    <a>Already have an account?</a>
+                  </Link>
+                </div>
+              </div>
+              <Markdown className="layout-checkout__promo" content={promoMd}/>
+            </div>
+          </div>
+        </div>
       </main>
       <footer>
         <Copyright/>
@@ -19,7 +92,16 @@ const Checkout = ({children}) => {
 };
 
 Checkout.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  activeStep: PropTypes.number,
+  title: PropTypes.string,
+  nextStep: PropTypes.string.isRequired,
+  nextDisabled: PropTypes.bool.isRequired
+};
+
+Checkout.defaultProps = {
+  activeStep: 0,
+  title: 'Select a membership plan'
 };
 
 export default Checkout;

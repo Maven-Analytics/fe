@@ -9,6 +9,7 @@ import * as FontFaceObserver from 'fontfaceobserver';
 
 import initStore from '../redux/store';
 import {actions as authActions} from '../redux/ducks/auth';
+import {actions as checkoutActions} from '../redux/ducks/checkout';
 import {getCookie} from '../utils/cookies';
 import {enter, exit} from '../utils/animations';
 
@@ -19,10 +20,17 @@ class MavenApp extends App {
     const {store, isServer} = ctx;
 
     const token = getCookie('token', ctx);
+    const checkoutToken = getCookie('checkout', ctx);
+
+    console.log(checkoutToken);
     const user = store.getState().getIn(['user', 'user']);
 
     if (token && token !== '' && (!user || user.isEmpty())) {
-      store.dispatch(authActions.reauthenticate({token, ctx}));
+      store.dispatch(authActions.reauthenticate({token, ctx, isServer}));
+    }
+
+    if (checkoutToken && checkoutToken !== '') {
+      store.dispatch(checkoutActions.getCheckout({token: checkoutToken, isServer}));
     }
 
     return {
