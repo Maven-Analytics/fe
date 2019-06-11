@@ -15,10 +15,13 @@
 @import '~bootstrap/scss/mixins/grid';
 @import '~bootstrap/scss/grid';
 
+@import './0_utilities/mixins.buttons';
+
 @import './1_core/layout-checkout';
 
 @import './2_pieces/checkout-plan';
 @import './2_pieces/checkout-footer';
+@import './2_pieces/checkout-thanks';
 
 @import './3_components/checkout-steps';
 @import './3_components/checkout-plans';

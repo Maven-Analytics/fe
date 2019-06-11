@@ -43,24 +43,47 @@ One monthly subscription. Access to ALL courses, paths and personalized learning
 - Regular updates and new course content
 `;
 
-const Checkout = ({children, activeStep, title}) => {
+const Checkout = ({children, activeStep, title, full}) => {
+  const Background = (
+    <div className="layout-checkout__background">
+      <Image
+        cover
+        placeholderColor="#252525"
+        src="/static/img/home-hero-mobile.jpg"
+        srcSet="
+          /static/img/home-hero-mobile.webp 1000w,
+          /static/img/home-hero-mobile.jpg 1000w,
+          /static/img/home-hero-desktop.webp 2307w,
+          /static/img/home-hero-desktop.jpg 2307w
+        "
+      />
+    </div>
+  );
+
+  if (full) {
+    return (
+      <Fragment>
+        <CheckoutHeader/>
+        <main id="main" className="layout-checkout">
+          {Background}
+          <div className="layout-checkout__wrap">
+            <div className="container">
+              {children}
+            </div>
+          </div>
+        </main>
+        <footer>
+          <Copyright/>
+        </footer>
+      </Fragment>
+    );
+  }
+
   return (
     <Fragment>
       <CheckoutHeader/>
       <main id="main" className="layout-checkout">
-        <div className="layout-checkout__background">
-          <Image
-            cover
-            placeholderColor="#252525"
-            src="/static/img/home-hero-mobile.jpg"
-            srcSet="
-              /static/img/home-hero-mobile.webp 1000w,
-              /static/img/home-hero-mobile.jpg 1000w,
-              /static/img/home-hero-desktop.webp 2307w,
-              /static/img/home-hero-desktop.jpg 2307w
-            "
-          />
-        </div>
+        {Background}
         <div className="layout-checkout__wrap">
           <div className="container">
             <CheckoutSteps links={checkoutLinks} activeIndex={activeStep}/>
@@ -84,12 +107,14 @@ const Checkout = ({children, activeStep, title}) => {
 Checkout.propTypes = {
   children: PropTypes.node.isRequired,
   activeStep: PropTypes.number,
-  title: PropTypes.string
+  title: PropTypes.string,
+  full: PropTypes.bool
 };
 
 Checkout.defaultProps = {
   activeStep: 0,
-  title: 'Select a membership plan'
+  title: 'Select a membership plan',
+  full: false
 };
 
 export default Checkout;

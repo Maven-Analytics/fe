@@ -1,0 +1,53 @@
+.checkout-thanks {
+  color: $gray-light;
+  font-size: 1.4rem;
+  margin: $spacing-unit--l auto;
+  max-width: 470px;
+  text-align: center;
+
+  @include collapseUp {
+    font-size: 1.8rem;
+    margin: $spacing-unit--xll auto;
+  }
+
+  i {
+    @include gradient-font();
+    display: inline-block;
+    font-size: 4.4em;
+    margin: 0 0 .6em;
+  }
+
+  h1,
+  h2 {
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-size: 1.1em;
+    margin: 0 0 .6em;
+  }
+
+  h2 {
+    color: $white;
+    font-size: 2.1666em;
+    margin: 0 0 .5em;
+  }
+
+  p {
+    font-size: 1em;
+    line-height: 1.55;
+    margin: 0 0 1em;
+
+    &:last-of-type {
+      margin: 2.77em 0 0;
+    }
+  }
+
+  a {
+    @extend %btn;
+    @extend %btn--primary-solid;
+    @extend %btn--lg;
+    font-size: .77em;
+  }
+}

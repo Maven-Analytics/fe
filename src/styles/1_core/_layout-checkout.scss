@@ -22,7 +22,7 @@
   }
 
   &__wrap {
-    min-height: calc(100vh - #{$header-height-mobile});
+    min-height: calc(100vh - #{$header-height-mobile + $copyright-height-mobile});
     padding: $spacing-unit--mdl 0;
 
     @include collapseUp() {

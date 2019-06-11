@@ -19,6 +19,8 @@
 @import '~bootstrap/scss/grid';
 @import '~flickity/css/flickity.css';
 
+@import './0_utilities/mixins.buttons';
+
 @import './1_core/html/root';
 @import './1_core/html/typography';
 @import './1_core/html/forms';
