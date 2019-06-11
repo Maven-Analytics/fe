@@ -11,7 +11,6 @@ import {selectors as loadingSelectors} from '../redux/ducks/loading';
 import {selectors as errorSelectors} from '../redux/ducks/error';
 import {state} from '../utils/componentHelpers';
 import Auth from '../components/auth';
-import {DEFAULT_VIEW_ANIMATION_TIME, DEFAULT_VIEW_ANIMATION_FROM} from '../utils/animations';
 
 class Login extends Component {
   constructor(props) {
@@ -31,6 +30,7 @@ class Login extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    console.log(process.env.HOST_APP);
     this.props.actions.login({
       email: this.state.email,
       password: this.state.password,
