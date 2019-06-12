@@ -3,6 +3,13 @@ const {getSsoUrl} = require('../../utils/auth');
 const {handleApiError} = require('../../utils/error');
 
 module.exports = async request => {
+  return {
+    success: true,
+    data: {
+      ssoUrl: 'https://google.com'
+    }
+  };
+
   try {
     const id = request.auth && request.auth.credentials ? request.auth.credentials.id : null;
     let data = request.payload;
