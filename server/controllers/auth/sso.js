@@ -1,5 +1,6 @@
 const axios = require('axios');
 const {getSsoUrl} = require('../../utils/auth');
+const {handleApiError} = require('../../utils/error');
 
 module.exports = async request => {
   try {
@@ -31,5 +32,6 @@ module.exports = async request => {
 
 function getUser(id) {
   return axios.get(`http://api:3000/api/v1/user/${id}`)
-    .then(res => res.data.data[0]);
+    .then(res => res.data.data[0])
+    .catch(handleApiError);
 }
