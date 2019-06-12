@@ -6,7 +6,7 @@ import {types as authTypes} from '../ducks/auth';
 import {types as userTypes} from '../ducks/user';
 import {types as responseTypes} from '../ducks/response';
 import {watchCheckout} from './checkout';
-import {setCookie, removeCookie} from '../../utils/cookies';
+import {setCookie, removeCookie, getCookie} from '../../utils/cookies';
 import config from '../../config';
 
 function * logoutRequest({payload: {ctx}}) {
@@ -140,6 +140,8 @@ function * registerRequest({payload}) {
   try {
     const data = yield register(payload);
 
+    setCookie('token', data.token);
+
     yield all([
       put({
         type: userTypes.USER_SET,
@@ -216,20 +218,20 @@ function register({email, password, first_name, last_name, country, postal_code,
   return authReq('register', {email, password, first_name, last_name, country, postal_code, redirectTo});
 }
 
-function logout(isServer) {
-  return authReq('logout', {}, isServer);
-}
+async function authReq(type, data) {
+  const baseUrl = config.HOST_APP;
 
-async function authReq(type, data, isServer) {
-  const baseUrl = isServer ? 'http://localhost:3000' : config.HOST_APP;
-
-  return axios.post(`${baseUrl}/api/v1/${type}`, data)
+  return axios.post(`${baseUrl}/api/v1/${type}`, data, {
+    headers: {
+      authorization: getCookie('token')
+    }
+  })
     .then(res => res.data)
     .then(response => response.data);
 }
 
-function reauthenticate(token, isServer) {
-  const baseUrl = isServer ? 'http://localhost:3000' : config.HOST_APP;
+function reauthenticate(token) {
+  const baseUrl = config.HOST_APP;
 
   return axios.get(`${baseUrl}/api/v1/me`, {
     headers: {

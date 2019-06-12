@@ -4,14 +4,15 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import {Map} from 'immutable';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 import MaIcon from './maIcon';
 import {selectors as userSelectors} from '../redux/ducks/user';
-import {selectors as stateSelectors} from '../redux/ducks/state';
-import {noop} from '../utils/componentHelpers';
+import {click} from '../utils/componentHelpers';
 import HeaderUser from './headerUser';
+import {selectors as stateSelectors, actions as stateActions} from '../redux/ducks/state';
 
-const HeaderAuth = ({showContact, showRegister, user, onUserClick, state}) => {
+const HeaderAuth = ({showContact, showRegister, user, state, actions}) => {
   const loggedIn = user && user.has('id');
 
   return (
@@ -25,7 +26,7 @@ const HeaderAuth = ({showContact, showRegister, user, onUserClick, state}) => {
         <li>
           <HeaderUser
             user={user}
-            onClick={onUserClick}
+            onClick={click(actions.offmenuToggle, 'headerUser')}
             open={state.get('headerUser')}
           />
         </li>
@@ -57,15 +58,15 @@ HeaderAuth.propTypes = {
   user: ImmutablePropTypes.map,
   showRegister: PropTypes.bool,
   showContact: PropTypes.bool,
-  onUserClick: PropTypes.func,
-  state: ImmutablePropTypes.map
+  state: ImmutablePropTypes.map,
+  actions: PropTypes.objectOf(PropTypes.func)
 };
 
 HeaderAuth.defaultProps = {
   user: Map(),
   showRegister: false,
   showContact: false,
-  onUserClick: noop
+  state: Map()
 };
 
 const mapStateToProps = state => ({
@@ -73,5 +74,11 @@ const mapStateToProps = state => ({
   state: stateSelectors.getState(state)
 });
 
-export default connect(mapStateToProps)(HeaderAuth);
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    ...stateActions
+  }, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderAuth);
 

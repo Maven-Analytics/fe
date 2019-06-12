@@ -1,39 +1,28 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Link from 'next/link';
 
 import Logo from '../components/logo';
-import MaIcon from '../components/maIcon';
+import HeaderAuth from '../components/headerAuth';
 
-class CheckoutHeader extends Component {
-  render() {
-    return (
-      <header className="global-header global-header--checkout">
-        <div className="container">
-          <div className="global-header__inner">
-            <Link href="/">
-              <a className="global-header__brand">
-                <Logo/>
-              </a>
-            </Link>
-            <nav>
-              <ul>
-              </ul>
-              <ul>
-                <li>
-                  <Link href="/login">
-                    <a>
-                      <MaIcon icon="user"/>
-                      Login
-                    </a>
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-          </div>
+const CheckoutHeader = () => {
+  return (
+    <header className="global-header global-header--checkout">
+      <div className="container">
+        <div className="global-header__inner">
+          <Link href="/">
+            <a className="global-header__brand">
+              <Logo/>
+            </a>
+          </Link>
+          <nav>
+            <ul>
+            </ul>
+            <HeaderAuth/>
+          </nav>
         </div>
-      </header>
-    );
-  }
-}
+      </div>
+    </header>
+  );
+};
 
 export default CheckoutHeader;

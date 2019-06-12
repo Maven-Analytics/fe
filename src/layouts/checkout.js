@@ -1,13 +1,16 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import {fromJS} from 'immutable';
-import Link from 'next/link';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 import CheckoutHeader from '../sections/checkoutHeader';
 import Copyright from '../sections/copyright';
 import Image from '../components/image';
 import CheckoutSteps from '../components/checkoutSteps';
 import Markdown from '../components/markdown';
+import {click} from '../utils/componentHelpers';
+import {actions as stateActions} from '../redux/ducks/state';
 
 import '../styles/checkout.scss';
 
@@ -43,7 +46,7 @@ One monthly subscription. Access to ALL courses, paths and personalized learning
 - Regular updates and new course content
 `;
 
-const Checkout = ({children, activeStep, title, full}) => {
+const Checkout = ({children, activeStep, title, full, actions}) => {
   const Background = (
     <div className="layout-checkout__background">
       <Image
@@ -64,7 +67,7 @@ const Checkout = ({children, activeStep, title, full}) => {
     return (
       <Fragment>
         <CheckoutHeader/>
-        <main id="main" className="layout-checkout">
+        <main id="main" className="layout-checkout" onClick={click(actions.stateReset)}>
           {Background}
           <div className="layout-checkout__wrap">
             <div className="container">
@@ -82,7 +85,7 @@ const Checkout = ({children, activeStep, title, full}) => {
   return (
     <Fragment>
       <CheckoutHeader/>
-      <main id="main" className="layout-checkout">
+      <main id="main" className="layout-checkout" onClick={click(actions.stateReset)}>
         {Background}
         <div className="layout-checkout__wrap">
           <div className="container">
@@ -117,5 +120,13 @@ Checkout.defaultProps = {
   full: false
 };
 
-export default Checkout;
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    ...stateActions
+  }, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
 

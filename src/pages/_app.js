@@ -45,11 +45,6 @@ class MavenApp extends App {
     //   new FontFaceObserver('Lato'),
     //   new FontFaceObserver('D-DIN')
     // ];
-
-    const token = getCookie('token');
-
-    console.log(token);
-
     const icons = [
       new FontFaceObserver('maicon')
     ];

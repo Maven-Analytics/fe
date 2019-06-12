@@ -1,5 +1,7 @@
 const axios = require('axios');
 
+const {handleApiError} = require('./utils/error');
+
 module.exports = {
   name: 'auth',
   register: async server => {
@@ -33,6 +35,7 @@ async function validate(decoded) {
 }
 
 function getUser(email) {
-  return axios.get(`${process.env.API_HOST}/api/v1/user/?email=${email}`)
-    .then(res => res.data.data[0]);
+  return axios.get(`${process.env.HOST_API}/api/v1/user/?email=${email}`)
+    .then(res => res.data.data[0])
+    .catch(handleApiError);
 }
