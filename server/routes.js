@@ -45,7 +45,7 @@ module.exports = app => {
         path: '/api/v1/sso',
         options: {
           auth: {
-            mode: 'required'
+            mode: 'try'
           },
           validate: {
             payload: {
