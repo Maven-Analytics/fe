@@ -17,7 +17,7 @@ module.exports = async request => {
   return {
     success: true,
     data: {
-      token: request.auth.token,
+      token: user ? request.auth.token : null,
       user
     }
   };
