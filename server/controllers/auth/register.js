@@ -1,6 +1,5 @@
 const axios = require('axios');
 const {login} = require('../../utils/auth');
-const jwt = require('../../utils/jwt');
 const {runSync} = require('../../utils/user');
 const {handleApiError} = require('../../utils/error');
 
@@ -19,9 +18,6 @@ async function makeRequest(data) {
   return axios({
     url: `${process.env.HOST_API}/api/v1/user`,
     method: 'post',
-    headers: {
-      Authorization: `Bearer ${await jwt()}`
-    },
     data
   })
     .then(res => res.data.data)

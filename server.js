@@ -1,12 +1,15 @@
 const Hapi = require('hapi');
 const next = require('next');
 const Boom = require('@hapi/boom');
+const axios = require('axios');
 const dev = process.env.NODE_ENV !== 'production';
 const port = parseInt(process.env.PORT || 3000, 10);
 
 if (dev) {
   require('dotenv').config();
 }
+
+axios.defaults.headers.common.Authorization = process.env.API_KEY;
 
 const app = next({dev, dir: 'src'});
 
