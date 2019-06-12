@@ -1,35 +1,46 @@
 import {all, put, takeLatest, fork} from 'redux-saga/effects';
 import axios from 'axios';
-import Router from 'next/router';
 
 import {watchState} from './state';
 import {types as authTypes} from '../ducks/auth';
 import {types as userTypes} from '../ducks/user';
 import {types as responseTypes} from '../ducks/response';
 import {watchCheckout} from './checkout';
+import {setCookie, removeCookie} from '../../utils/cookies';
 import config from '../../config';
 
-function * logoutRequest() {
-  yield logout();
+function * logoutRequest({payload: {ctx}}) {
+  removeCookie('token', ctx);
   yield all([
     put({
       type: userTypes.TOKEN_UNSET
     }),
     put({
       type: userTypes.USER_UNSET
+    }),
+    put({
+      type: authTypes.LOGOUT_SUCCESS
     })
   ]);
-
-  Router.push('/');
 }
 
-function * reauthenticateRequest({payload: {token, isServer}}) {
+function * reauthenticateRequest({payload: {token, isServer, ctx}}) {
   if (!token) {
     return;
   }
 
   try {
     const data = yield reauthenticate(token, isServer);
+
+    if (!data.user) {
+      removeCookie('token', ctx);
+
+      return yield all([
+        put({
+          type: authTypes.REAUTHENTICATE_SUCCESS
+        })
+      ]);
+    }
 
     yield all([
       put({
@@ -56,6 +67,8 @@ function * reauthenticateRequest({payload: {token, isServer}}) {
 function * loginRequest({payload}) {
   try {
     const data = yield login(payload);
+
+    setCookie('token', data.token);
 
     yield all([
       put({
@@ -203,12 +216,14 @@ function register({email, password, first_name, last_name, country, postal_code,
   return authReq('register', {email, password, first_name, last_name, country, postal_code, redirectTo});
 }
 
-function logout() {
-  return authReq('logout');
+function logout(isServer) {
+  return authReq('logout', {}, isServer);
 }
 
-async function authReq(type, data) {
-  return axios.post(`/api/v1/${type}`, data)
+async function authReq(type, data, isServer) {
+  const baseUrl = isServer ? 'http://localhost:3000' : config.HOST_APP;
+
+  return axios.post(`${baseUrl}/api/v1/${type}`, data)
     .then(res => res.data)
     .then(response => response.data);
 }

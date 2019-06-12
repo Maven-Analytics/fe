@@ -19,7 +19,7 @@ module.exports = async request => {
 };
 
 async function reset(email, password, token) {
-  return axios.post('http://api:3000/api/v1/user/reset', {
+  return axios.post(`${process.env.HOST_API}/api/v1/auth/reset`, {
     email,
     password,
     token

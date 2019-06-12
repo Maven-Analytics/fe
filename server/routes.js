@@ -43,16 +43,16 @@ module.exports = app => {
       server.route({
         method: 'POST',
         path: '/api/v1/sso',
-        options: {
-          auth: {
-            mode: 'try'
-          },
-          validate: {
-            payload: {
-              redirectTo: Joi.string().required()
-            }
-          }
-        },
+        // options: {
+        //   auth: {
+        //     mode: 'try'
+        //   },
+        //   validate: {
+        //     payload: {
+        //       redirectTo: Joi.string().required()
+        //     }
+        //   }
+        // },
         // handler: require('./controllers/auth/sso')
         handler: async () => {
           return {

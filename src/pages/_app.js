@@ -10,7 +10,7 @@ import * as FontFaceObserver from 'fontfaceobserver';
 import initStore from '../redux/store';
 import {actions as authActions} from '../redux/ducks/auth';
 import {actions as checkoutActions} from '../redux/ducks/checkout';
-import {getCookie} from '../utils/cookies';
+import {getCookie, removeCookie} from '../utils/cookies';
 import {enter, exit} from '../utils/animations';
 
 import '../styles/index.scss';
@@ -45,6 +45,10 @@ class MavenApp extends App {
     //   new FontFaceObserver('Lato'),
     //   new FontFaceObserver('D-DIN')
     // ];
+
+    const token = getCookie('token');
+
+    console.log(token);
 
     const icons = [
       new FontFaceObserver('maicon')

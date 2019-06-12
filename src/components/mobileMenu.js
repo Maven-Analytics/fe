@@ -6,8 +6,8 @@ import Logo from './logo';
 import CloseIcon from './closeButton';
 import MaIcon from './maIcon';
 import {click, ref} from '../utils/componentHelpers';
-import {menuLinksMain, menuLinksRegister} from '../constants';
-import HeaderAuth from './headerAuth';
+import {menuLinksMain} from '../constants';
+import HeaderAuthMobile from './headerAuthMobile';
 
 class MobileMenu extends Component {
   constructor(props) {
@@ -80,7 +80,7 @@ class MobileMenu extends Component {
                       );
                     })}
                   </ul>
-                  <HeaderAuth showContact showRegister/>
+                  <HeaderAuthMobile/>
                 </nav>
               </div>
             </div>

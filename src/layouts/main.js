@@ -11,13 +11,14 @@ import GlobalFooter from '../sections/globalFooter';
 import {selectors as userSelectors} from '../redux/ducks/user';
 import {actions as authActions} from '../redux/ducks/auth';
 import {selectors as stateSelectors, actions as stateActions} from '../redux/ducks/state';
+import {click} from '../utils/componentHelpers';
 
 const Main = ({children, actions, state}) => {
   return (
     <Fragment>
       <GlobalHeader state={state} offmenuToggle={actions.offmenuToggle}/>
       <MobileMenu isActive={state.get('mobileMenu')} offmenuToggle={actions.offmenuToggle}/>
-      <main id="main" className="page-wrapper">
+      <main id="main" className="page-wrapper" onClick={click(actions.stateReset)}>
         {children}
       </main>
       <GlobalFooter description="Award-winning courses to help you master the most sought-after analytics and business intelligence skills.  Customized training that helps everyday people become data rockstars. "/>

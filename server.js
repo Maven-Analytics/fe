@@ -4,9 +4,9 @@ const Boom = require('@hapi/boom');
 const dev = process.env.NODE_ENV !== 'production';
 const port = parseInt(process.env.PORT || 3000, 10);
 
-// if (dev) {
-//   require('dotenv').config();
-// }
+if (dev) {
+  require('dotenv').config();
+}
 
 const app = next({dev, dir: 'src'});
 
@@ -41,6 +41,7 @@ app.prepare().then(async () => {
       require('./server/routes')(app)
     ]);
     await server.start();
+    console.log('> New Log Statement');
     console.log(`> Ready on http://localhost:${port}`);
   } catch (error) {
     console.log('Error starting server');

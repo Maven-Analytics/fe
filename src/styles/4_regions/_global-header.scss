@@ -74,7 +74,7 @@
       text-transform: uppercase;
     }
 
-    ul {
+    > ul {
       @include list-unstyled();
 
       @include desktopHeader {
@@ -89,14 +89,14 @@
         }
       }
 
-      li {
+      > li {
         &:not(:last-child) {
           @include desktopHeader {
             margin-right: $spacing-unit--l;
           }
         }
 
-        a {
+        > a {
           color: $white;
           position: relative;
 
@@ -110,7 +110,7 @@
             color: $white;
           }
 
-          &:not(.btn) {
+          &:not(.btn):not(.header-user__link) {
             align-items: center;
             display: flex;
             white-space: nowrap;
@@ -167,6 +167,9 @@
 
   button {
     color: $white;
+  }
+
+  .hamburger {
     display: block;
 
     @include desktopHeader {

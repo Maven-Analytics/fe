@@ -7,9 +7,12 @@ import {connect} from 'react-redux';
 
 import MaIcon from './maIcon';
 import {selectors as userSelectors} from '../redux/ducks/user';
+import {selectors as stateSelectors} from '../redux/ducks/state';
+import {noop} from '../utils/componentHelpers';
+import HeaderUser from './headerUser';
 
-const HeaderAuth = ({showContact, showRegister, user}) => {
-  const loggedIn = user && user.get('id');
+const HeaderAuth = ({showContact, showRegister, user, onUserClick, state}) => {
+  const loggedIn = user && user.has('id');
 
   return (
     <ul>
@@ -20,18 +23,20 @@ const HeaderAuth = ({showContact, showRegister, user}) => {
       ) : null}
       {loggedIn ? (
         <li>
-          <Link href="/">
-            <a>
-              {user.get('first_name')} {user.get('last_name')}
-            </a>
-          </Link>
+          <HeaderUser
+            user={user}
+            onClick={onUserClick}
+            open={state.get('headerUser')}
+          />
         </li>
       ) : null}
       {loggedIn === false ? (
         <li>
           <Link href="/login">
-            <MaIcon icon="user"/>
-            Login
+            <a>
+              <MaIcon icon="user"/>
+              Login
+            </a>
           </Link>
         </li>
       ) : null}
@@ -51,17 +56,21 @@ const HeaderAuth = ({showContact, showRegister, user}) => {
 HeaderAuth.propTypes = {
   user: ImmutablePropTypes.map,
   showRegister: PropTypes.bool,
-  showContact: PropTypes.bool
+  showContact: PropTypes.bool,
+  onUserClick: PropTypes.func,
+  state: ImmutablePropTypes.map
 };
 
 HeaderAuth.defaultProps = {
   user: Map(),
   showRegister: false,
-  showContact: false
+  showContact: false,
+  onUserClick: noop
 };
 
 const mapStateToProps = state => ({
-  user: userSelectors.getUser(state)
+  user: userSelectors.getUser(state),
+  state: stateSelectors.getState(state)
 });
 
 export default connect(mapStateToProps)(HeaderAuth);

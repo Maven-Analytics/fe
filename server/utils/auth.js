@@ -24,7 +24,7 @@ async function logout(h) {
     .response({
       success: true
     })
-    .unstate('token', COOKIE_OPTIONS);
+    // .unstate('token', COOKIE_OPTIONS);
 }
 
 async function login(h, user, redirectTo) {
@@ -39,8 +39,8 @@ async function login(h, user, redirectTo) {
       token
     }
   })
-    .header('Authorization', token)
-    .state('token', token, COOKIE_OPTIONS);
+    // .header('Authorization', token)
+    // .state('token', token, COOKIE_OPTIONS);
 }
 
 async function getSsoUrl(user, redirectTo) {

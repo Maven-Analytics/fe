@@ -34,7 +34,7 @@ class GlobalHeader extends Component {
                     );
                   })}
                 </ul>
-                <HeaderAuth showContact showRegister/>
+                <HeaderAuth showContact showRegister onUserClick={click(this.props.offmenuToggle, 'headerUser')}/>
               </nav>
               <Hamburger isActive={this.props.state.get('mobileMenu')} onClick={click(this.props.offmenuToggle, 'mobileMenu')}/>
             </div>

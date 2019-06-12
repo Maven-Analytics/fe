@@ -5,6 +5,7 @@ module.exports = {
 };
 
 function handleApiError(err) {
+  console.log(err);
   if (err.response && err.response.data) {
     throw new Boom(err.response.data.message, err.response.data);
   } else {

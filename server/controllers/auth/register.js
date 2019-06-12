@@ -17,7 +17,7 @@ module.exports = async (request, h) => {
 
 async function makeRequest(data) {
   return axios({
-    url: 'http://api:3000/api/v1/user',
+    url: `${process.env.HOST_API}/api/v1/user`,
     method: 'post',
     headers: {
       Authorization: `Bearer ${await jwt()}`
@@ -29,6 +29,6 @@ async function makeRequest(data) {
 }
 
 function findUser(id) {
-  return axios.get(`http://api:3000/api/v1/user/${id}`)
+  return axios.get(`${process.env.HOST_API}/api/v1/user/${id}`)
     .then(res => res.data.data[0]);
 }

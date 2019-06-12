@@ -19,7 +19,6 @@ module.exports = {
 };
 
 async function validate(decoded) {
-  console.log('decoded', decoded);
   if (!decoded || !decoded.email || decoded.email === '') {
     return {isValid: false};
   }

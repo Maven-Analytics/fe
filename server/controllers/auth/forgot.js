@@ -20,7 +20,7 @@ module.exports = async request => {
 };
 
 async function forgot(email) {
-  return axios.post('http://api:3000/api/v1/user/forgot', {
+  return axios.post(`${process.env.HOST_API}/api/v1/auth/forgot`, {
     email
   })
     .then(res => res.data)

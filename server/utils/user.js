@@ -16,7 +16,7 @@ async function runSync(user) {
 
 function syncUser(user) {
   return axios
-    .post(`http://webhooks:3000/v1/sync/${user.email}`)
+    .post(`${process.env.HOST_WEBHOOKS}/v1/sync/${user.email}`)
     .catch(err => {
       console.log(`Error syncing user ${user.id}`);
       console.log(err);
@@ -24,6 +24,10 @@ function syncUser(user) {
 }
 
 function shouldSync(user) {
+  if (!user) {
+    return false;
+  }
+
   const {last_sync} = user;
 
   if (!last_sync) {
