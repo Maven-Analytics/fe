@@ -53,7 +53,12 @@ module.exports = app => {
             }
           }
         },
-        handler: require('./controllers/auth/sso')
+        // handler: require('./controllers/auth/sso')
+        handler: async () => {
+          return {
+            success: true
+          };
+        }
       });
 
       server.route({
