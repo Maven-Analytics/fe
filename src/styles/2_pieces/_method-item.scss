@@ -28,6 +28,7 @@
     height: 45px;
     // line-height: 30px;
     margin-bottom: 0;
+    white-space: nowrap;
 
     @at-root .fonts-loaded & {
       font-family: $font-body;

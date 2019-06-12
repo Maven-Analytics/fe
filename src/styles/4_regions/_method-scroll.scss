@@ -20,24 +20,24 @@
   }
 
   &__inner {
+    @extend .container;
     @include breakpoint() {
-      padding: $header-height-desktop 0;
+      padding-bottom: $header-height-desktop;
+      padding-top: $header-height-desktop;
     }
   }
 
   &__content {
     @include breakpoint() {
       height: 512px;
-      padding-left: 50px;
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      width: calc(60% - 20px);
+      width: calc(100% - 50vw - 40px);
     }
 
     @include media-breakpoint-up(xl) {
-      padding-left: 115px;
-      width: calc(50% - 75px);
+      width: calc(100% - 60vw - 75px);
     }
   }
 
