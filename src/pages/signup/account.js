@@ -180,7 +180,7 @@ class SignupAccount extends Component {
           <div className="form-group">
             <div className={`checkbox ${terms ? 'checked' : ''}`} style={{marginTop: 30}}>
               <input type="checkbox" id="checkbox" checked={terms} onChange={stateCheck(this.handleChange, 'terms')}/>
-              <label htmlFor="checkbox">I have read and agree to the Terms of Service and Customer Privacy Policy</label>
+              <label htmlFor="checkbox">I have read and agree to the <a href="/terms" target="_blank">Terms of Service</a> and <a href="/privacy-policy" target="_blank">Customer Privacy Policy</a></label>
             </div>
           </div>
           <CheckoutFooter

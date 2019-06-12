@@ -1,0 +1,112 @@
+.layout-auth {
+  background-color: $black-auth;
+  min-height: 100vh;
+
+  @include collapseUp() {
+    background-color: transparent;
+    height: 100vh;
+  }
+
+  &__wrap {
+    @include collapseUp() {
+      height: 100%;
+      overflow-y: auto;
+    }
+  }
+
+  &__row {
+    @include collapseUp() {
+      align-items: center;
+      display: flex;
+      height: 100%;
+    }
+  }
+
+  &__background,
+  &__content {
+    flex: 1 1 50%;
+    height: 100%;
+  }
+
+  &__background {
+    display: none;
+    position: relative;
+
+    @include collapseUp {
+      display: block;
+    }
+
+    &::after {
+      background: $brand-gradient;
+      bottom: 0;
+      content: ' ';
+      left: 0;
+      opacity: .83;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+
+  &__content {
+    width: 100%;
+
+    @include collapseUp() {
+      align-items: center;
+      background-color: $black-auth;
+      display: flex;
+    }
+  }
+
+  &__content-inner {
+    padding: $spacing-unit--l $spacing-unit;
+    margin: 0 auto;
+    max-width: 410px;
+
+    @include collapseUp() {
+      padding: 0 $spacing-unit;
+      width: 60%;
+    }
+
+    .logo {
+      margin: 0 auto $spacing-unit--l;
+      width: 192px;
+    }
+
+    .form-group {
+      label {
+        color: $gray-light-2;
+      }
+    }
+
+    .form-footer {
+      text-align: center;
+
+      .btn {
+        @extend %btn--md;
+        margin-bottom: $spacing-unit--l;
+
+        @include collapseUp() {
+          margin-bottom: $spacing-unit--lml;
+        }
+      }
+
+      .links {
+        a {
+          display: block;
+          color: $white;
+          margin: 0 0 $spacing-unit--half;
+          text-decoration: underline;
+
+          @include collapseUp() {
+            margin: 0 0 $spacing-unit;
+          }
+
+          &:hover {
+            color: $yellow;
+          }
+        }
+      }
+    }
+  }
+}

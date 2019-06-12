@@ -12,8 +12,6 @@ import Markdown from '../components/markdown';
 import {click} from '../utils/componentHelpers';
 import {actions as stateActions} from '../redux/ducks/state';
 
-import '../styles/checkout.scss';
-
 const checkoutLinks = fromJS([
   {
     text: 'Choose your plan',
@@ -111,7 +109,8 @@ Checkout.propTypes = {
   children: PropTypes.node.isRequired,
   activeStep: PropTypes.number,
   title: PropTypes.string,
-  full: PropTypes.bool
+  full: PropTypes.bool,
+  actions: PropTypes.objectOf(PropTypes.func).isRequired
 };
 
 Checkout.defaultProps = {

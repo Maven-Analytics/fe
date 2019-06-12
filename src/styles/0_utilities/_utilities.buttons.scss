@@ -129,6 +129,15 @@
   }
 }
 
+%btn--md {
+  align-items: center;
+  border-radius: 19.5px;
+  display: inline-flex;
+  height: 40px;
+  justify-content: center;
+  min-width: 130px;
+}
+
 %btn--lg {
   @include collapseUp {
     align-items: center;

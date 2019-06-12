@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import Link from 'next/link';
-import {TimelineMax as Timeline, Power1} from 'gsap';
+import Router from 'next/router';
 
 import {selectors as userSelectors} from '../redux/ducks/user';
 import {actions as authActions} from '../redux/ducks/auth';
@@ -11,7 +11,7 @@ import {selectors as loadingSelectors} from '../redux/ducks/loading';
 import {selectors as errorSelectors} from '../redux/ducks/error';
 import {selectors as responseSelectors} from '../redux/ducks/response';
 import {state} from '../utils/componentHelpers';
-import Auth from '../components/auth';
+import Auth from '../layouts/auth';
 
 class Reset extends Component {
   constructor(props) {
@@ -43,7 +43,7 @@ class Reset extends Component {
     const {email, password} = this.state;
     const {loading, error, response} = this.props;
     return (
-      <Auth imageSrc="//images.unsplash.com/photo-1556151450-61a07fc5964e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=720&h=1024&fit=crop&ixid=eyJhcHBfaWQiOjF9">
+      <Auth>
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <label htmlFor="email">Email Address</label>
@@ -53,21 +53,23 @@ class Reset extends Component {
             <label htmlFor="password">Password</label>
             <input type="password" name="password" id="password" placeholder="Password" className="input" onChange={state(this.handleChange, 'password')} value={password} required/>
           </div>
-          <div className="form-message">
-            {error ? (
-              <p className="form-text small error">{error}</p>
-            ) : null}
-            {response ? (
-              <p className="form-text small success">{response}</p>
-            ) : null}
-          </div>
+          {error || response ? (
+            <div className="form-message">
+              {error ? (
+                <p className="form-text small error">{error}</p>
+              ) : null}
+              {response ? (
+                <p className="form-text small success">{response}</p>
+              ) : null}
+            </div>
+          ) : null}
           <div className="form-footer">
             <span className="submit">
-              <button className="btn btn--primary" type="submit" disabled={loading}>Reset Password</button>
+              <button className="btn btn--primary-solid" type="submit" style={{minWidth: 220}} disabled={loading}>Reset Password</button>
             </span>
-            <span>
-              <Link href="/login"><a className="small d-block">Login</a></Link>
-              <Link href="/register"><a className="small d-block">Register</a></Link>
+            <span className="links">
+              <Link href="/login"><a>Back to Login</a></Link>
+              <Link href="/signup"><a>{'I don\'t have an account yet. Sign me Up!'}</a></Link>
             </span>
           </div>
         </form>
@@ -92,8 +94,23 @@ const mapDispatchToProps = function (dispatch) {
 };
 
 Reset.getInitialProps = ctx => {
+  const {res, query} = ctx;
+
+  if (!query.token) {
+    if (res) {
+      res.writeHead(302, {
+        Location: '/'
+      });
+      res.end();
+
+      return;
+    }
+
+    Router.push('/');
+  }
+
   return {
-    token: ctx.query.token
+    token: query.token
   };
 };
 
@@ -103,20 +120,6 @@ Reset.propTypes = {
   error: PropTypes.string.isRequired,
   response: PropTypes.string.isRequired,
   token: PropTypes.string.isRequired
-};
-
-Reset.animationTimeline = node => {
-  const timeline = new Timeline({paused: true});
-  const inputs = [...node.querySelectorAll('.form-group'), ...node.querySelectorAll('.form-footer')];
-  const logo = node.querySelector('.auth__logo');
-  const form = node.querySelector('#auth-form');
-
-  timeline
-    // .from(form, 2, {authAlpha: 0, ease: Power1.easeInOut})
-    // .from(img, 2, {autoAlpha: 0, ease: Power1.easeInOut})
-    .staggerFrom(inputs, 0.3, {autoAlpha: 0, y: 20, ease: Power1.easeInOut}, 0.1);
-
-  return timeline;
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Reset);

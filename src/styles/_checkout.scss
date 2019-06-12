@@ -1,0 +1,27 @@
+// @import './0_utilities/mixins.aspect-ratio';
+// @import './0_utilities/mixins.list';
+// @import './0_utilities/mixins.gradient';
+// @import './0_utilities/mixins.media-queries';
+// @import './0_utilities/variables';
+// @import './0_utilities/settings.colors';
+// @import './0_utilities/settings.spacing';
+// @import './0_utilities/settings.sizes';
+// @import './0_utilities/settings.z-index';
+
+// @import '~bootstrap/scss/functions';
+// @import '~bootstrap/scss/variables';
+// @import '~bootstrap/scss/mixins/breakpoints';
+// @import '~bootstrap/scss/mixins/grid-framework';
+// @import '~bootstrap/scss/mixins/grid';
+// @import '~bootstrap/scss/grid';
+
+// @import './0_utilities/utilities.buttons';
+
+@import './1_core/layout-checkout';
+
+@import './2_pieces/checkout-plan';
+@import './2_pieces/checkout-footer';
+@import './2_pieces/checkout-thanks';
+
+@import './3_components/checkout-steps';
+@import './3_components/checkout-plans';

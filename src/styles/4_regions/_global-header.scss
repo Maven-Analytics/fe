@@ -108,6 +108,7 @@
 
           &:visited {
             color: $white;
+            transition: none;
           }
 
           &:not(.btn):not(.header-user__link) {

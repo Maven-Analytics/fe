@@ -29,6 +29,7 @@
 @import './1_core/html/buttons';
 @import './1_core/html/headings';
 @import './1_core/html/grid';
+@import './1_core/layout-auth';
 
 @import './2_pieces/hamburger';
 @import './2_pieces/logo';
@@ -58,6 +59,8 @@
 @import './4_regions/clients';
 @import './4_regions/student-spotlights';
 @import './4_regions/cta-section';
+
+@import './checkout';
 
 .view {
   width: 100%;
