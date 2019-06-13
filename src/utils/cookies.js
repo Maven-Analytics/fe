@@ -24,5 +24,10 @@ export const getCookie = (key, ctx = {}) => {
 
   const value = cookies[key];
 
-  return value ? JSON.parse(value) : value;
+  try {
+    return value ? JSON.parse(value) : value;
+  } catch (error) {
+    removeCookie(key, ctx);
+    return value;
+  }
 };
