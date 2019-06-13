@@ -15,7 +15,7 @@ const LoggedIn = ({user, children}) => {
 
 LoggedIn.propTypes = {
   user: ImmutablePropTypes.map,
-  children: PropTypes.oneOfType(PropTypes.func, PropTypes.node)
+  children: PropTypes.oneOfType([PropTypes.func, PropTypes.node])
 };
 
 LoggedIn.defaultProps = {
