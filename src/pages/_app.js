@@ -24,8 +24,6 @@ class MavenApp extends App {
 
     const user = store.getState().getIn(['user', 'user']);
 
-    console.log(token);
-
     if (token && token !== '' && (!user || user.isEmpty())) {
       store.dispatch(authActions.reauthenticate({token, ctx, isServer}));
     }
