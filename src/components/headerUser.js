@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 
 import MaIcon from './maIcon';
+import {clickPrevent} from '../utils/componentHelpers';
 
-const HeaderUser = ({user, onClick, open}) => {
+const HeaderUser = ({user, onClick, open, logout}) => {
   const classList = ['header-user'];
 
   if (open) {
@@ -26,7 +27,7 @@ const HeaderUser = ({user, onClick, open}) => {
       <ul id="header-user-dropdown" className="header-user__dropdown">
         <li><Link href="/"><a>My Account</a></Link></li>
         <li><Link href="/"><a>Support</a></Link></li>
-        <li><Link href="/logout"><a>Sign Out</a></Link></li>
+        <li><a href="#" onClick={clickPrevent(logout)}>Sign Out</a></li>
       </ul>
     </div>
   );
@@ -35,7 +36,8 @@ const HeaderUser = ({user, onClick, open}) => {
 HeaderUser.propTypes = {
   user: ImmutablePropTypes.map.isRequired,
   open: PropTypes.bool,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  logout: PropTypes.func.isRequired
 };
 
 export default HeaderUser;

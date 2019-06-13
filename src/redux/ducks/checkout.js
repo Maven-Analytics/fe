@@ -2,6 +2,7 @@ import {createSelector} from 'reselect';
 import {fromJS} from 'immutable';
 
 import * as utils from '../../utils/duckHelpers';
+import {plans} from '../../constants';
 
 export const types = {
   CHECKOUT_REQUEST: 'CHECKOUT_REQUEST',
@@ -13,11 +14,13 @@ export const types = {
 };
 
 export const actions = {
-  setPlan: plan => utils.action(types.CHECKOUT_REQUEST, {plan}),
+  setPlan: (plan, ctx) => utils.action(types.CHECKOUT_REQUEST, {plan, ctx}),
   getCheckout: obj => utils.action(types.GET_CHECKOUT_REQUEST, obj)
 };
 
-const initialState = utils.initialState({});
+const initialState = utils.initialState({
+  plan: plans.first()
+});
 
 export default (state = initialState, action) => {
   switch (action.type) {

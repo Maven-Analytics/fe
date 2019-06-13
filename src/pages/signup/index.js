@@ -17,17 +17,6 @@ import {selectors as checkoutSelectors, actions as checkoutActions} from '../../
 import CheckoutFooter from '../../components/checkoutFooter';
 
 class SignupIndex extends Component {
-  static async getInitialProps(ctx) {
-    const {store} = ctx;
-
-    const checkout = store.getState().get('checkout');
-    const plans = store.getState().get('plans');
-
-    if (checkout.isEmpty()) {
-      store.dispatch(checkoutActions.setPlan(plans.first()));
-    }
-  }
-
   constructor(props) {
     super(props);
 

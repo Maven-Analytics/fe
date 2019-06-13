@@ -1,13 +1,17 @@
 import React from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
+import PropTypes from 'prop-types';
 import Link from 'next/link';
 import {Map} from 'immutable';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 import MaIcon from './maIcon';
 import {selectors as userSelectors} from '../redux/ducks/user';
+import {actions as authActions} from '../redux/ducks/auth';
+import {clickPrevent} from '../utils/componentHelpers';
 
-const HeaderAuthMobile = ({user}) => {
+const HeaderAuthMobile = ({user, actions}) => {
   const loggedIn = user && user.has('id');
 
   return (
@@ -41,7 +45,7 @@ const HeaderAuthMobile = ({user}) => {
       ) : null}
       {loggedIn ? (
         <li>
-          <Link href="/logout"><a>Logout</a></Link>
+          <a href="#" onClick={clickPrevent(actions.logout)}>Logout</a>
         </li>
       ) : null }
       {loggedIn === false ? (
@@ -52,7 +56,8 @@ const HeaderAuthMobile = ({user}) => {
 };
 
 HeaderAuthMobile.propTypes = {
-  user: ImmutablePropTypes.map
+  user: ImmutablePropTypes.map,
+  actions: PropTypes.objectOf(PropTypes.func)
 };
 
 HeaderAuthMobile.defaultProps = {
@@ -63,5 +68,11 @@ const mapStateToProps = state => ({
   user: userSelectors.getUser(state)
 });
 
-export default connect(mapStateToProps)(HeaderAuthMobile);
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    ...authActions
+  }, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderAuthMobile);
 

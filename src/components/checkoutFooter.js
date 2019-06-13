@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import {noop} from '../utils/componentHelpers';
 
-const CheckoutFooter = ({disabled, onClick, btnType, error, loading}) => {
+const CheckoutFooter = ({disabled, onClick, btnType, error, loading, loginRedirect, showLogin, btnText}) => {
   return (
     <div className="checkout-footer">
       {error && error !== '' ? (
@@ -13,12 +13,14 @@ const CheckoutFooter = ({disabled, onClick, btnType, error, loading}) => {
         </div>
       ) : null}
       <button type={btnType} onClick={onClick} disabled={disabled || loading} className="btn btn--primary-solid">
-        Next Step
+        {btnText}
       </button>
       <div className="helper-links">
-        <Link href="/login">
-          <a>Already have an account?</a>
-        </Link>
+        {showLogin ? (
+          <Link href={{pathname: '/login', query: {redirectTo: loginRedirect}}}>
+            <a>Already have an account?</a>
+          </Link>
+        ) : null}
       </div>
     </div>
   );
@@ -29,11 +31,17 @@ CheckoutFooter.propTypes = {
   loading: PropTypes.bool,
   onClick: PropTypes.func,
   btnType: PropTypes.string,
-  error: PropTypes.string
+  error: PropTypes.string,
+  loginRedirect: PropTypes.string,
+  showLogin: PropTypes.bool,
+  btnText: PropTypes.string
 };
 
 CheckoutFooter.defaultProps = {
-  onClick: noop
+  onClick: noop,
+  loginRedirect: '/signup',
+  showLogin: true,
+  btnText: 'Next Step'
 };
 
 export default CheckoutFooter;

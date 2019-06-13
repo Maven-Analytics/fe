@@ -13,6 +13,13 @@ import Auth from '../layouts/auth';
 import config from '../config';
 
 class Login extends Component {
+  static async getInitialProps(ctx) {
+    console.log(ctx.query);
+    return {
+      redirectTo: ctx.query.redirectTo ? `${config.HOST_APP}${ctx.query.redirectTo}` : config.HOST_APP
+    };
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -30,10 +37,11 @@ class Login extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    console.log(this.props.redirectTo);
     this.props.actions.login({
       email: this.state.email,
       password: this.state.password,
-      redirectTo: config.HOST_APP
+      redirectTo: this.props.redirectTo || config.HOST_APP
     });
   }
 
@@ -88,7 +96,8 @@ const mapDispatchToProps = function (dispatch) {
 Login.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   loading: PropTypes.bool.isRequired,
-  error: PropTypes.string.isRequired
+  error: PropTypes.string.isRequired,
+  redirectTo: PropTypes.string.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

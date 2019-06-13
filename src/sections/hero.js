@@ -24,7 +24,7 @@ const Hero = () => {
             <h1>We Transform Everyday People Into</h1>
             <h1><span>Data Rockstars</span></h1>
             <p><MaIcon icon="chevron-right"/> Award-winning business <strong>intelligence training and resources</strong></p>
-            <a href="#" className="btn btn--primary-solid">Free 10-Day Trial</a>
+            <a href="/signup" className="btn btn--primary-solid">Free 10-Day Trial</a>
           </div>
         </div>
       </div>

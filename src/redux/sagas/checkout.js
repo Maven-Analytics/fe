@@ -10,10 +10,12 @@ export function * watchCheckout() {
   yield takeLatest(checkoutTypes.GET_CHECKOUT_REQUEST, onGetCheckoutRequest);
 }
 
-function * onCheckoutRequest({payload: {plan}}) {
+function * onCheckoutRequest({payload: {plan, ctx}}) {
   try {
     // const data = yield updateCheckout(plan);
-    // setCookie('checkout', data.token);
+    setCookie('checkout', {
+      plan: plan.toJS()
+    }, ctx);
 
     yield all([
       put({

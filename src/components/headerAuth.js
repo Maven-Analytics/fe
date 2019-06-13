@@ -11,6 +11,7 @@ import {selectors as userSelectors} from '../redux/ducks/user';
 import {click} from '../utils/componentHelpers';
 import HeaderUser from './headerUser';
 import {selectors as stateSelectors, actions as stateActions} from '../redux/ducks/state';
+import {actions as authActions} from '../redux/ducks/auth';
 
 const HeaderAuth = ({showContact, showRegister, user, state, actions}) => {
   const loggedIn = user && user.has('id');
@@ -26,6 +27,7 @@ const HeaderAuth = ({showContact, showRegister, user, state, actions}) => {
         <li>
           <HeaderUser
             user={user}
+            logout={actions.logout}
             onClick={click(actions.offmenuToggle, 'headerUser')}
             open={state.get('headerUser')}
           />
@@ -76,7 +78,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    ...stateActions
+    ...stateActions,
+    ...authActions
   }, dispatch)
 });
 
