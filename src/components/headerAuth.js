@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
@@ -7,15 +7,14 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import MaIcon from './maIcon';
-import {selectors as userSelectors} from '../redux/ducks/user';
 import {click} from '../utils/componentHelpers';
 import HeaderUser from './headerUser';
 import {selectors as stateSelectors, actions as stateActions} from '../redux/ducks/state';
 import {actions as authActions} from '../redux/ducks/auth';
+import LoggedIn from './loggedIn';
+import LoggedOut from './loggedOut';
 
-const HeaderAuth = ({showContact, showRegister, user, state, actions}) => {
-  const loggedIn = user && user.has('id');
-
+const HeaderAuth = ({showContact, showRegister, state, actions}) => {
   return (
     <ul>
       {showContact ? (
@@ -23,17 +22,21 @@ const HeaderAuth = ({showContact, showRegister, user, state, actions}) => {
           <Link href="/contact"><a>Contact</a></Link>
         </li>
       ) : null}
-      {loggedIn ? (
-        <li>
-          <HeaderUser
-            user={user}
-            logout={actions.logout}
-            onClick={click(actions.offmenuToggle, 'headerUser')}
-            open={state.get('headerUser')}
-          />
-        </li>
-      ) : null}
-      {loggedIn === false ? (
+      <LoggedIn>
+        {user => (
+          <Fragment>
+            <li>
+              <HeaderUser
+                user={user}
+                logout={actions.logout}
+                onClick={click(actions.offmenuToggle, 'headerUser')}
+                open={state.get('headerUser')}
+              />
+            </li>
+          </Fragment>
+        )}
+      </LoggedIn>
+      <LoggedOut>
         <li>
           <Link href="/login">
             <a>
@@ -42,22 +45,21 @@ const HeaderAuth = ({showContact, showRegister, user, state, actions}) => {
             </a>
           </Link>
         </li>
-      ) : null}
-      {loggedIn === false && showRegister ? (
-        <li>
-          <Link href="/signup">
-            <a className="btn btn--primary">
-              Sign up
-            </a>
-          </Link>
-        </li>
-      ) : null}
+        {showRegister ? (
+          <li>
+            <Link href="/signup">
+              <a className="btn btn--primary">
+                Sign up
+              </a>
+            </Link>
+          </li>
+        ) : null}
+      </LoggedOut>
     </ul>
   );
 };
 
 HeaderAuth.propTypes = {
-  user: ImmutablePropTypes.map,
   showRegister: PropTypes.bool,
   showContact: PropTypes.bool,
   state: ImmutablePropTypes.map,
@@ -65,14 +67,12 @@ HeaderAuth.propTypes = {
 };
 
 HeaderAuth.defaultProps = {
-  user: Map(),
   showRegister: false,
   showContact: false,
   state: Map()
 };
 
 const mapStateToProps = state => ({
-  user: userSelectors.getUser(state),
   state: stateSelectors.getState(state)
 });
 

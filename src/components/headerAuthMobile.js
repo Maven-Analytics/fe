@@ -1,5 +1,4 @@
 import React from 'react';
-import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import {Map} from 'immutable';
@@ -7,19 +6,18 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import MaIcon from './maIcon';
-import {selectors as userSelectors} from '../redux/ducks/user';
 import {actions as authActions} from '../redux/ducks/auth';
 import {clickPrevent} from '../utils/componentHelpers';
+import LoggedIn from './loggedIn';
+import LoggedOut from './loggedOut';
 
-const HeaderAuthMobile = ({user, actions}) => {
-  const loggedIn = user && user.has('id');
-
+const HeaderAuthMobile = ({actions}) => {
   return (
     <ul>
       <li>
         <Link href="/contact"><a>Contact</a></Link>
       </li>
-      {loggedIn === false ? (
+      <LoggedOut>
         <li>
           <Link href="/login">
             <a>
@@ -28,8 +26,6 @@ const HeaderAuthMobile = ({user, actions}) => {
             </a>
           </Link>
         </li>
-      ) : null}
-      {loggedIn === false ? (
         <li>
           <Link href="/signup">
             <a className="btn btn--primary">
@@ -37,26 +33,20 @@ const HeaderAuthMobile = ({user, actions}) => {
             </a>
           </Link>
         </li>
-      ) : null}
-      {loggedIn ? (
+      </LoggedOut>
+      <LoggedIn>
         <li>
           <Link href="/account"><a>Account</a></Link>
         </li>
-      ) : null}
-      {loggedIn ? (
         <li>
           <a href="#" onClick={clickPrevent(actions.logout)}>Logout</a>
         </li>
-      ) : null }
-      {loggedIn === false ? (
-        <li>not logged in</li>
-      ) : null}
+      </LoggedIn>
     </ul>
   );
 };
 
 HeaderAuthMobile.propTypes = {
-  user: ImmutablePropTypes.map,
   actions: PropTypes.objectOf(PropTypes.func)
 };
 
@@ -64,9 +54,7 @@ HeaderAuthMobile.defaultProps = {
   user: Map()
 };
 
-const mapStateToProps = state => ({
-  user: userSelectors.getUser(state)
-});
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
