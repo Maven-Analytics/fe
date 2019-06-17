@@ -1,4 +1,4 @@
-import {all, put, takeLatest, fork} from 'redux-saga/effects';
+import {all, put, takeLatest, fork, delay} from 'redux-saga/effects';
 import axios from 'axios';
 
 import {watchState} from './state';
@@ -6,6 +6,8 @@ import {types as authTypes} from '../ducks/auth';
 import {types as userTypes} from '../ducks/user';
 import {types as responseTypes} from '../ducks/response';
 import {watchCheckout} from './checkout';
+import {watchPaths} from './paths';
+import {watchCourses} from './courses';
 import {setCookie, removeCookie, getCookie} from '../../utils/cookies';
 import config from '../../config';
 
@@ -194,7 +196,9 @@ function * rootSaga() {
     takeLatest(authTypes.RESET_REQUEST, resetRequest),
     takeLatest(authTypes.SSO_REQUEST, ssoRequest),
     fork(watchState),
-    fork(watchCheckout)
+    fork(watchCheckout),
+    fork(watchPaths),
+    fork(watchCourses)
   ]);
 }
 

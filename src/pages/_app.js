@@ -10,6 +10,8 @@ import * as FontFaceObserver from 'fontfaceobserver';
 import initStore from '../redux/store';
 import {actions as authActions} from '../redux/ducks/auth';
 import {actions as checkoutActions} from '../redux/ducks/checkout';
+import {actions as pathActions} from '../redux/ducks/paths';
+import {actions as courseActions} from '../redux/ducks/courses';
 import {getCookie, removeCookie} from '../utils/cookies';
 import {enter, exit} from '../utils/animations';
 
@@ -22,7 +24,10 @@ class MavenApp extends App {
     const token = getCookie('token', ctx);
     const checkoutCookie = getCookie('checkout', ctx);
 
-    const user = store.getState().getIn(['user', 'user']);
+    const state = store.getState();
+    const user = state.getIn(['user', 'user']);
+    const paths = state.get('paths');
+    const courses = state.get('courses');
 
     if (token && token !== '' && (!user || user.isEmpty())) {
       store.dispatch(authActions.reauthenticate({token, ctx, isServer}));
@@ -30,6 +35,14 @@ class MavenApp extends App {
 
     if (checkoutCookie && checkoutCookie !== '') {
       store.dispatch(checkoutActions.setPlan(fromJS(checkoutCookie.plan)));
+    }
+
+    if (paths && paths.isEmpty()) {
+      store.dispatch(pathActions.pathsInit());
+    }
+
+    if (courses && courses.isEmpty()) {
+      store.dispatch(courseActions.coursesInit());
     }
 
     return {

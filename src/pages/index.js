@@ -10,6 +10,7 @@ import {selectors as userSelectors} from '../redux/ducks/user';
 import {actions as authActions} from '../redux/ducks/auth';
 import {selectors as loadingSelectors} from '../redux/ducks/loading';
 import {selectors as errorSelectors} from '../redux/ducks/error';
+import {selectors as pathSelectors} from '../redux/ducks/paths';
 import Main from '../layouts/main';
 import Hero from '../sections/hero';
 import StatCounter from '../sections/statCounter';
