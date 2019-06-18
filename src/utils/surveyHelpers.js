@@ -78,6 +78,12 @@ export function sortResults(results) {
 export function getInitialAnswers(questions, initialValue = 0) {
   return questions.reduce((map, question) => {
     question.get('answers').forEach(a => {
+      if (a.get('type') === 'checkbox') {
+        initialValue = false;
+      } else if (a.get('type') === 'text') {
+        initialValue = '';
+      }
+
       map = map.set(a.get('id'), initialValue);
     });
 

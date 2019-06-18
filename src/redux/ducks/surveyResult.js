@@ -4,9 +4,10 @@ import {fromJS} from 'immutable';
 import * as utils from '../../utils/duckHelpers';
 import {selectors as courseSelectors} from './courses';
 import {selectors as pathSelectors} from './paths';
-import {getRecommendedCourses, getCoursePercentages, getAdjustedCoursePercentages, getRecommendedPaths, getPathPercentages, getAdjustedPathPercentages, sortResults} from '../../utils/surveyHelpers';
+import {getRecommendedCourses, getCoursePercentages, getAdjustedCoursePercentages, getRecommendedPaths, getPathPercentages, getAdjustedPathPercentages, sortResults, getInitialAnswers} from '../../utils/surveyHelpers';
 import {getCourseById} from '../../utils/courseHelpers';
 import {getPathById} from '../../utils/pathHelpers';
+import { SurveyQuestions } from '../../surveyContstants';
 
 export const types = {
   SURVEY_RESULT_UPDATE: 'SURVEY_RESULT_UPDATE'
@@ -20,7 +21,7 @@ export const actions = {
 // import {DEV_SURVEY_RESULTS} from '../../surveyContstants';
 // import config from '../../config';
 // const initialState = utils.initialState(config.NODE_ENV === 'development' ? DEV_SURVEY_RESULTS : {});
-const initialState = utils.initialState({});
+const initialState = utils.initialState(getInitialAnswers(SurveyQuestions, 5));
 
 export default (state = initialState, action) => {
   switch (action.type) {
