@@ -131,13 +131,18 @@
 
 %btn--empty {
   border-color: transparent;
-  color: rgba($white, .7);
+  color: $white;
   text-transform: none;
 
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: transparent;
     border-color: transparent;
+    box-shadow: none;
     color: $white;
+    outline: none;
+    text-decoration: underline;
+    transform: none;
   }
 }
 
