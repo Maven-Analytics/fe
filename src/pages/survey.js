@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {fromJS, Map} from 'immutable';
 import {TransitionMotion, spring, presets} from 'react-motion';
+import Link from 'next/link';
 
 import {selectors as surveyResultSelectors, actions as surveyResultActions} from '../redux/ducks/surveyResult';
 import {selectors as courseSelectors} from '../redux/ducks/courses';
@@ -23,11 +24,22 @@ class Survey extends Component {
 
     this.getStyles = this.getStyles.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleNext = this.handleNext.bind(this);
+    this.handlePrevious = this.handlePrevious.bind(this);
   }
 
   getActiveIndex() {
     return this.state.questions.findIndex(q => q.get('active'));
+  }
+
+  getTotalQuestions() {
+    return this.state.questions.count();
+  }
+
+  getPreviousIndex() {
+    const next = this.getActiveIndex() - 1;
+
+    return this.state.questions.has(next) ? next : -1;
   }
 
   getNextIndex() {
@@ -40,7 +52,22 @@ class Survey extends Component {
     this.props.actions.surveyResultUpdate(state);
   }
 
-  handleSubmit() {
+  handlePrevious() {
+    const nextIndex = this.getPreviousIndex();
+
+    if (nextIndex < 0) {
+      console.log('at first step');
+      return;
+    }
+
+    this.setState({
+      questions: this.state.questions
+        .map(q => q.set('active', false))
+        .setIn([nextIndex, 'active'], true)
+    });
+  }
+
+  handleNext() {
     const nextIndex = this.getNextIndex();
 
     if (!nextIndex) {
@@ -112,7 +139,9 @@ class Survey extends Component {
             )}
           </TransitionMotion>
           <div className="survey__footer">
-            <button className="btn btn--primary-solid btn--lg" onClick={this.handleSubmit}>Next</button>
+            {this.getPreviousIndex() >= 0 ? <button className="btn btn--empty btn--lg" onClick={this.handlePrevious}>Previous</button> : null }
+            {this.getNextIndex() > 0 ? <button className="btn btn--primary-solid btn--lg" onClick={this.handleNext}>Next</button> : null}
+            {this.getActiveIndex() + 1 === this.getTotalQuestions() ? <Link href="/survey/results"><a className="btn btn--primary-solid btn--lg">Finish</a></Link> : null}
           </div>
         </div>
       </Checkout>

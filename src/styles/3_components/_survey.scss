@@ -1,4 +1,6 @@
 .survey {
+  padding: 4vh 0;
+
   &__pagination {
     color: $gray-light-2;
     font-family: $font-heading;
@@ -27,6 +29,10 @@
 
     .btn {
       min-width: 105px;
+    }
+
+    .btn + .btn {
+      margin-left: $spacing-unit--ss;
     }
   }
 }

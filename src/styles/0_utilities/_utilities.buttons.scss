@@ -129,6 +129,18 @@
   }
 }
 
+%btn--empty {
+  border-color: transparent;
+  color: rgba($white, .7);
+  text-transform: none;
+
+  &:hover {
+    background-color: transparent;
+    border-color: transparent;
+    color: $white;
+  }
+}
+
 %btn--md {
   align-items: center;
   border-radius: 19.5px;

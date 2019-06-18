@@ -13,6 +13,10 @@
     @extend %btn--secondary;
   }
 
+  &--empty {
+    @extend %btn--empty;
+  }
+
   &--lg {
     @extend %btn--lg;
   }
