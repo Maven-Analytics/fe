@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import RangeInput from './inputs/range';
 
-const SurveyAnswer = ({id, text, value, onChange}) => {
+const SurveyAnswer = ({id, text, value, onChange, style}) => {
   return (
-    <div className="survey-answer">
+    <div className="survey-answer" style={style}>
       <label htmlFor={id}>{text}</label>
       <RangeInput
         id={id}
@@ -22,7 +22,8 @@ SurveyAnswer.propTypes = {
   id: PropTypes.string.isRequired,
   text: PropTypes.string,
   value: PropTypes.number,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  style: PropTypes.object
 };
 
 export default SurveyAnswer;

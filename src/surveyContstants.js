@@ -43,11 +43,12 @@ export const SurveyQuestions = fromJS([
     text: 'Last but not least, which of the following goals can we help you achieve? (multi-select)',
     isMultiSelect: true,
     answers: [
-      {id: '4a', text: 'Strengthen and expand my skill set'},
-      {id: '4b', text: 'Increase productivity and become more valuable in my role'},
-      {id: '4c', text: 'Earn a promotion or land a new job'},
-      {id: '4d', text: 'Start a new business or personal project'},
-      {id: '4e', text: 'I have another goal in mind', hasAddon: true}
+      {id: '4a', text: 'Strengthen and expand my skill set', type: 'checkbox'},
+      {id: '4b', text: 'Increase productivity and become more valuable in my role', type: 'checkbox'},
+      {id: '4c', text: 'Earn a promotion or land a new job', type: 'checkbox'},
+      {id: '4d', text: 'Start a new business or personal project', type: 'checkbox'},
+      {id: '4e', text: 'I have another goal in mind', type: 'checkbox'},
+      {id: '4e_1', text: 'What is your goal?', condition: '4e', type: 'text'}
     ]
   }
 ]);

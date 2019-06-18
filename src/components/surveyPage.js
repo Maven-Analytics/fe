@@ -5,6 +5,8 @@ import {List, Map} from 'immutable';
 import {StaggeredMotion, spring, presets} from 'react-motion';
 
 import SurveyAnswer from './surveyAnswer';
+import SurveyAnswerCheck from './surveyAnswerCheck';
+import SurveyAnswerText from './surveyAnswerText';
 
 class SurveyPage extends Component {
   defaultStyles() {
@@ -58,16 +60,25 @@ class SurveyPage extends Component {
 
                 const answer = answers.get(index - 1);
 
+                let Component = SurveyAnswer;
+
+                if (answer.get('type') === 'checkbox') {
+                  Component = SurveyAnswerCheck;
+                } else if (answer.get('type') === 'text') {
+                  Component = SurveyAnswerText;
+                }
+
                 return (
-                  <div key={answer.get('id')} style={style}>
-                    <SurveyAnswer
-                      key={answer.get('id')}
-                      id={answer.get('id')}
-                      onChange={onChange}
-                      text={answer.get('text')}
-                      value={values.get(answer.get('id'))}
-                    />
-                  </div>
+                  <Component
+                    key={answer.get('id')}
+                    style={style}
+                    id={answer.get('id')}
+                    onChange={onChange}
+                    text={answer.get('text')}
+                    conditionId={answer.get('condition')}
+                    condition={values.get(answer.get('condition'))}
+                    value={values.get(answer.get('id'))}
+                  />
                 );
               })}
             </div>

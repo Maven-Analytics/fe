@@ -40,4 +40,35 @@
     flex: 0 0 40px;
     margin-left: 2.2rem;
   }
+
+  &--check,
+  &--text {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 600px;
+  }
+
+  &--text {
+    display: none;
+    padding-left: 5rem;
+
+    label {
+      color: $gray-light-2;
+      font-size: .7em;
+      margin: 0 0 $spacing-unit--ss;
+    }
+
+    &.has-condition {
+      margin-top: -($spacing-unit);
+
+      @include media-breakpoint-up(md) {
+        margin-top: -($spacing-unit--md);
+      }
+    }
+
+    &.active {
+      display: block;
+    }
+  }
 }

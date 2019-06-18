@@ -13,10 +13,13 @@
   }
 
   &__content {
-    overflow: hidden;
     margin: 0 0 $spacing-unit--l;
     position: relative;
     width: 100%;
+
+    @include media-breakpoint-up(md) {
+      margin: 0 0 $spacing-unit--ll;
+    }
   }
 
   &__footer {
