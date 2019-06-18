@@ -1,0 +1,11 @@
+diff: true
+extension:
+  - spec.js
+require: '@babel/register'
+file:
+  - mocha.setup.js
+recursive: true
+slow: 75
+ui: bdd
+timeout: 2000
+reporter: spec

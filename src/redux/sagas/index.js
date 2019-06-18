@@ -8,6 +8,7 @@ import {types as responseTypes} from '../ducks/response';
 import {watchCheckout} from './checkout';
 import {watchPaths} from './paths';
 import {watchCourses} from './courses';
+import {watchSurveys} from './surveyResults';
 import {setCookie, removeCookie, getCookie} from '../../utils/cookies';
 import config from '../../config';
 
@@ -198,7 +199,8 @@ function * rootSaga() {
     fork(watchState),
     fork(watchCheckout),
     fork(watchPaths),
-    fork(watchCourses)
+    fork(watchCourses),
+    fork(watchSurveys)
   ]);
 }
 

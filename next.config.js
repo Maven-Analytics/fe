@@ -15,7 +15,8 @@ module.exports = withPlugins(
       HOST_APP: process.env.HOST_APP,
       THINKIFIC_SUBDOMAIN: process.env.THINKIFIC_SUBDOMAIN,
       CONTENTFUL_SPACE: process.env.CONTENTFUL_SPACE,
-      CONTENTFUL_ACCESS_TOKEN: process.env.CONTENTFUL_ACCESS_TOKEN
+      CONTENTFUL_ACCESS_TOKEN: process.env.CONTENTFUL_ACCESS_TOKEN,
+      NODE_ENV: process.env.NODE_ENV
     },
     webpack: (config, {isServer}) => {
       if (isServer) {

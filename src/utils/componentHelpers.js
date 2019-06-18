@@ -54,6 +54,10 @@ export function stateCheck(func, key) {
   return e => (func && typeof func === 'function') ? func({[key]: e.target.checked}) : null;
 }
 
+export function stateNum(func, key) {
+  return e => (func && typeof func === 'function') ? func({[key]: parseFloat(e.target.value)}) : null;
+}
+
 export function input(func, val) {
   return e => (func && typeof func === 'function') ? func(val || e.target.value) : null;
 }
@@ -189,4 +193,12 @@ export function getWindowHeight(useDOM) {
 
 export function isTouchDevice() {
   return canUseDOM ? 'ontouchstart' in document.documentElement : false;
+}
+
+export function prettyPercent(decimal) {
+  if (!decimal) {
+    return 0;
+  }
+
+  return Math.round((decimal * 100).toFixed(2));
 }
