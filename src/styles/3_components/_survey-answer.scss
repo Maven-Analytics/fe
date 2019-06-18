@@ -1,0 +1,43 @@
+.survey-answer {
+  align-items: center;
+  display: flex;
+  color: $white;
+  flex-wrap: wrap;
+  font-size: 1.6rem;
+  margin: 0 0 $spacing-unit--l;
+  padding-left: $spacing-unit;
+
+  @include media-breakpoint-up(md) {
+    flex-wrap: nowrap;
+    font-size: 1.8rem;
+    padding-left: 0;
+  }
+
+  label {
+    color: inherit;
+    font-size: 1em;
+    flex: 0 0 100%;
+    margin-bottom: $spacing-unit--ss;
+    margin-left: -($spacing-unit);
+
+    @include media-breakpoint-up(md) {
+      flex: 0 0 260px;
+      margin-bottom: 0;
+      margin-left: 0;
+      margin-right: 4rem;
+      text-align: right;
+    }
+  }
+
+  .range-input {
+    flex: 1 1 70%;
+  }
+
+  span {
+    font-family: $font-heading;
+    font-size: 1.5em;
+    font-weight: 700;
+    flex: 0 0 40px;
+    margin-left: 2.2rem;
+  }
+}

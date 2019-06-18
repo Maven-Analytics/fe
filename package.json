@@ -58,6 +58,7 @@
     "react-gsap": "^1.2.0",
     "react-headroom": "^2.2.8",
     "react-immutable-proptypes": "^2.1.0",
+    "react-motion": "^0.5.2",
     "react-redux": "^7.0.2",
     "react-scrollmagic": "^2.1.0",
     "react-transition-group": "^4.0.0",

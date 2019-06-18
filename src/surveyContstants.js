@@ -1,7 +1,8 @@
-import {fromJS, Map} from 'immutable';
+import {fromJS} from 'immutable';
 
 export const SurveyQuestions = fromJS([
   {
+    id: 'question-1',
     text: 'On a scale of 1-10, how interested are you in mastering the following tools?	',
     answers: [
       {id: '1a', text: 'Excel Formulas & Functions'},
@@ -15,6 +16,7 @@ export const SurveyQuestions = fromJS([
     ]
   },
   {
+    id: 'question-2',
     text: 'On a scale of 1-10, how interested are you in developing the following skills?',
     answers: [
       {id: '2a', text: 'General Productivity', note: '(Efficiently managing and manipulating information stored in spreadsheets)'},
@@ -24,6 +26,7 @@ export const SurveyQuestions = fromJS([
     ]
   },
   {
+    id: 'question-3',
     text: 'On a scale of 1-10, how often do you perform (or expect to perform) the following types of tasks?',
     answers: [
       {id: '3a', text: 'Exploring and analyzing relatively small datasets (<1mm rows)'},
@@ -36,6 +39,7 @@ export const SurveyQuestions = fromJS([
     ]
   },
   {
+    id: 'question-4',
     text: 'Last but not least, which of the following goals can we help you achieve? (multi-select)',
     isMultiSelect: true,
     answers: [

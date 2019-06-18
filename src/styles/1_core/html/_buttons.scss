@@ -12,4 +12,12 @@
   &--secondary {
     @extend %btn--secondary;
   }
+
+  &--lg {
+    @extend %btn--lg;
+  }
+
+  &--md {
+    @extend %btn--md;
+  }
 }

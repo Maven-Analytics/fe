@@ -1,0 +1,29 @@
+.survey {
+  &__pagination {
+    color: $gray-light-2;
+    font-family: $font-heading;
+    font-size: 1.8rem;
+    margin: 0 auto $spacing-unit;
+    max-width: 710px;
+    text-align: center;
+
+    @include media-breakpoint-up(md) {
+      font-size: 2rem;
+    }
+  }
+
+  &__content {
+    overflow: hidden;
+    margin: 0 0 $spacing-unit--l;
+    position: relative;
+    width: 100%;
+  }
+
+  &__footer {
+    text-align: center;
+
+    .btn {
+      min-width: 105px;
+    }
+  }
+}

@@ -1,16 +1,15 @@
 import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 
-import {noop, stateNum} from '../../utils/componentHelpers';
+import {noop} from '../../utils/componentHelpers';
 
 class RangeInput extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      value: props.value,
       down: false,
-      x: 0
+      percentage: 0
     };
 
     this.el = createRef();
@@ -19,7 +18,12 @@ class RangeInput extends Component {
     this.handleMouseDown = this.handleMouseDown.bind(this);
     this.handleMouseMove = this.handleMouseMove.bind(this);
     this.handleMouseUp = this.handleMouseUp.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({
+      percentage: this.getPercentageFromValue(this.props.value)
+    });
   }
 
   getPercentage(x) {
@@ -29,8 +33,9 @@ class RangeInput extends Component {
 
     const {current: el} = this.el;
 
-    const total = el.offsetWidth;
-    let distance = x - el.offsetLeft;
+    const elRect = el.getBoundingClientRect();
+    const total = elRect.width;
+    let distance = x - elRect.left;
 
     if (distance < 0) {
       distance = 0;
@@ -45,58 +50,46 @@ class RangeInput extends Component {
     return percentage;
   }
 
-  getXFromValue(value = this.state.value) {
+  getPercentageFromValue(value = this.state.value) {
     if (!this.el || !this.el.current) {
       return 0;
     }
 
     const {current: el} = this.el;
+    const elRect = el.getBoundingClientRect();
 
-    const total = el.offsetWidth;
-    const x = (total / this.props.max * value) + el.offsetLeft;
+    const total = elRect.width;
+    const x = (total / this.props.max * value) + elRect.left;
 
-    return x;
+    return this.getPercentage(x);
   }
 
-  componentDidUpdate() {
-    if (this.props.value !== this.state.value) {
-      this.handleChange(this.props.value);
-    }
+  getValueFromX(x) {
+    return Math.round(this.getPercentage(x) / this.props.max);
   }
 
-  handleChange(state) {
-    if (state) {
-      this.handleValueChange(state.value);
-    }
+  getXPosFromEvent(e) {
+    const event = e.touches && e.touches[0] ? e.touches[0] : e;
+
+    return event.clientX;
+  }
+
+  handleChange(e) {
+    this.handleValueChange(parseFloat(e.target.value));
   }
 
   handleValueChange(value) {
+    this.props.onChange({[this.props.id]: value});
     this.setState({
-      x: this.getXFromValue(value),
-      value
-    }, () => {
-      this.props.onChange(value);
+      percentage: this.getPercentageFromValue(value)
     });
-  }
-
-  handleKeyDown() {
-    this.getXFromValue();
   }
 
   handleMouseDown(e) {
-    const event = e.touches && e.touches[0] ? e.touches[0] : e;
-
-    this.setState({
-      down: true,
-      x: event.clientX
-    });
+    this.handleMouseEvent(e);
 
     document.addEventListener('mousemove', this.handleMouseMove);
     document.addEventListener('mouseup', this.handleMouseUp);
-  }
-
-  cancelDocumentTouches(e) {
-    e.preventDefault();
   }
 
   handleMouseMove(e) {
@@ -104,29 +97,37 @@ class RangeInput extends Component {
       return;
     }
 
-    const event = e.touches && e.touches[0] ? e.touches[0] : e;
+    // Prevents selecting other elements when moving mouse around screen
+    if (!e.touches) {
+      e.preventDefault();
+    }
 
-    this.setState({
-      x: event.clientX,
-      value: Math.round(this.getPercentage(event.clientX) / this.props.max)
-    });
+    this.handleMouseEvent(e);
   }
 
-  handleMouseUp(e) {
-    const event = e.touches && e.touches[0] ? e.touches[0] : e;
-
+  handleMouseUp() {
     this.setState({
-      down: false,
-      x: event.clientX
+      down: false
     });
 
     document.removeEventListener('mousemove', this.handleMouseMove);
     document.removeEventListener('mouseup', this.handleMouseUp);
   }
 
+  handleMouseEvent(e, down = true) {
+    const x = this.getXPosFromEvent(e);
+    const value = this.getValueFromX(x);
+
+    this.props.onChange({[this.props.id]: value});
+
+    this.setState({
+      down,
+      percentage: this.getPercentage(x)
+    });
+  }
+
   render() {
-    const {x} = this.state;
-    const percentage = this.getPercentage(x);
+    const {percentage} = this.state;
 
     return (
       <div
@@ -152,12 +153,14 @@ class RangeInput extends Component {
           }}
         />
         <input
+          id={this.props.id}
+          name={this.props.id}
           type="range"
-          value={this.state.value}
+          value={this.props.value}
           className="input"
           min={0}
           max={this.props.max}
-          onChange={stateNum(this.handleChange, 'value')}
+          onChange={this.handleChange}
         />
       </div>
     );
@@ -167,7 +170,8 @@ class RangeInput extends Component {
 RangeInput.propTypes = {
   max: PropTypes.number,
   onChange: PropTypes.func,
-  value: PropTypes.number
+  value: PropTypes.number,
+  id: PropTypes.string.isRequired
 };
 
 RangeInput.defaultProps = {
