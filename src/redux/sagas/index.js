@@ -59,7 +59,7 @@ function * reauthenticateRequest({payload: {token, isServer, ctx}}) {
       })
     ]);
   } catch (error) {
-    console.log(error);
+    console.log('REAUTHENTICATE_FAILURE');
     yield put({
       type: authTypes.REAUTHENTICATE_FAILURE,
       payload: error.response ? error.response.data : error.message

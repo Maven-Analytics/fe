@@ -12,6 +12,7 @@ import {selectors as pathSelectors} from '../redux/ducks/paths';
 import Checkout from '../layouts/checkout';
 import {getInitialAnswers} from '../utils/surveyHelpers';
 import {SurveyQuestions} from '../surveyContstants';
+import RangeInput from '../components/inputs/range';
 
 const answers = fromJS([
   {
@@ -76,6 +77,7 @@ class Survey extends Component {
           return (
             <div key={answer.get('text')} className="form-group">
               <label htmlFor={index}>{answer.get('text')}: {this.state.answers[answer.get('id')]}</label>
+              <RangeInput/>
               <input
                 type="range"
                 className="input"

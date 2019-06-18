@@ -1,0 +1,81 @@
+.range-input {
+  $height: 30px;
+  $barHeight: 12px;
+  $indicatorSize: 30px;
+
+  border-radius: 8px;
+  height: $height;
+  position: relative;
+  width: 100%;
+
+  @mixin bar() {
+    border-radius: 8px;
+    height: $barHeight;
+    left: 0;
+    position: absolute;
+    top: ($height - $barHeight) / 2;
+    width: 100%;
+  }
+
+  .bar {
+    @include bar();
+    background-color: $black;
+  }
+
+  .progress {
+    @include bar();
+    background: $brand-gradient;
+    width: auto;
+  }
+
+  .indicator {
+    height: 30px;
+    left: -15px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+
+    &::before {
+      background-color: $blue;
+      border-radius: 50%;
+      content: ' ';
+      height: 100%;
+      left: 0;
+      opacity: .6;
+      position: absolute;
+      top: 0;
+      transition: opacity .2s ease-in-out;
+      width: 30px;
+    }
+
+    &::after {
+      background-color: $yellow;
+      border-radius: 50%;
+      content: ' ';
+      height: 20px;
+      left: 5px;
+      position: absolute;
+      top: 5px;
+      width: 20px;
+    }
+  }
+
+  input {
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    z-index: -1;
+  }
+
+  &:focus-within {
+    outline: none;
+
+    .indicator {
+      &::before {
+        opacity: 1;
+      }
+    }
+  }
+}

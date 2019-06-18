@@ -21,21 +21,24 @@ module.exports = {
 };
 
 async function validate(decoded) {
-  if (!decoded || !decoded.email || decoded.email === '') {
-    return {isValid: false};
+  try {
+    if (!decoded || !decoded.email || decoded.email === '') {
+      return {isValid: false};
+    }
+
+    const user = await getUser(decoded.email);
+
+    if (!user) {
+      return {isValid: false};
+    }
+
+    return {isValid: true};
+  } catch (error) {
+    return handleApiError(error);
   }
-
-  const user = await getUser(decoded.email);
-
-  if (!user) {
-    return {isValid: false};
-  }
-
-  return {isValid: true};
 }
 
 function getUser(email) {
   return axios.get(`${process.env.HOST_API}/api/v1/user/?email=${email}`)
-    .then(res => res.data.data[0])
-    .catch(handleApiError);
+    .then(res => res.data.data[0]);
 }
