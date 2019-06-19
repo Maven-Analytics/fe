@@ -26,7 +26,15 @@
   }
 }
 
-
+.maicon-power-bi:before {
+  content: "\e90d";
+}
+.maicon-excel:before {
+  content: "\e90b";
+}
+.maicon-mysql:before {
+  content: "\e90c";
+}
 .maicon-envelope:before {
   content: "\e90a";
 }

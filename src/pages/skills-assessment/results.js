@@ -9,6 +9,7 @@ import {selectors as surveyResultSelectors, actions as surveyResultActions} from
 import Checkout from '../../layouts/checkout';
 import CourseCarousel from '../../sections/courseCarousel';
 import PathBanner from '../../components/pathBanner';
+import { getPathHours } from '../../utils/pathHelpers';
 
 const crs = fromJS({
   title: 'Excel Formulas & Functions',
@@ -23,7 +24,11 @@ const crs = fromJS({
   badge: '//via.placeholder.com/100x100/000000/FFFFFF'
 });
 
-const SkillsAssessmentResults = () => {
+const SkillsAssessmentResults = ({recommendedPaths}) => {
+  const recommendedPath = recommendedPaths.first();
+
+  console.log(recommendedPath.toJS())
+
   return (
     <Checkout full>
       <div className="skills-assessment-results">
@@ -32,19 +37,19 @@ const SkillsAssessmentResults = () => {
         </header>
         <div className="skills-assessment-results__recommended-path">
           <PathBanner
-            badge="//via.placeholder.com/101/20E2D7/FFFFFF"
-            title="The Data Visualization Path"
-            excerpt="This would be a brief description about this path. The general reason these courses are grouped together and what goals people have achieved in this path. "
-            match={65}
-            courses={4}
-            length={22}
-            tools={fromJS(['Excel', 'Power-BI'])}
-            url="/"
+            badge={recommendedPath.getIn(['path', 'badge'])}
+            title={recommendedPath.getIn(['path', 'title'])}
+            excerpt={recommendedPath.getIn(['path', 'excerpt'])}
+            match={parseInt(recommendedPath.get('percentage') * 100, 10)}
+            courses={recommendedPath.getIn(['path', 'courses']).count()}
+            length={getPathHours(recommendedPath.get('path'))}
+            tools={recommendedPath.getIn(['path', 'tools'])}
+            url={`/path/${recommendedPath.getIn(['path', 'slug'])}`}
           />
           <CourseCarousel
             separator
             helperText="Courses included in this path"
-            courses={fromJS([crs, crs, crs, crs, crs, crs])}
+            courses={recommendedPath.getIn(['path', 'courses'])}
           />
         </div>
         <CourseCarousel

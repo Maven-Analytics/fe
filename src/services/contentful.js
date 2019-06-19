@@ -15,7 +15,14 @@ export async function getPaths({query = {}, include = 1}) {
       ...query
     });
 
-    return mapFromResponseItems(res.items);
+    return mapFromResponseItems(res.items)
+      .map(item => {
+        return {
+          ...item,
+          badge: mapResponseImage(item.badge),
+          courses: mapFromResponseItems(item.courses)
+        };
+      });
   } catch (error) {
     return error;
   }
@@ -60,5 +67,17 @@ function mapResponseItem(item) {
   return {
     id: item.sys.id,
     ...item.fields
+  };
+}
+
+function mapResponseImage(image) {
+  if (!image) {
+    return;
+  }
+
+  return {
+    id: image.sys.id,
+    title: image.sys.title,
+    ...image.fields
   };
 }

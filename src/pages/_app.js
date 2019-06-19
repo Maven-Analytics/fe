@@ -12,7 +12,8 @@ import {actions as authActions} from '../redux/ducks/auth';
 import {actions as checkoutActions} from '../redux/ducks/checkout';
 import {actions as pathActions} from '../redux/ducks/paths';
 import {actions as courseActions} from '../redux/ducks/courses';
-import {getCookie, removeCookie} from '../utils/cookies';
+import {actions as surveyResultActions} from '../redux/ducks/surveyResult';
+import {getCookie} from '../utils/cookies';
 import {enter, exit} from '../utils/animations';
 
 import '../styles/index.scss';
@@ -23,6 +24,7 @@ class MavenApp extends App {
 
     const token = getCookie('token', ctx);
     const checkoutCookie = getCookie('checkout', ctx);
+    const surveyCookie = getCookie('surveyResult', ctx);
 
     const state = store.getState();
     const user = state.getIn(['user', 'user']);
@@ -35,6 +37,10 @@ class MavenApp extends App {
 
     if (checkoutCookie && checkoutCookie !== '') {
       store.dispatch(checkoutActions.setPlan(fromJS(checkoutCookie.plan)));
+    }
+
+    if (surveyCookie && surveyCookie !== '') {
+      store.dispatch(surveyResultActions.surveyResultUpdate(surveyCookie));
     }
 
     if (paths && paths.isEmpty()) {

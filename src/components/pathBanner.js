@@ -4,15 +4,14 @@ import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {List} from 'immutable';
 import Link from 'next/link';
 
-import Image from './image';
-import Countup from './countup';
+import ImageContentful from './imageContentful';
 import MaIcon from './maIcon';
 
 const PathBanner = ({badge, title, excerpt, match, courses, length, tools, url}) => {
   return (
     <div className="path-banner">
       <div className="path-banner__badge">
-        <Image src={badge}/>
+        <ImageContentful showLoader={false} image={badge}/>
       </div>
       <div className="path-banner__content">
         <h2>{title}</h2>
@@ -20,21 +19,21 @@ const PathBanner = ({badge, title, excerpt, match, courses, length, tools, url})
       </div>
       <ul className="path-banner__meta">
         <li className="match">
-          <div className="value"><Countup duration={1000} value={match}></Countup>%</div>
+          <div className="value">{match}%</div>
           <div className="text">Match</div>
         </li>
         <li>
-          <div className="value"><Countup duration={1000} value={courses}/></div>
+          <div className="value">{courses}</div>
           <div className="text">Courses</div>
         </li>
         <li>
-          <div className="value"><Countup duration={1000} value={length}/></div>
+          <div className="value">{length || 0}</div>
           <div className="text">Hours</div>
         </li>
         <li>
           <div className="value">
             {tools.map(tool => (
-              <MaIcon key={tool} icon={tool.toLowerCase()}/>
+              <MaIcon key={tool} icon={tool.toLowerCase().replace(' ', '-')}/>
             ))}
           </div>
           <div className="text">Tools</div>

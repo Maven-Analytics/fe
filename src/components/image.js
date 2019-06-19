@@ -103,11 +103,11 @@ class Image extends Component {
   }
 
   render() {
-    const {src, alt, srcSet, style, placeholderColor} = this.props;
+    const {src, alt, srcSet, style, placeholderColor, showLoader} = this.props;
 
     return (
       <TrackVisibility className={this.getWrapClassList()} style={this.getWrapStyle()}>
-        <div className="loader" style={{backgroundColor: placeholderColor}}/>
+        {showLoader ? <div className="loader" style={{backgroundColor: placeholderColor}}/> : null}
         <picture ref={this.img} onLoad={this.handleLoad}  style={style}>
           {this.renderSources()}
           <img style={style} src={src} alt={alt} srcSet={srcSet}/>
@@ -127,14 +127,16 @@ Image.propTypes = {
   wrapStyle: PropTypes.object,
   cover: PropTypes.bool,
   placeholderColor: PropTypes.string,
-  sources: PropTypes.array
+  sources: PropTypes.array,
+  showLoader: PropTypes.bool
 };
 
 Image.defaultProps = {
   onLoad: noop,
   style: {},
   cover: false,
-  placeholderColor: '#F6F6F6'
+  placeholderColor: '#F6F6F6',
+  showLoader: true
 };
 
 export default Image;

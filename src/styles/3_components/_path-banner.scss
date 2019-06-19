@@ -93,12 +93,17 @@
         font-size: 1.8em;
         font-weight: 900;
         height: 4.4rem;
+        margin-bottom: 5px;
         justify-content: center;
       }
 
       .text {
         color: $white-alt;
         font-size: .875em;
+      }
+
+      i {
+        margin: 0 6px;
       }
 
       &.match {
