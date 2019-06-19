@@ -1,11 +1,11 @@
 .course-carousel {
   color: $white;
   font-size: 1.4rem;
-  padding: $spacing-unit--l 0;
+  margin: $spacing-unit--l 0;
 
   @include media-breakpoint-up(lg) {
     font-size: 1.6rem;
-    padding: $spacing-unit--lml 0;
+    margin: $spacing-unit--lml 0;
   }
 
   header {
@@ -56,7 +56,7 @@
 
       @include media-breakpoint-up(lg) {
         margin-right: $spacing-unit--l;
-        width: calc(30% - #{$spacing-unit});
+        width: 374px;
       }
 
       &.is-selected {

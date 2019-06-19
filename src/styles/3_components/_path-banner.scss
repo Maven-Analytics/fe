@@ -1,0 +1,123 @@
+.path-banner {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-column-gap: $spacing-unit;
+  grid-template-rows: 1fr;
+  grid-row-gap: $spacing-unit;
+  color: $white;
+  font-size: 1.4rem;
+  margin: $spacing-unit 0;
+
+  @include media-breakpoint-up(lg) {
+    font-size: 1.6rem;
+    margin: $spacing-unit--md 0;
+  }
+
+  &__badge {
+    display: none;
+    flex: 0 0 75px;
+    grid-column: span 1;
+    width: 75px;
+
+    @include media-breakpoint-up(md) {
+      display: block;
+    }
+
+    @include media-breakpoint-up(lg) {
+      flex: 0 0 100px;
+      width: 100px;
+    }
+
+    .image {
+      padding-bottom: 100%;
+    }
+  }
+
+  &__content {
+    grid-column: span 12;
+
+    @include media-breakpoint-up(md) {
+      grid-column: span 10;
+    }
+
+    @include media-breakpoint-up(xl) {
+      grid-column: span 5;
+    }
+
+    h2 {
+      font-size: 1.625em;
+      font-weight: 700;
+    }
+
+    p {
+      line-height: 1.56;
+    }
+  }
+
+  &__meta {
+    @include list-unstyled();
+    display: grid;
+    grid-column: span 12;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    flex: 0 0 100%;
+    order: 4;
+
+    @include media-breakpoint-up(xl) {
+      grid-column: span 5;
+      flex: auto;
+      order: 3;
+    }
+
+    li {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2.2rem;
+      height: 25vw;
+      max-height: 120px;
+      min-width: 25%;
+      text-align: center;
+
+      @include media-breakpoint-up(lg) {
+        height: auto;
+      }
+
+      &:not(:last-child) {
+        border-right: 1px solid rgba($gray-border, .6);
+      }
+
+      .value {
+        align-items: center;
+        display: flex;
+        font-size: 1.8em;
+        font-weight: 900;
+        height: 4.4rem;
+        justify-content: center;
+      }
+
+      .text {
+        color: $white-alt;
+        font-size: .875em;
+      }
+
+      &.match {
+        .value {
+          @include gradient-font();
+        }
+      }
+    }
+  }
+
+  &__cta {
+    align-items: center;
+    display: flex;
+    grid-column: span 1;
+    justify-content: center;
+    order: 3;
+
+    @include media-breakpoint-up(xl) {
+      order: 4;
+    }
+  }
+}

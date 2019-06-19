@@ -10,7 +10,7 @@ import TrackVisibility from '../components/trackVisibility';
 import {isLg} from '../components/mediaQuery';
 import withWindowSize from '../components/withWindowSize';
 
-const CourseCarousel = ({courses, title, eyelash, description, helperText}) => {
+const CourseCarousel = ({courses, title, eyelash, description, helperText, separator}) => {
   return (
     <TrackVisibility className="course-carousel">
       <header>
@@ -30,7 +30,7 @@ const CourseCarousel = ({courses, title, eyelash, description, helperText}) => {
           </CarouselSlide>
         ))}
       </Carousel>
-      <hr/>
+      {separator ? <hr/> : null}
     </TrackVisibility>
   );
 };
@@ -40,7 +40,8 @@ CourseCarousel.propTypes = {
   eyelash: PropTypes.string,
   description: PropTypes.string,
   helperText: PropTypes.string,
-  courses: ImmutablePropTypes.list
+  courses: ImmutablePropTypes.list,
+  separator: PropTypes.bool
 };
 
 CourseCarousel.defaultProps = {
