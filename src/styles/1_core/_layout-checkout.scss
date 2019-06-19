@@ -3,6 +3,7 @@
   position: relative;
 
   &__background {
+    background-color: $black-checkout-bg;
     height: 100%;
     position: absolute;
     width: 100%;
@@ -10,7 +11,7 @@
 
     .image {
       &::after {
-        background-color: rgba($black-light, .88);
+        background: linear-gradient(rgba($black-light, .88) 75%, $black-checkout-bg);
         content: ' ';
         height: 100%;
         left: 0;

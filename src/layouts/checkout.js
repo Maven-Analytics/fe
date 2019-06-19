@@ -48,7 +48,9 @@ const Checkout = ({children, activeStep, title, full, actions, containerClass}) 
   const Background = (
     <div className="layout-checkout__background">
       <Image
-        cover
+        wrapStyle={{
+          paddingBottom: '62.42%'
+        }}
         placeholderColor="#252525"
         src="/static/img/home-hero-mobile.jpg"
         srcSet="
