@@ -1,0 +1,40 @@
+.course-banner {
+  align-items: center;
+  background-color: $black;
+  display: inline-flex;
+  font-size: .75em;
+  left: 0;
+  opacity: .9;
+  padding: 1rem 1.8rem;
+  position: absolute;
+  top: 2.6rem;
+  z-index: 1;
+
+  @include media-breakpoint-up(lg) {
+    padding: 1.2rem 2.4rem;
+    top: 3.5rem;
+  }
+
+  span {
+    display: block;
+    line-height: 1;
+  }
+
+  i {
+    @include gradient-font();
+    margin-right: 1rem;
+  }
+
+  .text {
+    color: $white;
+    font-weight: 700;
+  }
+
+  .value {
+    @include gradient-font();
+    font-size: 1.25em;
+    font-weight: 900;
+    margin-left: 1rem;
+    margin-top: -1px;
+  }
+}

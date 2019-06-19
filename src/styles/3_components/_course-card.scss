@@ -1,0 +1,119 @@
+.course-card {
+  $self: &;
+  background-color: $white;
+  box-shadow: 8px 8px 20px 0 rgba(0,0,0,0.1);
+  color: $gray-border;
+  font-size: 1.4rem;
+  max-width: 375px;
+  margin: 0 0 $spacing-unit;
+  padding: $spacing-unit;
+  position: relative;
+
+  @include media-breakpoint-up(lg) {
+    font-size: 1.6rem;
+    padding: $spacing-unit--mdl;
+  }
+
+  &__image {
+    margin-bottom: $spacing-unit;
+    position: relative;
+
+    .image {
+      padding-bottom: 56.17%;
+    }
+
+    .badge {
+      bottom: 0;
+      height: 60px;
+      position: absolute;
+      right: 0;
+      width: 60px;
+
+      @include media-breakpoint-up(lg) {
+        height: 100px;
+        transform: translateY(50%);
+        width: 100px;
+      }
+
+      .image {
+        padding-bottom: 100%;
+
+        img {
+          height: calc(100% - 10px);
+          margin: 5px;
+          width: calc(100% - 10px);
+        }
+      }
+    }
+  }
+
+  &__content {
+    border-bottom: 1px solid #DBDBDB;
+
+    h4 {
+      color: $black;
+      font-size: 1.375em;
+      line-height: 1.09;
+      margin: 0 0 $spacing-unit--ss;
+      text-transform: uppercase;
+
+      @include media-breakpoint-up(lg) {
+        padding-right: 100px;
+      }
+    }
+
+    p {
+      line-height: 1.5;
+      margin: 0 0 $spacing-unit--mdl;
+    }
+  }
+
+  &__footer {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    @include media-breakpoint-up(lg) {
+      padding-top: $spacing-unit--ss;
+    }
+
+    .btn {
+      border-width: 1px;
+      font-size: .7em;
+      min-width: 100px;
+      padding: $spacing-unit--ss $spacing-unit;
+      text-transform: none;
+    }
+
+    > span {
+      margin-top: $spacing-unit;
+    }
+  }
+
+  &--condensed {
+    font-size: 1.4rem;
+    max-width: 275px;
+
+    @include media-breakpoint-up(lg) {
+      font-size: 1.4rem;
+      padding: $spacing-unit--md;
+    }
+
+    #{$self}__content {
+      h4 {
+        padding: 0;
+        margin: 0 0 $spacing-unit--ss;
+      }
+    }
+
+    #{$self}__footer {
+      padding: 0;
+
+      .btn {
+        min-width: 90px;
+        padding: $spacing-unit--ss $spacing-unit--xs;
+      }
+    }
+  }
+}

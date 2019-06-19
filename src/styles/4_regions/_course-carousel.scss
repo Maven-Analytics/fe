@@ -1,0 +1,88 @@
+.course-carousel {
+  color: $white;
+  font-size: 1.4rem;
+  padding: $spacing-unit--l 0;
+
+  @include media-breakpoint-up(lg) {
+    font-size: 1.6rem;
+    padding: $spacing-unit--lml 0;
+  }
+
+  header {
+    h2 {
+      font-size: 1.5em;
+      font-weight: 700;
+      margin: 0 0 .4rem;
+
+      span {
+        color: $yellow;
+        font-size: .5em;
+        margin-left: $spacing-unit--md;
+        text-transform: uppercase;
+        vertical-align: middle;
+      }
+    }
+
+    p {
+      color: $white-alt;
+      margin: 0 0 $spacing-unit--md;
+    }
+
+    small {
+      display: block;
+      font-size: 1em;
+      font-weight: 700;
+      margin-bottom: $spacing-unit--ss;
+    }
+  }
+
+  .carousel {
+    overflow: visible;
+    position: relative;
+
+    &::after {
+      content: ' ';
+    }
+
+    .flickity-viewport {
+      overflow: visible;
+    }
+
+    .carousel-slide {
+      margin-right: $spacing-unit;
+      opacity: .5;
+      transition: opacity .3s ease-in-out;
+      width: calc(50% - #{$spacing-unit});
+
+      @include media-breakpoint-up(lg) {
+        margin-right: $spacing-unit--l;
+        width: calc(30% - #{$spacing-unit});
+      }
+
+      &.is-selected {
+        opacity: 1;
+      }
+    }
+
+    .course-card {
+      &__content {
+        p {
+          display: none;
+
+          @include media-breakpoint-up(lg) {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+
+  hr {
+    border-color: $gray-darker;
+    margin: $spacing-unit--l 0 0;
+
+    @include media-breakpoint-up(lg) {
+      margin: $spacing-unit--ll 0 0;
+    }
+  }
+}

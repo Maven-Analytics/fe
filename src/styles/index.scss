@@ -39,6 +39,9 @@
 @import './2_pieces/scroller';
 @import './2_pieces/scroll-to-next';
 @import './2_pieces/range-input';
+@import './2_pieces/course-hours';
+@import './2_pieces/course-author';
+@import './2_pieces/course-banner';
 
 @import './3_components/auth';
 @import './3_components/scroll';
@@ -46,9 +49,9 @@
 @import './3_components/student-spotlight';
 @import './3_components/subscribe';
 @import './3_components/header-user';
-@import './3_components/survey';
 @import './3_components/survey-page';
 @import './3_components/survey-answer';
+@import './3_components/course-card';
 
 @import './4_regions/global-header';
 @import './4_regions/global-footer';
@@ -63,6 +66,10 @@
 @import './4_regions/clients';
 @import './4_regions/student-spotlights';
 @import './4_regions/cta-section';
+@import './4_regions/course-carousel';
+
+@import './5_pages/skills-assessment';
+@import './5_pages/skills-assessment-results';
 
 @import './checkout';
 

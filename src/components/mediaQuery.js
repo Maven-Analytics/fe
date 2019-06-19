@@ -10,6 +10,11 @@ const Breakpoints = {
   xl: 1200
 };
 
+export const isSm = () => canUseDOM() ? window.innerWidth > Breakpoints.sm : false;
+export const isMd = () => canUseDOM() ? window.innerWidth > Breakpoints.md : false;
+export const isLg = () => canUseDOM() ? window.innerWidth > Breakpoints.lg : false;
+export const isXl = () => canUseDOM() ? window.innerWidth > Breakpoints.xl : false;
+
 class MediaQuery extends Component {
   constructor(props) {
     super(props);

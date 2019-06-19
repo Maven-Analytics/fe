@@ -44,7 +44,7 @@ One monthly subscription. Access to ALL courses, paths and personalized learning
 - Regular updates and new course content
 `;
 
-const Checkout = ({children, activeStep, title, full, actions}) => {
+const Checkout = ({children, activeStep, title, full, actions, containerClass}) => {
   const Background = (
     <div className="layout-checkout__background">
       <Image
@@ -68,7 +68,7 @@ const Checkout = ({children, activeStep, title, full, actions}) => {
         <main id="main" className="layout-checkout" onClick={click(actions.stateReset)}>
           {Background}
           <div className="layout-checkout__wrap">
-            <div className="container">
+            <div className={containerClass}>
               {children}
             </div>
           </div>
@@ -86,7 +86,7 @@ const Checkout = ({children, activeStep, title, full, actions}) => {
       <main id="main" className="layout-checkout" onClick={click(actions.stateReset)}>
         {Background}
         <div className="layout-checkout__wrap">
-          <div className="container">
+          <div className={containerClass}>
             <CheckoutSteps links={checkoutLinks} activeIndex={activeStep}/>
             <div className="layout-checkout__row">
               <div className="layout-checkout__content">
@@ -110,13 +110,15 @@ Checkout.propTypes = {
   activeStep: PropTypes.number,
   title: PropTypes.string,
   full: PropTypes.bool,
-  actions: PropTypes.objectOf(PropTypes.func).isRequired
+  actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  containerClass: PropTypes.string
 };
 
 Checkout.defaultProps = {
   activeStep: 0,
   title: 'Select a membership plan',
-  full: false
+  full: false,
+  containerClass: 'container'
 };
 
 const mapStateToProps = () => ({});

@@ -1,0 +1,20 @@
+.course-hours {
+  color: $black;
+  font-size: 1.25em;
+  line-height: 1;
+
+  span {
+    display: block;
+  }
+
+  .hours {
+    font-weight: 900;
+    margin-bottom: .3rem;
+  }
+
+  .text {
+    color: $gray-border;
+    font-size: .63em;
+    font-weight: 700;
+  }
+}

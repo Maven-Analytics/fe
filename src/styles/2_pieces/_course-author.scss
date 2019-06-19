@@ -1,0 +1,19 @@
+.course-author {
+  align-items: center;
+  color: $black;
+  display: inline-flex;
+  font-size: .75em;
+
+  .image {
+    border: 1px solid #D1D1D1;
+    border-radius: 50%;
+    height: 26px;
+    margin-right: $spacing-unit--half;
+    overflow: hidden;
+    width: 26px;
+  }
+
+  .name {
+    font-weight: 700;
+  }
+}

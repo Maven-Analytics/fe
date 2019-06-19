@@ -27,6 +27,10 @@ class Carousel extends Component {
     if (prevProps.activeIndex !== activeIndex) {
       this.goToSlide(activeIndex);
     }
+
+    if (prevProps.options !== this.props.options) {
+      this.initCarousel();
+    }
   }
 
   goToSlide(index) {
