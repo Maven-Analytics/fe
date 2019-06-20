@@ -2,6 +2,7 @@ import {createSelector} from 'reselect';
 import {fromJS} from 'immutable';
 
 import * as utils from '../../utils/duckHelpers';
+import {getCourseBySlug} from '../../utils/courseHelpers';
 
 export const types = {
   COURSESINIT_REQUEST: 'COURSESINIT_REQUEST',
@@ -25,7 +26,11 @@ export default (state = initialState, action) => {
 };
 
 const getCourses = state => state.get('courses');
+const getCourse = (state, slug) => {
+  return getCourseBySlug(state.get('courses'), slug);
+};
 
 export const selectors = {
-  getCourses: createSelector([getCourses], p => p)
+  getCourses: createSelector([getCourses], c => c),
+  getCourse: createSelector([getCourse], c => c)
 };

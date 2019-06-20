@@ -7,9 +7,15 @@ export function * watchPaths() {
   yield takeLatest(pathTypes.PATHSINIT_REQUEST, onPathsInitRequest);
 }
 
-function * onPathsInitRequest() {
+function * onPathsInitRequest({payload}) {
   try {
-    const paths = yield getPaths({});
+    const query = {};
+
+    if (payload.query && payload.query.slug) {
+      query['fields.slug'] = payload.query.slug;
+    }
+
+    const paths = yield getPaths({query});
 
     yield all([
       put({

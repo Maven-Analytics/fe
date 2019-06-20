@@ -26,6 +26,24 @@ module.exports = app => {
 
       server.route({
         method: 'GET',
+        path: '/path/{id}',
+        config: {
+          auth: false
+        },
+        handler: pathWrapper(app, '/path')
+      });
+
+      server.route({
+        method: 'GET',
+        path: '/course/{id}',
+        config: {
+          auth: false
+        },
+        handler: pathWrapper(app, '/course')
+      });
+
+      server.route({
+        method: 'GET',
         path: '/api/v1/ping',
         config: {
           auth: false,

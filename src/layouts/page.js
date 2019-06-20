@@ -1,11 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import * as ImmutablePropTypes from 'react-immutable-proptypes';
-import Router from 'next/router';
-import {connect} from 'react-redux';
 
 import Main from './main';
-import withAuthSync from '../components/withAuthSync';
 
 class DashboardLayout extends Component {
   render() {
@@ -13,9 +9,9 @@ class DashboardLayout extends Component {
 
     return (
       <Main>
-        <div className="layout-dashboard">
+        <div className="layout-page">
           <div className="container">
-            <div className="layout-dashboard__wrap">
+            <div className="layout-page__wrap">
               {children}
             </div>
           </div>
@@ -29,4 +25,4 @@ DashboardLayout.propTypes = {
   children: PropTypes.node.isRequired
 };
 
-export default withAuthSync(DashboardLayout);
+export default DashboardLayout;

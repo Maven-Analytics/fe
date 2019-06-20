@@ -7,9 +7,15 @@ export function * watchCourses() {
   yield takeLatest(courseTypes.COURSESINIT_REQUEST, onCoursesInitRequest);
 }
 
-function * onCoursesInitRequest() {
+function * onCoursesInitRequest({payload}) {
   try {
-    const courses = yield getCourses({});
+    const query = {};
+
+    if (payload.query && payload.query.slug) {
+      query['fields.slug'] = payload.query.slug;
+    }
+
+    const courses = yield getCourses({query});
 
     yield all([
       put({

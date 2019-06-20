@@ -2,6 +2,7 @@ import {createSelector} from 'reselect';
 import {fromJS} from 'immutable';
 
 import * as utils from '../../utils/duckHelpers';
+import {getPathBySlug} from '../../utils/pathHelpers';
 
 export const types = {
   PATHSINIT_REQUEST: 'PATHSINIT_REQUEST',
@@ -25,7 +26,11 @@ export default (state = initialState, action) => {
 };
 
 const getPaths = state => state.get('paths');
+const getPath = (state, slug) => {
+  return getPathBySlug(state.get('paths'), slug);
+};
 
 export const selectors = {
-  getPaths: createSelector([getPaths], p => p)
+  getPaths: createSelector([getPaths], p => p),
+  getPath: createSelector([getPath], p => p)
 };

@@ -1,0 +1,18 @@
+.layout-page {
+  background-color: $black-checkout-bg;
+  color: $white;
+  padding-top: $header-height-mobile;
+
+  @include collapseUp() {
+    padding-top: $header-height-desktop;
+  }
+
+  &__wrap {
+    min-height: calc(100vh - #{$header-height-mobile});
+    padding: 4vh 0;
+
+    @include collapseUp() {
+      min-height: calc(100vh - #{$header-height-desktop});
+    }
+  }
+}
