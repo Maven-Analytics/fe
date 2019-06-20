@@ -15,16 +15,16 @@
       }
     }
 
-    .overlay {
-      background: $brand-gradient;
-      bottom: 0;
-      left: 0;
-      opacity: .75;
-      position: absolute;
-      right: 0;
-      top: 0;
-      z-index: index($globalIndex, cardImageOverlay);
-    }
+    // .overlay {
+    //   background: $brand-gradient;
+    //   bottom: 0;
+    //   left: 0;
+    //   opacity: .75;
+    //   position: absolute;
+    //   right: 0;
+    //   top: 0;
+    //   z-index: index($globalIndex, cardImageOverlay);
+    // }
 
     .recommended {
       align-items: center;

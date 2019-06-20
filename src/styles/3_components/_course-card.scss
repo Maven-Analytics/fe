@@ -55,16 +55,22 @@
       font-size: 1.375em;
       line-height: 1.09;
       margin: 0 0 $spacing-unit--ss;
+      min-height: 40px;
       text-transform: uppercase;
 
       @include media-breakpoint-up(lg) {
         padding-right: 100px;
+        min-height: none;
       }
     }
 
     p {
       line-height: 1.5;
       margin: 0 0 $spacing-unit--mdl;
+
+      @include media-breakpoint-up(lg) {
+        min-height: 100px;
+      }
     }
   }
 
@@ -104,6 +110,7 @@
       h4 {
         padding: 0;
         margin: 0 0 $spacing-unit--ss;
+        min-height: none;
       }
     }
 

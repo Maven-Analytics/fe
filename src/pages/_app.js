@@ -12,8 +12,6 @@ import Router from 'next/router';
 import initStore from '../redux/store';
 import {actions as authActions} from '../redux/ducks/auth';
 import {actions as checkoutActions} from '../redux/ducks/checkout';
-import {actions as pathActions} from '../redux/ducks/paths';
-import {actions as courseActions} from '../redux/ducks/courses';
 import {actions as surveyResultActions} from '../redux/ducks/surveyResult';
 import {actions as stateActions} from '../redux/ducks/state';
 import {getCookie} from '../utils/cookies';
@@ -31,8 +29,6 @@ class MavenApp extends App {
 
     const state = store.getState();
     const user = state.getIn(['user', 'user']);
-    const paths = state.get('paths');
-    const courses = state.get('courses');
 
     if (token && token !== '' && (!user || user.isEmpty())) {
       store.dispatch(authActions.reauthenticate({token, ctx, isServer}));
@@ -44,14 +40,6 @@ class MavenApp extends App {
 
     if (surveyCookie && surveyCookie !== '') {
       store.dispatch(surveyResultActions.surveyResultUpdate(surveyCookie));
-    }
-
-    if (paths && paths.isEmpty()) {
-      store.dispatch(pathActions.pathsInit());
-    }
-
-    if (courses && courses.isEmpty && courses.isEmpty()) {
-      store.dispatch(courseActions.coursesInit());
     }
 
     return {

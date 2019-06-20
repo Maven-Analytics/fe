@@ -23,7 +23,7 @@ Course.getInitialProps = ctx => {
     return redirect('/', res);
   }
 
-  store.dispatch(courseActions.coursesInit({query: {slug: query.id}}));
+  store.dispatch(courseActions.coursesInit({query: {'fields.slug': query.id}}));
 
   return {
     slug: query.id

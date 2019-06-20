@@ -1,5 +1,7 @@
 import React from 'react';
+import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
+import {Map} from 'immutable';
 
 import ImageContentful from './imageContentful';
 
@@ -14,7 +16,11 @@ const CourseAuthor = ({name, thumbnail}) => {
 
 CourseAuthor.propTypes = {
   name: PropTypes.string,
-  thumbnail: PropTypes.string
+  thumbnail: ImmutablePropTypes.map
+};
+
+CourseAuthor.defaultProps = {
+  thumbnail: Map()
 };
 
 export default CourseAuthor;

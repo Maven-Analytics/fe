@@ -1,4 +1,4 @@
-import {takeLatest, put, call, all} from 'redux-saga/effects';
+import {takeLatest, put, all} from 'redux-saga/effects';
 
 import {types as courseTypes} from '../ducks/courses';
 import {getCourses} from '../../services/contentful';
@@ -9,11 +9,7 @@ export function * watchCourses() {
 
 function * onCoursesInitRequest({payload}) {
   try {
-    const query = {};
-
-    if (payload.query && payload.query.slug) {
-      query['fields.slug'] = payload.query.slug;
-    }
+    const query = payload.query || {};
 
     const courses = yield getCourses({query});
 

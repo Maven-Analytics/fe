@@ -2,15 +2,12 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {fromJS} from 'immutable';
-import Link from 'next/link';
-import {TimelineMax as Timeline, Power1} from 'gsap';
+import {fromJS, List} from 'immutable';
+import * as ImmutablePropTypes from 'react-immutable-proptypes';
 
 import {selectors as userSelectors} from '../redux/ducks/user';
 import {actions as authActions} from '../redux/ducks/auth';
-import {selectors as loadingSelectors} from '../redux/ducks/loading';
-import {selectors as errorSelectors} from '../redux/ducks/error';
-import {selectors as pathSelectors} from '../redux/ducks/paths';
+import {selectors as courseSelectors, actions as courseActions} from '../redux/ducks/courses';
 import Main from '../layouts/main';
 import Hero from '../sections/hero';
 import StatCounter from '../sections/statCounter';
@@ -35,7 +32,7 @@ const methodItems = [
     title: 'Tell Us About Yourself',
     description: 'Take a quick survey so we can match your learning needs with the best Maven Analytics courses and paths.',
     linkTitle: 'TAKE SURVEY',
-    linkHref: '/',
+    linkHref: '/welcome',
     imgMobile: {
       src: '/static/img/step1-mobile.png',
       alt: 'Match your learning needs with the best Maven Analytics courses and paths',
@@ -112,35 +109,6 @@ const methodItems = [
 
 const MissionContent = `## THERE'S A BETTER WAY TO **BUILD YOUR SKILLS**
 Your time is valuable; don’t spend it sifting through courses, webinars and bootcamps trying to figure out where to start. Think of us as your personal team of instructors, experts, mentors and guides, here to **simplify the learning process** and **help you develop the exact skills you need.**`;
-
-const Courses = fromJS([
-  {
-    title: 'Power Query, Power Pivot and DAX',
-    difficulty: 3,
-    link: '/',
-    image: '//via.placeholder.com/253x102',
-    recommended: true
-  },
-  {
-    title: 'Data Visualization with Excel Charts & Graphs',
-    difficulty: 3,
-    link: '/',
-    image: '//via.placeholder.com/253x102'
-  },
-  {
-    title: 'Up and Running with Power BI Desktop',
-    difficulty: 3,
-    link: '/',
-    image: '//via.placeholder.com/253x102',
-    recommended: true
-  },
-  {
-    title: 'Publishing to Power BI Service',
-    difficulty: 3,
-    link: '/',
-    image: '//via.placeholder.com/253x102'
-  }
-]);
 
 const HappyClients = fromJS([
   {
@@ -273,29 +241,6 @@ const Spotlights = fromJS([
 ]);
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: ''
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(state) {
-    return state ? this.setState(state) : null;
-  }
-
-  handleSubmit(e) {
-    e.preventDefault();
-    this.props.actions.login({
-      email: this.state.email,
-      password: this.state.password
-    });
-  }
-
   render() {
     return (
       <Main>
@@ -353,7 +298,7 @@ class Home extends Component {
           <MethodScroll items={methodItems}/>
         </div>
         <TrendingCourses
-          courses={fromJS([...Courses.map((course, index) => course.set('id', index)), ...Courses.map((course, index) => course.set('id', index + 4)), ...Courses.map((course, index) => course.set('id', index + 8))])}
+          courses={this.props.courses}
         />
         <StudentSpotlights spotlights={Spotlights}/>
         <Clients clients={HappyClients}/>
@@ -364,7 +309,8 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: userSelectors.getUser(state)
+  user: userSelectors.getUser(state),
+  courses: courseSelectors.getCourses(state)
 });
 
 const mapDispatchToProps = function (dispatch) {
@@ -376,7 +322,21 @@ const mapDispatchToProps = function (dispatch) {
 };
 
 Home.propTypes = {
-  actions: PropTypes.objectOf(PropTypes.func).isRequired
+  actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  courses: ImmutablePropTypes.list
+};
+
+Home.defaultProps = {
+  courses: List()
+};
+
+Home.getInitialProps = ctx => {
+  const {store} = ctx;
+  store.dispatch(courseActions.coursesInit({
+    query: {
+      'fields.trending': true
+    }
+  }));
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

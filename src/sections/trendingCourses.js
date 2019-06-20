@@ -6,6 +6,7 @@ import Carousel from '../components/carousel';
 import CarouselSlide from '../components/carouselSlide';
 import CardTrendingCourse from '../components/cardTrendingCourse';
 import TrackVisibility from '../components/trackVisibility';
+import {isXl, isLg, isMd} from '../components/mediaQuery';
 
 const TrendingCourses = ({courses}) => {
   return (
@@ -14,10 +15,20 @@ const TrendingCourses = ({courses}) => {
         <header>
           <h2>Trending Courses</h2>
         </header>
-        <Carousel>
+        <Carousel
+          options={{
+            groupCells: isXl() ? 4 : isLg() ? 3 : isMd() ? 2 : 1
+          }}
+        >
           {courses.map(course => (
             <CarouselSlide key={course.get('id')}>
-              <CardTrendingCourse {...course.toJS()}/>
+              <CardTrendingCourse
+                title={course.get('title')}
+                slug={course.get('slug')}
+                thumbnail={course.get('thumbnail')}
+                difficulty={course.get('difficulty')}
+                recommended={course.get('recommended')}
+              />
             </CarouselSlide>
           ))}
         </Carousel>

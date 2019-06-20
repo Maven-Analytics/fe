@@ -27,7 +27,7 @@ class Image extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return ((nextState.loaded && !this.state.loaded) || (nextProps.style !== this.props.style));
+    return ((nextState.loaded && !this.state.loaded) || (nextProps.style !== this.props.style || nextProps.src !== this.props.src));
   }
 
   handleLoad() {
@@ -110,7 +110,7 @@ class Image extends Component {
         {showLoader ? <div className="loader" style={{backgroundColor: placeholderColor}}/> : null}
         <picture ref={this.img} onLoad={this.handleLoad}  style={style}>
           {this.renderSources()}
-          <img style={style} src={src} alt={alt} srcSet={srcSet}/>
+          {src ? <img style={style} src={src} alt={alt} srcSet={srcSet}/> : null}
         </picture>
       </TrackVisibility>
     );
@@ -118,7 +118,7 @@ class Image extends Component {
 }
 
 Image.propTypes = {
-  src: PropTypes.string.isRequired,
+  src: PropTypes.string,
   modifier: PropTypes.string,
   alt: PropTypes.string,
   srcSet: PropTypes.string,

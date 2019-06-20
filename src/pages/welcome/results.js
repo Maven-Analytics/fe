@@ -10,23 +10,27 @@ import Checkout from '../../layouts/checkout';
 import CourseCarousel from '../../sections/courseCarousel';
 import PathBanner from '../../components/pathBanner';
 import {getPathHours} from '../../utils/pathHelpers';
+import {actions as pathActions} from '../../redux/ducks/paths';
+import {actions as courseActions} from '../../redux/ducks/courses';
 
-const SkillsAssessmentResults = ({recommendedPaths, recommendedCourses}) => {
+const WelcomeSurveyResults = ({recommendedPaths, recommendedCourses}) => {
   const recommendedPath = recommendedPaths.first();
+
+  console.log(recommendedCourses.toJS());
 
   return (
     <Checkout full>
-      <div className="skills-assessment-results">
+      <div className="welcome-survey-results">
         <header>
           <h1>Your Recommended Learning Path</h1>
         </header>
-        <div className="skills-assessment-results__recommended-path">
+        <div className="welcome-survey-results__recommended-path">
           <PathBanner
             badge={recommendedPath.getIn(['path', 'badge'])}
             title={recommendedPath.getIn(['path', 'title'])}
             excerpt={recommendedPath.getIn(['path', 'excerpt'])}
             match={parseInt(recommendedPath.get('percentage') * 100, 10)}
-            courses={recommendedPath.getIn(['path', 'courses']).count()}
+            courses={recommendedPath.getIn(['path', 'courses']) && recommendedPath.getIn(['path', 'courses']).count()}
             length={getPathHours(recommendedPath.get('path'))}
             tools={recommendedPath.getIn(['path', 'tools'])}
             url={`/path/${recommendedPath.getIn(['path', 'slug'])}`}
@@ -48,14 +52,20 @@ const SkillsAssessmentResults = ({recommendedPaths, recommendedCourses}) => {
   );
 };
 
-SkillsAssessmentResults.propTypes = {
+WelcomeSurveyResults.getInitialProps = ctx => {
+  const {store} = ctx;
+  store.dispatch(pathActions.pathsInit());
+  store.dispatch(courseActions.coursesInit());
+};
+
+WelcomeSurveyResults.propTypes = {
   surveyResults: ImmutablePropTypes.map.isRequired,
   actions: PropTypes.objectOf(PropTypes.func),
   recommendedPaths: ImmutablePropTypes.list,
   recommendedCourses: ImmutablePropTypes.list
 };
 
-SkillsAssessmentResults.defaultProps = {
+WelcomeSurveyResults.defaultProps = {
   surveyResults: Map(),
   recommendedPaths: List(),
   recommendedCourses: List()
@@ -75,4 +85,4 @@ const mapDispatchToProps = function (dispatch) {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SkillsAssessmentResults);
+export default connect(mapStateToProps, mapDispatchToProps)(WelcomeSurveyResults);

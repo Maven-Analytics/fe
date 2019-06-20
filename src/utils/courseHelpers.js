@@ -1,3 +1,3 @@
 export const getCourseById = (courses, id) => courses && courses.find && courses.find(c => c.get('id') === id);
 
-export const getCourseBySlug = (courses, slug) => courses && courses.find && courses.find(c => c.get('slug') === slug);
+export const getCourseBySlug = (courses, slug) => courses && courses.find && courses.find(c => c && c.get && c.get('slug') === slug);

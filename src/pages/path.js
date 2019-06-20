@@ -23,7 +23,7 @@ Path.getInitialProps = ctx => {
     return redirect('/', res);
   }
 
-  store.dispatch(pathActions.pathsInit({query: {slug: query.id}}));
+  store.dispatch(pathActions.pathsInit({query: {'fields.slug': query.id}}));
 
   return {
     slug: query.id

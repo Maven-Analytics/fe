@@ -9,8 +9,13 @@ import CourseCard from '../components/courseCard';
 import TrackVisibility from '../components/trackVisibility';
 import {isLg} from '../components/mediaQuery';
 import withWindowSize from '../components/withWindowSize';
+import {prettyPercent} from '../utils/componentHelpers';
 
 const CourseCarousel = ({courses, title, eyelash, description, helperText, separator}) => {
+  if (!courses || courses.isEmpty()) {
+    return null;
+  }
+
   return (
     <TrackVisibility className="course-carousel">
       <header>
@@ -24,11 +29,19 @@ const CourseCarousel = ({courses, title, eyelash, description, helperText, separ
           groupCells: isLg() ? 3 : 2
         }}
       >
-        {courses.map(course => (
-          <CarouselSlide key={course.get('id')}>
-            <CourseCard course={course.has('course') ? course.get('course') : course}/>
-          </CarouselSlide>
-        ))}
+        {courses.map(course => {
+          let match;
+
+          if (course.get('percentage')) {
+            match = `${prettyPercent(course.get('percentage'))}%`;
+          }
+
+          return (
+            <CarouselSlide key={course.get('id')}>
+              <CourseCard match={match} course={course.has('course') ? course.get('course') : course}/>
+            </CarouselSlide>
+          );
+        })}
       </Carousel>
       {separator ? <hr/> : null}
     </TrackVisibility>

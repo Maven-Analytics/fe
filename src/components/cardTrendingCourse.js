@@ -1,18 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
+import {Map} from 'immutable';
+import * as ImmutablePropTypes from 'react-immutable-proptypes';
 
-import Image from './image';
+import ImageContentful from './imageContentful';
 import MaIcon from './maIcon';
 
-const CardTrendingCourse = ({title, link, image, difficulty, recommended}) => {
+const CardTrendingCourse = ({title, slug, thumbnail, difficulty, recommended}) => {
   return (
     <div className="card-trending-course">
       <div className="card-trending-course__image">
-        <Image
+        <ImageContentful
           cover
-          src={image}
-          alt={title}
+          image={thumbnail}
         />
         <div className="overlay"/>
         {recommended ? (
@@ -35,7 +36,7 @@ const CardTrendingCourse = ({title, link, image, difficulty, recommended}) => {
               <span className={difficulty >= 5 ? 'active' : ''} style={{height: 24}}/>
             </div>
           </div>
-          <Link href={link}>
+          <Link href={`/course/${slug}`}>
             <a className="btn btn--secondary">View Course</a>
           </Link>
         </div>
@@ -46,10 +47,14 @@ const CardTrendingCourse = ({title, link, image, difficulty, recommended}) => {
 
 CardTrendingCourse.propTypes = {
   title: PropTypes.string,
-  link: PropTypes.string,
-  image: PropTypes.string,
+  slug: PropTypes.string,
+  thumbnail: ImmutablePropTypes.map,
   difficulty: PropTypes.number,
   recommended: PropTypes.bool
+};
+
+CardTrendingCourse.defaultProps = {
+  thumbanil: Map()
 };
 
 export default CardTrendingCourse;

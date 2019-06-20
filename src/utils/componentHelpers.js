@@ -157,7 +157,7 @@ export const isElementXPercentInViewport = function (el, percentVisible = 0) {
 };
 
 export function isScrolledIntoView(element, offset = 0, useDOM) {
-  if (!useDOM) {
+  if (!useDOM || !element) {
     return false;
   }
 

@@ -12,7 +12,7 @@ import Checkout from '../../layouts/checkout';
 import {SurveyQuestions} from '../../surveyContstants';
 import SurveyPage from '../../components/surveyPage';
 
-class SkillsAssessment extends Component {
+class WelcomeSurvey extends Component {
   constructor(props) {
     super(props);
 
@@ -114,11 +114,11 @@ class SkillsAssessment extends Component {
   render() {
     return (
       <Checkout full>
-        <div className="skills-assessment">
-          <p className="skills-assessment__pagination">Question {this.getActiveIndex() + 1} of {this.state.questions.count()}</p>
+        <div className="welcome-survey">
+          <p className="welcome-survey__pagination">Question {this.getActiveIndex() + 1} of {this.state.questions.count()}</p>
           <TransitionMotion styles={this.getStyles} willLeave={this.willLeave} willEnter={this.willEnter}>
             {styles => (
-              <div className="skills-assessment__content">
+              <div className="welcome-survey__content">
                 {styles.map(style => (
                   <SurveyPage
                     key={style.key}
@@ -136,10 +136,10 @@ class SkillsAssessment extends Component {
               </div>
             )}
           </TransitionMotion>
-          <div className="skills-assessment__footer">
+          <div className="welcome-survey__footer">
             {this.getPreviousIndex() >= 0 ? <button className="btn btn--empty btn--lg" onClick={this.handlePrevious}>Previous</button> : null }
             {this.getNextIndex() > 0 ? <button className="btn btn--primary-solid btn--lg" onClick={this.handleNext}>Next</button> : null}
-            {this.getActiveIndex() + 1 === this.getTotalQuestions() ? <Link href="/skills-assessment/results"><a className="btn btn--primary-solid btn--lg">Finish</a></Link> : null}
+            {this.getActiveIndex() + 1 === this.getTotalQuestions() ? <Link href="/welcome/results"><a className="btn btn--primary-solid btn--lg">Finish</a></Link> : null}
           </div>
         </div>
       </Checkout>
@@ -147,12 +147,12 @@ class SkillsAssessment extends Component {
   }
 }
 
-SkillsAssessment.propTypes = {
+WelcomeSurvey.propTypes = {
   surveyResults: ImmutablePropTypes.map.isRequired,
   actions: PropTypes.objectOf(PropTypes.func)
 };
 
-SkillsAssessment.defaultProps = {
+WelcomeSurvey.defaultProps = {
   surveyResults: Map()
 };
 
@@ -168,4 +168,4 @@ const mapDispatchToProps = function (dispatch) {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SkillsAssessment);
+export default connect(mapStateToProps, mapDispatchToProps)(WelcomeSurvey);

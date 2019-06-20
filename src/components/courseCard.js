@@ -19,7 +19,7 @@ const CourseCard = ({course, condensed, match, recommended}) => {
 
   return (
     <div className={classList.join(' ')}>
-      {match && condensed === false  ? (
+      {match && condensed === false ? (
         <CourseBanner>
           <span className="text">Match</span>
           <span className="value">{match}</span>
@@ -68,7 +68,7 @@ CourseCard.propTypes = {
 };
 
 CourseCard.defaultProps = {
-  course: Map,
+  course: Map(),
   condensed: false
 };
 
