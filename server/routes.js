@@ -25,6 +25,20 @@ module.exports = app => {
       });
 
       server.route({
+        method: 'GET',
+        path: '/api/v1/ping',
+        config: {
+          auth: false,
+          handler: () => {
+            return {
+              pong: true,
+              service: 'fe'
+            };
+          }
+        }
+      });
+
+      server.route({
         method: 'POST',
         path: '/api/v1/login',
         options: {
