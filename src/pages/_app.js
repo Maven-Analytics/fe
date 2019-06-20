@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Provider} from 'react-redux';
 import App, {Container} from 'next/app';
 import withRedux from 'next-redux-wrapper';
@@ -6,6 +7,7 @@ import withReduxSaga from 'next-redux-saga';
 import {fromJS} from 'immutable';
 import {TransitionGroup, Transition} from 'react-transition-group';
 import * as FontFaceObserver from 'fontfaceobserver';
+import Router from 'next/router';
 
 import initStore from '../redux/store';
 import {actions as authActions} from '../redux/ducks/auth';
@@ -13,6 +15,7 @@ import {actions as checkoutActions} from '../redux/ducks/checkout';
 import {actions as pathActions} from '../redux/ducks/paths';
 import {actions as courseActions} from '../redux/ducks/courses';
 import {actions as surveyResultActions} from '../redux/ducks/surveyResult';
+import {actions as stateActions} from '../redux/ducks/state';
 import {getCookie} from '../utils/cookies';
 import {enter, exit} from '../utils/animations';
 
@@ -59,6 +62,12 @@ class MavenApp extends App {
     };
   }
 
+  constructor(props) {
+    super(props);
+
+    this.handleRouteChange = this.handleRouteChange.bind(this);
+  }
+
   componentDidMount() {
     // const fonts = [
     //   new FontFaceObserver('Lato'),
@@ -81,6 +90,16 @@ class MavenApp extends App {
       .then(() => {
         document.body.classList.add('icons-loaded');
       });
+
+    Router.events.on('routeChangeComplete', this.handleRouteChange);
+  }
+
+  componentWillUnmount() {
+    Router.events.off('routeChangeComplete', this.handleRouteChange);
+  }
+
+  handleRouteChange() {
+    this.props.store.dispatch(stateActions.stateReset());
   }
 
   render() {
@@ -106,6 +125,10 @@ class MavenApp extends App {
     );
   }
 }
+
+MavenApp.propTypes = {
+  store: PropTypes.object.isRequired
+};
 
 export default withRedux(initStore, {
   serializeState: state => state.toJS(),
