@@ -44,7 +44,7 @@ One monthly subscription. Access to ALL courses, paths and personalized learning
 - Regular updates and new course content
 `;
 
-const Checkout = ({children, activeStep, title, full, actions, containerClass}) => {
+const CheckoutLayout = ({children, activeStep, title, full, actions, containerClass}) => {
   const Background = (
     <div className="layout-checkout__background">
       <Image
@@ -107,7 +107,7 @@ const Checkout = ({children, activeStep, title, full, actions, containerClass}) 
   );
 };
 
-Checkout.propTypes = {
+CheckoutLayout.propTypes = {
   children: PropTypes.node.isRequired,
   activeStep: PropTypes.number,
   title: PropTypes.string,
@@ -116,7 +116,7 @@ Checkout.propTypes = {
   containerClass: PropTypes.string
 };
 
-Checkout.defaultProps = {
+CheckoutLayout.defaultProps = {
   activeStep: 0,
   title: 'Select a membership plan',
   full: false,
@@ -131,5 +131,5 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
+export default connect(mapStateToProps, mapDispatchToProps)(CheckoutLayout);
 

@@ -9,11 +9,13 @@ import {watchCheckout} from './checkout';
 import {watchPaths} from './paths';
 import {watchCourses} from './courses';
 import {watchSurveys} from './surveyResults';
+import {watchProfile} from './profile';
 import {setCookie, removeCookie, getCookie} from '../../utils/cookies';
 import config from '../../config';
 
 function * logoutRequest({payload: {ctx}}) {
   removeCookie('token', ctx);
+  window.localStorage.setItem('logout', Date.now());
   yield all([
     put({
       type: userTypes.TOKEN_UNSET
@@ -200,7 +202,8 @@ function * rootSaga() {
     fork(watchCheckout),
     fork(watchPaths),
     fork(watchCourses),
-    fork(watchSurveys)
+    fork(watchSurveys),
+    fork(watchProfile)
   ]);
 }
 

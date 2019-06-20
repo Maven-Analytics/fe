@@ -12,11 +12,10 @@ import {selectors as loadingSelectors} from '../../redux/ducks/loading';
 import {selectors as errorSelectors} from '../../redux/ducks/error';
 import {selectors as userSelectors} from '../../redux/ducks/user';
 import Checkout from '../../layouts/checkout';
-import {getCookie} from '../../utils/cookies';
-import {state, stateCheck} from '../../utils/componentHelpers';
-import countries from '../../utils/countries';
+import {stateCheck} from '../../utils/componentHelpers';
 import {getCheckoutUrl} from '../../utils/checkoutHelpers';
 import CheckoutFooter from '../../components/checkoutFooter';
+import AccountForm from '../../components/forms/accountForm';
 
 class SignupAccount extends Component {
   static async getInitialProps(ctx) {
@@ -119,90 +118,15 @@ class SignupAccount extends Component {
     return (
       <Checkout activeStep={1} title="Tell us about yourself">
         <form onSubmit={this.handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="email">Email Address</label>
-            <input
-              required
-              className="input"
-              id="email"
-              name="email"
-              onChange={state(this.handleChange, 'email')}
-              placeholder="jason@email.com"
-              value={email}
-              type="email"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              required
-              className="input"
-              id="password"
-              name="password"
-              onChange={state(this.handleChange, 'password')}
-              value={password}
-              type="password"
-            />
-          </div>
-          <div className="row">
-            <div className="col-sm-6">
-              <div className="form-group">
-                <label htmlFor="first_name">First Name</label>
-                <input
-                  required
-                  className="input"
-                  id="first_name"
-                  name="first_name"
-                  onChange={state(this.handleChange, 'first_name')}
-                  value={first_name}
-                  type="text"
-                />
-              </div>
-            </div>
-            <div className="col-sm-6">
-              <div className="form-group">
-                <label htmlFor="last_name">Last Name</label>
-                <input
-                  required
-                  className="input"
-                  id="last_name"
-                  name="last_name"
-                  onChange={state(this.handleChange, 'last_name')}
-                  value={last_name}
-                  type="text"
-                />
-              </div>
-            </div>
-          </div>
-          <div className="form-group">
-            <label htmlFor="country">Country</label>
-            <select
-              required
-              className="input"
-              onChange={state(this.handleChange, 'country')}
-              id="country"
-              name="country"
-              value={country}
-            >
-              {countries.map(c => {
-                return (
-                  <option key={c.value} value={c.value}>{c.label}</option>
-                );
-              })}
-            </select>
-          </div>
-          <div className="form-group">
-            <label htmlFor="postal_code">Postal Code</label>
-            <input
-              required
-              className="input"
-              id="postal_code"
-              name="postal_code"
-              onChange={state(this.handleChange, 'postal_code')}
-              value={postal_code}
-              type="text"
-            />
-          </div>
+          <AccountForm
+            email={email}
+            first_name={first_name}
+            last_name={last_name}
+            password={password}
+            country={country}
+            postal_code={postal_code}
+            onChange={this.handleChange}
+          />
           <div className="form-group">
             <div className={`checkbox ${terms ? 'checked' : ''}`} style={{marginTop: 30}}>
               <input type="checkbox" id="checkbox" checked={terms} onChange={stateCheck(this.handleChange, 'terms')}/>

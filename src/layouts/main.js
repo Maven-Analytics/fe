@@ -13,7 +13,7 @@ import {actions as authActions} from '../redux/ducks/auth';
 import {selectors as stateSelectors, actions as stateActions} from '../redux/ducks/state';
 import {click} from '../utils/componentHelpers';
 
-const Main = ({children, actions, state}) => {
+const MainLayout = ({children, actions, state}) => {
   return (
     <Fragment>
       <GlobalHeader state={state} offmenuToggle={actions.offmenuToggle}/>
@@ -26,7 +26,7 @@ const Main = ({children, actions, state}) => {
   );
 };
 
-Main.propTypes = {
+MainLayout.propTypes = {
   children: PropTypes.node.isRequired,
   user: ImmutablePropTypes.map.isRequired,
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
@@ -45,5 +45,5 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(MainLayout);
 

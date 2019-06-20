@@ -156,6 +156,12 @@ module.exports = app => {
       });
 
       server.route({
+        method: 'PUT',
+        path: '/api/v1/profile',
+        handler: require('./controllers/dashboard/profile')
+      });
+
+      server.route({
         method: 'GET',
         path: '/_next/{p*}' /* next specific routes */,
         handler: nextHandlerWrapper(app),

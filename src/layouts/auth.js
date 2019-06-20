@@ -9,7 +9,7 @@ import Logo from '../components/logo';
 import {click} from '../utils/componentHelpers';
 import {actions as stateActions} from '../redux/ducks/state';
 
-const Auth = ({children, actions}) => {
+const AuthLayout = ({children, actions}) => {
   return (
     <Fragment>
       <main id="main" className="layout-auth" onClick={click(actions.stateReset)}>
@@ -45,7 +45,7 @@ const Auth = ({children, actions}) => {
   );
 };
 
-Auth.propTypes = {
+AuthLayout.propTypes = {
   children: PropTypes.node.isRequired,
   actions: PropTypes.objectOf(PropTypes.func)
 };
@@ -58,5 +58,5 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Auth);
+export default connect(mapStateToProps, mapDispatchToProps)(AuthLayout);
 

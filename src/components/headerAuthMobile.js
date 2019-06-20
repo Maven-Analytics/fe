@@ -36,7 +36,7 @@ const HeaderAuthMobile = ({actions}) => {
       </LoggedOut>
       <LoggedIn>
         <li>
-          <Link href="/account"><a>Account</a></Link>
+          <Link href="/dashboard"><a>Account</a></Link>
         </li>
         <li>
           <a href="#" onClick={clickPrevent(actions.logout)}>Logout</a>
