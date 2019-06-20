@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {Map} from 'immutable';
 import Link from 'next/link';
 
-import Image from './image';
+import ImageContentful from './imageContentful';
 import CourseHours from './courseHours';
 import CourseAuthor from './courseAuthor';
 import CourseBanner from './courseBanner';
@@ -32,10 +32,10 @@ const CourseCard = ({course, condensed, match, recommended}) => {
         </CourseBanner>
       ) : null}
       <div className="course-card__image">
-        <Image cover src={course.get('thumbnail')}/>
+        <ImageContentful cover image={course.get('thumbnail')}/>
         {condensed === false ? (
           <div className="badge">
-            <Image src={course.get('badge')}/>
+            <ImageContentful image={course.get('badge')}/>
           </div>
         ) : null}
       </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
-import {List} from 'immutable';
+import {List, Map} from 'immutable';
 import Link from 'next/link';
 
 import ImageContentful from './imageContentful';
@@ -51,7 +51,7 @@ const PathBanner = ({badge, title, excerpt, match, courses, length, tools, url})
 };
 
 PathBanner.propTypes = {
-  badge: PropTypes.string,
+  badge: ImmutablePropTypes.map,
   title: PropTypes.string,
   excerpt: PropTypes.string,
   match: PropTypes.number,
@@ -62,7 +62,8 @@ PathBanner.propTypes = {
 };
 
 PathBanner.defaultProps = {
-  tools: List()
+  tools: List(),
+  badge: Map()
 };
 
 export default PathBanner;

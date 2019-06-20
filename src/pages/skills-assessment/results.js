@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {fromJS, Map} from 'immutable';
+import {fromJS, Map, List} from 'immutable';
 
 import {selectors as surveyResultSelectors, actions as surveyResultActions} from '../../redux/ducks/surveyResult';
 import Checkout from '../../layouts/checkout';
@@ -24,10 +24,10 @@ const crs = fromJS({
   badge: '//via.placeholder.com/100x100/000000/FFFFFF'
 });
 
-const SkillsAssessmentResults = ({recommendedPaths}) => {
+const SkillsAssessmentResults = ({recommendedPaths, recommendedCourses}) => {
   const recommendedPath = recommendedPaths.first();
 
-  console.log(recommendedPath.toJS())
+  // console.log(recommendedPath.toJS())
 
   return (
     <Checkout full>
@@ -56,7 +56,7 @@ const SkillsAssessmentResults = ({recommendedPaths}) => {
           title="More Individual Courses"
           eyelash="Recommended for you"
           description="These individual courses are highly recommended based on your personal preferences to help you achieve your data rockstar goals. "
-          courses={fromJS([crs, crs, crs, crs, crs, crs])}
+          // courses={recommendedCourses}
         />
       </div>
     </Checkout>
@@ -65,11 +65,15 @@ const SkillsAssessmentResults = ({recommendedPaths}) => {
 
 SkillsAssessmentResults.propTypes = {
   surveyResults: ImmutablePropTypes.map.isRequired,
-  actions: PropTypes.objectOf(PropTypes.func)
+  actions: PropTypes.objectOf(PropTypes.func),
+  recommendedPaths: ImmutablePropTypes.list,
+  recommendedCourses: ImmutablePropTypes.list
 };
 
 SkillsAssessmentResults.defaultProps = {
-  surveyResults: Map()
+  surveyResults: Map(),
+  recommendedPaths: List(),
+  recommendedCourses: List()
 };
 
 const mapStateToProps = state => ({

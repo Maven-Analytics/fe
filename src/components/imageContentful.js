@@ -5,6 +5,10 @@ import {Map} from 'immutable';
 import Image from './image';
 
 const ImageContentful = ({image, ...props}) => {
+  if (!image) {
+    return null;
+  }
+
   return (
     <Image
       {...props}

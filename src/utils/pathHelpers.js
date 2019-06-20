@@ -1,4 +1,4 @@
-export const getPathById = (paths, id) => paths.find(c => c.get('id') === id);
+export const getPathById = (paths, id) => paths && paths.find && paths.find(c => c.get('id') === id);
 
 export const getPathHours = path => {
   return path.get('courses').reduce((length, course) => {

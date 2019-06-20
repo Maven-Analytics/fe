@@ -11,7 +11,7 @@ export const menuLinksMain = fromJS([
   },
   {
     title: 'Skills Assessments',
-    url: '/'
+    url: '/skills-assessment'
   },
   {
     title: 'Team Training',

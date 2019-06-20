@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Image from './image';
+import ImageContentful from './imageContentful';
 
 const CourseAuthor = ({name, thumbnail}) => {
   return (
     <span className="course-author">
-      <Image src={thumbnail}/>
+      <ImageContentful image={thumbnail}/>
       <span className="name">{name}</span>
     </span>
   );

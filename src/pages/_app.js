@@ -47,7 +47,7 @@ class MavenApp extends App {
       store.dispatch(pathActions.pathsInit());
     }
 
-    if (courses && courses.isEmpty()) {
+    if (courses && courses.isEmpty && courses.isEmpty()) {
       store.dispatch(courseActions.coursesInit());
     }
 
