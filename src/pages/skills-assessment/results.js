@@ -3,31 +3,16 @@ import PropTypes from 'prop-types';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {fromJS, Map, List} from 'immutable';
+import {Map, List} from 'immutable';
 
 import {selectors as surveyResultSelectors, actions as surveyResultActions} from '../../redux/ducks/surveyResult';
 import Checkout from '../../layouts/checkout';
 import CourseCarousel from '../../sections/courseCarousel';
 import PathBanner from '../../components/pathBanner';
-import { getPathHours } from '../../utils/pathHelpers';
-
-const crs = fromJS({
-  title: 'Excel Formulas & Functions',
-  excerpt: 'Short description about this path. Briefly mention which courses or skills would be included and the benefits. This should be stored as the “card description” for this path within the database.',
-  slug: 'excel-formulas',
-  length: 22.5,
-  author: {
-    name: 'Chris Dutton',
-    thumbnail: '//via.placeholder.com/80/20E2D7/FFFFFF'
-  },
-  thumbnail: '//via.placeholder.com/324x182/20E2D7/FFFFFF',
-  badge: '//via.placeholder.com/100x100/000000/FFFFFF'
-});
+import {getPathHours} from '../../utils/pathHelpers';
 
 const SkillsAssessmentResults = ({recommendedPaths, recommendedCourses}) => {
   const recommendedPath = recommendedPaths.first();
-
-  // console.log(recommendedPath.toJS())
 
   return (
     <Checkout full>
@@ -56,7 +41,7 @@ const SkillsAssessmentResults = ({recommendedPaths, recommendedCourses}) => {
           title="More Individual Courses"
           eyelash="Recommended for you"
           description="These individual courses are highly recommended based on your personal preferences to help you achieve your data rockstar goals. "
-          // courses={recommendedCourses}
+          courses={recommendedCourses}
         />
       </div>
     </Checkout>

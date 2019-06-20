@@ -37,8 +37,7 @@ export async function getCourses({query = {}, include = 10, limit = 20}) {
       ...query
     });
 
-    return mapFromResponseItems(res.items)
-      .map(mapCourseItem);
+    return res.items.map(mapCourseItem);
   } catch (error) {
     return error;
   }
@@ -69,7 +68,7 @@ function mapCourseItem(item) {
   }
 
   return {
-    id: item.id,
+    id: item.sys.id,
     ...item.fields,
     thumbnail: mapResponseImage(item.fields.thumbnail),
     badge: mapResponseImage(item.fields.badge),
