@@ -31,14 +31,14 @@ export function getPercentages(results, totals, weights = Map()) {
   return results.map((score, key) => {
     const total = totals.get(key);
     const weight = weights.get(key) || 0;
-    const percentage = Math.round(((score / total) + weight) * 1000) / 1000;
+    const percentage = Math.round(((score / total) + weight) * 10000) / 10000;
 
     return percentage < 1 ? parseFloat(percentage) : 1;
   });
 }
 
-export function getCoursePercentages(results) {
-  return getPercentages(results, CourseMappingTotals);
+export function getCoursePercentages(results, weights = Map()) {
+  return getPercentages(results, CourseMappingTotals, weights);
 }
 
 export function getPathPercentages(results, weights = Map()) {
@@ -89,4 +89,8 @@ export function getInitialAnswers(questions, initialValue = 0) {
 
     return map;
   }, Map());
+}
+
+export function getSurveyWeights(objects) {
+  return objects.reduce((map, o) => map.set(o.get('id'), o.get('surveyWeight') || 0), Map());
 }

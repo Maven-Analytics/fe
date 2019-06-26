@@ -85,7 +85,7 @@ describe('Survey Helpers', () => {
     });
   });
 
-  describe('getPercentage', () => {
+  describe('getPercentages', () => {
     it('Should return the correct percentage', () => {
       const results = fromJS({
         path1: 2,
@@ -113,10 +113,10 @@ describe('Survey Helpers', () => {
       expect(percentages.get('15zmpaevEdRHp1hTeswVOu')).to.be(0.44);
       expect(percentages.get('2knpeDXkFdHz8cJ7DGXKbs')).to.be(0.65);
       expect(percentages.get('5wNOPBePhki9EKFCxsdriO')).to.be(0.48);
-      expect(percentages.get('2BAO2FLUUoaWvkl5tlhLjn')).to.be(0.243);
+      expect(percentages.get('2BAO2FLUUoaWvkl5tlhLjn')).to.be(0.2429);
       expect(percentages.get('49MnZCKlk87B2eN76JeVze')).to.be(0.35);
       expect(percentages.get('6tbYSRwgCu7W2ZQZUVs4iK')).to.be(0.62);
-      expect(percentages.get('7TX0pQMraQmT7ygdvOA2f')).to.be(0.433);
+      expect(percentages.get('7TX0pQMraQmT7ygdvOA2f')).to.be(0.4333);
     });
 
     it('Should return the correct percentage if one result is over 100%', () => {
@@ -163,6 +163,32 @@ describe('Survey Helpers', () => {
       expect(percentages.get('path1')).to.be(0.202);
       expect(percentages.get('path2')).to.be(0.504);
       expect(percentages.get('path3')).to.be(0.021);
+    });
+
+    it('Should return the correct percentages with the same all the results the same', () => {
+      const results = fromJS({
+        path1: 10,
+        path2: 10,
+        path3: 10
+      });
+
+      const totals = fromJS({
+        path1: 20,
+        path2: 20,
+        path3: 20
+      });
+
+      const weights = fromJS({
+        path1: 0.0002,
+        path2: 0.0004,
+        path3: 0.0001
+      });
+
+      const percentages = surveyHelpers.getPercentages(results, totals, weights);
+
+      expect(percentages.get('path1')).to.be(0.5002);
+      expect(percentages.get('path2')).to.be(0.5004);
+      expect(percentages.get('path3')).to.be(0.5001);
     });
   });
 
@@ -233,6 +259,34 @@ describe('Survey Helpers', () => {
       expect(adjustedPercentages.get('path1')).to.be(1);
       expect(adjustedPercentages.get('path2')).to.be(0.5);
       expect(adjustedPercentages.get('path3')).to.be(0.02);
+    });
+  });
+
+  describe('sortResults', () => {
+    it('Should sort the results with the same result', () => {
+      const results = fromJS({
+        path1: 10,
+        path2: 10,
+        path3: 10
+      });
+
+      const totals = fromJS({
+        path1: 20,
+        path2: 20,
+        path3: 20
+      });
+
+      const weights = fromJS({
+        path1: 0.002,
+        path2: 0.004,
+        path3: 0.001
+      });
+
+      const percentages = surveyHelpers.getPercentages(results, totals, weights);
+
+      expect(percentages.get('path1')).to.be(0.502);
+      expect(percentages.get('path2')).to.be(0.504);
+      expect(percentages.get('path3')).to.be(0.501);
     });
   });
 });

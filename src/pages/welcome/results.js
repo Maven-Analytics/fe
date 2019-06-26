@@ -16,8 +16,6 @@ import {actions as courseActions} from '../../redux/ducks/courses';
 const WelcomeSurveyResults = ({recommendedPaths, recommendedCourses}) => {
   const recommendedPath = recommendedPaths.first();
 
-  console.log(recommendedCourses.toJS());
-
   return (
     <Checkout full>
       <div className="welcome-survey-results">
