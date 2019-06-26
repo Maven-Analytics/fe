@@ -50,7 +50,7 @@
     "next-redux-saga": "^4.0.1",
     "next-redux-wrapper": "^3.0.0-alpha.2",
     "node-sass": "^4.11.0",
-    "nookies": "^2.0.4",
+    "nookies": "^2.0.6",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",

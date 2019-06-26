@@ -1,5 +1,6 @@
 import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
+import debounce from 'lodash.debounce';
 
 import {canUseDOM, noop} from '../utils/componentHelpers';
 
@@ -15,6 +16,8 @@ class Carousel extends Component {
     };
 
     this.el = createRef();
+
+    this.initCarousel = debounce(this.initCarousel, 150);
   }
 
   componentDidMount() {
@@ -29,6 +32,8 @@ class Carousel extends Component {
     }
 
     if (prevProps.options !== this.props.options) {
+      this.initCarousel();
+    } else if (!prevProps.children.equals(this.props.children)) {
       this.initCarousel();
     }
   }
@@ -47,6 +52,10 @@ class Carousel extends Component {
     }
 
     const Flickity = require('flickity');
+
+    if (this.flickity) {
+      this.flickity.destroy();
+    }
 
     this.flickity = new Flickity(this.el.current, {
       ...this.defaultOptions,

@@ -12,9 +12,9 @@ import Router from 'next/router';
 import initStore from '../redux/store';
 import {actions as authActions} from '../redux/ducks/auth';
 import {actions as checkoutActions} from '../redux/ducks/checkout';
-import {actions as surveyResultActions} from '../redux/ducks/surveyResult';
+import {actions as userActions} from '../redux/ducks/user';
 import {actions as stateActions} from '../redux/ducks/state';
-import {getCookie} from '../utils/cookies';
+import {getCookie, setCookie} from '../utils/cookies';
 import {enter, exit} from '../utils/animations';
 
 import '../styles/index.scss';
@@ -25,7 +25,8 @@ class MavenApp extends App {
 
     const token = getCookie('token', ctx);
     const checkoutCookie = getCookie('checkout', ctx);
-    const surveyCookie = getCookie('surveyResult', ctx);
+    const recommendedPaths = getCookie('recommendedPaths', ctx);
+    const recommendedCourses = getCookie('recommendedPaths', ctx);
 
     const state = store.getState();
     const user = state.getIn(['user', 'user']);
@@ -38,8 +39,11 @@ class MavenApp extends App {
       store.dispatch(checkoutActions.setPlan(fromJS(checkoutCookie.plan)));
     }
 
-    if (surveyCookie && surveyCookie !== '') {
-      store.dispatch(surveyResultActions.surveyResultUpdate(surveyCookie));
+    if (recommendedPaths && recommendedCourses) {
+      store.dispatch(userActions.userRecommendedSet({
+        paths: recommendedPaths,
+        courses: recommendedCourses
+      }));
     }
 
     return {

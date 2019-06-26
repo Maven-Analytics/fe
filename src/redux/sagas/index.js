@@ -1,20 +1,23 @@
-import {all, put, takeLatest, fork, delay} from 'redux-saga/effects';
+import {all, put, takeLatest, fork, select} from 'redux-saga/effects';
 import axios from 'axios';
 
 import {watchState} from './state';
 import {types as authTypes} from '../ducks/auth';
-import {types as userTypes} from '../ducks/user';
+import {types as userTypes, selectors as userSelectors} from '../ducks/user';
+import {types as surveyResultTypes} from '../ducks/surveyResult';
 import {types as responseTypes} from '../ducks/response';
 import {watchCheckout} from './checkout';
 import {watchPaths} from './paths';
 import {watchCourses} from './courses';
 import {watchSurveys} from './surveyResults';
 import {watchProfile} from './profile';
+import {watchUser} from './user';
 import {setCookie, removeCookie, getCookie} from '../../utils/cookies';
 import config from '../../config';
 
 function * logoutRequest({payload: {ctx}}) {
   removeCookie('token', ctx);
+
   window.localStorage.setItem('logout', Date.now());
   yield all([
     put({
@@ -39,6 +42,10 @@ function * reauthenticateRequest({payload: {token, isServer, ctx}}) {
 
     if (!data.user) {
       removeCookie('token', ctx);
+      // removeCookie('surveyResult', ctx);
+      removeCookie('checkout', ctx);
+      removeCookie('recommendedPaths', ctx);
+      removeCookie('recommendedCourses', ctx);
 
       return yield all([
         put({
@@ -116,7 +123,7 @@ function * forgotRequest({payload}) {
   } catch (error) {
     yield put({
       type: authTypes.FORGOT_FAILURE,
-      payload: error.response.data
+      payload: error.response ? error.response.data : error.message
     });
   }
 }
@@ -136,14 +143,17 @@ function * resetRequest({payload}) {
   } catch (error) {
     yield put({
       type: authTypes.RESET_FAILURE,
-      payload: error.response.data
+      payload: error.response ? error.response.data : error.message
     });
   }
 }
 
 function * registerRequest({payload}) {
   try {
-    const data = yield register(payload);
+    const recommendedCourses = yield select(userSelectors.getRecommendedCourses);
+    const recommendedPaths = yield select(userSelectors.getRecommendedPaths);
+
+    const data = yield register({...payload, recommended_courses: recommendedCourses.toJS(), recommended_paths: recommendedPaths.toJS()});
 
     setCookie('token', data.token);
 
@@ -161,9 +171,10 @@ function * registerRequest({payload}) {
       window.location = data.ssoUrl;
     }
   } catch (error) {
+    console.log(error);
     yield put({
       type: authTypes.REGISTER_FAILURE,
-      payload: error.response.data
+      payload: error.response ? error.response.data : error.message
     });
   }
 }
@@ -203,7 +214,8 @@ function * rootSaga() {
     fork(watchPaths),
     fork(watchCourses),
     fork(watchSurveys),
-    fork(watchProfile)
+    fork(watchProfile),
+    fork(watchUser)
   ]);
 }
 
@@ -223,8 +235,8 @@ function login({email, password, redirectTo}) {
   return authReq('login', {email, password, redirectTo});
 }
 
-function register({email, password, first_name, last_name, country, postal_code, redirectTo}) {
-  return authReq('register', {email, password, first_name, last_name, country, postal_code, redirectTo});
+function register({email, password, first_name, last_name, country, postal_code, redirectTo, recommended_paths, recommended_courses}) {
+  return authReq('register', {email, password, first_name, last_name, country, postal_code, redirectTo, recommended_paths, recommended_courses});
 }
 
 async function authReq(type, data) {

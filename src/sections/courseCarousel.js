@@ -12,10 +12,6 @@ import withWindowSize from '../components/withWindowSize';
 import {prettyPercent} from '../utils/componentHelpers';
 
 const CourseCarousel = ({courses, title, eyelash, description, helperText, separator}) => {
-  if (!courses || courses.isEmpty()) {
-    return null;
-  }
-
   return (
     <TrackVisibility className="course-carousel">
       <header>

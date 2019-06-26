@@ -14,8 +14,6 @@
     width: 100%;
   }
 
-  height: $header-height-mobile;
-
   @include desktopHeader() {
     height: auto;
   }
@@ -37,10 +35,12 @@
   &__inner {
     align-items: center;
     display: flex;
+    height: $header-height-mobile;
     justify-content: space-between;
     padding: .8rem 0;
 
     @include desktopHeader {
+      height: auto;
       justify-content: flex-start;
       padding: 2.7rem 0;
     }

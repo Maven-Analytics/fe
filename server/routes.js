@@ -139,7 +139,9 @@ module.exports = app => {
               last_name: Joi.string().required(),
               country: Joi.string().required(),
               postal_code: Joi.number().integer().required(),
-              redirectTo: Joi.string().required()
+              redirectTo: Joi.string().required(),
+              recommended_paths: Joi.array(),
+              recommended_courses: Joi.array()
             }
           }
         },
@@ -191,6 +193,23 @@ module.exports = app => {
         method: 'PUT',
         path: '/api/v1/profile',
         handler: require('./controllers/dashboard/profile')
+      });
+
+      server.route({
+        method: 'POST',
+        path: '/api/v1/user/recommended',
+        handler: require('./controllers/user/recommended'),
+        config: {
+          auth: {
+            mode: 'required'
+          },
+          validate: {
+            payload: {
+              paths: Joi.array().required(),
+              courses: Joi.array().required()
+            }
+          }
+        }
       });
 
       server.route({

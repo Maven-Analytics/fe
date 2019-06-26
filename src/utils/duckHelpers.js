@@ -4,8 +4,8 @@ export function initialState(data) {
   return fromJS(data);
 }
 
-export function action(type, payload = {}) {
-  return {type, payload};
+export function action(type, payload = {}, rest) {
+  return {type, payload, ...rest};
 }
 
 export function requestTypes(base) {

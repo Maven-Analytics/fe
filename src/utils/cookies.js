@@ -10,7 +10,7 @@ export const setCookie = (key, value, ctx = {}) => {
 };
 
 export const removeCookie = (key, ctx = {}) => {
-  return nookies.destroy(ctx, key);
+  return nookies.destroy(ctx, key, cookieConfig);
 };
 
 export const getCookie = (key, ctx = {}) => {
