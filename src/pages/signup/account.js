@@ -21,7 +21,8 @@ class SignupAccount extends Component {
   static async getInitialProps(ctx) {
     const {res, store} = ctx;
     const state = store.getState();
-    const checkoutPlan = state.getIn(['checkout', 'plan']);
+    const checkout = state.get('checkout');
+    const checkoutPlan = checkout.get('plan');
 
     if (!checkoutPlan || checkoutPlan.isEmpty()) {
       if (res) {
@@ -31,6 +32,17 @@ class SignupAccount extends Component {
         res.end();
       } else {
         Router.push('/signup');
+      }
+    }
+
+    if (checkout && getCheckoutUrl(checkout)) {
+      if (res) {
+        res.writeHead(302, {
+          Location: getCheckoutUrl(checkout)
+        });
+        res.end();
+      } else {
+        Router.push(getCheckoutUrl(checkout));
       }
     }
 
@@ -98,22 +110,22 @@ class SignupAccount extends Component {
 
     const btnDisabled = !this.canSubmit();
 
-    if (user && user.has('id')) {
-      return (
-        <Checkout activeStep={1} title={`Welcome back ${user.get('first_name')}!`}>
-          <CheckoutFooter
-            showLogin={false}
-            btnText="Checkout Now"
-            error={error}
-            loading={loading}
-            disabled={btnDisabled}
-            onClick={this.handleGoToCheckout}
-            btnType="button"
-            loginRedirect="/signup/account"
-          />
-        </Checkout>
-      );
-    }
+    // if (user && user.has('id')) {
+    //   return (
+    //     <Checkout activeStep={1} title={`Welcome back ${user.get('first_name')}!`}>
+    //       <CheckoutFooter
+    //         showLogin={false}
+    //         btnText="Checkout Now"
+    //         error={error}
+    //         loading={loading}
+    //         disabled={btnDisabled}
+    //         onClick={this.handleGoToCheckout}
+    //         btnType="button"
+    //         loginRedirect="/signup/account"
+    //       />
+    //     </Checkout>
+    //   );
+    // }
 
     return (
       <Checkout activeStep={1} title="Tell us about yourself">

@@ -12,7 +12,6 @@ export function * watchCheckout() {
 
 function * onCheckoutRequest({payload: {plan, ctx}}) {
   try {
-    // const data = yield updateCheckout(plan);
     setCookie('checkout', {
       plan: plan.toJS()
     }, ctx);

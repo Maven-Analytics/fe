@@ -23,6 +23,14 @@ class SignupIndex extends Component {
     this.handleNextClick = this.handleNextClick.bind(this);
   }
 
+  componentDidMount() {
+    const {checkout, plans} = this.props;
+
+    if (!checkout || !checkout.get('plan') || checkout.get('plan').isEmpty()) {
+      this.props.actions.setPlan(plans.first());
+    }
+  }
+
   handleNextClick() {
     const {user, checkout} = this.props;
 

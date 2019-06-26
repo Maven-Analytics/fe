@@ -19,7 +19,7 @@ export const actions = {
 };
 
 const initialState = utils.initialState({
-  plan: plans.first()
+  plan: {}
 });
 
 export default (state = initialState, action) => {
