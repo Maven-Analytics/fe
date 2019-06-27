@@ -4,10 +4,10 @@ import Link from 'next/link';
 
 import Logo from './logo';
 import CloseIcon from './closeButton';
-import MaIcon from './maIcon';
 import {click, ref} from '../utils/componentHelpers';
-import {menuLinksMain} from '../constants';
+import {menuLinksMain} from '../routes';
 import HeaderAuthMobile from './headerAuthMobile';
+import {Routes} from '../routes';
 
 class MobileMenu extends Component {
   constructor(props) {
@@ -65,7 +65,7 @@ class MobileMenu extends Component {
             <CloseIcon className="mobile-menu__close" onClick={click(offmenuToggle, 'mobileMenu')}/>
             <div ref={ref.call(this, 'menuScroll')} onTouchStart={this.handleTouchStart} onTouchMove={this.handleTouchMove} className="mobile-menu__scroll">
               <div className="mobile-menu__container">
-                <Link href="/">
+                <Link href={Routes.Home}>
                   <a className="mobile-menu__brand">
                     <Logo height={39} width={157}/>
                   </a>

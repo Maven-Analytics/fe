@@ -11,6 +11,7 @@ import {selectors as errorSelectors} from '../redux/ducks/error';
 import {state} from '../utils/componentHelpers';
 import Auth from '../layouts/auth';
 import config from '../config';
+import {Routes} from '../routes';
 
 class Login extends Component {
   static async getInitialProps(ctx) {
@@ -69,8 +70,8 @@ class Login extends Component {
               <button className="btn btn--primary-solid" type="submit" value="Login" disabled={loading}>Login</button>
             </span>
             <span className="links">
-              <Link href="/forgot"><a>I forgot my password.</a></Link>
-              <Link href="/signup"><a>{'I don\'t have an account yet. Sign me Up!'}</a></Link>
+              <Link href={Routes.ForgotPassword}><a>I forgot my password.</a></Link>
+              <Link href={Routes.Signup}><a>{'I don\'t have an account yet. Sign me Up!'}</a></Link>
             </span>
           </div>
         </form>

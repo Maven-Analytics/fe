@@ -10,16 +10,17 @@ import {actions as authActions} from '../redux/ducks/auth';
 import {clickPrevent} from '../utils/componentHelpers';
 import LoggedIn from './loggedIn';
 import LoggedOut from './loggedOut';
+import {Routes} from '../routes';
 
 const HeaderAuthMobile = ({actions}) => {
   return (
     <ul>
       <li>
-        <Link href="/contact"><a>Contact</a></Link>
+        <Link href={Routes.Contact}><a>Contact</a></Link>
       </li>
       <LoggedOut>
         <li>
-          <Link href="/login">
+          <Link href={Routes.Login}>
             <a>
               <MaIcon icon="user"/>
               Login
@@ -27,7 +28,7 @@ const HeaderAuthMobile = ({actions}) => {
           </Link>
         </li>
         <li>
-          <Link href="/signup">
+          <Link href={Routes.Signup}>
             <a className="btn btn--primary">
               Sign up
             </a>
@@ -36,7 +37,7 @@ const HeaderAuthMobile = ({actions}) => {
       </LoggedOut>
       <LoggedIn>
         <li>
-          <Link href="/dashboard"><a>Account</a></Link>
+          <Link href={Routes.DashboardAccount}><a>Account</a></Link>
         </li>
         <li>
           <a href="#" onClick={clickPrevent(actions.logout)}>Logout</a>

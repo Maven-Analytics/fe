@@ -9,6 +9,7 @@ import CourseHours from './courseHours';
 import CourseAuthor from './courseAuthor';
 import CourseBanner from './courseBanner';
 import MaIcon from './maIcon';
+import {Routes} from '../routes';
 
 const CourseCard = ({course, condensed, match, recommended}) => {
   const classList = ['course-card'];
@@ -47,7 +48,7 @@ const CourseCard = ({course, condensed, match, recommended}) => {
       </div>
       <div className="course-card__footer">
         <span>
-          <Link href={`/course/${course.get('slug')}`}>
+          <Link href={`${Routes.Course}/${course.get('slug')}`}>
             <a className="btn">View Course</a>
           </Link>
         </span>

@@ -15,6 +15,8 @@ import {selectors as errorSelectors} from '../../redux/ducks/error';
 import {actions as authActions} from '../../redux/ducks/auth';
 import {selectors as checkoutSelectors, actions as checkoutActions} from '../../redux/ducks/checkout';
 import CheckoutFooter from '../../components/checkoutFooter';
+import {Routes} from '../../routes';
+import config from '../../config';
 
 class SignupIndex extends Component {
   constructor(props) {
@@ -32,19 +34,19 @@ class SignupIndex extends Component {
   }
 
   handleNextClick() {
-    const {user, checkout} = this.props;
+    const {user} = this.props;
 
     if (user && user.get('id')) {
       this.props.actions.sso({
-        redirectTo: checkout.getIn(['plan', 'checkoutUrl'])
+        redirectTo: `${config.HOST_APP}${Routes.SignupAccount}`
       });
     } else {
-      Router.push('/signup/account');
+      Router.push(Routes.SignupAccount);
     }
   }
 
   render() {
-    const {plans, checkout, actions, error, loading} = this.props;
+    const {plans, checkout, actions, error, loading, user} = this.props;
     const btnDisabled = !checkout || !checkout.has('plan');
 
     return (
@@ -54,6 +56,7 @@ class SignupIndex extends Component {
       >
         <CheckoutPlans plans={plans} checkout={checkout} onPlanChange={actions.setPlan}/>
         <CheckoutFooter
+          showLogin={user.isEmpty()}
           error={error}
           loading={loading}
           btnType="button"

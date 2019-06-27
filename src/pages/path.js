@@ -7,6 +7,7 @@ import {Map} from 'immutable';
 import {actions as pathActions, selectors as pathSelectors} from '../redux/ducks/paths';
 import PageLayout from '../layouts/page';
 import {redirect} from '../utils/routingHelpers';
+import {Routes} from '../routes';
 
 const Path = ({path}) => {
   return (
@@ -20,7 +21,7 @@ Path.getInitialProps = ctx => {
   const {res, query, store} = ctx;
 
   if (!query.id) {
-    return redirect('/', res);
+    return redirect(Routes.Home, res);
   }
 
   store.dispatch(pathActions.pathsInit({query: {'fields.slug': query.id}}));

@@ -34,6 +34,10 @@
       font-weight: 700;
       line-height: 22px;
       margin: 0 0 15px;
+
+      @include media-breakpoint-up(lg) {
+        margin: 0 0 22px;
+      }
     }
   }
 }

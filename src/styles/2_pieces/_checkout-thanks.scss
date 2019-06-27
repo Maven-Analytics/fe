@@ -48,6 +48,11 @@
     @extend %btn;
     @extend %btn--primary-solid;
     @extend %btn--lg;
+    color: $black;
     font-size: .77em;
+
+    &:hover {
+      color: $black;
+    }
   }
 }

@@ -7,6 +7,7 @@ import {Map} from 'immutable';
 import {actions as courseActions, selectors as courseSelectors} from '../redux/ducks/courses';
 import PageLayout from '../layouts/page';
 import {redirect} from '../utils/routingHelpers';
+import {Routes} from '../routes';
 
 const Course = ({course}) => {
   return (
@@ -20,7 +21,7 @@ Course.getInitialProps = ctx => {
   const {res, query, store} = ctx;
 
   if (!query.id) {
-    return redirect('/', res);
+    return redirect(Routes.Home, res);
   }
 
   store.dispatch(courseActions.coursesInit({query: {'fields.slug': query.id}}));

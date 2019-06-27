@@ -13,13 +13,14 @@ import {selectors as stateSelectors, actions as stateActions} from '../redux/duc
 import {actions as authActions} from '../redux/ducks/auth';
 import LoggedIn from './loggedIn';
 import LoggedOut from './loggedOut';
+import {Routes} from '../routes';
 
 const HeaderAuth = ({showContact, showRegister, state, actions}) => {
   return (
     <ul>
       {showContact ? (
         <li>
-          <Link href="/contact"><a>Contact</a></Link>
+          <Link href={Routes.Contact}><a>Contact</a></Link>
         </li>
       ) : null}
       <LoggedIn>
@@ -38,7 +39,7 @@ const HeaderAuth = ({showContact, showRegister, state, actions}) => {
       </LoggedIn>
       <LoggedOut>
         <li>
-          <Link href="/login">
+          <Link href={Routes.Login}>
             <a>
               <MaIcon icon="user"/>
               Login
@@ -47,7 +48,7 @@ const HeaderAuth = ({showContact, showRegister, state, actions}) => {
         </li>
         {showRegister ? (
           <li>
-            <Link href="/signup">
+            <Link href={Routes.Signup}>
               <a className="btn btn--primary">
                 Sign up
               </a>

@@ -13,6 +13,7 @@ import {getPathHours} from '../../utils/pathHelpers';
 import {actions as pathActions} from '../../redux/ducks/paths';
 import {actions as courseActions} from '../../redux/ducks/courses';
 import {actions as userActions} from '../../redux/ducks/user';
+import {Routes} from '../../routes';
 
 class WelcomeSurveyResults extends Component {
   componentDidMount() {
@@ -44,7 +45,7 @@ class WelcomeSurveyResults extends Component {
               courses={recommendedPath.getIn(['path', 'courses']) && recommendedPath.getIn(['path', 'courses']).count()}
               length={getPathHours(recommendedPath.get('path'))}
               tools={recommendedPath.getIn(['path', 'tools'])}
-              url={`/path/${recommendedPath.getIn(['path', 'slug'])}`}
+              url={`${Routes.Path}/${recommendedPath.getIn(['path', 'slug'])}`}
             />
             <CourseCarousel
               separator

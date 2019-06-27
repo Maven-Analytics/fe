@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 import MaIcon from './maIcon';
 import {clickPrevent} from '../utils/componentHelpers';
+import {Routes} from '../routes';
 
 const HeaderUser = ({user, onClick, open, logout}) => {
   const classList = ['header-user'];
@@ -25,8 +26,8 @@ const HeaderUser = ({user, onClick, open, logout}) => {
         </div>
       </button>
       <ul id="header-user-dropdown" className="header-user__dropdown">
-        <li><Link href="/dashboard"><a>My Account</a></Link></li>
-        <li><Link href="/"><a>Support</a></Link></li>
+        <li><Link href={Routes.Dashboard}><a>Dashboard</a></Link></li>
+        <li><Link href={Routes.DashboardAccount}><a>My Account</a></Link></li>
         <li><a href="#" onClick={clickPrevent(logout)}>Sign Out</a></li>
       </ul>
     </div>

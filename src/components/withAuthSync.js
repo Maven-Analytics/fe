@@ -30,10 +30,10 @@ const withAuthSync = WrappedComponent => {
       window.addEventListener('storage', this.syncLogout);
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
       const {user} = this.props;
 
-      if (!user || user.isEmpty()) {
+      if ((!user || user.isEmpty()) && prevProps.user.has('id')) {
         this.goToLogin();
       }
     }

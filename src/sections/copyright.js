@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 
-import {copyLinks} from '../constants';
+import {copyLinks} from '../routes';
 
 const Copyright = ({links}) => {
   return (

@@ -4,7 +4,7 @@ import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import Link from 'next/link';
 
 import Logo from '../components/logo';
-import {footerLinks} from '../constants';
+import {footerLinks} from '../routes';
 import MaIcon from '../components/maIcon';
 import Subscribe from '../components/subscribe';
 import Copyright from './copyright';

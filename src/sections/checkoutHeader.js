@@ -3,13 +3,14 @@ import Link from 'next/link';
 
 import Logo from '../components/logo';
 import HeaderAuth from '../components/headerAuth';
+import {Routes} from '../routes';
 
 const CheckoutHeader = () => {
   return (
     <header className="global-header global-header--checkout">
       <div className="container">
         <div className="global-header__inner">
-          <Link href="/">
+          <Link href={Routes.Home}>
             <a className="global-header__brand">
               <Logo/>
             </a>

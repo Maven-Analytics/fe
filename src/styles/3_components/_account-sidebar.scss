@@ -1,8 +1,9 @@
 .account-sidebar {
   ul {
     @include list-unstyled();
-    display: flex;
     box-shadow: none !important;
+    display: flex;
+    margin: 0;
 
     @include media-breakpoint-up(lg) {
       display: block;

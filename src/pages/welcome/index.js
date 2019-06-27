@@ -11,6 +11,7 @@ import {selectors as surveyResultSelectors, actions as surveyResultActions} from
 import Checkout from '../../layouts/checkout';
 import {SurveyQuestions} from '../../surveyContstants';
 import SurveyPage from '../../components/surveyPage';
+import {Routes} from '../../routes';
 
 class WelcomeSurvey extends Component {
   constructor(props) {
@@ -139,7 +140,7 @@ class WelcomeSurvey extends Component {
           <div className="welcome-survey__footer">
             {this.getPreviousIndex() >= 0 ? <button className="btn btn--empty btn--lg" onClick={this.handlePrevious}>Previous</button> : null }
             {this.getNextIndex() > 0 ? <button className="btn btn--primary-solid btn--lg" onClick={this.handleNext}>Next</button> : null}
-            {this.getActiveIndex() + 1 === this.getTotalQuestions() ? <Link href="/welcome/results"><a className="btn btn--primary-solid btn--lg">Finish</a></Link> : null}
+            {this.getActiveIndex() + 1 === this.getTotalQuestions() ? <Link href={Routes.WelcomeResults}><a className="btn btn--primary-solid btn--lg">Finish</a></Link> : null}
           </div>
         </div>
       </Checkout>

@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import MaIcon from '../components/maIcon';
 import ParallaxBg from '../components/parallaxBg';
+import {Routes} from '../routes';
 
 const Hero = () => {
   return (
@@ -25,7 +26,7 @@ const Hero = () => {
             <h1>We Transform Everyday People Into</h1>
             <h1><span>Data Rockstars</span></h1>
             <p><MaIcon icon="chevron-right"/> Award-winning business <strong>intelligence training and resources</strong></p>
-            <Link href="/signup"><a className="btn btn--primary-solid">Free 10-Day Trial</a></Link>
+            <Link href={Routes.Signup}><a className="btn btn--primary-solid">Free 10-Day Trial</a></Link>
           </div>
         </div>
       </div>

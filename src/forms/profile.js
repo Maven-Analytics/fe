@@ -2,13 +2,16 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 import AccountForm from './accountForm';
+import {selectors as userSelectors} from '../redux/ducks/user';
+import {actions as profileActions} from '../redux/ducks/profile';
 import {selectors as loadingSelectors} from '../redux/ducks/loading';
 import {selectors as errorSelectors} from '../redux/ducks/error';
 import {selectors as responseSelectors} from '../redux/ducks/response';
 
-class Profile extends Component {
+class ProfileForm extends Component {
   constructor(props) {
     super(props);
 
@@ -44,39 +47,37 @@ class Profile extends Component {
     const {error, response, loading} = this.props;
 
     return (
-      <div className="profile-edit">
-        <form onSubmit={this.handleSubmit} className="form--light form--account">
-          <AccountForm
-            showPassword={false}
-            email={email}
-            first_name={first_name}
-            last_name={last_name}
-            country={country}
-            postal_code={postal_code}
-            onChange={this.handleChange}
-          />
-          {error || response ? (
-            <div className="form-message">
-              {error ? (
-                <p className="form-text small error">{error}</p>
-              ) : null}
-              {response ? (
-                <p className="form-text small success">{response}</p>
-              ) : null}
-            </div>
-          ) : null}
-          <div className="form-footer">
-            <button type="submit" onClick={this.handleSubmit} disabled={loading} className="btn btn--primary-solid">
-              Update
-            </button>
+      <form onSubmit={this.handleSubmit} className="form--light form--account">
+        <AccountForm
+          showPassword={false}
+          email={email}
+          first_name={first_name}
+          last_name={last_name}
+          country={country}
+          postal_code={postal_code}
+          onChange={this.handleChange}
+        />
+        {error || response ? (
+          <div className="form-message">
+            {error ? (
+              <p className="form-text small error">{error}</p>
+            ) : null}
+            {response ? (
+              <p className="form-text small success">{response}</p>
+            ) : null}
           </div>
-        </form>
-      </div>
+        ) : null}
+        <div className="form-footer">
+          <button type="submit" onClick={this.handleSubmit} disabled={loading} className="btn btn--primary-solid">
+            Update
+          </button>
+        </div>
+      </form>
     );
   }
 }
 
-Profile.propTypes = {
+ProfileForm.propTypes = {
   user: ImmutablePropTypes.map.isRequired,
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   error: PropTypes.string,
@@ -85,9 +86,18 @@ Profile.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  user: userSelectors.getUser(state),
   loading: loadingSelectors.getLoading(['PROFILEUPDATE'])(state),
   error: errorSelectors.getError(['PROFILEUPDATE'])(state),
   response: responseSelectors.getResponse(['PROFILEUPDATE'])(state)
 });
 
-export default connect(mapStateToProps)(Profile);
+const mapDispatchToProps = function (dispatch) {
+  return {
+    actions: bindActionCreators({
+      ...profileActions
+    }, dispatch)
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileForm);

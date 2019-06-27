@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 
 import {noop} from '../utils/componentHelpers';
+import {Routes} from '../routes';
 
 const CheckoutFooter = ({disabled, onClick, btnType, error, loading, loginRedirect, showLogin, btnText}) => {
   return (
@@ -17,7 +18,7 @@ const CheckoutFooter = ({disabled, onClick, btnType, error, loading, loginRedire
       </button>
       <div className="helper-links">
         {showLogin ? (
-          <Link href={{pathname: '/login', query: {redirectTo: loginRedirect}}}>
+          <Link href={{pathname: Routes.Login, query: {redirectTo: loginRedirect}}}>
             <a>Already have an account?</a>
           </Link>
         ) : null}

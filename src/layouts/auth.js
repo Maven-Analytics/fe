@@ -8,6 +8,7 @@ import Image from '../components/image';
 import Logo from '../components/logo';
 import {click} from '../utils/componentHelpers';
 import {actions as stateActions} from '../redux/ducks/state';
+import {Routes} from '../routes';
 
 const AuthLayout = ({children, actions}) => {
   return (
@@ -30,7 +31,7 @@ const AuthLayout = ({children, actions}) => {
             </div>
             <div className="layout-auth__content">
               <div className="layout-auth__content-inner">
-                <Link href="/">
+                <Link href={Routes.Home}>
                   <a>
                     <Logo/>
                   </a>

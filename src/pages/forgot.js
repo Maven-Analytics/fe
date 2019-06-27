@@ -11,6 +11,7 @@ import {selectors as errorSelectors} from '../redux/ducks/error';
 import {selectors as responseSelectors} from '../redux/ducks/response';
 import {state} from '../utils/componentHelpers';
 import Auth from '../layouts/auth';
+import {Routes} from '../routes';
 
 class Forgot extends Component {
   constructor(props) {
@@ -59,8 +60,8 @@ class Forgot extends Component {
               <button className="btn btn--primary-solid" style={{minWidth: 220}} type="submit" disabled={loading}>Reset My Password</button>
             </span>
             <span className="links">
-              <Link href="/login"><a>Back to Login</a></Link>
-              <Link href="/signup"><a>{'I don\'t have an account yet. Sign me Up!'}</a></Link>
+              <Link href={Routes.Login}><a>Back to Login</a></Link>
+              <Link href={Routes.Signup}><a>{'I don\'t have an account yet. Sign me Up!'}</a></Link>
             </span>
           </div>
         </form>

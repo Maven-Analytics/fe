@@ -8,9 +8,9 @@ import {Map} from 'immutable';
 import {click} from '../utils/componentHelpers';
 import Logo from '../components/logo';
 import Hamburger from '../components/hamburger';
-import {menuLinksMain, menuLinksRegister} from '../constants';
-import MaIcon from '../components/maIcon';
+import {menuLinksMain} from '../routes';
 import HeaderAuth from '../components/headerAuth';
+import {Routes} from '../routes';
 
 class GlobalHeader extends Component {
   render() {
@@ -19,7 +19,7 @@ class GlobalHeader extends Component {
         <Headroom>
           <div className="container">
             <div className="global-header__inner">
-              <Link href="/">
+              <Link href={Routes.Home}>
                 <a className="global-header__brand">
                   <Logo/>
                 </a>
