@@ -5,6 +5,10 @@ a:not(.btn) {
   &:hover {
     color: $blue-gray;
   }
+
+  &:visited {
+    transition: none;
+  }
 }
 
 a:disabled {
