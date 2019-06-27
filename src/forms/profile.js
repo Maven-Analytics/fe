@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
 
-import AccountForm from '../forms/accountForm';
-import {selectors as loadingSelectors} from '../../redux/ducks/loading';
-import {selectors as errorSelectors} from '../../redux/ducks/error';
-import {selectors as responseSelectors} from '../../redux/ducks/response';
+import AccountForm from './accountForm';
+import {selectors as loadingSelectors} from '../redux/ducks/loading';
+import {selectors as errorSelectors} from '../redux/ducks/error';
+import {selectors as responseSelectors} from '../redux/ducks/response';
 
 class Profile extends Component {
   constructor(props) {
@@ -45,7 +45,7 @@ class Profile extends Component {
 
     return (
       <div className="profile-edit">
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} className="form--light form--account">
           <AccountForm
             showPassword={false}
             email={email}

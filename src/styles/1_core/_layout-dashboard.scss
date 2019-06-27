@@ -1,17 +1,18 @@
 .layout-dashboard {
-  background-color: $black-checkout-bg;
-  padding-top: $header-height-mobile;
-
-  @include collapseUp() {
-    padding-top: $header-height-desktop;
-  }
-
   &__wrap {
+    background-color: $gray-lighter;
     min-height: calc(100vh - #{$header-height-mobile});
-    padding: $spacing-unit--mdl 0;
 
     @include collapseUp() {
       min-height: calc(100vh - #{$header-height-desktop});
+    }
+  }
+
+  &__content {
+    margin: $spacing-unit--mdl 0;
+
+    @include collapseUp() {
+      margin: $spacing-unit--l 0;
     }
   }
 }

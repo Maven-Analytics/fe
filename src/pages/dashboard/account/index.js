@@ -5,34 +5,34 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {Map, List} from 'immutable';
 
-import {selectors as userSelectors} from '../../redux/ducks/user';
-import {actions as profileActions} from '../../redux/ducks/profile';
-import DashboardLayout from '../../layouts/dashboard';
-import Profile from '../../forms/profile';
+import {selectors as userSelectors} from '../../../redux/ducks/user';
+import {actions as profileActions} from '../../../redux/ducks/profile';
+import AccountLayout from '../../../layouts/account';
+import Profile from '../../../forms/profile';
 
-const Dashboard = ({actions, user}) => {
+const AccountProfile = ({actions, user}) => {
   return (
-    <DashboardLayout title="My Account" cardTitle="Your Profile" activeLink={-1} activeSidebarLink={0}>
+    <AccountLayout title="My Account" cardTitle="Your Profile" activeLink={0}>
       <Profile
         user={user}
         actions={actions}
       />
-    </DashboardLayout>
+    </AccountLayout>
   );
 };
 
-Dashboard.propTypes = {
+AccountProfile.propTypes = {
   user: ImmutablePropTypes.map.isRequired,
   actions: PropTypes.objectOf(PropTypes.func)
 };
 
-Dashboard.defaultProps = {
+AccountProfile.defaultProps = {
   user: Map(),
   recommendedPaths: List(),
   recommendedCourses: List()
 };
 
-Dashboard.getInitialProps = DashboardLayout.getInitialProps;
+AccountProfile.getInitialProps = AccountLayout.getInitialProps;
 
 const mapStateToProps = state => ({
   user: userSelectors.getUser(state)
@@ -46,4 +46,4 @@ const mapDispatchToProps = function (dispatch) {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(AccountProfile);

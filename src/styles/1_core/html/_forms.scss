@@ -1,3 +1,35 @@
+.form {
+  &--light {
+    .input {
+      background-color: $gray-light-3;
+      border-color: $gray-light-3;
+      color: $black-alt;
+
+      &:focus {
+        border-color: $gray-light-3;
+      }
+
+      &::placeholder {
+        color: $black-alt;
+        // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526.
+        opacity: .2;
+      }
+    }
+
+    label {
+      color: $black;
+      font-weight: 400;
+    }
+  }
+
+  &--account {
+    button[type="submit"] {
+      @include btnFixed(40px, 100px, 20px);
+      font-size: 1.1rem;
+    }
+  }
+}
+
 .input {
   background-color: $gray-input;
   background-clip: padding-box;
@@ -84,7 +116,11 @@ label {
 }
 
 .form-footer {
-  margin-top: $spacing-unit--l;
+  margin-top: $spacing-unit;
+
+  @include media-breakpoint-up(lg) {
+    margin-top: $spacing-unit--l;
+  }
 }
 
 .checkbox {

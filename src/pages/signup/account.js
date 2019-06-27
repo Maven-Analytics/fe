@@ -11,11 +11,12 @@ import {actions as authActions} from '../../redux/ducks/auth';
 import {selectors as loadingSelectors} from '../../redux/ducks/loading';
 import {selectors as errorSelectors} from '../../redux/ducks/error';
 import {selectors as userSelectors} from '../../redux/ducks/user';
+import {actions as profileActions} from '../../redux/ducks/profile';
 import Checkout from '../../layouts/checkout';
 import {stateCheck} from '../../utils/componentHelpers';
 import {getCheckoutUrl} from '../../utils/checkoutHelpers';
 import CheckoutFooter from '../../components/checkoutFooter';
-import AccountForm from '../../components/forms/accountForm';
+import AccountForm from '../../forms/accountForm';
 
 class SignupAccount extends Component {
   static async getInitialProps(ctx) {
@@ -35,17 +36,6 @@ class SignupAccount extends Component {
       }
     }
 
-    if (checkout && getCheckoutUrl(checkout)) {
-      if (res) {
-        res.writeHead(302, {
-          Location: getCheckoutUrl(checkout)
-        });
-        res.end();
-      } else {
-        Router.push(getCheckoutUrl(checkout));
-      }
-    }
-
     return {};
   }
 
@@ -53,14 +43,18 @@ class SignupAccount extends Component {
     super(props);
 
     this.state = {
-      email: '',
+      email: props.user.get('email') || '',
       password: '',
-      first_name: '',
-      last_name: '',
-      country: 'US',
-      postal_code: '',
+      first_name: props.user.get('first_name') || '',
+      last_name: props.user.get('last_name') || '',
+      country: props.user.get('country') || '',
+      postal_code: props.user.get('postal_code') || '',
       terms: false
     };
+
+    if (!props.user.isEmpty()) {
+      delete this.state.password;
+    }
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -69,15 +63,24 @@ class SignupAccount extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.actions.register({
+
+    const isUser = this.props.user.has('id');
+    const action = isUser ? this.props.actions.profileUpdate : this.props.actions.register;
+
+    const data = {
       email: this.state.email,
-      password: this.state.password,
       first_name: this.state.first_name,
       last_name: this.state.last_name,
       country: this.state.country,
       postal_code: this.state.postal_code,
       redirectTo: getCheckoutUrl(this.props.checkout)
-    });
+    };
+
+    if (!isUser) {
+      data.password = this.state.password;
+    }
+
+    action(data);
   }
 
   handleChange(state) {
@@ -89,12 +92,6 @@ class SignupAccount extends Component {
   }
 
   canSubmit() {
-    const {user} = this.props;
-
-    if (user && user.has('id')) {
-      return true;
-    }
-
     return Object.keys(this.state).reduce((valid, key) => {
       if (!this.state[key] || this.state[key] === '') {
         valid = false;
@@ -106,31 +103,15 @@ class SignupAccount extends Component {
 
   render() {
     const {email, password, first_name, last_name, country, postal_code, terms} = this.state;
-    const {loading, error, user} = this.props;
+    const {loading, error, user, profileError, profileLoading} = this.props;
 
     const btnDisabled = !this.canSubmit();
-
-    // if (user && user.has('id')) {
-    //   return (
-    //     <Checkout activeStep={1} title={`Welcome back ${user.get('first_name')}!`}>
-    //       <CheckoutFooter
-    //         showLogin={false}
-    //         btnText="Checkout Now"
-    //         error={error}
-    //         loading={loading}
-    //         disabled={btnDisabled}
-    //         onClick={this.handleGoToCheckout}
-    //         btnType="button"
-    //         loginRedirect="/signup/account"
-    //       />
-    //     </Checkout>
-    //   );
-    // }
 
     return (
       <Checkout activeStep={1} title="Tell us about yourself">
         <form onSubmit={this.handleSubmit}>
           <AccountForm
+            showPassword={user.isEmpty()}
             email={email}
             first_name={first_name}
             last_name={last_name}
@@ -146,8 +127,9 @@ class SignupAccount extends Component {
             </div>
           </div>
           <CheckoutFooter
-            error={error}
-            loading={loading}
+            showLogin={user.isEmpty()}
+            error={error || profileError}
+            loading={loading || profileLoading}
             disabled={btnDisabled}
             btnType="submit"
             loginRedirect="/signup/account"
@@ -162,6 +144,8 @@ SignupAccount.propTypes = {
   checkout: ImmutablePropTypes.map,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
+  profileLoading: PropTypes.bool.isRequired,
+  profileError: PropTypes.string.isRequired,
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   user: ImmutablePropTypes.map
 };
@@ -175,13 +159,16 @@ const mapStateToProps = state => ({
   checkout: checkoutSelectors.getCheckout(state),
   loading: loadingSelectors.getLoading(['REGISTER'])(state),
   error: errorSelectors.getError(['REGISTER'])(state),
+  profileLoading: loadingSelectors.getLoading(['PROFILEUPDATE'])(state),
+  profileError: errorSelectors.getError(['PROFILEUPDATE'])(state),
   user: userSelectors.getUser(state)
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     ...checkoutActions,
-    ...authActions
+    ...authActions,
+    ...profileActions
   }, dispatch)
 });
 

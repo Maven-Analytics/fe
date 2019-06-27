@@ -1,0 +1,14 @@
+.dashboard-card {
+  background-color: $white;
+  box-shadow: 2px 2px 8px 0 rgba(0,0,0,0.1);
+
+  &--lg {
+    padding: $account-card-lg-padding-y-mobile $account-card-lg-padding-x-mobile;
+    margin: 16px auto;
+
+    @include media-breakpoint-up(lg) {
+      padding: $account-card-lg-padding-y-desktop $account-card-lg-padding-x-desktop;
+      margin: 32px auto;
+    }
+  }
+}

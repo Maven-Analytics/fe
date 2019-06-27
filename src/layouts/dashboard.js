@@ -1,32 +1,53 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
-import * as ImmutablePropTypes from 'react-immutable-proptypes';
-import Router from 'next/router';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
-import Main from './main';
 import withAuthSync from '../components/withAuthSync';
+import {click} from '../utils/componentHelpers';
+import CheckoutHeader from '../sections/checkoutHeader';
+import Copyright from '../sections/copyright';
+import DashboardHeader from '../components/dashboardHeader';
+import {actions as stateActions} from '../redux/ducks/state';
 
 class DashboardLayout extends Component {
   render() {
-    const {children} = this.props;
+    const {children, actions, title, activeLink} = this.props;
 
     return (
-      <Main>
-        <div className="layout-dashboard">
-          <div className="container">
-            <div className="layout-dashboard__wrap">
-              {children}
+      <Fragment>
+        <CheckoutHeader/>
+        <main id="main" className="layout-dashboard" onClick={click(actions.stateReset)}>
+          <div className="layout-dashboard__wrap">
+            <DashboardHeader title={title} activeLink={activeLink}/>
+            <div className="container">
+              <div className="layout-dashboard__content">
+                {children}
+              </div>
             </div>
           </div>
-        </div>
-      </Main>
+        </main>
+        <footer>
+          <Copyright/>
+        </footer>
+      </Fragment>
     );
   }
 }
 
 DashboardLayout.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  actions: PropTypes.objectOf(PropTypes.func),
+  title: PropTypes.string.isRequired,
+  activeLink: PropTypes.number.isRequired
 };
 
-export default withAuthSync(DashboardLayout);
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    ...stateActions
+  }, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withAuthSync(DashboardLayout));

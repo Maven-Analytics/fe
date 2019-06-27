@@ -2,6 +2,7 @@
 @import './0_utilities/mixins.list';
 @import './0_utilities/mixins.gradient';
 @import './0_utilities/mixins.media-queries';
+@import './0_utilities/mixins.buttons';
 @import './0_utilities/variables';
 @import './0_utilities/settings.colors';
 @import './0_utilities/settings.fonts';
@@ -32,6 +33,7 @@
 @import './1_core/layout-auth';
 @import './1_core/layout-dashboard';
 @import './1_core/layout-page';
+@import './1_core/layout-account';
 
 @import './2_pieces/hamburger';
 @import './2_pieces/logo';
@@ -55,6 +57,9 @@
 @import './3_components/survey-answer';
 @import './3_components/course-card';
 @import './3_components/path-banner';
+@import './3_components/dashboard-header';
+@import './3_components/dashboard-card';
+@import './3_components/account-sidebar';
 
 @import './4_regions/global-header';
 @import './4_regions/global-footer';

@@ -1,0 +1,74 @@
+.account-sidebar {
+  ul {
+    @include list-unstyled();
+    display: flex;
+    box-shadow: none !important;
+
+    @include media-breakpoint-up(lg) {
+      display: block;
+    }
+
+    li {
+      margin: $spacing-unit--sm 0;
+
+      @include media-breakpoint-up(lg) {
+        margin: $spacing-unit--ss 0;
+      }
+
+      a {
+        background-color: transparent !important;
+        color: $black;
+        display: block;
+        font-size: 12px;
+        font-weight: 700;
+        opacity: .44;
+        padding: 8px 16px 8px 0;
+        position: relative;
+
+        @include media-breakpoint-up(lg) {
+          font-size: 14px;
+          padding: 8px 16px;
+        }
+
+        &::before {
+          background: $brand-gradient;
+          bottom: 0;
+          display: block;
+          height: 0;
+          left: 0;
+          position: absolute;
+          transition: height 200ms ease-in-out;
+          width: 100%;
+
+          @include media-breakpoint-up(lg) {
+            content: ' ';
+            bottom: auto;
+            height: 100%;
+            left: -($account-card-lg-padding-x-desktop);
+            transition: width 200ms ease-in-out;
+            top: 0;
+            width: 0;
+          }
+        }
+
+        &.active,
+        &:hover,
+        &:active
+        &:focus {
+          color: $black !important;
+          opacity: 1;
+          text-decoration: none;
+
+          &::before {
+            height: 5px;
+
+            @include media-breakpoint-up(lg) {
+              height: 100%;
+              width: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

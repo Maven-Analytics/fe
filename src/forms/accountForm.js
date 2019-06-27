@@ -1,8 +1,8 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 
-import {state} from '../../utils/componentHelpers';
-import countries from '../../utils/countries';
+import {state} from '../utils/componentHelpers';
+import countries from '../utils/countries';
 
 const AccountForm = ({showPassword, email, password, first_name, last_name, country, postal_code, onChange}) => {
   return (
@@ -64,34 +64,40 @@ const AccountForm = ({showPassword, email, password, first_name, last_name, coun
           </div>
         </div>
       </div>
-      <div className="form-group">
-        <label htmlFor="country">Country</label>
-        <select
-          required
-          className="input"
-          onChange={state(onChange, 'country')}
-          id="country"
-          name="country"
-          value={country}
-        >
-          {countries.map(c => {
-            return (
-              <option key={c.value} value={c.value}>{c.label}</option>
-            );
-          })}
-        </select>
-      </div>
-      <div className="form-group">
-        <label htmlFor="postal_code">Postal Code</label>
-        <input
-          required
-          className="input"
-          id="postal_code"
-          name="postal_code"
-          onChange={state(onChange, 'postal_code')}
-          value={postal_code}
-          type="text"
-        />
+      <div className="row">
+        <div className="col-sm-6">
+          <div className="form-group">
+            <label htmlFor="country">Country</label>
+            <select
+              required
+              className="input"
+              onChange={state(onChange, 'country')}
+              id="country"
+              name="country"
+              value={country}
+            >
+              {countries.map(c => {
+                return (
+                  <option key={c.value} value={c.value}>{c.label}</option>
+                );
+              })}
+            </select>
+          </div>
+        </div>
+        <div className="col-sm-6">
+          <div className="form-group">
+            <label htmlFor="postal_code">Postal Code</label>
+            <input
+              required
+              className="input"
+              id="postal_code"
+              name="postal_code"
+              onChange={state(onChange, 'postal_code')}
+              value={postal_code}
+              type="text"
+            />
+          </div>
+        </div>
       </div>
     </Fragment>
   );

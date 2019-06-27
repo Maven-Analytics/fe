@@ -26,6 +26,10 @@ function * onPathsInitRequest({payload}) {
         }
       })
     ]);
+
+    if (payload.redirectTo) {
+      window.location.href = payload.redirectTo;
+    }
   } catch (error) {
     yield put({
       type: profileTypes.PROFILEUPDATE_FAILURE,
