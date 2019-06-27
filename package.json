@@ -40,6 +40,7 @@
     "hapi": "^18.1.0",
     "hapi-auth-jwt2": "^8.3.0",
     "hapi-nextjs": "^0.1.1",
+    "hapi-require-https": "^3.0.1",
     "immutable": "^4.0.0-rc.12",
     "js-cookie": "^2.2.0",
     "jsonwebtoken": "^8.5.1",

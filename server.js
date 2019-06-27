@@ -39,10 +39,18 @@ const server = Hapi.server({
 
 app.prepare().then(async () => {
   try {
+    if (!dev) {
+      await server.register({
+        plugin: require('hapi-require-https'),
+        options: {}
+      });
+    }
+
     await server.register([
       require('./server/auth'),
       require('./server/routes')(app)
     ]);
+
     await server.start();
     console.log('> New Log Statement');
     console.log(`> Ready on http://localhost:${port}`);
