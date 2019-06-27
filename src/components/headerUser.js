@@ -27,7 +27,7 @@ const HeaderUser = ({user, onClick, open, logout}) => {
       </button>
       <ul id="header-user-dropdown" className="header-user__dropdown">
         <li><Link href={Routes.Dashboard}><a>Dashboard</a></Link></li>
-        <li><Link href={Routes.DashboardAccount}><a>My Account</a></Link></li>
+        <li><Link href={Routes.Account}><a>My Account</a></Link></li>
         <li><a href="#" onClick={clickPrevent(logout)}>Sign Out</a></li>
       </ul>
     </div>

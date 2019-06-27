@@ -1,5 +1,8 @@
 
 const jwt = require('jsonwebtoken');
+const axios = require('axios');
+
+const {handleApiError} = require('./error');
 
 const COOKIE_OPTIONS = {
   ttl: 365 * 24 * 60 * 60 * 1000,
@@ -15,6 +18,7 @@ module.exports = {
   getLoginToken,
   getSsoUrl,
   login,
+  apiLogin,
   logout,
   COOKIE_OPTIONS
 };
@@ -23,8 +27,16 @@ async function logout(h) {
   return h
     .response({
       success: true
-    })
-    // .unstate('token', COOKIE_OPTIONS);
+    });
+}
+
+async function apiLogin(email, password) {
+  return axios.post(`${process.env.HOST_API}/api/v1/auth/login`, {
+    email,
+    password
+  })
+    .then(res => res.data.data.user)
+    .catch(handleApiError);
 }
 
 async function login(h, user, redirectTo) {
@@ -38,9 +50,7 @@ async function login(h, user, redirectTo) {
       ssoUrl,
       token
     }
-  })
-    // .header('Authorization', token)
-    // .state('token', token, COOKIE_OPTIONS);
+  });
 }
 
 async function getSsoUrl(user, redirectTo) {

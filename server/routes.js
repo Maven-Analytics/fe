@@ -191,8 +191,14 @@ module.exports = app => {
 
       server.route({
         method: 'PUT',
-        path: '/api/v1/profile',
-        handler: require('./controllers/dashboard/profile')
+        path: '/api/v1/account/profile',
+        handler: require('./controllers/account/profile')
+      });
+
+      server.route({
+        method: 'PUT',
+        path: '/api/v1/account/password',
+        handler: require('./controllers/account/password')
       });
 
       server.route({

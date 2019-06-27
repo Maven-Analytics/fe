@@ -8,6 +8,7 @@ import {types as userTypes} from '../ducks/user';
 
 export function * watchProfile() {
   yield takeLatest(profileTypes.PROFILEUPDATE_REQUEST, onPathsInitRequest);
+  yield takeLatest(profileTypes.PROFILE_PASSWORD_RESET_REQUEST, onPasswordResetRequest);
 }
 
 function * onPathsInitRequest({payload}) {
@@ -38,8 +39,40 @@ function * onPathsInitRequest({payload}) {
   }
 }
 
+function * onPasswordResetRequest({payload}) {
+  try {
+    const res = yield resetPassword(payload);
+
+    yield all([
+      put({
+        type: profileTypes.PROFILE_PASSWORD_RESET_SUCCESS,
+        payload: {
+          message: res.data.message
+        }
+      })
+    ]);
+
+    if (payload.redirectTo) {
+      window.location.href = payload.redirectTo;
+    }
+  } catch (error) {
+    yield put({
+      type: profileTypes.PROFILE_PASSWORD_RESET_FAILURE,
+      payload: error.response ? error.response.data : error.message
+    });
+  }
+}
+
 function updateProfile(data) {
-  return axios.put(`${config.HOST_APP}/api/v1/profile`, data, {
+  return apiRequest('/api/v1/account/profile', data);
+}
+
+function resetPassword(data) {
+  return apiRequest('/api/v1/account/password', data);
+}
+
+function apiRequest(url, data) {
+  return axios.put(`${config.HOST_APP}${url}`, data, {
     headers: {
       authorization: getCookie('token')
     }

@@ -14,9 +14,9 @@ class PasswordResetForm extends Component {
     super(props);
 
     this.state = {
-      currentPassword: '',
-      newPassword: '',
-      confirmPassword: ''
+      currentPassword: 'password',
+      newPassword: 'password',
+      confirmPassword: 'password'
     };
 
     this.handleChange = this.handleChange.bind(this);

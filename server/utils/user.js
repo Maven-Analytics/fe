@@ -1,7 +1,8 @@
 const axios = require('axios');
 
 module.exports = {
-  runSync
+  runSync,
+  getUserById
 };
 
 const SYNC_TIME = 300000; // 5 mins
@@ -38,4 +39,9 @@ function shouldSync(user) {
   const now = new Date();
 
   return now.getTime() - lastSync.getTime() > SYNC_TIME;
+}
+
+function getUserById(id) {
+  return axios.get(`${process.env.HOST_API}/api/v1/user/${id}`)
+    .then(res => res.data.data[0]);
 }
