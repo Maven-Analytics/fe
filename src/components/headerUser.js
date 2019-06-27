@@ -18,9 +18,9 @@ const HeaderUser = ({user, onClick, open, logout}) => {
     <div className={classList.join(' ')}>
       <button onClick={onClick} className="header-user__toggle" aria-expanded={open} aria-controls="header-user-dropdown">
         {user.get('first_name')} {user.get('last_name').charAt(0)}
-        <div className="user-icon">
+        {/* <div className="user-icon">
           <MaIcon icon="user"/>
-        </div>
+        </div> */}
         <div className="chevron-icon">
           <MaIcon icon="chevron-down"/>
         </div>
