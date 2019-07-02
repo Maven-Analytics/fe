@@ -1,0 +1,15 @@
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 50% 1fr;
+  grid-row-gap: $spacing-unit;
+  grid-column-gap: $spacing-unit;
+
+  &--vertical {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(1fr);
+  }
+
+  &--horizontal {
+    grid-template-rows: 1fr;
+  }
+}
