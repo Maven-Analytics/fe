@@ -4,6 +4,11 @@
   grid-row-gap: $spacing-unit;
   grid-column-gap: $spacing-unit;
 
+  @include media-breakpoint-up(lg) {
+    grid-row-gap: $spacing-unit--l;
+    grid-column-gap: $spacing-unit--l;
+  }
+
   &--vertical {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(1fr);
