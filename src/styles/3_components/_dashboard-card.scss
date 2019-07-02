@@ -1,6 +1,15 @@
 .dashboard-card {
   background-color: $white;
   box-shadow: 2px 2px 8px 0 rgba(0,0,0,0.1);
+  padding: 1.6rem 2.2rem;
+
+  &__title {
+    font-family: $font-body;
+    font-size: 1.4rem;
+    font-weight: 900;
+    line-height: 1.2;
+    margin: 0 0 $spacing-unit;
+  }
 
   &--lg {
     padding: $account-card-lg-padding-y-mobile $account-card-lg-padding-x-mobile;

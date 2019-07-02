@@ -24,6 +24,11 @@ class Countup extends Component {
     }
   }
 
+  componentWillUnmount() {
+    clearInterval(this.interval);
+    this.interval = null;
+  }
+
   startCount() {
     clearInterval(this.interval);
     this.interval = setInterval(this.run.bind(this), this.props.speed);

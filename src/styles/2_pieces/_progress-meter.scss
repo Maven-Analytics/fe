@@ -1,0 +1,42 @@
+.progress-meter {
+  p {
+    color: $black-2;
+    font-size: 1.1rem;
+    font-weight: 900;
+    line-height: 1;
+    margin: 0 0 $spacing-unit--ss;
+    text-transform: uppercase;
+  }
+
+  &__inner {
+    align-items: center;
+    display: flex;
+  }
+
+  &__bar {
+    background-color: $gray-lightest;
+    border-radius: 5px;
+    flex: 1 1 90%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  &__value {
+    background: $brand-gradient;
+    border-radius: 5px;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: width 500ms ease-in;
+    width: 0;
+  }
+
+  &__readout {
+    color: $black-2;
+    font-size: 1.4rem;
+    font-weight: 900;
+    flex: 0 0 45px;
+    text-align: right;
+  }
+}

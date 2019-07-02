@@ -1,0 +1,55 @@
+.dashboard-course {
+  font-size: 1.4rem;
+  display: flex;
+
+  @include media-breakpoint-up(md) {
+    font-size: 1.6rem;
+  }
+
+  &__badge {
+    display: none;
+
+    @include media-breakpoint-up(md) {
+      display: block;
+      flex: 0 0 111px;
+      margin-right: $spacing-unit--md;
+    }
+  }
+
+  &__content {
+    > h5 {
+      color: $black-2;
+      font-family: $font-body;
+      font-size: 1.25em;
+      font-weight: 900;
+      line-height: 1.25;
+    }
+
+    > p {
+      color: $gray-medium-3;
+      line-height: 1.5;
+      margin: 0 0 $spacing-unit;
+    }
+
+    @include media-breakpoint-up(md) {
+      flex: 1 1 75%;
+    }
+  }
+
+  &__footer {
+    margin: $spacing-unit--md 0 0;
+    text-align: right;
+
+    .btn {
+      font-size: .7em;
+    }
+
+    .btn--primary-solid {
+      @include btnFixed(40px, 145px, 20px);
+    }
+
+    .btn--empty {
+      @include btnFixed(40px, 103, 20px);
+    }
+  }
+}

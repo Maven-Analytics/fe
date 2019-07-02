@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const DashboardCard = ({size, children}) => {
+const DashboardCard = ({size, children, title}) => {
   const classList = ['dashboard-card'];
 
   if (size) {
@@ -10,6 +10,7 @@ const DashboardCard = ({size, children}) => {
 
   return (
     <div className={classList.join(' ')}>
+      {title && title !== '' ? <h4 className="dashboard-card__title">{title}</h4> : null}
       {children}
     </div>
   );

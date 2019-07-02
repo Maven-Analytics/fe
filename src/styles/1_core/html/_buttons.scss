@@ -17,6 +17,10 @@
     @extend %btn--empty;
   }
 
+  &--empty-dark {
+    @extend %btn--empty-dark;
+  }
+
   &--lg {
     @extend %btn--lg;
   }

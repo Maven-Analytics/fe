@@ -146,6 +146,17 @@
   }
 }
 
+%btn--empty-dark {
+  @extend %btn--empty;
+  color: $black;
+  font-weight: 700;
+
+  &:hover,
+  &:focus {
+    color: $black;
+  }
+}
+
 %btn--md {
   align-items: center;
   border-radius: 19.5px;

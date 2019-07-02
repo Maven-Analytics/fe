@@ -1,11 +1,14 @@
 import {fromJS} from 'immutable';
 
+import config from './config';
+
 export const Routes = {
   Home: '/',
   Account: '/dashboard/account',
   AccountPassword: '/dashboard/account/password',
   Contact: '/contact',
   Course: '/course',
+  CourseTake: `//${config.THINKIFIC_SUBDOMAIN}/courses/take`,
   Dashboard: '/dashboard',
   ForgotPassword: '/forgot',
   Login: '/login',
