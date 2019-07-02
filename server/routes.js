@@ -202,6 +202,12 @@ module.exports = app => {
       });
 
       server.route({
+        method: 'GET',
+        path: '/api/v1/dashboard/progress',
+        handler: require('./controllers/dashboard/progress')
+      });
+
+      server.route({
         method: 'POST',
         path: '/api/v1/user/recommended',
         handler: require('./controllers/user/recommended'),
