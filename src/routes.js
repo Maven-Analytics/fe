@@ -8,7 +8,7 @@ export const Routes = {
   AccountPassword: '/dashboard/account/password',
   Contact: '/contact',
   Course: '/course',
-  CourseTake: `//${config.THINKIFIC_SUBDOMAIN}/courses/take`,
+  CourseTake: `//${config.THINKIFIC_SUBDOMAIN}.thinkific.com/courses/take`,
   Dashboard: '/dashboard',
   ForgotPassword: '/forgot',
   Login: '/login',

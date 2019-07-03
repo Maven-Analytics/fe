@@ -47,6 +47,7 @@
 @import './2_pieces/course-author';
 @import './2_pieces/course-banner';
 @import './2_pieces/progress-meter';
+@import './2_pieces/loader';
 
 @import './3_components/auth';
 @import './3_components/scroll';
@@ -63,6 +64,8 @@
 @import './3_components/account-sidebar';
 @import './3_components/dashboard-course';
 @import './3_components/dashboard-grid';
+@import './3_components/dashboard-progress';
+@import './3_components/tabs';
 
 @import './4_regions/global-header';
 @import './4_regions/global-footer';

@@ -2,7 +2,15 @@
   font-size: 1.4rem;
   display: flex;
 
+  @include media-breakpoint-up(sm) {
+    font-size: 1.6rem;
+  }
+
   @include media-breakpoint-up(md) {
+    font-size: 1.4rem;
+  }
+
+  @include media-breakpoint-up(xl) {
     font-size: 1.6rem;
   }
 
@@ -11,8 +19,12 @@
 
     @include media-breakpoint-up(md) {
       display: block;
-      flex: 0 0 111px;
+      flex: 0 0 60px;
       margin-right: $spacing-unit--md;
+    }
+
+    @include media-breakpoint-up(xl) {
+      flex: 0 0 110px;
     }
   }
 
@@ -37,8 +49,10 @@
   }
 
   &__footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
     margin: $spacing-unit--md 0 0;
-    text-align: right;
 
     .btn {
       font-size: .7em;

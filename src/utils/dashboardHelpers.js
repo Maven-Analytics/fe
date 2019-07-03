@@ -67,3 +67,7 @@ export const getPathProgress = (path, enrollments) => {
 
   return progress;
 };
+
+export const sortEnrollmentsByPercentageDesc = (a, b) => {
+  return a.has('percentage_completed') && b.has('percentage_completed') ? b.get('percentage_completed') - a.get('percentage_completed') : 0;
+};

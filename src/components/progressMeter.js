@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 
 import TrackVisibility from './trackVisibility';
@@ -7,9 +7,9 @@ import {prettyPercent} from '../utils/componentHelpers';
 
 const ProgressMeter = ({value, title, barHeight, animationDuration}) => {
   return (
-    <TrackVisibility alwaysShow>
+    <TrackVisibility alwaysShow className="progress-meter">
       {inView => (
-        <div className="progress-meter">
+        <Fragment>
           {title ? <p>{title}</p> : null}
           <div className="progress-meter__inner">
             <div
@@ -30,7 +30,7 @@ const ProgressMeter = ({value, title, barHeight, animationDuration}) => {
               <CountUp disabled={!inView} value={prettyPercent(value)} duration={animationDuration}/>%
             </span>
           </div>
-        </div>
+        </Fragment>
       )}
     </TrackVisibility>
   );

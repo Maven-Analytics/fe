@@ -1,0 +1,27 @@
+.dashboard-progress {
+  font-size: 1.4rem;
+  line-height: 1.5;
+
+  @include media-breakpoint-up(md) {
+    font-size: 1.6rem;
+  }
+
+  ul {
+    @include list-unstyled();
+    margin: 0;
+
+    li {
+      margin: $spacing-unit 0;
+
+      @include media-breakpoint-up(lg) {
+        margin: $spacing-unit--md 0;
+      }
+
+      > p {
+        color: $black-2;
+        font-weight: 900;
+        margin: 0 0 .4rem;
+      }
+    }
+  }
+}

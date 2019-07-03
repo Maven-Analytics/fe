@@ -2,6 +2,29 @@
   background-color: $white;
   box-shadow: 2px 2px 8px 0 rgba(0,0,0,0.1);
   padding: 1.6rem 2.2rem;
+  position: relative;
+
+  &::after {
+    background-color: rgba($white, 0.7);
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 0;
+  }
+
+  &.loading {
+    &::after {
+      content: ' ';
+    }
+
+    .loader {
+      z-index: 1;
+    }
+  }
+
+
 
   &__title {
     font-family: $font-body;
