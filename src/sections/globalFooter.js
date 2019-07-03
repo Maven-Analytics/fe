@@ -64,7 +64,8 @@ GlobalFooter.propTypes = {
 };
 
 GlobalFooter.defaultProps = {
-  links: footerLinks
+  links: footerLinks,
+  description: 'Award-winning courses to help you master the most sought-after analytics and business intelligence skills.  Customized training that helps everyday people become data rockstars.'
 };
 
 export default GlobalFooter;
