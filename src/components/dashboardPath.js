@@ -8,6 +8,8 @@ import ImageContentful from './imageContentful';
 import ProgressMeter from './progressMeter';
 import RichText from './richText';
 import ProductTools from './productTools';
+import ProductMeta from './productMeta';
+import ProductMetaItem from './productMetaItem';
 
 const DashboardPath = ({title, percentage_completed, onDetailClick, resumeUrl, badge, shortDescription, match, courseCount, hours, tools}) => {
   return (
@@ -19,34 +21,30 @@ const DashboardPath = ({title, percentage_completed, onDetailClick, resumeUrl, b
         <h4>{title}</h4>
         <RichText content={shortDescription}/>
         <div className="dashboard-path__footer">
-          <Link href={resumeUrl}>
-            <a className="btn btn--primary-solid">Resume Course</a>
-          </Link>
+          {resumeUrl ? (
+            <Link href={resumeUrl}>
+              <a className="btn btn--primary-solid">Resume Course</a>
+            </Link>
+          ) : null}
           <button onClick={onDetailClick} className="btn btn--default">View Path Details</button>
         </div>
       </div>
       <div className="dashboard-path__details">
         <ProgressMeter value={percentage_completed} title="Progress"/>
-        <ul>
-          <li>
-            <span className="text">Number of Courses</span>
-            <span className="value">{courseCount}</span>
-          </li>
-          <li>
-            <span className="text">Total Hours</span>
-            <span className="value">{hours || 0}</span>
-          </li>
-          <li>
-            <span className="text">Match Score</span>
-            <span className="value">{match}</span>
-          </li>
-          <li>
-            <div className="text">Tools Featured</div>
-            <div className="value">
-              <ProductTools tools={tools}/>
-            </div>
-          </li>
-        </ul>
+        <ProductMeta className="product-meta--grid-2x2 product-meta--border-top">
+          <ProductMetaItem label="Number of Courses">
+            {courseCount}
+          </ProductMetaItem>
+          <ProductMetaItem label="Total Hours">
+            {hours || 0}
+          </ProductMetaItem>
+          <ProductMetaItem label="Match Score">
+            {match}
+          </ProductMetaItem>
+          <ProductMetaItem label="Tools Featured">
+            <ProductTools tools={tools}/>
+          </ProductMetaItem>
+        </ProductMeta>
       </div>
     </div>
   );

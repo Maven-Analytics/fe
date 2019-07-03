@@ -2,7 +2,7 @@
   @include list-unstyled();
 
   li {
-    padding: 1.1em 2em 1.3em;
+    padding: 1.8vh 2.2vh;
 
     .label,
     .value {
@@ -23,7 +23,7 @@
 
       i {
         font-size: 1.5em;
-        margin-right: 2vw;
+        margin-right: 1.5vw;
         margin-top: 5px;
       }
 
@@ -47,6 +47,18 @@
     li {
       border-top: 1px solid $gray-border;
       border-bottom: 1px solid $gray-border;
+    }
+  }
+
+  &--grid-2x2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+
+  &--border-top {
+    li {
+      border-top: 1px solid $gray-border;
     }
   }
 }
