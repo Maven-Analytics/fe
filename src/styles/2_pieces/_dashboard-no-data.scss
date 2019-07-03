@@ -1,0 +1,51 @@
+.dashboard-no-data {
+  padding: $spacing-unit;
+  text-align: center;
+
+  &__image {
+    margin: 0 auto $spacing-unit;
+
+    @include media-breakpoint-up(lg) {
+      margin: 0 auto $spacing-unit--md;
+    }
+
+    i {
+      @include gradient-font();
+      font-size: 5rem;
+
+      @include media-breakpoint-up(lg) {
+        font-size: 9.4rem;
+      }
+    }
+  }
+
+  p {
+    margin : 0;
+
+    &.title,
+    &.text {
+      color: $black-2;
+      font-weight: 900;
+      line-height: 1.47;
+      text-align: center;
+
+      @include media-breakpoint-up(lg) {
+        font-size: 1.7rem;
+      }
+    }
+
+    &.text {
+      font-weight: 400;
+    }
+  }
+
+  .btn {
+    @include btnFixed(40px, auto, 20px);
+    font-size: 1.1rem;
+    margin: $spacing-unit auto;
+
+    @include media-breakpoint-up(lg) {
+      margin: $spacing-unit--md auto $spacing-unit;
+    }
+  }
+}

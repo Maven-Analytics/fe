@@ -108,7 +108,7 @@ class Image extends Component {
     return (
       <TrackVisibility className={this.getWrapClassList()} style={this.getWrapStyle()}>
         {showLoader ? <div className="loader" style={{backgroundColor: placeholderColor}}/> : null}
-        <picture ref={this.img} onLoad={this.handleLoad}  style={style}>
+        <picture ref={this.img} onLoad={this.handleLoad} style={style}>
           {this.renderSources()}
           {src ? <img style={style} src={src} alt={alt} srcSet={srcSet}/> : null}
         </picture>

@@ -1,6 +1,10 @@
 .btn {
   @extend %btn;
 
+  &--default {
+    @extend %btn--default;
+  }
+
   &--primary {
     @extend %btn-primary;
   }

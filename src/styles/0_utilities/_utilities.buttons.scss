@@ -42,6 +42,13 @@
   }
 }
 
+%btn--default {
+  border: 1px solid $black-2;
+  color: $black-2;
+  font-weight: 700;
+  text-transform: none;
+}
+
 %btn-primary {
   @include border-gradient(3px);
   border: none;

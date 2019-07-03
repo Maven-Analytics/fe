@@ -50,7 +50,8 @@ export const selectors = {
   getRecentCourse: createSelector([getEnrollments, courseSelectors.getCourses], (enrollments, courses) => {
     const latestEnrollment = enrollments.first();
 
-    if (!latestEnrollment) {
+    // If there are no enrollments or the laltestEnrollment has not been started, return an empty map
+    if (!latestEnrollment || !latestEnrollment.get('percentage_completed')) {
       return Map();
     }
 

@@ -25,7 +25,9 @@
     visibility: visible;
   }
 }
-
+.maicon-badge-alt:before {
+  content: "\e90e";
+}
 .maicon-power-bi:before {
   content: "\e90d";
 }

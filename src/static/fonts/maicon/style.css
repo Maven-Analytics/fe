@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'maicon';
-  src:  url('fonts/maicon.eot?h14c6e');
-  src:  url('fonts/maicon.eot?h14c6e#iefix') format('embedded-opentype'),
-    url('fonts/maicon.woff2?h14c6e') format('woff2'),
-    url('fonts/maicon.ttf?h14c6e') format('truetype'),
-    url('fonts/maicon.woff?h14c6e') format('woff'),
-    url('fonts/maicon.svg?h14c6e#maicon') format('svg');
+  src:  url('fonts/maicon.eot?2zafhl');
+  src:  url('fonts/maicon.eot?2zafhl#iefix') format('embedded-opentype'),
+    url('fonts/maicon.woff2?2zafhl') format('woff2'),
+    url('fonts/maicon.ttf?2zafhl') format('truetype'),
+    url('fonts/maicon.woff?2zafhl') format('woff'),
+    url('fonts/maicon.svg?2zafhl#maicon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -25,6 +25,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.maicon-badge-alt:before {
+  content: "\e90e";
+}
 .maicon-power-bi:before {
   content: "\e90d";
 }

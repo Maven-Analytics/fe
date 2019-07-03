@@ -33,6 +33,18 @@ describe('Dashboard Helpers', () => {
       expect(progress).to.be(undefined);
     });
 
+    it('Should return the formatted course if their are no enrollments', () => {
+      let course = fromJS({
+        var: 'test',
+        thinkificCourseId: 1234
+      });
+
+      const progress = dashboardHelpers.getCourseProgress(course, fromJS([]));
+
+      expect(progress.get('courseId')).to.be(1234);
+      expect(progress.get('course').equals(course)).to.be(true);
+    });
+
     it('Should return undefined if the course does not have a thinkificCourseId', () => {
       let course = fromJS({
         var: 'test'
@@ -43,18 +55,7 @@ describe('Dashboard Helpers', () => {
       expect(progress).to.be(undefined);
     });
 
-    it('Should return undefined if the course\'s thinkificCourseId is null', () => {
-      let course = fromJS({
-        thinkificCourseId: null,
-        var: 'test'
-      });
-
-      const progress = dashboardHelpers.getCourseProgress(course, fromJS([]));
-
-      expect(progress).to.be(undefined);
-    });
-
-    it('Should return undefined if the enrollment is not found', () => {
+    it('Should return the formatted course if the enrollment is not found', () => {
       let course = fromJS({
         thinkificCourseId: '1234',
         title: 'Course Title'
@@ -72,7 +73,8 @@ describe('Dashboard Helpers', () => {
 
       const progress = dashboardHelpers.getCourseProgress(course, enrollments);
 
-      expect(progress).to.be(undefined);
+      expect(progress.get('courseId')).to.be('1234');
+      expect(progress.get('course').equals(course)).to.be(true);
     });
 
     it('Should return a properly formatted Map', () => {
@@ -139,7 +141,24 @@ describe('Dashboard Helpers', () => {
       expect(progress).to.be(undefined);
     });
 
-    it('Should return undefined if the enrollmlents are empty', () => {
+    it('Should return the formatted path if the enrollmlents are empty', () => {
+      let path = fromJS({
+        id: '123',
+        courses: [
+          {
+            thinkificCourseId: 1
+          }
+        ]
+      });
+
+      let progress = dashboardHelpers.getPathProgress(path, List());
+
+      expect(progress.get('pathId')).to.be('123');
+      expect(progress.get('percentage_completed')).to.be(0);
+      expect(progress.get('path').equals(path)).to.be(true);
+    });
+
+    it('Should return the formatted path if the path does not have any courses', () => {
       let path = fromJS({
         id: '123',
         courses: []
@@ -147,7 +166,9 @@ describe('Dashboard Helpers', () => {
 
       let progress = dashboardHelpers.getPathProgress(path, List());
 
-      expect(progress).to.be(undefined);
+      expect(progress.get('pathId')).to.be('123');
+      expect(progress.get('percentage_completed')).to.be(0);
+      expect(progress.get('path').equals(path)).to.be(true);
     });
 
     it('Should return a percentage_completed of 0 if the path courses are not found in enrollments', () => {

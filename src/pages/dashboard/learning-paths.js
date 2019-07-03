@@ -13,15 +13,12 @@ import DashboardLayout from '../../layouts/dashboard';
 import DashboardCard from '../../components/dashboardCard';
 import DashboardCourse from '../../components/dashboardCourse';
 import DashboardGrid from '../../components/dashboardGrid';
-import DashboardNoData from '../../components/dashboardNoData';
-import Image from '../../components/image';
 import Tabs from '../../components/tabs';
 import MediaQuery from '../../components/mediaQuery';
 import {Routes} from '../../routes';
 import DashboardProgress from '../../components/dashboardProgress';
-import MaIcon from '../../components/maIcon';
 
-class DashboardPage extends Component {
+class DashboardLearningPaths extends Component {
   componentDidMount() {
     this.props.actions.getProgress();
   }
@@ -29,43 +26,23 @@ class DashboardPage extends Component {
   render() {
     const {recentCourse, progress, loadingProgress} = this.props;
 
+    console.log(progress.toJS());
+
     const RecentCourse = (
       <DashboardCard loading={loadingProgress} title="Your Most Recent Course">
-        {recentCourse.isEmpty() && loadingProgress === false ? (
-          <DashboardNoData
-            btnText="View Courses"
-            btnUrl={Routes.Courses}
-            text="You haven’t started any courses yet. Let’s get started!"
-          >
-            <Image
-              src="/static/img/dashboard-no-data-328.jpg"
-              wrapStyle={{
-                paddingBottom: '70.12%'
-              }}
-              srcSet="
-                /static/img/dashboard-no-data-328.webp 328w,
-                /static/img/dashboard-no-data-328.jpg 328w,
-                /static/img/dashboard-no-data-656.webp 656w,
-                /static/img/dashboard-no-data-656.jpg 656w
-              "
-            />
-          </DashboardNoData>
-        ) : null}
-        {!recentCourse.isEmpty() && loadingProgress === false ? (
-          <DashboardCourse
-            title={recentCourse.getIn(['course', 'title'])}
-            percentage_completed={recentCourse.get('percentage_completed')}
-            detailUrl={`${Routes.Course}/${recentCourse.getIn(['course', 'slug'])}`}
-            resumeUrl={`${Routes.CourseTake}/${recentCourse.get('thinkificSlug')}`}
-            excerpt={recentCourse.getIn(['course', 'excerpt'])}
-            badge={recentCourse.getIn(['course', 'badge'])}
-          />
-        ) : null}
+        <DashboardCourse
+          title={recentCourse.getIn(['course', 'title'])}
+          percentage_completed={0.42}
+          detailUrl={`${Routes.Course}/${recentCourse.getIn(['course', 'slug'])}`}
+          resumeUrl={`${Routes.CourseTake}/${recentCourse.get('thinkificSlug')}`}
+          excerpt={recentCourse.getIn(['course', 'excerpt'])}
+          badge={recentCourse.getIn(['course', 'badge'])}
+        />
       </DashboardCard>
     );
 
     const RockstarProgress = (
-      <DashboardCard loading={loadingProgress} title="Data Rockstar Progress">
+      <DashboardCard title="Data Rockstar Progress">
         <Tabs tabs={['Paths', 'Courses']}>
           <DashboardProgress items={progress.get('paths')}/>
           <DashboardProgress items={progress.get('courses')}/>
@@ -81,15 +58,7 @@ class DashboardPage extends Component {
 
     const BadgeCreds = (
       <DashboardCard title="Earned badges & credentials">
-        <DashboardNoData
-          btnText="View All Badges"
-          btnUrl={Routes.Badges}
-          btnClass="btn btn--default"
-          title="You haven’t earned any badges yet."
-          text="Complete courses to earn badges and credentials."
-        >
-          <MaIcon icon="badge-alt"/>
-        </DashboardNoData>
+        badges & creds
       </DashboardCard>
     );
 
@@ -120,13 +89,13 @@ class DashboardPage extends Component {
   }
 }
 
-DashboardPage.getInitialProps = async ctx => {
+DashboardLearningPaths.getInitialProps = async ctx => {
   const {store} = ctx;
   store.dispatch(pathActions.pathsInit());
   store.dispatch(courseActions.coursesInit());
 };
 
-DashboardPage.propTypes = {
+DashboardLearningPaths.propTypes = {
   loadingProgress: PropTypes.bool,
   errorProgress: PropTypes.string,
   actions: PropTypes.objectOf(PropTypes.func),
@@ -150,4 +119,4 @@ const mapDispatchToProps = function (dispatch) {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DashboardPage);
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardLearningPaths);

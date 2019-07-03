@@ -19,7 +19,7 @@ class Countup extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.disabled && !this.props.disabled) {
+    if ((prevProps.disabled && !this.props.disabled) || (prevProps.value !== this.props.value)) {
       this.startCount();
     }
   }

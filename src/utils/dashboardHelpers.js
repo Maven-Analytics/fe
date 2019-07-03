@@ -15,14 +15,17 @@ export const getCourseProgress = (course, enrollments) => {
 
   const enrollment = enrollments.find(enrollment => enrollment.get('courseId') === course.get('thinkificCourseId'));
 
+  const progress = fromJS({
+    courseId: course.get('thinkificCourseId'),
+    course: course.toJS(),
+    percentage_completed: 0
+  });
+
   if (!enrollment) {
-    return;
+    return progress;
   }
 
-  return fromJS({
-    ...enrollment.toJS(),
-    course: course.toJS()
-  });
+  return progress.merge(enrollment);
 };
 
 export const getPathProgress = (path, enrollments) => {
@@ -34,7 +37,7 @@ export const getPathProgress = (path, enrollments) => {
     throw new Error('enrollments must be a List');
   }
 
-  if (!path.has('courses') || enrollments.isEmpty()) {
+  if (!path.has('courses')) {
     return;
   }
 
@@ -58,7 +61,7 @@ export const getPathProgress = (path, enrollments) => {
   }, progress);
 
   // Divide the total progress by the amount of courses in the path
-  progress = progress.update('percentage_completed', p => p / totalCourses);
+  progress = progress.update('percentage_completed', p => totalCourses > 0 ? p / totalCourses : 0);
 
   if (progress.get('percentage_completed') === 1) {
     progress = progress.set('completed', true)

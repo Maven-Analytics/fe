@@ -70,7 +70,7 @@ class MediaQuery extends Component {
     const {children} = this.props;
 
     if (!canUseDOM()) {
-      return children;
+      return null;
     }
 
     const mm = window.matchMedia(mediaQuery);

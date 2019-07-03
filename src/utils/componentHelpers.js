@@ -200,5 +200,5 @@ export function prettyPercent(decimal) {
     return 0;
   }
 
-  return Math.round((decimal * 100).toFixed(2));
+  return Math.ceil((decimal * 100).toFixed(2));
 }
