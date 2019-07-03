@@ -8,7 +8,10 @@
   }
 
   h3 {
+    align-items: center;
     color: $white;
+    display: flex;
+    flex-wrap: wrap;
     font-family: $font-body;
     font-size: 1.9rem;
     font-weight: 900;
@@ -17,6 +20,27 @@
 
     @include media-breakpoint-up(lg) {
       margin: 0 0 $spacing-unit--mdl;
+    }
+
+    small {
+      color: #C7C7C7;
+      display: none;
+      font-size: .63em;
+      vertical-align: middle;
+      text-transform: none;
+
+      @include media-breakpoint-up(sm) {
+        display: inline-block;
+      }
+
+      .sep {
+        display: inline-block;
+        margin: 0 $spacing-unit;
+
+        @include media-breakpoint-up(lg) {
+          margin: 0 $spacing-unit--md;
+        }
+      }
     }
   }
 

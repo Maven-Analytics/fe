@@ -30,7 +30,7 @@ class DashboardPage extends Component {
     const {recentCourse, progress, loadingProgress} = this.props;
 
     const RecentCourse = (
-      <DashboardCard loading={loadingProgress} title="Your Most Recent Course">
+      <DashboardCard showWelcome loading={loadingProgress} title="Your Most Recent Course">
         {recentCourse.isEmpty() && loadingProgress === false ? (
           <DashboardNoData
             btnText="View Courses"

@@ -24,11 +24,19 @@ const DashboardLinks = fromJS([
   }
 ]);
 
-const DashboardHeader = ({title, activeLink}) => {
+const DashboardHeader = ({title, activeLink, welcome}) => {
   return (
     <div className="dashboard-header">
       <div className="container">
-        <h3>{title}</h3>
+        <h3>
+          {title}
+          {welcome ? (
+            <small>
+              <span className="sep">/</span>
+              <span className="message">{welcome}</span>
+            </small>
+          ) : null}
+        </h3>
         <ul>
           {DashboardLinks.map((link, index) => (
             <li key={link.get('url')}>
@@ -45,7 +53,8 @@ const DashboardHeader = ({title, activeLink}) => {
 
 DashboardHeader.propTypes = {
   title: PropTypes.string.isRequired,
-  activeLink: PropTypes.number.isRequired
+  activeLink: PropTypes.number.isRequired,
+  welcome: PropTypes.string
 };
 
 export default DashboardHeader;

@@ -27,7 +27,7 @@ class DashboardLearningPaths extends Component {
     const {progress, loadingProgress, user, enrollments} = this.props;
 
     return (
-      <DashboardLayout loading={loadingProgress} title="Learning Paths" activeLink={1}>
+      <DashboardLayout showWelcome loading={loadingProgress} title="Learning Paths" activeLink={1}>
         <DashboardGrid vertical>
           {progress.get('paths').map(path => (
             <DashboardCard key={path.get('pathId')} size="xl" style={{margin: 0}}>
