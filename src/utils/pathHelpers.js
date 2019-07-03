@@ -1,4 +1,4 @@
-import {Map, List} from 'immutable';
+import {Map, List, isImmutable} from 'immutable';
 import {Routes} from '../routes';
 
 export const getPathById = (paths, id) => paths && paths.find && paths.find(p => p.get('id') === id);
@@ -48,7 +48,7 @@ export const getResumeCourseUrl = (path, enrollments) => {
   const pathEnrollments = getPathEnrollments(path, enrollments);
 
   if (!pathEnrollments || pathEnrollments.isEmpty()) {
-    return `${Routes.Path}/${path.get('slug')}`;
+    return;
   }
 
   // Get the latest enrollment by most percentage_completed NOT equal to 0 or 1
@@ -62,4 +62,16 @@ export const getResumeCourseUrl = (path, enrollments) => {
   }
 
   return `${Routes.CourseTake}/${latestEnrollment.get('thinkificSlug')}`;
+};
+
+export const getPathInstructors = path => {
+  if (!path || !isImmutable(path) || !path.has('courses') || path.get('courses').isEmpty()) {
+    return List();
+  }
+
+  return path.get('courses').reduce((list, course) => {
+    const instructorIndex = list.findIndex(i => i.get('id') === course.getIn(['author', 'id']));
+
+    return instructorIndex === -1 && course.get('author') ? list.push(course.get('author')) : list;
+  }, List());
 };

@@ -7,7 +7,7 @@ import {Map, List} from 'immutable';
 import ImageContentful from './imageContentful';
 import ProgressMeter from './progressMeter';
 import RichText from './richText';
-import MaIcon from './maIcon';
+import ProductTools from './productTools';
 
 const DashboardPath = ({title, percentage_completed, onDetailClick, resumeUrl, badge, shortDescription, match, courseCount, hours, tools}) => {
   return (
@@ -43,9 +43,7 @@ const DashboardPath = ({title, percentage_completed, onDetailClick, resumeUrl, b
           <li>
             <div className="text">Tools Featured</div>
             <div className="value">
-              {tools.map(tool => (
-                <MaIcon key={tool} icon={tool.toLowerCase().replace(' ', '-')}/>
-              ))}
+              <ProductTools tools={tools}/>
             </div>
           </li>
         </ul>
