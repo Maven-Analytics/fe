@@ -19,7 +19,7 @@ const initialState = utils.initialState([]);
 export default (state = initialState, action) => {
   switch (action.type) {
   case types.COURSESINIT_SUCCESS:
-    return state.merge(fromJS(action.payload));
+    return utils.stateMerge(state, action.payload);
   default:
     return state;
   }

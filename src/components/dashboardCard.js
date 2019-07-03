@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Loader from './loader';
 
-const DashboardCard = ({size, children, title, loading}) => {
+const DashboardCard = ({size, children, title, loading, style}) => {
   const classList = ['dashboard-card'];
 
   if (size) {
@@ -15,7 +15,7 @@ const DashboardCard = ({size, children, title, loading}) => {
   }
 
   return (
-    <div className={classList.join(' ')}>
+    <div className={classList.join(' ')} style={style}>
       {loading ? <Loader loading={loading}/> : null}
       {title && title !== '' ? <h4 className="dashboard-card__title">{title}</h4> : null}
       {children}
@@ -27,7 +27,8 @@ DashboardCard.propTypes = {
   children: PropTypes.node.isRequired,
   size: PropTypes.string,
   title: PropTypes.string,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  style: PropTypes.object
 };
 
 export default DashboardCard;

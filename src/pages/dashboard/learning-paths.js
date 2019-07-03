@@ -6,17 +6,17 @@ import {bindActionCreators} from 'redux';
 
 import {actions as dashboardActions, selectors as dashboardSelectors} from '../../redux/ducks/dashboard';
 import {actions as pathActions} from '../../redux/ducks/paths';
-import {actions as courseActions, selectors as courseSelectors} from '../../redux/ducks/courses';
+import {actions as courseActions} from '../../redux/ducks/courses';
 import {selectors as errorSelectors} from '../../redux/ducks/error';
 import {selectors as loadingSelectors} from '../../redux/ducks/loading';
+import {selectors as userSelectors} from '../../redux/ducks/user';
 import DashboardLayout from '../../layouts/dashboard';
 import DashboardCard from '../../components/dashboardCard';
-import DashboardCourse from '../../components/dashboardCourse';
+import DashboardPath from '../../components/dashboardPath';
 import DashboardGrid from '../../components/dashboardGrid';
-import Tabs from '../../components/tabs';
-import MediaQuery from '../../components/mediaQuery';
 import {Routes} from '../../routes';
-import DashboardProgress from '../../components/dashboardProgress';
+import {prettyPercent} from '../../utils/componentHelpers';
+import {getMatchForPath, getResumeCourseUrl} from '../../utils/pathHelpers';
 
 class DashboardLearningPaths extends Component {
   componentDidMount() {
@@ -24,66 +24,26 @@ class DashboardLearningPaths extends Component {
   }
 
   render() {
-    const {recentCourse, progress, loadingProgress} = this.props;
-
-    console.log(progress.toJS());
-
-    const RecentCourse = (
-      <DashboardCard loading={loadingProgress} title="Your Most Recent Course">
-        <DashboardCourse
-          title={recentCourse.getIn(['course', 'title'])}
-          percentage_completed={0.42}
-          detailUrl={`${Routes.Course}/${recentCourse.getIn(['course', 'slug'])}`}
-          resumeUrl={`${Routes.CourseTake}/${recentCourse.get('thinkificSlug')}`}
-          excerpt={recentCourse.getIn(['course', 'excerpt'])}
-          badge={recentCourse.getIn(['course', 'badge'])}
-        />
-      </DashboardCard>
-    );
-
-    const RockstarProgress = (
-      <DashboardCard title="Data Rockstar Progress">
-        <Tabs tabs={['Paths', 'Courses']}>
-          <DashboardProgress items={progress.get('paths')}/>
-          <DashboardProgress items={progress.get('courses')}/>
-        </Tabs>
-      </DashboardCard>
-    );
-
-    const NewsUpdates = (
-      <DashboardCard title="News & Updates">
-        news & updates
-      </DashboardCard>
-    );
-
-    const BadgeCreds = (
-      <DashboardCard title="Earned badges & credentials">
-        badges & creds
-      </DashboardCard>
-    );
+    const {progress, loadingProgress, user, enrollments} = this.props;
 
     return (
-      <DashboardLayout title="My Dashboard" activeLink={0}>
-        <MediaQuery min="lg">
-          <DashboardGrid horizontal>
-            <DashboardGrid vertical>
-              {RecentCourse}
-              {NewsUpdates}
-            </DashboardGrid>
-            <DashboardGrid vertical>
-              {RockstarProgress}
-              {BadgeCreds}
-            </DashboardGrid>
-          </DashboardGrid>
-        </MediaQuery>
-        <MediaQuery max="lg">
-          <DashboardGrid vertical>
-            {RecentCourse}
-            {RockstarProgress}
-            {BadgeCreds}
-            {NewsUpdates}
-          </DashboardGrid>
-        </MediaQuery>
+      <DashboardLayout loading={loadingProgress} title="Learning Paths" activeLink={1}>
+        <DashboardGrid vertical>
+          {progress.get('paths').map(path => (
+            <DashboardCard key={path.get('pathId')} size="xl" style={{margin: 0}}>
+              <DashboardPath
+                title={path.getIn(['path', 'title'])}
+                badge={path.getIn(['path', 'badge'])}
+                shortDescription={path.getIn(['path', 'shortDescription'])}
+                resumeUrl={getResumeCourseUrl(path.get('path'), enrollments)}
+                percentage_completed={path.get('percentage_completed')}
+                match={`${prettyPercent(getMatchForPath(path.get('path'), user))}%`}
+                courseCount={path.getIn(['path', 'courses']).count()}
+                tools={path.getIn(['path', 'tools'])}
+              />
+            </DashboardCard>
+          ))}
+        </DashboardGrid>
       </DashboardLayout>
     );
   }
@@ -99,16 +59,17 @@ DashboardLearningPaths.propTypes = {
   loadingProgress: PropTypes.bool,
   errorProgress: PropTypes.string,
   actions: PropTypes.objectOf(PropTypes.func),
-  recentCourse: ImmutablePropTypes.map,
-  progress: ImmutablePropTypes.map
+  progress: ImmutablePropTypes.map,
+  user: ImmutablePropTypes.map,
+  enrollments: ImmutablePropTypes.list
 };
 
 const mapStateToProps = state => ({
-  recentCourse: dashboardSelectors.getRecentCourse(state),
   progress: dashboardSelectors.getProgress(state),
-  courses: courseSelectors.getCourses(state),
   loadingProgress: loadingSelectors.getLoading(['DASHBOARD_PROGRESS'])(state),
-  errorProgress: errorSelectors.getError(['DASHBOARD_PROGRESS'])(state)
+  errorProgress: errorSelectors.getError(['DASHBOARD_PROGRESS'])(state),
+  user: userSelectors.getUser(state),
+  enrollments: dashboardSelectors.getEnrollments(state)
 });
 
 const mapDispatchToProps = function (dispatch) {

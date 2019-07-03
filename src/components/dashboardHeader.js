@@ -3,26 +3,24 @@ import PropTypes from 'prop-types';
 import {fromJS} from 'immutable';
 import Link from 'next/link';
 
+import {Routes} from '../routes';
+
 const DashboardLinks = fromJS([
   {
     title: 'Dashboard',
-    url: '/dashboard'
+    url: Routes.Dashboard
   },
   {
     title: 'Learning Paths',
-    url: '/dashboard/paths'
+    url: Routes.DashboardPaths
   },
   {
     title: 'Courses',
-    url: '/dashboard/courses'
+    url: Routes.DashboardCourses
   },
   {
     title: 'Credentials',
-    url: '/dashboard/credentials'
-  },
-  {
-    title: 'Assessments',
-    url: '/dashboard/assessments'
+    url: Routes.DashboardCredentials
   }
 ]);
 

@@ -1,0 +1,148 @@
+.dashboard-path {
+  display: flex;
+  font-size: 1.4rem;
+  flex-wrap: wrap;
+
+  @include media-breakpoint-up(sm) {
+    font-size: 1.6rem;
+  }
+
+  @include media-breakpoint-up(md) {
+    font-size: 1.4rem;
+  }
+
+  @include media-breakpoint-up(lg) {
+    flex-wrap: nowrap;
+  }
+
+  @include media-breakpoint-up(xl) {
+    font-size: 1.6rem;
+  }
+
+  &__badge {
+    display: none;
+
+    @include media-breakpoint-up(md) {
+      display: block;
+      flex: 0 0 60px;
+      margin-right: $spacing-unit--md;
+    }
+
+    @include media-breakpoint-up(xl) {
+      flex: 0 0 110px;
+    }
+  }
+
+  &__content {
+    margin-bottom: $spacing-unit--md;
+
+    > h4 {
+      color: $black-2;
+      font-family: $font-body;
+      font-size: 1.25em;
+      font-weight: 900;
+      line-height: 1.25;
+    }
+
+    > p {
+      color: $gray-medium-3;
+      line-height: 1.5;
+      margin: 0 0 $spacing-unit;
+    }
+
+    @include media-breakpoint-up(md) {
+      flex: 1 1 80%;
+    }
+
+    @include media-breakpoint-up(lg) {
+      margin-bottom: 0;
+      margin-right: $spacing-unit;
+    }
+
+    @include media-breakpoint-up(xl) {
+      margin-right: $spacing-unit--l;
+    }
+  }
+
+  &__footer {
+    margin-top: $spacing-unit;
+
+    @include media-breakpoint-up(lg) {
+      margin-top: $spacing-unit--md;
+    }
+
+    .btn {
+      @include btnFixed(40px, auto, 20px);
+      font-size: .68em;
+
+      + .btn {
+        margin-left: $spacing-unit;
+
+        @include media-breakpoint-up(lg) {
+          margin-left: $spacing-unit--md;
+        }
+      }
+    }
+  }
+
+  &__details {
+    flex: 0 0 100%;
+    max-width: 325px;
+
+    @include media-breakpoint-up(lg) {
+      flex: 0 0 30%;
+      max-width: none;
+    }
+
+    .progress-meter {
+      p {
+        font-size: .68em;
+      }
+
+      &__readout {
+        font-size: .875em;
+      }
+    }
+
+    ul {
+      @extend .path-banner__meta;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      margin-top: $spacing-unit;
+
+      li {
+        align-items: flex-start;
+        border-top: 1px solid $gray-border;
+        height: auto;
+        justify-content: flex-start;
+        padding: $spacing-unit;
+        text-align: left;
+
+        &:not(:last-child) {
+          border-right: none;
+        }
+
+        @include media-breakpoint-up(lg) {
+          padding: 1.8rem 2rem;
+        }
+
+        .text {
+          color: $black-2;
+          font-size: .68em;
+          font-weight: 900;
+          margin-bottom: $spacing-unit--xs;
+          text-transform: uppercase;
+          white-space: nowrap;
+        }
+
+        .value {
+          height: 25px;
+          font-size: 1.25em;
+          justify-content: flex-start;
+          line-height: 1;
+          margin: 0;
+        }
+      }
+    }
+  }
+}

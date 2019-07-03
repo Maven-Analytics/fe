@@ -28,6 +28,7 @@
     "redux-logger": "^3.0.6"
   },
   "dependencies": {
+    "@contentful/rich-text-react-renderer": "^13.2.0",
     "@hapi/boom": "^7.4.2",
     "@hapi/joi": "^15.0.1",
     "@zeit/next-sass": "^1.0.1",

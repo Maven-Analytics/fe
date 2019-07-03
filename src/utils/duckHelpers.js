@@ -1,4 +1,4 @@
-import {fromJS} from 'immutable';
+import {fromJS, isImmutable} from 'immutable';
 
 export function initialState(data) {
   return fromJS(data);
@@ -20,4 +20,20 @@ export function requestTypes(base) {
 
     return action;
   }, {});
+}
+
+export function stateMerge(state, newData) {
+  if (!isImmutable(newData)) {
+    newData = fromJS(newData);
+  }
+
+  return newData.reduce((s, newObject) => {
+    const existingPathIndex = s.findIndex(p => p.get('id') === newObject.get('id'));
+
+    if (existingPathIndex > -1) {
+      return s.set(existingPathIndex, fromJS(newObject));
+    }
+
+    return s.push(fromJS(newObject));
+  }, state);
 }

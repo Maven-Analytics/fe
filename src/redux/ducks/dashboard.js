@@ -58,5 +58,6 @@ export const selectors = {
     const latestCourse = courses.find(c => c.get('thinkificCourseId') === latestEnrollment.get('courseId'));
 
     return getCourseProgress(latestCourse, List([latestEnrollment]));
-  })
+  }),
+  getEnrollments: createSelector([getEnrollments], e => e)
 };

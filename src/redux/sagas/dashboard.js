@@ -1,4 +1,4 @@
-import {takeLatest, put, all, delay} from 'redux-saga/effects';
+import {takeLatest, put, all} from 'redux-saga/effects';
 
 import {types as dashboardTypes} from '../ducks/dashboard';
 import api from '../../services/api';
@@ -10,8 +10,6 @@ export function * watchDashboard() {
 function * onGetProgressRequest() {
   try {
     const data = yield getProgress();
-
-    yield delay(1000);
 
     yield all([
       put({

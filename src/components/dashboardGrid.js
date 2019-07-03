@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import * as ImmutablePropTypes from 'react-immutable-proptypes';
 
 const DashboardGrid = ({children, horizontal, vertical}) => {
   const classList = ['dashboard-grid'];
@@ -24,7 +25,7 @@ const DashboardGrid = ({children, horizontal, vertical}) => {
 };
 
 DashboardGrid.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.element),
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.element), ImmutablePropTypes.list]),
   horizontal: PropTypes.bool,
   vertical: PropTypes.bool
 };

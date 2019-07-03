@@ -42,4 +42,12 @@
       margin: 32px auto;
     }
   }
+
+  &--xl {
+    padding: $account-card-xl-padding-y-mobile $account-card-xl-padding-x-mobile;
+
+    @include media-breakpoint-up(lg) {
+      padding: $account-card-xl-padding-y-desktop $account-card-xl-padding-x-desktop;
+    }
+  }
 }

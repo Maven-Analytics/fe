@@ -1,5 +1,7 @@
 import {Map, fromJS, List} from 'immutable';
 
+import {getPathEnrollments} from './pathHelpers';
+
 export const getCourseProgress = (course, enrollments) => {
   if (!Map.isMap(course)) {
     throw new Error('course must be a Map');
@@ -47,10 +49,8 @@ export const getPathProgress = (path, enrollments) => {
     percentage_completed: 0
   });
 
-  const pathCourses = path.get('courses').reduce((map, c) => map.set(c.get('thinkificCourseId'), true), Map());
   const totalCourses = path.get('courses').count();
-
-  const pathEnrollments = enrollments.filter(e => pathCourses.has(e.get('courseId')));
+  const pathEnrollments = getPathEnrollments(path, enrollments);
 
   progress = pathEnrollments.reduce((map, enrollment) => {
     return map.update(u => {
