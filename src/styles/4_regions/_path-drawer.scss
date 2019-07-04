@@ -34,7 +34,6 @@
     z-index: index($globalIndex, pathDrawerFog);
 
     @include media-breakpoint-up(md) {
-      box-shadow: -26px 0 20px 0 rgba(0,0,0,0.2);
       width: 90%;
     }
 
@@ -69,6 +68,10 @@
     #{$self}__inner {
       transition: transform .2s ease-in-out;
       transform: translateX(0);
+
+      @include media-breakpoint-up(md) {
+        box-shadow: -26px 0 20px 0 rgba(0,0,0,0.2);
+      }
     }
   }
 }
