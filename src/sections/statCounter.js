@@ -26,7 +26,7 @@ class StatCounter extends Component {
     const {stats} = this.props;
 
     return (
-      <TrackVisibility alwaysShow className="stat-counter" onShow={this.handleShow} offset={100} delay={150}>
+      <TrackVisibility alwaysShow className="stat-counter" onShow={this.handleShow} offset={50} delay={100}>
         {inView => {
           return (
             <div className="container">
