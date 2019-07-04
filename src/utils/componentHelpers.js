@@ -22,6 +22,20 @@ export function clickPrevent(func, val) {
   };
 }
 
+export function clickAction(...arr) {
+  return e => {
+    e.preventDefault();
+    e.stopPropagation();
+    const func = arr[0];
+
+    if (func && typeof func === 'function') {
+      return func(...arr.slice(1));
+    }
+
+    return null;
+  };
+}
+
 export function imageLoaded(func, val) {
   return e => {
     if (func && typeof func === 'function') {

@@ -6,7 +6,8 @@ import {bindActionCreators} from 'redux';
 
 import {actions as stateActions, selectors as stateSelectors} from '../redux/ducks/state';
 
-import MobileMenu from '../components/mobileMenu';
+import MobileMenu from '../modals/mobileMenu';
+import PathDrawer from '../modals/pathDrawer';
 
 const Modals = ({state, actions, hideModals}) => {
   return (
@@ -17,6 +18,7 @@ const Modals = ({state, actions, hideModals}) => {
           offmenuToggle={actions.offmenuToggle}
         />
       ) : null}
+      <PathDrawer/>
     </Fragment>
   );
 };

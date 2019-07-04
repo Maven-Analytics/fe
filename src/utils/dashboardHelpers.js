@@ -4,11 +4,11 @@ import {getPathEnrollments} from './pathHelpers';
 
 export const getCourseProgress = (course, enrollments) => {
   if (!Map.isMap(course)) {
-    throw new Error('course must be a Map');
+    return;
   }
 
   if (!List.isList(enrollments)) {
-    throw new Error('enrollments must be a List');
+    return;
   }
 
   if (!course || course.isEmpty() || !course.get('thinkificCourseId')) {
@@ -32,11 +32,11 @@ export const getCourseProgress = (course, enrollments) => {
 
 export const getPathProgress = (path, enrollments) => {
   if (!Map.isMap(path)) {
-    throw new Error('path must be a Map');
+    return;
   }
 
   if (!List.isList(enrollments)) {
-    throw new Error('enrollments must be a List');
+    return;
   }
 
   if (!path.has('courses')) {

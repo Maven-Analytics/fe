@@ -39,4 +39,8 @@ body {
       visibility: visible;
     }
   }
+
+  &.path-drawer-open {
+    overflow: hidden;
+  }
 }

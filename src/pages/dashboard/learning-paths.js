@@ -10,12 +10,12 @@ import {actions as courseActions} from '../../redux/ducks/courses';
 import {selectors as errorSelectors} from '../../redux/ducks/error';
 import {selectors as loadingSelectors} from '../../redux/ducks/loading';
 import {selectors as userSelectors} from '../../redux/ducks/user';
+import {actions as stateActions} from '../../redux/ducks/state';
 import DashboardLayout from '../../layouts/dashboard';
 import DashboardCard from '../../components/dashboardCard';
 import DashboardPath from '../../components/dashboardPath';
 import DashboardGrid from '../../components/dashboardGrid';
-import {Routes} from '../../routes';
-import {prettyPercent} from '../../utils/componentHelpers';
+import {prettyPercent, clickAction} from '../../utils/componentHelpers';
 import {getMatchForPath, getResumeCourseUrl} from '../../utils/pathHelpers';
 
 class DashboardLearningPaths extends Component {
@@ -24,7 +24,7 @@ class DashboardLearningPaths extends Component {
   }
 
   render() {
-    const {progress, loadingProgress, user, enrollments} = this.props;
+    const {progress, loadingProgress, user, enrollments, actions} = this.props;
 
     return (
       <DashboardLayout showWelcome loading={loadingProgress} title="Learning Paths" activeLink={1}>
@@ -40,6 +40,7 @@ class DashboardLearningPaths extends Component {
                 match={`${prettyPercent(getMatchForPath(path.get('path'), user))}%`}
                 courseCount={path.getIn(['path', 'courses']).count()}
                 tools={path.getIn(['path', 'tools'])}
+                onDetailClick={clickAction(actions.modalOpen, 'pathDrawer', path.get('path'))}
               />
             </DashboardCard>
           ))}
@@ -75,7 +76,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = function (dispatch) {
   return {
     actions: bindActionCreators({
-      ...dashboardActions
+      ...dashboardActions,
+      ...stateActions
     }, dispatch)
   };
 };

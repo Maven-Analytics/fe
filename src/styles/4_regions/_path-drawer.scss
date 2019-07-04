@@ -1,0 +1,75 @@
+.path-drawer {
+  $closeSize: 50px;
+  $self: &;
+  @mixin fullFixed() {
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+  }
+
+  @include fullFixed();
+  transform: translateX(100%);
+  transition: transform 0s .4s ease-in-out;
+  z-index: index($globalIndex, pathDrawer);
+
+  &__fog {
+    @include fullFixed();
+    background-color: $white;
+    opacity: 0;
+    transition: opacity .5s ease-in-out;
+    z-index: index($globalIndex, pathDrawerFog);
+  }
+
+  &__inner {
+    @include fullFixed();
+    background-color: $white;
+    box-shadow: -26px 0 20px 0 rgba(0,0,0,0.2);
+    height: 100%;
+    left: auto;
+    overflow: hidden;
+    max-width: 955px;
+    padding: 3vh 0 3vh 3vw;
+    width: 100%;
+    transition: transform .2s ease-in-out;
+    transform: translateX(100%);
+    z-index: index($globalIndex, pathDrawerFog);
+
+    @include media-breakpoint-up(md) {
+      width: 90%;
+    }
+
+    .close-button {
+      height: $closeSize;
+      padding: 0;
+      width: $closeSize;
+
+      .hamburger-inner,
+      .hamburger-inner::before,
+      .hamburger-inner::after {
+        background: $black;
+      }
+    }
+  }
+
+  &__content {
+    height: calc(100% - 6vh);
+    padding: 1vh 3vw 1vh;
+    overflow: auto;
+    width: calc(100% + 17px); // hide scrollbar
+  }
+
+  &.open {
+    transform: translateX(0);
+    transition: none;
+
+    #{$self}__fog {
+      opacity: 0.7;
+    }
+
+    #{$self}__inner {
+      transform: translateX(0);
+    }
+  }
+}

@@ -2,11 +2,11 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 
-import Logo from './logo';
-import CloseIcon from './closeButton';
+import Logo from '../components/logo';
+import CloseIcon from '../components/closeButton';
 import {click, ref} from '../utils/componentHelpers';
 import {menuLinksMain} from '../routes';
-import HeaderAuthMobile from './headerAuthMobile';
+import HeaderAuthMobile from '../components/headerAuthMobile';
 import {Routes} from '../routes';
 
 class MobileMenu extends Component {
@@ -37,7 +37,7 @@ class MobileMenu extends Component {
   handleTouchMove(e) {
     const {startY} = this.state;
 
-    const currentY = e.touches && e.touches[0] ? e.touches[0].clientY : 0
+    const currentY = e.touches && e.touches[0] ? e.touches[0].clientY : 0;
 
     const movingDown = currentY < startY;
 

@@ -53,7 +53,7 @@ const DashboardPath = ({title, percentage_completed, onDetailClick, resumeUrl, b
 DashboardPath.propTypes = {
   title: PropTypes.string,
   percentage_completed: PropTypes.number,
-  onDetailClick: PropTypes.string,
+  onDetailClick: PropTypes.func.isRequired,
   resumeUrl: PropTypes.string,
   badge: ImmutablePropTypes.map,
   shortDescription: ImmutablePropTypes.map,
