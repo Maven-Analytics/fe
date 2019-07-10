@@ -34,7 +34,7 @@ const CourseCarousel = ({courses, title, eyelash, description, helperText, separ
 
           return (
             <CarouselSlide key={course.get('id')}>
-              <CourseCard match={match} course={course.has('course') ? course.get('course') : course}/>
+              <CourseCard match={match} course={course}/>
             </CarouselSlide>
           );
         })}

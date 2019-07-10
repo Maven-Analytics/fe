@@ -33,10 +33,10 @@ class DashboardCourses extends Component {
           {progress.get('courses').map(course => (
             <CourseCard
               full
-              key={course.getIn(['course', 'id'])}
-              course={course.get('course')}
+              key={course.get('id')}
+              course={course}
               progress={course.get('percentage_completed')}
-              recommended={course.getIn(['course', 'recommended']) ? 'Recommended for you' : null}
+              recommended={course.get('recommended') ? 'Recommended for you' : null}
             />
           ))}
         </DashboardGrid>

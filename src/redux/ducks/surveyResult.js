@@ -45,9 +45,9 @@ export const selectors = {
     return sorted.map(id => {
       return fromJS({
         id: id,
+        ...getCourseById(courses, id).toJS(),
         percentage: percentages.get(id),
-        adjustedPercentage: adjustedPercentages.get(id),
-        course: getCourseById(courses, id)
+        adjustedPercentage: adjustedPercentages.get(id)
       });
     });
   }),
@@ -60,9 +60,9 @@ export const selectors = {
     return sorted.map(id => {
       return fromJS({
         id: id,
+        ...getPathById(paths, id).toJS(),
         percentage: percentages.get(id),
-        adjustedPercentage: adjustedPercentages.get(id),
-        path: getPathById(paths, id)
+        adjustedPercentage: adjustedPercentages.get(id)
       });
     });
   })

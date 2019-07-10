@@ -42,7 +42,7 @@ describe('Dashboard Helpers', () => {
       const progress = dashboardHelpers.getCourseProgress(course, fromJS([]));
 
       expect(progress.get('courseId')).to.be(1234);
-      expect(progress.get('course').equals(course)).to.be(true);
+      expect(progress.get('var')).to.be('test');
     });
 
     it('Should return undefined if the course does not have a thinkificCourseId', () => {
@@ -74,7 +74,8 @@ describe('Dashboard Helpers', () => {
       const progress = dashboardHelpers.getCourseProgress(course, enrollments);
 
       expect(progress.get('courseId')).to.be('1234');
-      expect(progress.get('course').equals(course)).to.be(true);
+      expect(progress.get('title')).to.be('Course Title');
+      expect(progress.get('percentage_completed')).to.be(0);
     });
 
     it('Should return a properly formatted Map', () => {
@@ -96,7 +97,8 @@ describe('Dashboard Helpers', () => {
       const progress = dashboardHelpers.getCourseProgress(course, enrolllments);
 
       expect(progress.get('percentage_completed')).to.be(0.89);
-      expect(progress.getIn(['course', 'title'])).to.be('Course Title');
+      expect(progress.get('title')).to.be('Course Title');
+      expect(progress.get('courseId')).to.be('1234');
     });
   });
 

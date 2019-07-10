@@ -18,8 +18,8 @@ export const getCourseProgress = (course, enrollments) => {
   const enrollment = enrollments.find(enrollment => enrollment.get('courseId') === course.get('thinkificCourseId'));
 
   const progress = fromJS({
+    ...course.toJS(),
     courseId: course.get('thinkificCourseId'),
-    course: course.toJS(),
     percentage_completed: 0
   });
 

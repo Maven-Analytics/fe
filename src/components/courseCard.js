@@ -50,7 +50,7 @@ const CourseCard = ({course, condensed, match, recommended, progress, full}) => 
         {condensed === false ? (
           <p>{course.get('excerpt')}</p>
         ) : null}
-        {progress > -1 ? <ProgressMeter value={progress} title="Progress"/> : 0}
+        {progress > -1 ? <ProgressMeter value={progress} title="Progress"/> : null}
       </div>
       <div className="course-card__footer">
         <span>

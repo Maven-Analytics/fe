@@ -17,8 +17,18 @@ import {Routes} from '../../routes';
 
 class WelcomeSurveyResults extends Component {
   componentDidMount() {
-    const recommendedPaths = this.props.recommendedPaths.map(rp => rp.delete('path').delete('adjustedPercentage'));
-    const recommendedCourses = this.props.recommendedCourses.map(rp => rp.delete('course').delete('adjustedPercentage'));
+    const recommendedPaths = this.props.recommendedPaths.map(rp => {
+      return fromJS({
+        id: rp.get('id'),
+        percentage: rp.get('percentage')
+      });
+    });
+    const recommendedCourses = this.props.recommendedCourses.map(rc => {
+      return fromJS({
+        id: rc.get('id'),
+        percentage: rc.get('percentage')
+      });
+    });
 
     this.props.actions.userRecommendedSet({
       paths: recommendedPaths.toJS(),
@@ -30,6 +40,8 @@ class WelcomeSurveyResults extends Component {
     const {recommendedPaths, recommendedCourses} = this.props;
     const recommendedPath = recommendedPaths.first();
 
+    console.log(recommendedPath.toJS());
+
     return (
       <Checkout full>
         <div className="welcome-survey-results">
@@ -38,19 +50,19 @@ class WelcomeSurveyResults extends Component {
           </header>
           <div className="welcome-survey-results__recommended-path">
             <PathBanner
-              badge={recommendedPath.getIn(['path', 'badge'])}
-              title={recommendedPath.getIn(['path', 'title'])}
-              excerpt={recommendedPath.getIn(['path', 'excerpt'])}
+              badge={recommendedPath.get('badge')}
+              title={recommendedPath.get('title')}
+              excerpt={recommendedPath.get('excerpt')}
               match={parseInt(recommendedPath.get('percentage') * 100, 10)}
-              courses={recommendedPath.getIn(['path', 'courses']) && recommendedPath.getIn(['path', 'courses']).count()}
+              courses={recommendedPath.get('courses') && recommendedPath.get('courses').count()}
               length={getPathHours(recommendedPath.get('path'))}
-              tools={recommendedPath.getIn(['path', 'tools'])}
-              url={`${Routes.Path}/${recommendedPath.getIn(['path', 'slug'])}`}
+              tools={recommendedPath.get('tools')}
+              url={`${Routes.Path}/${recommendedPath.get('slug')}`}
             />
             <CourseCarousel
               separator
               helperText="Courses included in this path"
-              courses={recommendedPath.getIn(['path', 'courses'])}
+              courses={recommendedPath.get('courses')}
             />
           </div>
           <CourseCarousel

@@ -1,11 +1,30 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-const CourseFilters = ({title}) => (
-  <div className="course-filters">
-    <h4>{title}</h4>
-  </div>
-);
+class CourseFilters extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      tools: [],
+      paths: [],
+      instructors: [],
+      skills: [],
+      length: [],
+      status: []
+    }
+  }
+
+  render() {
+    const {title} = this.props;
+
+    return (
+      <div className="course-filters">
+        <h4>{title}</h4>
+      </div>
+    );
+  }
+}
 
 CourseFilters.propTypes = {
   title: PropTypes.string

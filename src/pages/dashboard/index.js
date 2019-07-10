@@ -53,12 +53,12 @@ class DashboardPage extends Component {
         ) : null}
         {!recentCourse.isEmpty() && loadingProgress === false ? (
           <DashboardCourse
-            title={recentCourse.getIn(['course', 'title'])}
+            title={recentCourse.get('title')}
             percentage_completed={recentCourse.get('percentage_completed')}
-            detailUrl={`${Routes.Course}/${recentCourse.getIn(['course', 'slug'])}`}
+            detailUrl={`${Routes.Course}/${recentCourse.get('slug')}`}
             resumeUrl={`${Routes.CourseTake}/${recentCourse.get('thinkificSlug')}`}
-            excerpt={recentCourse.getIn(['course', 'excerpt'])}
-            badge={recentCourse.getIn(['course', 'badge'])}
+            excerpt={recentCourse.get('excerpt')}
+            badge={recentCourse.get('badge')}
           />
         ) : null}
       </DashboardCard>
