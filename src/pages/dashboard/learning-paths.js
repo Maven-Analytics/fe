@@ -16,7 +16,8 @@ import DashboardCard from '../../components/dashboardCard';
 import DashboardPath from '../../components/dashboardPath';
 import DashboardGrid from '../../components/dashboardGrid';
 import {prettyPercent, clickAction} from '../../utils/componentHelpers';
-import {getMatchForPath, getResumeCourseUrl} from '../../utils/pathHelpers';
+import {getMatchForPath, getLastestCourseSlugResumeCourseUrl} from '../../utils/pathHelpers';
+import {getResumeCourseUrl} from '../../utils/routeHelpers';
 
 class DashboardLearningPaths extends Component {
   componentDidMount() {
@@ -35,7 +36,7 @@ class DashboardLearningPaths extends Component {
                 title={path.getIn(['path', 'title'])}
                 badge={path.getIn(['path', 'badge'])}
                 shortDescription={path.getIn(['path', 'shortDescription'])}
-                resumeUrl={getResumeCourseUrl(path.get('path'), enrollments)}
+                resumeUrl={getResumeCourseUrl(getLastestCourseSluggetResumeCourseUrl(path.get('path'), enrollments))}
                 percentage_completed={path.get('percentage_completed')}
                 match={`${prettyPercent(getMatchForPath(path.get('path'), user))}%`}
                 courseCount={path.getIn(['path', 'courses']).count()}

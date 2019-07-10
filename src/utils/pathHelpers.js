@@ -44,7 +44,7 @@ export const getPathEnrollments = (path, enrollments) => {
   return pathEnrollments;
 };
 
-export const getResumeCourseUrl = (path, enrollments) => {
+export const getLastestCourseSlugResumeCourseUrl = (path, enrollments) => {
   const pathEnrollments = getPathEnrollments(path, enrollments);
 
   if (!pathEnrollments || pathEnrollments.isEmpty()) {
@@ -61,7 +61,7 @@ export const getResumeCourseUrl = (path, enrollments) => {
     latestEnrollment = enrollments.find(e => e.get('courseId') === path.getIn(['courses', 0, 'thinkificCourseId']));
   }
 
-  return `${Routes.CourseTake}/${latestEnrollment.get('thinkificSlug')}`;
+  return latestEnrollment.get('thinkificSlug');
 };
 
 export const getPathInstructors = path => {

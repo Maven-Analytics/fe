@@ -3,12 +3,12 @@ import {Map, fromJS, List} from 'immutable';
 import {getPathEnrollments} from './pathHelpers';
 
 export const getCourseProgress = (course, enrollments) => {
-  if (!Map.isMap(course)) {
-    return;
+  if (course && !Map.isMap(course)) {
+    throw new Error('course must be a Map');
   }
 
-  if (!List.isList(enrollments)) {
-    return;
+  if (enrollments && !List.isList(enrollments)) {
+    throw new Error('enrollments must be a List');
   }
 
   if (!course || course.isEmpty() || !course.get('thinkificCourseId')) {
@@ -31,12 +31,12 @@ export const getCourseProgress = (course, enrollments) => {
 };
 
 export const getPathProgress = (path, enrollments) => {
-  if (!Map.isMap(path)) {
-    return;
+  if (path && !Map.isMap(path)) {
+    throw new Error('path must be a Map');
   }
 
-  if (!List.isList(enrollments)) {
-    return;
+  if (enrollments && !List.isList(enrollments)) {
+    throw new Error('enrollments must be a List');
   }
 
   if (!path.has('courses')) {

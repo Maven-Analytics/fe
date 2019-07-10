@@ -9,7 +9,8 @@ import {selectors as dashboardSelectors} from '../redux/ducks/dashboard';
 import CloseButton from '../components/closeButton';
 import PathDetail from '../components/pathDetail';
 import {clickAction} from '../utils/componentHelpers';
-import {getResumeCourseUrl, getPathHours, getPathInstructors} from '../utils/pathHelpers';
+import {getLastestCourseSlugResumeCourseUrl, getPathHours, getPathInstructors} from '../utils/pathHelpers';
+import {getResumeCourseUrl} from '../utils/routeHelpers';
 
 const PathDrawer = ({actions, state, enrollments}) => {
   const isOpen = state.getIn(['pathDrawer', 'open']);
@@ -33,7 +34,7 @@ const PathDrawer = ({actions, state, enrollments}) => {
               badge={path.get('badge')}
               title={path.get('title')}
               titleTag="h2"
-              resumeUrl={getResumeCourseUrl(path, enrollments)}
+              resumeUrl={getResumeCourseUrl(getLastestCourseSluggetResumeCourseUrl(path, enrollments))}
               description={path.get('description')}
               tools={path.get('tools')}
               courseCount={path.get('courses').count()}

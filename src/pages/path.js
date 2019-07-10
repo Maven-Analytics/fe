@@ -10,7 +10,8 @@ import PageLayout from '../layouts/page';
 import PathDetail from '../components/pathDetail';
 import {redirect} from '../utils/routingHelpers';
 import {Routes} from '../routes';
-import {getResumeCourseUrl, getPathHours, getPathInstructors} from '../utils/pathHelpers';
+import {getLastestCourseSlugResumeCourseUrl, getPathHours, getPathInstructors} from '../utils/pathHelpers';
+import {getResumeCourseUrl} from '../utils/routeHelpers';
 
 const Path = ({path, enrollments}) => {
   return (
@@ -19,7 +20,7 @@ const Path = ({path, enrollments}) => {
         badge={path.get('badge')}
         title={path.get('title')}
         titleTag="h1"
-        resumeUrl={getResumeCourseUrl(path, enrollments)}
+        resumeUrl={getResumeCourseUrl(getLastestCourseSlugResumeCourseUrl(path, enrollments))}
         description={path.get('description')}
         tools={path.get('tools')}
         courseCount={path.get('courses').count()}
