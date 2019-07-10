@@ -1,0 +1,15 @@
+.course-filters {
+  font-size: 1.4rem;
+
+  > h4 {
+    color: $black-2;
+    font-family: $font-body;
+    font-size: 1em;
+    margin: 0 0 $spacing-unit;
+    text-transform: uppercase;
+
+    @include media-breakpoint-up(md) {
+      margin: 0 0 $spacing-unit--l;
+    }
+  }
+}

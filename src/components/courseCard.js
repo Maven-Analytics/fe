@@ -10,12 +10,17 @@ import CourseAuthor from './courseAuthor';
 import CourseBanner from './courseBanner';
 import MaIcon from './maIcon';
 import {Routes} from '../routes';
+import ProgressMeter from './progressMeter';
 
-const CourseCard = ({course, condensed, match, recommended}) => {
+const CourseCard = ({course, condensed, match, recommended, progress, full}) => {
   const classList = ['course-card'];
 
   if (condensed) {
     classList.push('course-card--condensed');
+  }
+
+  if (full) {
+    classList.push('course-card--full');
   }
 
   return (
@@ -45,6 +50,7 @@ const CourseCard = ({course, condensed, match, recommended}) => {
         {condensed === false ? (
           <p>{course.get('excerpt')}</p>
         ) : null}
+        {progress > -1 ? <ProgressMeter value={progress} title="Progress"/> : 0}
       </div>
       <div className="course-card__footer">
         <span>
@@ -65,7 +71,9 @@ CourseCard.propTypes = {
   course: ImmutablePropTypes.map,
   condensed: PropTypes.bool,
   match: PropTypes.string,
-  recommended: PropTypes.string
+  recommended: PropTypes.string,
+  progress: PropTypes.number,
+  full: PropTypes.bool
 };
 
 CourseCard.defaultProps = {

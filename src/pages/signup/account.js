@@ -18,6 +18,7 @@ import {getCheckoutUrl} from '../../utils/checkoutHelpers';
 import CheckoutFooter from '../../components/checkoutFooter';
 import AccountForm from '../../forms/accountForm';
 import {Routes} from '../../routes';
+import Checkbox from '../../components/inputs/checkbox';
 
 class SignupAccount extends Component {
   static async getInitialProps(ctx) {
@@ -122,10 +123,15 @@ class SignupAccount extends Component {
             onChange={this.handleChange}
           />
           <div className="form-group">
-            <div className={`checkbox ${terms ? 'checked' : ''}`} style={{marginTop: 30}}>
-              <input type="checkbox" id="checkbox" checked={terms} onChange={stateCheck(this.handleChange, 'terms')}/>
-              <label htmlFor="checkbox">I have read and agree to the <a href={Routes.Terms} target="_blank">Terms of Service</a> and <a href={Routes.PrivacyPolicy} target="_blank">Customer Privacy Policy</a></label>
-            </div>
+            <Checkbox
+              id="terms"
+              name="terms"
+              style={{marginTop: 30}}
+              checked={terms}
+              onChange={stateCheck(this.handleChange, 'terms')}
+            >
+              I have read and agree to the <a href={Routes.Terms} target="_blank" rel="noopener noreferrer">Terms of Service</a> and <a href={Routes.PrivacyPolicy} target="_blank">Customer Privacy Policy</a>
+            </Checkbox>
           </div>
           <CheckoutFooter
             showLogin={user.isEmpty()}

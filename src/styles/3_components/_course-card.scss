@@ -64,13 +64,17 @@
       }
     }
 
-    p {
+    > p {
       line-height: 1.5;
       margin: 0 0 $spacing-unit--mdl;
 
       @include media-breakpoint-up(lg) {
         min-height: 100px;
       }
+    }
+
+    .progress-meter {
+      margin: 0 0 $spacing-unit--mdl;
     }
   }
 
@@ -122,5 +126,11 @@
         padding: $spacing-unit--ss $spacing-unit--xs;
       }
     }
+  }
+
+  &--full {
+    height: 100%;
+    margin: 0;
+    max-width: none;
   }
 }

@@ -11,7 +11,7 @@ import {selectors as userSelectors} from '../redux/ducks/user';
 import BaseLayout from './base';
 import CopyrightFooter from '../sections/copyrightFooter';
 
-const DashboardLayout = ({children, title, activeLink, user, showWelcome}) => {
+const DashboardLayout = ({children, title, activeLink, user, showWelcome, sidebar: Sidebar}) => {
   return (
     <BaseLayout
       header={CheckoutHeader}
@@ -26,8 +26,15 @@ const DashboardLayout = ({children, title, activeLink, user, showWelcome}) => {
           activeLink={activeLink}
         />
         <div className="container">
-          <div className="layout-dashboard__content">
-            {children}
+          <div className={['layout-dashboard__container', Sidebar ? 'has-sidebar' : ''].join(' ')}>
+            {Sidebar ? (
+              <aside className="layout-dashboard__sidebar">
+                <Sidebar/>
+              </aside>
+            ) : null}
+            <div className="layout-dashboard__content">
+              {children}
+            </div>
           </div>
         </div>
       </div>
@@ -41,11 +48,13 @@ DashboardLayout.propTypes = {
   title: PropTypes.string.isRequired,
   activeLink: PropTypes.number.isRequired,
   user: ImmutablePropTypes.map,
-  showWelcome: PropTypes.bool
+  showWelcome: PropTypes.bool,
+  sidebar: PropTypes.func
 };
 
 DashboardLayout.defaultProps = {
-  showWelcome: false
+  showWelcome: false,
+  sidebar: null
 };
 
 const mapStateToProps = state => ({
