@@ -15,7 +15,7 @@ const DashboardProgress = ({items, active}) => {
       <ul>
         {items.map(item => (
           <li key={item.get('courseId') || item.get('pathId')}>
-            <p>{item.getIn(['course', 'title']) || item.getIn(['path', 'title'])}</p>
+            <p>{item.get('title') || item.getIn(['path', 'title'])}</p>
             {active ? <ProgressMeter value={item.get('percentage_completed')}/> : null}
           </li>
         ))}
