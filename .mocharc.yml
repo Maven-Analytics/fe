@@ -1,6 +1,5 @@
 diff: true
-extension:
-  - spec.js
+spec: test/**/*.spec.js
 require: '@babel/register'
 file:
   - mocha.setup.js
