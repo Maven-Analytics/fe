@@ -51,7 +51,7 @@ class DashboardPage extends Component {
             />
           </DashboardNoData>
         ) : null}
-        {!recentCourse.isEmpty() && loadingProgress === false ? (
+        {recentCourse && !recentCourse.isEmpty() && loadingProgress === false ? (
           <DashboardCourse
             title={recentCourse.get('title')}
             percentage_completed={recentCourse.get('percentage_completed')}
