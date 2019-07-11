@@ -10,6 +10,7 @@ import paths from './paths';
 import courses from './courses';
 import surveyResult from './surveyResult';
 import dashboard from './dashboard';
+import filters from './filters';
 
 const Ducks = combineReducers({
   loading,
@@ -22,7 +23,8 @@ const Ducks = combineReducers({
   paths,
   courses,
   surveyResult,
-  dashboard
+  dashboard,
+  filters
 });
 
 export default Ducks;

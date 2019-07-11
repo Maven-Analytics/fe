@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import qs from 'query-string';
 
 import {actions as dashboardActions, selectors as dashboardSelectors} from '../../redux/ducks/dashboard';
 import {actions as pathActions} from '../../redux/ducks/paths';
@@ -11,6 +12,7 @@ import {selectors as errorSelectors} from '../../redux/ducks/error';
 import {selectors as loadingSelectors} from '../../redux/ducks/loading';
 import {selectors as userSelectors} from '../../redux/ducks/user';
 import {actions as stateActions} from '../../redux/ducks/state';
+import {actions as filterActions, selectors as filterSelectors} from '../../redux/ducks/filters';
 import DashboardLayout from '../../layouts/dashboard';
 import CourseFilters from '../../components/courseFilters';
 import DashboardGrid from '../../components/dashboardGrid';
@@ -25,12 +27,12 @@ class DashboardCourses extends Component {
   }
 
   render() {
-    const {progress, loadingProgress, user, enrollments, actions} = this.props;
+    const {progress, loadingProgress, user, enrollments, actions, courses} = this.props;
 
     return (
       <DashboardLayout sidebar={CourseFilters} showWelcome loading={loadingProgress} title="Self-Paced Courses" activeLink={2}>
         <DashboardGrid>
-          {progress.get('courses').map(course => (
+          {courses.map(course => (
             <CourseCard
               full
               key={course.get('id')}
@@ -46,7 +48,16 @@ class DashboardCourses extends Component {
 }
 
 DashboardCourses.getInitialProps = async ctx => {
-  const {store} = ctx;
+  const {store, asPath} = ctx;
+
+  const url = asPath;
+
+  const search = url.split('?')[1] || '';
+
+  const query = qs.parse(search, {arrayFormat: 'bracket'});
+
+  store.dispatch(filterActions.filtersInit(query));
+
   store.dispatch(courseActions.coursesInit());
 };
 
@@ -55,7 +66,8 @@ DashboardCourses.propTypes = {
   errorProgress: PropTypes.string,
   actions: PropTypes.objectOf(PropTypes.func),
   progress: ImmutablePropTypes.map,
-  user: ImmutablePropTypes.map
+  user: ImmutablePropTypes.map,
+  courses: ImmutablePropTypes.list
 };
 
 const mapStateToProps = state => ({
@@ -63,7 +75,8 @@ const mapStateToProps = state => ({
   loadingProgress: loadingSelectors.getLoading(['DASHBOARD_PROGRESS'])(state),
   errorProgress: errorSelectors.getError(['DASHBOARD_PROGRESS'])(state),
   user: userSelectors.getUser(state),
-  enrollments: dashboardSelectors.getEnrollments(state)
+  enrollments: dashboardSelectors.getEnrollments(state),
+  courses: filterSelectors.getFilteredCourses(state)
 });
 
 const mapDispatchToProps = function (dispatch) {

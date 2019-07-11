@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
+import CourseFilterChecks from './courseFilterChecks';
+import {fromJS, List} from 'immutable';
+
 class CourseFilters extends Component {
   constructor(props) {
     super(props);
@@ -12,7 +15,7 @@ class CourseFilters extends Component {
       skills: [],
       length: [],
       status: []
-    }
+    };
   }
 
   render() {
@@ -21,6 +24,17 @@ class CourseFilters extends Component {
     return (
       <div className="course-filters">
         <h4>{title}</h4>
+        <CourseFilterChecks
+          id="status"
+          label="Status"
+          values={List()}
+          options={fromJS([
+            {
+              label: 'Not Started',
+              value: ['percentage_completed', '^[0]d*$']
+            }
+          ])}
+        />
       </div>
     );
   }
