@@ -14,7 +14,10 @@ export const courseHasFilter = (filter, course) => {
     return filter
       .get('active')
       .filter(activeVal => value.map(v => v && v.toLowerCase()).contains(activeVal.toLowerCase()))
-      .count() === filter.get('active').count();
+      // AND FILTERING
+      // .count() === filter.get('active').count();
+      // OR FILTERING
+      .count() > 0;
   }
 
   if (filter.get('range')) {
@@ -40,7 +43,10 @@ export const courseHasFilter = (filter, course) => {
   return filter
     .get('active')
     .filter(activeVal => value && value.toLowerCase() === activeVal.toLowerCase())
-    .count() === filter.get('active').count();
+    // AND FILTERING
+    // .count() === filter.get('active').count();
+    // OR FILTERING
+    .count() > 0;
 };
 
 export const courseHasFilters = (filters, course) => {
@@ -61,7 +67,10 @@ export const courseHasFilters = (filters, course) => {
       return contains.push(false);
     }, List())
     .filter(c => c)
-    .count() === totalfilters;
+    // AND FILTERING
+    // .count() === filter.get('active').count();
+    // OR FILTERING
+    .count() > 0;
 };
 
 export const getFilteredCourses = (filters, courses) => {

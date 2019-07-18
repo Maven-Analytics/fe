@@ -161,7 +161,7 @@ describe('filterHelpers', () => {
       expect(res).to.be(false);
     });
 
-    it('Should return false if the course does not have all the filters', () => {
+    it('Should return true if the course has any of the filters', () => {
       const activeFilter = fromJS({
         key: ['skills'],
         active: ['Excel', 'Data Analysis']
@@ -173,12 +173,12 @@ describe('filterHelpers', () => {
 
       const res = filterHelpers.courseHasFilter(activeFilter, course);
 
-      expect(res).to.be(false);
+      expect(res).to.be(true);
     });
   });
 
   describe('courseHasFilters', () => {
-    it('Should return one course that has all the filters', () => {
+    it('Should return all 3 courses that have any of the filters', () => {
       const filters = fromJS({
         skills: {
           key: ['skills'],
@@ -205,14 +205,14 @@ describe('filterHelpers', () => {
       const res1 = filterHelpers.courseHasFilters(filters, courses.get(1));
       const res2 = filterHelpers.courseHasFilters(filters, courses.get(2));
 
-      expect(res0).to.be(false);
+      expect(res0).to.be(true);
       expect(res1).to.be(true);
-      expect(res2).to.be(false);
+      expect(res2).to.be(true);
     });
   });
 
   describe('getFilteredCourses', () => {
-    it('Should return only 1 if 1 course has both filters', () => {
+    it('Should return 2 courses if 2 courses have any of the filters', () => {
       const filters = fromJS({
         tools: {
           key: 'tools',
@@ -254,10 +254,10 @@ describe('filterHelpers', () => {
 
       const filteredCourses = filterHelpers.getFilteredCourses(filters, courses);
 
-      expect(filteredCourses.count()).to.be(1);
+      expect(filteredCourses.count()).to.be(2);
     });
 
-    it('Should return 0 if both courses only have 1 filter', () => {
+    it('Should return both courses only have 1 filter', () => {
       const filters = fromJS({
         tools: {
           key: 'tools',
@@ -296,10 +296,10 @@ describe('filterHelpers', () => {
 
       const filteredCourses = filterHelpers.getFilteredCourses(filters, courses);
 
-      expect(filteredCourses.count()).to.be(0);
+      expect(filteredCourses.count()).to.be(2);
     });
 
-    it('Should return 1 if one courses only has all 3 filter', () => {
+    it('Should return 4 if all 4 courses have any of the 3 filters', () => {
       const filters = fromJS({
         tools: {
           key: 'tools',
@@ -332,6 +332,11 @@ describe('filterHelpers', () => {
         },
         {
           author: {
+            id: '123'
+          }
+        },
+        {
+          author: {
             id: '123abc'
           }
         }
@@ -339,7 +344,7 @@ describe('filterHelpers', () => {
 
       const filteredCourses = filterHelpers.getFilteredCourses(filters, courses);
 
-      expect(filteredCourses.count()).to.be(0);
+      expect(filteredCourses.count()).to.be(4);
     });
   });
 
