@@ -1,8 +1,9 @@
 import {createSelector} from 'reselect';
-import {fromJS} from 'immutable';
 
 import * as utils from '../../utils/duckHelpers';
 import {getCourseBySlug} from '../../utils/courseHelpers';
+import {selectors as filterSelectors} from './filters';
+import {getFilteredCourses} from '../../utils/filterHelpers';
 
 export const types = {
   COURSESINIT_REQUEST: 'COURSESINIT_REQUEST',
@@ -19,7 +20,7 @@ const initialState = utils.initialState([]);
 export default (state = initialState, action) => {
   switch (action.type) {
   case types.COURSESINIT_SUCCESS:
-    return utils.stateMerge(state, action.payload);
+    return utils.stateListMerge(state, action.payload);
   default:
     return state;
   }
@@ -32,5 +33,6 @@ const getCourse = (state, slug) => {
 
 export const selectors = {
   getCourses: createSelector([getCourses], c => c),
-  getCourse: createSelector([getCourse], c => c)
+  getCourse: createSelector([getCourse], c => c),
+  getFilteredCourses: createSelector([getCourses, filterSelectors.getFilters], (courses, filters) => getFilteredCourses(filters, courses))
 };

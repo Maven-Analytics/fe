@@ -22,7 +22,7 @@ export function requestTypes(base) {
   }, {});
 }
 
-export function stateMerge(state, newData) {
+export function stateListMerge(state, newData) {
   if (!isImmutable(newData)) {
     newData = fromJS(newData);
   }
@@ -36,4 +36,12 @@ export function stateMerge(state, newData) {
 
     return s.push(fromJS(newObject));
   }, state);
+}
+
+export function stateMapMerge(state, newData) {
+  if (!isImmutable(newData)) {
+    newData = fromJS(newData);
+  }
+
+  return state.merge(newData);
 }

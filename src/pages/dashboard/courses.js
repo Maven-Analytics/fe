@@ -7,12 +7,12 @@ import qs from 'query-string';
 
 import {actions as dashboardActions, selectors as dashboardSelectors} from '../../redux/ducks/dashboard';
 import {actions as pathActions} from '../../redux/ducks/paths';
-import {actions as courseActions} from '../../redux/ducks/courses';
+import {actions as courseActions, selectors as courseSelectors} from '../../redux/ducks/courses';
 import {selectors as errorSelectors} from '../../redux/ducks/error';
 import {selectors as loadingSelectors} from '../../redux/ducks/loading';
 import {selectors as userSelectors} from '../../redux/ducks/user';
 import {actions as stateActions} from '../../redux/ducks/state';
-import {actions as filterActions, selectors as filterSelectors} from '../../redux/ducks/filters';
+import {actions as filterActions} from '../../redux/ducks/filters';
 import DashboardLayout from '../../layouts/dashboard';
 import CourseFilters from '../../components/courseFilters';
 import DashboardGrid from '../../components/dashboardGrid';
@@ -54,11 +54,13 @@ DashboardCourses.getInitialProps = async ctx => {
 
   const search = url.split('?')[1] || '';
 
-  const query = qs.parse(search, {arrayFormat: 'bracket'});
+  const query = qs.parse(search);
 
   store.dispatch(filterActions.filtersInit(query));
 
   store.dispatch(courseActions.coursesInit());
+
+  store.dispatch(pathActions.pathsInit());
 };
 
 DashboardCourses.propTypes = {
@@ -76,7 +78,7 @@ const mapStateToProps = state => ({
   errorProgress: errorSelectors.getError(['DASHBOARD_PROGRESS'])(state),
   user: userSelectors.getUser(state),
   enrollments: dashboardSelectors.getEnrollments(state),
-  courses: filterSelectors.getFilteredCourses(state)
+  courses: courseSelectors.getFilteredCourses(state)
 });
 
 const mapDispatchToProps = function (dispatch) {

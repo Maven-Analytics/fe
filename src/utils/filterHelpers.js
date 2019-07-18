@@ -1,4 +1,4 @@
-import {List, Map, fromJS, isImmutable} from 'immutable';
+import {List, fromJS, isImmutable} from 'immutable';
 
 export const getActiveFilters = filters => {
   return filters
@@ -13,13 +13,8 @@ export const courseHasFilter = (filter, course) => {
   if (List.isList(value)) {
     return filter
       .get('active')
-      .reduce((contains, activeVal) => {
-        if (value.map(v => v && v.toLowerCase()).contains(activeVal.toLowerCase())) {
-          contains = true;
-        }
-
-        return contains;
-      }, false);
+      .filter(activeVal => value.map(v => v && v.toLowerCase()).contains(activeVal.toLowerCase()))
+      .count() === filter.get('active').count();
   }
 
   if (filter.get('range')) {
@@ -44,13 +39,8 @@ export const courseHasFilter = (filter, course) => {
 
   return filter
     .get('active')
-    .reduce((contains, activeVal) => {
-      if (value && value.toLowerCase() === activeVal.toLowerCase()) {
-        contains = true;
-      }
-
-      return contains;
-    }, false);
+    .filter(activeVal => value && value.toLowerCase() === activeVal.toLowerCase())
+    .count() === filter.get('active').count();
 };
 
 export const courseHasFilters = (filters, course) => {
@@ -64,7 +54,8 @@ export const courseHasFilters = (filters, course) => {
       const hasFilter = courseHasFilter(filter, course);
 
       if (hasFilter) {
-        return filter.get('range') ? contains.concat(filter.get('active').map(() => true)) : contains.push(true);
+        // return filter.get('range') ? contains.concat(filter.get('active').map(() => true)) : contains.push(true);
+        return contains.concat(filter.get('active').map(() => true));
       }
 
       return contains.push(false);
@@ -91,21 +82,54 @@ export const setFiltersFromQuery = (query, filters) => {
     query = fromJS(query);
   }
 
-  return query.reduce((map, queryVal, id) => {
-    const filterIndex = map.findIndex(f => f.get('id') === id);
+  return filters.reduce((map, filter, id) => {
+    const queryVal = query.get(id);
 
-    if (filterIndex > -1) {
+    if (queryVal) {
       // If the value is already a list, return the value, else create a list out of the single value
       let val = List.isList(queryVal) ? queryVal : List([queryVal]);
-      const filter = filters.get(filterIndex);
+      const filter = filters.get(id);
 
       if (filter.get('range')) {
         val = val.map(v => parseFloat(v));
       }
 
-      return map.setIn([filterIndex, 'active'], val);
+      return map.setIn([id, 'active'], val);
     }
 
-    return map;
+    return map.setIn([id, 'active'], List());
   }, filters);
+};
+
+export const getFiltersFromCourses = courses => {
+  if (!courses) {
+    return List();
+  }
+
+  const tools = courses
+    .reduce((list, course) => {
+      return list.concat(course.get('tools'));
+    }, List())
+    .filter(t => t)
+    .reduce((list, tool) => list.includes(tool) ? list : list.push(tool), List());
+
+  const instructors = courses
+    .reduce((list, course) => {
+      return list.push(course.getIn(['author', 'slug']));
+    }, List())
+    .filter(t => t)
+    .reduce((list, tool) => list.includes(tool) ? list : list.push(tool), List());
+
+  const skills = courses
+    .reduce((list, course) => {
+      return list.concat(course.get('skills'));
+    }, List())
+    .filter(t => t)
+    .reduce((list, tool) => list.includes(tool) ? list : list.push(tool), List());
+
+  return fromJS({
+    tools,
+    instructors,
+    skills
+  });
 };

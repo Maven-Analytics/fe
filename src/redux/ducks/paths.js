@@ -1,5 +1,4 @@
 import {createSelector} from 'reselect';
-import {fromJS} from 'immutable';
 
 import * as utils from '../../utils/duckHelpers';
 import {getPathBySlug} from '../../utils/pathHelpers';
@@ -19,7 +18,7 @@ const initialState = utils.initialState([]);
 export default (state = initialState, action) => {
   switch (action.type) {
   case types.PATHSINIT_SUCCESS:
-    return utils.stateMerge(state, action.payload);
+    return utils.stateListMerge(state, action.payload);
   default:
     return state;
   }

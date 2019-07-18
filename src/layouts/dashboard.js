@@ -49,7 +49,7 @@ DashboardLayout.propTypes = {
   activeLink: PropTypes.number.isRequired,
   user: ImmutablePropTypes.map,
   showWelcome: PropTypes.bool,
-  sidebar: PropTypes.func
+  sidebar: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
 };
 
 DashboardLayout.defaultProps = {

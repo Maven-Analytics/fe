@@ -12,7 +12,8 @@ export async function getPaths({query = {}, include = 10}) {
     let res = await ContenfulClient.getEntries({
       content_type: 'path', // eslint-disable-line camelcase,
       include,
-      ...query
+      ...query,
+      'fields.instructor': '7EIh5QbhdpAU39kjEdNELW'
     });
 
     return mapFromResponseItems(res.items)

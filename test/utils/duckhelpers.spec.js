@@ -4,7 +4,7 @@ import {fromJS, List, Map} from 'immutable';
 import * as duckHelpers from '../../src/utils/duckHelpers';
 
 describe('Duck Helpers', () => {
-  describe('stateMerge', () => {
+  describe('stateListMerge', () => {
     it('Should merge the state', () => {
       const state = fromJS([
         {id: '1'},
@@ -18,7 +18,7 @@ describe('Duck Helpers', () => {
         {id: '5', title: 'Title 5'}
       ];
 
-      const merged = duckHelpers.stateMerge(state, newData);
+      const merged = duckHelpers.stateListMerge(state, newData);
 
       expect(merged.count()).to.be(5);
       expect(merged.get(0).get('id')).to.be('1');

@@ -5,49 +5,49 @@ import * as filterHelpers from '../../src/utils/filterHelpers';
 
 describe('filterHelpers', () => {
   describe('getActiveFilters', () => {
-    it('Should return an empty list if there are no active filters', () => {
-      const filters = fromJS([
-        {
+    it('Should return an empty map if there are no active filters', () => {
+      const filters = fromJS({
+        tools: {
           key: 'tools',
           options: [
             'Tool 1'
           ],
           active: []
         },
-        {
+        instructor: {
           key: 'author',
           options: ['author 1', 'author 2'],
           active: []
         }
-      ]);
+      });
 
       const activeFilters = filterHelpers.getActiveFilters(filters);
 
-      expect(List.isList(activeFilters)).to.be(true);
+      expect(Map.isMap(activeFilters)).to.be(true);
       expect(activeFilters.count()).to.be(0);
     });
 
     it('Should concat the active filters', () => {
-      const filters = fromJS([
-        {
+      const filters = fromJS({
+        tools: {
           key: 'tools',
           options: [
             'Tool 1'
           ],
           active: ['Tool 1']
         },
-        {
+        instructor: {
           key: 'author',
           options: ['author 1', 'author 2'],
           active: ['author 1']
         }
-      ]);
+      });
 
       const activeFilters = filterHelpers.getActiveFilters(filters);
 
       expect(activeFilters.count()).to.be(2);
-      expect(activeFilters.getIn([0, 'key'])).to.be('tools');
-      expect(activeFilters.getIn([0, 'active', 0])).to.be('Tool 1');
+      expect(activeFilters.getIn(['tools', 'key'])).to.be('tools');
+      expect(activeFilters.getIn(['tools', 'active', 0])).to.be('Tool 1');
     });
   });
 
@@ -160,12 +160,61 @@ describe('filterHelpers', () => {
 
       expect(res).to.be(false);
     });
+
+    it('Should return false if the course does not have all the filters', () => {
+      const activeFilter = fromJS({
+        key: ['skills'],
+        active: ['Excel', 'Data Analysis']
+      });
+
+      const course = fromJS({
+        skills: ['Excel', 'MySql']
+      });
+
+      const res = filterHelpers.courseHasFilter(activeFilter, course);
+
+      expect(res).to.be(false);
+    });
+  });
+
+  describe('courseHasFilters', () => {
+    it('Should return one course that has all the filters', () => {
+      const filters = fromJS({
+        skills: {
+          key: ['skills'],
+          active: ['Excel', 'Data Analysis']
+        }
+      });
+
+      const courses = fromJS([
+        {
+          skills: ['Excel']
+        },
+        {
+          skills: ['Excel', 'Data Analysis'],
+          author: {
+            name: 'Author'
+          }
+        },
+        {
+          skills: ['Data Analysis']
+        }
+      ]);
+
+      const res0 = filterHelpers.courseHasFilters(filters, courses.get(0));
+      const res1 = filterHelpers.courseHasFilters(filters, courses.get(1));
+      const res2 = filterHelpers.courseHasFilters(filters, courses.get(2));
+
+      expect(res0).to.be(false);
+      expect(res1).to.be(true);
+      expect(res2).to.be(false);
+    });
   });
 
   describe('getFilteredCourses', () => {
     it('Should return only 1 if 1 course has both filters', () => {
-      const filters = fromJS([
-        {
+      const filters = fromJS({
+        tools: {
           key: 'tools',
           id: 'tools',
           options: [
@@ -174,12 +223,12 @@ describe('filterHelpers', () => {
           ],
           active: ['tool 2']
         },
-        {
+        instructor: {
           key: ['author', 'id'],
           id: 'author',
           active: ['123abc']
         }
-      ]);
+      });
 
       const courses = fromJS([
         {
@@ -209,8 +258,8 @@ describe('filterHelpers', () => {
     });
 
     it('Should return 0 if both courses only have 1 filter', () => {
-      const filters = fromJS([
-        {
+      const filters = fromJS({
+        tools: {
           key: 'tools',
           id: 'tools',
           options: [
@@ -219,12 +268,12 @@ describe('filterHelpers', () => {
           ],
           active: ['tool 2']
         },
-        {
+        instructor: {
           key: ['author', 'id'],
           id: 'author',
           active: ['123abc']
         }
-      ]);
+      });
 
       const courses = fromJS([
         {
@@ -251,8 +300,8 @@ describe('filterHelpers', () => {
     });
 
     it('Should return 1 if one courses only has all 3 filter', () => {
-      const filters = fromJS([
-        {
+      const filters = fromJS({
+        tools: {
           key: 'tools',
           id: 'tools',
           options: [
@@ -261,12 +310,12 @@ describe('filterHelpers', () => {
           ],
           active: ['tool 1', 'tool 2']
         },
-        {
+        instructor: {
           key: ['author', 'id'],
           id: 'author',
           active: ['123abc']
         }
-      ]);
+      });
 
       const courses = fromJS([
         {
@@ -300,37 +349,39 @@ describe('filterHelpers', () => {
         key1: ['a', 'b']
       });
 
-      const filters = fromJS([
-        {
-          id: 1
+      const filters = fromJS({
+        key2: {
+          id: 1,
+          active: []
         },
-        {
-          id: 2
+        key3: {
+          id: 2,
+          active: []
         }
-      ]);
+      });
 
       const res = filterHelpers.setFiltersFromQuery(query, filters);
 
       expect(res.equals(filters)).to.be(true);
     });
 
-    it('Should return the filters with the acitve set', () => {
+    it('Should return the filters with the active set', () => {
       const query = fromJS({
         key2: ['a', 'b']
       });
 
-      const filters = fromJS([
-        {
+      const filters = fromJS({
+        key1: {
           id: 'key1'
         },
-        {
+        key2: {
           id: 'key2'
         }
-      ]);
+      });
 
       const res = filterHelpers.setFiltersFromQuery(query, filters);
 
-      expect(res.getIn([1, 'active']).toJS()).to.have.length(2);
+      expect(res.getIn(['key2', 'active']).toJS()).to.have.length(2);
     });
 
     it('Should return the filters with the active set if it only has one value', () => {
@@ -338,18 +389,36 @@ describe('filterHelpers', () => {
         key2: 'a'
       });
 
-      const filters = fromJS([
-        {
+      const filters = fromJS({
+        key1: {
           id: 'key1'
         },
-        {
+        key2: {
           id: 'key2'
         }
-      ]);
+      });
 
       const res = filterHelpers.setFiltersFromQuery(query, filters);
 
-      expect(res.getIn([1, 'active']).toJS()).to.have.length(1);
+      expect(res.getIn(['key2', 'active']).toJS()).to.have.length(1);
+    });
+
+    it('Should remove the filter from the active filters if the query is empty', () => {
+      const query = fromJS({});
+
+      const filters = fromJS({
+        key1: {
+          id: 'key1',
+          active: ['value1']
+        },
+        key2: {
+          id: 'key2'
+        }
+      });
+
+      const res = filterHelpers.setFiltersFromQuery(query, filters);
+
+      expect(res.getIn(['key1', 'active']).toJS()).to.have.length(0);
     });
   });
 });
