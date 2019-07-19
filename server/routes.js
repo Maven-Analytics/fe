@@ -248,6 +248,15 @@ module.exports = app => {
 
       server.route({
         method: 'GET',
+        path: '/api/v1/authors',
+        handler: require('./controllers/authors/get'),
+        config: {
+          auth: false
+        }
+      });
+
+      server.route({
+        method: 'GET',
         path: '/_next/{p*}' /* next specific routes */,
         handler: nextHandlerWrapper(app),
         config: {
