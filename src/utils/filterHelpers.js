@@ -110,35 +110,80 @@ export const setFiltersFromQuery = (query, filters) => {
   }, filters);
 };
 
+function getUniqueFilterAttributes(key, courses) {
+  return courses
+    .reduce((list, course) => {
+      const val = course.getIn(key);
+
+      if (!val) {
+        return list;
+      }
+
+      if (List.isList(val) && val.count() === 0) {
+        return list;
+      }
+
+      if (List.isList(val)) {
+        return list.concat(val);
+      }
+
+      return list.push(val);
+    }, List())
+    .filter(f => f)
+    .reduce((list, f) => list.includes(f) ? list : list.push(f), List());
+}
+
+function getMinMaxValues(key, courses) {
+  const values = courses
+    .reduce((list, course) => {
+      return list.push(course.getIn(key));
+    }, List())
+    .filter(f => f)
+    .sort((a, b) => a - b);
+
+  return fromJS([values.first(), values.last()]);
+}
+
 export const getFiltersFromCourses = courses => {
   if (!courses) {
     return List();
   }
 
-  const tools = courses
-    .reduce((list, course) => {
-      return list.concat(course.get('tools'));
-    }, List())
-    .filter(t => t)
-    .reduce((list, tool) => list.includes(tool) ? list : list.push(tool), List());
+  // const tools = courses
+  //   .reduce((list, course) => {
+  //     return list.concat(course.get('tools'));
+  //   }, List())
+  //   .filter(t => t)
+  //   .reduce((list, tool) => list.includes(tool) ? list : list.push(tool), List());
 
-  const instructors = courses
-    .reduce((list, course) => {
-      return list.push(course.getIn(['author', 'slug']));
-    }, List())
-    .filter(t => t)
-    .reduce((list, tool) => list.includes(tool) ? list : list.push(tool), List());
+  // const tools = getUniqueFilterAttributes(['tools'], courses);
 
-  const skills = courses
-    .reduce((list, course) => {
-      return list.concat(course.get('skills'));
-    }, List())
-    .filter(t => t)
-    .reduce((list, tool) => list.includes(tool) ? list : list.push(tool), List());
+  // const instructors = courses
+  //   .reduce((list, course) => {
+  //     return list.push(course.getIn(['author', 'slug']));
+  //   }, List())
+  //   .filter(t => t)
+  //   .reduce((list, tool) => list.includes(tool) ? list : list.push(tool), List());
+
+  // const skills = courses
+  //   .reduce((list, course) => {
+  //     return list.concat(course.get('skills'));
+  //   }, List())
+  //   .filter(t => t)
+  //   .reduce((list, tool) => list.includes(tool) ? list : list.push(tool), List());
+
+  // const skills = courses
+  //   .reduce((list, course) => {
+  //     return list.concat(course.get('skills'));
+  //   }, List())
+  //   .filter(t => t)
+  //   .reduce((list, tool) => list.includes(tool) ? list : list.push(tool), List());
 
   return fromJS({
-    tools,
-    instructors,
-    skills
+    tools: getUniqueFilterAttributes(['tools'], courses),
+    instructors: getUniqueFilterAttributes(['author', 'slug'], courses),
+    skills: getUniqueFilterAttributes(['skills'], courses),
+    paths: getUniqueFilterAttributes(['paths'], courses),
+    length: getMinMaxValues(['length'], courses)
   });
 };

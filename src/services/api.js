@@ -13,7 +13,7 @@ export default ({method = 'get', data = {}, params = {}, url = ''}) => {
     params,
     url,
     headers: {
-      authorization: getCookie('token')
+      authorization: getCookie('token') || ''
     }
   }).then(res => res.data.data);
 };

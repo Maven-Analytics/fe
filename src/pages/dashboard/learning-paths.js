@@ -21,6 +21,8 @@ import {getResumeCourseUrl} from '../../utils/routeHelpers';
 
 class DashboardLearningPaths extends Component {
   componentDidMount() {
+    this.props.actions.pathsInit();
+    this.props.actions.coursesInit();
     this.props.actions.getProgress();
   }
 
@@ -33,15 +35,15 @@ class DashboardLearningPaths extends Component {
           {progress.get('paths').map(path => (
             <DashboardCard key={path.get('pathId')} size="xl" style={{margin: 0}}>
               <DashboardPath
-                title={path.getIn(['path', 'title'])}
-                badge={path.getIn(['path', 'badge'])}
-                shortDescription={path.getIn(['path', 'shortDescription'])}
-                resumeUrl={getResumeCourseUrl(getLastestCourseSlugResumeCourseUrl(path.get('path'), enrollments))}
+                title={path.getIn(['title'])}
+                badge={path.getIn(['badge'])}
+                shortDescription={path.getIn(['shortDescription'])}
+                resumeUrl={getResumeCourseUrl(getLastestCourseSlugResumeCourseUrl(path, enrollments))}
                 percentage_completed={path.get('percentage_completed')}
-                match={`${prettyPercent(getMatchForPath(path.get('path'), user))}%`}
-                courseCount={path.getIn(['path', 'courses']).count()}
-                tools={path.getIn(['path', 'tools'])}
-                onDetailClick={clickAction(actions.modalOpen, 'pathDrawer', path.get('path'))}
+                match={`${prettyPercent(getMatchForPath(path, user))}%`}
+                courseCount={path.getIn(['courses']).count()}
+                tools={path.getIn(['tools'])}
+                onDetailClick={clickAction(actions.modalOpen, 'pathDrawer', path)}
               />
             </DashboardCard>
           ))}
@@ -53,8 +55,8 @@ class DashboardLearningPaths extends Component {
 
 DashboardLearningPaths.getInitialProps = async ctx => {
   const {store} = ctx;
-  store.dispatch(pathActions.pathsInit());
-  store.dispatch(courseActions.coursesInit());
+  // store.dispatch(pathActions.pathsInit());
+  // store.dispatch(courseActions.coursesInit());
 };
 
 DashboardLearningPaths.propTypes = {
@@ -78,7 +80,9 @@ const mapDispatchToProps = function (dispatch) {
   return {
     actions: bindActionCreators({
       ...dashboardActions,
-      ...stateActions
+      ...stateActions,
+      ...pathActions,
+      ...courseActions
     }, dispatch)
   };
 };

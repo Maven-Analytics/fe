@@ -23,7 +23,9 @@ import {getResumeCourseUrl} from '../../utils/routeHelpers';
 
 class DashboardCourses extends Component {
   componentDidMount() {
-    this.props.actions.getProgress();
+    // this.props.actions.getProgress();
+    this.props.actions.pathsInit();
+    this.props.actions.coursesInit();
   }
 
   render() {
@@ -58,9 +60,9 @@ DashboardCourses.getInitialProps = async ctx => {
 
   store.dispatch(filterActions.filtersInit(query));
 
-  store.dispatch(courseActions.coursesInit());
+  // store.dispatch(courseActions.coursesInit());
 
-  store.dispatch(pathActions.pathsInit());
+  // store.dispatch(pathActions.pathsInit());
 };
 
 DashboardCourses.propTypes = {
@@ -85,7 +87,9 @@ const mapDispatchToProps = function (dispatch) {
   return {
     actions: bindActionCreators({
       ...dashboardActions,
-      ...stateActions
+      ...stateActions,
+      ...courseActions,
+      ...pathActions
     }, dispatch)
   };
 };

@@ -3,8 +3,8 @@ import {fromJS} from 'immutable';
 
 import {types as courseTypes} from '../ducks/courses';
 import {types as filterTypes} from '../ducks/filters';
-import {getCourses} from '../../services/contentful';
 import {getFiltersFromCourses} from '../../utils/filterHelpers';
+import api from '../../services/api';
 
 export function * watchCourses() {
   yield takeLatest(courseTypes.COURSESINIT_REQUEST, onCoursesInitRequest);
@@ -33,4 +33,11 @@ function * onCoursesInitRequest({payload}) {
       payload: error.response ? error.response.data : error.message
     });
   }
+}
+
+function getCourses() {
+  return api({
+    method: 'get',
+    url: '/api/v1/courses'
+  });
 }

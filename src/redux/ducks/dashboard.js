@@ -32,14 +32,10 @@ export default (state = initialState, action) => {
 const getEnrollments = state => state.getIn(['dashboard', 'enrollments']);
 
 export const selectors = {
-  getProgress: createSelector([getEnrollments, pathSelectors.getPaths, courseSelectors.getCourses], (enrollments, paths, courses) => {
+  getProgress: createSelector([pathSelectors.getPaths, courseSelectors.getCourses], (paths, courses) => {
     let courseProgress = courses
-      .map(c => getCourseProgress(c, enrollments))
-      .filter(c => c)
       .sort(sortEnrollmentsByPercentageDesc);
     let pathProgress = paths
-      .map(p => getPathProgress(p, enrollments))
-      .filter(p => p)
       .sort(sortEnrollmentsByPercentageDesc);
 
     return fromJS({
@@ -55,9 +51,7 @@ export const selectors = {
       return Map();
     }
 
-    const latestCourse = courses.find(c => c.get('thinkificCourseId') === latestEnrollment.get('courseId'));
-
-    return getCourseProgress(latestCourse, List([latestEnrollment]));
+    return courses.find(c => c.get('thinkificCourseId') === latestEnrollment.get('courseId'));
   }),
   getEnrollments: createSelector([getEnrollments], e => e)
 };

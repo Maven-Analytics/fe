@@ -28,7 +28,7 @@ export async function getPaths({query = {}, include = 10}) {
   }
 }
 
-export async function getCourses({query = {}, include = 10, limit = 20}) {
+export async function getCourses({query = {}, include = 10, limit = 100}) {
   try {
     let res = await ContenfulClient.getEntries({
       content_type: 'course', // eslint-disable-line camelcase,

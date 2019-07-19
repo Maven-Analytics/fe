@@ -1,5 +1,4 @@
-import {Map, List, isImmutable} from 'immutable';
-import {Routes} from '../routes';
+import {List, isImmutable} from 'immutable';
 
 export const getPathById = (paths, id) => paths && paths.find && paths.find(p => p.get('id') === id);
 
@@ -33,19 +32,19 @@ export const getMatchForPath = (path, user) => {
   return recommendedPath.get('percentage');
 };
 
-export const getPathEnrollments = (path, enrollments) => {
-  if (!enrollments || !enrollments.isEmpty || enrollments.isEmpty()) {
-    return List();
-  }
+// Export const getPathEnrollments = (path, enrollments) => {
+//   if (!enrollments || !enrollments.isEmpty || enrollments.isEmpty()) {
+//     return List();
+//   }
 
-  const pathCourses = path.get('courses').reduce((map, c) => map.set(c.get('thinkificCourseId'), true), Map());
-  const pathEnrollments = enrollments.filter(e => pathCourses.has(e.get('courseId')));
+//   const pathCourses = path.get('courses').reduce((map, c) => map.set(c.get('thinkificCourseId'), true), Map());
+//   const pathEnrollments = enrollments.filter(e => pathCourses.has(e.get('courseId')));
 
-  return pathEnrollments;
-};
+//   return pathEnrollments;
+// };
 
 export const getLastestCourseSlugResumeCourseUrl = (path, enrollments) => {
-  const pathEnrollments = getPathEnrollments(path, enrollments);
+  const pathEnrollments = path.get('enrollments'); // GetPathEnrollments(path, enrollments);
 
   if (!pathEnrollments || pathEnrollments.isEmpty()) {
     return;

@@ -6,6 +6,7 @@ import {setFiltersFromQuery, getActiveFilters} from '../../utils/filterHelpers';
 
 export const types = {
   FILTER_OPTIONS_SET: 'FILTER_OPTIONS_SET',
+  FILTERS_ACTIVE_SET: 'FILTERS_ACTIVE_SET',
   FILTERS_INIT: 'FILTERS_INIT',
   FILTER_ADD: 'FILTER_ADD',
   FILTERS_RESET: 'FILTERS_RESET'
@@ -13,7 +14,8 @@ export const types = {
 
 export const actions = {
   filterAdd: obj => utils.action(types.FILTER_ADD, obj),
-  filtersInit: query => utils.action(types.FILTERS_INIT, {query})
+  filtersInit: query => utils.action(types.FILTERS_INIT, {query}),
+  filtersActiveSet: obj => utils.action(types.FILTERS_ACTIVE_SET, obj)
 };
 
 const initialState = utils.initialState({
@@ -26,7 +28,7 @@ const initialState = utils.initialState({
   },
   paths: {
     label: 'Learning Paths',
-    key: 'paths',
+    key: ['paths'],
     id: 'paths',
     options: [],
     active: []
@@ -51,13 +53,28 @@ const initialState = utils.initialState({
     id: 'length',
     range: true,
     active: []
+  },
+  status: {
+    label: 'Skills',
+    key: 'skills',
+    id: 'skills',
+    options: ['Not Started', 'In Progress', 'Completed'],
+    active: []
   }
 });
 
 export default (state = initialState, action) => {
   switch (action.type) {
-  case types.FILTERS_SET:
-    return utils.stateListMerge(state, action.payload);
+  case types.FILTERS_ACTIVE_SET:
+    return state.update(s => {
+      const newFilters = fromJS(action.payload);
+
+      newFilters.forEach((value, key) => {
+        s = s.setIn([key, 'active'], value);
+      });
+
+      return s;
+    });
   case types.FILTER_OPTIONS_SET:
     return state.update(s => {
       action.payload.forEach((value, key) => {

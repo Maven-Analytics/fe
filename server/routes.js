@@ -226,6 +226,28 @@ module.exports = app => {
 
       server.route({
         method: 'GET',
+        path: '/api/v1/courses',
+        handler: require('./controllers/courses/get'),
+        config: {
+          auth: {
+            mode: 'try'
+          }
+        }
+      });
+
+      server.route({
+        method: 'GET',
+        path: '/api/v1/paths',
+        handler: require('./controllers/paths/get'),
+        config: {
+          auth: {
+            mode: 'try'
+          }
+        }
+      });
+
+      server.route({
+        method: 'GET',
         path: '/_next/{p*}' /* next specific routes */,
         handler: nextHandlerWrapper(app),
         config: {

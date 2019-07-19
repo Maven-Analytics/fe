@@ -23,6 +23,8 @@ import MaIcon from '../../components/maIcon';
 
 class DashboardPage extends Component {
   componentDidMount() {
+    this.props.actions.pathsInit();
+    this.props.actions.coursesInit();
     this.props.actions.getProgress();
   }
 
@@ -122,8 +124,8 @@ class DashboardPage extends Component {
 
 DashboardPage.getInitialProps = async ctx => {
   const {store} = ctx;
-  store.dispatch(pathActions.pathsInit());
-  store.dispatch(courseActions.coursesInit());
+  // store.dispatch(pathActions.pathsInit());
+  // store.dispatch(courseActions.coursesInit());
 };
 
 DashboardPage.propTypes = {
@@ -145,7 +147,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = function (dispatch) {
   return {
     actions: bindActionCreators({
-      ...dashboardActions
+      ...dashboardActions,
+      ...pathActions,
+      ...courseActions
     }, dispatch)
   };
 };

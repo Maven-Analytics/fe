@@ -1,7 +1,7 @@
 import {takeLatest, put, all} from 'redux-saga/effects';
 
 import {types as pathTypes} from '../ducks/paths';
-import {getPaths} from '../../services/contentful';
+import api from '../../services/api';
 
 export function * watchPaths() {
   yield takeLatest(pathTypes.PATHSINIT_REQUEST, onPathsInitRequest);
@@ -25,4 +25,11 @@ function * onPathsInitRequest({payload}) {
       payload: error.response ? error.response.data : error.message
     });
   }
+}
+
+function getPaths() {
+  return api({
+    method: 'get',
+    url: '/api/v1/paths'
+  });
 }

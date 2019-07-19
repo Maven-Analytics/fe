@@ -23,7 +23,7 @@ const DashboardPath = ({title, percentage_completed, onDetailClick, resumeUrl, b
         <div className="dashboard-path__footer">
           {resumeUrl ? (
             <Link href={resumeUrl}>
-              <a className="btn btn--primary-solid">Resume Course</a>
+              <a className="btn btn--primary-solid">Resume Path</a>
             </Link>
           ) : null}
           <button onClick={onDetailClick} className="btn btn--default">View Path Details</button>
