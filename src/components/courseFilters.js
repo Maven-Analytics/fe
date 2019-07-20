@@ -118,8 +118,8 @@ class CourseFilters extends Component {
           active={filters.getIn(['status', 'active'])}
           options={filters.getIn(['status', 'options']).map(f => fromJS({value: f, label: f}))}
         />
-        <input type="range" onChange={state(this.handleLength, 'min')} value={filters.getIn(['length', 'active', 0]) || 0}/>
-        <input type="range" onChange={state(this.handleLength, 'max')} value={filters.getIn(['length', 'active', 1]) || 0}/>
+        {/* <input type="range" onChange={state(this.handleLength, 'min')} value={filters.getIn(['length', 'active', 0]) || 0}/>
+        <input type="range" onChange={state(this.handleLength, 'max')} value={filters.getIn(['length', 'active', 1]) || 0}/> */}
       </div>
     );
   }
