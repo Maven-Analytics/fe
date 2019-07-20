@@ -40,8 +40,6 @@ class WelcomeSurveyResults extends Component {
     const {recommendedPaths, recommendedCourses} = this.props;
     const recommendedPath = recommendedPaths.first();
 
-    console.log(recommendedPath.toJS());
-
     return (
       <Checkout full>
         <div className="welcome-survey-results">
