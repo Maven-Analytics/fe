@@ -1,6 +1,6 @@
-import {List, isImmutable} from 'immutable';
+import {List, isImmutable, Map} from 'immutable';
 
-export const getPathById = (paths, id) => paths && paths.find && paths.find(p => p.get('id') === id);
+export const getPathById = (paths, id) => paths && paths.find && (paths.find(p => p.get('id') === id) || Map());
 
 export const getPathBySlug = (paths, slug) => paths && paths.find && paths.find(p => p.get('slug') === slug);
 
