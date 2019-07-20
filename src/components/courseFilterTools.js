@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {fromJS} from 'immutable';
 
-import Checkbox from './inputs/checkbox';
+import ChildCheckbox from './inputs/childCheckbox';
 import {stateCheck} from '../utils/componentHelpers';
 import CourseAuthor from './courseAuthor';
+import MaIcon from './maIcon';
 
-class CourseFilterChecks extends Component {
+class CourseFilterTools extends Component {
   constructor(props) {
     super(props);
 
@@ -33,25 +34,25 @@ class CourseFilterChecks extends Component {
     const {active, id, label, options} = this.props;
 
     return (
-      <div className="form-group form-group--dark course-filter">
+      <div className="form-group form-group--dark form-group--inline course-filter">
         <label htmlFor={id}>{label}</label>
-        {options.map(option => (
-          <Checkbox
-            checked={active.contains(option.get('value')) || false}
-            key={option.get('value')}
-            name={`${id}[${option.get('value')}]`}
-            id={`${id}[${option.get('value')}]`}
-            onChange={stateCheck(this.handleChange, option.get('value'))}
+        {options.map(tool => (
+          <ChildCheckbox
+            key={tool}
+            checked={active.contains(tool) || false}
+            name={`${id}[${tool}]`}
+            id={`${id}[${tool}]`}
+            onChange={stateCheck(this.handleChange, tool)}
           >
-            {option.has('author') ? <CourseAuthor name={option.getIn(['author', 'name'])} thumbnail={option.getIn(['author', 'thumbnail'])}/> : option.get('label')}
-          </Checkbox>
+            <MaIcon icon={tool.toLowerCase().replace(' ', '-')}/>
+          </ChildCheckbox>
         ))}
       </div>
     );
   }
 }
 
-CourseFilterChecks.propTypes = {
+CourseFilterTools.propTypes = {
   active: ImmutablePropTypes.list,
   id: PropTypes.string.isRequired,
   label: PropTypes.string,
@@ -59,4 +60,4 @@ CourseFilterChecks.propTypes = {
   onChange: PropTypes.func
 };
 
-export default CourseFilterChecks;
+export default CourseFilterTools;

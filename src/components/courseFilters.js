@@ -8,7 +8,9 @@ import {bindActionCreators} from 'redux';
 
 import CourseFilterChecks from './courseFilterChecks';
 import {selectors as filterSelectors, actions as filterActions} from '../redux/ducks/filters';
-import { state } from '../utils/componentHelpers';
+import {actions as authorActions, selectors as authorSelectors} from '../redux/ducks/authors';
+import {state} from '../utils/componentHelpers';
+import CourseFilterTools from './courseFilterTools';
 
 class CourseFilters extends Component {
   constructor(props) {
@@ -23,11 +25,17 @@ class CourseFilters extends Component {
     this.handleLength = this.handleLength.bind(this);
   }
 
+  componentDidMount() {
+    this.props.actions.authorsInit();
+  }
+
   handleChange(key) {
     return val => {
       const {router, filters, activeFilters} = this.props;
 
-      console.log(val);
+      // console.log(val);
+
+      console.log(key, val)
 
       this.props.actions.filtersActiveSet({[key]: val})
 
@@ -62,11 +70,40 @@ class CourseFilters extends Component {
   }
 
   render() {
-    const {title, filters} = this.props;
+    const {title, filters, authors} = this.props;
 
     return (
       <div className="course-filters">
         <h4>{title}</h4>
+        <CourseFilterTools
+          id="tools"
+          label="Tools"
+          onChange={this.handleChange('tools')}
+          active={filters.getIn(['tools', 'active'])}
+          options={filters.getIn(['tools', 'options'])}
+        />
+        <CourseFilterChecks
+          id="paths"
+          label="Learning Paths"
+          onChange={this.handleChange('paths')}
+          active={filters.getIn(['paths', 'active'])}
+          options={filters.getIn(['paths', 'options']).map(f => fromJS({value: f, label: f}))}
+        />
+        <CourseFilterChecks
+          id="instructors"
+          label="Instructors"
+          onChange={this.handleChange('instructors')}
+          active={filters.getIn(['instructors', 'active'])}
+          options={filters.getIn(['instructors', 'options']).map(f => {
+            const author = authors.find(a => a.get('slug') === f);
+
+            return fromJS({
+              value: f,
+              label: author ? author.get('name') : '',
+              author
+            });
+          })}
+        />
         <CourseFilterChecks
           id="skills"
           label="Skills"
@@ -75,25 +112,11 @@ class CourseFilters extends Component {
           options={filters.getIn(['skills', 'options']).map(f => fromJS({value: f, label: f}))}
         />
         <CourseFilterChecks
-          id="tools"
-          label="Tools"
-          onChange={this.handleChange('tools')}
-          active={filters.getIn(['tools', 'active'])}
-          options={filters.getIn(['tools', 'options']).map(f => fromJS({value: f, label: f}))}
-        />
-        <CourseFilterChecks
-          id="instructors"
-          label="Instructors"
-          onChange={this.handleChange('instructors')}
-          active={filters.getIn(['instructors', 'active'])}
-          options={filters.getIn(['instructors', 'options']).map(f => fromJS({value: f, label: f}))}
-        />
-        <CourseFilterChecks
-          id="paths"
-          label="Learning Paths"
-          onChange={this.handleChange('paths')}
-          active={filters.getIn(['paths', 'active'])}
-          options={filters.getIn(['paths', 'options']).map(f => fromJS({value: f, label: f}))}
+          id="status"
+          label="Status"
+          onChange={this.handleChange('status')}
+          active={filters.getIn(['status', 'active'])}
+          options={filters.getIn(['status', 'options']).map(f => fromJS({value: f, label: f}))}
         />
         <input type="range" onChange={state(this.handleLength, 'min')} value={filters.getIn(['length', 'active', 0]) || 0}/>
         <input type="range" onChange={state(this.handleLength, 'max')} value={filters.getIn(['length', 'active', 1]) || 0}/>
@@ -106,22 +129,27 @@ CourseFilters.propTypes = {
   title: PropTypes.string,
   filters: ImmutablePropTypes.map,
   router: PropTypes.object,
-  activeFilters: ImmutablePropTypes.map
+  activeFilters: ImmutablePropTypes.map,
+  authors: ImmutablePropTypes.list,
+  actions: PropTypes.objectOf(PropTypes.func)
 };
 
 CourseFilters.defaultProps = {
   title: 'Filter Results',
-  filters: List()
+  filters: List(),
+  authors: List()
 };
 
 const mapStateToProps = state => ({
   filters: filterSelectors.getFilters(state),
-  activeFilters: filterSelectors.getActiveFilters(state)
+  activeFilters: filterSelectors.getActiveFilters(state),
+  authors: authorSelectors.getAuthors(state)
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    ...filterActions
+    ...filterActions,
+    ...authorActions
   }, dispatch)
 });
 

@@ -55,9 +55,9 @@ const initialState = utils.initialState({
     active: []
   },
   status: {
-    label: 'Skills',
-    key: 'skills',
-    id: 'skills',
+    label: 'Status',
+    key: 'status',
+    id: 'status',
     options: ['Not Started', 'In Progress', 'Completed'],
     active: []
   }

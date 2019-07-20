@@ -60,6 +60,10 @@ export const getLastestCourseSlugResumeCourseUrl = (path, enrollments) => {
     latestEnrollment = enrollments.find(e => e.get('courseId') === path.getIn(['courses', 0, 'thinkificCourseId']));
   }
 
+  if (!latestEnrollment) {
+    return;
+  }
+
   return latestEnrollment.get('thinkificSlug');
 };
 

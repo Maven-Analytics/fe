@@ -256,3 +256,26 @@ label {
     }
   }
 }
+
+.child-checkbox {
+  display: inline-block;
+  position: relative;
+
+  &:focus-within {
+    outline: -webkit-focus-ring-color auto 5px;
+  }
+
+  input {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+
+    &:focus {
+      outline-color: $gray;
+    }
+  }
+}
