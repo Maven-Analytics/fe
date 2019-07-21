@@ -11,7 +11,7 @@ import courses from './courses';
 import surveyResult from './surveyResult';
 import dashboard from './dashboard';
 import filters from './filters';
-import authors from './authors';
+import activeFilters from './activeFilters';
 
 const Ducks = combineReducers({
   loading,
@@ -26,7 +26,7 @@ const Ducks = combineReducers({
   surveyResult,
   dashboard,
   filters,
-  authors
+  activeFilters
 });
 
 export default Ducks;

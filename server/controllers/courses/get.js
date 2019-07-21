@@ -1,5 +1,5 @@
 const axios = require('axios');
-const {fromJS} = require('immutable');
+const {fromJS, List} = require('immutable');
 
 const {getCourses, getCourseProgress} = require('../../utils/contentful');
 
@@ -7,14 +7,28 @@ module.exports = async request => {
   try {
     const id = request.auth && request.auth.credentials ? request.auth.credentials.id : null;
 
-    let courses = await getCourses({});
+    const query = request.query;
+    const enrollmentFilter = query.enrollmentFilter ? fromJS(query.enrollmentFilter.split(',')) : null;
+    delete query.enrollmentFilter;
+
+    let courses = await getCourses({query});
+
+    courses = fromJS(courses)
+      .sort((a, b) => (b.get('surveyWeight') || 0 * 1000) - (a.get('surveyWeight') || 0 * 1000));
 
     let enrollments;
     if (id) {
       enrollments = await getEnrollments(id);
       courses = courses
         .map(c => getCourseProgress(fromJS(c), fromJS(enrollments)))
-        .filter(c => c);
+        .filter(c => c)
+        .sort((a, b) => b.get('percentage_completed') - a.get('percentage_completed'));
+    }
+
+    // If the enrollmentFilter is set, only show courses that meet the status passed in
+    if (enrollmentFilter) {
+      courses = courses
+        .filter(c => List.isList(enrollmentFilter) ? enrollmentFilter.contains(c.get('status')) : enrollmentFilter === c.get('status'));
     }
 
     return {

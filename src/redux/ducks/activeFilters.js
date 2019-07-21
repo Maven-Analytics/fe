@@ -1,39 +1,41 @@
 import {createSelector} from 'reselect';
-import {fromJS} from 'immutable';
+import {fromJS, List} from 'immutable';
 
 import * as utils from '../../utils/duckHelpers';
-// import {setFiltersFromQuery, getActiveFilters} from '../../utils/filterHelpers';
 
 export const types = {
-  FILTERS_GET_REQUEST: 'FILTERS_GET_REQUEST',
-  FILTERS_GET_SUCCESS: 'FILTERS_GET_SUCCESS',
-  FILTERS_GET_FAILURE: 'FILTERS_GET_FAILURE'
+  ACTIVE_FILTER_ADD: 'ACTIVE_FILTER_ADD',
+  ACTIVE_FILTER_REMOVE: 'ACTIVE_FILTER_REMOVE'
 };
 
 export const actions = {
-  filtersGet: obj => utils.action(types.FILTERS_GET_REQUEST, obj)
+  activeFilterAdd: obj => utils.action(types.ACTIVE_FILTER_ADD, obj),
+  activeFilterRemove: obj => utils.action(types.ACTIVE_FILTER_REMOVE, obj)
   // filterAdd: obj => utils.action(types.FILTER_ADD, obj),
   // filtersInit: query => utils.action(types.FILTERS_INIT, {query}),
   // filtersActiveSet: obj => utils.action(types.FILTERS_ACTIVE_SET, obj)
 };
 
 const initialState = utils.initialState({
-  Tools: [],
-  'Learning Paths': [],
-  Instructors: [],
-  Skills: [],
-  Status: []
+  'fields.filters.sys.id': [],
+  'length[gt]': [],
+  'length[lt]': [],
+  enrollmentFilter: []
 });
 
 export default (state = initialState, action) => {
   switch (action.type) {
-  case types.FILTERS_GET_SUCCESS:
-    return state.update(s => {
-      action.payload.forEach(filter => {
-        s = s.update(filter.group, g => g.find(f => f.get('id') === filter.id) ? g : g.push(fromJS(filter)));
-      });
+  case types.ACTIVE_FILTER_ADD:
+    return state.update(action.payload.key, u => {
+      return u.contains(action.payload.filter) ? u : u.push(action.payload.filter);
+    });
+  case types.ACTIVE_FILTER_REMOVE:
+    return state.update(action.payload.key, u => {
+      if (!u) {
+        return;
+      }
 
-      return s;
+      return u.delete(u.indexOf(action.payload.filter));
     });
   // case types.FILTERS_ACTIVE_SET:
   //   return state.update(s => {
@@ -60,9 +62,8 @@ export default (state = initialState, action) => {
   }
 };
 
-const getFilters = state => state.get('filters');
+const getActiveFilters = state => state.get('activeFilters');
 
 export const selectors = {
-  getFilters: createSelector([getFilters], filters => filters),
-  // getActiveFilters: createSelector([getFilters], filters => getActiveFilters(filters))
+  getActiveFilters: createSelector([getActiveFilters], filters => filters)
 };

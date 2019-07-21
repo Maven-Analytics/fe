@@ -14,7 +14,7 @@ const Loader = ({loading, width, height, color, center}) => {
 
   return (
     <div className={classList.join(' ')} style={{width, height}}>
-      <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} xmlns="http://www.w3.org/2000/svg" stroke={color}>
+      <svg width={width} height={height} viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg" stroke={color}>
         <g fill="none" fillRule="evenodd" transform="translate(1 1)" strokeWidth="2">
           <circle cx="22" cy="22" r="6" strokeOpacity="0">
             <animate attributeName="r"

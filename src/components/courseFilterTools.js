@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
-import {fromJS} from 'immutable';
+import {fromJS, List} from 'immutable';
 
 import ChildCheckbox from './inputs/childCheckbox';
-import {stateCheck} from '../utils/componentHelpers';
+import {stateCheck, check} from '../utils/componentHelpers';
 import CourseAuthor from './courseAuthor';
 import MaIcon from './maIcon';
 
@@ -24,10 +24,14 @@ class CourseFilterTools extends Component {
       .toJS();
   }
 
-  handleChange(state) {
-    return this.setState(state, () => {
-      this.props.onChange(this.getSetValues());
-    });
+  handleChange(val) {
+    return checked => {
+      if (checked) {
+        return this.props.onCheck(val);
+      }
+
+      return this.props.onUncheck(val);
+    };
   }
 
   render() {
@@ -36,15 +40,15 @@ class CourseFilterTools extends Component {
     return (
       <div className="form-group form-group--dark form-group--inline course-filter">
         <label htmlFor={id}>{label}</label>
-        {options.map(tool => (
+        {options.map(option => (
           <ChildCheckbox
-            key={tool}
-            checked={active.contains(tool) || false}
-            name={`${id}[${tool}]`}
-            id={`${id}[${tool}]`}
-            onChange={stateCheck(this.handleChange, tool)}
+            key={option.get('title')}
+            checked={active.contains(option.get('id')) || false}
+            name={`${id}[${option.get('title')}]`}
+            id={`${id}[${option.get('title')}]`}
+            onChange={check(this.handleChange(option.get('id')))}
           >
-            <MaIcon icon={tool.toLowerCase().replace(' ', '-')}/>
+            <MaIcon icon={option.get('title').toLowerCase().replace(' ', '-')}/>
           </ChildCheckbox>
         ))}
       </div>
@@ -57,7 +61,12 @@ CourseFilterTools.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string,
   options: ImmutablePropTypes.list,
-  onChange: PropTypes.func
+  onCheck: PropTypes.func,
+  onUncheck: PropTypes.func
+};
+
+CourseFilterTools.defaultProps = {
+  active: List()
 };
 
 export default CourseFilterTools;

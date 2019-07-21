@@ -68,6 +68,10 @@ export function stateCheck(func, key) {
   return e => (func && typeof func === 'function') ? func({[key]: e.target.checked}) : null;
 }
 
+export function check(func) {
+  return e => (func && typeof func === 'function') ? func(e.target.checked) : null;
+}
+
 export function stateNum(func, key) {
   return e => (func && typeof func === 'function') ? func({[key]: parseFloat(e.target.value)}) : null;
 }

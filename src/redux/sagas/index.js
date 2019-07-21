@@ -13,7 +13,7 @@ import {watchSurveys} from './surveyResults';
 import {watchProfile} from './profile';
 import {watchDashboard} from './dashboard';
 import {watchUser} from './user';
-import {watchAuthors} from './authors';
+import {watchFilters} from './filter';
 import {setCookie, removeCookie, getCookie} from '../../utils/cookies';
 import config from '../../config';
 
@@ -219,7 +219,7 @@ function * rootSaga() {
     fork(watchProfile),
     fork(watchUser),
     fork(watchDashboard),
-    fork(watchAuthors)
+    fork(watchFilters)
   ]);
 }
 

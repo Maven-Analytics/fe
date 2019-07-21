@@ -32,10 +32,11 @@
   &__sidebar {
     @include collapseUp() {
       border-right: 1px solid rgba($gray-border, .42);
+      position: relative;
     }
   }
 
   &__content {
-
+    position: relative;
   }
 }

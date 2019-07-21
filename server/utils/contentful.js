@@ -9,7 +9,7 @@ const ContenfulClient = contentful.createClient({
 module.exports = {
   getPaths,
   getCourses,
-  getAuthors,
+  getFilters,
   getCourseProgress,
   getPathProgress
 };
@@ -35,17 +35,18 @@ async function getPaths({query = {}, include = 10}) {
   }
 }
 
-async function getAuthors({query = {}, include = 10}) {
+async function getFilters({query = {}, include = 10}) {
   try {
     let res = await ContenfulClient.getEntries(Object.assign({
-      content_type: 'author', // eslint-disable-line camelcase,
-      include
+      content_type: 'filter', // eslint-disable-line camelcase,
+      include,
+      order: 'fields.order'
     }, query));
 
     const paths = mapFromResponseItems(res.items)
       .map(item => {
         return Object.assign(item, {
-          thumbnail: mapResponseImage(item.thumbnail)
+          image: mapResponseImage(item.image)
         });
       });
 

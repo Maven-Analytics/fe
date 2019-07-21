@@ -248,8 +248,8 @@ module.exports = app => {
 
       server.route({
         method: 'GET',
-        path: '/api/v1/authors',
-        handler: require('./controllers/authors/get'),
+        path: '/api/v1/filters',
+        handler: require('./controllers/filters/get'),
         config: {
           auth: false
         }

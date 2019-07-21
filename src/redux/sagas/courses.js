@@ -1,13 +1,14 @@
-import {takeLatest, put, all} from 'redux-saga/effects';
+import {takeLatest, put, all, select} from 'redux-saga/effects';
 import {fromJS} from 'immutable';
 
 import {types as courseTypes} from '../ducks/courses';
-import {types as filterTypes} from '../ducks/filters';
+import {selectors as activeFilterSelectors} from '../ducks/activeFilters';
 import {getFiltersFromCourses} from '../../utils/filterHelpers';
 import api from '../../services/api';
 
 export function * watchCourses() {
   yield takeLatest(courseTypes.COURSESINIT_REQUEST, onCoursesInitRequest);
+  yield takeLatest(courseTypes.COURSES_FILTER_REQUEST, onCoursesFilter);
 }
 
 function * onCoursesInitRequest({payload}) {
@@ -20,10 +21,6 @@ function * onCoursesInitRequest({payload}) {
       put({
         type: courseTypes.COURSESINIT_SUCCESS,
         payload: courses
-      }),
-      put({
-        type: filterTypes.FILTER_OPTIONS_SET,
-        payload: getFiltersFromCourses(fromJS(courses))
       })
     ]);
   } catch (error) {
@@ -35,9 +32,36 @@ function * onCoursesInitRequest({payload}) {
   }
 }
 
-function getCourses() {
+function * onCoursesFilter() {
+  try {
+    const activeFilters = yield select(activeFilterSelectors.getActiveFilters);
+
+    const params = activeFilters
+      .filter(v => !v.isEmpty())
+      .map(v => v.join(','))
+      .toJS();
+
+    const courses = yield getCourses(params);
+
+    yield all([
+      put({
+        type: courseTypes.COURSES_FILTER_SUCCESS,
+        payload: courses
+      })
+    ]);
+  } catch (error) {
+    console.log(error);
+    yield put({
+      type: courseTypes.COURSES_FILTER_FAILURE,
+      payload: error.response ? error.response.data : error.message
+    });
+  }
+}
+
+function getCourses(params = {}) {
   return api({
     method: 'get',
-    url: '/api/v1/courses'
+    url: '/api/v1/courses',
+    params
   });
 }

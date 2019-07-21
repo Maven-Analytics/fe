@@ -48,4 +48,8 @@
       margin: $spacing-unit--md auto $spacing-unit;
     }
   }
+
+  &.grid-span-2 {
+    grid-column: 1 / 3;
+  }
 }

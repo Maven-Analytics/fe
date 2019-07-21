@@ -8,9 +8,13 @@ import {bindActionCreators} from 'redux';
 
 import CourseFilterChecks from './courseFilterChecks';
 import {selectors as filterSelectors, actions as filterActions} from '../redux/ducks/filters';
-import {actions as authorActions, selectors as authorSelectors} from '../redux/ducks/authors';
-import {state} from '../utils/componentHelpers';
+import {selectors as activeFilterSelectors, actions as activeFilterActions} from '../redux/ducks/activeFilters';
+import {actions as courseActions} from '../redux/ducks/courses';
+import {selectors as errorSelectors} from '../redux/ducks/error';
+import {selectors as loadingSelectors} from '../redux/ducks/loading';
 import CourseFilterTools from './courseFilterTools';
+import {clickPrevent} from '../utils/componentHelpers';
+import Loader from './loader';
 
 class CourseFilters extends Component {
   constructor(props) {
@@ -23,10 +27,29 @@ class CourseFilters extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleLength = this.handleLength.bind(this);
+    this.handleCheck = this.handleCheck.bind(this);
+    this.handleUncheck = this.handleUncheck.bind(this);
+    this.handleFilter = this.handleFilter.bind(this);
   }
 
   componentDidMount() {
-    this.props.actions.authorsInit();
+    this.props.actions.filtersGet();
+  }
+
+  handleFilter() {
+    this.props.actions.coursesFilter();
+  }
+
+  handleCheck(key) {
+    return filter => {
+      this.props.actions.activeFilterAdd({key, filter});
+    };
+  }
+
+  handleUncheck(key) {
+    return filter => {
+      this.props.actions.activeFilterRemove({key, filter});
+    };
   }
 
   handleChange(key) {
@@ -35,9 +58,9 @@ class CourseFilters extends Component {
 
       // console.log(val);
 
-      console.log(key, val)
+      console.log(key, val);
 
-      this.props.actions.filtersActiveSet({[key]: val})
+      // this.props.actions.filtersActiveSet({[key]: val})
 
       // console.log(val);
 
@@ -59,7 +82,7 @@ class CourseFilters extends Component {
   handleLength(state) {
     const {router, activeFilters} = this.props;
 
-    this.props.actions.filtersActiveSet({length: [state.min ? parseFloat(state.min) : this.props.filters.getIn(['length', 'active', 0]), state.max ? parseFloat(state.max) : this.props.filters.getIn(['length', 'active', 1])]});
+    // this.props.actions.filtersActiveSet({length: [state.min ? parseFloat(state.min) : this.props.filters.getIn(['length', 'active', 0]), state.max ? parseFloat(state.max) : this.props.filters.getIn(['length', 'active', 1])]});
 
     // const newQuery = activeFilters
     //   .map(a => a.get('active'))
@@ -70,56 +93,54 @@ class CourseFilters extends Component {
   }
 
   render() {
-    const {title, filters, authors} = this.props;
+    const {title, loading, filters, activeFilters} = this.props;
 
     return (
       <div className="course-filters">
         <h4>{title}</h4>
+        <Loader loading={loading}/>
         <CourseFilterTools
           id="tools"
           label="Tools"
-          onChange={this.handleChange('tools')}
-          active={filters.getIn(['tools', 'active'])}
-          options={filters.getIn(['tools', 'options'])}
+          onCheck={this.handleCheck('fields.filters.sys.id')}
+          onUncheck={this.handleUncheck('fields.filters.sys.id')}
+          active={activeFilters.get('fields.filters.sys.id')}
+          options={filters.get('Tools')}
         />
         <CourseFilterChecks
           id="paths"
           label="Learning Paths"
-          onChange={this.handleChange('paths')}
-          active={filters.getIn(['paths', 'active'])}
-          options={filters.getIn(['paths', 'options']).map(f => fromJS({value: f, label: f}))}
+          onCheck={this.handleCheck('fields.filters.sys.id')}
+          onUncheck={this.handleUncheck('fields.filters.sys.id')}
+          active={activeFilters.get('fields.filters.sys.id')}
+          options={filters.get('Learning Paths')}
         />
         <CourseFilterChecks
           id="instructors"
           label="Instructors"
-          onChange={this.handleChange('instructors')}
-          active={filters.getIn(['instructors', 'active'])}
-          options={filters.getIn(['instructors', 'options']).map(f => {
-            const author = authors.find(a => a.get('slug') === f);
-
-            return fromJS({
-              value: f,
-              label: author ? author.get('name') : '',
-              author
-            });
-          })}
+          onCheck={this.handleCheck('fields.filters.sys.id')}
+          onUncheck={this.handleUncheck('fields.filters.sys.id')}
+          active={activeFilters.get('fields.filters.sys.id')}
+          options={filters.get('Instructors')}
         />
         <CourseFilterChecks
           id="skills"
           label="Skills"
-          onChange={this.handleChange('skills')}
-          active={filters.getIn(['skills', 'active'])}
-          options={filters.getIn(['skills', 'options']).map(f => fromJS({value: f, label: f}))}
+          onCheck={this.handleCheck('fields.filters.sys.id')}
+          onUncheck={this.handleUncheck('fields.filters.sys.id')}
+          active={activeFilters.get('fields.filters.sys.id')}
+          options={filters.get('Skills')}
         />
         <CourseFilterChecks
           id="status"
           label="Status"
-          onChange={this.handleChange('status')}
-          active={filters.getIn(['status', 'active'])}
-          options={filters.getIn(['status', 'options']).map(f => fromJS({value: f, label: f}))}
+          valueKey="title"
+          onCheck={this.handleCheck('enrollmentFilter')}
+          onUncheck={this.handleUncheck('enrollmentFilter')}
+          active={activeFilters.get('enrollmentFilter')}
+          options={filters.get('Status')}
         />
-        {/* <input type="range" onChange={state(this.handleLength, 'min')} value={filters.getIn(['length', 'active', 0]) || 0}/>
-        <input type="range" onChange={state(this.handleLength, 'max')} value={filters.getIn(['length', 'active', 1]) || 0}/> */}
+        <button className="btn btn--primary-solid" onClick={clickPrevent(this.handleFilter)}>Apply</button>
       </div>
     );
   }
@@ -130,26 +151,27 @@ CourseFilters.propTypes = {
   filters: ImmutablePropTypes.map,
   router: PropTypes.object,
   activeFilters: ImmutablePropTypes.map,
-  authors: ImmutablePropTypes.list,
-  actions: PropTypes.objectOf(PropTypes.func)
+  actions: PropTypes.objectOf(PropTypes.func),
+  loading: PropTypes.bool
 };
 
 CourseFilters.defaultProps = {
   title: 'Filter Results',
-  filters: List(),
-  authors: List()
+  filters: List()
 };
 
 const mapStateToProps = state => ({
   filters: filterSelectors.getFilters(state),
-  activeFilters: filterSelectors.getActiveFilters(state),
-  authors: authorSelectors.getAuthors(state)
+  activeFilters: activeFilterSelectors.getActiveFilters(state),
+  loading: loadingSelectors.getLoading(['FILTERS_GET'])(state),
+  error: errorSelectors.getError(['FILTERS_GET'])(state)
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     ...filterActions,
-    ...authorActions
+    ...activeFilterActions,
+    ...courseActions
   }, dispatch)
 });
 

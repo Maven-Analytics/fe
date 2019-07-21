@@ -10,8 +10,9 @@ import DashboardHeader from '../components/dashboardHeader';
 import {selectors as userSelectors} from '../redux/ducks/user';
 import BaseLayout from './base';
 import CopyrightFooter from '../sections/copyrightFooter';
+import Loader from '../components/loader';
 
-const DashboardLayout = ({children, title, activeLink, user, showWelcome, sidebar: Sidebar}) => {
+const DashboardLayout = ({children, title, activeLink, user, showWelcome, sidebar: Sidebar, loading}) => {
   return (
     <BaseLayout
       header={CheckoutHeader}
@@ -33,7 +34,7 @@ const DashboardLayout = ({children, title, activeLink, user, showWelcome, sideba
               </aside>
             ) : null}
             <div className="layout-dashboard__content">
-              {children}
+              {loading ? <Loader width={100} height={100} loading={loading}/> : children}
             </div>
           </div>
         </div>
@@ -49,12 +50,14 @@ DashboardLayout.propTypes = {
   activeLink: PropTypes.number.isRequired,
   user: ImmutablePropTypes.map,
   showWelcome: PropTypes.bool,
+  loading: PropTypes.bool,
   sidebar: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
 };
 
 DashboardLayout.defaultProps = {
   showWelcome: false,
-  sidebar: null
+  sidebar: null,
+  loading: false
 };
 
 const mapStateToProps = state => ({
