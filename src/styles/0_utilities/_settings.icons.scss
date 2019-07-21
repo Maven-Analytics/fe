@@ -25,6 +25,13 @@
     visibility: visible;
   }
 }
+
+.maicon-minus:before {
+  content: "\e90f";
+}
+.maicon-times:before {
+  content: "\e910";
+}
 .maicon-badge-alt:before {
   content: "\e90e";
 }

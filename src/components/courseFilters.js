@@ -9,11 +9,13 @@ import {bindActionCreators} from 'redux';
 import CourseFilterChecks from './courseFilterChecks';
 import {selectors as filterSelectors, actions as filterActions} from '../redux/ducks/filters';
 import {selectors as activeFilterSelectors, actions as activeFilterActions} from '../redux/ducks/activeFilters';
+import {selectors as stateSelectors, actions as stateActions} from '../redux/ducks/state';
 import {actions as courseActions} from '../redux/ducks/courses';
 import {selectors as errorSelectors} from '../redux/ducks/error';
 import {selectors as loadingSelectors} from '../redux/ducks/loading';
 import CourseFilterTools from './courseFilterTools';
-import {clickPrevent} from '../utils/componentHelpers';
+import MaIcon from './maIcon';
+import {clickPrevent, click} from '../utils/componentHelpers';
 import Loader from './loader';
 
 class CourseFilters extends Component {
@@ -93,54 +95,68 @@ class CourseFilters extends Component {
   }
 
   render() {
-    const {title, loading, filters, activeFilters} = this.props;
+    const {title, loading, filters, activeFilters, actions, state} = this.props;
+
+    const open = state.get('filters');
+    const classList = ['course-filters'];
+
+    if (open) {
+      classList.push('open');
+    }
 
     return (
-      <div className="course-filters">
-        <h4>{title}</h4>
-        {loading ? <Loader loading={loading}/> : null}
-        <CourseFilterTools
-          id="tools"
-          label="Tools"
-          onCheck={this.handleCheck('fields.filters.sys.id')}
-          onUncheck={this.handleUncheck('fields.filters.sys.id')}
-          active={activeFilters.get('fields.filters.sys.id')}
-          options={filters.get('Tools')}
-        />
-        <CourseFilterChecks
-          id="paths"
-          label="Learning Paths"
-          onCheck={this.handleCheck('fields.filters.sys.id')}
-          onUncheck={this.handleUncheck('fields.filters.sys.id')}
-          active={activeFilters.get('fields.filters.sys.id')}
-          options={filters.get('Learning Paths')}
-        />
-        <CourseFilterChecks
-          id="instructors"
-          label="Instructors"
-          onCheck={this.handleCheck('fields.filters.sys.id')}
-          onUncheck={this.handleUncheck('fields.filters.sys.id')}
-          active={activeFilters.get('fields.filters.sys.id')}
-          options={filters.get('Instructors')}
-        />
-        <CourseFilterChecks
-          id="skills"
-          label="Skills"
-          onCheck={this.handleCheck('fields.filters.sys.id')}
-          onUncheck={this.handleUncheck('fields.filters.sys.id')}
-          active={activeFilters.get('fields.filters.sys.id')}
-          options={filters.get('Skills')}
-        />
-        <CourseFilterChecks
-          id="status"
-          label="Status"
-          valueKey="title"
-          onCheck={this.handleCheck('enrollmentFilter')}
-          onUncheck={this.handleUncheck('enrollmentFilter')}
-          active={activeFilters.get('enrollmentFilter')}
-          options={filters.get('Status')}
-        />
-        <button className="btn btn--primary-solid" onClick={clickPrevent(this.handleFilter)}>Apply</button>
+      <div className={classList.join(' ')}>
+        <header>
+          <h4>{title}</h4>
+          <button onClick={clickPrevent(actions.offmenuToggle, 'filters')}>
+            {open ? <MaIcon icon="minus"/> : <MaIcon icon="times"/>}
+          </button>
+        </header>
+        <div className="course-filters__content">
+          {loading ? <Loader loading={loading}/> : null}
+          <CourseFilterTools
+            id="tools"
+            label="Tools"
+            onCheck={this.handleCheck('fields.filters.sys.id')}
+            onUncheck={this.handleUncheck('fields.filters.sys.id')}
+            active={activeFilters.get('fields.filters.sys.id')}
+            options={filters.get('Tools')}
+          />
+          <CourseFilterChecks
+            id="paths"
+            label="Learning Paths"
+            onCheck={this.handleCheck('fields.filters.sys.id')}
+            onUncheck={this.handleUncheck('fields.filters.sys.id')}
+            active={activeFilters.get('fields.filters.sys.id')}
+            options={filters.get('Learning Paths')}
+          />
+          <CourseFilterChecks
+            id="instructors"
+            label="Instructors"
+            onCheck={this.handleCheck('fields.filters.sys.id')}
+            onUncheck={this.handleUncheck('fields.filters.sys.id')}
+            active={activeFilters.get('fields.filters.sys.id')}
+            options={filters.get('Instructors')}
+          />
+          <CourseFilterChecks
+            id="skills"
+            label="Skills"
+            onCheck={this.handleCheck('fields.filters.sys.id')}
+            onUncheck={this.handleUncheck('fields.filters.sys.id')}
+            active={activeFilters.get('fields.filters.sys.id')}
+            options={filters.get('Skills')}
+          />
+          <CourseFilterChecks
+            id="status"
+            label="Status"
+            valueKey="title"
+            onCheck={this.handleCheck('enrollmentFilter')}
+            onUncheck={this.handleUncheck('enrollmentFilter')}
+            active={activeFilters.get('enrollmentFilter')}
+            options={filters.get('Status')}
+          />
+          <button className="btn btn--primary-solid" onClick={clickPrevent(this.handleFilter)}>Apply</button>
+        </div>
       </div>
     );
   }
@@ -152,26 +168,30 @@ CourseFilters.propTypes = {
   router: PropTypes.object,
   activeFilters: ImmutablePropTypes.map,
   actions: PropTypes.objectOf(PropTypes.func),
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  state: ImmutablePropTypes.map
 };
 
 CourseFilters.defaultProps = {
   title: 'Filter Results',
-  filters: List()
+  filters: List(),
+  state: Map()
 };
 
 const mapStateToProps = state => ({
   filters: filterSelectors.getFilters(state),
   activeFilters: activeFilterSelectors.getActiveFilters(state),
   loading: loadingSelectors.getLoading(['FILTERS_GET'])(state),
-  error: errorSelectors.getError(['FILTERS_GET'])(state)
+  error: errorSelectors.getError(['FILTERS_GET'])(state),
+  state: stateSelectors.getState(state)
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     ...filterActions,
     ...activeFilterActions,
-    ...courseActions
+    ...courseActions,
+    ...stateActions
   }, dispatch)
 });
 

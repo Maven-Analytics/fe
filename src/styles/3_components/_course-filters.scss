@@ -1,21 +1,78 @@
 .course-filters {
+  $self: &;
   font-size: 1.4rem;
-  padding-right: $spacing-unit;
 
-  > h4 {
+  @include collapseUp() {
+    padding-right: $spacing-unit;
+  }
+
+  header {
+    align-items: center;
     color: $black-2;
-    font-family: $font-body;
-    font-size: 1em;
-    margin: 0 0 $spacing-unit;
-    text-transform: uppercase;
+    display: flex;
+    margin: 0;
 
     @include media-breakpoint-up(md) {
       margin: 0 0 $spacing-unit--l;
     }
+
+    h4 {
+      font-family: $font-body;
+      font-size: 1em;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    button {
+      background-color: transparent;
+      border: none;
+      font-size: 1.2em;
+      height: 44px;
+      margin-left: 5px;
+      padding: 0;
+      width: 44px;
+
+      .maicon {
+        color: $black-2;
+      }
+
+      .maicon-times {
+        display: block;
+        transform: rotate(45deg);
+        transform-origin: center;
+      }
+
+      @include collapseUp() {
+        display: none;
+      }
+    }
   }
 
-  .btn {
-    border-radius: 20.5px;
-    height: 4rem;
+  &__content {
+    // display: none;
+    max-height: 0;
+    overflow: hidden;
+    position: relative;
+    transition: max-height .3s ease-in-out;
+
+    @include collapseUp() {
+      max-height: none;
+      transition: none;
+    }
+
+    .btn {
+      border-radius: 20.5px;
+      height: 4rem;
+    }
+  }
+
+  &.open {
+    #{$self}__content {
+      max-height: 1000px;
+
+      @include collapseUp {
+        max-height: none;
+      }
+    }
   }
 }

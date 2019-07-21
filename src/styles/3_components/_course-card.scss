@@ -94,10 +94,25 @@
       min-width: 100px;
       padding: $spacing-unit--ss $spacing-unit;
       text-transform: none;
+      width: 100%;
+
+      @include media-breakpoint-up(md) {
+        width: auto;
+      }
     }
 
     > span {
       margin-top: $spacing-unit;
+
+      &:first-child {
+        flex: 0 0 100%;
+        order: 3;
+
+        @include media-breakpoint-up(sm) {
+          flex: 0;
+          order: 0;
+        }
+      }
     }
   }
 

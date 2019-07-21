@@ -1,8 +1,11 @@
 .dashboard-grid {
   display: grid;
-  grid-template-columns: 50% 1fr;
   grid-row-gap: $spacing-unit;
   grid-column-gap: $spacing-unit;
+
+  @include media-breakpoint-up(md) {
+    grid-template-columns: 1fr 1fr;
+  }
 
   @include media-breakpoint-up(lg) {
     grid-row-gap: $spacing-unit--l;
@@ -10,8 +13,15 @@
   }
 
   &--vertical {
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(1fr);
+    display: block;
+
+    > div:not(:last-child) {
+      margin-bottom: $spacing-unit;
+
+      @include media-breakpoint-up(lg) {
+        margin-bottom: $spacing-unit--l;
+      }
+    }
   }
 
   &--horizontal {

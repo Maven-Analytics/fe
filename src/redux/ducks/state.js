@@ -23,7 +23,8 @@ const initialState = utils.initialState({
   pathDrawer: {
     open: false,
     data: null
-  }
+  },
+  filters: false
 });
 
 export default (state = initialState, action) => {
