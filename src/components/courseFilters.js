@@ -98,7 +98,7 @@ class CourseFilters extends Component {
     return (
       <div className="course-filters">
         <h4>{title}</h4>
-        <Loader loading={loading}/>
+        {loading ? <Loader loading={loading}/> : null}
         <CourseFilterTools
           id="tools"
           label="Tools"
