@@ -22,13 +22,9 @@ import CtaSection from '../sections/ctaSection';
 const methodItems = [
   {
     text: 1,
-    img: '/static/img/step1-browser.png',
-    imgRetina: '/static/img/step1-browser@2x.png',
-    img2: '/static/img/step1-popout.png',
-    img2Retina: '/static/img/step1-popout@2x.png',
-    width: 480,
-    height: 287,
-    top: 241,
+    img: '/static/img/step1.png',
+    width: 1000,
+    height: 633,
     title: 'Tell Us About Yourself',
     description: 'Take a quick survey so we can match your learning needs with the best Maven Analytics courses and paths.',
     linkTitle: 'TAKE SURVEY',
@@ -36,19 +32,15 @@ const methodItems = [
     imgMobile: {
       src: '/static/img/step1-mobile.png',
       alt: 'Match your learning needs with the best Maven Analytics courses and paths',
-      srcSet: '/static/img/step1-mobile.png 834w, /static/img/step1-mobile.png 1668w',
-      width: 834,
-      height: 512
+      width: 600,
+      height: 380
     }
   },
   {
     text: 2,
-    img: '/static/img/step2-browser.png',
-    imgRetina: '/static/img/step2-browser@2x.png',
-    img2: '/static/img/step2-popout.png',
-    img2Retina: '/static/img/step2-popout@2x.png',
-    width: 479,
-    height: 347,
+    img: '/static/img/step2.png',
+    width: 1000,
+    height: 633,
     top: 232,
     title: 'Measure Your Baseline Skills',
     description: 'Test your skills with some of our in-depth practice assessments. We’ll match your current skills with the right courses and paths',
@@ -57,20 +49,17 @@ const methodItems = [
     imgMobile: {
       src: '/static/img/step2-mobile.png',
       alt: 'We’ll match your current skills with the right courses and paths',
-      srcSet: '/static/img/step2-mobile.png 834w, /static/img/step2-mobile.png 1668w',
-      width: 834,
-      height: 549
+      width: 600,
+      height: 380
     }
   },
   {
     text: 3,
-    img: '/static/img/step3-browser.png',
+    img: '/static/img/step3.png',
     imgRetina: '/static/img/step3-browser@2x.png',
-    img2: '/static/img/step3-popout.png',
-    img2Retina: '/static/img/step3-popout@2x.png',
     ratio: '61.17%',
-    width: 698,
-    height: 427,
+    width: 1000,
+    height: 633,
     top: 234,
     title: 'Learn & Expand Your Expertise',
     description: 'Take self-paced online courses with comprehensive videos, detailed course materials, and one-on-one support, specific to your learning goals and ambitions. ',
@@ -79,19 +68,15 @@ const methodItems = [
     imgMobile: {
       src: '/static/img/step3-mobile.png',
       alt: 'Online courses.',
-      srcSet: '/static/img/step3-mobile.png 838w, /static/img/step3-mobile.png 1676w',
-      width: 838,
-      height: 631
+      width: 600,
+      height: 380
     }
   },
   {
     text: 4,
-    img: '/static/img/step4-browser.png',
-    imgRetina: '/static/img/step4-browser@2x.png',
-    img2: '/static/img/step4-popout.png',
-    img2Retina: '/static/img/step4-popout@2x.png',
-    width: 581,
-    height: 427,
+    img: '/static/img/step4.png',
+    width: 1000,
+    height: 633,
     top: 161,
     title: 'Track & Promote Your Achievements',
     description: 'Earn certified credentials and badges for each course and path completed.  Promote your talents and achieve your certified data rockstar status.',
@@ -100,9 +85,8 @@ const methodItems = [
     imgMobile: {
       src: '/static/img/step4-mobile.png',
       alt: 'Online courses.',
-      srcSet: '/static/img/step4-mobile.png 838w, /static/img/step4-mobile.png 1676w',
-      width: 838,
-      height: 558
+      width: 600,
+      height: 380
     }
   }
 ];

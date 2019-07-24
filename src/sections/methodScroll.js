@@ -74,7 +74,7 @@ class MethodScroll extends Component {
                             <Image
                               modifier="image-1"
                               src={item.img}
-                              srcSet={`${item.img} 1x, ${item.imgRetina} 2x`}
+                              // srcSet={`${item.img} 1x, ${item.imgRetina} 2x`}
                               placeholderColor="transparent"
                               wrapStyle={{
                                 paddingTop: '53.19%'
@@ -83,7 +83,7 @@ class MethodScroll extends Component {
                             <Image
                               modifier="image-2"
                               src={item.img2}
-                              srcSet={`${item.img2} 1x, ${item.img2Retina} 2x`}
+                              // srcSet={`${item.img2} 1x, ${item.img2Retina} 2x`}
                               placeholderColor="transparent"
                               wrapStyle={{
                                 width: item.width,
