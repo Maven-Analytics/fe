@@ -15,7 +15,7 @@ function * onCoursesInitRequest({payload}) {
   try {
     const query = payload.query || {};
 
-    const courses = yield getCourses({query});
+    const courses = yield getCourses();
 
     yield all([
       put({
