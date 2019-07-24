@@ -41,5 +41,6 @@ const getCourse = (state, slug) => {
 export const selectors = {
   getCourses: createSelector([getCourses], c => c),
   getCourse: createSelector([getCourse], c => c),
-  getFilteredCourses: createSelector([getCourses], courses => courses)
+  getFilteredCourses: createSelector([getCourses], courses => courses),
+  getCompletedCourses: createSelector([getCourses], c => c.filter(c => c.get('completed')))
 };

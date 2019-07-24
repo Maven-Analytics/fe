@@ -1,11 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Loader = ({loading, width, height, color, center}) => {
+const Loader = ({loading, width, height, color, center, position}) => {
   const classList = ['loader'];
 
   if (center) {
     classList.push('loader--center');
+  }
+
+  if (position) {
+    classList.push(position);
   }
 
   if (loading) {
@@ -64,7 +68,8 @@ Loader.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
   color: PropTypes.string,
-  center: PropTypes.bool
+  center: PropTypes.bool,
+  position: PropTypes.string
 };
 
 Loader.defaultProps = {

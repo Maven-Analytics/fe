@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import {fromJS} from 'immutable';
 
 import {actions as dashboardActions, selectors as dashboardSelectors} from '../../redux/ducks/dashboard';
-import {actions as pathActions} from '../../redux/ducks/paths';
+import {actions as pathActions, selectors as pathSelectors} from '../../redux/ducks/paths';
 import {actions as courseActions, selectors as courseSelectors} from '../../redux/ducks/courses';
 import {selectors as errorSelectors} from '../../redux/ducks/error';
 import {selectors as loadingSelectors} from '../../redux/ducks/loading';
@@ -20,6 +21,8 @@ import MediaQuery from '../../components/mediaQuery';
 import {Routes} from '../../routes';
 import DashboardProgress from '../../components/dashboardProgress';
 import MaIcon from '../../components/maIcon';
+import DashboardCredentialIcons from '../../components/dashboardCredentialIcons';
+import DashboardCredential from '../../components/dashboardCredential';
 
 class DashboardPage extends Component {
   componentDidMount() {
@@ -29,7 +32,9 @@ class DashboardPage extends Component {
   }
 
   render() {
-    const {recentCourse, progress, loadingProgress} = this.props;
+    const {recentCourse, progress, loadingProgress, completedCourses, completedPaths} = this.props;
+
+    const completed = fromJS([...completedPaths.toJS(), ...completedCourses.toJS()]);
 
     const RecentCourse = (
       <DashboardCard showWelcome loading={loadingProgress} title="Your Most Recent Course">
@@ -77,21 +82,33 @@ class DashboardPage extends Component {
 
     const NewsUpdates = (
       <DashboardCard title="News & Updates">
-        news & updates
+        <h5>Coming Soon!</h5>
       </DashboardCard>
     );
 
     const BadgeCreds = (
-      <DashboardCard title="Earned badges & credentials">
-        <DashboardNoData
-          btnText="View All Badges"
-          btnUrl={Routes.Badges}
-          btnClass="btn btn--default"
-          title="You haven’t earned any badges yet."
-          text="Complete courses to earn badges and credentials."
-        >
-          <MaIcon icon="badge-alt"/>
-        </DashboardNoData>
+      <DashboardCard title="Earned badges & credentials" loading={loadingProgress}>
+        {loadingProgress === false && completed.isEmpty() ? (
+          <DashboardNoData
+            btnText="View All Badges"
+            btnUrl={Routes.DashboardCredentials}
+            btnClass="btn btn--default"
+            title="You haven’t earned any badges yet."
+            text="Complete courses to earn badges and credentials."
+          >
+            <MaIcon icon="badge-alt"/>
+          </DashboardNoData>
+        ) : (
+          <DashboardCredentialIcons>
+            {completed.map(cred => (
+              <DashboardCredential
+                key={cred.get('id')}
+                image={cred.get('badge')}
+                title={cred.get('title')}
+              />
+            ))}
+          </DashboardCredentialIcons>
+        )}
       </DashboardCard>
     );
 
@@ -133,7 +150,9 @@ DashboardPage.propTypes = {
   errorProgress: PropTypes.string,
   actions: PropTypes.objectOf(PropTypes.func),
   recentCourse: ImmutablePropTypes.map,
-  progress: ImmutablePropTypes.map
+  progress: ImmutablePropTypes.map,
+  completedPaths: ImmutablePropTypes.list,
+  completedCourses: ImmutablePropTypes.list
 };
 
 const mapStateToProps = state => ({
@@ -141,7 +160,9 @@ const mapStateToProps = state => ({
   progress: dashboardSelectors.getProgress(state),
   courses: courseSelectors.getCourses(state),
   loadingProgress: loadingSelectors.getLoading(['DASHBOARD_PROGRESS'])(state),
-  errorProgress: errorSelectors.getError(['DASHBOARD_PROGRESS'])(state)
+  errorProgress: errorSelectors.getError(['DASHBOARD_PROGRESS'])(state),
+  completedCourses: courseSelectors.getCompletedCourses(state),
+  completedPaths: pathSelectors.getCompletedPaths(state)
 });
 
 const mapDispatchToProps = function (dispatch) {

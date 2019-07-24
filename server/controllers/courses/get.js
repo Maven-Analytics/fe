@@ -21,8 +21,8 @@ module.exports = async request => {
       enrollments = await getEnrollments(id);
       courses = courses
         .map(c => getCourseProgress(fromJS(c), fromJS(enrollments)))
-        .filter(c => c)
-        .sort((a, b) => b.get('percentage_completed') - a.get('percentage_completed'));
+        .filter(c => c);
+        // .sort((a, b) => b.get('percentage_completed') - a.get('percentage_completed'));
     }
 
     // If the enrollmentFilter is set, only show courses that meet the status passed in

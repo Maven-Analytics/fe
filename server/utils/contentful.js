@@ -159,7 +159,11 @@ function getCourseProgress(course, enrollments) {
 
       if (u.get('percentage_completed') === 1) {
         status = 'Completed';
+        u = u.set('completed', true);
       }
+
+      // DEBUG
+      // u = u.set('completed', true);
 
       return u.set('status', status);
     });
@@ -182,6 +186,8 @@ function getPathProgress(path, enrollments) {
     pathId: path.get('id'),
     percentage_completed: 0,
     enrollments: []
+    // DEBUG
+    // completed: true
   }));
 
   const totalCourses = path.get('courses').count();

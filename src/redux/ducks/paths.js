@@ -31,5 +31,6 @@ const getPath = (state, slug) => {
 
 export const selectors = {
   getPaths: createSelector([getPaths], p => p),
-  getPath: createSelector([getPath], p => p)
+  getPath: createSelector([getPath], p => p),
+  getCompletedPaths: createSelector([getPaths], p => p.filter(p => p.get('completed')))
 };
