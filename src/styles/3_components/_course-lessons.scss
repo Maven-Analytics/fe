@@ -48,7 +48,8 @@
       }
 
       &:focus,
-      &:focus-within {
+      &:focus-within,
+      &:active {
         a {
           background-color: $black;
           color: $white;
@@ -68,7 +69,6 @@
           background-color: $black;
           color: #CACACA;
           display: block;
-          pointer-events: none;
         }
       }
 
@@ -78,10 +78,7 @@
         font-size: .875em;
         margin: 0;
         padding: $spacing-unit--xs 3.7rem $spacing-unit--md;
-
-        li {
-
-        }
+        pointer-events: all;
       }
     }
   }
