@@ -2,16 +2,19 @@ import React from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
 import {List} from 'immutable';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 
+import {actions as stateActions} from '../redux/ducks/state';
 import Carousel from '../components/carousel';
 import CarouselSlide from '../components/carouselSlide';
 import CourseCard from '../components/courseCard';
 import TrackVisibility from '../components/trackVisibility';
 import {isLg} from '../components/mediaQuery';
 import withWindowSize from '../components/withWindowSize';
-import {prettyPercent} from '../utils/componentHelpers';
+import {prettyPercent, clickAction} from '../utils/componentHelpers';
 
-const CourseCarousel = ({courses, title, eyelash, description, helperText, separator}) => {
+const CourseCarousel = ({courses, title, eyelash, description, helperText, separator, actions}) => {
   return (
     <TrackVisibility className="course-carousel">
       <header>
@@ -34,7 +37,11 @@ const CourseCarousel = ({courses, title, eyelash, description, helperText, separ
 
           return (
             <CarouselSlide key={course.get('id')}>
-              <CourseCard match={match} course={course}/>
+              <CourseCard
+                match={match}
+                course={course}
+                onView={clickAction(actions.modalOpen, 'courseDrawer', course)}
+              />
             </CarouselSlide>
           );
         })}
@@ -50,11 +57,20 @@ CourseCarousel.propTypes = {
   description: PropTypes.string,
   helperText: PropTypes.string,
   courses: ImmutablePropTypes.list,
-  separator: PropTypes.bool
+  separator: PropTypes.bool,
+  actions: PropTypes.objectOf(PropTypes.func)
 };
 
 CourseCarousel.defaultProps = {
   courses: List()
 };
 
-export default withWindowSize(CourseCarousel);
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    ...stateActions
+  }, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withWindowSize(CourseCarousel));

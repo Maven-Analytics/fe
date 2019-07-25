@@ -1,4 +1,4 @@
-.path-detail {
+.product-detail {
   $self: &;
   font-size: 1.4rem;
   line-height: 1.5;
@@ -69,6 +69,13 @@
     }
 
     &__main {
+      h4 {
+        font-size: 1.6rem;
+        font-weight: 900;
+        margin: 0 0 $spacing-unit;
+        text-transform: uppercase;
+      }
+
       p {
         margin: 0 0 $spacing-unit;
 
@@ -91,7 +98,12 @@
       }
 
       ul {
+        margin: 0 0 $spacing-unit--md;
         padding-inline-start: $spacing-unit--l;
+
+        @include media-breakpoint-up(md) {
+          margin: 0 0 $spacing-unit--ll;
+        }
       }
     }
 
@@ -102,5 +114,20 @@
 
   &--light {
     color: $black-2;
+  }
+
+  &--course {
+    .product-meta {
+      .course-author {
+        .image {
+          height: 4rem;
+          width: 4rem;
+        }
+
+        .name {
+          font-size: 1em;
+        }
+      }
+    }
   }
 }

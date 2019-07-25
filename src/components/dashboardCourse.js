@@ -7,7 +7,7 @@ import {Map} from 'immutable';
 import ImageContentful from './imageContentful';
 import ProgressMeter from './progressMeter';
 
-const DashboardCourse = ({title, percentage_completed, detailUrl, resumeUrl, badge, excerpt}) => {
+const DashboardCourse = ({title, percentage_completed, onView, resumeUrl, badge, excerpt}) => {
   return (
     <div className="dashboard-course">
       <div className="dashboard-course__badge">
@@ -18,9 +18,7 @@ const DashboardCourse = ({title, percentage_completed, detailUrl, resumeUrl, bad
         <p>{excerpt}</p>
         <ProgressMeter value={percentage_completed} title="Progress"/>
         <div className="dashboard-course__footer">
-          <Link href={detailUrl}>
-            <a className="btn btn--empty-dark">View Course Details</a>
-          </Link>
+          <button onClick={onView} className="btn btn--empty-dark">View Course Details</button>
           <Link href={resumeUrl}>
             <a className="btn btn--primary-solid">Resume Course</a>
           </Link>
@@ -33,10 +31,10 @@ const DashboardCourse = ({title, percentage_completed, detailUrl, resumeUrl, bad
 DashboardCourse.propTypes = {
   title: PropTypes.string,
   percentage_completed: PropTypes.number,
-  detailUrl: PropTypes.string,
   resumeUrl: PropTypes.string,
   badge: ImmutablePropTypes.map,
-  excerpt: PropTypes.string
+  excerpt: PropTypes.string,
+  onView: PropTypes.func
 };
 
 DashboardCourse.defaultProps = {

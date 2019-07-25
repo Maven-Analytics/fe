@@ -17,7 +17,7 @@ export const actions = {
 };
 
 const initialState = utils.initialState({
-  'fields.filters.sys.id': [],
+  'fields.filters.sys.id[in]': [],
   'length[gt]': [],
   'length[lt]': [],
   enrollmentFilter: []

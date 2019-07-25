@@ -47,7 +47,7 @@ export const selectors = {
     const latestEnrollment = enrollments.first();
 
     // If there are no enrollments or the laltestEnrollment has not been started, return an empty map
-    if (!latestEnrollment || !latestEnrollment.get('percentage_completed')) {
+    if (!latestEnrollment || !latestEnrollment.has('percentage_completed')) {
       return Map();
     }
 

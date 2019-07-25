@@ -117,33 +117,33 @@ class CourseFilters extends Component {
           <CourseFilterTools
             id="tools"
             label="Tools"
-            onCheck={this.handleCheck('fields.filters.sys.id')}
-            onUncheck={this.handleUncheck('fields.filters.sys.id')}
-            active={activeFilters.get('fields.filters.sys.id')}
+            onCheck={this.handleCheck('fields.filters.sys.id[in]')}
+            onUncheck={this.handleUncheck('fields.filters.sys.id[in]')}
+            active={activeFilters.get('fields.filters.sys.id[in]')}
             options={filters.get('Tools')}
           />
           <CourseFilterChecks
             id="paths"
             label="Learning Paths"
-            onCheck={this.handleCheck('fields.filters.sys.id')}
-            onUncheck={this.handleUncheck('fields.filters.sys.id')}
-            active={activeFilters.get('fields.filters.sys.id')}
+            onCheck={this.handleCheck('fields.filters.sys.id[in]')}
+            onUncheck={this.handleUncheck('fields.filters.sys.id[in]')}
+            active={activeFilters.get('fields.filters.sys.id[in]')}
             options={filters.get('Learning Paths')}
           />
           <CourseFilterChecks
             id="instructors"
             label="Instructors"
-            onCheck={this.handleCheck('fields.filters.sys.id')}
-            onUncheck={this.handleUncheck('fields.filters.sys.id')}
-            active={activeFilters.get('fields.filters.sys.id')}
+            onCheck={this.handleCheck('fields.filters.sys.id[in]')}
+            onUncheck={this.handleUncheck('fields.filters.sys.id[in]')}
+            active={activeFilters.get('fields.filters.sys.id[in]')}
             options={filters.get('Instructors')}
           />
           <CourseFilterChecks
             id="skills"
             label="Skills"
-            onCheck={this.handleCheck('fields.filters.sys.id')}
-            onUncheck={this.handleUncheck('fields.filters.sys.id')}
-            active={activeFilters.get('fields.filters.sys.id')}
+            onCheck={this.handleCheck('fields.filters.sys.id[in]')}
+            onUncheck={this.handleUncheck('fields.filters.sys.id[in]')}
+            active={activeFilters.get('fields.filters.sys.id[in]')}
             options={filters.get('Skills')}
           />
           <CourseFilterChecks

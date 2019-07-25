@@ -36,6 +36,7 @@ class Tabs extends Component {
           {Children.map(children, (child, index) => {
             return cloneElement(child, {
               ...child.props,
+              key: index,
               active: index === selectedIndex
             });
           })}

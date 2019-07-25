@@ -317,7 +317,7 @@ Home.defaultProps = {
 Home.getInitialProps = ctx => {
   const {store} = ctx;
   store.dispatch(courseActions.coursesInit({
-    query: {
+    params: {
       'fields.trending': true
     }
   }));

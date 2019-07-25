@@ -68,13 +68,14 @@
 @import './3_components/dashboard-progress';
 @import './3_components/tabs';
 @import './3_components/dashboard-path';
-@import './3_components/path-detail';
+@import './3_components/product-detail';
 @import './3_components/course-filters';
 @import './3_components/course-filter';
 @import './3_components/dashboard-credential-list';
 @import './3_components/credential-card';
 @import './3_components/dashboard-credential-icons';
 @import './3_components/dashboard-credential';
+@import './3_components/course-lessons';
 
 @import './4_regions/global-header';
 @import './4_regions/global-footer';
@@ -91,6 +92,7 @@
 @import './4_regions/cta-section';
 @import './4_regions/course-carousel';
 @import './4_regions/path-drawer';
+@import './4_regions/course-drawer';
 
 @import './5_pages/welcome-survey';
 @import './5_pages/welcome-survey-results';

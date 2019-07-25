@@ -7,7 +7,7 @@ import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import ImageContentful from './imageContentful';
 import MaIcon from './maIcon';
 
-const CardTrendingCourse = ({title, slug, thumbnail, difficulty, recommended}) => {
+const CardTrendingCourse = ({title, slug, thumbnail, difficulty, recommended, onView}) => {
   return (
     <div className="card-trending-course">
       <div className="card-trending-course__image">
@@ -36,9 +36,7 @@ const CardTrendingCourse = ({title, slug, thumbnail, difficulty, recommended}) =
               <span className={difficulty >= 5 ? 'active' : ''} style={{height: 24}}/>
             </div>
           </div>
-          <Link href={`/course/${slug}`}>
-            <a className="btn btn--secondary">View Course</a>
-          </Link>
+          <button className="btn btn--secondary" onClick={onView}>View Course</button>
         </div>
       </div>
     </div>
@@ -50,7 +48,8 @@ CardTrendingCourse.propTypes = {
   slug: PropTypes.string,
   thumbnail: ImmutablePropTypes.map,
   difficulty: PropTypes.number,
-  recommended: PropTypes.bool
+  recommended: PropTypes.bool,
+  onView: PropTypes.func
 };
 
 CardTrendingCourse.defaultProps = {

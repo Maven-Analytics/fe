@@ -7,7 +7,7 @@ import {bindActionCreators} from 'redux';
 import {actions as stateActions, selectors as stateSelectors} from '../redux/ducks/state';
 import {selectors as dashboardSelectors} from '../redux/ducks/dashboard';
 import CloseButton from '../components/closeButton';
-import PathDetail from '../components/pathDetail';
+import ProductDetail from '../components/productDetail';
 import {clickAction} from '../utils/componentHelpers';
 import {getLastestCourseSlugResumeCourseUrl, getPathHours, getPathInstructors} from '../utils/pathHelpers';
 import {getResumeCourseUrl} from '../utils/routeHelpers';
@@ -30,11 +30,12 @@ const PathDrawer = ({actions, state, enrollments}) => {
         <CloseButton onClick={close}/>
         <div className="path-drawer__content">
           {path ? (
-            <PathDetail
+            <ProductDetail
+              productTerm="Path"
               badge={path.get('badge')}
               title={path.get('title')}
               titleTag="h2"
-              resumeUrl={getResumeCourseUrl(getLastestCourseSluggetResumeCourseUrl(path, enrollments))}
+              resumeUrl={getResumeCourseUrl(getLastestCourseSlugResumeCourseUrl(path, enrollments))}
               description={path.get('description')}
               tools={path.get('tools')}
               courseCount={path.get('courses').count()}

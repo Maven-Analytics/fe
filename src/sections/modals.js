@@ -8,6 +8,7 @@ import {actions as stateActions, selectors as stateSelectors} from '../redux/duc
 
 import MobileMenu from '../modals/mobileMenu';
 import PathDrawer from '../modals/pathDrawer';
+import CourseDrawer from '../modals/courseDrawer';
 
 const Modals = ({state, actions, hideModals}) => {
   return (
@@ -19,6 +20,7 @@ const Modals = ({state, actions, hideModals}) => {
         />
       ) : null}
       <PathDrawer/>
+      <CourseDrawer/>
     </Fragment>
   );
 };

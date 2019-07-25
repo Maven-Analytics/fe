@@ -24,6 +24,10 @@ const initialState = utils.initialState({
     open: false,
     data: null
   },
+  courseDrawer: {
+    open: false,
+    data: null
+  },
   filters: false
 });
 

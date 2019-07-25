@@ -8,6 +8,7 @@ import {fromJS} from 'immutable';
 import {actions as dashboardActions, selectors as dashboardSelectors} from '../../redux/ducks/dashboard';
 import {actions as pathActions, selectors as pathSelectors} from '../../redux/ducks/paths';
 import {actions as courseActions, selectors as courseSelectors} from '../../redux/ducks/courses';
+import {actions as stateActions} from '../../redux/ducks/state';
 import {selectors as errorSelectors} from '../../redux/ducks/error';
 import {selectors as loadingSelectors} from '../../redux/ducks/loading';
 import DashboardLayout from '../../layouts/dashboard';
@@ -23,6 +24,7 @@ import DashboardProgress from '../../components/dashboardProgress';
 import MaIcon from '../../components/maIcon';
 import DashboardCredentialIcons from '../../components/dashboardCredentialIcons';
 import DashboardCredential from '../../components/dashboardCredential';
+import {clickAction} from '../../utils/componentHelpers';
 
 class DashboardPage extends Component {
   componentDidMount() {
@@ -32,7 +34,7 @@ class DashboardPage extends Component {
   }
 
   render() {
-    const {recentCourse, progress, loadingProgress, completedCourses, completedPaths} = this.props;
+    const {recentCourse, progress, loadingProgress, completedCourses, completedPaths, actions} = this.props;
 
     const completed = fromJS([...completedPaths.toJS(), ...completedCourses.toJS()]);
 
@@ -62,10 +64,10 @@ class DashboardPage extends Component {
           <DashboardCourse
             title={recentCourse.get('title')}
             percentage_completed={recentCourse.get('percentage_completed')}
-            detailUrl={`${Routes.Course}/${recentCourse.get('slug')}`}
             resumeUrl={`${Routes.CourseTake}/${recentCourse.get('thinkificSlug')}`}
             excerpt={recentCourse.get('excerpt')}
             badge={recentCourse.get('badge')}
+            onView={(clickAction(actions.modalOpen, 'courseDrawer', recentCourse))}
           />
         ) : null}
       </DashboardCard>
@@ -170,7 +172,8 @@ const mapDispatchToProps = function (dispatch) {
     actions: bindActionCreators({
       ...dashboardActions,
       ...pathActions,
-      ...courseActions
+      ...courseActions,
+      ...stateActions
     }, dispatch)
   };
 };

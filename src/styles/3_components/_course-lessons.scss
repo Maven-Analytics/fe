@@ -1,0 +1,92 @@
+.course-lessons {
+  margin: $spacing-unit--md 0$spacing-unit--l;
+
+  @include media-breakpoint-up(md) {
+    margin: $spacing-unit--md 0 $spacing-unit--ll;
+  }
+
+  > ul {
+    font-size: 1.6rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin-bottom: $spacing-unit--xs;
+
+      a {
+        align-items: center;
+        background-color: rgba(#D8D8D8, .2);
+        color: $gray-medium-3;
+        display: flex;
+        height: 5rem;
+        padding: $spacing-unit;
+        position: relative;
+        width: 100%;
+
+        b {
+          display: block;
+          color: $black;
+          font-size: .8em;
+          font-weight: 800;
+          margin-right: $spacing-unit;
+        }
+
+        &::after {
+          content: "\e910";
+          font-family: 'maicon';
+          font-size: 1.2rem;
+          position: absolute;
+          right: 15px;
+          transform: rotate(45deg);
+          transform-origin: center;
+        }
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+
+      &:focus,
+      &:focus-within {
+        a {
+          background-color: $black;
+          color: $white;
+
+          b {
+            @include gradient-font();
+          }
+
+          &::after {
+            @include gradient-font();
+            content: "\e90f";
+            transform: none;
+          }
+        }
+
+        ul {
+          background-color: $black;
+          color: #CACACA;
+          display: block;
+          pointer-events: none;
+        }
+      }
+
+      ul {
+        @include list-unstyled();
+        display: none;
+        font-size: .875em;
+        margin: 0;
+        padding: $spacing-unit--xs 3.7rem $spacing-unit--md;
+
+        li {
+
+        }
+      }
+    }
+  }
+
+  p {
+    margin: 0;
+  }
+}

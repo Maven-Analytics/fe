@@ -13,9 +13,9 @@ export function * watchCourses() {
 
 function * onCoursesInitRequest({payload}) {
   try {
-    const query = payload.query || {};
+    const params = payload.params || {};
 
-    const courses = yield getCourses();
+    const courses = yield getCourses(params);
 
     yield all([
       put({

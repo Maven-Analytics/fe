@@ -9,10 +9,9 @@ import CourseHours from './courseHours';
 import CourseAuthor from './courseAuthor';
 import CourseBanner from './courseBanner';
 import MaIcon from './maIcon';
-import {Routes} from '../routes';
 import ProgressMeter from './progressMeter';
 
-const CourseCard = ({course, condensed, match, recommended, progress, full}) => {
+const CourseCard = ({course, condensed, match, recommended, progress, full, onView}) => {
   const classList = ['course-card'];
 
   if (condensed) {
@@ -48,15 +47,13 @@ const CourseCard = ({course, condensed, match, recommended, progress, full}) => 
       <div className="course-card__content">
         <h4>{course.get('title')}</h4>
         {condensed === false ? (
-          <p>{course.get('excerpt')}</p>
+          <p>{course.get('cardDescription')}</p>
         ) : null}
         {progress > -1 ? <ProgressMeter value={progress} title="Progress"/> : null}
       </div>
       <div className="course-card__footer">
         <span>
-          <Link href={`${Routes.Course}/${course.get('slug')}`}>
-            <a className="btn">View Course</a>
-          </Link>
+          <button onClick={onView} className="btn">View Course</button>
         </span>
         {condensed === false ? (
           <CourseHours hours={course.get('length')}/>
@@ -73,7 +70,8 @@ CourseCard.propTypes = {
   match: PropTypes.string,
   recommended: PropTypes.string,
   progress: PropTypes.number,
-  full: PropTypes.bool
+  full: PropTypes.bool,
+  onView: PropTypes.func
 };
 
 CourseCard.defaultProps = {
