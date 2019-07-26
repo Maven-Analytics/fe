@@ -45,7 +45,7 @@ const CourseDrawer = ({actions, state, user}) => {
               hours={course.get('length')}
               instructors={course.get('author')}
             >
-              <RichText content={course.get('description')}/>
+              {course.get('description') && course.get('description') !== '' ? <RichText content={course.get('description')}/> : null}
               {course.get('lessons') ? <CourseLessons lessons={course.get('lessons')}/> : null}
               {course.get('descriptionDetails') ? <RichText content={course.get('descriptionDetails')}/> : null}
             </ProductDetail>
