@@ -9,11 +9,11 @@
   }
 
   @include media-breakpoint-up(md) {
+    flex-wrap: nowrap;
     font-size: 1.4rem;
   }
 
   @include media-breakpoint-up(lg) {
-    flex-wrap: nowrap;
   }
 
   @include media-breakpoint-up(xl) {
@@ -52,10 +52,6 @@
     }
 
     @include media-breakpoint-up(md) {
-      flex: 1 1 80%;
-    }
-
-    @include media-breakpoint-up(lg) {
       margin-bottom: 0;
       margin-right: $spacing-unit;
     }
@@ -75,12 +71,19 @@
     .btn {
       @include btnFixed(40px, auto, 20px);
       font-size: .68em;
+      margin-bottom: $spacing-unit--ss;
+      margin-right: $spacing-unit;
+
+      @include media-breakpoint-up(lg) {
+        margin-right: $spacing-unit--md;
+      }
 
       + .btn {
-        margin-left: $spacing-unit;
+        margin-bottom: $spacing-unit--ss;
+        margin-right: 0;
 
         @include media-breakpoint-up(lg) {
-          margin-left: $spacing-unit--md;
+          margin-right: 0;
         }
       }
     }
@@ -88,11 +91,14 @@
 
   &__details {
     flex: 0 0 100%;
-    max-width: 325px;
+
+    @include media-breakpoint-up(md) {
+      flex: 0 0 20%;
+      max-width: none;
+    }
 
     @include media-breakpoint-up(lg) {
       flex: 0 0 30%;
-      max-width: none;
     }
 
     .progress-meter {
@@ -102,11 +108,19 @@
 
       &__readout {
         font-size: .875em;
+
+        @include media-breakpoint-between(md, lg) {
+          flex: 0 1 16px;
+        }
       }
     }
 
     .product-meta {
       margin-top: $spacing-unit;
+
+      @include media-breakpoint-between(md, lg) {
+        grid-template-columns: 1fr;
+      }
 
       li {
         .label {
