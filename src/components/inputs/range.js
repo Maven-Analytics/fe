@@ -74,6 +74,10 @@ class RangeInput extends Component {
     return event.clientX;
   }
 
+  handleDocumentDrag(e) {
+    e.preventDefault();
+  }
+
   handleChange(e) {
     this.handleValueChange(parseFloat(e.target.value));
   }
@@ -88,8 +92,10 @@ class RangeInput extends Component {
   handleMouseDown(e) {
     this.handleMouseEvent(e);
 
-    document.addEventListener('mousemove', this.handleMouseMove);
+    document.addEventListener('mousemove', this.handleMouseMove, {passive: false});
+    document.addEventListener('touchmove', this.handleDocumentDrag, {passive: false});
     document.addEventListener('mouseup', this.handleMouseUp);
+    document.body.style.overflowX = 'hidden';
   }
 
   handleMouseMove(e) {
@@ -110,7 +116,10 @@ class RangeInput extends Component {
       down: false
     });
 
-    document.removeEventListener('mousemove', this.handleMouseMove);
+    document.body.style.overflowX = null;
+
+    document.removeEventListener('mousemove', this.handleMouseMove, {passive: false});
+    document.removeEventListener('touchmove', this.handleDocumentDrag, {passive: false});
     document.removeEventListener('mouseup', this.handleMouseUp);
   }
 
@@ -132,6 +141,7 @@ class RangeInput extends Component {
     return (
       <div
         ref={this.el}
+        draggable
         className="range-input"
         onMouseDown={this.handleMouseDown}
         onTouchStart={this.handleMouseDown}
