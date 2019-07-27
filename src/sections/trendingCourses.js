@@ -8,10 +8,10 @@ import {connect} from 'react-redux';
 import {actions as stateActions} from '../redux/ducks/state';
 import Carousel from '../components/carousel';
 import CarouselSlide from '../components/carouselSlide';
-import CardTrendingCourse from '../components/cardTrendingCourse';
 import TrackVisibility from '../components/trackVisibility';
 import {isXl, isLg, isMd} from '../components/mediaQuery';
 import {clickAction} from '../utils/componentHelpers';
+import CourseCard from '../components/courseCard';
 
 const TrendingCourses = ({courses, actions}) => {
   return (
@@ -27,13 +27,9 @@ const TrendingCourses = ({courses, actions}) => {
         >
           {courses.map(course => (
             <CarouselSlide key={course.get('id')}>
-              <CardTrendingCourse
-                title={course.get('title')}
-                slug={course.get('slug')}
-                thumbnail={course.get('thumbnail')}
-                difficulty={course.get('difficulty')}
-                recommended={course.get('recommended')}
-                onView={clickAction(actions.modalOpen, 'courseDrawer', course)}
+              <CourseCard
+                condensed
+                course={course}
               />
             </CarouselSlide>
           ))}

@@ -24,7 +24,7 @@ module.exports = async request => {
       courses = courses
         .map(c => getCourseProgress(fromJS(c), fromJS(enrollments)))
         .filter(c => c);
-        // .sort((a, b) => b.get('percentage_completed') - a.get('percentage_completed'));
+      // .sort((a, b) => b.get('percentage_completed') - a.get('percentage_completed'));
     }
 
     // If the enrollmentFilter is set, only show courses that meet the status passed in
@@ -55,6 +55,10 @@ function mapCourseToPaths(paths) {
   return course => {
     const coursePaths = paths
       .filter(p => {
+        if (!p.courses) {
+          return false;
+        }
+
         return p.courses.find(c => c.id === course.get('id'));
       })
       .map(p => {
