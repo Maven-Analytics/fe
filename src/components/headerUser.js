@@ -6,6 +6,7 @@ import Link from 'next/link';
 import MaIcon from './maIcon';
 import {clickPrevent} from '../utils/componentHelpers';
 import {Routes} from '../routes';
+import ClickOutside from './clickOutside';
 
 const HeaderUser = ({user, onClick, open, logout}) => {
   const classList = ['header-user'];
@@ -15,7 +16,7 @@ const HeaderUser = ({user, onClick, open, logout}) => {
   }
 
   return (
-    <div className={classList.join(' ')}>
+    <ClickOutside onClickOutside={onClick} disabled={!open} className={classList.join(' ')}>
       <button onClick={onClick} className="header-user__toggle" aria-expanded={open} aria-controls="header-user-dropdown">
         {user.get('first_name')} {user.get('last_name').charAt(0)}
         {/* <div className="user-icon">
@@ -30,7 +31,7 @@ const HeaderUser = ({user, onClick, open, logout}) => {
         <li><Link href={Routes.Account}><a>My Account</a></Link></li>
         <li><a href="#" onClick={clickPrevent(logout)}>Sign Out</a></li>
       </ul>
-    </div>
+    </ClickOutside>
   );
 };
 
