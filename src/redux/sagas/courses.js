@@ -9,6 +9,7 @@ import api from '../../services/api';
 export function * watchCourses() {
   yield takeLatest(courseTypes.COURSESINIT_REQUEST, onCoursesInitRequest);
   yield takeLatest(courseTypes.COURSES_FILTER_REQUEST, onCoursesFilter);
+  yield takeLatest(courseTypes.COURSES_GET_REQUEST, onCoursesGet);
 }
 
 function * onCoursesInitRequest({payload}) {
@@ -58,10 +59,44 @@ function * onCoursesFilter() {
   }
 }
 
-function getCourses(params = {}) {
+function * onCoursesGet({payload}) {
+  try {
+    const activeFilters = yield select(activeFilterSelectors.getActiveFilters);
+
+    let params = activeFilters
+      .filter(v => !v.isEmpty())
+      .map(v => v.join(','))
+      .toJS();
+
+    if (payload.params) {
+      params = {
+        ...payload.params,
+        ...params
+      };
+    }
+
+    const courses = yield getCourses(params, false);
+
+    yield all([
+      put({
+        type: courseTypes.COURSES_GET_SUCCESS,
+        payload: courses
+      })
+    ]);
+  } catch (error) {
+    console.log(error);
+    yield put({
+      type: courseTypes.COURSES_GET_FAILURE,
+      payload: error.response ? error.response.data : error.message
+    });
+  }
+}
+
+function getCourses(params = {}, useAuth = true) {
   return api({
     method: 'get',
     url: '/api/v1/courses',
-    params
+    params,
+    useAuth
   });
 }

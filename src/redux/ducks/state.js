@@ -28,6 +28,10 @@ const initialState = utils.initialState({
     open: false,
     data: null
   },
+  video: {
+    open: false,
+    data: null
+  },
   filters: false
 });
 

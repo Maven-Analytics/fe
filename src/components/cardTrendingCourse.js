@@ -6,6 +6,7 @@ import * as ImmutablePropTypes from 'react-immutable-proptypes';
 
 import ImageContentful from './imageContentful';
 import MaIcon from './maIcon';
+import DifficultyMeter from './difficultyMeter';
 
 const CardTrendingCourse = ({title, slug, thumbnail, difficulty, recommended, onView}) => {
   return (
@@ -26,16 +27,7 @@ const CardTrendingCourse = ({title, slug, thumbnail, difficulty, recommended, on
       <div className="card-trending-course__inner">
         <h4>{title}</h4>
         <div className="card-trending-course__footer">
-          <div className="difficulty">
-            <small className="label">Difficulty</small>
-            <div className="graphic">
-              <span className={difficulty >= 1 ? 'active' : ''} style={{height: 9}}/>
-              <span className={difficulty >= 2 ? 'active' : ''} style={{height: 13}}/>
-              <span className={difficulty >= 3 ? 'active' : ''} style={{height: 17}}/>
-              <span className={difficulty >= 4 ? 'active' : ''} style={{height: 21}}/>
-              <span className={difficulty >= 5 ? 'active' : ''} style={{height: 24}}/>
-            </div>
-          </div>
+          <DifficultyMeter difficulty={difficulty}/>
           <button className="btn btn--secondary" onClick={onView}>View Course</button>
         </div>
       </div>

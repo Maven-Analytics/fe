@@ -12,12 +12,16 @@ export const types = {
   COURSESINIT_FAILURE: 'COURSESINIT_FAILURE',
   COURSES_FILTER_REQUEST: 'COURSES_FILTER_REQUEST',
   COURSES_FILTER_SUCCESS: 'COURSES_FILTER_SUCCESS',
-  COURSES_FILTER_FAILURE: 'COURSES_FILTER_FAILURE'
+  COURSES_FILTER_FAILURE: 'COURSES_FILTER_FAILURE',
+  COURSES_GET_REQUEST: 'COURSES_GET_REQUEST',
+  COURSES_GET_SUCCESS: 'COURSES_GET_SUCCESS',
+  COURSES_GET_FAILURE: 'COURSES_GET_FAILURE'
 };
 
 export const actions = {
   coursesInit: obj => utils.action(types.COURSESINIT_REQUEST, obj),
-  coursesFilter: obj => utils.action(types.COURSES_FILTER_REQUEST, obj)
+  coursesFilter: obj => utils.action(types.COURSES_FILTER_REQUEST, obj),
+  coursesGet: obj => utils.action(types.COURSES_GET_REQUEST, obj)
 };
 
 const initialState = utils.initialState([]);
@@ -25,6 +29,8 @@ const initialState = utils.initialState([]);
 export default (state = initialState, action) => {
   switch (action.type) {
   case types.COURSESINIT_SUCCESS:
+    return utils.stateListMerge(state, action.payload);
+  case types.COURSES_GET_SUCCESS:
     return utils.stateListMerge(state, action.payload);
   case types.COURSES_FILTER_SUCCESS:
     return fromJS(action.payload);

@@ -69,34 +69,9 @@
     justify-content: space-between;
   }
 
-  .difficulty {
+  .difficulty-meter {
     align-items: flex-end;
     display: flex;
-
-    .label {
-      color: $gray-dark;
-      font-size: .9rem;
-      font-weight: 700;
-      margin-right: $spacing-unit--ss;
-      padding-bottom: 1px;
-    }
-
-    .graphic {
-      span {
-        background-color: $gray-light-2;
-        display: inline-block;
-        opacity: 0.33;
-        width: 5px;
-
-        &:not(:last-child) {
-          margin-right: .4rem;
-        }
-
-        &.active {
-          opacity: 1;
-        }
-      }
-    }
   }
 
   .btn {

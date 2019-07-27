@@ -1,0 +1,234 @@
+.course-hero {
+  color: $white;
+  font-size: 1.4rem;
+  position: relative;
+
+  @include collapseUp() {
+    font-size: 1.8rem;
+  }
+
+  &__bg {
+    background-color: $black;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+
+    .image {
+      padding-top: 62.42%;
+    }
+
+    img {
+      object-fit: cover;
+    }
+
+    *[class^='react-parallax'] {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  &__inner {
+    padding: 5vh 0 10vh;
+
+    @include media-breakpoint-up(lg) {
+      padding: calc(5vh + #{$header-height-desktop}) 0 10vh;
+    }
+  }
+
+  &__eyelash {
+    @include gradient-font();
+    display: inline-block;
+    font-size: .67em;
+    font-weight: 700;
+    letter-spacing: 2px;
+    opacity: .9;
+    margin-bottom: .7em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-size: 3em;
+    font-weight: 700;
+    margin-bottom: .3em;
+    line-height: 1;
+    padding-bottom: .3em;
+    position: relative;
+
+    &::after {
+      bottom: 0;
+      background: $brand-gradient;
+      content: ' ';
+      height: .1rem;
+      left: 0;
+      position: absolute;
+      width: 14.5rem;
+    }
+
+  }
+
+  &__description {
+    color: #DEDEDE;
+
+    p {
+      line-height: 1.8;
+
+      @include collapseUp {
+        margin-bottom: $spacing-unit--md;
+      }
+    }
+  }
+
+  &__video {
+    margin: $spacing-unit--md 0;
+    position: relative;
+    @include collapseUp() {
+      margin-left: 2vw;
+      margin-top: 0;
+    }
+
+    .image {
+      padding-bottom: 56.29%;
+    }
+
+    button {
+      align-items: center;
+      background-color: rgba($black, .43);
+      border: none;
+      border-radius: 50%;
+      color: $white;
+      display: flex;
+      height: 60px;
+      justify-content: center;
+      font-size: 2rem;
+      left: calc(50% - 30px);
+      position: absolute;
+      top: calc(50% - 30px);
+      transition: background-color .2s ease-in-out;
+      width: 60px;
+
+      &:hover {
+        background-color: rgba($black, .7);
+      }
+
+      @include collapseUp() {
+        height: 80px;
+        font-size: 3rem;
+        left: calc(50% - 40px);
+        top: calc(50% - 40px);
+        width: 80px;
+      }
+
+      i {
+        margin-left: 6px;
+      }
+    }
+  }
+
+  &__pills {
+    display: inline-block;
+  }
+
+  &__pill {
+    border: 1px solid $gray-border;
+    border-radius: 21.5px;
+    color: $white;
+    display: inline-block;
+    font-size: 1.2rem;
+    margin-bottom: .7rem;
+    margin-right: .7rem;
+    padding: 1rem 1.9rem;
+    white-space: nowrap;
+
+    @include media-breakpoint-up(md) {
+      font-size: 1.6rem;
+      height: 43px;
+    }
+  }
+
+  .difficulty-meter {
+    .graphic {
+      white-space: nowrap;
+
+      span {
+        width: 13px;
+
+        &.active {
+          background: $brand-gradient;
+        }
+      }
+    }
+  }
+
+  .product-meta {
+    @include list-unstyled();
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-row-gap: $spacing-unit;
+
+    @include media-breakpoint-up(md) {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    @include collapseUp() {
+      grid-template-columns: 1fr 1.5fr 1fr 1fr 1fr 2fr;
+    }
+
+    &__item {
+      $borderColor:#5E5E5E;
+      padding: .5rem 1rem;
+
+
+      @include media-breakpoint-between(md, lg) {
+        &:not(:nth-child(3)),
+        &:not(:nth-child(6)) {
+          border-right: 1px solid $borderColor;
+        }
+      }
+
+      @include collapseUp {
+        padding: 2rem 2.3vw;
+
+        &:not(:last-child) {
+          border-right: 1px solid $borderColor;
+        }
+      }
+
+      &:first-child {
+        padding-left: 0;
+      }
+
+      &:last-child {
+        padding-right: 0;
+      }
+
+      .label {
+        color: #BEBEBE;
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
+
+      .value {
+        display: inline-block;
+        font-size: 1.8rem;
+
+        @include collapseUp() {
+          font-size: 2.4rem;
+        }
+      }
+
+      .badge {
+        display: inline-block;
+        height: 100px;
+        width: 100px;
+      }
+
+      .paths {
+        @include media-breakpoint-up(md) {
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+}

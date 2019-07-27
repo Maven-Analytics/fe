@@ -1,7 +1,7 @@
 const axios = require('axios');
 const {fromJS, List} = require('immutable');
 
-const {getCourses, getCourseProgress} = require('../../utils/contentful');
+const {getCourses, getCourseProgress, getPaths} = require('../../utils/contentful');
 
 module.exports = async request => {
   try {
@@ -12,8 +12,10 @@ module.exports = async request => {
     delete query.enrollmentFilter;
 
     let courses = await getCourses({query});
+    let paths = await getPaths({});
 
     courses = fromJS(courses)
+      .map(mapCourseToPaths(paths))
       .sort((a, b) => (b.get('surveyWeight') || 0 * 1000) - (a.get('surveyWeight') || 0 * 1000));
 
     let enrollments;
@@ -47,4 +49,20 @@ function getEnrollments(id) {
     }
   })
     .then(res => res.data.data.enrollments);
+}
+
+function mapCourseToPaths(paths) {
+  return course => {
+    const coursePaths = paths
+      .filter(p => {
+        return p.courses.find(c => c.id === course.get('id'));
+      })
+      .map(p => {
+        delete p.courses;
+
+        return p;
+      });
+
+    return course.set('paths', coursePaths);
+  };
 }

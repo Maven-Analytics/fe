@@ -49,6 +49,7 @@
 @import './2_pieces/loader';
 @import './2_pieces/dashboard-no-data';
 @import './2_pieces/product-meta';
+@import './2_pieces/difficulty-meter';
 
 @import './3_components/auth';
 @import './3_components/scroll';
@@ -76,6 +77,7 @@
 @import './3_components/dashboard-credential-icons';
 @import './3_components/dashboard-credential';
 @import './3_components/course-lessons';
+@import './3_components/course-hero';
 
 @import './4_regions/global-header';
 @import './4_regions/global-footer';
@@ -96,6 +98,7 @@
 
 @import './5_pages/welcome-survey';
 @import './5_pages/welcome-survey-results';
+@import './5_pages/course-detail';
 
 @import './checkout';
 
