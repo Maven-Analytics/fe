@@ -40,6 +40,7 @@ class CourseFilters extends Component {
 
   handleFilter() {
     this.props.actions.coursesFilter();
+    this.props.actions.offmenuClose('filters');
   }
 
   handleCheck(key) {

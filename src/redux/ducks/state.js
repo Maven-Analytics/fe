@@ -5,6 +5,7 @@ import * as utils from '../../utils/duckHelpers';
 
 export const types = {
   OFFMENU_TOGGLE: 'OFFMENU_TOGGLE',
+  OFFMENU_CLOSE: 'OFFMENU_CLOSE',
   STATE_RESET: 'STATE_RESET',
   MODAL_OPEN: 'MODAL_OPEN',
   MODAL_CLOSE: 'MODAL_CLOSE'
@@ -12,6 +13,7 @@ export const types = {
 
 export const actions = {
   offmenuToggle: obj => utils.action(types.OFFMENU_TOGGLE, obj),
+  offmenuClose: obj => utils.action(types.OFFMENU_CLOSE, obj),
   modalClose: (key, delay) => utils.action(types.MODAL_CLOSE, {key, delay}),
   modalOpen: (key, data) => utils.action(types.MODAL_OPEN, {key, data}),
   stateReset: () => utils.action(types.STATE_RESET)
@@ -48,6 +50,8 @@ export default (state = initialState, action) => {
     });
   case types.OFFMENU_TOGGLE:
     return state.set(action.payload, !state.get(action.payload));
+  case types.OFFMENU_CLOSE:
+    return state.set(action.payload, false);
   case types.STATE_RESET:
     return initialState;
 
