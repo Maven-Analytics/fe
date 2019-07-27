@@ -9,11 +9,7 @@
   header {
     color: $black;
     margin: 0 0 $spacing-unit;
-    text-align: center;
-
-    @include media-breakpoint-up(md) {
-      margin: 0 0 $spacing-unit--md;
-    }
+    text-align: left;
 
     h2 {
       font-size: 1.2rem;
