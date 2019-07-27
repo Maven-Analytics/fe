@@ -20,7 +20,7 @@ const CourseCarousel = ({courses, title, eyelash, description, helperText, separ
   }
 
   return (
-    <div className="course-carousel">
+    <TrackVisibility className="course-carousel">
       <header>
         {title ? <h2>{title} <span>{eyelash}</span></h2> : null}
         {description ? <p>{description}</p> : null}
@@ -51,7 +51,7 @@ const CourseCarousel = ({courses, title, eyelash, description, helperText, separ
         })}
       </Carousel>
       {separator ? <hr/> : null}
-    </div>
+    </TrackVisibility>
   );
 };
 
