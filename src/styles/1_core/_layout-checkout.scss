@@ -25,7 +25,9 @@
 
   &__wrap {
     min-height: calc(100vh - #{$header-height-mobile + $copyright-height-mobile});
+    overflow: hidden;
     padding: $spacing-unit--mdl 0;
+    width: 100%;
 
     @include collapseUp() {
       min-height: calc(100vh - #{$header-height-desktop + $copyright-height-desktop});
