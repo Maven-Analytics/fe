@@ -1,4 +1,5 @@
 import React, {Component, createRef} from 'react';
+import {createPortal} from 'react-dom';
 import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
 
@@ -12,7 +13,12 @@ class Carousel extends Component {
       contain: true,
       prevNextButtons: false,
       cellSelector: '.carousel-slide',
-      cellAlign: 'left'
+      cellAlign: 'left',
+      draggable: true
+    };
+
+    this.state = {
+      ready: false
     };
 
     this.el = createRef();
@@ -33,10 +39,11 @@ class Carousel extends Component {
 
     if (!this.objectsEqual(prevProps.options, this.props.options)) {
       this.initCarousel();
-    } /* else if (!prevProps.children.equals(this.props.children)) {
-      console.log('children changed')
-      this.initCarousel();
-    } */
+    }
+
+    if (this.flickity) {
+      this.flickity.reloadCells();
+    }
   }
 
   objectsEqual(a, b) {
@@ -92,14 +99,32 @@ class Carousel extends Component {
     this.flickity.on('change', index => {
       this.props.onChange(index);
     });
+
+    this.setState({
+      ready: true
+    });
+  }
+
+  renderPortal() {
+    if (!this.el || !this.el.current) {
+      return null;
+    }
+
+    const mountNode = this.el.current.querySelector('.flickity-slider');
+
+    if (mountNode) {
+      return createPortal(this.props.children, mountNode);
+    }
+
+    return null;
   }
 
   render() {
-    const {children, className} = this.props;
+    const {children, className, isStatic} = this.props;
 
     return (
       <div ref={this.el} className={`carousel ${className}`}>
-        {children}
+        {isStatic ? children : this.renderPortal()}
       </div>
     );
   }
@@ -110,13 +135,15 @@ Carousel.propTypes = {
   options: PropTypes.object,
   activeIndex: PropTypes.number,
   className: PropTypes.string,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  isStatic: PropTypes.bool
 };
 
 Carousel.defaultProps = {
   options: {},
   className: '',
-  onChange: noop
+  onChange: noop,
+  isStatic: false
 };
 
 export default Carousel;

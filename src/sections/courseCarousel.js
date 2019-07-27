@@ -15,8 +15,12 @@ import withWindowSize from '../components/withWindowSize';
 import {prettyPercent, clickAction} from '../utils/componentHelpers';
 
 const CourseCarousel = ({courses, title, eyelash, description, helperText, separator, actions}) => {
+  if (!courses || !courses.count()) {
+    return null;
+  }
+
   return (
-    <TrackVisibility className="course-carousel">
+    <div className="course-carousel">
       <header>
         {title ? <h2>{title} <span>{eyelash}</span></h2> : null}
         {description ? <p>{description}</p> : null}
@@ -47,7 +51,7 @@ const CourseCarousel = ({courses, title, eyelash, description, helperText, separ
         })}
       </Carousel>
       {separator ? <hr/> : null}
-    </TrackVisibility>
+    </div>
   );
 };
 
