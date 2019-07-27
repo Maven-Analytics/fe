@@ -9,6 +9,8 @@ import {actions as stateActions, selectors as stateSelectors} from '../redux/duc
 import MobileMenu from '../modals/mobileMenu';
 import PathDrawer from '../modals/pathDrawer';
 import CourseDrawer from '../modals/courseDrawer';
+import VideoModal from '../modals/videoModal';
+import {click} from '../utils/componentHelpers';
 
 const Modals = ({state, actions, hideModals}) => {
   return (
@@ -21,6 +23,11 @@ const Modals = ({state, actions, hideModals}) => {
       ) : null}
       <PathDrawer/>
       <CourseDrawer/>
+      <VideoModal
+        open={state.getIn(['video', 'open'])}
+        video={state.getIn(['video', 'data', 'video'])}
+        onClose={click(actions.modalClose, 'video')}
+      />
     </Fragment>
   );
 };

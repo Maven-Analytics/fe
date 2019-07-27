@@ -1,0 +1,96 @@
+.modal {
+  $self: &;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: index($globalIndex, modal);
+
+  &:focus-within {
+    outline: none;
+  }
+
+  &__fog {
+    background-color: rgba($black, 0.8);
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: index($globalIndex, modalFog);
+
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__inner {
+    bottom: 0;
+    left: 0;
+    opacity: 1;
+    position: static;
+    right: 0;
+    top: 0;
+    z-index: index($globalIndex, modalInner);
+  }
+
+  &__body {
+    position: absolute;
+    z-index: index($globalIndex, modalBody);
+
+    &[data-position="center"] {
+      left: 50%;
+      top: 50%;
+      transform: translateX(-50%) translateY(-50%);
+    }
+  }
+
+  &__close {
+    align-items: center;
+    background-color: transparent;
+    border-color: transparent;
+    color: $white;
+    display: flex;
+    font-size: 4rem;
+    height: 40px;
+    justify-content: center;
+    padding: 0;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 32px;
+  }
+
+  &--md {
+    #{$self}__body {
+      min-width: 75%;
+    }
+  }
+
+  &--lg {
+    #{$self}__body {
+      min-width: 75%;
+    }
+  }
+
+  &--full {
+    #{$self}__body {
+      height: 100%;
+      min-width: 100%;
+      overflow-y: auto;
+    }
+  }
+
+  &--video {
+    #{$self}__body {
+      padding: 6rem $spacing-unit;
+
+      @include media-breakpoint-up(md) {
+        padding: 6rem;
+      }
+    }
+  }
+}

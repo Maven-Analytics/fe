@@ -24,6 +24,18 @@ function * onOffmenuChange() {
   } else {
     document.body.classList.remove('path-drawer-open');
   }
+
+  if (state.getIn(['courseDrawer', 'open'])) {
+    document.body.classList.add('path-drawer-open');
+  } else {
+    document.body.classList.remove('path-drawer-open');
+  }
+
+  if (state.getIn(['video', 'open'])) {
+    document.body.classList.add('video-modal-open');
+  } else {
+    document.body.classList.remove('video-modal-open');
+  }
 }
 
 function * onStateReset() {

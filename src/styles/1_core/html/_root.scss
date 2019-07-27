@@ -40,6 +40,7 @@ body {
     }
   }
 
+  &.video-modal-open,
   &.path-drawer-open {
     overflow: hidden;
   }

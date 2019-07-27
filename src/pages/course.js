@@ -34,7 +34,7 @@ const Course = ({course, actions}) => {
           paths={course.get('paths')}
           thumbnail={course.get('thumbnail')}
           video="video"
-          onVideoClick={clickAction(actions.modalOpen, 'video', course.get('video'))}
+          onVideoClick={clickAction(actions.modalOpen, 'video', {video: course.get('video')})}
         />
         <CtaSurvey/>
         <div className="container container--lg">
@@ -62,7 +62,7 @@ const Course = ({course, actions}) => {
                   <li><MaIcon icon="check"/>100% satisfaction guarantee</li>
                   <li><MaIcon icon="check"/>Verified credentials & accredited badges</li>
                 </ul>
-                <Link to="/signup">
+                <Link href="/signup">
                   <a className="btn btn--primary-solid">Sign Up Today</a>
                 </Link>
               </div>
