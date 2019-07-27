@@ -1,0 +1,61 @@
+.cta-survey {
+  background: $brand-gradient;
+  font-size: 1.4rem;
+
+  @include media-breakpoint-up(md) {
+    font-size: 1.8rem;
+  }
+
+  &__inner {
+    align-items: center;
+    display: flex;
+    padding: $spacing-unit--l 0;
+
+    @include media-breakpoint-up(md) {
+      padding: $spacing-unit--ll 0;
+    }
+  }
+
+  .row {
+    width: 100%;
+  }
+
+  h2 {
+    color: #2B2B2B;
+    font-size: 1.66em;
+    font-weight: 700;
+    margin-bottom: 0;
+    text-transform: uppercase;
+  }
+
+  p {
+    color: #424242;
+    margin: 0 0 $spacing-unit;
+
+    @include media-breakpoint-up(md) {
+      margin: 0;
+    }
+  }
+
+  .button {
+    @include media-breakpoint-up(md) {
+      align-items: center;
+      display: flex;
+      height: 100%;
+      justify-content: flex-end;
+    }
+  }
+
+  a {
+    @include btnFixed(40, 140, 20.5px);
+    border-color: $black;
+    border-width: 1px;
+    color: $black;
+    font-size: .8em;
+
+    @include media-breakpoint-up(md) {
+      @include btnFixed(50px, 218px, 25px);
+      font-size: 1.3rem;
+    }
+  }
+}

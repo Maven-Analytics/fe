@@ -1,3 +1,170 @@
 .course-detail {
+  &__main {
+    display: grid;
+    grid-row-gap: $spacing-unit;
+    font-size: 1.6rem;
+    padding: $spacing-unit--ll 0;
 
+    @include collapseUp() {
+      grid-template-columns: 70% 30%;
+      grid-column-gap: $spacing-unit--md;
+      padding: $spacing-unit--xl 0;
+    }
+
+    @include media-breakpoint-up(xl) {
+      grid-template-columns: 70% 30%;
+      grid-column-gap: 5vw;
+    }
+
+    h4 {
+      font-size: 1.1em;
+      font-weight: 900;
+      margin: 0 0 $spacing-unit;
+      text-transform: uppercase;
+    }
+
+    section {
+      > div {
+        margin-bottom: $spacing-unit--md;
+
+        @include collapseUp() {
+          margin-bottom: $spacing-unit--ll;
+        }
+      }
+
+      p {
+        color: #7E7E7E;
+      }
+
+      ul {
+        margin-bottom: $spacing-unit--md;
+
+        @include collapseUp() {
+          margin-bottom: $spacing-unit--ll;
+        }
+      }
+    }
+
+    .course-lessons {
+      ul {
+        margin: 0;
+      }
+    }
+  }
+
+  &__author {
+    .meta {
+      align-items: center;
+      display: flex;
+      margin: 0 0 $spacing-unit;
+
+      @include media-breakpoint-up(md) {
+        margin: 0 0 $spacing-unit--md;
+      }
+
+      .image {
+        border: 1px solid $gray-light;
+        border-radius: 50%;
+        height: 92px;
+        margin-right: 5%;
+        overflow: hidden;
+        width: 92px;
+      }
+
+      h5 {
+        color: $black;
+        font-family: $font-body;
+        font-size: 1.1em;
+        font-weight: 900;
+        margin: 0;
+      }
+
+      p {
+        color: #6E6E6E;
+        font-size: .87em;
+        margin: 0;
+      }
+    }
+
+    .bio {
+      color: #7E7E7E;
+      font-size: 1em;
+      line-height: 1.5;
+      margin-bottom: $spacing-unit--md;
+    }
+
+    .qualifications {
+      color: #7E7E7E;
+
+      h5 {
+        color: $black;
+        font-family: $font-body;
+        font-size: 1em;
+        font-weight: 900;
+        margin: 0 0 $spacing-unit--ss;
+      }
+
+      ul {
+        @include list-unstyled();
+
+        li {
+          font-size: 1em;
+          margin: 0 0 $spacing-unit--ss;
+
+          i {
+            @include gradient-font();
+            margin-right: $spacing-unit;
+          }
+        }
+      }
+    }
+  }
+
+  &__cta {
+    border-top: 1px solid #C5C5C5;
+    font-size: 1.4rem;
+    padding: $spacing-unit--md 0 0;
+
+    @include media-breakpoint-up(md) {
+      font-size: 1.6rem;
+    }
+
+    @include collapseUp() {
+      padding: $spacing-unit--ll 0 0;
+    }
+
+    h3 {
+      color: $black;
+      font-family: $font-body;
+      font-size: 1.75em;
+      font-weight: 900;
+      margin: 0 0 .6rem;
+    }
+
+    p {
+      color: $black;
+      margin: 0 0 $spacing-unit;
+    }
+
+    ul {
+      list-style: none;
+
+      li {
+        font-size: 1.125em;
+        font-weight: 700;
+        margin: 0 0 $spacing-unit;
+
+        i {
+          @include gradient-font();
+          font-size: 1.1em;
+          margin-right: $spacing-unit--md;
+        }
+      }
+    }
+
+    a {
+      @include btnFixed(52px, 216px, 27.5px);
+      box-shadow: 7px 10px 20px -1px rgba(0, 0, 0, 0.2);
+    }
+  }
 }
