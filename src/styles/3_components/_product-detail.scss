@@ -39,6 +39,7 @@
       font-family: $font-body;
       font-size: 1.4em;
       font-weight: 900;
+      line-height: 1;
       margin: $spacing-unit--ss $spacing-unit $spacing-unit--ss 0;
 
       @include media-breakpoint-up(md) {
@@ -47,8 +48,10 @@
     }
 
     .btn {
+      flex: 0 0 100%;
       justify-self: flex-end;
       margin: $spacing-unit--ss 0;
+      max-width: 160px;
 
       @include media-breakpoint-up(md) {
         @include btnFixed(40px, 145px, 20px);
