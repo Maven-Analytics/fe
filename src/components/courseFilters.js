@@ -113,49 +113,58 @@ class CourseFilters extends Component {
           </button>
         </header>
         <div className="course-filters__content">
-          {loading ? <Loader loading={loading}/> : null}
-          <CourseFilterTools
-            id="tools"
-            label="Tools"
-            onCheck={this.handleCheck('fields.filters.sys.id[in]')}
-            onUncheck={this.handleUncheck('fields.filters.sys.id[in]')}
-            active={activeFilters.get('fields.filters.sys.id[in]')}
-            options={filters.get('Tools')}
-          />
-          <CourseFilterChecks
-            id="paths"
-            label="Learning Paths"
-            onCheck={this.handleCheck('fields.filters.sys.id[in]')}
-            onUncheck={this.handleUncheck('fields.filters.sys.id[in]')}
-            active={activeFilters.get('fields.filters.sys.id[in]')}
-            options={filters.get('Learning Paths')}
-          />
-          <CourseFilterChecks
-            id="instructors"
-            label="Instructors"
-            onCheck={this.handleCheck('fields.filters.sys.id[in]')}
-            onUncheck={this.handleUncheck('fields.filters.sys.id[in]')}
-            active={activeFilters.get('fields.filters.sys.id[in]')}
-            options={filters.get('Instructors')}
-          />
-          <CourseFilterChecks
-            id="skills"
-            label="Skills"
-            onCheck={this.handleCheck('fields.filters.sys.id[in]')}
-            onUncheck={this.handleUncheck('fields.filters.sys.id[in]')}
-            active={activeFilters.get('fields.filters.sys.id[in]')}
-            options={filters.get('Skills')}
-          />
-          <CourseFilterChecks
-            id="status"
-            label="Status"
-            valueKey="title"
-            onCheck={this.handleCheck('enrollmentFilter')}
-            onUncheck={this.handleUncheck('enrollmentFilter')}
-            active={activeFilters.get('enrollmentFilter')}
-            options={filters.get('Status')}
-          />
-          <button className="btn btn--primary-solid" onClick={clickPrevent(this.handleFilter)}>Apply</button>
+          <div className="course-filters__content-header">
+            <button onClick={clickPrevent(actions.offmenuToggle, 'filters')}>
+              {<MaIcon icon="times"/>}
+            </button>
+          </div>
+          <div className="course-filters__content-inner">
+            {loading ? <Loader loading={loading}/> : null}
+            <CourseFilterTools
+              id="tools"
+              label="Tools"
+              onCheck={this.handleCheck('fields.filters.sys.id[in]')}
+              onUncheck={this.handleUncheck('fields.filters.sys.id[in]')}
+              active={activeFilters.get('fields.filters.sys.id[in]')}
+              options={filters.get('Tools')}
+            />
+            <CourseFilterChecks
+              id="paths"
+              label="Learning Paths"
+              onCheck={this.handleCheck('fields.filters.sys.id[in]')}
+              onUncheck={this.handleUncheck('fields.filters.sys.id[in]')}
+              active={activeFilters.get('fields.filters.sys.id[in]')}
+              options={filters.get('Learning Paths')}
+            />
+            <CourseFilterChecks
+              id="instructors"
+              label="Instructors"
+              onCheck={this.handleCheck('fields.filters.sys.id[in]')}
+              onUncheck={this.handleUncheck('fields.filters.sys.id[in]')}
+              active={activeFilters.get('fields.filters.sys.id[in]')}
+              options={filters.get('Instructors')}
+            />
+            <CourseFilterChecks
+              id="skills"
+              label="Skills"
+              onCheck={this.handleCheck('fields.filters.sys.id[in]')}
+              onUncheck={this.handleUncheck('fields.filters.sys.id[in]')}
+              active={activeFilters.get('fields.filters.sys.id[in]')}
+              options={filters.get('Skills')}
+            />
+            <CourseFilterChecks
+              id="status"
+              label="Status"
+              valueKey="title"
+              onCheck={this.handleCheck('enrollmentFilter')}
+              onUncheck={this.handleUncheck('enrollmentFilter')}
+              active={activeFilters.get('enrollmentFilter')}
+              options={filters.get('Status')}
+            />
+          </div>
+          <div className="course-filters__footer">
+            <button className="btn btn--primary-solid" onClick={clickPrevent(this.handleFilter)}>Apply</button>
+          </div>
         </div>
       </div>
     );
