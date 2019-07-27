@@ -38,7 +38,7 @@ class Carousel extends Component {
     }
 
     if (!this.objectsEqual(prevProps.options, this.props.options)) {
-      this.initCarousel();
+      // this.initCarousel();
     }
 
     if (this.flickity) {
@@ -100,9 +100,11 @@ class Carousel extends Component {
       this.props.onChange(index);
     });
 
-    this.setState({
-      ready: true
-    });
+    if (!this.state.ready) {
+      this.setState({
+        ready: true
+      });
+    }
   }
 
   renderPortal() {
