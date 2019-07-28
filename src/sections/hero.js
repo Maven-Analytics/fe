@@ -11,13 +11,25 @@ const Hero = () => {
       <div className="hero__background">
         <ParallaxBg
           placeholderColor="#252525"
+          sources={[
+            {
+              srcSet: '/static/img/home-hero-mobile.webp 1000w',
+              type: 'image/webp'
+            },
+            {
+              srcSet: '/static/img/home-hero-mobile.jpg 1000w',
+              type: 'image/jpeg'
+            },
+            {
+              srcSet: '/static/img/home-hero-desktop.webp 2307w',
+              type: 'image/webp'
+            },
+            {
+              srcSet: '/static/img/home-hero-desktop.jpg 2307w',
+              type: 'image/jpeg'
+            }
+          ]}
           src="/static/img/home-hero-mobile.jpg"
-          srcSet="
-            /static/img/home-hero-mobile.webp 1000w,
-            /static/img/home-hero-mobile.jpg 1000w,
-            /static/img/home-hero-desktop.webp 2307w,
-            /static/img/home-hero-desktop.jpg 2307w
-          "
         />
       </div>
       <div className="hero__content">

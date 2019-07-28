@@ -15,7 +15,16 @@ const Mission = ({content, icons, scrollTo}) => {
         <ParallaxBg
           placeholderColor="#252525"
           src="/static/img/mission-bg.jpg"
-          srcSet="/static/img/mission-bg.webp, /static/img/mission-bg.jpg"
+          sources={[
+            {
+              type: 'image/webp',
+              srcSet: '/static/img/mission-bg.webp'
+            },
+            {
+              type: 'image/jpeg',
+              srcSet: '/static/img/mission-bg.jpg'
+            }
+          ]}
         />
       </div>
       <div className="container">
