@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
-import {fromJS, List, Map} from 'immutable';
-import Router, {withRouter} from 'next/router';
+import {List, Map} from 'immutable';
+import {withRouter} from 'next/router';
 import {bindActionCreators} from 'redux';
 
 import CourseFilterChecks from './courseFilterChecks';
@@ -15,7 +15,7 @@ import {selectors as errorSelectors} from '../redux/ducks/error';
 import {selectors as loadingSelectors} from '../redux/ducks/loading';
 import CourseFilterTools from './courseFilterTools';
 import MaIcon from './maIcon';
-import {clickPrevent, click} from '../utils/componentHelpers';
+import {clickPrevent} from '../utils/componentHelpers';
 import Loader from './loader';
 
 class CourseFilters extends Component {
@@ -27,8 +27,6 @@ class CourseFilters extends Component {
       max: 0
     };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleLength = this.handleLength.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
     this.handleUncheck = this.handleUncheck.bind(this);
     this.handleFilter = this.handleFilter.bind(this);
@@ -53,46 +51,6 @@ class CourseFilters extends Component {
     return filter => {
       this.props.actions.activeFilterRemove({key, filter});
     };
-  }
-
-  handleChange(key) {
-    return val => {
-      const {router, filters, activeFilters} = this.props;
-
-      // console.log(val);
-
-      console.log(key, val);
-
-      // this.props.actions.filtersActiveSet({[key]: val})
-
-      // console.log(val);
-
-      // let activeForKey = filters
-      //   .getIn([key, 'active'])
-      //   .reduce((map, value) => map.set(value, true), Map())
-      //   .merge(fromJS(val))
-      //   .filter(f => f)
-      //   .keySeq();
-
-      // const newQuery = activeFilters
-      //   .map(a => a.get('active'))
-      //   .set(key, activeForKey);
-
-      // Router.push({pathname: `${router.pathname}`, query: newQuery.toJS()});
-    };
-  }
-
-  handleLength(state) {
-    const {router, activeFilters} = this.props;
-
-    // this.props.actions.filtersActiveSet({length: [state.min ? parseFloat(state.min) : this.props.filters.getIn(['length', 'active', 0]), state.max ? parseFloat(state.max) : this.props.filters.getIn(['length', 'active', 1])]});
-
-    // const newQuery = activeFilters
-    //   .map(a => a.get('active'))
-    //   .set('length', fromJS([state.min ? state.min : this.state.min, state.max ? state.max : this.state.max]));
-
-    // Router.push({pathname: `${router.pathname}`, query: newQuery.toJS()});
-    // return this.setState(state);
   }
 
   render() {

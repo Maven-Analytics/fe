@@ -2,16 +2,17 @@ import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
 import {Map} from 'immutable';
-import Link from 'next/link';
 
+import {clickAction} from '../utils/componentHelpers';
 import ImageContentful from './imageContentful';
 import CourseHours from './courseHours';
 import CourseAuthor from './courseAuthor';
 import CourseBanner from './courseBanner';
 import MaIcon from './maIcon';
 import ProgressMeter from './progressMeter';
+import withState from './withState';
 
-const CourseCard = ({course, condensed, match, recommended, progress, full, onView}) => {
+const CourseCard = ({course, condensed, match, recommended, progress, full, actions}) => {
   const classList = ['course-card'];
 
   if (condensed) {
@@ -53,7 +54,7 @@ const CourseCard = ({course, condensed, match, recommended, progress, full, onVi
       </div>
       <div className="course-card__footer">
         <span>
-          <button onClick={onView} className="btn">View Course</button>
+          <button onClick={clickAction(actions.modalOpen, 'courseDrawer', course)} className="btn">View Course</button>
         </span>
         {condensed === false ? (
           <CourseHours hours={course.get('length')}/>
@@ -71,7 +72,7 @@ CourseCard.propTypes = {
   recommended: PropTypes.string,
   progress: PropTypes.number,
   full: PropTypes.bool,
-  onView: PropTypes.func
+  actions: PropTypes.objectOf(PropTypes.func)
 };
 
 CourseCard.defaultProps = {
@@ -79,4 +80,4 @@ CourseCard.defaultProps = {
   condensed: false
 };
 
-export default CourseCard;
+export default withState(CourseCard);

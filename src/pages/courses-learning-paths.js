@@ -12,13 +12,13 @@ import {actions as courseActions, selectors as courseSelectors} from '../redux/d
 import {actions as pathActions, selectors as pathSelectors} from '../redux/ducks/paths';
 import {actions as stateActions} from '../redux/ducks/state';
 import {selectors as loadingSelectors} from '../redux/ducks/loading';
-import {handleScrollIntoView, click, clickAction, absolutePosition} from '../utils/componentHelpers';
+import {handleScrollIntoView, click, clickAction} from '../utils/componentHelpers';
 import Brochure from '../layouts/brochure';
 import PathListingItem from '../components/pathListingItem';
 import CourseHero from '../components/courseHero';
 import MaIcon from '../components/maIcon';
 import CtaSurvey from '../sections/ctaSurvey';
-import OffmenuFilters from '../modals/offmenuFilters';
+import CourseFilters from '../components/courseFilters';
 import DashboardGrid from '../components/dashboardGrid';
 import CourseCard from '../components/courseCard';
 import Loader from '../components/loader';
@@ -130,7 +130,6 @@ class CoursesLearningPaths extends PureComponent {
               course={course}
               progress={course.get('percentage_completed')}
               recommended={course.get('recommended') ? 'Recommended for you' : null}
-              onView={clickAction(actions.modalOpen, 'courseDrawer', course)}
             />
           ))}
         </DashboardGrid>
@@ -139,7 +138,7 @@ class CoursesLearningPaths extends PureComponent {
   }
 
   render() {
-    const {paths, actions, courses} = this.props;
+    const {actions} = this.props;
     const {activeItem} = this.state;
 
     const scrollTo = (
@@ -152,7 +151,7 @@ class CoursesLearningPaths extends PureComponent {
     return (
       <Brochure>
         <div className="courses-learning-paths">
-          <OffmenuFilters/>
+          <CourseFilters className="course-filters--offmenu"/>
           <CourseHero
             meta={false}
             className="course-hero--large"
@@ -162,7 +161,7 @@ class CoursesLearningPaths extends PureComponent {
             linkContent={scrollTo}
             linkHref="#"
             onLinkClick={handleScrollIntoView('#courses-paths-main')}
-            // thumbnail={course.get('thumbnail')}
+            // Thumbnail={course.get('thumbnail')}
           />
           <CtaSurvey/>
           <div className="container container--lg">

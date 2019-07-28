@@ -7,14 +7,12 @@ import {bindActionCreators} from 'redux';
 import {actions as courseActions, selectors as courseSelectors} from '../../redux/ducks/courses';
 import {selectors as errorSelectors} from '../../redux/ducks/error';
 import {selectors as loadingSelectors} from '../../redux/ducks/loading';
-import {actions as stateActions} from '../../redux/ducks/state';
 import DashboardLayout from '../../layouts/dashboard';
 import CourseFilters from '../../components/courseFilters';
 import DashboardGrid from '../../components/dashboardGrid';
 import CourseCard from '../../components/courseCard';
 import Image from '../../components/image';
 import DashboardNoData from '../../components/dashboardNoData';
-import {clickAction} from '../../utils/componentHelpers';
 
 class DashboardCourses extends Component {
   componentDidMount() {
@@ -22,7 +20,7 @@ class DashboardCourses extends Component {
   }
 
   render() {
-    const {loading, courses, actions} = this.props;
+    const {loading, courses} = this.props;
 
     return (
       <DashboardLayout sidebar={CourseFilters} showWelcome loading={loading} title="Self-Paced Courses" activeLink={2}>
@@ -34,7 +32,6 @@ class DashboardCourses extends Component {
               course={course}
               progress={course.get('percentage_completed')}
               recommended={course.get('recommended') ? 'Recommended for you' : null}
-              onView={clickAction(actions.modalOpen, 'courseDrawer', course)}
             />
           ))}
           {loading === false && courses.count() === 0 ? (
@@ -88,8 +85,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = function (dispatch) {
   return {
     actions: bindActionCreators({
-      ...courseActions,
-      ...stateActions
+      ...courseActions
     }, dispatch)
   };
 };

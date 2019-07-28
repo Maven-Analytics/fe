@@ -8,7 +8,6 @@ import {fromJS} from 'immutable';
 import {actions as dashboardActions, selectors as dashboardSelectors} from '../../redux/ducks/dashboard';
 import {actions as pathActions, selectors as pathSelectors} from '../../redux/ducks/paths';
 import {actions as courseActions, selectors as courseSelectors} from '../../redux/ducks/courses';
-import {actions as stateActions} from '../../redux/ducks/state';
 import {selectors as errorSelectors} from '../../redux/ducks/error';
 import {selectors as loadingSelectors} from '../../redux/ducks/loading';
 import DashboardLayout from '../../layouts/dashboard';
@@ -34,7 +33,7 @@ class DashboardPage extends Component {
   }
 
   render() {
-    const {recentCourse, progress, loadingProgress, completedCourses, completedPaths, actions} = this.props;
+    const {recentCourse, progress, loadingProgress, completedCourses, completedPaths} = this.props;
 
     const completed = fromJS([...completedPaths.toJS(), ...completedCourses.toJS()]);
 
@@ -62,12 +61,12 @@ class DashboardPage extends Component {
         ) : null}
         {recentCourse && !recentCourse.isEmpty() && loadingProgress === false ? (
           <DashboardCourse
+            course={recentCourse}
             title={recentCourse.get('title')}
             percentage_completed={recentCourse.get('percentage_completed')}
             resumeUrl={`${Routes.CourseTake}/${recentCourse.get('thinkificSlug')}`}
             excerpt={recentCourse.get('excerpt')}
             badge={recentCourse.get('badge')}
-            onView={(clickAction(actions.modalOpen, 'courseDrawer', recentCourse))}
           />
         ) : null}
       </DashboardCard>
@@ -172,8 +171,7 @@ const mapDispatchToProps = function (dispatch) {
     actions: bindActionCreators({
       ...dashboardActions,
       ...pathActions,
-      ...courseActions,
-      ...stateActions
+      ...courseActions
     }, dispatch)
   };
 };

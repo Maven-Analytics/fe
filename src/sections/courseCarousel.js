@@ -2,19 +2,16 @@ import React from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
 import {List} from 'immutable';
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
 
-import {actions as stateActions} from '../redux/ducks/state';
 import Carousel from '../components/carousel';
 import CarouselSlide from '../components/carouselSlide';
 import CourseCard from '../components/courseCard';
 import TrackVisibility from '../components/trackVisibility';
 import {isLg} from '../components/mediaQuery';
 import withWindowSize from '../components/withWindowSize';
-import {prettyPercent, clickAction} from '../utils/componentHelpers';
+import {prettyPercent} from '../utils/componentHelpers';
 
-const CourseCarousel = ({courses, title, eyelash, description, helperText, separator, actions}) => {
+const CourseCarousel = ({courses, title, eyelash, description, helperText, separator}) => {
   if (!courses || !courses.count()) {
     return null;
   }
@@ -44,7 +41,6 @@ const CourseCarousel = ({courses, title, eyelash, description, helperText, separ
               <CourseCard
                 match={match}
                 course={course}
-                onView={clickAction(actions.modalOpen, 'courseDrawer', course)}
               />
             </CarouselSlide>
           );
@@ -69,12 +65,4 @@ CourseCarousel.defaultProps = {
   courses: List()
 };
 
-const mapStateToProps = () => ({});
-
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    ...stateActions
-  }, dispatch)
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(withWindowSize(CourseCarousel));
+export default withWindowSize(CourseCarousel);

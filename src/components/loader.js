@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Loader = ({loading, width, height, color, center, position}) => {
-  const classList = ['loader'];
+  const classList = ['async-loader'];
 
   if (center) {
-    classList.push('loader--center');
+    classList.push('async-loader--center');
   }
 
   if (position) {

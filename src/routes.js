@@ -8,7 +8,7 @@ export const Routes = {
   AccountPassword: '/dashboard/account/password',
   Badges: '/badges',
   Contact: '/contact',
-  Courses: '/courses',
+  CoursesPaths: '/courses-learning-paths',
   Course: '/course',
   CourseTake: `//${config.THINKIFIC_SUBDOMAIN}.thinkific.com/courses/take`,
   Dashboard: '/dashboard',
@@ -35,7 +35,7 @@ export const menuLinksMain = fromJS([
   },
   {
     title: 'Courses & Paths',
-    url: Routes.Home
+    url: Routes.CoursesPaths
   },
   {
     title: 'Skills Assessments',
@@ -78,11 +78,11 @@ export const footerLinks = fromJS([
       },
       {
         text: 'Courses',
-        url: Routes.Home
+        url: Routes.CoursesPaths + '/?view=courses'
       },
       {
         text: 'Learning Paths',
-        url: Routes.Home
+        url: Routes.CoursesPaths + '/?view=paths'
       },
       {
         text: 'Team Training',

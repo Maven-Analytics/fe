@@ -5,9 +5,11 @@ import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {Map} from 'immutable';
 
 import ImageContentful from './imageContentful';
+import withState from './withState';
 import ProgressMeter from './progressMeter';
+import {clickAction} from '../utils/componentHelpers';
 
-const DashboardCourse = ({title, percentage_completed, onView, resumeUrl, badge, excerpt}) => {
+const DashboardCourse = ({title, percentage_completed, resumeUrl, badge, excerpt, course, actions}) => {
   return (
     <div className="dashboard-course">
       <div className="dashboard-course__badge">
@@ -18,7 +20,7 @@ const DashboardCourse = ({title, percentage_completed, onView, resumeUrl, badge,
         <p>{excerpt}</p>
         <ProgressMeter value={percentage_completed} title="Progress"/>
         <div className="dashboard-course__footer">
-          <button onClick={onView} className="btn btn--empty-dark">View Course Details</button>
+          <button onClick={(clickAction(actions.modalOpen, 'courseDrawer', course))} className="btn btn--empty-dark">View Course Details</button>
           <Link href={resumeUrl}>
             <a className="btn btn--primary-solid">Resume Course</a>
           </Link>
@@ -34,11 +36,12 @@ DashboardCourse.propTypes = {
   resumeUrl: PropTypes.string,
   badge: ImmutablePropTypes.map,
   excerpt: PropTypes.string,
-  onView: PropTypes.func
+  actions: PropTypes.objectOf(PropTypes.func),
+  course: ImmutablePropTypes.map
 };
 
 DashboardCourse.defaultProps = {
   badge: Map()
 };
 
-export default DashboardCourse;
+export default withState(DashboardCourse);
