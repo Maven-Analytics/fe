@@ -43,7 +43,6 @@ class Carousel extends Component {
 
     if (this.flickity) {
       this.flickity.reloadCells();
-      this.flickity.resize();
     }
   }
 
@@ -94,7 +93,16 @@ class Carousel extends Component {
 
     this.flickity = new Flickity(this.el.current, {
       ...this.defaultOptions,
-      ...this.props.options
+      ...this.props.options,
+      on: {
+        ready: () => {
+          setTimeout(() => {
+            if (this.flickity) {
+              this.flickity.resize();
+            }
+          }, 200);
+        }
+      }
     });
 
     this.flickity.on('change', index => {
