@@ -43,6 +43,7 @@ class Carousel extends Component {
 
     if (this.flickity) {
       this.flickity.reloadCells();
+      this.flickity.resize();
     }
   }
 
