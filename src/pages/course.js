@@ -24,6 +24,7 @@ const Course = ({course, actions}) => {
     <MainLayout>
       <div className="course-detail">
         <CourseHero
+          eyelash="Self-Paced Course"
           title={course.get('title')}
           description={course.get('previewDescription')}
           hours={course.get('length')}

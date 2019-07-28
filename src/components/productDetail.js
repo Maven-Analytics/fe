@@ -13,7 +13,7 @@ import ProductTools from './productTools';
 import CourseAuthor from './courseAuthor';
 import {prettyPercent} from '../utils/componentHelpers';
 
-const PathDetail = ({children, productTerm, className, badge, titleTag: TitleTag, title, resumeUrl, description, percentage_completed, tools, hours, match, instructors, courseCount}) => {
+const ProductDetail = ({children, productTerm, className, badge, titleTag: TitleTag, title, resumeUrl, description, percentage_completed, tools, hours, match, instructors, courseCount}) => {
   const classList = ['product-detail'];
 
   if (className) {
@@ -73,7 +73,7 @@ const PathDetail = ({children, productTerm, className, badge, titleTag: TitleTag
   );
 };
 
-PathDetail.propTypes = {
+ProductDetail.propTypes = {
   productTerm: PropTypes.string,
   badge: ImmutablePropTypes.map,
   titleTag: PropTypes.string,
@@ -87,15 +87,16 @@ PathDetail.propTypes = {
   match: PropTypes.number,
   instructors: PropTypes.oneOfType([ImmutablePropTypes.map, ImmutablePropTypes.list]),
   className: PropTypes.string,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node
 };
 
-PathDetail.defaultProps = {
+ProductDetail.defaultProps = {
   badge: Map(),
   titleTag: 'h2',
   description: Map(),
   tools: List(),
-  instructors: Map()
+  instructors: Map(),
+  children: null
 };
 
-export default PathDetail;
+export default ProductDetail;

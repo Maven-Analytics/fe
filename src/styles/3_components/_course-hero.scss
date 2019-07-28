@@ -1,4 +1,5 @@
 .course-hero {
+  $self: &;
   color: $white;
   font-size: 1.4rem;
   position: relative;
@@ -69,12 +70,33 @@
 
   &__description {
     color: #DEDEDE;
+    line-height: 1.6;
+    margin-bottom: $spacing-unit--md;
 
     p {
-      line-height: 1.8;
-
       @include collapseUp {
         margin-bottom: $spacing-unit--md;
+      }
+    }
+  }
+
+  &__link {
+    @include gradient-font();
+    align-items: center;
+    border: none;
+    display: inline-flex;
+    font-size: .88em;
+    font-weight: 700;
+    margin-top: $spacing-unit--md;
+
+    @include media-breakpoint-up(lg) {
+      margin-top: $spacing-unit--l;
+    }
+
+    i {
+      &:last-child {
+        margin-left: $spacing-unit--ss;
+        margin-top: 2px;
       }
     }
   }
@@ -228,6 +250,16 @@
         @include media-breakpoint-up(md) {
           white-space: nowrap;
         }
+      }
+    }
+  }
+
+  &--large {
+    #{$self}__inner {
+      padding: 5vh 0 10vh;
+
+      @include media-breakpoint-up(lg) {
+        padding: calc(10vh + #{$header-height-desktop}) 0 20vh;
       }
     }
   }

@@ -48,6 +48,7 @@ class WelcomeSurveyResults extends Component {
           </header>
           <div className="welcome-survey-results__recommended-path">
             <PathBanner
+              slug={recommendedPath.get('slug')}
               badge={recommendedPath.get('badge')}
               title={recommendedPath.get('title')}
               excerpt={recommendedPath.get('excerpt')}

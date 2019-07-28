@@ -6,7 +6,7 @@
     padding-right: $spacing-unit;
   }
 
-  &::after {
+  %fixedFog {
     background-color: rgba($black, 0.8);
     content: ' ';
     height: 100%;
@@ -18,10 +18,46 @@
     visibility: hidden;
     width: 100%;
     z-index: index($globalIndex, mobileMenuFog);
+  }
 
-    @include collapseUp() {
-      content: none;
-    }
+  %fixedContent {
+    // display: none;
+    background-color: $white;
+    box-shadow: 26px 0 20px 0 rgba(0,0,0,0.2);
+    height: 100%;
+    left: 0;
+    max-width: 90%;
+    overflow: auto;
+    opacity: 0;
+    position: fixed;
+    width: 320px;
+    top: 0;
+    transition: all .2s cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    transition-property: transform, opacity;
+    transform: translate3d(-320px, 0, 0);
+    z-index: index($globalIndex, mobileMenu);
+  }
+
+  %fixedContentHeader {
+    padding: 1rem $spacing-unit;
+    text-align: right;
+  }
+
+  %fixedContentInner {
+    height: calc(100% - 108px);
+    overflow: auto;
+    padding: $spacing-unit $spacing-unit--l;
+  }
+
+  %fixedFooter {
+    align-items: center;
+    bottom: 0;
+    display: flex;
+    height: 60px;
+    left: 0;
+    padding: 0 $spacing-unit;
+    position: absolute;
+    width: 100%;
   }
 
   header {
@@ -66,13 +102,12 @@
     }
   }
 
-  &__content-header {
-    padding: 1rem $spacing-unit;
-    text-align: right;
+  &__fog {
+    @extend %fixedFog;
+  }
 
-    @include collapseUp() {
-      display: none;
-    }
+  &__content-header {
+    @extend %fixedContentHeader;
 
     button {
       background-color: transparent;
@@ -82,35 +117,7 @@
   }
 
   &__content {
-    // display: none;
-    background-color: $white;
-    box-shadow: 26px 0 20px 0 rgba(0,0,0,0.2);
-    height: 100%;
-    left: 0;
-    max-width: 90%;
-    overflow: auto;
-    opacity: 0;
-    position: fixed;
-    width: 320px;
-    top: 0;
-    transition: all .2s cubic-bezier(0.215, 0.610, 0.355, 1.000);
-    transition-property: transform, opacity;
-    transform: translate3d(-320px, 0, 0);
-    z-index: index($globalIndex, mobileMenu);
-
-    @include collapseUp() {
-      background-color: transparent;
-      box-shadow: none;
-      height: auto;
-      opacity: 1;
-      overflow: hidden;
-      padding: 0;
-      position: relative;
-      max-height: none;
-      transition: none;
-      transform: none;
-      width: auto;
-    }
+    @extend %fixedContent;
 
     .btn {
       border-radius: 20.5px;
@@ -119,38 +126,15 @@
   }
 
   &__content-inner {
-    height: calc(100% - 108px);
-    overflow: auto;
-    padding: $spacing-unit $spacing-unit--l;
-
-    @include collapseUp() {
-      height: auto;
-      overflow: hidden;
-      padding: 0;
-    }
+    @extend %fixedContentInner;
   }
 
   &__footer {
-    align-items: center;
-    bottom: 0;
-    display: flex;
-    height: 60px;
-    left: 0;
-    padding: 0 $spacing-unit;
-    position: absolute;
-    width: 100%;
-
-    @include collapseUp() {
-      bottom: auto;
-      display: block;
-      height: auto;
-      position: static;
-      padding: 0;
-    }
+    @extend %fixedFooter;
   }
 
   &.open {
-    &::after {
+    #{$self}__fog {
       opacity: 1;
       visibility: visible;
       transition: all .15s ease-in-out;
@@ -163,6 +147,80 @@
       @include collapseUp {
         transform: none;
       }
+    }
+  }
+
+  &:not(.course-filters--offmenu) {
+    #{$self}__fog {
+      @include collapseUp() {
+        content: none;
+      }
+    }
+
+    #{$self}__content {
+      @include collapseUp() {
+        background-color: transparent;
+        box-shadow: none;
+        height: auto;
+        opacity: 1;
+        overflow: hidden;
+        padding: 0;
+        position: relative;
+        max-height: none;
+        transition: none;
+        transform: none;
+        width: auto;
+      }
+    }
+
+    #{$self}__content-inner {
+      @include collapseUp() {
+        height: auto;
+        overflow: hidden;
+        padding: 0;
+      }
+    }
+
+    #{$self}__content-header {
+      @include collapseUp() {
+        display: none;
+      }
+    }
+
+    #{$self}__footer {
+      @include collapseUp() {
+        bottom: auto;
+        display: block;
+        height: auto;
+        position: static;
+        padding: 0;
+      }
+    }
+  }
+
+  &--offmenu {
+    header {
+      display: none;
+    }
+
+    #{$self}__fog {
+      @extend %fixedFog;
+    }
+
+    #{$self}__content {
+      @extend %fixedContent;
+    }
+
+    #{$self}__content-inner {
+      @extend %fixedContentInner;
+    }
+
+    #{$self}__content-header {
+      @extend %fixedContentHeader;
+    }
+
+    #{$self}__footer {
+      @extend %fixedFooter;
     }
   }
 }

@@ -220,3 +220,20 @@ export function prettyPercent(decimal) {
 
   return Math.round((decimal * 100).toFixed(2));
 }
+
+export const handleScrollIntoView = selector => {
+  return e => {
+    e.preventDefault();
+
+    const targetEl = document.querySelector(selector);
+
+    if (!targetEl) {
+      return;
+    }
+
+    targetEl.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  };
+};

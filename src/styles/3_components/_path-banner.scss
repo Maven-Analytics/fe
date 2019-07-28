@@ -1,4 +1,5 @@
 .path-banner {
+  $self: &;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-column-gap: $spacing-unit;
@@ -58,23 +59,30 @@
     @include list-unstyled();
     display: grid;
     grid-column: span 12;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
     flex: 0 0 100%;
     order: 4;
 
+    @include media-breakpoint-up(lg) {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
     @include media-breakpoint-up(xl) {
-      grid-column: span 5;
+      grid-column: span 6;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
       flex: auto;
       order: 3;
     }
 
     li {
       align-items: center;
+      border-right: 1px solid rgba($gray-border, .6);
       display: flex;
       flex-direction: column;
       justify-content: center;
       padding: 2.2rem;
-      height: 25vw;
+      height: 25vh;
       max-height: 120px;
       min-width: 25%;
       text-align: center;
@@ -83,8 +91,17 @@
         height: auto;
       }
 
-      &:not(:last-child) {
-        border-right: 1px solid rgba($gray-border, .6);
+      &:last-child,
+      &:nth-last-child(2) {
+        border: none;
+      }
+
+      &:last-child {
+        display: none;
+
+        @include media-breakpoint-up(lg) {
+          display: flex;
+        }
       }
 
       .value {
@@ -121,8 +138,33 @@
     justify-content: center;
     order: 3;
 
-    @include media-breakpoint-up(xl) {
-      order: 4;
+    @include media-breakpoint-up(lg) {
+      display: none;
+    }
+  }
+
+  &--has-match {
+    #{$self}__content {
+      @include media-breakpoint-up(xl) {
+        grid-column: span 4;
+      }
+    }
+
+    #{$self}__meta {
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+
+      @include media-breakpoint-up(xl) {
+        grid-column: span 7;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      }
+
+      li {
+        &:last-child {
+          @include media-breakpoint-up(lg) {
+            grid-column: 5 / 5;
+          }
+        }
+      }
     }
   }
 }

@@ -96,10 +96,14 @@ class CourseFilters extends Component {
   }
 
   render() {
-    const {title, loading, filters, activeFilters, actions, state} = this.props;
+    const {title, className, loading, filters, activeFilters, actions, state} = this.props;
 
     const open = state.get('filters');
     const classList = ['course-filters'];
+
+    if (className) {
+      classList.push(className);
+    }
 
     if (open) {
       classList.push('open');
@@ -107,6 +111,7 @@ class CourseFilters extends Component {
 
     return (
       <div className={classList.join(' ')}>
+        <div className="course-filters__fog" onClick={clickPrevent(actions.offmenuToggle, 'filters')}/>
         <header>
           <h4>{title}</h4>
           <button onClick={clickPrevent(actions.offmenuToggle, 'filters')}>
@@ -179,7 +184,8 @@ CourseFilters.propTypes = {
   activeFilters: ImmutablePropTypes.map,
   actions: PropTypes.objectOf(PropTypes.func),
   loading: PropTypes.bool,
-  state: ImmutablePropTypes.map
+  state: ImmutablePropTypes.map,
+  className: PropTypes.string
 };
 
 CourseFilters.defaultProps = {

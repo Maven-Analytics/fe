@@ -2,14 +2,30 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {List, Map} from 'immutable';
-import Link from 'next/link';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
+import {actions as stateActions} from '../redux/ducks/state';
+import {selectors as pathSelectors} from '../redux/ducks/paths';
 import ImageContentful from './imageContentful';
 import MaIcon from './maIcon';
+import {clickAction} from '../utils/componentHelpers';
 
-const PathBanner = ({badge, title, excerpt, match, courses, length, tools, url}) => {
+const PathBanner = ({badge, title, excerpt, match, courses, length, tools, path, actions}) => {
+  const classList = ['path-banner'];
+
+  if (match) {
+    classList.push('path-banner--has-match');
+  }
+
+  const btn = (
+    <button onClick={clickAction(actions.modalOpen, 'pathDrawer', path)} className="btn btn--primary-solid">
+      View Path
+    </button>
+  );
+
   return (
-    <div className="path-banner">
+    <div className={classList.join(' ')}>
       <div className="path-banner__badge">
         <ImageContentful showLoader={false} image={badge}/>
       </div>
@@ -18,10 +34,12 @@ const PathBanner = ({badge, title, excerpt, match, courses, length, tools, url})
         <p>{excerpt}</p>
       </div>
       <ul className="path-banner__meta">
-        <li className="match">
-          <div className="value">{match}%</div>
-          <div className="text">Match</div>
-        </li>
+        {match ? (
+          <li className="match">
+            <div className="value">{match}%</div>
+            <div className="text">Match</div>
+          </li>
+        ) : null}
         <li>
           <div className="value">{courses}</div>
           <div className="text">Courses</div>
@@ -38,13 +56,12 @@ const PathBanner = ({badge, title, excerpt, match, courses, length, tools, url})
           </div>
           <div className="text">Tools</div>
         </li>
+        <li>
+          {btn}
+        </li>
       </ul>
       <div className="path-banner__cta">
-        <Link href={url}>
-          <a className="btn btn--primary-solid">
-            View Path
-          </a>
-        </Link>
+        {btn}
       </div>
     </div>
   );
@@ -58,12 +75,25 @@ PathBanner.propTypes = {
   courses: PropTypes.number,
   length: PropTypes.number,
   tools: ImmutablePropTypes.list,
-  url: PropTypes.string.isRequired
+  slug: PropTypes.string.isRequired,
+  actions: PropTypes.objectOf(PropTypes.func),
+  path: ImmutablePropTypes.map
 };
 
 PathBanner.defaultProps = {
   tools: List(),
-  badge: Map()
+  badge: Map(),
+  path: Map()
 };
 
-export default PathBanner;
+const mapStateToProps = (state, props) => ({
+  path: pathSelectors.getPath(state, props.slug)
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    ...stateActions
+  }, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PathBanner);

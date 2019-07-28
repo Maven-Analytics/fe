@@ -8,7 +8,7 @@ import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {selectors as userSelectors} from '../redux/ducks/user';
 import {actions as authActions} from '../redux/ducks/auth';
 import {selectors as courseSelectors, actions as courseActions} from '../redux/ducks/courses';
-import Main from '../layouts/main';
+import Brochure from '../layouts/brochure';
 import Hero from '../sections/hero';
 import StatCounter from '../sections/statCounter';
 import MethodScroll from '../sections/methodScroll';
@@ -227,7 +227,7 @@ const Spotlights = fromJS([
 class Home extends Component {
   render() {
     return (
-      <Main>
+      <Brochure>
         <Hero/>
 
         <StatCounter
@@ -286,8 +286,7 @@ class Home extends Component {
         />
         <StudentSpotlights spotlights={Spotlights}/>
         <Clients clients={HappyClients}/>
-        <CtaSection/>
-      </Main>
+      </Brochure>
     );
   }
 }

@@ -1,0 +1,50 @@
+.path-listing-item {
+  color: $black;
+  margin: 0 0 $spacing-unit--ll;
+
+  @include media-breakpoint-up(lg) {
+    margin: 0 0 $spacing-unit--xxl;
+  }
+
+  .path-banner {
+    color: inherit;
+
+    &__content {
+      p {
+        color: #7E7E7E;
+      }
+    }
+
+    &__meta {
+      li {
+        .text {
+          color: $black;
+        }
+      }
+    }
+  }
+
+  .course-carousel {
+    margin: $spacing-unit--md 0 0;
+
+    @include media-breakpoint-up(lg) {
+      margin: $spacing-unit--l 0 0;
+    }
+  }
+
+  &__toggle {
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    font-weight: 700;
+
+    @include media-breakpoint-up(lg) {
+      margin-left: 115px;
+    }
+
+    i {
+      margin-left: $spacing-unit;
+    }
+  }
+}
