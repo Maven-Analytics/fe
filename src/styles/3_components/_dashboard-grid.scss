@@ -27,4 +27,10 @@
   &--horizontal {
     grid-template-rows: 1fr;
   }
+
+  &--3-col {
+    @include media-breakpoint-up(lg) {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
 }

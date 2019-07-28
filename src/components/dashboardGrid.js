@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {List} from 'immutable';
 
-const DashboardGrid = ({children, horizontal, vertical}) => {
+const DashboardGrid = ({children, horizontal, vertical, cols}) => {
   const classList = ['dashboard-grid'];
 
   if (horizontal) {
@@ -12,6 +12,10 @@ const DashboardGrid = ({children, horizontal, vertical}) => {
 
   if (vertical) {
     classList.push('dashboard-grid--vertical');
+  }
+
+  if (cols) {
+    classList.push(`dashboard-grid--${cols}-col`);
   }
 
   return (
@@ -28,7 +32,8 @@ const DashboardGrid = ({children, horizontal, vertical}) => {
 DashboardGrid.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.element), ImmutablePropTypes.list]),
   horizontal: PropTypes.bool,
-  vertical: PropTypes.bool
+  vertical: PropTypes.bool,
+  cols: PropTypes.number
 };
 
 export default DashboardGrid;

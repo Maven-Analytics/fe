@@ -1,5 +1,8 @@
 .loader {
+  opacity: 0;
   position: absolute;
+  visibility: hidden;
+  transition: opacity .2s ease-in-out, visibility 0s 0.2s;
 
   &--center {
     left: 50%;
@@ -7,7 +10,19 @@
     transform: translate3d(-50%, -50%, 0);
   }
 
+  &.top-center {
+    left: 50%;
+    top: 0;
+    transform: translate3d(-50%, 0, 0);
+  }
+
   &.relative {
     position: relative;
+  }
+
+  &.loading {
+    opacity: 1;
+    visibility: visible;
+    transition: all .2s ease-in-out;
   }
 }
