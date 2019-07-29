@@ -4,7 +4,6 @@ import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
 import {isImmutable} from 'immutable';
 
-import withAuthSync from '../components/withAuthSync';
 import CheckoutHeader from '../sections/checkoutHeader';
 import DashboardHeader from '../components/dashboardHeader';
 import {selectors as userSelectors} from '../redux/ducks/user';
@@ -64,4 +63,4 @@ const mapStateToProps = state => ({
   user: userSelectors.getUser(state)
 });
 
-export default connect(mapStateToProps)(withAuthSync(DashboardLayout));
+export default connect(mapStateToProps)(DashboardLayout);

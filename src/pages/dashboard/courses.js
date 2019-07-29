@@ -13,6 +13,7 @@ import DashboardGrid from '../../components/dashboardGrid';
 import CourseCard from '../../components/courseCard';
 import Image from '../../components/image';
 import DashboardNoData from '../../components/dashboardNoData';
+import withAuthSync from '../../components/withAuthSync';
 
 class DashboardCourses extends Component {
   componentDidMount() {
@@ -90,4 +91,4 @@ const mapDispatchToProps = function (dispatch) {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DashboardCourses);
+export default connect(mapStateToProps, mapDispatchToProps)(withAuthSync(DashboardCourses));

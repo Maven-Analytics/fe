@@ -18,6 +18,7 @@ import DashboardGrid from '../../components/dashboardGrid';
 import {prettyPercent, clickAction} from '../../utils/componentHelpers';
 import {getMatchForPath, getLastestCourseSlugResumeCourseUrl} from '../../utils/pathHelpers';
 import {getResumeCourseUrl} from '../../utils/routeHelpers';
+import withAuthSync from '../../components/withAuthSync';
 
 class DashboardLearningPaths extends Component {
   componentDidMount() {
@@ -87,4 +88,4 @@ const mapDispatchToProps = function (dispatch) {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DashboardLearningPaths);
+export default connect(mapStateToProps, mapDispatchToProps)(withAuthSync(DashboardLearningPaths));

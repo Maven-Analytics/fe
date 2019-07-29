@@ -9,6 +9,7 @@ import {selectors as errorSelectors} from '../../redux/ducks/error';
 import {selectors as loadingSelectors} from '../../redux/ducks/loading';
 import DashboardCredentialList from '../../components/dashboardCredentialList';
 import CredentialCard from '../../components/credentialCard';
+import withAuthSync from '../../components/withAuthSync';
 
 class DashboardCredentials extends Component {
   componentDidMount() {
@@ -74,4 +75,4 @@ const mapDispatchToProps = function (dispatch) {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DashboardCredentials);
+export default connect(mapStateToProps, mapDispatchToProps)(withAuthSync(DashboardCredentials));

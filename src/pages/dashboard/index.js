@@ -24,6 +24,7 @@ import MaIcon from '../../components/maIcon';
 import DashboardCredentialIcons from '../../components/dashboardCredentialIcons';
 import DashboardCredential from '../../components/dashboardCredential';
 import {clickAction} from '../../utils/componentHelpers';
+import withAuthSync from '../../components/withAuthSync';
 
 class DashboardPage extends Component {
   componentDidMount() {
@@ -140,12 +141,6 @@ class DashboardPage extends Component {
   }
 }
 
-DashboardPage.getInitialProps = async ctx => {
-  const {store} = ctx;
-  // store.dispatch(pathActions.pathsInit());
-  // store.dispatch(courseActions.coursesInit());
-};
-
 DashboardPage.propTypes = {
   loadingProgress: PropTypes.bool,
   errorProgress: PropTypes.string,
@@ -176,4 +171,4 @@ const mapDispatchToProps = function (dispatch) {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DashboardPage);
+export default connect(mapStateToProps, mapDispatchToProps)(withAuthSync(DashboardPage));

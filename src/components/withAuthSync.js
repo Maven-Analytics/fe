@@ -33,7 +33,7 @@ const withAuthSync = WrappedComponent => {
     componentDidUpdate(prevProps) {
       const {user} = this.props;
 
-      if ((!user || user.isEmpty()) && prevProps.user.has('id')) {
+      if (!user || user.isEmpty()) {
         this.goToLogin();
       }
     }
