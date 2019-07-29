@@ -12,6 +12,7 @@ import surveyResult from './surveyResult';
 import dashboard from './dashboard';
 import filters from './filters';
 import activeFilters from './activeFilters';
+import scores from './scores';
 
 const Ducks = combineReducers({
   loading,
@@ -26,7 +27,8 @@ const Ducks = combineReducers({
   surveyResult,
   dashboard,
   filters,
-  activeFilters
+  activeFilters,
+  scores
 });
 
 export default Ducks;

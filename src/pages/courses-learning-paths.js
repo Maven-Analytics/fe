@@ -38,6 +38,11 @@ class CoursesLearningPaths extends PureComponent {
     this.willEnter = this.willEnter.bind(this);
   }
 
+  componentDidMount() {
+    this.props.actions.coursesFilter();
+    this.props.actions.pathsInit();
+  }
+
   handleNavClick(activeItem) {
     this.setState({activeItem, items: [activeItem]});
 
@@ -97,7 +102,7 @@ class CoursesLearningPaths extends PureComponent {
   }
 
   renderPaths(style) {
-    const {paths} = this.props;
+    const {paths, loadingPaths} = this.props;
 
     return (
       <li
@@ -105,6 +110,8 @@ class CoursesLearningPaths extends PureComponent {
         className="courses-learning-paths__tab"
         style={this.getTabStyle(style)}
       >
+        <Loader center={false} loading={loadingPaths} position="top-center" width={70} height={70}/>
+
         {paths.map((path, index) => (
           <PathListingItem key={index} coursesOpen={index === 0} path={path}/>
         ))}
@@ -113,7 +120,7 @@ class CoursesLearningPaths extends PureComponent {
   }
 
   renderCourses(style) {
-    const {courses, actions, loadingCourses} = this.props;
+    const {courses, loadingCourses} = this.props;
 
     return (
       <li
@@ -122,7 +129,7 @@ class CoursesLearningPaths extends PureComponent {
         style={this.getTabStyle(style)}
       >
         <DashboardGrid cols={3} >
-          <Loader center={false} loading={loadingCourses} position="top-center"/>
+          <Loader center={false} loading={loadingCourses} position="top-center" width={70} height={70}/>
           {courses.map(course => (
             <CourseCard
               full
@@ -203,8 +210,8 @@ class CoursesLearningPaths extends PureComponent {
 CoursesLearningPaths.getInitialProps = ctx => {
   const {store, asPath} = ctx;
 
-  store.dispatch(courseActions.coursesFilter());
-  store.dispatch(pathActions.pathsInit());
+  // store.dispatch(courseActions.coursesFilter());
+  // store.dispatch(pathActions.pathsInit());
 
   const url = asPath;
 
@@ -236,7 +243,7 @@ const mapStateToProps = state => ({
   courses: courseSelectors.getCourses(state),
   paths: pathSelectors.getPaths(state),
   loadingCourses: loadingSelectors.getLoading(['COURSES_FILTER'])(state),
-  loadingPaths: loadingSelectors.getLoading(['PATHS_INIT'])(state)
+  loadingPaths: loadingSelectors.getLoading(['PATHSINIT'])(state)
 });
 
 const mapDispatchToProps = dispatch => ({

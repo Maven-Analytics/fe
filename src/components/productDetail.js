@@ -1,19 +1,21 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {Map, List} from 'immutable';
 import Link from 'next/link';
 
 import ImageContentful from './imageContentful';
-import RichText from './richText';
 import ProgressMeter from './progressMeter';
 import ProductMeta from './productMeta';
 import ProductMetaItem from './productMetaItem';
 import ProductTools from './productTools';
 import CourseAuthor from './courseAuthor';
 import {prettyPercent} from '../utils/componentHelpers';
+import CourseScores from './courseScores';
+import Loader from './loader';
+import MaIcon from './maIcon';
 
-const ProductDetail = ({children, productTerm, className, badge, titleTag: TitleTag, title, resumeUrl, description, percentage_completed, tools, hours, match, instructors, courseCount}) => {
+const ProductDetail = ({children, productTerm, className, badge, titleTag: TitleTag, title, resumeUrl, showScores, id, percentage_completed, tools, hours, match, instructors, courseCount}) => {
   const classList = ['product-detail'];
 
   if (className) {
@@ -65,6 +67,33 @@ const ProductDetail = ({children, productTerm, className, badge, titleTag: Title
                 <CourseAuthor key={instructors.get('id')} name={instructors.get('name')} thumbnail={instructors.get('thumbnail')}/>
               </ProductMetaItem>
             )}
+            {showScores ? (
+              <CourseScores courseId={id}>
+                {(loading, scores) => {
+                  const loader = <Loader loading={loading}/>;
+                  const noScore = <MaIcon icon="minus"/>;
+                  const final = scores.getIn(['final', 'score']) || -1;
+                  const benchmark = scores.getIn(['benchmark', 'score']) || -1;
+
+                  return (
+                    <Fragment>
+                      <ProductMetaItem label="Benchmark Assessment Score">
+                        <div style={{position: 'relative'}}>
+                          {loader}
+                          {benchmark > -1 && loading === false ? `${prettyPercent(benchmark)}%` : noScore}
+                        </div>
+                      </ProductMetaItem>
+                      <ProductMetaItem label="Final Assessment Score">
+                        <div style={{position: 'relative'}}>
+                          {loader}
+                          {final > -1 && loading === false ? `${prettyPercent(final)}%` : noScore}
+                        </div>
+                      </ProductMetaItem>
+                    </Fragment>
+                  );
+                }}
+              </CourseScores>
+            ) : null}
           </ProductMeta>
         </div>
 
@@ -79,7 +108,6 @@ ProductDetail.propTypes = {
   titleTag: PropTypes.string,
   title: PropTypes.string.isRequired,
   resumeUrl: PropTypes.string,
-  description: ImmutablePropTypes.map,
   percentage_completed: PropTypes.number,
   tools: ImmutablePropTypes.list,
   courseCount: PropTypes.number,
@@ -87,7 +115,9 @@ ProductDetail.propTypes = {
   match: PropTypes.number,
   instructors: PropTypes.oneOfType([ImmutablePropTypes.map, ImmutablePropTypes.list]),
   className: PropTypes.string,
-  children: PropTypes.node
+  children: PropTypes.node,
+  showScores: PropTypes.bool,
+  id: PropTypes.number
 };
 
 ProductDetail.defaultProps = {

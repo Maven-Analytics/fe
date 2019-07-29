@@ -44,6 +44,8 @@ const CourseDrawer = ({actions, state, user}) => {
               tools={course.get('tools')}
               hours={course.get('length')}
               instructors={course.get('author')}
+              showScores={user.has('id')}
+              id={course.get('thinkificCourseId')}
             >
               {course.get('description') && course.get('description') !== '' ? <RichText content={course.get('description')}/> : null}
               {course.get('lessons') ? <CourseLessons lessons={course.get('lessons')}/> : null}

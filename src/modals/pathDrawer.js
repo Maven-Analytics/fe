@@ -8,6 +8,7 @@ import {actions as stateActions, selectors as stateSelectors} from '../redux/duc
 import {selectors as dashboardSelectors} from '../redux/ducks/dashboard';
 import CloseButton from '../components/closeButton';
 import ProductDetail from '../components/productDetail';
+import RichText from '../components/richText';
 import {clickAction} from '../utils/componentHelpers';
 import {getLastestCourseSlugResumeCourseUrl, getPathHours, getPathInstructors} from '../utils/pathHelpers';
 import {getResumeCourseUrl} from '../utils/routeHelpers';
@@ -35,13 +36,15 @@ const PathDrawer = ({actions, state, enrollments}) => {
               badge={path.get('badge')}
               title={path.get('title')}
               titleTag="h2"
+              percentage_completed={path.get('percentage_completed')}
               resumeUrl={getResumeCourseUrl(getLastestCourseSlugResumeCourseUrl(path, enrollments))}
-              description={path.get('description')}
               tools={path.get('tools')}
               courseCount={path.get('courses').count()}
               hours={getPathHours(path)}
               instructors={getPathInstructors(path)}
-            />
+            >
+              {path.get('description') && path.get('description') !== '' ? <RichText content={path.get('description')}/> : null}
+            </ProductDetail>
           ) : null}
         </div>
       </div>

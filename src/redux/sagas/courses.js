@@ -42,7 +42,7 @@ function * onCoursesFilter() {
       .map(v => v.join(','))
       .toJS();
 
-    const courses = yield getCourses(params);
+    const courses = yield getCourses(params, true);
 
     yield all([
       put({
@@ -75,7 +75,7 @@ function * onCoursesGet({payload}) {
       };
     }
 
-    const courses = yield getCourses(params, false);
+    const courses = yield getCourses(params, true);
 
     yield all([
       put({
