@@ -18,10 +18,12 @@ import RichText from '../components/richText';
 import CourseLessons from '../components/courseLessons';
 import ImageContentful from '../components/imageContentful';
 import MaIcon from '../components/maIcon';
+import Head from '../components/head';
 
 const Course = ({course, actions}) => {
   return (
     <MainLayout>
+      <Head meta={course.get('meta')}/>
       <div className="course-detail">
         <CourseHero
           eyelash="Self-Paced Course"

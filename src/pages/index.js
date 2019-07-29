@@ -2,13 +2,14 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {fromJS, List} from 'immutable';
+import {fromJS, List, Map, isImmutable} from 'immutable';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 
 import {selectors as userSelectors} from '../redux/ducks/user';
 import {actions as authActions} from '../redux/ducks/auth';
 import {selectors as courseSelectors, actions as courseActions} from '../redux/ducks/courses';
 import {selectors as spotlightSelectors, actions as spotlightActions} from '../redux/ducks/spotlights';
+import {selectors as pageSelectors, actions as pageActions} from '../redux/ducks/pages';
 import Brochure from '../layouts/brochure';
 import Hero from '../sections/hero';
 import StatCounter from '../sections/statCounter';
@@ -18,6 +19,7 @@ import Mission from '../sections/mission';
 import TrendingCourses from '../sections/trendingCourses';
 import Clients from '../sections/clients';
 import StudentSpotlights from '../sections/studentSpotlights';
+import Head from '../components/head';
 
 const methodItems = [
   {
@@ -127,10 +129,11 @@ const HappyClients = fromJS([
 
 class Home extends Component {
   render() {
-    const {spotlights} = this.props;
+    const {spotlights, page} = this.props;
 
     return (
       <Brochure>
+        {isImmutable(page) && page.get('meta') && isImmutable(page.get('meta')) && !page.get('meta').isEmpty() ? <Head meta={page.get('meta')}/> : null}
         <Hero/>
 
         <StatCounter
@@ -202,23 +205,27 @@ Home.getInitialProps = ctx => {
   }));
 
   store.dispatch(spotlightActions.spotlightsGet());
+  store.dispatch(pageActions.pagesGet({slug: 'home'}));
 };
 
 Home.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   courses: ImmutablePropTypes.list,
-  spotlights: ImmutablePropTypes.list
+  spotlights: ImmutablePropTypes.list,
+  page: ImmutablePropTypes.map
 };
 
 Home.defaultProps = {
   courses: List(),
-  spotlights: List()
+  spotlights: List(),
+  page: Map()
 };
 
 const mapStateToProps = state => ({
   user: userSelectors.getUser(state),
   courses: courseSelectors.getCourses(state),
-  spotlights: spotlightSelectors.getSpotlights(state)
+  spotlights: spotlightSelectors.getSpotlights(state),
+  page: pageSelectors.getPage(state, 'home')
 });
 
 const mapDispatchToProps = function (dispatch) {

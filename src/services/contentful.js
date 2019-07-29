@@ -44,6 +44,26 @@ export async function getSpotlights({query = {}, include = 10, limit = 100}) {
   }
 }
 
+export async function getPages({query = {}, include = 10, limit = 100}) {
+  try {
+    let res = await ContenfulClient.getEntries({
+      content_type: 'page', // eslint-disable-line camelcase,
+      include,
+      limit,
+      ...query
+    });
+
+    return res.items.map(i => {
+      return {
+        ...mapResponseItem(i),
+        meta: i.fields.meta ? i.fields.meta.fields : null
+      };
+    });
+  } catch (error) {
+    return error;
+  }
+}
+
 export async function getCourses({query = {}, include = 10, limit = 100}) {
   try {
     let res = await ContenfulClient.getEntries({

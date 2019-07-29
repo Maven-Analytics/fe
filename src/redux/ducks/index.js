@@ -14,6 +14,7 @@ import filters from './filters';
 import activeFilters from './activeFilters';
 import scores from './scores';
 import spotlights from './spotlights';
+import pages from './pages';
 
 const Ducks = combineReducers({
   loading,
@@ -30,7 +31,8 @@ const Ducks = combineReducers({
   filters,
   activeFilters,
   scores,
-  spotlights
+  spotlights,
+  pages
 });
 
 export default Ducks;

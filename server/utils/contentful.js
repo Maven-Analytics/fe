@@ -25,12 +25,13 @@ async function getPaths({query = {}, include = 10}) {
       .map(item => {
         return Object.assign(item, {
           badge: mapResponseImage(item.badge),
-          courses: item.courses.map(mapCourseItem)
+          courses: item.courses && item.courses.length ? item.courses.map(mapCourseItem) : []
         });
       });
 
     return paths;
   } catch (error) {
+    console.log(error)
     throw error;
   }
 }
@@ -79,7 +80,7 @@ function mapFromResponseItems(items) {
 }
 
 function mapResponseItem(item) {
-  if (!item) {
+  if (typeof item === 'undefined' || typeof item.sys === 'undefined' || !item || !item.sys.id) {
     return;
   }
 
@@ -98,7 +99,8 @@ function mapCourseItem(item) {
     thumbnail: mapResponseImage(item.fields.thumbnail),
     badge: mapResponseImage(item.fields.badge),
     image: mapResponseImage(item.fields.image),
-    author: mapAuthorItem(item.fields.author)
+    author: mapAuthorItem(item.fields.author),
+    meta: item.fields.meta ? mapResponseItem(item.fields.meta || {}) : null
   });
 }
 
