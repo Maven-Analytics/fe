@@ -18,7 +18,6 @@ import Mission from '../sections/mission';
 import TrendingCourses from '../sections/trendingCourses';
 import Clients from '../sections/clients';
 import StudentSpotlights from '../sections/studentSpotlights';
-import CtaSection from '../sections/ctaSection';
 
 const methodItems = [
   {
@@ -157,7 +156,6 @@ class Home extends Component {
             }
           ])}
         />
-
 
         <Mission
           scrollTo="#method"

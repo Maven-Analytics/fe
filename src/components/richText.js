@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {documentToReactComponents} from '@contentful/rich-text-react-renderer';
 import {isImmutable} from 'immutable';
