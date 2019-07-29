@@ -93,13 +93,29 @@ label {
   margin-bottom: $spacing-unit;
 }
 
+.mce_inline_error,
 .form-text {
+  background-color: transparent;
   color: $gray;
   display: block;
   margin-top: $spacing-unit--xs;
 
+  &.mce_inline_error,
   &.error {
     color: $red;
+  }
+}
+
+.mce_inline_error {
+  background-color: transparent !important;
+  color: $red !important;
+  font-size: 1.2rem !important;
+  margin: .2rem 0 !important;
+}
+
+#mc_embed_signup {
+  .form-group {
+    margin: 0;
   }
 }
 

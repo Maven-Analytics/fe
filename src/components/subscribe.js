@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import {state} from '../utils/componentHelpers';
 
+import Mailchimp from './mailchimp';
+
 class Subscribe extends Component {
   constructor(props) {
     super(props);
@@ -30,7 +32,10 @@ class Subscribe extends Component {
 
     return (
       <div className="subscribe">
-        <form onSubmit={this.handleSubmit}>
+        <Mailchimp/>
+        {helperText ? <small className="form-text">{helperText}</small> : null}
+
+        {/* <form onSubmit={this.handleSubmit}>
           <label htmlFor="email">Email address</label>
           <div className="form-group">
             <input
@@ -46,7 +51,7 @@ class Subscribe extends Component {
             <button type="submit" className="btn btn--primary">Subscribe</button>
           </div>
           {helperText ? <small className="form-text">{helperText}</small> : null}
-        </form>
+        </form> */}
       </div>
     );
   }
