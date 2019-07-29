@@ -4,11 +4,11 @@ import {List} from 'immutable';
 
 import {click} from '../utils/componentHelpers';
 import ParallaxBg from '../components/parallaxBg';
-import Image from '../components/image';
 import Carousel from '../components/carousel';
 import CarouselSlide from '../components/carouselSlide';
 import StudentSpotlight from '../components/studentSpotlight';
 import TrackVisibility from '../components/trackVisibility';
+import ImageContentful from '../components/imageContentful';
 
 class StudentSpotlights extends Component {
   constructor(props) {
@@ -51,7 +51,7 @@ class StudentSpotlights extends Component {
           </header>
           <Carousel activeIndex={activeIndex} options={{pageDots: false}} onChange={this.handleNavClick}>
             {spotlights.map(spotlight => (
-              <CarouselSlide key={spotlight.get('name')}>
+              <CarouselSlide key={spotlight.get('id')}>
                 <StudentSpotlight {...spotlight.toJS()}/>
               </CarouselSlide>
             ))}
@@ -67,9 +67,9 @@ class StudentSpotlights extends Component {
             onChange={this.handleNavClick}
           >
             {spotlights.map((spotlight, index) => (
-              <CarouselSlide key={spotlight.get('image')}>
+              <CarouselSlide key={spotlight.get('id')}>
                 <button onClick={click(this.handleNavClick, index)}>
-                  <Image cover src={spotlight.get('image')}/>
+                  <ImageContentful cover image={spotlight.get('image')}/>
                 </button>
               </CarouselSlide>
             ))}

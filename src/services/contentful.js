@@ -28,6 +28,22 @@ export async function getPaths({query = {}, include = 10}) {
   }
 }
 
+export async function getSpotlights({query = {}, include = 10, limit = 100}) {
+  try {
+    let res = await ContenfulClient.getEntries({
+      content_type: 'studentSpotlight', // eslint-disable-line camelcase,
+      include,
+      limit,
+      order: 'fields.order',
+      ...query
+    });
+
+    return res.items.map(mapResponseSpotlight);
+  } catch (error) {
+    return error;
+  }
+}
+
 export async function getCourses({query = {}, include = 10, limit = 100}) {
   try {
     let res = await ContenfulClient.getEntries({
@@ -74,6 +90,18 @@ function mapCourseItem(item) {
     badge: mapResponseImage(item.fields.badge),
     image: mapResponseImage(item.fields.image),
     author: mapAuthorItem(item.fields.author)
+  };
+}
+
+function mapResponseSpotlight(item) {
+  if (!item) {
+    return;
+  }
+
+  return {
+    id: item.sys.id,
+    ...item.fields,
+    image: mapResponseImage(item.fields.image)
   };
 }
 

@@ -8,6 +8,7 @@ import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {selectors as userSelectors} from '../redux/ducks/user';
 import {actions as authActions} from '../redux/ducks/auth';
 import {selectors as courseSelectors, actions as courseActions} from '../redux/ducks/courses';
+import {selectors as spotlightSelectors, actions as spotlightActions} from '../redux/ducks/spotlights';
 import Brochure from '../layouts/brochure';
 import Hero from '../sections/hero';
 import StatCounter from '../sections/statCounter';
@@ -226,6 +227,8 @@ const Spotlights = fromJS([
 
 class Home extends Component {
   render() {
+    const {spotlights} = this.props;
+
     return (
       <Brochure>
         <Hero/>
@@ -284,34 +287,12 @@ class Home extends Component {
         <TrendingCourses
           courses={this.props.courses}
         />
-        <StudentSpotlights spotlights={Spotlights}/>
+        <StudentSpotlights spotlights={spotlights}/>
         <Clients clients={HappyClients}/>
       </Brochure>
     );
   }
 }
-
-const mapStateToProps = state => ({
-  user: userSelectors.getUser(state),
-  courses: courseSelectors.getCourses(state)
-});
-
-const mapDispatchToProps = function (dispatch) {
-  return {
-    actions: bindActionCreators({
-      ...authActions
-    }, dispatch)
-  };
-};
-
-Home.propTypes = {
-  actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  courses: ImmutablePropTypes.list
-};
-
-Home.defaultProps = {
-  courses: List()
-};
 
 Home.getInitialProps = ctx => {
   const {store} = ctx;
@@ -320,6 +301,33 @@ Home.getInitialProps = ctx => {
       'fields.trending': true
     }
   }));
+
+  store.dispatch(spotlightActions.spotlightsGet());
+};
+
+Home.propTypes = {
+  actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  courses: ImmutablePropTypes.list,
+  spotlights: ImmutablePropTypes.list
+};
+
+Home.defaultProps = {
+  courses: List(),
+  spotlights: List()
+};
+
+const mapStateToProps = state => ({
+  user: userSelectors.getUser(state),
+  courses: courseSelectors.getCourses(state),
+  spotlights: spotlightSelectors.getSpotlights(state)
+});
+
+const mapDispatchToProps = function (dispatch) {
+  return {
+    actions: bindActionCreators({
+      ...authActions
+    }, dispatch)
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

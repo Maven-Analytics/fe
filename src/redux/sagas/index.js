@@ -15,6 +15,7 @@ import {watchDashboard} from './dashboard';
 import {watchUser} from './user';
 import {watchFilters} from './filter';
 import {watchScores} from './scores';
+import {watchSpotlights} from './spotlights';
 import {setCookie, removeCookie, getCookie} from '../../utils/cookies';
 import config from '../../config';
 
@@ -221,7 +222,8 @@ function * rootSaga() {
     fork(watchUser),
     fork(watchDashboard),
     fork(watchFilters),
-    fork(watchScores)
+    fork(watchScores),
+    fork(watchSpotlights)
   ]);
 }
 

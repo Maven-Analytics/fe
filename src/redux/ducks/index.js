@@ -13,6 +13,7 @@ import dashboard from './dashboard';
 import filters from './filters';
 import activeFilters from './activeFilters';
 import scores from './scores';
+import spotlights from './spotlights';
 
 const Ducks = combineReducers({
   loading,
@@ -28,7 +29,8 @@ const Ducks = combineReducers({
   dashboard,
   filters,
   activeFilters,
-  scores
+  scores,
+  spotlights
 });
 
 export default Ducks;

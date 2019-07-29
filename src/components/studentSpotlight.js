@@ -1,17 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {fromJS} from 'immutable';
 
-import Image from './image';
-import Markdown from './markdown';
 import MaIcon from './maIcon';
+import RichText from './richText';
+import ImageContentful from './imageContentful';
 
-const StudentSpotlight = ({name, title, location, quote, courses, callout, image}) => {
+const StudentSpotlight = ({name, title, location, description, completedCourses, callout, image}) => {
   return (
     <div className="student-spotlight">
       <div className="row">
         <div className="col-12 col-md-4">
           <div className="student-spotlight__header">
-            <Image src={image}/>
+            <ImageContentful image={fromJS(image)}/>
             <div className="meta">
               <p className="name">{name}</p>
               <p className="title">{title}</p>
@@ -21,7 +22,7 @@ const StudentSpotlight = ({name, title, location, quote, courses, callout, image
           <div className="student-spotlight__courses">
             <p>Courses Completed</p>
             <ul>
-              {courses.map(course => (
+              {completedCourses.map(course => (
                 <li key={course}>
                   <MaIcon icon="check"/>
                   {course}
@@ -31,7 +32,9 @@ const StudentSpotlight = ({name, title, location, quote, courses, callout, image
           </div>
         </div>
         <div className="col-12 col-md-8">
-          <Markdown className="student-spotlight__quote" content={quote}/>
+          <div className="student-spotlight__quote">
+            <RichText content={fromJS(description)}/>
+          </div>
         </div>
       </div>
       <div className="row">
@@ -47,14 +50,14 @@ StudentSpotlight.propTypes = {
   name: PropTypes.string,
   title: PropTypes.string,
   location: PropTypes.string,
-  quote: PropTypes.string,
-  courses: PropTypes.array,
+  description: PropTypes.object,
+  completedCourses: PropTypes.array,
   callout: PropTypes.string,
-  image: PropTypes.string
+  image: PropTypes.object
 };
 
 StudentSpotlight.defaultProps = {
-  courses: []
+  completedCourses: []
 };
 
 export default StudentSpotlight;
