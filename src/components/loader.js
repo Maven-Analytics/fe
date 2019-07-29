@@ -18,46 +18,19 @@ const Loader = ({loading, width, height, color, center, position}) => {
 
   return (
     <div className={classList.join(' ')} style={{width, height}}>
-      <svg width={width} height={height} viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg" stroke={color}>
-        <g fill="none" fillRule="evenodd" transform="translate(1 1)" strokeWidth="2">
-          <circle cx="22" cy="22" r="6" strokeOpacity="0">
-            <animate attributeName="r"
-              begin="1.5s" dur="3s"
-              values="6;22"
-              calcMode="linear"
-              repeatCount="indefinite" />
-            <animate attributeName="stroke-opacity"
-              begin="1.5s" dur="3s"
-              values="1;0" calcMode="linear"
-              repeatCount="indefinite" />
-            <animate attributeName="stroke-width"
-              begin="1.5s" dur="3s"
-              values="2;0" calcMode="linear"
-              repeatCount="indefinite" />
-          </circle>
-          <circle cx="22" cy="22" r="6" strokeOpacity="0">
-            <animate attributeName="r"
-              begin="3s" dur="3s"
-              values="6;22"
-              calcMode="linear"
-              repeatCount="indefinite" />
-            <animate attributeName="stroke-opacity"
-              begin="3s" dur="3s"
-              values="1;0" calcMode="linear"
-              repeatCount="indefinite" />
-            <animate attributeName="stroke-width"
-              begin="3s" dur="3s"
-              values="2;0" calcMode="linear"
-              repeatCount="indefinite" />
-          </circle>
-          <circle cx="22" cy="22" r="8">
-            <animate attributeName="r"
-              begin="0s" dur="1.5s"
-              values="6;1;2;3;4;5;6"
-              calcMode="linear"
-              repeatCount="indefinite" />
-          </circle>
-        </g>
+      <svg width={width} height={height} viewBox="0 0 100 100">
+        <defs>
+          <linearGradient id="Gradient" x1="50%" y1="0%" x2="50%" y2="100%" >
+            <stop offset="0%" stopColor="#7A5FFF">
+              <animate attributeName="stop-color" values="#20E2D7; #20E2D7; #20E2D7" dur="4s" repeatCount="indefinite"></animate>
+            </stop>
+
+            <stop offset="100%" stopColor="#01FF89">
+              <animate attributeName="stop-color" values="#F9FEA5; #F9FEA5; #F9FEA5" dur="4s" repeatCount="indefinite"></animate>
+            </stop>
+          </linearGradient>
+        </defs>
+        <circle className="circle" cx="50" cy="50" r="30" fill="none"></circle>
       </svg>
     </div>
   );

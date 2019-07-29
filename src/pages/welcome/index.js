@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {fromJS, Map} from 'immutable';
+import {fromJS, Map, List} from 'immutable';
 import {TransitionMotion, spring, presets} from 'react-motion';
 import Link from 'next/link';
+import Router from 'next/router';
 
 import {selectors as surveyResultSelectors, actions as surveyResultActions} from '../../redux/ducks/surveyResult';
+import {actions as userActions} from '../../redux/ducks/user';
 import Checkout from '../../layouts/checkout';
 import {SurveyQuestions} from '../../surveyContstants';
 import SurveyPage from '../../components/surveyPage';
@@ -25,6 +27,7 @@ class WelcomeSurvey extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleNext = this.handleNext.bind(this);
     this.handlePrevious = this.handlePrevious.bind(this);
+    this.handleFinish = this.handleFinish.bind(this);
   }
 
   getActiveIndex() {
@@ -79,6 +82,28 @@ class WelcomeSurvey extends Component {
         .map(q => q.set('active', false))
         .setIn([nextIndex, 'active'], true)
     });
+  }
+
+  handleFinish() {
+    const recommendedPaths = this.props.recommendedPaths.map(rp => {
+      return fromJS({
+        id: rp.get('id'),
+        percentage: rp.get('percentage')
+      });
+    });
+    const recommendedCourses = this.props.recommendedCourses.map(rc => {
+      return fromJS({
+        id: rc.get('id'),
+        percentage: rc.get('percentage')
+      });
+    });
+
+    this.props.actions.userRecommendedSet({
+      paths: recommendedPaths.toJS(),
+      courses: recommendedCourses.toJS()
+    });
+
+    Router.push(Routes.WelcomeResults);
   }
 
   getStyles() {
@@ -140,7 +165,7 @@ class WelcomeSurvey extends Component {
           <div className="welcome-survey__footer">
             {this.getPreviousIndex() >= 0 ? <button className="btn btn--empty btn--lg" onClick={this.handlePrevious}>Previous</button> : null }
             {this.getNextIndex() > 0 ? <button className="btn btn--primary-solid btn--lg" onClick={this.handleNext}>Next</button> : null}
-            {this.getActiveIndex() + 1 === this.getTotalQuestions() ? <Link href={Routes.WelcomeResults}><a className="btn btn--primary-solid btn--lg">Finish</a></Link> : null}
+            {this.getActiveIndex() + 1 === this.getTotalQuestions() ? <button onClick={this.handleFinish} className="btn btn--primary-solid btn--lg">Finish</button> : null}
           </div>
         </div>
       </Checkout>
@@ -150,21 +175,28 @@ class WelcomeSurvey extends Component {
 
 WelcomeSurvey.propTypes = {
   surveyResults: ImmutablePropTypes.map.isRequired,
-  actions: PropTypes.objectOf(PropTypes.func)
+  actions: PropTypes.objectOf(PropTypes.func),
+  recommendedPaths: ImmutablePropTypes.list,
+  recommendedCourses: ImmutablePropTypes.list
 };
 
 WelcomeSurvey.defaultProps = {
-  surveyResults: Map()
+  surveyResults: Map(),
+  recommendedPaths: List(),
+  recommendedCourses: List()
 };
 
 const mapStateToProps = state => ({
-  surveyResults: surveyResultSelectors.getSurveyResult(state)
+  surveyResults: surveyResultSelectors.getSurveyResult(state),
+  recommendedCourses: surveyResultSelectors.getRecommendedCourses(state),
+  recommendedPaths: surveyResultSelectors.getRecommendedPaths(state)
 });
 
 const mapDispatchToProps = function (dispatch) {
   return {
     actions: bindActionCreators({
-      ...surveyResultActions
+      ...surveyResultActions,
+      ...userActions
     }, dispatch)
   };
 };

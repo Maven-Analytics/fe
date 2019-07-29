@@ -154,6 +154,7 @@
     #{$self}__fog {
       @include collapseUp() {
         content: none;
+        z-index: 0;
       }
     }
 
@@ -170,6 +171,7 @@
         transition: none;
         transform: none;
         width: auto;
+        z-index: 0;
       }
     }
 

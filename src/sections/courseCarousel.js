@@ -32,8 +32,8 @@ const CourseCarousel = ({courses, title, eyelash, description, helperText, separ
         {courses.map(course => {
           let match;
 
-          if (course.get('percentage')) {
-            match = `${prettyPercent(course.get('percentage'))}%`;
+          if (course.get('match')) {
+            match = `${prettyPercent(course.get('match'))}%`;
           }
 
           return (

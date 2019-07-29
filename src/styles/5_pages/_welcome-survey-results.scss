@@ -1,5 +1,22 @@
 .welcome-survey-results {
   @extend .welcome-survey;
+  position: relative;
+
+
+  &__loading {
+    left: 0;
+    margin: 12vh auto;
+    max-width: 411px;
+    right: 0;
+    text-align: center;
+
+    p {
+      color: $white;
+      font-size: 1.8rem;
+      line-height: 1.38;
+      margin: $spacing-unit--md 0;
+    }
+  }
 
   header {
     h1 {

@@ -14,7 +14,7 @@ import {actions as authActions} from '../redux/ducks/auth';
 import {actions as checkoutActions} from '../redux/ducks/checkout';
 import {actions as userActions} from '../redux/ducks/user';
 import {actions as stateActions} from '../redux/ducks/state';
-import {getCookie, setCookie} from '../utils/cookies';
+import {getCookie, removeCookie} from '../utils/cookies';
 import {enter, exit} from '../utils/animations';
 
 import '../styles/index.scss';
@@ -26,7 +26,7 @@ class MavenApp extends App {
     const token = getCookie('token', ctx);
     const checkoutCookie = getCookie('checkout', ctx);
     const recommendedPaths = getCookie('recommendedPaths', ctx);
-    const recommendedCourses = getCookie('recommendedPaths', ctx);
+    const recommendedCourses = getCookie('recommendedCourses', ctx);
 
     const state = store.getState();
     const user = state.getIn(['user', 'user']);
@@ -39,11 +39,15 @@ class MavenApp extends App {
       store.dispatch(checkoutActions.setPlan(fromJS(checkoutCookie.plan)));
     }
 
-    if (recommendedPaths && recommendedCourses) {
+    // If there is a recommendedPaths & recommendedCourses cookie, but it has not been saved to the user. save it
+    if (recommendedPaths && recommendedCourses && user && user.get('id') && (!user.get('recommended_paths') || user.get('recommended_paths').isEmpty() || !user.get('recommended_courses') || user.get('recommended_courses').isEmpty())) {
       store.dispatch(userActions.userRecommendedSet({
         paths: recommendedPaths,
         courses: recommendedCourses
       }));
+
+      removeCookie('recommendedPaths', ctx);
+      removeCookie('recommendedCourses', ctx);
     }
 
     return {

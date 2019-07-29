@@ -2,11 +2,11 @@ import {takeLatest, put, select, all} from 'redux-saga/effects';
 import axios from 'axios';
 
 import {types as userTypes, selectors as userSelectors} from '../ducks/user';
-import {setCookie, getCookie} from '../../utils/cookies';
+import {setCookie, removeCookie} from '../../utils/cookies';
 import config from '../../config';
 
 export function * watchUser() {
-  yield takeLatest(userTypes.USER_RECOMMENDED_SET, onRecommendedSet);
+  yield takeLatest(userTypes.USER_RECOMMENDED_SET_REQUEST, onRecommendedSet);
 }
 
 function * onRecommendedSet() {
@@ -14,23 +14,43 @@ function * onRecommendedSet() {
     const paths = yield select(userSelectors.getRecommendedPaths);
     const courses = yield select(userSelectors.getRecommendedCourses);
 
-    yield saveRecommended(paths, courses);
+    const token = yield select(userSelectors.getToken);
 
-    setCookie('recommendedPaths', paths);
-    setCookie('recommendedCourses', courses);
+    if (token) {
+      const res = yield saveRecommended(paths, courses, token);
+
+      yield all([
+        put({
+          type: userTypes.USER_SET,
+          payload: res.user
+        }),
+        put({
+          type: userTypes.USER_RECOMMENDED_SET_SUCCESS
+        })
+      ]);
+      removeCookie('recommendedPaths', paths);
+      removeCookie('recommendedCourses', courses);
+    } else {
+      setCookie('recommendedPaths', paths);
+      setCookie('recommendedCourses', courses);
+
+      yield all([
+        put({
+          type: userTypes.USER_RECOMMENDED_SET_SUCCESS
+        })
+      ]);
+    }
   } catch (error) {
-    console.log(error);
+    console.log('USER_RECOMMENDED_SET_FAILURE');
+    yield put({
+      type: userTypes.USER_RECOMMENDED_SET_FAILURE,
+      payload: error.response ? error.response.data : error.message
+    });
   }
 }
 
-function * saveRecommended(paths, courses) {
+async function saveRecommended(paths, courses, token) {
   const baseUrl = config.HOST_APP;
-
-  const token = yield select(userSelectors.getToken);
-
-  if (!token) {
-    return;
-  }
 
   return axios.post(`${baseUrl}/api/v1/user/recommended`, {paths, courses}, {
     headers: {
