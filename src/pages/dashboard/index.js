@@ -23,7 +23,6 @@ import DashboardProgress from '../../components/dashboardProgress';
 import MaIcon from '../../components/maIcon';
 import DashboardCredentialIcons from '../../components/dashboardCredentialIcons';
 import DashboardCredential from '../../components/dashboardCredential';
-import {clickAction} from '../../utils/componentHelpers';
 import withAuthSync from '../../components/withAuthSync';
 
 class DashboardPage extends Component {
@@ -65,7 +64,7 @@ class DashboardPage extends Component {
             course={recentCourse}
             title={recentCourse.get('title')}
             percentage_completed={recentCourse.get('percentage_completed')}
-            resumeUrl={`${Routes.CourseTake}/${recentCourse.get('thinkificSlug')}`}
+            resumeUrl={recentCourse.get('url')}
             excerpt={recentCourse.get('excerpt')}
             badge={recentCourse.get('badge')}
           />
