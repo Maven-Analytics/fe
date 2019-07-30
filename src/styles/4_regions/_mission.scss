@@ -29,7 +29,7 @@
     @include gradient-font();
     display: inline-block;
     font-size: 3.5rem;
-    margin: 0 0 $spacing-unit--ss;
+    margin: 0 0 $spacing-unit;
 
     @include media-breakpoint-up(md) {
       font-size: 8rem;
