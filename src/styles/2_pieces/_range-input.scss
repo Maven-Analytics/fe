@@ -82,6 +82,7 @@
   &.minmax {
     height: 21px;
     margin-bottom: 20px;
+    max-width: calc(100% - 25px);
 
     .bar {
       background-color: $black;

@@ -20,6 +20,7 @@ import TrendingCourses from '../sections/trendingCourses';
 import Clients from '../sections/clients';
 import StudentSpotlights from '../sections/studentSpotlights';
 import Head from '../components/head';
+import {Routes} from '../routes';
 
 const methodItems = [
   {
@@ -30,7 +31,7 @@ const methodItems = [
     title: 'Tell Us About Yourself',
     description: 'Take a quick survey so we can match your learning needs with the best Maven Analytics courses and paths.',
     linkTitle: 'TAKE SURVEY',
-    linkHref: '/welcome',
+    linkHref: Routes.WelcomeSurvey,
     imgMobile: {
       src: '/static/img/step1-mobile.png',
       alt: 'Match your learning needs with the best Maven Analytics courses and paths',
@@ -66,7 +67,7 @@ const methodItems = [
     title: 'Learn & Expand Your Expertise',
     description: 'Take self-paced online courses with comprehensive videos, detailed course materials, and one-on-one support, specific to your learning goals and ambitions. ',
     linkTitle: 'VIEW COURSES & PATHS',
-    linkHref: '/',
+    linkHref: Routes.CoursesPaths,
     imgMobile: {
       src: '/static/img/step3-mobile.png',
       alt: 'Online courses.',

@@ -1,4 +1,4 @@
-import {List, isImmutable, Map} from 'immutable';
+import {List, isImmutable, Map, fromJS} from 'immutable';
 
 export const getPathById = (paths, id) => paths && paths.find && (paths.find(p => p.get('id') === id) || Map());
 
@@ -47,7 +47,7 @@ export const getLatestCourse = (path, enrollments) => {
   const pathEnrollments = path.get('enrollments'); // GetPathEnrollments(path, enrollments);
 
   if (!pathEnrollments || pathEnrollments.isEmpty()) {
-    return;
+    return Map();
   }
 
   // Get the latest enrollment by most percentage_completed NOT equal to 0 or 1
@@ -61,11 +61,12 @@ export const getLatestCourse = (path, enrollments) => {
   }
 
   if (!latestEnrollment) {
-    return;
+    latestEnrollment = fromJS({courseId: path.getIn(['courses', 0, 'thinkificCourseId'])});
   }
 
-  return path.get('courses')
+  const latestCourse = path.get('courses')
     .find(c => c.get('thinkificCourseId') === latestEnrollment.get('courseId'));
+  return latestCourse ? latestCourse : Map();
 };
 
 export const getPathInstructors = path => {
