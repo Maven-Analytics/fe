@@ -43,7 +43,7 @@ export const getMatchForPath = (path, user) => {
 //   return pathEnrollments;
 // };
 
-export const getLastestCourseSlugResumeCourseUrl = (path, enrollments) => {
+export const getLatestCourse = (path, enrollments) => {
   const pathEnrollments = path.get('enrollments'); // GetPathEnrollments(path, enrollments);
 
   if (!pathEnrollments || pathEnrollments.isEmpty()) {
@@ -64,7 +64,8 @@ export const getLastestCourseSlugResumeCourseUrl = (path, enrollments) => {
     return;
   }
 
-  return latestEnrollment.get('thinkificSlug');
+  return path.get('courses')
+    .find(c => c.get('thinkificCourseId') === latestEnrollment.get('courseId'));
 };
 
 export const getPathInstructors = path => {

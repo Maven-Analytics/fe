@@ -81,7 +81,7 @@ const Course = ({course, actions}) => {
                   </span>
                 </div>
                 <div className="bio">
-                  <RichText content={course.getIn(['author', 'bio'])}/>
+                  {course.hasIn(['author', 'bio']) ? <RichText content={course.getIn(['author', 'bio'])}/> : null}
                 </div>
                 {course.hasIn(['author', 'qualifications']) ? (
                   <div className="qualifications">

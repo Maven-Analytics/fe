@@ -10,7 +10,7 @@ import CloseButton from '../components/closeButton';
 import ProductDetail from '../components/productDetail';
 import RichText from '../components/richText';
 import {clickAction} from '../utils/componentHelpers';
-import {getLastestCourseSlugResumeCourseUrl, getPathHours, getPathInstructors} from '../utils/pathHelpers';
+import {getLatestCourse, getPathHours, getPathInstructors} from '../utils/pathHelpers';
 import {getResumeCourseUrl} from '../utils/routeHelpers';
 
 const PathDrawer = ({actions, state, enrollments}) => {
@@ -37,7 +37,7 @@ const PathDrawer = ({actions, state, enrollments}) => {
               title={path.get('title')}
               titleTag="h2"
               percentage_completed={path.get('percentage_completed')}
-              resumeUrl={getResumeCourseUrl(getLastestCourseSlugResumeCourseUrl(path, enrollments))}
+              resumeUrl={getLatestCourse(path, enrollments).get('url')}
               tools={path.get('tools')}
               courseCount={path.get('courses').count()}
               hours={getPathHours(path)}

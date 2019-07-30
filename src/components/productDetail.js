@@ -27,7 +27,7 @@ const ProductDetail = ({children, productTerm, className, badge, titleTag: Title
       <div className="product-detail__header">
         <ImageContentful showLoader={false} image={badge}/>
         <TitleTag>{title}</TitleTag>
-        {resumeUrl ? (<Link href={resumeUrl}><a className="btn btn--primary-solid">Resume {productTerm}</a></Link>) : null}
+        <Link href={resumeUrl || '#'}><a className="btn btn--primary-solid">Resume {productTerm}</a></Link>
       </div>
       <div className="product-detail__content">
         <div className="product-detail__content__main">

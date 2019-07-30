@@ -40,7 +40,7 @@ const CourseDrawer = ({actions, state, user}) => {
               percentage_completed={course.get('percentage_completed')}
               titleTag="h2"
               match={getMatchScoreForCourse(course, user)}
-              resumeUrl={getResumeCourseUrl(course.get('thinkificSlug'))}
+              resumeUrl={course.get('url')}
               tools={course.get('tools')}
               hours={course.get('length')}
               instructors={course.get('author')}
