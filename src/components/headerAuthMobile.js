@@ -37,6 +37,9 @@ const HeaderAuthMobile = ({actions}) => {
       </LoggedOut>
       <LoggedIn>
         <li>
+          <Link href={Routes.Dashboard}><a>Dashboard</a></Link>
+        </li>
+        <li>
           <Link href={Routes.Account}><a>My Account</a></Link>
         </li>
         <li>
