@@ -94,6 +94,21 @@ const Course = ({course, actions}) => {
                   </div>
                 ) : null}
               </div>
+              <div className="course-detail__testimonials">
+                <h4>Testimonials</h4>
+                <ul>
+                  {course.has('testimonials') && course.get('testimonials').map(testimonial => (
+                    <li key={testimonial.get('id')}>
+                      <blockquote>
+                        <RichText content={testimonial.get('quote')}/>
+                        <footer>
+                          <cite>- {testimonial.get('name')}</cite>
+                        </footer>
+                      </blockquote>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </aside>
           </div>
         </div>

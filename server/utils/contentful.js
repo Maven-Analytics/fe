@@ -100,6 +100,7 @@ function mapCourseItem(item) {
     badge: mapResponseImage(item.fields.badge),
     image: mapResponseImage(item.fields.image),
     author: mapAuthorItem(item.fields.author),
+    testimonials: mapFromResponseItems(item.fields.testimonials),
     meta: item.fields.meta ? mapResponseItem(item.fields.meta || {}) : null
   });
 }

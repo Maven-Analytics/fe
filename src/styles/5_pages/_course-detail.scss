@@ -120,6 +120,38 @@
     }
   }
 
+  &__testimonials {
+    border-top: 1px solid #A1A1A1;
+    margin: $spacing-unit--md 0;
+    padding: $spacing-unit--md 0 0;
+
+    @include collapseUp() {
+      margin: $spacing-unit--ll 0;
+      padding: $spacing-unit--ll 0 0;
+    }
+
+    ul {
+      list-style: none;
+
+      li {
+        margin-bottom: $spacing-unit--md;
+
+        @include collapseUp() {
+          margin-bottom: $spacing-unit--ll;
+        }
+      }
+    }
+
+    blockquote {
+      color: $black;
+      line-height: 1.5;
+
+      p {
+        color: #7E7E7E;
+      }
+    }
+  }
+
   &__cta {
     border-top: 1px solid #C5C5C5;
     font-size: 1.4rem;
