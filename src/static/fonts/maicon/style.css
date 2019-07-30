@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'maicon';
-  src:  url('fonts/maicon.eot?9ykbqs');
-  src:  url('fonts/maicon.eot?9ykbqs#iefix') format('embedded-opentype'),
-    url('fonts/maicon.woff2?9ykbqs') format('woff2'),
-    url('fonts/maicon.ttf?9ykbqs') format('truetype'),
-    url('fonts/maicon.woff?9ykbqs') format('woff'),
-    url('fonts/maicon.svg?9ykbqs#maicon') format('svg');
+  src:  url('fonts/maicon.eot?z1mrwx');
+  src:  url('fonts/maicon.eot?z1mrwx#iefix') format('embedded-opentype'),
+    url('fonts/maicon.woff2?z1mrwx') format('woff2'),
+    url('fonts/maicon.ttf?z1mrwx') format('truetype'),
+    url('fonts/maicon.woff?z1mrwx') format('woff'),
+    url('fonts/maicon.svg?z1mrwx#maicon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -25,6 +25,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.maicon-powerbi:before {
+  content: "\e90d";
+}
 .maicon-sliders-h:before {
   content: "\e915";
 }
@@ -48,9 +51,6 @@
 }
 .maicon-badge-alt:before {
   content: "\e90e";
-}
-.maicon-power-bi:before {
-  content: "\e90d";
 }
 .maicon-excel:before {
   content: "\e90b";

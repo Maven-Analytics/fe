@@ -1,16 +1,20 @@
 import {createSelector} from 'reselect';
-import {fromJS, List} from 'immutable';
+import {List} from 'immutable';
 
 import * as utils from '../../utils/duckHelpers';
 
 export const types = {
   ACTIVE_FILTER_ADD: 'ACTIVE_FILTER_ADD',
-  ACTIVE_FILTER_REMOVE: 'ACTIVE_FILTER_REMOVE'
+  ACTIVE_FILTER_REMOVE: 'ACTIVE_FILTER_REMOVE',
+  ACTIVE_FILTER_SET: 'ACTIVE_FILTER_SET',
+  ACTIVE_FILTER_UNSET: 'ACTIVE_FILTER_UNSET'
 };
 
 export const actions = {
   activeFilterAdd: obj => utils.action(types.ACTIVE_FILTER_ADD, obj),
-  activeFilterRemove: obj => utils.action(types.ACTIVE_FILTER_REMOVE, obj)
+  activeFilterRemove: obj => utils.action(types.ACTIVE_FILTER_REMOVE, obj),
+  activeFilterSet: obj => utils.action(types.ACTIVE_FILTER_SET, obj),
+  activeFilterUnset: obj => utils.action(types.ACTIVE_FILTER_UNSET, obj)
   // filterAdd: obj => utils.action(types.FILTER_ADD, obj),
   // filtersInit: query => utils.action(types.FILTERS_INIT, {query}),
   // filtersActiveSet: obj => utils.action(types.FILTERS_ACTIVE_SET, obj)
@@ -18,8 +22,8 @@ export const actions = {
 
 const initialState = utils.initialState({
   'fields.filters.sys.id[in]': [],
-  'length[gt]': [],
-  'length[lt]': [],
+  'fields.length[gt]': [0],
+  'fields.length[lt]': [40],
   enrollmentFilter: []
 });
 
@@ -37,6 +41,10 @@ export default (state = initialState, action) => {
 
       return u.delete(u.indexOf(action.payload.filter));
     });
+  case types.ACTIVE_FILTER_SET:
+    return state.set(action.payload.key, List([action.payload.value]));
+  case types.ACTIVE_FILTER_UNSET:
+    return state.set(action.payload.key, initialState.get(action.payload.key));
   // case types.FILTERS_ACTIVE_SET:
   //   return state.update(s => {
   //     const newFilters = fromJS(action.payload);

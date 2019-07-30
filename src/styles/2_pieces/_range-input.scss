@@ -78,4 +78,50 @@
       }
     }
   }
+
+  &.minmax {
+    height: 21px;
+    margin-bottom: 20px;
+
+    .bar {
+      background-color: $black;
+      opacity: 0.1;
+    }
+
+    .bar,
+    .progress {
+      height: 7px;
+      top: 7px;
+    }
+
+    .indicator {
+      left: -10.5px;
+      height: 21px;
+      width: 21px;
+
+      &::before {
+        background-color: $yellow;
+        height: 21px;
+        width: 21px;
+      }
+
+      &::after {
+        background-color: $black;
+        height: 17px;
+        left: 2px;
+        top: 2px;
+        width: 17px;
+      }
+
+      span {
+        bottom: -14px;
+        color: $black-2;
+        font-size: 1.2rem;
+        font-weight: 700;
+        height: 1.2rem;
+        position: absolute;
+        white-space: nowrap;
+      }
+    }
+  }
 }

@@ -17,19 +17,20 @@ import CourseFilterTools from './courseFilterTools';
 import MaIcon from './maIcon';
 import {clickPrevent} from '../utils/componentHelpers';
 import Loader from './loader';
+import LoggedIn from './loggedIn';
+import MinMaxInput from './inputs/minmax';
 
 class CourseFilters extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      min: 0,
-      max: 0
-    };
+    this.max = 40;
 
     this.handleCheck = this.handleCheck.bind(this);
     this.handleUncheck = this.handleUncheck.bind(this);
     this.handleFilter = this.handleFilter.bind(this);
+    this.handleMinSet = this.handleMinSet.bind(this);
+    this.handleMaxSet = this.handleMaxSet.bind(this);
   }
 
   componentDidMount() {
@@ -39,6 +40,26 @@ class CourseFilters extends Component {
   handleFilter() {
     this.props.actions.coursesFilter();
     this.props.actions.offmenuClose('filters');
+  }
+
+  handleMinSet(key) {
+    return value => {
+      if (value > 0) {
+        this.props.actions.activeFilterSet({key, value});
+      } else {
+        this.props.actions.activeFilterUnset({key});
+      }
+    };
+  }
+
+  handleMaxSet(key) {
+    return value => {
+      if (value < this.max) {
+        this.props.actions.activeFilterSet({key, value});
+      } else {
+        this.props.actions.activeFilterUnset({key});
+      }
+    };
   }
 
   handleCheck(key) {
@@ -116,15 +137,29 @@ class CourseFilters extends Component {
               active={activeFilters.get('fields.filters.sys.id[in]')}
               options={filters.get('Skills')}
             />
-            <CourseFilterChecks
-              id="status"
-              label="Status"
-              valueKey="title"
-              onCheck={this.handleCheck('enrollmentFilter')}
-              onUncheck={this.handleUncheck('enrollmentFilter')}
-              active={activeFilters.get('enrollmentFilter')}
-              options={filters.get('Status')}
-            />
+            <LoggedIn>
+              <CourseFilterChecks
+                id="status"
+                label="Status"
+                valueKey="title"
+                onCheck={this.handleCheck('enrollmentFilter')}
+                onUncheck={this.handleUncheck('enrollmentFilter')}
+                active={activeFilters.get('enrollmentFilter')}
+                options={filters.get('Status')}
+              />
+            </LoggedIn>
+            <div className="form-group form-group--dark form-group--inline course-filter">
+              <label htmlFor="fields.length[gt]">Course Hours</label>
+              <MinMaxInput
+                idMin="fields.length[gt]"
+                idMax="fields.length[lt]"
+                valueMin={activeFilters.getIn(['fields.length[gt]', 0])}
+                valueMax={activeFilters.getIn(['fields.length[lt]', 0])}
+                onMinChange={this.handleMinSet('fields.length[gt]')}
+                onMaxChange={this.handleMaxSet('fields.length[lt]')}
+                max={this.max}
+              />
+            </div>
           </div>
           <div className="course-filters__footer">
             <button className="btn btn--primary-solid" onClick={clickPrevent(this.handleFilter)}>Apply</button>

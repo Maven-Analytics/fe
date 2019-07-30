@@ -26,6 +26,9 @@
   }
 }
 
+.maicon-powerbi:before {
+  content: "\e90d";
+}
 .maicon-sliders-h:before {
   content: "\e915";
 }
@@ -49,9 +52,6 @@
 }
 .maicon-badge-alt:before {
   content: "\e90e";
-}
-.maicon-power-bi:before {
-  content: "\e90d";
 }
 .maicon-excel:before {
   content: "\e90b";

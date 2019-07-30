@@ -27,7 +27,7 @@
     height: 100%;
     left: 0;
     max-width: 90%;
-    overflow: auto;
+    overflow: visible;
     opacity: 0;
     position: fixed;
     width: 320px;
@@ -164,7 +164,7 @@
         box-shadow: none;
         height: auto;
         opacity: 1;
-        overflow: hidden;
+        overflow: visible;
         padding: 0;
         position: relative;
         max-height: none;
@@ -178,7 +178,7 @@
     #{$self}__content-inner {
       @include collapseUp() {
         height: auto;
-        overflow: hidden;
+        overflow: visible;
         padding: 0;
       }
     }
@@ -196,6 +196,15 @@
         height: auto;
         position: static;
         padding: 0;
+      }
+    }
+
+    &.open {
+      #{$self}__fog {
+        @include collapseUp() {
+          opacity: 0;
+          visibility: hidden;
+        }
       }
     }
   }
