@@ -22,14 +22,15 @@ const TrendingCourses = ({courses, actions}) => {
         </header>
         <Carousel
           options={{
-            groupCells: isXl() ? 4 : isLg() ? 3 : isMd() ? 2 : 1
+            groupCells: isLg() ? 3 : isMd() ? 2 : 1
           }}
         >
           {courses.map(course => (
             <CarouselSlide key={course.get('id')}>
               <CourseCard
-                condensed
+                full
                 course={course}
+                recommended={course.get('recommended') ? 'Recommended for you' : null}
               />
             </CarouselSlide>
           ))}

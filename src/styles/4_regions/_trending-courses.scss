@@ -43,10 +43,6 @@
         @include media-breakpoint-up(lg) {
           flex: 0 0 33.33333%;
         }
-
-        @include media-breakpoint-up(xl) {
-          flex: 0 0 25%;
-        }
       }
     }
 
@@ -61,10 +57,6 @@
 
       @include media-breakpoint-up(lg) {
         width: calc(33.33333% - 10px);
-      }
-
-      @include media-breakpoint-up(xl) {
-        width: calc(25% - 10px);
       }
 
       .course-card {
