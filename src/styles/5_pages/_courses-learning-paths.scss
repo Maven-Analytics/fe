@@ -1,7 +1,11 @@
 .courses-learning-paths {
   &__main {
-    @extend .course-detail__main;
-    display: block;
+    font-size: 1.6rem;
+    padding: $spacing-unit--l 0;
+
+    @include collapseUp() {
+      padding: $spacing-unit--ll 0;
+    }
   }
 
   &__tabs {
