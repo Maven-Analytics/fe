@@ -5,7 +5,7 @@ import throttle from 'lodash.throttle';
 import Image from './image';
 import {canUseDOM, isScrolledIntoView, getNodeHeight, isTouchDevice} from '../utils/componentHelpers';
 
-const strength = 800;
+const strength = 500;
 
 class ParallaxBg extends Component {
   constructor(props) {
@@ -118,12 +118,13 @@ class ParallaxBg extends Component {
   }
 
   render() {
-    const {src, alt, srcSet, placeholderColor, sources, className} = this.props;
+    const {src, alt, srcSet, placeholderColor, sources, className, overlay} = this.props;
     const {imgStyle, enabled} = this.state;
     const wrapStyle = {overflow: 'hidden', height: '100%', width: '100%'};
 
     return (
       <div ref={this.el} className={className} style={wrapStyle}>
+        {overlay ? <div className="overlay" /> : null}
         <Image
           cover
           placeholderColor={placeholderColor}
@@ -146,7 +147,8 @@ ParallaxBg.propTypes = {
   srcSet: PropTypes.string,
   placeholderColor: PropTypes.string,
   sources: PropTypes.array,
-  className: PropTypes.string
+  className: PropTypes.string,
+  overlay: PropTypes.bool
 };
 
 ParallaxBg.defaultProps = {

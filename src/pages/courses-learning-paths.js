@@ -23,6 +23,7 @@ import DashboardGrid from '../components/dashboardGrid';
 import CourseCard from '../components/courseCard';
 import Loader from '../components/loader';
 import CoursePathNav from '../components/coursePathNav';
+import Image from '../components/image';
 
 class CoursesLearningPaths extends PureComponent {
   constructor(props) {
@@ -155,6 +156,39 @@ class CoursesLearningPaths extends PureComponent {
       </Fragment>
     );
 
+    const heroImg = (
+      <Image
+        placeholderColor="transparent"
+        sources={[
+          {
+            srcSet: '/static/img/course-listing-featured-700.webp 700w',
+            type: 'image/webp'
+          },
+          {
+            srcSet: '/static/img/course-listing-featured-700.png 700w',
+            type: 'image/jpeg'
+          },
+          {
+            srcSet: '/static/img/course-listing-featured-1400.webp 1400w',
+            type: 'image/webp'
+          },
+          {
+            srcSet: '/static/img/course-listing-featured-1400.png 1400w',
+            type: 'image/jpeg'
+          },
+          {
+            srcSet: '/static/img/course-listing-featured-1568.webp 1568w',
+            type: 'image/webp'
+          },
+          {
+            srcSet: '/static/img/course-listing-featured-1568.png 1568w',
+            type: 'image/jpeg'
+          }
+        ]}
+        src="/static/img/course-listing-featured-700.png"
+      />
+    );
+
     return (
       <Brochure>
         <div className="courses-learning-paths">
@@ -168,7 +202,7 @@ class CoursesLearningPaths extends PureComponent {
             linkContent={scrollTo}
             linkHref="#"
             onLinkClick={handleScrollIntoView('#courses-paths-main')}
-            // Thumbnail={course.get('thumbnail')}
+            image={heroImg}
           />
           <CtaSurvey/>
           <div className="container container--lg">

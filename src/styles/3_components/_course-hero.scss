@@ -15,8 +15,17 @@
     width: 100%;
     z-index: -1;
 
+    .overlay {
+      background-color: $black;
+      height: 100%;
+      opacity: 0.9;
+      position: absolute;
+      width: 100%;
+      z-index: 1;
+    }
+
     .image {
-      padding-top: 62.42%;
+      // padding-top: 62.42%;
     }
 
     img {

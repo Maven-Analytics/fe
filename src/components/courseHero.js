@@ -13,7 +13,7 @@ import DifficultyMeter from './difficultyMeter';
 import ParallaxBg from './parallaxBg';
 import {innerHtml} from '../utils/componentHelpers';
 
-const CourseHero = ({className, eyelash, title, description, hours, skills, tools, difficulty, badge, paths, video, thumbnail, onVideoClick, meta, colClasses, linkHref, linkContent, onLinkClick}) => {
+const CourseHero = ({image, className, eyelash, title, description, hours, skills, tools, difficulty, badge, paths, video, thumbnail, onVideoClick, meta, colClasses, linkHref, linkContent, onLinkClick}) => {
   const classList = ['course-hero'];
 
   if (className) {
@@ -25,13 +25,26 @@ const CourseHero = ({className, eyelash, title, description, hours, skills, tool
       <ParallaxBg
         className="course-hero__bg"
         placeholderColor="#252525"
-        src="/static/img/home-hero-mobile.jpg"
-        srcSet="
-          /static/img/home-hero-mobile.webp 1000w,
-          /static/img/home-hero-mobile.jpg 1000w,
-          /static/img/home-hero-desktop.webp 2307w,
-          /static/img/home-hero-desktop.jpg 2307w
-        "
+        overlay
+        sources={[
+          {
+            srcSet: '/static/img/course-listing-bg-720.webp 720w',
+            type: 'image/webp'
+          },
+          {
+            srcSet: '/static/img/course-listing-bg-720.jpg 720w',
+            type: 'image/jpeg'
+          },
+          {
+            srcSet: '/static/img/course-listing-bg-1440.webp 1440w',
+            type: 'image/webp'
+          },
+          {
+            srcSet: '/static/img/course-listing-bg-1440.jpg 1440w',
+            type: 'image/jpeg'
+          }
+        ]}
+        src="/static/img/course-listing-bg-720.jpg"
       />
       <div className="course-hero__inner">
         <div className="container container--lg">
@@ -56,7 +69,8 @@ const CourseHero = ({className, eyelash, title, description, hours, skills, tool
             </div>
             <div className={colClasses[1]}>
               <div className="course-hero__video">
-                <ImageContentful image={thumbnail}/>
+                {image ? image : null}
+                {thumbnail ? <ImageContentful image={thumbnail}/> : thumbnail}
                 {video ? (
                   <button onClick={onVideoClick} aria-label="Play Video">
                     <MaIcon icon="play-triangle"/>
@@ -127,7 +141,8 @@ CourseHero.propTypes = {
   colClasses: PropTypes.array,
   linkHref: PropTypes.string,
   onLinkClick: PropTypes.func,
-  linkContent: PropTypes.node
+  linkContent: PropTypes.node,
+  image: PropTypes.node
 };
 
 CourseHero.defaultProps = {
