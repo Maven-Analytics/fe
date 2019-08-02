@@ -18,7 +18,8 @@ async function getPaths({query = {}, include = 10}) {
   try {
     let res = await ContenfulClient.getEntries(Object.assign({
       content_type: 'path', // eslint-disable-line camelcase,
-      include
+      include,
+      order: 'fields.order'
     }, query));
 
     const paths = mapFromResponseItems(res.items)
