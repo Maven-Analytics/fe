@@ -37,7 +37,12 @@
 
       span {
         @include gradient-font;
+        font-size: 4.3rem;
         font-weight: 700;
+
+        @include media-breakpoint-up(md) {
+          font-size: 6.5rem;
+        }
       }
     }
 
@@ -83,11 +88,11 @@
   }
 
   &__content-inner {
-    max-width: 270px;
+    max-width: 350px;
     padding: 5vh 0 10vh;
 
     @include media-breakpoint-up(md) {
-      max-width: 710px;
+      max-width: 640px;
     }
 
     @include media-breakpoint-up(lg) {
