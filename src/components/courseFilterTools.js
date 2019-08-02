@@ -38,7 +38,7 @@ class CourseFilterTools extends Component {
     const {active, id, label, options} = this.props;
 
     return (
-      <div className="form-group form-group--dark form-group--inline course-filter">
+      <div className="form-group form-group--dark form-group--inline course-filter course-filter--tools">
         <label htmlFor={id}>{label}</label>
         {options.map(option => (
           <ChildCheckbox
@@ -48,7 +48,10 @@ class CourseFilterTools extends Component {
             id={`${id}[${option.get('title')}]`}
             onChange={check(this.handleChange(option.get('id')))}
           >
-            <MaIcon icon={option.get('title').toLowerCase().replace(' ', '-')}/>
+            <div>
+              <MaIcon icon={option.get('title').toLowerCase().replace(' ', '-')}/>
+            </div>
+            <label htmlFor={`${id}[${option.get('title')}]`}>{option.get('title')}</label>
           </ChildCheckbox>
         ))}
       </div>
