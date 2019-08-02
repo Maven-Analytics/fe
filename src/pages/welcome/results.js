@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {Map, List, fromJS} from 'immutable';
 import {TransitionMotion, spring, presets} from 'react-motion';
+import {withRouter} from 'next/router';
 
 import {selectors as surveyResultSelectors, actions as surveyResultActions} from '../../redux/ducks/surveyResult';
 import {selectors as userSelectors} from '../../redux/ducks/user';
@@ -158,6 +159,12 @@ class WelcomeSurveyResults extends Component {
 
 WelcomeSurveyResults.getInitialProps = ctx => {
   const {store} = ctx;
+
+  if (ctx && ctx.req) {
+    ctx.res.writeHead(302, {Location: Routes.WelcomeSurvey});
+    ctx.res.end();
+  }
+
   store.dispatch(pathActions.pathsInit());
   store.dispatch(courseActions.coursesInit());
 };
@@ -192,4 +199,4 @@ const mapDispatchToProps = function (dispatch) {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(WelcomeSurveyResults);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(WelcomeSurveyResults));

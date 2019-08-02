@@ -10,7 +10,7 @@ class DashboardLayout extends Component {
     return (
       <Main>
         <div className="layout-page">
-          <div className="container">
+          <div className="container container--lg">
             <div className="layout-page__wrap">
               {children}
             </div>

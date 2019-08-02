@@ -8,7 +8,7 @@ import {Routes} from '../routes';
 const CheckoutHeader = () => {
   return (
     <header className="global-header global-header--checkout">
-      <div className="container">
+      <div className="container container--lg">
         <div className="global-header__inner">
           <Link href={Routes.Home}>
             <a className="global-header__brand">

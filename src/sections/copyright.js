@@ -7,7 +7,7 @@ import {copyLinks} from '../routes';
 const Copyright = ({links}) => {
   return (
     <div className="copyright">
-      <div className="container">
+      <div className="container container--lg">
         <div className="row justify-md-between">
           <div className="col-12 col-md-6">
             <p>© Maven Analytics, LLC <span>|</span> All Rights Reserved</p>

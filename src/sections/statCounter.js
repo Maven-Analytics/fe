@@ -29,7 +29,7 @@ class StatCounter extends Component {
       <TrackVisibility alwaysShow className="stat-counter" onShow={this.handleShow} offset={50} delay={100}>
         {inView => {
           return (
-            <div className="container">
+            <div className="container container--lg">
               <ul>
                 {stats.map(stat => (
                   <li key={stat.get('value')}>

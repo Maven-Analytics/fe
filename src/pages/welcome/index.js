@@ -10,6 +10,8 @@ import Router from 'next/router';
 
 import {selectors as surveyResultSelectors, actions as surveyResultActions} from '../../redux/ducks/surveyResult';
 import {actions as userActions} from '../../redux/ducks/user';
+import {actions as pathActions} from '../../redux/ducks/paths';
+import {actions as courseActions} from '../../redux/ducks/courses';
 import Checkout from '../../layouts/checkout';
 import {SurveyQuestions} from '../../surveyContstants';
 import SurveyPage from '../../components/surveyPage';
@@ -172,6 +174,13 @@ class WelcomeSurvey extends Component {
     );
   }
 }
+
+WelcomeSurvey.getInitialProps = ctx => {
+  const {store} = ctx;
+
+  store.dispatch(pathActions.pathsInit());
+  store.dispatch(courseActions.coursesInit());
+};
 
 WelcomeSurvey.propTypes = {
   surveyResults: ImmutablePropTypes.map.isRequired,

@@ -33,7 +33,7 @@ const Hero = () => {
         />
       </div>
       <div className="hero__content">
-        <div className="container">
+        <div className="container container--lg">
           <div className="hero__content-inner">
             <h1>We Transform Everyday People Into</h1>
             <h1><span>Data Rockstars</span></h1>

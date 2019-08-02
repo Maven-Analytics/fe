@@ -48,7 +48,7 @@ const PathBanner = ({badge, title, excerpt, match, courses, length, tools, path,
           <div className="value">{length || 0}</div>
           <div className="text">Hours</div>
         </li>
-        <li>
+        <li className="tools">
           <div className="value">
             {tools.map(tool => (
               <MaIcon key={tool} icon={tool.toLowerCase().replace(' ', '-')}/>

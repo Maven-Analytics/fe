@@ -105,7 +105,7 @@ CheckoutLayout.defaultProps = {
   activeStep: 0,
   title: 'Select a membership plan',
   full: false,
-  containerClass: 'container'
+  containerClass: 'container container--lg'
 };
 
 export default CheckoutLayout;

@@ -33,7 +33,8 @@
     text-transform: uppercase;
 
     @include media-breakpoint-up(lg) {
-      height: 40px;
+      align-items: flex-start;
+      height: 50px;
       font-size: 3rem;
       // line-height: 30px;
       margin-bottom: $spacing-unit--sm;

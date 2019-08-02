@@ -10,7 +10,7 @@ import TrackVisibility from '../components/trackVisibility';
 const Clients = ({clients}) => {
   return (
     <TrackVisibility className="clients">
-      <div className="container">
+      <div className="container container--lg">
         <header>
           <h2>SOME OF OUR HAPPY CLIENTS</h2>
         </header>

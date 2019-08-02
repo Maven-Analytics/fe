@@ -8,7 +8,7 @@ import TrackVisibility from '../components/trackVisibility';
 const MethodMobile = ({items}) => {
   return (
     <TrackVisibility className="method-mobile">
-      <div className="container">
+      <div className="container container--lg">
         <MethodHeader/>
         <ul>
           {items.map((item, index) => (

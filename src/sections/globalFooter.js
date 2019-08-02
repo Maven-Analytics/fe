@@ -13,7 +13,7 @@ const GlobalFooter = ({description, links}) => {
   return (
     <footer className="global-footer">
       <div className="global-footer__inner">
-        <div className="container">
+        <div className="container container--lg">
           <div className="row">
             <div className="col-12 col-md-4">
               <div className="global-footer__description">
