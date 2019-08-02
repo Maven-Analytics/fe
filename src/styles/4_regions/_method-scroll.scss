@@ -81,6 +81,14 @@
         opacity: 1;
       }
 
+      .image-1 {
+        @include breakpoint() {
+          opacity: 1;
+          transform: translateX(0);
+          transition: all .3s ease-in, opacity .2s ease-in;
+        }
+      }
+
       .image-2 {
         @include breakpoint() {
           opacity: 1;
@@ -94,7 +102,10 @@
       @include breakpoint() {
         height: 408px;
         left: 0;
+        opacity: 0;
         position: absolute;
+        transform: translateX(100px);
+        transition: all .2s ease-in;
         top: 0;
         width: 767px;
       }

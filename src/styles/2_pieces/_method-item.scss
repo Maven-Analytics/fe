@@ -23,20 +23,18 @@
   &__title {
     align-items: center;
     display: flex;
-    font-size: 1.6rem;
-    font-weight: 700;
+    font-family: $font-body;
+    font-size: 2rem;
+    font-weight: 900;
     height: 45px;
     // line-height: 30px;
     margin-bottom: 0;
     white-space: nowrap;
-
-    @at-root .fonts-loaded & {
-      font-family: $font-body;
-    }
+    text-transform: uppercase;
 
     @include media-breakpoint-up(lg) {
       height: 40px;
-      font-size: 2.4rem;
+      font-size: 3rem;
       // line-height: 30px;
       margin-bottom: $spacing-unit--sm;
     }
