@@ -61,12 +61,14 @@ class PathListingItem extends PureComponent {
           </button>
         </div>
         <div hidden={coursesOpen === false} className="path-listing-item__courses">
-          <CourseCarousel
-            courses={path.get('courses')}
-          />
+          {coursesOpen ? (
+            <CourseCarousel
+              courses={path.get('courses')}
+            />
+          ) : null}
         </div>
       </div>
-    )
+    );
   }
 }
 
