@@ -14,6 +14,9 @@ import {prettyPercent} from '../utils/componentHelpers';
 import CourseScores from './courseScores';
 import Loader from './loader';
 import MaIcon from './maIcon';
+import LoggedIn from './loggedIn';
+import LoggedOut from './loggedOut';
+import {Routes} from '../routes';
 
 const ProductDetail = ({children, productTerm, className, badge, titleTag: TitleTag, title, resumeUrl, showScores, id, percentage_completed, tools, hours, match, instructors, courseCount}) => {
   const classList = ['product-detail'];
@@ -22,12 +25,23 @@ const ProductDetail = ({children, productTerm, className, badge, titleTag: Title
     classList.push(className);
   }
 
+  let linkTerm = 'Resume';
+
+  if (!percentage_completed) {
+    linkTerm = 'Start';
+  }
+
   return (
     <div className={classList.join(' ')}>
       <div className="product-detail__header">
         <ImageContentful showLoader={false} image={badge}/>
         <TitleTag>{title}</TitleTag>
-        <Link href={resumeUrl || '#'}><a className="btn btn--primary-solid">Resume {productTerm}</a></Link>
+        <LoggedIn>
+          <Link href={resumeUrl || '#'}><a className="btn btn--primary-solid">{linkTerm} {productTerm}</a></Link>
+        </LoggedIn>
+        <LoggedOut>
+          <Link href={Routes.Login}><a className="btn btn--primary-solid">Start {productTerm}</a></Link>
+        </LoggedOut>
       </div>
       <div className="product-detail__content">
         <div className="product-detail__content__main">
