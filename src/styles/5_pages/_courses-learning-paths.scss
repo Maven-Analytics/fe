@@ -1,6 +1,7 @@
 .courses-learning-paths {
   &__main {
     font-size: 1.6rem;
+    overflow: hidden;
     padding: $spacing-unit--l 0;
 
     @include collapseUp() {
