@@ -49,6 +49,11 @@
     &:hover {
       color: $yellow;
     }
+
+    &:focus {
+      color: $yellow;
+      outline: none;
+    }
   }
 
   ul {

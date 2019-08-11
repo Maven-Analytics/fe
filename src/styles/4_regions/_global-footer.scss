@@ -30,8 +30,10 @@
   a {
     color: $gray-light;
 
+    &:focus,
     &:hover {
       color: $yellow;
+      outline: none;
     }
   }
 

@@ -29,8 +29,10 @@
           width: 0;
         }
 
+        &:focus,
         &:hover {
           opacity: 1;
+          outline: none;
         }
       }
 

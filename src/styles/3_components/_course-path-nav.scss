@@ -70,7 +70,10 @@
       }
     }
 
+    &:focus,
     &:hover {
+      outline: none;
+
       &:not(.filter) {
         span {
           background-color: transparent;

@@ -38,6 +38,27 @@
       font-size: 1rem;
       left: .25rem;
     }
+
+    &:focus,
+    &:focus-within {
+      outline: none;
+
+      input {
+        outline: none;
+      }
+
+      label {
+        text-decoration: underline;
+      }
+    }
+
+    input:focus {
+      outline: none;
+
+      + label {
+        text-decoration: underline;
+      }
+    }
   }
 
   .child-checkbox {
@@ -48,6 +69,20 @@
     position: relative;
     // overflow: hidden;
     width: 4.2rem;
+
+    &:focus,
+    &:focus-within {
+      outline: none;
+
+      input {
+        outline: none;
+      }
+
+      &::before{
+        background: $brand-gradient;
+        opacity: 1;
+      }
+    }
 
     input {
       z-index: 2;

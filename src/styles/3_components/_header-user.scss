@@ -13,6 +13,15 @@
     text-transform: uppercase;
     white-space: nowrap;
 
+    &:focus {
+      color: $yellow;
+      outline: none;
+
+      .chevron-icon {
+        color: $yellow;
+      }
+    }
+
     .user-icon {
       align-items: center;
       background-color: #505050;

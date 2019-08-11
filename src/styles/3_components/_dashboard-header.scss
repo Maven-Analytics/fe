@@ -63,9 +63,11 @@
         opacity: .6;
         text-transform: uppercase;
 
+        &:focus,
         &:hover {
           color: $white;
           opacity: 1;
+          outline: none;
           text-decoration: none;
         }
 

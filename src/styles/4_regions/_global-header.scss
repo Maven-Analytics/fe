@@ -59,6 +59,10 @@
       margin-right: $spacing-unit--l + .5rem;
       width: 192px;
     }
+
+    &:focus {
+      outline: none;
+    }
   }
 
   nav {
@@ -111,6 +115,10 @@
             transition: none;
           }
 
+          &:focus {
+            outline: none;
+          }
+
           &:not(.btn):not(.header-user__link) {
             align-items: center;
             display: flex;
@@ -132,12 +140,14 @@
           }
 
           &.btn {
+            &:focus,
             &:hover {
               color: $black;
             }
           }
 
           &:not(.btn) {
+            &:focus,
             &:hover {
               color: $white;
               text-decoration: none;
