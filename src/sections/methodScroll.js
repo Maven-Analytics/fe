@@ -13,16 +13,41 @@ class MethodScroll extends Component {
     super(props);
 
     this.state = {
-      duration: 4000
+      duration: 4000,
+      init: false,
+      ratios: []
     };
 
     this.items = createRef();
   }
 
   componentDidMount() {
+    this.init();
+
     this.setState({
       duration: window.innerHeight * 3
     });
+  }
+
+  init() {
+    const items = this.items.current.querySelectorAll('.method-item');
+    const scrollerHeight = 245;
+    let totalHeight = 0;
+    let heights = [];
+    let ratios = [];
+
+    items.forEach(item => {
+      totalHeight += item.scrollHeight;
+      heights.push(item.scrollHeight);
+    });
+
+    heights.forEach((h, i) => {
+      const prev = ratios[i - 1] || 0;
+
+      ratios.push((h / totalHeight) + prev);
+    });
+
+    this.setState({ratios});
   }
 
   render() {
@@ -30,7 +55,7 @@ class MethodScroll extends Component {
     const {items} = this.props;
 
     return (
-      <TrackVisibility className="method-scroll">
+      <div className="method-scroll">
         <Controller>
           <Scene
             pin
@@ -39,7 +64,16 @@ class MethodScroll extends Component {
             indicators={false}
           >
             {progress => {
-              const activeIndex = progress > 0 && progress < 1 ? Math.floor(progress * items.length) : progress === 1 ? items.length - 1 : 0;
+              let activeIndex = progress > 0 && progress < 1 ? Math.floor(progress * items.length) : progress === 1 ? items.length - 1 : 0;
+
+              this.state.ratios.forEach((r, index) => {
+                if (r <= progress) {
+                  activeIndex = index;
+                }
+              });
+              // if (!this.state.init) {
+              //   activeIndex = -1;
+              // }
 
               return (
                 <div className="method-scroll__wrap">
@@ -101,7 +135,7 @@ class MethodScroll extends Component {
             }}
           </Scene>
         </Controller>
-      </TrackVisibility>
+      </div>
     );
   }
 }

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Scroller = ({progress, width}) => {
+const Scroller = ({progress}) => {
   return (
-    <div className="scroller" style={{width}}>
+    <div className="scroller">
       <div
         style={{
           transform: `translate3d(0, ${progress * 100}%, 0)`

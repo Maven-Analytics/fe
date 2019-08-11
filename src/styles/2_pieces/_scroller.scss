@@ -1,11 +1,17 @@
 .scroller {
-  $width: 115px;
+  $width: $methodScrollerWidth;
+  $widthXl: $methodScrollerWidthXl;
   $height: 6px;
   height: 100%;
   left: -($width);
   position: absolute;
   top: 0;
   width: $width;
+
+  @include media-breakpoint-up(xl) {
+    left: -($widthXl);
+    width: $widthXl;
+  }
 
   div {
     height: calc(100% - #{$height});
