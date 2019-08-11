@@ -48,5 +48,6 @@ export const selectors = {
   getCourses: createSelector([getCourses], c => c),
   getCourse: createSelector([getCourse], c => c),
   getFilteredCourses: createSelector([getCourses], courses => courses),
-  getCompletedCourses: createSelector([getCourses], c => c.filter(c => c.get('completed')))
+  getCompletedCourses: createSelector([getCourses], c => c.filter(c => c.get('completed'))),
+  getCoursesByCompletionDesc: createSelector([getCourses], c => c.sort((a, b) => b.get('percentage_completed') - a.get('percentage_completed')))
 };

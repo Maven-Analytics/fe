@@ -32,5 +32,6 @@ const getPath = (state, slug) => {
 export const selectors = {
   getPaths: createSelector([getPaths], p => p),
   getPath: createSelector([getPath], p => p),
-  getCompletedPaths: createSelector([getPaths], p => p.filter(p => p.get('completed')))
+  getCompletedPaths: createSelector([getPaths], p => p.filter(p => p.get('completed'))),
+  getPathsByCompletionDesc: createSelector([getPaths], c => c.sort((a, b) => b.get('percentage_completed') - a.get('percentage_completed')))
 };

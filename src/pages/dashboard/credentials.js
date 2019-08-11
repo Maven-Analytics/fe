@@ -24,7 +24,6 @@ class DashboardCredentials extends Component {
       <DashboardLayout showWelcome loading={false} title="Credentials & Badges" activeLink={3}>
         <DashboardCredentialList title="Learning Paths" loading={loadingPaths}>
           {paths.map(path => {
-            console.log(path.toJS())
             return (
               <CredentialCard
                 completed={path.get('completed')}
@@ -39,7 +38,6 @@ class DashboardCredentials extends Component {
         </DashboardCredentialList>
         <DashboardCredentialList title="Courses" loading={loadingCourses}>
           {courses.map(course => {
-            console.log(course.toJS())
             return (
               <CredentialCard
                 completed={course.get('completed')}
@@ -58,8 +56,8 @@ class DashboardCredentials extends Component {
 }
 
 const mapStateToProps = state => ({
-  paths: pathSelectors.getPaths(state),
-  courses: courseSelectors.getCourses(state),
+  paths: pathSelectors.getPathsByCompletionDesc(state),
+  courses: courseSelectors.getCoursesByCompletionDesc(state),
   loadingCourses: loadingSelectors.getLoading(['COURSESINIT'])(state),
   errorCourses: errorSelectors.getError(['COURSESINIT'])(state),
   loadingPaths: loadingSelectors.getLoading(['PATHSINIT'])(state),
