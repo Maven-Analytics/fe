@@ -58,7 +58,9 @@
 
     h4 {
       color: $black;
+      font-family: $font-heading;
       font-size: 1.375em;
+      font-weight: 900;
       line-height: 1.09;
       margin: 0 0 $spacing-unit--ss;
       min-height: 40px;
@@ -66,7 +68,7 @@
 
       @include media-breakpoint-up(lg) {
         padding-right: 100px;
-        min-height: none;
+        min-height: 0;
       }
     }
 

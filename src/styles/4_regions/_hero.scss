@@ -42,8 +42,10 @@
 
       span {
         @include gradient-font;
+        font-family: $font-heading;
         font-size: 4.3rem;
-        font-weight: 700;
+        font-weight: 900;
+
 
         @include media-breakpoint-up(md) {
           font-size: 6.5rem;

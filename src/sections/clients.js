@@ -11,7 +11,7 @@ const Clients = ({clients}) => {
     <div className="clients">
       <div className="container container--lg">
         <header>
-          <h2>SOME OF OUR HAPPY CLIENTS</h2>
+          <h2>SOME OF OUR <strong>HAPPY CLIENTS</strong></h2>
         </header>
         <Carousel
           options={{

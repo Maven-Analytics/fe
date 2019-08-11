@@ -47,8 +47,11 @@
 
 // D-DIN
 @include font-face('D-DIN', '/static/fonts/DIN/D-DIN', 400, normal);
-@include font-face('D-DIN', '/static/fonts/DIN/D-DIN-Bold', 700, normal);
 @include font-face('D-DIN', '/static/fonts/DIN/D-DIN-Italic', 400, italic);
+@include font-face('D-DIN', '/static/fonts/DIN/D-DIN-Bold', 700, normal);
+@include font-face('D-DIN', '/static/fonts/DIN/DIN-Medium-Regular', 500, normal);
+@include font-face('D-DIN', '/static/fonts/DIN/DIN-Black-Regular', 900, normal);
+
 @include font-face('D-DIN Condensed', '/static/fonts/DIN/D-DINCondensed', 400, normal);
 @include font-face('D-DIN Condensed', '/static/fonts/DIN/D-DINCondensed-Bold', 700, normal);
 @include font-face('D-DIN Expanded', '/static/fonts/DIN/D-DINExp', 400, normal);

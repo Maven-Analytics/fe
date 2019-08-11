@@ -1,8 +1,8 @@
 .checkout-thanks {
-  color: $gray-light;
+  color: #CECECE;
   font-size: 1.4rem;
   margin: $spacing-unit--l auto;
-  max-width: 470px;
+  max-width: 490px;
   text-align: center;
 
   @include collapseUp {
@@ -19,18 +19,20 @@
 
   h1,
   h2 {
-    font-weight: 700;
     text-transform: uppercase;
   }
 
   h1 {
     font-size: 1.1em;
+    font-weight: 500;
+    letter-spacing: 2px;
     margin: 0 0 .6em;
   }
 
   h2 {
     color: $white;
     font-size: 2.1666em;
+    font-weight: 900;
     margin: 0 0 .5em;
   }
 

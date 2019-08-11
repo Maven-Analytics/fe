@@ -12,7 +12,7 @@
 
     .image {
       &::after {
-        background: linear-gradient(rgba($black-light, .88) 75%, $black-checkout-bg);
+        background: linear-gradient(rgba($black-light, .7) 75%, $black-checkout-bg);
         content: ' ';
         height: 100%;
         left: 0;
@@ -64,6 +64,7 @@
     h2 {
       color: $white;
       font-size: 2.1em;
+      font-weight: 700;
       line-height: .94;
       text-transform: uppercase;
 
@@ -74,6 +75,7 @@
       strong {
         @include gradient-font();
         font-size: 1.3em;
+        font-weight: 900;
         line-height: .78;
       }
 
@@ -117,7 +119,7 @@
   &__title {
     color: $white;
     font-size: 2.3rem;
-    font-weight: 700;
+    font-weight: 900;
     margin: 0 0 $spacing-unit--l;
     text-transform: uppercase;
   }
