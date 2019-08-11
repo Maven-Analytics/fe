@@ -23,7 +23,7 @@
   }
 
   &__content {
-    span {
+    > span {
       display: block;
       color: $yellow;
       font-size: .8em;
@@ -38,6 +38,14 @@
       color: $white;
       font-size: 1.7em;
       margin-bottom: .3em;
+
+      span {
+        color: #E5E5E5;
+        font-family: $font-body;
+        font-size: 1.8rem;
+        font-weight: 400;
+        margin-left: 1rem;
+      }
     }
 
     p {
