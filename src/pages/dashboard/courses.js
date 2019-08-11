@@ -16,10 +16,6 @@ import DashboardNoData from '../../components/dashboardNoData';
 import withAuthSync from '../../components/withAuthSync';
 
 class DashboardCourses extends Component {
-  componentDidMount() {
-    this.props.actions.coursesFilter();
-  }
-
   render() {
     const {loading, courses} = this.props;
 
@@ -60,15 +56,17 @@ class DashboardCourses extends Component {
   }
 }
 
-// DashboardCourses.getInitialProps = async ctx => {
-//   const {store, asPath} = ctx;
+DashboardCourses.getInitialProps = async ctx => {
+  const {store, asPath} = ctx;
 
-//   const url = asPath;
+  store.dispatch(courseActions.coursesFilter());
 
-//   const search = url.split('?')[1] || '';
+  // const url = asPath;
 
-//   const query = qs.parse(search);
-// };
+  // const search = url.split('?')[1] || '';
+
+  // const query = qs.parse(search);
+};
 
 DashboardCourses.propTypes = {
   loading: PropTypes.bool,

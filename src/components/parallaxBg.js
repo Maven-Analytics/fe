@@ -127,6 +127,7 @@ class ParallaxBg extends Component {
         {overlay ? <div className="overlay" /> : null}
         <Image
           cover
+          lazyLoad={false}
           placeholderColor={placeholderColor}
           sources={sources}
           src={src}

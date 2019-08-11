@@ -103,16 +103,18 @@ class Image extends Component {
   }
 
   render() {
-    const {src, alt, srcSet, style, placeholderColor, showLoader} = this.props;
+    const {src, alt, srcSet, style, placeholderColor, showLoader, lazyLoad} = this.props;
+
+    const Comp = lazyLoad ? TrackVisibility : 'div';
 
     return (
-      <TrackVisibility className={this.getWrapClassList()} style={this.getWrapStyle()}>
+      <Comp className={this.getWrapClassList()} style={this.getWrapStyle()}>
         {showLoader ? <div className="loader" style={{backgroundColor: placeholderColor}}/> : null}
-        <picture ref={this.img} onLoad={this.handleLoad} style={style}>
+        <picture>
           {this.renderSources()}
-          {src ? <img style={style} src={src} alt={alt} srcSet={srcSet}/> : null}
+          {src ? <img ref={this.img} onLoad={this.handleLoad} style={style} src={src} alt={alt} srcSet={srcSet}/> : null}
         </picture>
-      </TrackVisibility>
+      </Comp>
     );
   }
 }
@@ -128,7 +130,8 @@ Image.propTypes = {
   cover: PropTypes.bool,
   placeholderColor: PropTypes.string,
   sources: PropTypes.array,
-  showLoader: PropTypes.bool
+  showLoader: PropTypes.bool,
+  lazyLoad: PropTypes.bool
 };
 
 Image.defaultProps = {
@@ -136,7 +139,8 @@ Image.defaultProps = {
   style: {},
   cover: false,
   placeholderColor: '#F6F6F6',
-  showLoader: true
+  showLoader: false,
+  lazyLoad: true
 };
 
 export default Image;

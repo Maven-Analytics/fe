@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
 import {Map} from 'immutable';
@@ -12,58 +12,87 @@ import MaIcon from './maIcon';
 import ProgressMeter from './progressMeter';
 import withState from './withState';
 
-const CourseCard = ({course, condensed, match, recommended, progress, full, actions}) => {
-  const classList = ['course-card'];
+class CourseCard extends Component {
+  constructor(props) {
+    super(props);
 
-  if (condensed) {
-    classList.push('course-card--condensed');
+    this.imgCount = 2;
+
+    this.state = {
+      loaded: []
+    };
+
+    this.handleImageLoad = this.handleImageLoad.bind(this);
   }
 
-  if (full) {
-    classList.push('course-card--full');
+  handleImageLoad() {
+    this.setState(prevState => {
+      return {
+        loaded: prevState.loaded.concat([true])
+      };
+    });
   }
 
-  return (
-    <div className={classList.join(' ')}>
-      {match && condensed === false ? (
-        <CourseBanner>
-          <span className="text">Match</span>
-          <span className="value">{match}</span>
-        </CourseBanner>
-      ) : null}
-      {recommended && condensed === false ? (
-        <CourseBanner>
-          <MaIcon icon="recommended"/>
-          <span className="text">{recommended}</span>
-        </CourseBanner>
-      ) : null}
-      <div className="course-card__image">
-        <ImageContentful cover image={course.get('thumbnail')}/>
-        {condensed === false ? (
-          <div className="badge">
-            <ImageContentful image={course.get('badge')}/>
-          </div>
+  render() {
+    const {course, condensed, match, recommended, progress, full, actions} = this.props;
+    const {loaded} = this.state;
+
+    const classList = ['course-card'];
+
+    if (condensed) {
+      classList.push('course-card--condensed');
+    }
+
+    if (full) {
+      classList.push('course-card--full');
+    }
+
+    if (loaded.length === this.imgCount) {
+      classList.push('loaded');
+    }
+
+    return (
+      <div className={classList.join(' ')}>
+        {match && condensed === false ? (
+          <CourseBanner>
+            <span className="text">Match</span>
+            <span className="value">{match}</span>
+          </CourseBanner>
         ) : null}
-      </div>
-      <div className="course-card__content">
-        <h4>{course.get('title')}</h4>
-        {condensed === false ? (
-          <p>{course.get('cardDescription')}</p>
+        {recommended && condensed === false ? (
+          <CourseBanner>
+            <MaIcon icon="recommended"/>
+            <span className="text">{recommended}</span>
+          </CourseBanner>
         ) : null}
-        {progress > -1 ? <ProgressMeter value={progress} title="Progress"/> : null}
+        <div className="course-card__image">
+          <ImageContentful cover onLoad={this.handleImageLoad} image={course.get('thumbnail')}/>
+          {condensed === false ? (
+            <div className="badge">
+              <ImageContentful onLoad={this.handleImageLoad} showLoader={false} image={course.get('badge')}/>
+            </div>
+          ) : null}
+        </div>
+        <div className="course-card__content">
+          <h4>{course.get('title')}</h4>
+          {condensed === false ? (
+            <p>{course.get('cardDescription')}</p>
+          ) : null}
+          {progress > -1 ? <ProgressMeter value={progress} title="Progress"/> : null}
+        </div>
+        <div className="course-card__footer">
+          <span>
+            <button onClick={clickAction(actions.modalOpen, 'courseDrawer', course)} className="btn">View Course</button>
+          </span>
+          {condensed === false ? (
+            <CourseHours hours={course.get('length')}/>
+          ) : null}
+          <CourseAuthor name={course.getIn(['author', 'name'])} thumbnail={course.getIn(['author', 'thumbnail'])}/>
+        </div>
       </div>
-      <div className="course-card__footer">
-        <span>
-          <button onClick={clickAction(actions.modalOpen, 'courseDrawer', course)} className="btn">View Course</button>
-        </span>
-        {condensed === false ? (
-          <CourseHours hours={course.get('length')}/>
-        ) : null}
-        <CourseAuthor name={course.getIn(['author', 'name'])} thumbnail={course.getIn(['author', 'thumbnail'])}/>
-      </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 CourseCard.propTypes = {
   course: ImmutablePropTypes.map,
