@@ -251,7 +251,7 @@ class MinMaxInput extends Component {
             transform: `translateX(${percentageMin}px)`
           }}
         >
-          <span>{this.state.valueMin} hrs</span>
+          <span>{this.state.valueMin}</span>
         </div>
         <div
           onMouseDown={this.handleMouseDown('max')}
@@ -264,7 +264,7 @@ class MinMaxInput extends Component {
             transform: `translateX(${percentageMax}px)`
           }}
         >
-          <span>{this.state.valueMax} hrs</span>
+          <span>{this.state.valueMax}</span>
         </div>
         <input
           id={this.props.idMin}

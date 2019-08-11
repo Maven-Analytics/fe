@@ -24,7 +24,7 @@ class CourseFilters extends Component {
   constructor(props) {
     super(props);
 
-    this.max = 40;
+    this.max = 25;
 
     this.handleCheck = this.handleCheck.bind(this);
     this.handleUncheck = this.handleUncheck.bind(this);

@@ -23,7 +23,7 @@ export const actions = {
 const initialState = utils.initialState({
   'fields.filters.sys.id[in]': [],
   'fields.length[gt]': [0],
-  'fields.length[lt]': [40],
+  'fields.length[lt]': [25],
   enrollmentFilter: []
 });
 
