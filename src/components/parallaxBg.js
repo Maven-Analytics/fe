@@ -54,7 +54,7 @@ class ParallaxBg extends Component {
 
     this.setState(this.updateImgStyle({
       height: el.offsetHeight + strength,
-      width: 'auto',
+      width: el.offsetWidth,
       left: '50%',
       transform: 'translate3d(-50%, 0, 0)',
       WebkitTransformStyle: 'preserve-3d',

@@ -13,19 +13,27 @@ const Hero = () => {
           placeholderColor="#252525"
           sources={[
             {
-              srcSet: '/static/img/home-hero-mobile.webp 1000w',
+              srcSet: '/static/img/home-hero-tall-1000.webp 1000w',
               type: 'image/webp'
             },
             {
-              srcSet: '/static/img/home-hero-mobile.jpg 1000w',
+              srcSet: '/static/img/home-hero-tall-1000.jpg 1000w',
               type: 'image/jpeg'
             },
             {
-              srcSet: '/static/img/home-hero-desktop.webp 2307w',
+              srcSet: '/static/img/home-hero-tall-1600.webp 1600w',
               type: 'image/webp'
             },
             {
-              srcSet: '/static/img/home-hero-desktop.jpg 2307w',
+              srcSet: '/static/img/home-hero-tall-1600.jpg 1600w',
+              type: 'image/jpeg'
+            },
+            {
+              srcSet: '/static/img/home-hero-tall-2400.webp 2400w',
+              type: 'image/webp'
+            },
+            {
+              srcSet: '/static/img/home-hero-tall-2400.jpg 2400w',
               type: 'image/jpeg'
             }
           ]}
