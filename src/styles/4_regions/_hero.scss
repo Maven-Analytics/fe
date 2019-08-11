@@ -9,7 +9,12 @@
     z-index: -1;
 
     .image {
-      padding-top: 62.42%;
+      // padding-top: 62.42%;
+      top: -40px;
+
+      @include media-breakpoint-up(lg) {
+        top: 120px;
+      }
     }
 
     img {

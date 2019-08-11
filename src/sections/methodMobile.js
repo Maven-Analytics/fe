@@ -7,7 +7,7 @@ import TrackVisibility from '../components/trackVisibility';
 
 const MethodMobile = ({items}) => {
   return (
-    <TrackVisibility className="method-mobile">
+    <div className="method-mobile">
       <div className="container container--lg">
         <MethodHeader/>
         <ul>
@@ -27,7 +27,7 @@ const MethodMobile = ({items}) => {
           ))}
         </ul>
       </div>
-    </TrackVisibility>
+    </div>
   );
 };
 

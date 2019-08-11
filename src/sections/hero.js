@@ -11,33 +11,37 @@ const Hero = () => {
       <div className="hero__background">
         <ParallaxBg
           placeholderColor="#252525"
-          sources={[
-            {
-              srcSet: '/static/img/home-hero-tall-1000.webp 1000w',
-              type: 'image/webp'
-            },
-            {
-              srcSet: '/static/img/home-hero-tall-1000.jpg 1000w',
-              type: 'image/jpeg'
-            },
-            {
-              srcSet: '/static/img/home-hero-tall-1600.webp 1600w',
-              type: 'image/webp'
-            },
-            {
-              srcSet: '/static/img/home-hero-tall-1600.jpg 1600w',
-              type: 'image/jpeg'
-            },
-            {
-              srcSet: '/static/img/home-hero-tall-2400.webp 2400w',
-              type: 'image/webp'
-            },
-            {
-              srcSet: '/static/img/home-hero-tall-2400.jpg 2400w',
-              type: 'image/jpeg'
-            }
-          ]}
-          src="/static/img/home-hero-tall-1000.jpg"
+          // sources={[
+          //   {
+          //     srcSet: '/static/img/home-hero-tall-2400.webp 1600w',
+          //     type: 'image/webp',
+          //     media: '(min-width: 1600px)'
+          //   },
+          //   {
+          //     srcSet: '/static/img/home-hero-tall-2400.jpg 1600w',
+          //     type: 'image/jpeg',
+          //     media: '(min-width: 1600px)'
+          //   },
+          //   {
+          //     srcSet: '/static/img/home-hero-tall-1600.webp',
+          //     type: 'image/webp',
+          //     media: '(min-width: 1000px)'
+          //   },
+          //   {
+          //     srcSet: '/static/img/home-hero-tall-1600.jpg',
+          //     type: 'image/jpeg',
+          //     media: '(min-width: 1000px)'
+          //   },
+          //   {
+          //     srcSet: '/static/img/home-hero-tall-1000.webp',
+          //     type: 'image/webp'
+          //   },
+          //   {
+          //     srcSet: '/static/img/home-hero-tall-1000.jpg',
+          //     type: 'image/jpeg'
+          //   }
+          // ]}
+          src="/static/img/home-hero-tall.jpg"
         />
       </div>
       <div className="hero__content">

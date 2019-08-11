@@ -104,7 +104,7 @@ class MethodScroll extends Component {
                         }
 
                         return (
-                          <TrackVisibility key={item.img} className={classList.join(' ')}>
+                          <div key={item.img} className={classList.join(' ')}>
                             <Image
                               modifier="image-1"
                               src={item.img}
@@ -125,7 +125,7 @@ class MethodScroll extends Component {
                                 top: item.top
                               }}
                             />
-                          </TrackVisibility>
+                          </div>
                         );
                       })}
                     </div>

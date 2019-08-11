@@ -15,7 +15,7 @@ import CourseCard from '../components/courseCard';
 
 const TrendingCourses = ({courses, actions}) => {
   return (
-    <TrackVisibility className="trending-courses">
+    <div className="trending-courses">
       <div className="container container--lg">
         <header>
           <h2>Trending Courses</h2>
@@ -36,7 +36,7 @@ const TrendingCourses = ({courses, actions}) => {
           ))}
         </Carousel>
       </div>
-    </TrackVisibility>
+    </div>
   );
 };
 

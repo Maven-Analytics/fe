@@ -32,7 +32,7 @@ class StudentSpotlights extends Component {
     const {activeIndex} = this.state;
 
     return (
-      <TrackVisibility className="student-spotlights">
+      <div className="student-spotlights">
         <div className="student-spotlights__background">
           <ParallaxBg
             strength={1000}
@@ -76,7 +76,7 @@ class StudentSpotlights extends Component {
             ))}
           </Carousel>
         </div>
-      </TrackVisibility>
+      </div>
     );
   }
 }

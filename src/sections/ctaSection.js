@@ -14,7 +14,7 @@ Sign up today for a **10-Day Free Trial** and find out!`;
 
 const CtaSection = ({content, linkUrl, linkText}) => {
   return (
-    <TrackVisibility className="cta-section">
+    <div className="cta-section">
       <Image
         cover
         placeholderColoe="#20E2D7"
@@ -33,7 +33,7 @@ const CtaSection = ({content, linkUrl, linkText}) => {
           <a className="btn btn--primary-solid">{linkText}</a>
         </Link>
       </div>
-    </TrackVisibility>
+    </div>
   );
 };
 
