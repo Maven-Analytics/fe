@@ -13,6 +13,19 @@
     padding-left: 0;
   }
 
+  > i {
+    @include gradient-font();
+    display: none;
+    font-size: 2em;
+    flex: 0 0 5rem;
+    text-align: center;
+
+    @include media-breakpoint-up(md) {
+      display: block;
+      margin-right: $spacing-unit--md;
+    }
+  }
+
   label {
     color: inherit;
     font-size: 1em;
@@ -33,7 +46,7 @@
     flex: 1 1 70%;
   }
 
-  span {
+  > span {
     font-family: $font-heading;
     font-size: 1.5em;
     font-weight: 700;
@@ -69,6 +82,27 @@
 
     &.active {
       display: block;
+    }
+  }
+
+  &.has-note {
+    label {
+      @include media-breakpoint-up(md) {
+        text-align: left;
+      }
+
+      .text {
+        color: $yellow;
+        display: block;
+        font-size: 1.1em;
+        font-weight: 700;
+        margin: 0 0 $spacing-unit--xs;
+      }
+
+      .note {
+        font-style: italic;
+        font-size: .9em;
+      }
     }
   }
 }

@@ -75,6 +75,9 @@ class SurveyPage extends Component {
                     id={answer.get('id')}
                     onChange={onChange}
                     text={answer.get('text')}
+                    note={answer.get('note')}
+                    className={answer.get('className')}
+                    icon={answer.get('icon')}
                     conditionId={answer.get('condition')}
                     condition={values.get(answer.get('condition'))}
                     value={values.get(answer.get('id'))}

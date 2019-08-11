@@ -25,7 +25,15 @@
     visibility: visible;
   }
 }
-
+.maicon-visualisation:before {
+  content: "\e916";
+}
+.maicon-database:before {
+  content: "\e917";
+}
+.maicon-productivity:before {
+  content: "\e918";
+}
 .maicon-power-bi:before {
   content: "\e90d";
 }
