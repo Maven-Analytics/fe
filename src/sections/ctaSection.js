@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from '../components/image';
 import Markdown from '../components/markdown';
 import TrackVisibility from '../components/trackVisibility';
+import {Routes} from '../routes';
 
 const defaultContent = `
 ## Ready to become a
@@ -46,7 +47,7 @@ CtaSection.propTypes = {
 
 CtaSection.defaultProps = {
   content: defaultContent,
-  linkUrl: '/',
+  linkUrl: Routes.Signup,
   linkText: 'FREE 10-DAY TRIAL'
 };
 

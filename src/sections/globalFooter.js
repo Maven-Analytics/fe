@@ -4,7 +4,7 @@ import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import Link from 'next/link';
 
 import Logo from '../components/logo';
-import {footerLinks} from '../routes';
+import {footerLinks, footerConnectLinks} from '../routes';
 import MaIcon from '../components/maIcon';
 import Subscribe from '../components/subscribe';
 import Copyright from './copyright';
@@ -40,6 +40,15 @@ const GlobalFooter = ({description, links}) => {
             <div className="col-12 col-md-4">
               <div className="global-footer__menu">
                 <p>Connect</p>
+                <ul>
+                  {footerConnectLinks.map(link => (
+                    <li key={link.get('text')}>
+                      <Link href={link.get('url')}>
+                        <a>{link.get('text')}</a>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
                 <Subscribe helperText="No spam, just helpful tips & tricks delivered directly to your inbox."/>
                 <div className="global-footer__contact">
                   <ul>

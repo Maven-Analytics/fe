@@ -8,21 +8,27 @@ export const Routes = {
   AccountPassword: '/dashboard/account/password',
   Badges: '/badges',
   Contact: '/contact',
+  Consulting: '/consulting',
   CoursesPaths: '/courses-learning-paths',
   Course: slug => `/course/${slug}`,
   CourseTake: `//${config.THINKIFIC_SUBDOMAIN}.thinkific.com/courses/take`,
+  Credentials: '/credentials',
   Dashboard: '/dashboard',
   DashboardPaths: '/dashboard/learning-paths',
   DashboardCourses: '/dashboard/courses',
   DashboardCredentials: '/dashboard/credentials',
+  FAQ: '/faq',
   ForgotPassword: '/forgot',
   Login: '/login',
   Path: '/path',
   PrivacyPolicy: '/privacy-policy',
   Reset: '/reset',
+  SkillsAssessments: '/skills-assessments',
   Signup: '/signup',
   SignupAccount: '/signup/account',
   SignupThanks: '/signup/thanks',
+  Team: '/team',
+  TeamTraining: '/team-training',
   Terms: '/terms',
   WelcomeSurvey: '/welcome',
   WelcomeResults: '/welcome/results'
@@ -70,23 +76,19 @@ export const footerLinks = fromJS([
     links: [
       {
         text: 'Get Started',
-        url: Routes.Home
+        url: Routes.Signup
+      },
+      {
+        text: 'Courses & Paths',
+        url: Routes.CoursesPaths
       },
       {
         text: 'Skills Assessments',
-        url: Routes.Home
-      },
-      {
-        text: 'Courses',
-        url: Routes.CoursesPaths + '/?view=courses'
-      },
-      {
-        text: 'Learning Paths',
-        url: Routes.CoursesPaths + '/?view=paths'
+        url: Routes.SkillsAssessments
       },
       {
         text: 'Team Training',
-        url: Routes.Home
+        url: Routes.TeamTraining
       }
     ]
   },
@@ -94,18 +96,25 @@ export const footerLinks = fromJS([
     title: 'Resources',
     links: [
       {
-        text: 'Success Stories',
-        url: Routes.Home
-      },
-      {
-        text: 'Certified Credentials',
-        url: Routes.Home
+        text: 'Credentials & Badges',
+        url: Routes.Credentials
       },
       {
         text: 'FAQ',
-        url: Routes.Home
+        url: Routes.FAQ
+      },
+      {
+        text: 'Consulting',
+        url: Routes.FAQ
       }
     ]
+  }
+]);
+
+export const footerConnectLinks = fromJS([
+  {
+    text: 'Meet The Team',
+    url: Routes.Team
   }
 ]);
 
