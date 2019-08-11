@@ -15,7 +15,6 @@ const Clients = ({clients}) => {
         </header>
         <Carousel
           options={{
-            autoPlay: 1500,
             pageDots: false
           }}
         >
