@@ -16,7 +16,7 @@
   }
 
   &__tab {
-    .loader {
+    .async-loader {
       z-index: index($globalIndex, loader);
     }
   }

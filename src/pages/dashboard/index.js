@@ -33,13 +33,13 @@ class DashboardPage extends Component {
   }
 
   render() {
-    const {recentCourse, progress, loadingProgress, completedCourses, completedPaths} = this.props;
+    const {recentCourse, progress, loadingProgress, completedCourses, completedPaths, loadingCourses} = this.props;
 
     const completed = fromJS([...completedPaths.toJS(), ...completedCourses.toJS()]);
 
     const RecentCourse = (
-      <DashboardCard showWelcome loading={loadingProgress} title="Your Most Recent Course">
-        {(!recentCourse || recentCourse.isEmpty()) && loadingProgress === false ? (
+      <DashboardCard showWelcome loading={loadingProgress || loadingCourses} title="Your Most Recent Course">
+        {(!recentCourse || recentCourse.isEmpty()) && loadingProgress === false && loadingCourses === false ? (
           <DashboardNoData
             btnText="View Courses"
             btnUrl={Routes.Courses}
@@ -89,7 +89,7 @@ class DashboardPage extends Component {
 
     const BadgeCreds = (
       <DashboardCard title="Earned badges & credentials" loading={loadingProgress}>
-        {loadingProgress === false && completed.isEmpty() ? (
+        {loadingProgress === false && loadingCourses === false && completed.isEmpty() ? (
           <DashboardNoData
             btnText="View All Badges"
             btnUrl={Routes.DashboardCredentials}
@@ -142,6 +142,7 @@ class DashboardPage extends Component {
 
 DashboardPage.propTypes = {
   loadingProgress: PropTypes.bool,
+  loadingCourses: PropTypes.bool,
   errorProgress: PropTypes.string,
   actions: PropTypes.objectOf(PropTypes.func),
   recentCourse: ImmutablePropTypes.map,
@@ -154,6 +155,7 @@ const mapStateToProps = state => ({
   recentCourse: dashboardSelectors.getRecentCourse(state),
   progress: dashboardSelectors.getProgress(state),
   courses: courseSelectors.getCourses(state),
+  loadingCourses: loadingSelectors.getLoading(['COURSESINIT'])(state),
   loadingProgress: loadingSelectors.getLoading(['DASHBOARD_PROGRESS'])(state),
   errorProgress: errorSelectors.getError(['DASHBOARD_PROGRESS'])(state),
   completedCourses: courseSelectors.getCompletedCourses(state),
