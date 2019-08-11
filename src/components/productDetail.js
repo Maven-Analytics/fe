@@ -18,7 +18,7 @@ import LoggedIn from './loggedIn';
 import LoggedOut from './loggedOut';
 import {Routes} from '../routes';
 
-const ProductDetail = ({children, productTerm, className, badge, titleTag: TitleTag, title, resumeUrl, showScores, id, percentage_completed, tools, hours, match, instructors, courseCount}) => {
+const ProductDetail = ({children, productTerm, className, badge, titleTag: TitleTag, title, resumeUrl, showScores, id, percentage_completed, tools, hours, match, instructors, courseCount, url}) => {
   const classList = ['product-detail'];
 
   if (className) {
@@ -40,7 +40,7 @@ const ProductDetail = ({children, productTerm, className, badge, titleTag: Title
           <Link href={resumeUrl || '#'}><a className="btn btn--primary-solid">{linkTerm} {productTerm}</a></Link>
         </LoggedIn>
         <LoggedOut>
-          <Link href={Routes.Login}><a className="btn btn--primary-solid">Start {productTerm}</a></Link>
+          {url ? <Link href={url}><a className="btn btn--primary-solid">View Full Details</a></Link> : null}
         </LoggedOut>
       </div>
       <div className="product-detail__content">
@@ -131,7 +131,8 @@ ProductDetail.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
   showScores: PropTypes.bool,
-  id: PropTypes.number
+  id: PropTypes.number,
+  url: PropTypes.link
 };
 
 ProductDetail.defaultProps = {

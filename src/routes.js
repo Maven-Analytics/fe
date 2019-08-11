@@ -9,7 +9,7 @@ export const Routes = {
   Badges: '/badges',
   Contact: '/contact',
   CoursesPaths: '/courses-learning-paths',
-  Course: '/course',
+  Course: slug => `/course/${slug}`,
   CourseTake: `//${config.THINKIFIC_SUBDOMAIN}.thinkific.com/courses/take`,
   Dashboard: '/dashboard',
   DashboardPaths: '/dashboard/learning-paths',

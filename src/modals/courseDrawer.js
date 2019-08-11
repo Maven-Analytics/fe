@@ -13,6 +13,7 @@ import {getResumeCourseUrl} from '../utils/routeHelpers';
 import {getMatchScoreForCourse} from '../utils/courseHelpers';
 import RichText from '../components/richText';
 import CourseLessons from '../components/courseLessons';
+import { Routes } from '../routes';
 
 const CourseDrawer = ({actions, state, user}) => {
   const isOpen = state.getIn(['courseDrawer', 'open']);
@@ -46,6 +47,7 @@ const CourseDrawer = ({actions, state, user}) => {
               instructors={course.get('author')}
               showScores={user.has('id')}
               id={course.get('thinkificCourseId')}
+              url={Routes.Course(course.get('slug'))}
             >
               {course.get('description') && course.get('description') !== '' ? <RichText content={course.get('description')}/> : null}
               {course.get('lessons') ? <CourseLessons lessons={course.get('lessons')}/> : null}
