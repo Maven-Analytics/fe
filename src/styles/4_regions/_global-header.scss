@@ -168,7 +168,7 @@
         li {
           &:not(:last-child) {
             @include desktopHeader() {
-              margin-right: $spacing-unit--mdl;
+              margin-right: $spacing-unit--md;
             }
           }
         }

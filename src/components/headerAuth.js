@@ -19,9 +19,11 @@ const HeaderAuth = ({showContact, showRegister, state, actions}) => {
   return (
     <ul>
       {showContact ? (
-        <li>
-          <Link href={Routes.Contact}><a>Contact</a></Link>
-        </li>
+        <LoggedOut>
+          <li>
+            <Link href={Routes.Contact}><a>Contact</a></Link>
+          </li>
+        </LoggedOut>
       ) : null}
       <LoggedIn>
         {user => (
@@ -33,6 +35,13 @@ const HeaderAuth = ({showContact, showRegister, state, actions}) => {
                 onClick={click(actions.offmenuToggle, 'headerUser')}
                 open={state.get('headerUser')}
               />
+            </li>
+            <li>
+              <Link href={Routes.Dashboard}>
+                <a className="btn btn--primary">
+                  Dashboard
+                </a>
+              </Link>
             </li>
           </Fragment>
         )}
