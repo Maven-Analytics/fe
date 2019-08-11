@@ -22,33 +22,32 @@ class MethodScroll extends Component {
   }
 
   componentDidMount() {
-    this.init();
+    // this.init();
 
     this.setState({
       duration: window.innerHeight * 3
     });
   }
 
-  init() {
-    const items = this.items.current.querySelectorAll('.method-item');
-    const scrollerHeight = 245;
-    let totalHeight = 0;
-    let heights = [];
-    let ratios = [];
+  // init() {
+  //   const items = this.items.current.querySelectorAll('.method-item');
+  //   let totalHeight = 0;
+  //   let heights = [];
+  //   let ratios = [];
 
-    items.forEach(item => {
-      totalHeight += item.scrollHeight;
-      heights.push(item.scrollHeight);
-    });
+  //   items.forEach(item => {
+  //     totalHeight += item.scrollHeight;
+  //     heights.push(item.scrollHeight);
+  //   });
 
-    heights.forEach((h, i) => {
-      const prev = ratios[i - 1] || 0;
+  //   heights.forEach((h, i) => {
+  //     const prev = ratios[i - 1] || 0;
 
-      ratios.push((h / totalHeight) + prev);
-    });
+  //     ratios.push((h / totalHeight) + prev);
+  //   });
 
-    this.setState({ratios});
-  }
+  //   this.setState({ratios});
+  // }
 
   render() {
     const {duration} = this.state;
@@ -66,11 +65,11 @@ class MethodScroll extends Component {
             {progress => {
               let activeIndex = progress > 0 && progress < 1 ? Math.floor(progress * items.length) : progress === 1 ? items.length - 1 : 0;
 
-              this.state.ratios.forEach((r, index) => {
-                if (r <= progress) {
-                  activeIndex = index;
-                }
-              });
+              // this.state.ratios.forEach((r, index) => {
+              //   if (r <= progress) {
+              //     activeIndex = index;
+              //   }
+              // });
               // if (!this.state.init) {
               //   activeIndex = -1;
               // }
