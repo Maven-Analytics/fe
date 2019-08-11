@@ -1,8 +1,12 @@
 .dashboard-card {
   background-color: $white;
   box-shadow: 2px 2px 8px 0 rgba(0,0,0,0.1);
-  padding: 1.6rem 2.2rem;
+  padding: $spacing-unit;
   position: relative;
+
+  @include media-breakpoint-up(md) {
+    padding: $spacing-unit--l;
+  }
 
   &::after {
     background-color: rgba($white, 0.7);
