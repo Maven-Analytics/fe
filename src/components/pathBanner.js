@@ -18,6 +18,10 @@ const PathBanner = ({badge, title, excerpt, match, courses, length, tools, path,
     classList.push('path-banner--has-match');
   }
 
+  if (tools && tools.count() > 2) {
+    classList.push('path-banner--3-tools');
+  }
+
   const btn = (
     <button onClick={clickAction(actions.modalOpen, 'pathDrawer', path)} className="btn btn--primary-solid">
       View Path
