@@ -49,13 +49,25 @@ const CheckoutLayout = ({children, activeStep, title, full, containerClass}) => 
           paddingBottom: '62.42%'
         }}
         placeholderColor="#252525"
-        src="/static/img/home-hero-mobile.jpg"
-        srcSet="
-          /static/img/home-hero-mobile.webp 1000w,
-          /static/img/home-hero-mobile.jpg 1000w,
-          /static/img/home-hero-desktop.webp 2307w,
-          /static/img/home-hero-desktop.jpg 2307w
-        "
+        sources={[
+          {
+            srcSet: '/static/img/checkout-bg-mobile.webp 1000w',
+            type: 'image/webp'
+          },
+          {
+            srcSet: '/static/img/checkout-bg-mobile.jpg 1000w',
+            type: 'image/jpeg'
+          },
+          {
+            srcSet: '/static/img/checkout-bg-desktop.webp 2307w',
+            type: 'image/webp'
+          },
+          {
+            srcSet: '/static/img/checkout-bg-desktop.jpg 2307w',
+            type: 'image/jpeg'
+          }
+        ]}
+        src="/static/img/checkout-bg-mobile.jpg"
       />
     </div>
   );

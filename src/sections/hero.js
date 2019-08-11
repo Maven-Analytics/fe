@@ -37,7 +37,7 @@ const Hero = () => {
               type: 'image/jpeg'
             }
           ]}
-          src="/static/img/home-hero-mobile.jpg"
+          src="/static/img/home-hero-tall-1000.jpg"
         />
       </div>
       <div className="hero__content">
