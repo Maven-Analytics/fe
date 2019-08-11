@@ -9,11 +9,11 @@
   }
 
   @include media-breakpoint-up(md) {
-    flex-wrap: nowrap;
     font-size: 1.4rem;
   }
 
   @include media-breakpoint-up(lg) {
+    flex-wrap: nowrap;
   }
 
   @include media-breakpoint-up(xl) {
@@ -21,20 +21,23 @@
   }
 
   &__badge {
-    display: none;
+    display: block;
+    flex: 0 0 60px;
+    height: 60px;
+    margin-right: $spacing-unit;
 
-    @include media-breakpoint-up(md) {
-      display: block;
-      flex: 0 0 60px;
+    @include media-breakpoint-up(lg) {
       margin-right: $spacing-unit--md;
     }
 
     @include media-breakpoint-up(xl) {
       flex: 0 0 110px;
+      height: 110px;
     }
   }
 
   &__content {
+    flex: 1;
     margin-bottom: $spacing-unit--md;
 
     > h4 {
@@ -93,8 +96,9 @@
     flex: 0 0 100%;
 
     @include media-breakpoint-up(md) {
-      flex: 0 0 20%;
-      max-width: none;
+      // flex: 0 0 20%;
+      max-width: 500px;
+      // margin: 0 $spacing-unit--l;
     }
 
     @include media-breakpoint-up(lg) {
@@ -102,6 +106,12 @@
     }
 
     .progress-meter {
+      padding: 0 2.2vh;
+
+      @include media-breakpoint-up(lg) {
+        padding: 0;
+      }
+
       p {
         font-size: .68em;
       }
@@ -116,10 +126,16 @@
     }
 
     .product-meta {
+      grid-column-gap: $spacing-unit--ss;
       margin-top: $spacing-unit;
 
-      @include media-breakpoint-between(md, lg) {
+      // @include media-breakpoint-between(md, lg) {
+      //   grid-template-columns: 1fr;
+      // }
+
+      @include media-breakpoint-up(lg) {
         grid-template-columns: 1fr;
+        grid-column-gap: 0;
       }
 
       li {
