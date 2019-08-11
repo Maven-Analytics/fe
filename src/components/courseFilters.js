@@ -105,6 +105,17 @@ class CourseFilters extends Component {
           </div>
           <div className="course-filters__content-inner">
             {loading ? <Loader loading={loading}/> : null}
+            <LoggedIn>
+              <CourseFilterChecks
+                id="status"
+                label="Status"
+                valueKey="title"
+                onCheck={this.handleCheck('enrollmentFilter')}
+                onUncheck={this.handleUncheck('enrollmentFilter')}
+                active={activeFilters.get('enrollmentFilter')}
+                options={filters.get('Status')}
+              />
+            </LoggedIn>
             <CourseFilterTools
               id="tools"
               label="Tools"
@@ -137,17 +148,6 @@ class CourseFilters extends Component {
               active={activeFilters.get('fields.filters.sys.id[in]')}
               options={filters.get('Skills')}
             />
-            <LoggedIn>
-              <CourseFilterChecks
-                id="status"
-                label="Status"
-                valueKey="title"
-                onCheck={this.handleCheck('enrollmentFilter')}
-                onUncheck={this.handleUncheck('enrollmentFilter')}
-                active={activeFilters.get('enrollmentFilter')}
-                options={filters.get('Status')}
-              />
-            </LoggedIn>
             <div className="form-group form-group--dark form-group--inline course-filter">
               <label htmlFor="fields.length[gt]">Course Hours</label>
               <MinMaxInput
