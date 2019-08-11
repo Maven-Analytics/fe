@@ -35,6 +35,7 @@ class StudentSpotlights extends Component {
       <TrackVisibility className="student-spotlights">
         <div className="student-spotlights__background">
           <ParallaxBg
+            strength={1000}
             src="/static/img/student-spotlight-bg-1440.jpg"
             srcset={`
               /static/img/student-spotlight-bg-1440.webp 1440w,

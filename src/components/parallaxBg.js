@@ -53,7 +53,7 @@ class ParallaxBg extends Component {
     const {current: el} = this.el;
 
     this.setState(this.updateImgStyle({
-      height: el.offsetHeight + strength,
+      height: el.offsetHeight + this.props.strength,
       width: el.offsetWidth,
       left: '50%',
       transform: 'translate3d(-50%, 0, 0)',
@@ -75,7 +75,7 @@ class ParallaxBg extends Component {
 
     const perc = this.getRelativePosition(el, canUseDOM());
 
-    const nt = 0 - (perc * strength);
+    const nt = 0 - (perc * this.props.strength);
 
     this.setState(this.updateImgStyle({
       transform: `translate3d(-50%, ${nt}px, 0)`
@@ -148,12 +148,14 @@ ParallaxBg.propTypes = {
   placeholderColor: PropTypes.string,
   sources: PropTypes.array,
   className: PropTypes.string,
-  overlay: PropTypes.bool
+  overlay: PropTypes.bool,
+  strength: PropTypes.number
 };
 
 ParallaxBg.defaultProps = {
   preload: false,
-  sources: []
+  sources: [],
+  strength
 };
 
 export default ParallaxBg;
