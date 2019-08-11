@@ -132,7 +132,7 @@ ProductDetail.propTypes = {
   children: PropTypes.node,
   showScores: PropTypes.bool,
   id: PropTypes.number,
-  url: PropTypes.link
+  url: PropTypes.string
 };
 
 ProductDetail.defaultProps = {

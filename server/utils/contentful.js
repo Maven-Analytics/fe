@@ -32,7 +32,7 @@ async function getPaths({query = {}, include = 10}) {
 
     return paths;
   } catch (error) {
-    console.log(error)
+    console.log(error);
     throw error;
   }
 }
@@ -162,7 +162,7 @@ function getCourseProgress(course, enrollments) {
       }
 
       if (u.get('percentage_completed') === 1) {
-        status = 'Completed';
+        status = 'Complete';
         u = u.set('completed', true);
       }
 
