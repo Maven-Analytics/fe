@@ -1,7 +1,7 @@
 .page-assessments {
   &__courses {
     @include list-unstyled();
-    max-width: 710px;
+    max-width: $brochureContentContainer;
     margin: 0 auto;
   }
 

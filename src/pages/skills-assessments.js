@@ -1,24 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
-import {Map, fromJS, List} from 'immutable';
-import {bindActionCreators} from 'redux';
+import {Map, List} from 'immutable';
 import Link from 'next/link';
 
 import {actions as courseActions, selectors as courseSelectors} from '../redux/ducks/courses';
 import {actions as pageActions, selectors as pageSelectors} from '../redux/ducks/pages';
-import {actions as stateActions} from '../redux/ducks/state';
 import BrochureLayout from '../layouts/brochure';
-import {redirect} from '../utils/routingHelpers';
-import {Routes} from '../routes';
 import BrochureHero from '../sections/brochureHero';
-import {clickAction} from '../utils/componentHelpers';
-import CtaSurvey from '../sections/ctaSurvey';
-import RichText from '../components/richText';
-import CourseLessons from '../components/courseLessons';
-import Image from '../components/image';
-import MaIcon from '../components/maIcon';
 import Head from '../components/head';
 import {courseHeroBgSources, courseHeroBgSrc} from '../constants';
 import BrochureContent from '../components/brochureContent';
@@ -30,8 +19,8 @@ const SkillsAssessments = ({courses, page}) => {
       <Head meta={page.get('meta')}/>
       <BrochureHero
         className="brochure-hero--medium"
-        eyelash="Skills Assessments"
-        title="SHOW US YOUR SKILLS"
+        eyelash={page.get('heroEyelash')}
+        title={page.get('heroTitle')}
         description={page.get('heroDescription')}
         meta={false}
         image={<ImageContentful image={page.get('heroImage')}/>}

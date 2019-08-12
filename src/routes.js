@@ -37,7 +37,7 @@ export const Routes = {
 export const menuLinksMain = fromJS([
   {
     title: 'Pricing',
-    url: Routes.Home
+    url: Routes.Signup
   },
   {
     title: 'Courses & Paths',
@@ -105,7 +105,7 @@ export const footerLinks = fromJS([
       },
       {
         text: 'Consulting',
-        url: Routes.FAQ
+        url: Routes.Consulting
       }
     ]
   }
