@@ -52,6 +52,8 @@
 @import './2_pieces/dashboard-no-data';
 @import './2_pieces/product-meta';
 @import './2_pieces/difficulty-meter';
+@import './2_pieces/brochure-content';
+@import './2_pieces/brochure-title';
 
 @import './3_components/auth';
 // @import './3_components/scroll';
@@ -78,7 +80,6 @@
 @import './3_components/dashboard-credential-icons';
 @import './3_components/dashboard-credential';
 @import './3_components/course-lessons';
-@import './3_components/course-hero';
 @import './3_components/modal';
 @import './3_components/path-listing-item';
 @import './3_components/course-path-nav';
@@ -100,11 +101,13 @@
 @import './4_regions/path-drawer';
 @import './4_regions/course-drawer';
 @import './4_regions/cta-survey';
+@import './4_regions/brochure-hero';
 
 @import './5_pages/welcome-survey';
 @import './5_pages/welcome-survey-results';
 @import './5_pages/course-detail';
 @import './5_pages/courses-learning-paths';
+@import './5_pages/assessments';
 
 @import './checkout';
 

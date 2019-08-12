@@ -1,0 +1,104 @@
+.page-assessments {
+  &__courses {
+    @include list-unstyled();
+    max-width: 710px;
+    margin: 0 auto;
+  }
+
+  &__course {
+    color: $gray-medium-2;
+    border-bottom: 1px solid #BDBDBD;
+    display: flex;
+    font-size: 1.6rem;
+    padding: 2.5rem 0;
+
+    @include media-breakpoint-up(lg) {
+      font-size: 1.8rem;
+      padding: 5rem 0;
+    }
+
+    .badge {
+      flex: 0 0 60px;
+
+      @include media-breakpoint-up(lg) {
+        flex: 0 0 110px;
+      }
+    }
+
+    .content {
+      margin-left: $spacing-unit;
+      padding-top: 1rem;
+
+      @include media-breakpoint-up(lg) {
+        margin-left: $spacing-unit--l;
+        padding-top: 3.3rem;
+      }
+    }
+
+    h3 {
+      color: $black;
+      font-size: 1.8em;
+      font-weight: 900;
+      margin: 0 0 2rem;
+    }
+
+    p {
+      line-height: 1.5;
+      margin: 0 0 2rem;
+    }
+
+    .btn,
+    a:not([href]) {
+      @include btnFixed(40px, 200px, 19.5px);
+      color: $black;
+      text-transform: none;
+    }
+  }
+
+  &__testimonial {
+    color: $gray-medium-2;
+    font-size: 1.6rem;
+    margin: 5rem auto 0;
+    max-width: 620px;
+    position: relative;
+
+    @include media-breakpoint-up(lg) {
+      font-size: 1.8rem;
+      margin: 10rem auto 0;
+    }
+
+    &::before {
+      @include gradient-font();
+      font-family: 'Georgia';
+      font-size: 80px;
+      left: 0;
+      line-height: 1;
+      position: absolute;
+      top: -3rem;
+
+      @include media-breakpoint-up(lg) {
+        content: "“";
+        font-size: 120px;
+        left: -4.5rem;
+        top: -4.5rem;
+      }
+    }
+
+    p {
+      font-style: italic;
+      line-height: 1.8;
+    }
+
+    cite {
+      color: $black;
+      display: block;
+      font-style: normal;
+      font-weight: 700;
+      margin-top: $spacing-unit;
+
+      @include media-breakpoint-up(lg) {
+        margin-top: $spacing-unit--ll
+      }
+    }
+  }
+}

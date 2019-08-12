@@ -18,3 +18,24 @@ export const plans = fromJS([
     checkoutUrl: '//mavenanalytics.thinkific.com/cart/add_product/471038?price_id=516246'
   }
 ]);
+
+export const courseHeroBgSrc = '/static/img/course-listing-bg-720.jpg';
+
+export const courseHeroBgSources = [
+  {
+    srcSet: '/static/img/course-listing-bg-1440.webp 1440w',
+    type: 'image/webp'
+  },
+  {
+    srcSet: '/static/img/course-listing-bg-1440.jpg 1440w',
+    type: 'image/jpeg'
+  },
+  {
+    srcSet: '/static/img/course-listing-bg-720.webp 720w',
+    type: 'image/webp'
+  },
+  {
+    srcSet: '/static/img/course-listing-bg-720.jpg 720w',
+    type: 'image/jpeg'
+  }
+];

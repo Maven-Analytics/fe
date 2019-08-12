@@ -1,0 +1,7 @@
+.brochure-content {
+  padding: 4.5rem 0;
+
+  @include media-breakpoint-up(lg) {
+    padding: 9rem 0;
+  }
+}

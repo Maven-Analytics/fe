@@ -45,11 +45,11 @@ export const menuLinksMain = fromJS([
   },
   {
     title: 'Skills Assessments',
-    url: Routes.Home
+    url: Routes.SkillsAssessments
   },
   {
     title: 'Team Training',
-    url: Routes.Home
+    url: Routes.TeamTraining
   }
 ]);
 

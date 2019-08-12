@@ -8,10 +8,10 @@ import Link from 'next/link';
 
 import {actions as courseActions, selectors as courseSelectors} from '../redux/ducks/courses';
 import {actions as stateActions} from '../redux/ducks/state';
-import MainLayout from '../layouts/main';
+import BrochureLayout from '../layouts/brochure';
 import {redirect} from '../utils/routingHelpers';
 import {Routes} from '../routes';
-import CourseHero from '../components/courseHero';
+import BrochureHero from '../sections/brochureHero';
 import {clickAction} from '../utils/componentHelpers';
 import CtaSurvey from '../sections/ctaSurvey';
 import RichText from '../components/richText';
@@ -19,13 +19,14 @@ import CourseLessons from '../components/courseLessons';
 import ImageContentful from '../components/imageContentful';
 import MaIcon from '../components/maIcon';
 import Head from '../components/head';
+import {courseHeroBgSources, courseHeroBgSrc} from '../constants';
 
 const Course = ({course, actions}) => {
   return (
-    <MainLayout>
+    <BrochureLayout>
       <Head meta={course.get('meta')}/>
       <div className="course-detail">
-        <CourseHero
+        <BrochureHero
           eyelash="Self-Paced Course"
           title={course.get('title')}
           description={course.get('previewDescription')}
@@ -36,7 +37,9 @@ const Course = ({course, actions}) => {
           badge={course.get('badge')}
           paths={course.get('paths')}
           thumbnail={course.get('thumbnail')}
-          video="video"
+          video={course.get('video')}
+          backgroundSources={courseHeroBgSources}
+          backgroundSrc={courseHeroBgSrc}
           onVideoClick={clickAction(actions.modalOpen, 'video', {video: course.get('video')})}
         />
         <CtaSurvey/>
@@ -113,7 +116,7 @@ const Course = ({course, actions}) => {
           </div>
         </div>
       </div>
-    </MainLayout>
+    </BrochureLayout>
   );
 };
 

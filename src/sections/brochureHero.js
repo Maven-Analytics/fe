@@ -4,17 +4,39 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import {List, Map, isImmutable} from 'immutable';
 import Link from 'next/link';
 
-import RichText from './richText';
-import ImageContentful from './imageContentful';
-import MaIcon from './maIcon';
-import ProductMeta from './productMeta';
-import ProductMetaItem from './productMetaItem';
-import DifficultyMeter from './difficultyMeter';
-import ParallaxBg from './parallaxBg';
+import RichText from '../components/richText';
+import ImageContentful from '../components/imageContentful';
+import MaIcon from '../components/maIcon';
+import ProductMeta from '../components/productMeta';
+import ProductMetaItem from '../components/productMetaItem';
+import DifficultyMeter from '../components/difficultyMeter';
+import ParallaxBg from '../components/parallaxBg';
 import {innerHtml} from '../utils/componentHelpers';
 
-const CourseHero = ({image, className, eyelash, title, description, hours, skills, tools, difficulty, badge, paths, video, thumbnail, onVideoClick, meta, colClasses, linkHref, linkContent, onLinkClick}) => {
-  const classList = ['course-hero'];
+const BrochureHero = ({
+  image,
+  className,
+  eyelash,
+  title,
+  description,
+  hours,
+  skills,
+  tools,
+  difficulty,
+  badge,
+  paths,
+  video,
+  thumbnail,
+  onVideoClick,
+  meta,
+  colClasses,
+  linkHref,
+  linkContent,
+  onLinkClick,
+  backgroundSources,
+  backgroundSrc
+}) => {
+  const classList = ['brochure-hero'];
 
   if (className) {
     classList.push(className);
@@ -23,52 +45,35 @@ const CourseHero = ({image, className, eyelash, title, description, hours, skill
   return (
     <div className={classList.join(' ')}>
       <ParallaxBg
-        className="course-hero__bg"
+        className="brochure-hero__bg"
         placeholderColor="#252525"
         overlay
-        sources={[
-          {
-            srcSet: '/static/img/course-listing-bg-720.webp 720w',
-            type: 'image/webp'
-          },
-          {
-            srcSet: '/static/img/course-listing-bg-720.jpg 720w',
-            type: 'image/jpeg'
-          },
-          {
-            srcSet: '/static/img/course-listing-bg-1440.webp 1440w',
-            type: 'image/webp'
-          },
-          {
-            srcSet: '/static/img/course-listing-bg-1440.jpg 1440w',
-            type: 'image/jpeg'
-          }
-        ]}
-        src="/static/img/course-listing-bg-720.jpg"
+        sources={backgroundSources}
+        src={backgroundSrc}
       />
-      <div className="course-hero__inner">
+      <div className="brochure-hero__inner">
         <div className="container container--lg">
           <div className="row">
             <div className={colClasses[0]}>
-              {eyelash ? <p className="course-hero__eyelash">{eyelash}</p> : null}
+              {eyelash ? <p className="brochure-hero__eyelash">{eyelash}</p> : null}
               <h1 dangerouslySetInnerHTML={innerHtml(title)}/>
               {isImmutable(description) ? (
-                <div className="course-hero__description">
+                <div className="brochure-hero__description">
                   <RichText content={description}/>
                 </div>
               ) : (
-                <div className="course-hero__description" dangerouslySetInnerHTML={innerHtml(description)}/>
+                <div className="brochure-hero__description" dangerouslySetInnerHTML={innerHtml(description)}/>
               )}
               {linkHref ? (
                 <Link href={linkHref}>
-                  <a className="course-hero__link" onClick={onLinkClick}>
+                  <a className="brochure-hero__link" onClick={onLinkClick}>
                     {linkContent}
                   </a>
                 </Link>
               ) : null}
             </div>
             <div className={colClasses[1]}>
-              <div className="course-hero__video">
+              <div className="brochure-hero__video">
                 {image ? image : null}
                 {thumbnail ? <ImageContentful image={thumbnail}/> : thumbnail}
                 {video ? (
@@ -87,16 +92,16 @@ const CourseHero = ({image, className, eyelash, title, description, hours, skill
                     {hours} hours
                   </ProductMetaItem>
                   <ProductMetaItem label="Skills Learned">
-                    <div className="course-hero__pills">
+                    <div className="brochure-hero__pills">
                       {skills.map(skill => (
-                        <div key={skill} className="course-hero__pill">{skill}</div>
+                        <div key={skill} className="brochure-hero__pill">{skill}</div>
                       ))}
                     </div>
                   </ProductMetaItem>
                   <ProductMetaItem label="Tools">
-                    <div className="course-hero__pills">
+                    <div className="brochure-hero__pills">
                       {tools.map(tool => (
-                        <div key={tool} className="course-hero__pill">{tool}</div>
+                        <div key={tool} className="brochure-hero__pill">{tool}</div>
                       ))}
                     </div>
                   </ProductMetaItem>
@@ -123,7 +128,7 @@ const CourseHero = ({image, className, eyelash, title, description, hours, skill
   );
 };
 
-CourseHero.propTypes = {
+BrochureHero.propTypes = {
   className: PropTypes.string,
   eyelash: PropTypes.string,
   title: PropTypes.string,
@@ -142,10 +147,12 @@ CourseHero.propTypes = {
   linkHref: PropTypes.string,
   onLinkClick: PropTypes.func,
   linkContent: PropTypes.node,
-  image: PropTypes.node
+  image: PropTypes.node,
+  backgroundSources: PropTypes.array,
+  backgroundSrc: PropTypes.string
 };
 
-CourseHero.defaultProps = {
+BrochureHero.defaultProps = {
   skills: List(),
   description: Map(),
   tools: List(),
@@ -155,4 +162,4 @@ CourseHero.defaultProps = {
   colClasses: ['col-md-6 col-lg-7', 'col-md-6 col-lg-5']
 };
 
-export default CourseHero;
+export default BrochureHero;

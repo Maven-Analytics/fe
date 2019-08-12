@@ -6,7 +6,13 @@ import CtaSection from '../sections/ctaSection';
 
 class BrochureLayout extends Component {
   render() {
-    const {children} = this.props;
+    const {children, className} = this.props;
+
+    const classList = ['brochure-layout'];
+
+    if (className) {
+      classList.push(className);
+    }
 
     return (
       <Main>
@@ -20,7 +26,8 @@ class BrochureLayout extends Component {
 }
 
 BrochureLayout.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string
 };
 
 export default BrochureLayout;

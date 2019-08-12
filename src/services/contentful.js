@@ -56,7 +56,10 @@ export async function getPages({query = {}, include = 10, limit = 100}) {
     return res.items.map(i => {
       return {
         ...mapResponseItem(i),
-        meta: i.fields.meta ? i.fields.meta.fields : null
+        meta: i.fields.meta ? i.fields.meta.fields : null,
+        heroBackground: mapResponseImage(i.fields.heroBackground),
+        heroBackgroundSmall: mapResponseImage(i.fields.heroBackgroundSmall),
+        heroImage: mapResponseImage(i.fields.heroImage)
       };
     });
   } catch (error) {

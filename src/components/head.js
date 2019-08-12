@@ -8,6 +8,10 @@ import {withRouter} from 'next/router';
 import config from '../config';
 
 const Head = ({meta, router}) => {
+  if (!meta) {
+    return null;
+  }
+
   const image = meta.getIn(['image', 'fields', 'file', 'url']);
   const titleDefault = 'Maven Analytics';
   const title = meta.get('title') && meta.get('title') !== '' && meta.get('title') !== 'Maven Analytics' ? `${meta.get('title')} | ${titleDefault}` : titleDefault;

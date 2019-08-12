@@ -15,7 +15,7 @@ import {selectors as loadingSelectors} from '../redux/ducks/loading';
 import {handleScrollIntoView, click, clickAction} from '../utils/componentHelpers';
 import Brochure from '../layouts/brochure';
 import PathListingItem from '../components/pathListingItem';
-import CourseHero from '../components/courseHero';
+import BrochureHero from '../sections/brochureHero';
 import MaIcon from '../components/maIcon';
 import CtaSurvey from '../sections/ctaSurvey';
 import CourseFilters from '../components/courseFilters';
@@ -24,6 +24,7 @@ import CourseCard from '../components/courseCard';
 import Loader from '../components/loader';
 import CoursePathNav from '../components/coursePathNav';
 import Image from '../components/image';
+import {courseHeroBgSources, courseHeroBgSrc} from '../constants';
 
 class CoursesLearningPaths extends PureComponent {
   constructor(props) {
@@ -161,11 +162,11 @@ class CoursesLearningPaths extends PureComponent {
         placeholderColor="transparent"
         sources={[
           {
-            srcSet: '/static/img/course-listing-featured-700.webp 700w',
+            srcSet: '/static/img/course-listing-featured-1568.webp 1568w',
             type: 'image/webp'
           },
           {
-            srcSet: '/static/img/course-listing-featured-700.png 700w',
+            srcSet: '/static/img/course-listing-featured-1568.png 1568w',
             type: 'image/jpeg'
           },
           {
@@ -177,11 +178,11 @@ class CoursesLearningPaths extends PureComponent {
             type: 'image/jpeg'
           },
           {
-            srcSet: '/static/img/course-listing-featured-1568.webp 1568w',
+            srcSet: '/static/img/course-listing-featured-700.webp 700w',
             type: 'image/webp'
           },
           {
-            srcSet: '/static/img/course-listing-featured-1568.png 1568w',
+            srcSet: '/static/img/course-listing-featured-700.png 700w',
             type: 'image/jpeg'
           }
         ]}
@@ -193,7 +194,7 @@ class CoursesLearningPaths extends PureComponent {
       <Brochure>
         <div className="courses-learning-paths">
           <CourseFilters className="course-filters--offmenu"/>
-          <CourseHero
+          <BrochureHero
             meta={false}
             className="course-hero--large"
             title="ONLINE COURSES<br/>& LEARNING PATHS"
@@ -203,6 +204,8 @@ class CoursesLearningPaths extends PureComponent {
             linkHref="#"
             onLinkClick={handleScrollIntoView('#courses-paths-main')}
             image={heroImg}
+            backgroundSources={courseHeroBgSources}
+            backgroundSrc={courseHeroBgSrc}
           />
           <CtaSurvey/>
           <div className="container container--lg">

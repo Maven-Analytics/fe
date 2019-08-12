@@ -26,6 +26,7 @@ const GlobalHeader = ({state, actions}) => {
                 <Logo/>
               </a>
             </Link>
+            <Hamburger isActive={state.get('mobileMenu')} onClick={click(actions.offmenuToggle, 'mobileMenu')}/>
             <nav>
               <ul>
                 {menuLinksMain.map(link => {
@@ -38,7 +39,6 @@ const GlobalHeader = ({state, actions}) => {
               </ul>
               <HeaderAuth showContact showRegister onUserClick={click(actions.offmenuToggle, 'headerUser')}/>
             </nav>
-            <Hamburger isActive={state.get('mobileMenu')} onClick={click(actions.offmenuToggle, 'mobileMenu')}/>
           </div>
         </div>
       </Headroom>
