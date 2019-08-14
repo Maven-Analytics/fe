@@ -41,7 +41,7 @@ class DashboardCredentials extends Component {
             return (
               <CredentialCard
                 completed={course.get('completed')}
-                promoteUrl="/"
+                promoteUrl={course.get('badgeUrl')}
                 key={course.get('id')}
                 title={course.get('title')}
                 progress={course.get('percentage_completed')}

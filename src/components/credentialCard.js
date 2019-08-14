@@ -20,7 +20,7 @@ const CredentialCard = ({completed, progress, title, image, promoteUrl}) => {
       <p>{title}</p>
       {completed && promoteUrl ? (
         <Link href={promoteUrl}>
-          <a className="btn">Promote</a>
+          <a className="btn">See Badge</a>
         </Link>
       ) : (
         <ProgressMeter title="Progress" value={progress}/>
