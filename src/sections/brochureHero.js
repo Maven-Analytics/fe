@@ -55,7 +55,7 @@ const BrochureHero = ({
       />
       <div className="brochure-hero__inner">
         <div className="container container--lg">
-          <div className="row">
+          {/* <div className="row">
             <div className={colClasses[0]}>
               {eyelash ? <p className="brochure-hero__eyelash">{eyelash}</p> : null}
               <h1 dangerouslySetInnerHTML={innerHtml(title)}/>
@@ -85,7 +85,7 @@ const BrochureHero = ({
                 ) : null}
               </div>
             </div>
-          </div>
+          </div> */}
           {/* {meta ? (
             <div className="row">
               <div className="col-12">
