@@ -42,6 +42,8 @@ const BrochureHero = ({
     classList.push(className);
   }
 
+  console.log('backgroundSources', backgroundSources);
+
   return (
     <div className={classList.join(' ')}>
       <ParallaxBg
