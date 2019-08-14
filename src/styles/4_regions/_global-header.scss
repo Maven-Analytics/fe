@@ -140,6 +140,8 @@
           }
 
           &.btn {
+            z-index: index($globalIndex, globalHeader) !important;
+
             &:focus,
             &:hover {
               color: $black;
