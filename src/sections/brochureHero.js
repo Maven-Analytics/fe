@@ -42,7 +42,7 @@ const BrochureHero = ({
     classList.push(className);
   }
 
-  console.log(meta);
+  console.log(meta, eyelash, description, linkHref, onLinkClick, linkContent, thumbnail);
 
   return (
     <div className={classList.join(' ')}>
