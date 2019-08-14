@@ -86,7 +86,7 @@ const BrochureHero = ({
               </div>
             </div>
           </div>
-          {meta ? (
+          {/* {meta ? (
             <div className="row">
               <div className="col-12">
                 <ProductMeta className="product-meta--course-detail">
@@ -123,7 +123,7 @@ const BrochureHero = ({
                 </ProductMeta>
               </div>
             </div>
-          ) : null}
+          ) : null} */}
         </div>
       </div>
     </div>
