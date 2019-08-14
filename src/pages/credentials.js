@@ -29,7 +29,7 @@ const CredentialsPage = ({page}) => {
         ]}
         backgroundSrc={page.getIn(['heroBackgroundSmall', 'file', 'url'])}
       />
-      <BrochureContent className="page-credentials" title="VIEW AVAILABLE BADGES">
+      <BrochureContent className="page-credentials" title={page.get('brochureTitle')}>
         <div className="page-credentials__content">
           creds
         </div>

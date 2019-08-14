@@ -28,7 +28,7 @@ const SkillsAssessments = ({courses, page}) => {
         backgroundSources={courseHeroBgSources}
         backgroundSrc={courseHeroBgSrc}
       />
-      <BrochureContent className="page-assessments" title="Try a Free Sample Assessment<br/>to see how you might score.">
+      <BrochureContent className="page-assessments" title={page.get('brochureTitle')}>
         <ul className="page-assessments__courses">
           {courses.map(course => (
             <li key={course.get('id')}>

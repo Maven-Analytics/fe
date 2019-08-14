@@ -28,7 +28,7 @@ const TeamTraining = ({page}) => {
         ]}
         backgroundSrc={page.getIn(['heroBackgroundSmall', 'file', 'url'])}
       />
-      <BrochureContent className="page-training" title="meet the maven method">
+      <BrochureContent className="page-training" title={page.get('brochureTitle')}>
         <div className="page-training__content">
           <p>Let’s be honest, most training solutions just don’t cut it. Trust us, we’ve seen it all: online platforms churning out low-grade courses like factories, overpriced seminars in dreary conference rooms, and live “masterclass” sessions that feel like you’re drinking from a firehose. You deserve better.</p>
           <p>Our unique approach is ideal for teams looking for a modern and flexible learning framework; one that integrates self-paced content, live expert support, and tools to actually prove that your team is getting smarter.</p>

@@ -8,6 +8,7 @@ import BrochureLayout from '../layouts/brochure';
 import BrochureHero from '../sections/brochureHero';
 import Head from '../components/head';
 import BrochureContent from '../components/brochureContent';
+import ImageContentful from '../components/imageContentful';
 
 const MeetTheTeam = ({page}) => {
   return (
@@ -26,11 +27,20 @@ const MeetTheTeam = ({page}) => {
         ]}
         backgroundSrc={page.getIn(['heroBackgroundSmall', 'file', 'url'])}
       />
-      <BrochureContent className="page-team" title="MEET THE TEAM BEHIND<br/>THE MISSION">
-        <div className="page-team">
-          team
-        </div>
-
+      <BrochureContent className="page-team" title={page.get('brochureTitle')}>
+        {page.get('flexibleContent') ? (
+          <ul>
+            {page.get('flexibleContent').map(teamMember => (
+              <li key={teamMember.get('id')}>
+                <div className="team-member">
+                  <ImageContentful image={teamMember.getIn(['image', 'fields'])}/>
+                  <h4>{teamMember.get('title')}</h4>
+                  <p>{teamMember.get('role')}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        ) : null}
       </BrochureContent>
     </BrochureLayout>
   );

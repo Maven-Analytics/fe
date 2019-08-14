@@ -1,0 +1,53 @@
+.page-team {
+  ul {
+    @include list-unstyled();
+    display: grid;
+    grid-template-columns: 1fr;
+
+    @include media-breakpoint-up(sm) {
+      grid-gap: $spacing-unit;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @include media-breakpoint-up(md) {
+      grid-gap: $spacing-unit--md;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    @include media-breakpoint-up(lg) {
+      grid-gap: 5rem;
+    }
+
+    li {
+      .team-member {
+        margin: 0 auto;
+      }
+    }
+  }
+}
+
+.team-member {
+  font-size: 1.6rem;
+  max-width: 200px;
+  text-align: center;
+
+  .image {
+    margin: 0 auto 1.2rem;
+    max-width: 192px;
+    padding-bottom: 100%;
+  }
+
+  h4 {
+    font-size: 2rem;
+    font-weight: 900;
+    margin: 0 0 1.1rem;
+
+    @include media-breakpoint-up(lg) {
+      font-size: 2.2rem;
+    }
+  }
+
+  p {
+    margin: 0;
+  }
+}

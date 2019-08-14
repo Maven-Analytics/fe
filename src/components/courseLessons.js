@@ -28,11 +28,9 @@ class CourseLessons extends Component {
   render() {
     const {lessons, showCount} = this.props;
 
-    console.log(lessons.toJS());
-
     return (
       <div className="course-lessons">
-        {lessons.map((lesson, index) => (
+        {lessons && lessons.map((lesson, index) => (
           <div key={index} className={['course-lessons__lesson', this.state.activeLesson === index ? 'open' : ''].join(' ')}>
             <button
               onClick={click(this.handleToggleClick, index)}

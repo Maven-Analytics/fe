@@ -5,7 +5,6 @@ import {Map, List} from 'immutable';
 import Link from 'next/link';
 
 import {actions as pageActions, selectors as pageSelectors} from '../redux/ducks/pages';
-import {actions as faqActions, selectors as faqSelectors} from '../redux/ducks/faq';
 import BrochureLayout from '../layouts/brochure';
 import BrochureHero from '../sections/brochureHero';
 import Head from '../components/head';
@@ -13,8 +12,7 @@ import BrochureContent from '../components/brochureContent';
 import {Routes} from '../routes';
 import CourseLessons from '../components/courseLessons';
 
-const FAQPage = ({page, faqs}) => {
-  console.log(faqs.toJS());
+const FAQPage = ({page}) => {
   return (
     <BrochureLayout>
       <Head meta={page.get('meta')}/>
@@ -30,10 +28,10 @@ const FAQPage = ({page, faqs}) => {
         ]}
         backgroundSrc={page.getIn(['heroBackgroundSmall', 'file', 'url'])}
       />
-      <BrochureContent className="page-faq">
+      <BrochureContent className="page-faq" title={page.get('brochureTitle')}>
         <div className="page-faq__content">
           <p>Below are some of the most common questions we hear from our students. Still can't find what you need? <Link href={Routes.Contact}>Send us a message</Link> and we'd be happy to help!</p>
-          <CourseLessons showCount={false} lessons={faqs}/>
+          <CourseLessons showCount={false} lessons={page.get('flexibleContent')}/>
         </div>
       </BrochureContent>
     </BrochureLayout>
@@ -44,23 +42,19 @@ FAQPage.getInitialProps = ctx => {
   const {store} = ctx;
 
   store.dispatch(pageActions.pagesGet({slug: 'faq'}));
-  store.dispatch(faqActions.faqsGet());
   return {};
 };
 
 FAQPage.propTypes = {
-  page: ImmutablePropTypes.map,
-  faqs: ImmutablePropTypes.list
+  page: ImmutablePropTypes.map
 };
 
 FAQPage.defaultProps = {
-  page: Map(),
-  faqs: List()
+  page: Map()
 };
 
 const mapStateToProps = state => ({
-  page: pageSelectors.getPage(state, 'faq'),
-  faqs: faqSelectors.getFaqs(state)
+  page: pageSelectors.getPage(state, 'faq')
 });
 
 export default connect(mapStateToProps)(FAQPage);

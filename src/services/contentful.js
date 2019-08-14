@@ -59,7 +59,8 @@ export async function getPages({query = {}, include = 10, limit = 100}) {
         meta: i.fields.meta ? i.fields.meta.fields : null,
         heroBackground: mapResponseImage(i.fields.heroBackground),
         heroBackgroundSmall: mapResponseImage(i.fields.heroBackgroundSmall),
-        heroImage: mapResponseImage(i.fields.heroImage)
+        heroImage: mapResponseImage(i.fields.heroImage),
+        flexibleContent: mapFromResponseItems(i.fields.flexibleContent)
       };
     });
   } catch (error) {

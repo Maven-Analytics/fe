@@ -25,7 +25,7 @@ const Consulting = ({page}) => {
         ]}
         backgroundSrc={page.getIn(['heroBackgroundSmall', 'file', 'url'])}
       />
-      <BrochureContent className="page-training">
+      <BrochureContent className="page-training" title={page.get('brochureTitle')}>
         <div className="page-training__content">
           <p>Maven Analytics provides analytics support, strategic consulting and award-winning training to clients looking to bring their data to life. We’re equipped to handle everything from ad hoc analytics needs to the toughest BI challenges, for our clients in ecommerce, education, healthcare, insurance, automotive, retail and other industries. </p>
           <p>We specialize in: </p>

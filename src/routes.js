@@ -27,7 +27,7 @@ export const Routes = {
   Signup: '/signup',
   SignupAccount: '/signup/account',
   SignupThanks: '/signup/thanks',
-  Team: '/team',
+  Team: '/meet-the-team',
   TeamTraining: '/team-training',
   Terms: '/terms',
   WelcomeSurvey: '/welcome',
