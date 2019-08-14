@@ -175,6 +175,7 @@ label {
   }
 
   input {
+    cursor: pointer;
     height: 100%;
     left: 0;
     position: absolute;
@@ -194,7 +195,7 @@ label {
 
   label {
     margin-bottom: 0;
-    user-select: none;
+    // user-select: none;
   }
 
   a:not(.btn) {
