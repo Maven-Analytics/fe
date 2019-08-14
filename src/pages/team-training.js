@@ -14,7 +14,7 @@ const TeamTraining = ({page}) => {
   return (
     <BrochureLayout>
       <Head meta={page.get('meta')}/>
-      <BrochureHero
+      {/* <BrochureHero
         className="brochure-hero--medium"
         eyelash={page.get('heroEyelash')}
         title={page.get('heroTitle')}
@@ -27,7 +27,7 @@ const TeamTraining = ({page}) => {
           {srcSet: `${page.getIn(['heroBackgroundSmall', 'file', 'url'])}`, type: page.getIn(['heroBackgroundSmall', 'file', 'contentType'])}
         ]}
         backgroundSrc={page.getIn(['heroBackgroundSmall', 'file', 'url'])}
-      />
+      /> */}
       <BrochureContent className="page-training" title="meet the maven method">
         <div className="page-training__content">
           <p>Let’s be honest, most training solutions just don’t cut it. Trust us, we’ve seen it all: online platforms churning out low-grade courses like factories, overpriced seminars in dreary conference rooms, and live “masterclass” sessions that feel like you’re drinking from a firehose. You deserve better.</p>
@@ -43,7 +43,6 @@ const TeamTraining = ({page}) => {
           <p>In the analytics game, it’s sink or swim. And while other training platforms may throw you a life vest, we’re giving you the keys to a speedboat.</p>
           <p>Ready to transform your team into industry leaders? Let’s talk.</p>
         </div>
-
       </BrochureContent>
     </BrochureLayout>
   );

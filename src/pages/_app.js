@@ -94,10 +94,6 @@ class MavenApp extends App {
     Router.events.off('routeChangeComplete', this.handleRouteChange);
   }
 
-  componentDidCatch(error) {
-    console.log(error);
-  }
-
   handleRouteChange() {
     this.props.store.dispatch(stateActions.stateReset());
   }
