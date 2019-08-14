@@ -42,15 +42,17 @@ const BrochureHero = ({
     classList.push(className);
   }
 
+  console.log(meta);
+
   return (
     <div className={classList.join(' ')}>
-      {/* <ParallaxBg
+      <ParallaxBg
         className="brochure-hero__bg"
         placeholderColor="#252525"
         overlay
         sources={backgroundSources}
         src={backgroundSrc}
-      /> */}
+      />
       <div className="brochure-hero__inner">
         <div className="container container--lg">
           <div className="row">
