@@ -1,0 +1,20 @@
+.contact-form {
+  max-width: 470px;
+
+  .input {
+    border-color: transparent;
+  }
+
+  label {
+    opacity: 0.8;
+  }
+
+  textarea {
+    height: 170px;
+    resize: none;
+  }
+
+  .btn {
+    @include btnFixed(40px, 140px, 20px);
+  }
+}

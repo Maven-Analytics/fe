@@ -9,6 +9,24 @@
     width: 100%;
     z-index: -1;
 
+    &::after {
+      background: $brand-gradient;
+      content: ' ';
+      position: absolute;
+      left: 0;
+      opacity: 1;
+      top: 0;
+      transition: opacity 0.3s 0.2s ease-in-out;
+      width: 100%;
+    }
+
+    &.loaded {
+      &::after {
+        opacity: 0;
+      }
+    }
+
+    &::after,
     img {
       height: 210px;
 

@@ -19,6 +19,7 @@ import {watchSpotlights} from './spotlights';
 import {watchPages} from './pages';
 import {setCookie, removeCookie, getCookie} from '../../utils/cookies';
 import config from '../../config';
+import {watchContact} from './contact';
 
 function * logoutRequest({payload: {ctx}}) {
   removeCookie('token', ctx);
@@ -225,7 +226,8 @@ function * rootSaga() {
     fork(watchFilters),
     fork(watchScores),
     fork(watchSpotlights),
-    fork(watchPages)
+    fork(watchPages),
+    fork(watchContact)
   ]);
 }
 

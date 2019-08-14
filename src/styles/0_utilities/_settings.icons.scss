@@ -25,6 +25,12 @@
     visibility: visible;
   }
 }
+.maicon-map-marker:before {
+  content: "\e919";
+}
+.maicon-phone:before {
+  content: "\e91a";
+}
 .maicon-visualisation:before {
   content: "\e916";
 }

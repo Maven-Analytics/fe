@@ -1,0 +1,53 @@
+.page-contact {
+  .contact-form {
+    margin: 0 auto $spacing-unit--md;
+  }
+
+  .content {
+    color: $gray-medium-2;
+    font-size: 1.6rem;
+    line-height: 1.55;
+    margin: 0 auto;
+    max-width: 470px;
+
+    @include media-breakpoint-up(lg) {
+      font-size: 1.8rem;
+    }
+
+    hr {
+      background: $brand-gradient;
+      border: none;
+      height: 2px;
+      margin: $spacing-unit--md 0;
+      width: 145px;
+
+      @include media-breakpoint-up(lg) {
+        margin: $spacing-unit--l 0;
+      }
+    }
+
+    strong {
+      font-weight: 900;
+    }
+
+    ul {
+      @include list-unstyled();
+
+      li {
+        display: flex;
+        margin: 0 0 $spacing-unit;
+
+        i {
+          color: #000;
+          font-size: 2rem;
+          margin-top: 4px;
+          width: 40px;
+
+          &.maicon-map-marker {
+            padding-left: 3px;
+          }
+        }
+      }
+    }
+  }
+}

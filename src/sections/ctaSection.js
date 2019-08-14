@@ -18,7 +18,7 @@ const CtaSection = ({content, linkUrl, linkText}) => {
     <div className="cta-section">
       <Image
         cover
-        placeholderColoe="#20E2D7"
+        placeholderColoe="#F9FEA5"
         modifier="cta-section__background"
         src="/static/img/cta-bg.jpg"
         srcSet={`

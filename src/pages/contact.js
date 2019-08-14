@@ -8,6 +8,8 @@ import BrochureLayout from '../layouts/brochure';
 import BrochureHero from '../sections/brochureHero';
 import Head from '../components/head';
 import BrochureContent from '../components/brochureContent';
+import ContactForm from '../forms/contact';
+import MaIcon from '../components/maIcon';
 
 const ContactPage = ({page}) => {
   return (
@@ -27,7 +29,31 @@ const ContactPage = ({page}) => {
       />
       <BrochureContent className="page-contact">
         <div className="page-contact__content">
-          contact
+          <div className="row">
+            <div className="col-md-6 order-md-2">
+              <ContactForm />
+            </div>
+            <div className="col-md-6 order-md-1">
+              <div className="content">
+                <p>Not sure which path is right for you? Question about team training or consulting? Just want to talk data? <strong>Drop us a line, we’re here to help.</strong></p>
+                <hr/>
+                <ul>
+                  <li>
+                    <MaIcon icon="envelope"/>
+                    <span>info@mavenanalytics.io</span>
+                  </li>
+                  <li>
+                    <MaIcon icon="phone"/>
+                    <span>(555) 555-5555</span>
+                  </li>
+                  <li>
+                    <MaIcon icon="map-marker"/>
+                    <span>501 Boylston St<br/>Boston, MA 02116</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
 
       </BrochureContent>
