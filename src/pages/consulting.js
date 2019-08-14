@@ -8,6 +8,7 @@ import BrochureLayout from '../layouts/brochure';
 import BrochureHero from '../sections/brochureHero';
 import Head from '../components/head';
 import BrochureContent from '../components/brochureContent';
+import RichText from '../components/richText';
 
 const Consulting = ({page}) => {
   return (
@@ -27,18 +28,8 @@ const Consulting = ({page}) => {
       />
       <BrochureContent className="page-training" title={page.get('brochureTitle')}>
         <div className="page-training__content">
-          <p>Maven Analytics provides analytics support, strategic consulting and award-winning training to clients looking to bring their data to life. We’re equipped to handle everything from ad hoc analytics needs to the toughest BI challenges, for our clients in ecommerce, education, healthcare, insurance, automotive, retail and other industries. </p>
-          <p>We specialize in: </p>
-          <ul>
-            <li><strong>Data mapping & modeling</strong></li>
-            <li><strong>Custom dashboards & reporting solutions</strong></li>
-            <li><strong>Forecasts & projections</strong></li>
-            <li><strong>Analytics tech stack selection, integration & training</strong></li>
-          </ul>
-          <p>Our style is hands-on and collaborative; we’ll work side-by-side with your team to help navigate complex data ecosystems, centralize the flow of critical information, and design fully customized solutions suited to your unique challenges and goals.</p>
-          <p>Unlike traditional consulting companies, our role goes beyond simply delivering tools and solutions. We’re here to arm you with the knowledge and skills to do incredible things – long after we’re gone.</p>
+          <RichText content={page.get('content')}/>
         </div>
-
       </BrochureContent>
     </BrochureLayout>
   );

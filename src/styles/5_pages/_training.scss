@@ -22,6 +22,10 @@
     ol {
       li {
         margin: $spacing-unit;
+
+        p {
+          margin: 0;
+        }
       }
     }
   }
