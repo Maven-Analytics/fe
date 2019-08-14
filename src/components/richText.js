@@ -3,7 +3,7 @@ import {documentToReactComponents} from '@contentful/rich-text-react-renderer';
 import {isImmutable} from 'immutable';
 
 const RichText = ({content}) => {
-  if (!content) {
+  if (!content || (isImmutable(content) && content.isEmpty())) {
     return null;
   }
 

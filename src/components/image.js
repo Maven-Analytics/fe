@@ -79,8 +79,6 @@ class Image extends Component {
       return null;
     }
 
-    console.log('sources', sources);
-
     const mappedSources = sources.map((source, index) => {
       if (source.srcSet === null) {
         return null;
