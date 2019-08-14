@@ -61,11 +61,11 @@
       position: absolute;
       top: 50%;
       transform: translate3d(0, -50%, 0);
-      width: 70%;
+      width: 65%;
     }
 
     @include media-breakpoint-up(xl) {
-      left: calc(50% + 40px);
+      left: calc(50% + 20px);
     }
   }
 
