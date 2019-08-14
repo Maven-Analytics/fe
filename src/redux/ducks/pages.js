@@ -23,7 +23,7 @@ export default (state = initialState, action) => {
   }
 };
 
-const getPages = state => state.get('spotlights');
+const getPages = state => state.get('pages');
 const getPage = (state, slug) => state.get('pages').find(p => p.get('slug') === slug);
 
 export const selectors = {

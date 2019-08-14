@@ -67,6 +67,25 @@ export async function getPages({query = {}, include = 10, limit = 100}) {
   }
 }
 
+export async function getFaqs({query = {}, include = 10, limit = 100}) {
+  try {
+    let res = await ContenfulClient.getEntries({
+      content_type: 'faq', // eslint-disable-line camelcase,
+      include,
+      limit,
+      ...query
+    });
+
+    return res.items.map(i => {
+      return {
+        ...mapResponseItem(i)
+      };
+    });
+  } catch (error) {
+    return error;
+  }
+}
+
 export async function getCourses({query = {}, include = 10, limit = 100}) {
   try {
     let res = await ContenfulClient.getEntries({

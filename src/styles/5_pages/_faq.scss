@@ -1,0 +1,40 @@
+.page-faq {
+  &__content {
+    color: $gray-medium-2;
+    font-size: 1.6rem;
+    line-height: 1.55;
+    max-width: $brochureContentContainer;
+    margin: 0 auto;
+
+    @include media-breakpoint-up(lg) {
+      font-size: 1.8rem;
+    }
+
+    p {
+      margin: 0 0 $spacing-unit--md;
+
+      @include media-breakpoint-up(lg) {
+        margin: 0 0 $spacing-unit--l;
+      }
+    }
+
+    a {
+      color: $gray-medium-2;
+      position: relative;
+
+      &:hover {
+        text-decoration: none;
+      }
+
+      &::after {
+        background: $brand-gradient;
+        bottom: -2px;
+        content: ' ';
+        height: 2px;
+        left: 0;
+        position: absolute;
+        width: 100%;
+      }
+    }
+  }
+}
