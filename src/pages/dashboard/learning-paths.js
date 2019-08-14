@@ -43,7 +43,7 @@ class DashboardLearningPaths extends Component {
                   title={path.getIn(['title'])}
                   badge={path.getIn(['badge'])}
                   shortDescription={path.getIn(['shortDescription'])}
-                  resumeUrl={getResumeCourseUrl(latestCourse)}
+                  resumeUrl={getLatestCourse(path, enrollments).get('url')}
                   percentage_completed={path.get('percentage_completed')}
                   match={`${prettyPercent(getMatchForPath(path, user))}%`}
                   courseCount={path.getIn(['courses']).count()}
