@@ -2,6 +2,7 @@ import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
 import {Map, List, fromJS} from 'immutable';
+import Link from 'next/link';
 
 import {actions as courseActions, selectors as courseSelectors} from '../redux/ducks/courses';
 import {actions as pathActions, selectors as pathSelectors} from '../redux/ducks/paths';
@@ -36,10 +37,12 @@ const CredentialsPage = ({page, courses, paths}) => {
         <ul>
           {products.map(product => (
             <li key={product.get('id')}>
-              <div className="credential">
-                {product.get('title') ? <div className="tooltip centered">{product.get('title')}</div> : null}
-                <ImageContentful image={product.get('badge')}/>
-              </div>
+              <Link href={product.get('badgeUrl')}>
+                <a className="credential">
+                  {product.get('title') ? <div className="tooltip centered">{product.get('title')}</div> : null}
+                  <ImageContentful image={product.get('badge')}/>
+                </a>
+              </Link>
             </li>
           ))}
         </ul>
