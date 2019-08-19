@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
@@ -27,7 +29,7 @@ class DashboardCredentials extends Component {
             return (
               <CredentialCard
                 completed={path.get('completed')}
-                promoteUrl="/"
+                promoteUrl={path.get('badgeUrl')}
                 key={path.get('id')}
                 title={path.get('title')}
                 progress={path.get('percentage_completed')}
@@ -54,6 +56,14 @@ class DashboardCredentials extends Component {
     );
   }
 }
+
+DashboardCredentials.propTypes = {
+  actions: PropTypes.objectOf(PropTypes.func),
+  paths: ImmutablePropTypes.list,
+  loadingCourses: PropTypes.bool,
+  loadingPaths: PropTypes.bool,
+  courses: ImmutablePropTypes.list
+};
 
 const mapStateToProps = state => ({
   paths: pathSelectors.getPathsByCompletionDesc(state),
