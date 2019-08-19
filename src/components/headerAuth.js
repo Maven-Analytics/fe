@@ -36,7 +36,7 @@ const HeaderAuth = ({showContact, showRegister, state, actions}) => {
                 open={state.get('headerUser')}
               />
             </li>
-            <li>
+            <li className="dashboard-btn">
               <Link href={Routes.Dashboard}>
                 <a className="btn btn--primary">
                   Dashboard
