@@ -115,6 +115,10 @@ export const footerConnectLinks = fromJS([
   {
     text: 'Meet The Team',
     url: Routes.Team
+  },
+  {
+    text: 'Contact',
+    url: Routes.Contact
   }
 ]);
 
