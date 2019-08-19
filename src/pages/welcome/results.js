@@ -108,7 +108,7 @@ class WelcomeSurveyResults extends Component {
             excerpt={recommendedPath.get('excerpt')}
             match={parseInt(recommendedPath.get('match') * 100, 10)}
             courses={recommendedPath.get('courses') && recommendedPath.get('courses').count()}
-            length={getPathHours(recommendedPath.get('path'))}
+            length={getPathHours(recommendedPath)}
             tools={recommendedPath.get('tools')}
             url={`${Routes.Path}/${recommendedPath.get('slug')}`}
           />
