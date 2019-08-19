@@ -28,9 +28,9 @@ const methodItems = [
     img: '/static/img/step1.png',
     width: 1000,
     height: 633,
-    title: 'Tell Us About Yourself',
-    description: 'Take a quick survey so we can match your learning needs with the best Maven Analytics courses and paths.',
-    linkTitle: 'TAKE SURVEY',
+    title: 'Find Your Path',
+    description: 'Take a 5-minute survey and we’ll match you with the best courses & paths to help you reach your goals',
+    linkTitle: 'TAKE THE SURVEY',
     linkHref: Routes.WelcomeSurvey,
     imgMobile: {
       src: '/static/img/step1-mobile.png',
@@ -45,10 +45,10 @@ const methodItems = [
     width: 1000,
     height: 633,
     top: 232,
-    title: 'Measure Your Baseline Skills',
-    description: 'Test your skills with some of our in-depth practice assessments. We’ll match your current skills with the right courses and paths',
+    title: 'Assess Your Skills',
+    description: 'Kick off each course with a benchmark assessment to see how your skills stack up, and where they fall short',
     linkTitle: 'TAKE ASSESSMENT',
-    linkHref: '/',
+    linkHref: Routes.SkillsAssessments,
     imgMobile: {
       src: '/static/img/step2-mobile.png',
       alt: 'We’ll match your current skills with the right courses and paths',
@@ -64,9 +64,9 @@ const methodItems = [
     width: 1000,
     height: 633,
     top: 234,
-    title: 'Learn & Expand Your Expertise',
-    description: 'Take self-paced online courses with comprehensive videos, detailed course materials, and one-on-one support, specific to your learning goals and ambitions. ',
-    linkTitle: 'VIEW COURSES & PATHS',
+    title: 'Rock Your Courses',
+    description: 'Complete our award-winning courses & paths to develop expert-level analytics skills',
+    linkTitle: 'EXPLORE COURSES & PATHS',
     linkHref: Routes.CoursesPaths,
     imgMobile: {
       src: '/static/img/step3-mobile.png',
@@ -81,10 +81,10 @@ const methodItems = [
     width: 1000,
     height: 633,
     top: 161,
-    title: 'Track & Promote Your Achievements',
-    description: 'Earn certified credentials and badges for each course and path completed.  Promote your talents and achieve your certified data rockstar status.',
-    linkTitle: 'VIEW CREDENTIALS',
-    linkHref: '/',
+    title: 'Share Your Success',
+    description: 'Earn verified credentials to track your progress and share your achievements with the world',
+    linkTitle: 'Learn More',
+    linkHref: Routes.Credentials,
     imgMobile: {
       src: '/static/img/step4-mobile.png',
       alt: 'Online courses.',
@@ -94,8 +94,11 @@ const methodItems = [
   }
 ];
 
-const MissionContent = `## THERE'S A BETTER WAY TO **BUILD YOUR SKILLS**
-Your time is valuable; don’t spend it sifting through courses, webinars and bootcamps trying to figure out where to start. Think of us as your personal team of instructors, experts, mentors and guides, here to **simplify the learning process** and **help you develop the exact skills you need.**`;
+const MissionContent = `## IT'S TIME FOR A CHANGE
+## THERE'S A BETTER WAY TO **BUILD YOUR SKILLS**
+We’re here to reinvent the online learning experience, by focusing on quality content, exceptional instructors, unparalleled support, and unique tools to help you find your path, assess your skills, and track your accomplishments.
+
+Think of us as your own personal team of instructors, mentors and experts -- all working together to make sure you’re fully prepared to advance or break into your career.`;
 
 const HappyClients = fromJS([
   {
@@ -140,13 +143,9 @@ class Home extends Component {
         <StatCounter
           stats={fromJS([
             {
-              value: 158,
-              text: 'Countries Represented'
-            },
-            {
-              value: 300,
-              text: 'Training Videos',
-              postFix: '+'
+              value: 180,
+              text: 'Happy Students',
+              postFix: 'K+'
             },
             {
               value: 5000,
@@ -154,9 +153,13 @@ class Home extends Component {
               postFix: '+'
             },
             {
-              value: 100,
-              text: 'Happy Students',
-              postFix: 'K+'
+              value: 300,
+              text: 'Training Videos',
+              postFix: '+'
+            },
+            {
+              value: 158,
+              text: 'Countries Represented'
             }
           ])}
         />

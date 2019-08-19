@@ -2,11 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {List} from 'immutable';
+import Link from 'next/link';
 
 import ParallaxBg from '../components/parallaxBg';
 import Markdown from '../components/markdown';
 import ScrollToNext from '../components/scrollToNext';
 import MaIcon from '../components/maIcon';
+import {Routes} from '../routes';
 
 const Mission = ({content, icons, scrollTo}) => {
   return (
@@ -40,6 +42,9 @@ const Mission = ({content, icons, scrollTo}) => {
             </div>
           ))}
         </div>
+        <Link href={Routes.Signup}>
+          <a className="btn btn--primary-solid mission__cta">Sign Up Today</a>
+        </Link>
         {scrollTo ? <ScrollToNext target={scrollTo} title="The Maven Method"/> : null}
       </div>
     </div>
