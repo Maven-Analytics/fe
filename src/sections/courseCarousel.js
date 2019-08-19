@@ -7,7 +7,7 @@ import Carousel from '../components/carousel';
 import CarouselSlide from '../components/carouselSlide';
 import CourseCard from '../components/courseCard';
 import TrackVisibility from '../components/trackVisibility';
-import {isLg} from '../components/mediaQuery';
+import {isLg, isMd, isSm} from '../components/mediaQuery';
 import withWindowSize from '../components/withWindowSize';
 import {prettyPercent} from '../utils/componentHelpers';
 
@@ -26,7 +26,7 @@ const CourseCarousel = ({courses, title, eyelash, description, helperText, separ
       <Carousel
         options={{
           pageDots: false,
-          groupCells: isLg() ? 3 : 2
+          groupCells: isLg() ? 3 : isSm() ? 2 : 1
         }}
       >
         {courses.map(course => {

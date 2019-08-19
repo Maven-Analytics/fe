@@ -52,7 +52,11 @@
       margin-right: $spacing-unit;
       opacity: .5;
       // transition: opacity .3s ease-in-out;
-      width: calc(50% - #{$spacing-unit});
+      width: calc(100% - #{$spacing-unit});
+
+      @include media-breakpoint-up(sm) {
+        width: calc(50% - #{$spacing-unit});
+      }
 
       @include media-breakpoint-up(lg) {
         margin-right: $spacing-unit--l;
@@ -65,6 +69,12 @@
     }
 
     .course-card {
+      margin: 0 auto;
+
+      @include media-breakpoint-up(md) {
+        margin: 0;
+      }
+
       &__content {
         p {
           display: none;
