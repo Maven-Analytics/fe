@@ -74,7 +74,7 @@ SkillsAssessments.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  courses: courseSelectors.getCourses(state),
+  courses: courseSelectors.getCoursesForAssessmentPage(state),
   page: pageSelectors.getPage(state, 'skills-assessments')
 });
 
