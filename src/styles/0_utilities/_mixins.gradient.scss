@@ -19,6 +19,7 @@
 
 @mixin gradient-font() {
   background: linear-gradient(to right, $blue, $yellow);
+  display: inline-block;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
