@@ -4,10 +4,11 @@
     font-size: 1.6rem;
     line-height: 1.55;
     max-width: $brochureContentContainer;
-    margin: 0 auto;
+    margin: 0 auto $spacing-unit--l;
 
     @include media-breakpoint-up(lg) {
       font-size: 1.8rem;
+      margin: 0 auto $spacing-unit--xl;
     }
 
     ol,

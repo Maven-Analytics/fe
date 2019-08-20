@@ -1,6 +1,7 @@
 import {takeLatest, put, all, call} from 'redux-saga/effects';
 
 import {types as contactTypes} from '../ducks/contact';
+import zapier from '../../services/zapier';
 
 export function * watchContact() {
   yield takeLatest(contactTypes.CONTACT_SEND_REQUEST, onContactSend);
@@ -30,5 +31,13 @@ function * onContactSend({payload}) {
 async function sendMessage(payload) {
   // throw new Error('Error sending message');
 
-  return 'Your message has been sent!';
+  try {
+    const {hook, ...data} = payload;
+
+    await zapier(hook, data);
+
+    return 'Your message has been sent!';
+  } catch (error) {
+    throw error;
+  }
 }

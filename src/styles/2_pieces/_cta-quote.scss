@@ -1,0 +1,57 @@
+.cta-quote {
+  font-size: 1.6rem;
+  line-height: 1.8888;
+  padding: $spacing-unit--l $spacing-unit 0 0;
+  position: relative;
+
+  @include media-breakpoint-up(lg) {
+    font-size: 1.8rem;
+    padding: 5rem 0 0 2.5rem;
+  }
+
+  blockquote {
+    color: $gray-medium-2;
+    font-style: italic;
+    margin-bottom: $spacing-unit--sm;
+
+    @include media-breakpoint-up(lg) {
+      margin-bottom: $spacing-unit;
+    }
+
+    p {
+      &:not(:last-child) {
+        margin-bottom: $spacing-unit--l;
+      }
+    }
+  }
+
+  cite {
+    color: $black;
+    font-style: normal;
+    font-weight: 700;
+    margin-top: $spacing-unit;
+
+    @include media-breakpoint-up(lg) {
+      margin-top: $spacing-unit--l;
+    }
+  }
+
+  &::before {
+    @include gradient-font();
+    content: "“";
+    font-family: 'Georgia';
+    font-size: 6.2rem;
+    left: 0;
+    line-height: 1;
+    position: absolute;
+    top: 0;
+
+    @include media-breakpoint-up(lg) {
+      font-size: 11.2rem;
+    }
+  }
+
+  .image {
+    height: auto;
+  }
+}

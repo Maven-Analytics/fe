@@ -20,6 +20,7 @@ import {watchPages} from './pages';
 import {setCookie, removeCookie, getCookie} from '../../utils/cookies';
 import config from '../../config';
 import {watchContact} from './contact';
+import zapier from '../../services/zapier';
 
 function * logoutRequest({payload: {ctx}}) {
   removeCookie('token', ctx);
@@ -158,6 +159,12 @@ function * registerRequest({payload}) {
   try {
     const recommendedCourses = yield select(userSelectors.getRecommendedCourses);
     const recommendedPaths = yield select(userSelectors.getRecommendedPaths);
+
+    yield zapier('https://hooks.zapier.com/hooks/catch/4268756/obkw8rs/', {
+      first_name: payload.first_name,
+      last_name: payload.last_name,
+      email: payload.email
+    });
 
     const data = yield register({...payload, recommended_courses: recommendedCourses.toJS(), recommended_paths: recommendedPaths.toJS()});
 

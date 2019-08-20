@@ -7,17 +7,20 @@ import {actions as contactActions} from '../redux/ducks/contact';
 import {selectors as loadingSelectors} from '../redux/ducks/loading';
 import {selectors as errorSelectors} from '../redux/ducks/error';
 import {selectors as responseSelectors} from '../redux/ducks/response';
-import {state} from '../utils/componentHelpers';
+import {state, stateVal} from '../utils/componentHelpers';
+import FormOptions from '../components/inputs/formOptions';
 
-class ContactForm extends Component {
+class TeamTrainingForm extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       name: '',
       email: '',
+      company: '',
       message: '',
-      hook: 'https://hooks.zapier.com/hooks/catch/4268756/obkw25k/'
+      team_size: '',
+      hook: 'https://hooks.zapier.com/hooks/catch/4268756/obkw9mh/'
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -48,7 +51,19 @@ class ContactForm extends Component {
             <input type="email" name="email" id="email" className="input" onChange={state(this.handleChange, 'email')} value={this.state.email} required/>
           </div>
           <div className="form-group">
-            <label htmlFor="message">Message</label>
+            <label htmlFor="company">Company</label>
+            <input type="text" name="company" id="company" className="input" onChange={state(this.handleChange, 'company')} value={this.state.company} required/>
+          </div>
+          <div className="form-group">
+            <label htmlFor="size">Team size</label>
+            <FormOptions
+              options={['3-5', '5-10', '10-20', '20 or more']}
+              onChange={stateVal(this.handleChange, 'team_size')}
+              value={this.state.team_size}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="message">How can we help you?</label>
             <textarea name="message" id="message" className="input" onChange={state(this.handleChange, 'message')} value={this.state.message} required/>
           </div>
           {error || response ? (
@@ -72,7 +87,7 @@ class ContactForm extends Component {
   }
 }
 
-ContactForm.propTypes = {
+TeamTrainingForm.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   error: PropTypes.string,
   loading: PropTypes.bool,
@@ -93,4 +108,4 @@ const mapDispatchToProps = function (dispatch) {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
+export default connect(mapStateToProps, mapDispatchToProps)(TeamTrainingForm);

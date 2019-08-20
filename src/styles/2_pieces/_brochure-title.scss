@@ -21,4 +21,12 @@
     position: absolute;
     width: 145px;
   }
+
+  &.align-left {
+    text-align: left;
+
+    &::after {
+      left: 0;
+    }
+  }
 }

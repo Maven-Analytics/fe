@@ -10,6 +10,9 @@ import Head from '../components/head';
 import BrochureContent from '../components/brochureContent';
 import ImageContentful from '../components/imageContentful';
 import RichText from '../components/richText';
+import CtaForm from '../sections/ctaForm';
+import TeamTrainingForm from '../forms/teamTraining';
+import CtaQuote from '../components/ctaQuote';
 
 const TeamTraining = ({page}) => {
   return (
@@ -33,6 +36,19 @@ const TeamTraining = ({page}) => {
         <div className="page-training__content">
           <RichText content={page.get('content')}/>
         </div>
+        <CtaForm title="Request A Quote" form={TeamTrainingForm}>
+          <CtaQuote
+            cite="- Patrick O’Donnell, VP of Sales"
+            image="/static/img/1010Date-logo.png"
+            imageStyle={{
+              width: 187,
+              height: 28
+            }}
+          >
+            <p>I first discovered Maven Analytics through Chris’s Excel courses. The quality and caliber far exceeded all of the others I had sampled; not by a little, but by a country mile. It's clearly evident that Maven instructors take their work seriously as teachers, mentors, and subject matter experts.</p>
+            <p>When we hired Maven to develop a custom training program for our team, they exceeded our expectations once again. I don't offer recommendations unless they are earned and well-deserved, and writing this recommendation for Chris and Maven Analytics was a no-brainer and a privilege. They are consummate teachers and professionals of the highest standard, and clearly at the top of their field.</p>
+          </CtaQuote>
+        </CtaForm>
       </BrochureContent>
     </BrochureLayout>
   );

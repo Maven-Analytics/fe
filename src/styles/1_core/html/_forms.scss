@@ -296,3 +296,43 @@ label {
     }
   }
 }
+
+.form-options {
+  ul {
+    @include list-inline();
+    flex-wrap: wrap;
+
+    li {
+      &:not(:last-child) {
+        margin-right: 2rem;
+
+        @include media-breakpoint-up(lg) {
+          margin-right: 3rem;
+        }
+      }
+
+      &.active {
+        button {
+          background-color: $black;
+          color: $white;
+        }
+      }
+    }
+  }
+
+  button {
+    @extend %btn;
+    align-items: center;
+    border-width: 1px;
+    border-radius: 21.5px;
+    display: flex;
+    height: 43px;
+    justify-content: center;
+    min-width: 8rem;
+
+    &:hover {
+      background-color: $black;
+      color: $white;
+    }
+  }
+}

@@ -9,15 +9,17 @@ import {selectors as errorSelectors} from '../redux/ducks/error';
 import {selectors as responseSelectors} from '../redux/ducks/response';
 import {state} from '../utils/componentHelpers';
 
-class ContactForm extends Component {
+class ConsultingForm extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       name: '',
       email: '',
+      company: '',
       message: '',
-      hook: 'https://hooks.zapier.com/hooks/catch/4268756/obkw25k/'
+      phone: '',
+      hook: 'https://hooks.zapier.com/hooks/catch/4268756/obkw5s6/'
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -48,7 +50,15 @@ class ContactForm extends Component {
             <input type="email" name="email" id="email" className="input" onChange={state(this.handleChange, 'email')} value={this.state.email} required/>
           </div>
           <div className="form-group">
-            <label htmlFor="message">Message</label>
+            <label htmlFor="company">Company</label>
+            <input type="text" name="company" id="company" className="input" onChange={state(this.handleChange, 'company')} value={this.state.company} required/>
+          </div>
+          <div className="form-group">
+            <label htmlFor="phone">Phone number (optional)</label>
+            <input type="text" name="phone" id="phone" className="input" onChange={state(this.handleChange, 'phone')} value={this.state.phone}/>
+          </div>
+          <div className="form-group">
+            <label htmlFor="message">How can we help you?</label>
             <textarea name="message" id="message" className="input" onChange={state(this.handleChange, 'message')} value={this.state.message} required/>
           </div>
           {error || response ? (
@@ -72,7 +82,7 @@ class ContactForm extends Component {
   }
 }
 
-ContactForm.propTypes = {
+ConsultingForm.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   error: PropTypes.string,
   loading: PropTypes.bool,
@@ -93,4 +103,4 @@ const mapDispatchToProps = function (dispatch) {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ConsultingForm);
