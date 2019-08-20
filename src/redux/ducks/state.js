@@ -34,6 +34,10 @@ const initialState = utils.initialState({
     open: false,
     data: null
   },
+  assessment: {
+    open: false,
+    data: null
+  },
   filters: false
 });
 

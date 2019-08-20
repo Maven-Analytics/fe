@@ -36,6 +36,12 @@ function * onOffmenuChange() {
   } else {
     document.body.classList.remove('video-modal-open');
   }
+
+  if (state.getIn(['assessment', 'open'])) {
+    document.body.classList.add('video-modal-open');
+  } else {
+    document.body.classList.remove('video-modal-open');
+  }
 }
 
 function * onStateReset() {

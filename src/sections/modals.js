@@ -10,6 +10,7 @@ import MobileMenu from '../modals/mobileMenu';
 import PathDrawer from '../modals/pathDrawer';
 import CourseDrawer from '../modals/courseDrawer';
 import VideoModal from '../modals/videoModal';
+import AssessmentModal from '../modals/assessmentModal';
 import {click} from '../utils/componentHelpers';
 
 const Modals = ({state, actions, hideModals}) => {
@@ -27,6 +28,11 @@ const Modals = ({state, actions, hideModals}) => {
         open={state.getIn(['video', 'open'])}
         video={state.getIn(['video', 'data', 'video'])}
         onClose={click(actions.modalClose, 'video')}
+      />
+      <AssessmentModal
+        open={state.getIn(['assessment', 'open'])}
+        id={state.getIn(['assessment', 'data', 'id'])}
+        onClose={click(actions.modalClose, 'assessment')}
       />
     </Fragment>
   );

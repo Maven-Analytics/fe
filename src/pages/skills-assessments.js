@@ -1,19 +1,23 @@
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Map, List} from 'immutable';
 import Link from 'next/link';
+import {bindActionCreators} from 'redux';
 
 import {actions as courseActions, selectors as courseSelectors} from '../redux/ducks/courses';
 import {actions as pageActions, selectors as pageSelectors} from '../redux/ducks/pages';
+import {actions as stateActions} from '../redux/ducks/state';
 import BrochureLayout from '../layouts/brochure';
 import BrochureHero from '../sections/brochureHero';
 import Head from '../components/head';
 import {courseHeroBgSources, courseHeroBgSrc} from '../constants';
 import BrochureContent from '../components/brochureContent';
 import ImageContentful from '../components/imageContentful';
+import { clickAction } from '../utils/componentHelpers';
 
-const SkillsAssessments = ({courses, page}) => {
+const SkillsAssessments = ({courses, page, actions}) => {
   return (
     <BrochureLayout>
       <Head meta={page.get('meta')}/>
@@ -37,9 +41,7 @@ const SkillsAssessments = ({courses, page}) => {
                 <div className="content">
                   <h3>{course.get('title')}</h3>
                   <p>{course.get('cardDescription')}</p>
-                  <Link href={course.get('assessmentUrl')}>
-                    <a className="btn btn--primary-solid">Take Assessment</a>
-                  </Link>
+                  <button className="btn btn--primary-solid" onClick={clickAction(actions.modalOpen, 'assessment', {id: course.get('assessmentCode')})}>Take Assessment</button>
                 </div>
               </div>
             </li>
@@ -65,7 +67,8 @@ SkillsAssessments.getInitialProps = ctx => {
 
 SkillsAssessments.propTypes = {
   courses: ImmutablePropTypes.list.isRequired,
-  page: ImmutablePropTypes.map
+  page: ImmutablePropTypes.map,
+  actions: PropTypes.objectOf(PropTypes.func)
 };
 
 SkillsAssessments.defaultProps = {
@@ -78,4 +81,10 @@ const mapStateToProps = state => ({
   page: pageSelectors.getPage(state, 'skills-assessments')
 });
 
-export default connect(mapStateToProps)(SkillsAssessments);
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    ...stateActions
+  }, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SkillsAssessments);
