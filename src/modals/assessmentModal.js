@@ -18,7 +18,6 @@ class AssessmentModal extends Component {
   }
 
   init() {
-    console.log(this.props.id);
     window.initIframe(this.props.id);
   }
 
@@ -45,7 +44,7 @@ class AssessmentModal extends Component {
 }
 
 AssessmentModal.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
   open: PropTypes.bool,
   onClose: PropTypes.func.isRequired
 };

@@ -17,6 +17,7 @@ import MaIcon from './maIcon';
 import LoggedIn from './loggedIn';
 import LoggedOut from './loggedOut';
 import {Routes} from '../routes';
+import ResumeProduct from './resumeProduct';
 
 const ProductDetail = ({children, productTerm, className, badge, titleTag: TitleTag, title, resumeUrl, showScores, id, percentage_completed, tools, hours, match, instructors, courseCount, url}) => {
   const classList = ['product-detail'];
@@ -25,11 +26,11 @@ const ProductDetail = ({children, productTerm, className, badge, titleTag: Title
     classList.push(className);
   }
 
-  let linkTerm = 'Resume';
+  // let linkTerm = 'Resume';
 
-  if (!percentage_completed) {
-    linkTerm = 'Start';
-  }
+  // if (!percentage_completed) {
+  //   linkTerm = 'Start';
+  // }
 
   return (
     <div className={classList.join(' ')}>
@@ -37,7 +38,13 @@ const ProductDetail = ({children, productTerm, className, badge, titleTag: Title
         <ImageContentful showLoader={false} image={badge}/>
         <TitleTag>{title}</TitleTag>
         <LoggedIn>
-          <Link href={resumeUrl || '#'}><a className="btn btn--primary-solid">{linkTerm} {productTerm}</a></Link>
+          <ResumeProduct
+            resumeUrl={resumeUrl}
+            productTerm={productTerm}
+            started={percentage_completed > 0}
+            className="btn btn--primary-solid"
+          />
+          {/* <Link href={resumeUrl || '#'}><a className="btn btn--primary-solid">{linkTerm} {productTerm}</a></Link> */}
         </LoggedIn>
         <LoggedOut>
           {url ? <Link href={url}><a className="btn btn--primary-solid">View Full Details</a></Link> : null}

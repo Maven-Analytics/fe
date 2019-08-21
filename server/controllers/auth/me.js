@@ -11,6 +11,11 @@ module.exports = async request => {
   }
 
   const user = await getUser(id);
+  const enrollments = await getEnrollments(id);
+
+  if (enrollments.length) {
+    user.enrolled = true;
+  }
 
   runSync(user);
 
@@ -26,4 +31,9 @@ module.exports = async request => {
 function getUser(id) {
   return axios.get(`${process.env.HOST_API}/api/v1/user/${id}`)
     .then(res => res.data.data[0]);
+}
+
+function getEnrollments(user_id) {
+  return axios.get(`${process.env.HOST_API}/api/v1/enrollment?user_id=${user_id}`)
+    .then(res => res.data.data);
 }

@@ -10,10 +10,12 @@
 
     .image {
       // padding-top: 62.42%;
-      top: -40px;
+      &.parallax-enabled {
+        top: -40px;
 
-      @include media-breakpoint-up(lg) {
-        top: 120px;
+        @include media-breakpoint-up(lg) {
+          top: 120px;
+        }
       }
     }
 

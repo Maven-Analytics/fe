@@ -130,6 +130,7 @@ class ParallaxBg extends Component {
           lazyLoad={false}
           placeholderColor={placeholderColor}
           sources={sources}
+          modifier={enabled ? 'parallax-enabled' : ''}
           src={src}
           alt={alt}
           srcSet={srcSet}

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {Map} from 'immutable';
 
 import {actions as dashboardActions, selectors as dashboardSelectors} from '../../redux/ducks/dashboard';
 import {actions as pathActions} from '../../redux/ducks/paths';
@@ -18,7 +17,6 @@ import DashboardPath from '../../components/dashboardPath';
 import DashboardGrid from '../../components/dashboardGrid';
 import {prettyPercent, clickAction} from '../../utils/componentHelpers';
 import {getMatchForPath, getLatestCourse, getPathHours} from '../../utils/pathHelpers';
-import {getResumeCourseUrl} from '../../utils/routeHelpers';
 import withAuthSync from '../../components/withAuthSync';
 
 class DashboardLearningPaths extends Component {
@@ -35,8 +33,6 @@ class DashboardLearningPaths extends Component {
       <DashboardLayout showWelcome loading={loadingProgress} title="Learning Paths" activeLink={1}>
         <DashboardGrid vertical>
           {progress.get('paths').map(path => {
-            const latestCourse = getLatestCourse(path, enrollments) || Map();
-
             return (
               <DashboardCard key={path.get('pathId')} size="xl" style={{margin: 0}}>
                 <DashboardPath
