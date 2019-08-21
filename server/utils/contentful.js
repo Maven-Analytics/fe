@@ -224,7 +224,7 @@ function getPathEnrollments(path, enrollments) {
   }
 
   const pathCourses = path.get('courses').reduce((map, c) => map.set(c.get('thinkificCourseId'), true), Map());
-  const pathEnrollments = enrollments.filter(e => pathCourses.has(e.get('courseId')));
+  const pathEnrollments = pathCourses.map((c, id) => enrollments.find(e => e.get('courseId') === id));
 
   return pathEnrollments;
 }

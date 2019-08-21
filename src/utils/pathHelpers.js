@@ -52,8 +52,9 @@ export const getLatestCourse = (path, enrollments) => {
 
   // Get the latest enrollment by most percentage_completed NOT equal to 0 or 1
   let latestEnrollment = pathEnrollments
-    .sort((a, b) => b.get('percentage_completed') - a.get('percentage_completed'))
-    .filter(e => e.get('percentage_completed') !== 0 && e.get('percentage_completed') !== 1)
+    // .sort((a, b) => b.get('percentage_completed') - a.get('percentage_completed'))
+    // .filter(e => e.get('percentage_completed') !== 0 && e.get('percentage_completed') !== 1)
+    .filter(e => e.get('percentage_completed') !== 1)
     .first();
 
   if (!latestEnrollment || latestEnrollment.isEmpty()) {
