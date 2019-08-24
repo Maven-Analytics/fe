@@ -75,20 +75,16 @@ export const footerLinks = fromJS([
     title: 'Learn',
     links: [
       {
-        text: 'Get Started',
-        url: Routes.Signup
+        text: 'Match Survey',
+        url: Routes.WelcomeSurvey
+      },
+      {
+        text: 'Practice Assessments',
+        url: Routes.SkillsAssessments
       },
       {
         text: 'Courses & Paths',
         url: Routes.CoursesPaths
-      },
-      {
-        text: 'Skills Assessments',
-        url: Routes.SkillsAssessments
-      },
-      {
-        text: 'Team Training',
-        url: Routes.TeamTraining
       }
     ]
   },
@@ -96,12 +92,16 @@ export const footerLinks = fromJS([
     title: 'Resources',
     links: [
       {
+        text: 'FAQ',
+        url: Routes.FAQ
+      },
+      {
         text: 'Credentials & Badges',
         url: Routes.Credentials
       },
       {
-        text: 'FAQ',
-        url: Routes.FAQ
+        text: 'Team Training',
+        url: Routes.TeamTraining
       },
       {
         text: 'Consulting',
@@ -132,7 +132,7 @@ export const copyLinks = fromJS([
     text: 'Privacy'
   },
   {
-    url: Routes.Home,
+    url: Routes.Contact,
     text: 'Contact'
   }
 ]);

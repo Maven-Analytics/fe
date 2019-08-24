@@ -11,7 +11,7 @@ const defaultContent = `
 ## Ready to become a
 ## **data rockstar**
 
-Sign up today for a **10-Day Free Trial** and find out!`;
+Sign up today for a **10-Day Free Trial** and start learning today!`;
 
 const CtaSection = ({content, linkUrl, linkText}) => {
   return (

@@ -28,8 +28,8 @@ const methodItems = [
     img: '/static/img/step1.png',
     width: 1000,
     height: 633,
-    title: 'Find Your Path',
-    description: 'Take a 5-minute survey and we’ll match you with the best courses & paths to help you reach your goals',
+    title: 'Find your Path',
+    description: 'Take a quick, 2-minute survey and we’ll match you with the best courses & paths to help you reach your goals',
     linkTitle: 'TAKE THE SURVEY',
     linkHref: Routes.WelcomeSurvey,
     imgMobile: {
@@ -45,9 +45,9 @@ const methodItems = [
     width: 1000,
     height: 633,
     top: 232,
-    title: 'Assess Your Skills',
+    title: 'Assess your Skills',
     description: 'Kick off each course with a benchmark assessment to see how your skills stack up, and where they fall short',
-    linkTitle: 'TAKE ASSESSMENT',
+    linkTitle: 'TRY A PRACTICE ASSESSMENT',
     linkHref: Routes.SkillsAssessments,
     imgMobile: {
       src: '/static/img/step2-mobile.png',
@@ -64,8 +64,8 @@ const methodItems = [
     width: 1000,
     height: 633,
     top: 234,
-    title: 'Rock Your Courses',
-    description: 'Complete our award-winning courses & paths to develop expert-level analytics skills',
+    title: 'Build your expertise',
+    description: 'Complete courses & paths to develop expert-level analytics and business intelligence skills',
     linkTitle: 'EXPLORE COURSES & PATHS',
     linkHref: Routes.CoursesPaths,
     imgMobile: {
@@ -81,9 +81,9 @@ const methodItems = [
     width: 1000,
     height: 633,
     top: 161,
-    title: 'Share Your Success',
-    description: 'Earn verified credentials to track your progress and share your achievements with the world',
-    linkTitle: 'Learn More',
+    title: 'Track your Progress',
+    description: 'Earn credentials, track your progress, and share your achievements from your personal student dashboard',
+    linkTitle: 'LEARN ABOUT CREDENTIALS',
     linkHref: Routes.Credentials,
     imgMobile: {
       src: '/static/img/step4-mobile.png',
@@ -95,11 +95,11 @@ const methodItems = [
 ];
 
 const MissionContent = `## IT'S TIME FOR A CHANGE
-## THERE'S A BETTER WAY TO **BUILD YOUR SKILLS**
-We’re here to reinvent the online learning experience, by focusing on quality content, exceptional instructors, unparalleled support, and unique tools to help you find your path, assess your skills, and track your accomplishments.
+The world runs on data. Do you have the skills to keep up?
 
-Think of us as your own personal team of instructors, mentors and experts -- all working together to make sure you’re fully prepared to advance or break into your career.`;
+We’re here to help you stay ahead of the analytics curve, by creating a simpler, more effective online learning experience. Our formula is simple: high quality content, exceptional instructors, unparalleled support, and tools to help you build the exact skills you need, when you need them.
 
+Think of us as your personal team of instructors, mentors and guides, helping you navigate the learning process and accelerate your career.`;
 const HappyClients = fromJS([
   {
     name: 'Beam',
@@ -143,9 +143,14 @@ class Home extends Component {
         <StatCounter
           stats={fromJS([
             {
-              value: 180,
-              text: 'Happy Students',
-              postFix: 'K+'
+              value: 97,
+              text: 'Student Satisfaction',
+              postFix: '%'
+            },
+            {
+              value: 850,
+              text: 'Training Videos',
+              postFix: '+'
             },
             {
               value: 5000,
@@ -153,13 +158,9 @@ class Home extends Component {
               postFix: '+'
             },
             {
-              value: 300,
-              text: 'Training Videos',
-              postFix: '+'
-            },
-            {
-              value: 158,
-              text: 'Countries Represented'
+              value: 200,
+              text: 'Happy Students',
+              postFix: 'K+'
             }
           ])}
         />
@@ -169,15 +170,15 @@ class Home extends Component {
           content={MissionContent}
           icons={fromJS([
             {
-              title: 'Self-paced courses',
+              title: 'Self-Paced Courses',
               icon: 'play'
             },
             {
-              title: 'Skills assessments',
+              title: 'Skills Assessments',
               icon: 'quiz'
             },
             {
-              title: 'Verified credentisla',
+              title: 'Verified Credentials',
               icon: 'badge'
             },
             {

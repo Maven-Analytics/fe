@@ -29,16 +29,17 @@ const promoMd = `
 ## CLOSER TO BECOMING A
 ## **Data Rockstar**
 
-One monthly subscription. Access to ALL courses, paths and personalized learning experiences. 100% satisfaction guaranteed. No obligation cancel anytime.
+Subscriptions include access to ALL courses, paths, assessments, and personalized resources. No obligation, 100% satisfaction guarantee.
 
-- Unlimited access to ALL COURSES & PATHS
-- Personalized learning paths & course plans
-- Hands-on demos and course materials
-- Skills assessments & benchmarks
-- 1-on-1 Instructor support
-- Completion Certifications & Accredations
-- 100% Satisfaction Guarantee
-- Regular updates and new course content
+- Unlimited access to ALL courses & paths
+- Personalized recommendations
+- Interactive skills assessments
+- Private student dashboard
+- Downloadable project files and resources
+- 1-on-1 instructor support
+- Verified digital credentials
+- Regular content updates
+- 100% satisfaction guarantee
 `;
 
 const CheckoutLayout = ({children, activeStep, title, full, containerClass}) => {
