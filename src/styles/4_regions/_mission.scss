@@ -64,22 +64,32 @@
     }
   }
 
-  &__icons {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-row-gap: 2.7rem;
-    grid-column-gap: 2.7rem;
-    margin-top: $spacing-unit--md;
+  // &__icons {
+  //   display: grid;
+  //   grid-template-columns: 1fr 1fr;
+  //   grid-row-gap: 2.7rem;
+  //   grid-column-gap: 2.7rem;
+  //   margin-top: $spacing-unit--md;
 
-    @include media-breakpoint-up(md) {
-      grid-template-columns: 1fr 1fr 1fr 1fr;
-      grid-row-gap: 6.8rem;
-      grid-column-gap: 6.8rem;
-      margin-top: $spacing-unit--ll;
-    }
-  }
+  //   @include media-breakpoint-up(md) {
+  //     grid-template-columns: 1fr 1fr 1fr 1fr;
+  //     grid-row-gap: 6.8rem;
+  //     grid-column-gap: 6.8rem;
+  //     margin-top: $spacing-unit--ll;
+  //   }
+  // }
 
   &__icon {
+    display: inline-block;
+    margin-top: $spacing-unit--md;
+    text-align: center;
+    width: 50%;
+
+    @include media-breakpoint-up(md) {
+      margin-top: $spacing-unit--ll;
+      width: 25%;
+    }
+
     i {
       @include gradient-font();
       display: inline-block;

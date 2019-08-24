@@ -25,6 +25,9 @@
     visibility: visible;
   }
 }
+.maicon-dashboard:before {
+  content: "\e91b";
+}
 .maicon-map-marker:before {
   content: "\e919";
 }

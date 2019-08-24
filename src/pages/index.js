@@ -96,9 +96,7 @@ const methodItems = [
 
 const MissionContent = `## IT'S TIME FOR A CHANGE
 ## THERE'S A BETTER WAY TO **BUILD YOUR SKILLS**
-We’re here to reinvent the online learning experience, by focusing on quality content, exceptional instructors, unparalleled support, and unique tools to help you find your path, assess your skills, and track your accomplishments.
-
-Think of us as your own personal team of instructors, mentors and experts -- all working together to make sure you’re fully prepared to advance or break into your career.`;
+Your time is valuable; don’t spend it sifting through courses, webinars and bootcamps trying to figure out where to start. Think of us as your personal team of instructors, experts, mentors and guides, here to **simplify the learning process** and **help you develop the exact skills you need.**`;
 
 const HappyClients = fromJS([
   {
@@ -181,8 +179,8 @@ class Home extends Component {
               icon: 'badge'
             },
             {
-              title: 'Team training',
-              icon: 'team'
+              title: 'Student Dashboard',
+              icon: 'dashboard'
             }
           ])}
         />
