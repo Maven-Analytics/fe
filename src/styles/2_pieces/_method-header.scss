@@ -31,6 +31,7 @@
       background: $brand-gradient;
       font-size: 3.3em;
       padding: 4px 6px;
+      white-space: nowrap;
 
       @include media-breakpoint-up(lg) {
         font-size: 3.4em;

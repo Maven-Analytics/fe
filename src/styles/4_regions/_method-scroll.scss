@@ -39,7 +39,7 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      width: calc(40% - 40px);
+      width: calc(45% - 40px);
     }
 
     @include media-breakpoint-up(xl) {
@@ -57,7 +57,7 @@
       display: block;
       flex: 0 0 839px;
       height: 512px;
-      left: calc(40% + 20px);
+      left: calc(45% + 20px);
       position: absolute;
       top: 50%;
       transform: translate3d(0, -50%, 0);
@@ -65,7 +65,7 @@
     }
 
     @include media-breakpoint-up(xl) {
-      left: calc(40% + 20px);
+      left: calc(45% + 40px);
       transform: translate3d(0, -60%, 0);
     }
   }
