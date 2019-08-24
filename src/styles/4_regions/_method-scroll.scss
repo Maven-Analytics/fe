@@ -39,7 +39,7 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      width: calc(45% - 40px);
+      width: calc(52% - 40px);
     }
 
     @include media-breakpoint-up(xl) {
@@ -57,7 +57,7 @@
       display: block;
       flex: 0 0 839px;
       height: 512px;
-      left: calc(45% + 20px);
+      left: calc(52% + 20px);
       position: absolute;
       top: 50%;
       transform: translate3d(0, -50%, 0);
@@ -138,7 +138,7 @@
     }
 
     .scroller {
-      height: 245px;
+      height: 250px;
       max-height: 320px;
       top: 15px;
     }

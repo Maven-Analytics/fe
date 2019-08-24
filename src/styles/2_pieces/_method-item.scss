@@ -10,8 +10,8 @@
 
     @include media-breakpoint-up(lg) {
       color: $black;
-      font-size: 3.5rem;
-      line-height: 30px;
+      font-size: 4.5rem;
+      line-height: 40px;
       margin-right: $spacing-unit;
     }
 
@@ -34,8 +34,8 @@
 
     @include media-breakpoint-up(lg) {
       align-items: flex-start;
-      font-size: 2.5rem;
-      height: 40px;
+      font-size: 3rem;
+      height: 50px;
       // line-height: 30px;
       margin-bottom: 0;
       white-space: nowrap;
@@ -55,7 +55,7 @@
     max-width: 500px;
 
     @include media-breakpoint-up(lg) {
-      font-size: 1.6rem;
+      font-size: 1.8rem;
       line-height: 1.5;
       margin-bottom: $spacing-unit;
       // max-width: none;
@@ -67,6 +67,10 @@
 
   .btn {
     @include media-breakpoint-up(lg) {
+      align-items: center;
+      display: inline-flex;
+      justify-content: center;
+      min-height: 4rem;
       opacity: 0;
       transform: scale(0.9);
       transition: all .2s .3s ease-in-out;
