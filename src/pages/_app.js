@@ -106,16 +106,16 @@ class MavenApp extends App {
     return (
       <Container>
         <Provider store={store}>
-          <TransitionGroup component={null}>
-            <Transition
+          {/* <TransitionGroup component={null}> */}
+            {/* <Transition
               key={pathname}
-              onEnter={(node, appears) => enter(Component.animationTimeline, node, appears)}
+              // onEnter={(node, appears) => enter(Component.animationTimeline, node, appears)}
               onExit={exit}
               timeout={{enter: 100, exit: 150}}
-            >
-              <Component {...pageProps} />
-            </Transition>
-          </TransitionGroup>
+            > */}
+            <Component {...pageProps} />
+            {/* </Transition> */}
+          {/* </TransitionGroup> */}
         </Provider>
       </Container>
     );
