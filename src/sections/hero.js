@@ -48,8 +48,8 @@ const Hero = () => {
         <div className="container container--lg">
           <div className="hero__content-inner">
             <h1>You are about<br/>to become a</h1>
-            <h1><span>Data Rockstars</span></h1>
-            <p><MaIcon icon="chevron-right"/> Award-winning business <strong>intelligence training and resources</strong></p>
+            <h1><span>Data Rockstar</span></h1>
+            <p><MaIcon icon="chevron-right"/> Award-winning business intelligence training and resources</p>
             <Link href={Routes.Signup}><a className="btn btn--primary-solid">Free 10-Day Trial</a></Link>
           </div>
         </div>
