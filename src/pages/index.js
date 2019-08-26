@@ -64,7 +64,7 @@ const methodItems = [
     width: 1000,
     height: 633,
     top: 234,
-    title: 'Build your expertise',
+    title: 'Build your Expertise',
     description: 'Complete courses & paths to develop expert-level analytics and business intelligence skills',
     linkTitle: 'EXPLORE COURSES & PATHS',
     linkHref: Routes.CoursesPaths,
@@ -95,7 +95,7 @@ const methodItems = [
 ];
 
 const MissionContent = `## IT'S TIME FOR A CHANGE
-The world runs on data. Do you have the skills to keep up?
+**The world runs on data. Do you have the skills to keep up?**
 
 We’re here to help you stay ahead of the analytics curve, by creating a simpler, more effective online learning experience. Our formula is simple: high quality content, exceptional instructors, unparalleled support, and tools to help you build the exact skills you need, when you need them.
 
