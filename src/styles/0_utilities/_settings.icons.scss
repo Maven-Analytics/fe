@@ -25,6 +25,9 @@
     visibility: visible;
   }
 }
+.maicon-analytics:before {
+  content: "\e91c";
+}
 .maicon-dashboard:before {
   content: "\e91b";
 }
