@@ -43,7 +43,7 @@ class PathListingItem extends PureComponent {
             title={path.get('title')}
             excerpt={path.get('excerpt')}
             courses={path.get('courses') && path.get('courses').count()}
-            length={getPathHours(path.get('path'))}
+            length={getPathHours(path)}
             tools={path.get('tools')}
           />
           <button className="path-listing-item__toggle" aria-hidden={coursesOpen === false} aria-controls={id} onClick={this.handleToggle}>
