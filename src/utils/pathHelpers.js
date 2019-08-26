@@ -15,7 +15,7 @@ export const getPathHours = path => {
 };
 
 export const getMatchForPath = (path, user) => {
-  if (!user || !user.isEmpty || user.isEmpty() || !user.has('recommended_paths')) {
+  if (!user || !user.isEmpty || user.isEmpty() || !user.has('recommended_paths') || !user.get('recommended_paths')) {
     return 0;
   }
 
