@@ -2,7 +2,7 @@ import React, {Fragment, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
-import {List} from 'immutable';
+import {List, Map} from 'immutable';
 import Router, {withRouter} from 'next/router';
 import qs from 'query-string';
 import {bindActionCreators} from 'redux';
@@ -10,6 +10,7 @@ import {TransitionMotion, spring, presets} from 'react-motion';
 
 import {actions as courseActions, selectors as courseSelectors} from '../redux/ducks/courses';
 import {actions as pathActions, selectors as pathSelectors} from '../redux/ducks/paths';
+import {actions as pageActions, selectors as pageSelectors} from '../redux/ducks/pages';
 import {actions as stateActions} from '../redux/ducks/state';
 import {selectors as loadingSelectors} from '../redux/ducks/loading';
 import {handleScrollIntoView, click, clickAction} from '../utils/componentHelpers';
@@ -25,6 +26,9 @@ import Loader from '../components/loader';
 import CoursePathNav from '../components/coursePathNav';
 import Image from '../components/image';
 import {courseHeroBgSources, courseHeroBgSrc} from '../constants';
+import ImageContentful from '../components/imageContentful';
+
+const PAGE_SLUG = 'courses-learning-paths';
 
 class CoursesLearningPaths extends PureComponent {
   constructor(props) {
@@ -43,6 +47,7 @@ class CoursesLearningPaths extends PureComponent {
   componentDidMount() {
     this.props.actions.coursesFilter();
     this.props.actions.pathsInit();
+    this.props.actions.pagesGet({slug: PAGE_SLUG});
   }
 
   handleNavClick(activeItem) {
@@ -147,7 +152,7 @@ class CoursesLearningPaths extends PureComponent {
   }
 
   render() {
-    const {actions} = this.props;
+    const {actions, page} = this.props;
     const {activeItem} = this.state;
 
     const scrollTo = (
@@ -197,15 +202,20 @@ class CoursesLearningPaths extends PureComponent {
           <BrochureHero
             meta={false}
             className="course-hero--large"
-            title="ONLINE COURSES<br/>& LEARNING PATHS"
-            description="<p>We’ve created hundeds of hours of detailed videos, course files and interactive content to help you learn every aspect of data analysis and business intelligence. From formulas & functions through complicated data models and advanced business modeling there is a course for everyone. Take a look and find the right course for your data rockstar goals!</p>"
+
+            eyelash={page.get('heroEyelash')}
+            title={page.get('heroTitle')}
+            description={page.get('heroDescription')}
+            image={<ImageContentful image={page.get('heroImage')}/>}
             colClasses={['col-md-7 col-lg-6 col-xl-5', 'col-md-5 col-lg-6 col-xl-7']}
+            backgroundSources={[
+              {srcSet: `${page.getIn(['heroBackground', 'file', 'url'])} 768w`, type: page.getIn(['heroBackground', 'file', 'contentType'])},
+              {srcSet: `${page.getIn(['heroBackgroundSmall', 'file', 'url'])}`, type: page.getIn(['heroBackgroundSmall', 'file', 'contentType'])}
+            ]}
+            backgroundSrc={page.getIn(['heroBackgroundSmall', 'file', 'url'])}
             linkContent={scrollTo}
             linkHref="#"
             onLinkClick={handleScrollIntoView('#courses-paths-main')}
-            image={heroImg}
-            backgroundSources={courseHeroBgSources}
-            backgroundSrc={courseHeroBgSrc}
           />
           <CtaSurvey/>
           <div className="container container--lg">
@@ -268,17 +278,20 @@ CoursesLearningPaths.propTypes = {
   view: PropTypes.string,
   actions: PropTypes.objectOf(PropTypes.func),
   loadingCourses: PropTypes.bool,
-  loadingPaths: PropTypes.bool
+  loadingPaths: PropTypes.bool,
+  page: ImmutablePropTypes.map
 };
 
 CoursesLearningPaths.defaultProps = {
   courses: List(),
-  paths: List()
+  paths: List(),
+  page: Map()
 };
 
 const mapStateToProps = state => ({
   courses: courseSelectors.getCourses(state),
   paths: pathSelectors.getPaths(state),
+  page: pageSelectors.getPage(state, PAGE_SLUG),
   loadingCourses: loadingSelectors.getLoading(['COURSES_FILTER'])(state),
   loadingPaths: loadingSelectors.getLoading(['PATHSINIT'])(state)
 });
@@ -287,7 +300,8 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     ...stateActions,
     ...pathActions,
-    ...courseActions
+    ...courseActions,
+    ...pageActions
   }, dispatch)
 });
 
