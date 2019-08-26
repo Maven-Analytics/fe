@@ -1,4 +1,4 @@
-import {TimelineMax as Timeline, Power1} from 'gsap';
+import {TimelineMax as Timeline} from 'gsap';
 
 export const DEFAULT_VIEW_ANIMATION_TIME = 0.3;
 
@@ -6,8 +6,7 @@ export const DEFAULT_VIEW_ANIMATION_FROM = {
   position: 'absolute',
   y: 10, display: 'none',
   autoAlpha: 0,
-  delay: 0,
-  ease: Power1.easeIn
+  delay: 0
 };
 
 const defaultTimeline = node => {
