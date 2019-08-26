@@ -111,6 +111,11 @@
       @include media-breakpoint-up(md) {
         width: auto;
       }
+
+      @include media-breakpoint-only(lg) {
+        min-width: 0;
+        padding: $spacing-unit--ss;
+      }
     }
 
     > span {
@@ -124,6 +129,18 @@
           flex: 0;
           order: 0;
         }
+      }
+    }
+
+    .course-hours {
+      @include media-breakpoint-only(lg) {
+        font-size: 1em;
+      }
+    }
+
+    .course-author {
+      @include media-breakpoint-only(lg) {
+        font-size: .6em;
       }
     }
   }
