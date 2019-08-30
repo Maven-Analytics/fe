@@ -44,7 +44,7 @@ const ContactPage = ({page}) => {
                   </li>
                   <li>
                     <MaIcon icon="phone"/>
-                    <span>(555) 555-5555</span>
+                    <span>(857) 256-1765</span>
                   </li>
                   <li>
                     <MaIcon icon="map-marker"/>
