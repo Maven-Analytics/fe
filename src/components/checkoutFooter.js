@@ -4,6 +4,7 @@ import Link from 'next/link';
 
 import {noop} from '../utils/componentHelpers';
 import {Routes} from '../routes';
+import config from '../config';
 
 const CheckoutFooter = ({disabled, onClick, btnType, error, loading, loginRedirect, showLogin, btnText}) => {
   return (
@@ -40,7 +41,7 @@ CheckoutFooter.propTypes = {
 
 CheckoutFooter.defaultProps = {
   onClick: noop,
-  loginRedirect: '/signup',
+  loginRedirect: `${config.HOST_APP}${Routes.Signup}`,
   showLogin: true,
   btnText: 'Next Step'
 };

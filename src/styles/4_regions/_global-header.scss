@@ -95,6 +95,8 @@
 
       > li {
         &:not(:last-child) {
+          margin-right: $spacing-unit;
+
           @include desktopHeader {
             margin-right: $spacing-unit--l;
           }

@@ -63,6 +63,20 @@ class SignupAccount extends Component {
     this.handleGoToCheckout = this.handleGoToCheckout.bind(this);
   }
 
+  componentDidMount() {
+    this.checkUser();
+  }
+
+  componentDidUpdate() {
+    this.checkUser();
+  }
+
+  checkUser() {
+    if (!this.props.user.isEmpty()) {
+      this.handleGoToCheckout();
+    }
+  }
+
   handleSubmit(e) {
     e.preventDefault();
 
@@ -105,7 +119,7 @@ class SignupAccount extends Component {
 
   render() {
     const {email, password, first_name, last_name, country, postal_code, terms} = this.state;
-    const {loading, error, user, profileError, profileLoading} = this.props;
+    const {loading, error, user, profileError, profileLoading, checkout} = this.props;
 
     const btnDisabled = !this.canSubmit();
 
@@ -139,7 +153,7 @@ class SignupAccount extends Component {
             loading={loading || profileLoading}
             disabled={btnDisabled}
             btnType="submit"
-            loginRedirect="/signup/account"
+            loginRedirect={getCheckoutUrl(checkout) || '/signup/account'}
           />
         </form>
       </Checkout>

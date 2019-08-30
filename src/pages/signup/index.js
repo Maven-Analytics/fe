@@ -17,6 +17,7 @@ import {selectors as checkoutSelectors, actions as checkoutActions} from '../../
 import CheckoutFooter from '../../components/checkoutFooter';
 import {Routes} from '../../routes';
 import config from '../../config';
+import {getCheckoutUrl} from '../../utils/checkoutHelpers';
 
 class SignupIndex extends Component {
   constructor(props) {
@@ -34,11 +35,11 @@ class SignupIndex extends Component {
   }
 
   handleNextClick() {
-    const {user} = this.props;
+    const {user, checkout} = this.props;
 
     if (user && user.get('id')) {
       this.props.actions.sso({
-        redirectTo: `${config.HOST_APP}${Routes.SignupAccount}`
+        redirectTo: getCheckoutUrl(checkout)
       });
     } else {
       Router.push(Routes.SignupAccount);
