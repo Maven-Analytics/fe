@@ -14,7 +14,7 @@ const thanksContent = `
 # Welcome to Maven Analytics
 ## Now Let's Get Started!
 
-Let’s start by taking a quick survey so we can find the perfect courses and paths for your career goals!
+Take a quick 2-minute survey, and we’ll match you to the best courses & paths to help you reach your goals.
 
 The survey should take 3-5 minutes to complete and is designed to measure your career goals and create
 a customized learning cirriculum.
