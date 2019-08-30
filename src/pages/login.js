@@ -16,7 +16,7 @@ import {Routes} from '../routes';
 class Login extends Component {
   static async getInitialProps(ctx) {
     return {
-      redirectTo: ctx.query.redirectTo ? `${ctx.query.redirectTo}` : config.HOST_APP
+      redirectTo: ctx.query.redirectTo ? `${ctx.query.redirectTo}` : `${config.HOST_APP}${Routes.Dashboard}`
     };
   }
 
@@ -40,7 +40,7 @@ class Login extends Component {
     this.props.actions.login({
       email: this.state.email,
       password: this.state.password,
-      redirectTo: this.props.redirectTo ? this.props.redirectTo : config.HOST_APP
+      redirectTo: this.props.redirectTo ? this.props.redirectTo : `${config.HOST_APP}${Routes.Dashboard}`
     });
   }
 
