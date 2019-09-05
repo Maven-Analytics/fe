@@ -19,7 +19,7 @@ export const SurveyQuestions = fromJS([
     id: 'question-2',
     text: 'On a scale of 1-10, how interested are you in developing the following skills?',
     answers: [
-      {id: '2a', text: 'General Productivity', className: 'has-note', note: '(Efficiently managing and manipulating information stored in spreadsheets)', icon: 'productivity'},
+      {id: '2a', text: 'General Productivity', className: 'has-note', note: '(Efficiently managing data and information stored in spreadsheets)', icon: 'productivity'},
       {id: '2b', text: 'Data Analysis', className: 'has-note', note: '(Exploring and analyzing raw data to expose meaningful insights and trends)', icon: 'analytics'},
       {id: '2c', text: 'Data Visualization', className: 'has-note', note: '(Using charts, graphs, and custom dashboards to bring your data to life)', icon: 'visualisation'},
       {id: '2d', text: 'Database Design & Modeling', className: 'has-note', note: '(Building and analyzing relational data models from multiple sources)', icon: 'database'}
@@ -29,13 +29,13 @@ export const SurveyQuestions = fromJS([
     id: 'question-3',
     text: 'On a scale of 1-10, how often do you perform (or expect to perform) the following types of tasks?',
     answers: [
-      {id: '3a', text: 'Exploring and analyzing relatively small datasets (<1mm rows)'},
-      {id: '3b', text: 'Exploring and analyzing large tables (>1mm rows), data models or databases'},
+      {id: '3a', text: 'Exploring & analyzing small datasets (<1mm rows)'},
+      {id: '3b', text: 'Exploring & analyzing large tables, data models or databases'},
       {id: '3c', text: 'Creating charts or graphs for use in presentations or reports'},
       {id: '3d', text: 'Prepping or maintaining data stored in spreadsheets'},
-      {id: '3e', text: 'Developing reports or dashboards to integrate multiple sources of data'},
-      {id: '3f', text: 'Managing or administering reports for clients or internal teams'},
-      {id: '3g', text: 'Building custom, spreadsheet-based forecasts, tools, or reports'}
+      {id: '3e', text: 'Developing dashboards to integrate multiple data sources'},
+      {id: '3f', text: 'Administering reports for clients or internal teams'},
+      {id: '3g', text: 'Building custom spreadsheet tools (forecasts, reports, etc.'}
     ]
   },
   {
