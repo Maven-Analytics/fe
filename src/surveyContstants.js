@@ -35,7 +35,7 @@ export const SurveyQuestions = fromJS([
       {id: '3d', text: 'Prepping or maintaining data stored in spreadsheets'},
       {id: '3e', text: 'Developing dashboards to integrate multiple data sources'},
       {id: '3f', text: 'Administering reports for clients or internal teams'},
-      {id: '3g', text: 'Building custom spreadsheet tools (forecasts, reports, etc.'}
+      {id: '3g', text: 'Building custom spreadsheet tools (forecasts, reports, etc.)'}
     ]
   },
   {
