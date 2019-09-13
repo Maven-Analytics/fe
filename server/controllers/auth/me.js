@@ -34,6 +34,11 @@ function getUser(id) {
 }
 
 function getEnrollments(user_id) {
-  return axios.get(`${process.env.HOST_API}/api/v1/enrollment?user_id=${user_id}`)
+  return axios.get(`${process.env.HOST_API}/api/v1/enrollment`, {
+    params: {
+      user_id,
+      expired: false
+    }
+  })
     .then(res => res.data.data);
 }
