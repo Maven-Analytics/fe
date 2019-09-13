@@ -1,4 +1,10 @@
 .page-faq {
+  &__content,
+  .course-lessons {
+    max-width: $brochureContentContainer;
+    margin: 0 auto;
+  }
+
   &__content {
     color: $gray-medium-2;
     font-size: 1.6rem;
@@ -23,6 +29,7 @@
       position: relative;
 
       &:hover {
+        color: $black;
         text-decoration: none;
       }
 
