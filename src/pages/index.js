@@ -97,9 +97,7 @@ const methodItems = [
 const MissionContent = `## IT'S TIME FOR A CHANGE
 **The world runs on data. Do you have the skills to keep up?**
 
-We’re here to help you stay ahead of the analytics curve, by creating a simpler, more effective online learning experience. Our formula is simple: high quality content, exceptional instructors, unparalleled support, and tools to help you build the exact skills you need, when you need them.
-
-Think of us as your personal team of instructors, mentors and guides, helping you navigate the learning process and accelerate your career.`;
+We’re here to help you stay ahead of the curve, by creating a simpler, more effective learning experience. Our formula is simple: quality content, exceptional instructors, unparalleled support, and tools to help you navigate the learning process and accelerate your career.`;
 const HappyClients = fromJS([
   {
     name: 'Beam',
