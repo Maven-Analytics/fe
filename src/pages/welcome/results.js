@@ -130,7 +130,7 @@ class WelcomeSurveyResults extends Component {
 
   render() {
     return (
-      <Checkout full>
+      <Checkout full fullNav>
         <TransitionMotion
           styles={this.getStyles()}
           willEnter={this.willEnter}

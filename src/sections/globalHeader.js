@@ -15,9 +15,15 @@ import {menuLinksMain} from '../routes';
 import HeaderAuth from '../components/headerAuth';
 import {Routes} from '../routes';
 
-const GlobalHeader = ({state, actions}) => {
+const GlobalHeader = ({state, actions, className}) => {
+  const classList = ['global-header'];
+
+  if (className) {
+    classList.push(className);
+  }
+
   return (
-    <header className="global-header">
+    <header className={classList.join(' ')}>
       <Headroom>
         <div className="container container--lg">
           <div className="global-header__inner">
@@ -48,7 +54,8 @@ const GlobalHeader = ({state, actions}) => {
 
 GlobalHeader.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  state: ImmutablePropTypes.map
+  state: ImmutablePropTypes.map,
+  classList: PropTypes.string
 };
 
 GlobalHeader.defaultProps = {

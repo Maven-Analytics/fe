@@ -8,6 +8,7 @@ import Image from '../components/image';
 import CheckoutSteps from '../components/checkoutSteps';
 import Markdown from '../components/markdown';
 import BaseLayout from './base';
+import GlobalHeader from '../sections/globalHeader';
 
 const checkoutLinks = fromJS([
   {
@@ -42,7 +43,7 @@ Subscriptions include access to ALL courses, paths, assessments, and personalize
 - 100% satisfaction guarantee
 `;
 
-const CheckoutLayout = ({children, activeStep, title, full, containerClass}) => {
+const CheckoutLayout = ({children, activeStep, title, full, containerClass, fullNav}) => {
   const Background = (
     <div className="layout-checkout__background">
       <Image
@@ -96,9 +97,10 @@ const CheckoutLayout = ({children, activeStep, title, full, containerClass}) => 
 
   return (
     <BaseLayout
-      header={CheckoutHeader}
+      header={fullNav ? GlobalHeader : CheckoutHeader}
       footer={CopyrightFooter}
       mainClass="layout-checkout"
+      headerClass="global-header--checkout"
     >
       {Background}
       {Content}
@@ -111,14 +113,16 @@ CheckoutLayout.propTypes = {
   activeStep: PropTypes.number,
   title: PropTypes.string,
   full: PropTypes.bool,
-  containerClass: PropTypes.string
+  containerClass: PropTypes.string,
+  fullNav: PropTypes.bool
 };
 
 CheckoutLayout.defaultProps = {
   activeStep: 0,
   title: 'Select a membership plan',
   full: false,
-  containerClass: 'container container--lg'
+  containerClass: 'container container--lg',
+  fullNav: false
 };
 
 export default CheckoutLayout;
