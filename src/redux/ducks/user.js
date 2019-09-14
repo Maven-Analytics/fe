@@ -34,7 +34,7 @@ export default (state = initialState, action) => {
   case types.TOKEN_SET:
     return state.set('token', action.payload);
   case types.USER_SET:
-    return state.set('user', fromJS(action.payload));
+    return state.update('user', u => u.merge(fromJS(action.payload)));
   case types.TOKEN_UNSET:
     return state.set('token', initialState.get('token'));
   case types.USER_UNSET:
