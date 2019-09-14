@@ -38,7 +38,7 @@ const CredentialsPage = ({page, courses, paths}) => {
           {products.map(product => (
             <li key={product.get('id')}>
               <Link href={product.get('badgeUrl')}>
-                <a className="credential">
+                <a className="credential" target="_blank">
                   {product.get('title') ? <div className="tooltip centered">{product.get('title')}</div> : null}
                   <ImageContentful image={product.get('badge')}/>
                 </a>
