@@ -2,10 +2,12 @@ import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 
 import Modals from '../sections/modals';
+import IeWarn from '../components/ieWarn';
 
 const BaseLayout = ({children, header: Header, footer: Footer, mainClass, hideModals, headerClass}) => {
   return (
     <Fragment>
+      <IeWarn/>
       {Header ? <Header className={headerClass}/> : null}
       <main id="main" className={mainClass}>
         {children}

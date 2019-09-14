@@ -1,0 +1,19 @@
+.ie-warn {
+  display: none;
+  background-color: $gray-dark;
+  color: $white;
+  left: 0;
+  padding: $spacing-unit;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: index($globalIndex, ieWarn);
+
+  p {
+    margin: 0;
+  }
+}
+@media all and (-ms-high-contrast:none)
+{
+  .ie-warn { display: block; } /* IE10 */
+}
