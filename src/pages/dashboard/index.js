@@ -75,8 +75,8 @@ class DashboardPage extends Component {
     const RockstarProgress = (
       <DashboardCard loading={loadingProgress} title="Data Rockstar Progress">
         <Tabs tabs={['Paths', 'Courses']}>
-          <DashboardProgress items={progress.get('paths')}/>
-          <DashboardProgress items={progress.get('courses')}/>
+          <DashboardProgress items={progress.get('paths')} modal="pathDrawer"/>
+          <DashboardProgress items={progress.get('courses')} modal="courseDrawer"/>
         </Tabs>
       </DashboardCard>
     );
