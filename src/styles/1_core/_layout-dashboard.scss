@@ -10,10 +10,10 @@
   }
 
   &__container {
-    margin: $spacing-unit--mdl 0;
+    padding: $spacing-unit--mdl 0;
 
     @include collapseUp() {
-      margin: $spacing-unit--l 0;
+      padding: $spacing-unit--l 0;
     }
 
     &.has-sidebar {
