@@ -3,10 +3,22 @@ import {createSelector} from 'reselect';
 import * as utils from '../../utils/duckHelpers';
 import {List} from 'immutable';
 
+export const types = {
+  ERROR_RESET: 'ERROR_RESET'
+};
+
+export const actions = {
+  errorReset: obj => utils.action(types.ERROR_RESET, obj)
+};
+
 const initialState = utils.initialState({});
 export default (state = initialState, action) => {
   const {type, payload} = action;
   const matches = /(.*)_(REQUEST|FAILURE)/.exec(type);
+
+  if (action.type === types.ERROR_RESET) {
+    return initialState;
+  }
 
   // Not a *_REQUEST / *_SUCCESS /  *_FAILURE actions, so we ignore them
   if (!matches) {

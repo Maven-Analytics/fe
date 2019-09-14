@@ -14,6 +14,8 @@ import {actions as authActions} from '../redux/ducks/auth';
 import {actions as checkoutActions} from '../redux/ducks/checkout';
 import {actions as userActions} from '../redux/ducks/user';
 import {actions as stateActions} from '../redux/ducks/state';
+import {actions as responseActions} from '../redux/ducks/response';
+import {actions as errorActions} from '../redux/ducks/error';
 import {getCookie, removeCookie} from '../utils/cookies';
 import {enter, exit} from '../utils/animations';
 
@@ -96,6 +98,8 @@ class MavenApp extends App {
 
   handleRouteChange() {
     this.props.store.dispatch(stateActions.stateReset());
+    this.props.store.dispatch(responseActions.responseReset());
+    this.props.store.dispatch(errorActions.errorReset());
   }
 
   render() {
