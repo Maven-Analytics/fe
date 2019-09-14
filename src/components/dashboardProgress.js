@@ -15,8 +15,6 @@ const DashboardProgress = ({items, active, actions, modal}) => {
     classList.push('active');
   }
 
-  console.log(items.toJS());
-
   return (
     <div className={classList.join(' ')}>
       <ul>
