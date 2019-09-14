@@ -7,6 +7,7 @@ import {bindActionCreators} from 'redux';
 import {actions as courseActions, selectors as courseSelectors} from '../../redux/ducks/courses';
 import {selectors as errorSelectors} from '../../redux/ducks/error';
 import {selectors as loadingSelectors} from '../../redux/ducks/loading';
+import {actions as dashboardActions, selectors as dashboardSelectors} from '../../redux/ducks/dashboard';
 import DashboardLayout from '../../layouts/dashboard';
 import CourseFilters from '../../components/courseFilters';
 import DashboardGrid from '../../components/dashboardGrid';
@@ -16,8 +17,14 @@ import DashboardNoData from '../../components/dashboardNoData';
 import withAuthSync from '../../components/withAuthSync';
 
 class DashboardCourses extends Component {
+  componentDidMount() {
+    this.props.actions.coursesFilter();
+    this.props.actions.getProgress();
+  }
+
   render() {
-    const {loading, courses} = this.props;
+    const {loading, progress} = this.props;
+    const courses = progress.get('courses');
 
     return (
       <DashboardLayout sidebar={CourseFilters} showWelcome loading={loading} title="Self-Paced Courses" activeLink={2}>
@@ -31,7 +38,7 @@ class DashboardCourses extends Component {
               recommended={course.get('recommended') ? 'Recommended for you' : null}
             />
           ))}
-          {loading === false && courses.count() === 0 ? (
+          {loading === false && courses.count() === 0 && process.browser ? (
             <DashboardNoData
               text="No courses found!"
               className="grid-span-2"
@@ -59,32 +66,38 @@ class DashboardCourses extends Component {
 DashboardCourses.getInitialProps = async ctx => {
   const {store, asPath} = ctx;
 
-  store.dispatch(courseActions.coursesFilter());
+  // store.dispatch(courseActions.coursesFilter());
+  // store.dispatch(dashboardActions.getProgress());
 
   // const url = asPath;
 
   // const search = url.split('?')[1] || '';
 
   // const query = qs.parse(search);
+
+  return {
+    loading: true
+  };
 };
 
 DashboardCourses.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.string,
   actions: PropTypes.objectOf(PropTypes.func),
-  courses: ImmutablePropTypes.list
+  progress: ImmutablePropTypes.map
 };
 
 const mapStateToProps = state => ({
   loading: loadingSelectors.getLoading(['COURSES_FILTER'])(state),
   error: errorSelectors.getError(['COURSES_FILTER'])(state),
-  courses: courseSelectors.getCourses(state)
+  progress: dashboardSelectors.getProgress(state)
 });
 
 const mapDispatchToProps = function (dispatch) {
   return {
     actions: bindActionCreators({
-      ...courseActions
+      ...courseActions,
+      ...dashboardActions
     }, dispatch)
   };
 };
