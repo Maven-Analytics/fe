@@ -94,10 +94,9 @@ const methodItems = [
   }
 ];
 
-const MissionContent = `## IT'S TIME FOR A CHANGE
-**The world runs on data. Do you have the skills to keep up?**
+const MissionContent = `## SKILLS FOR THE REAL WORLD
 
-We’re here to help you stay ahead of the curve, by creating a simpler, more effective learning experience. Our formula is simple: quality content, exceptional instructors, unparalleled support, and tools to help you navigate the learning process and accelerate your career.`;
+In a world that runs on data, we’re here to help you keep pace. Our formula is simple: quality content, exceptional instructors, unparalleled support, and tools to help you build powerful, practical analytics and BI skills.`;
 const HappyClients = fromJS([
   {
     name: 'Beam',
