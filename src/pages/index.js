@@ -94,7 +94,7 @@ const methodItems = [
   }
 ];
 
-const MissionContent = `## SKILLS FOR THE REAL WORLD
+const MissionContent = `## REAL WORLD SKILLS
 
 In a world that runs on data, we’re here to help you keep pace. Our formula is simple: quality content, exceptional instructors, unparalleled support, and tools to help you build powerful, practical analytics and BI skills.`;
 const HappyClients = fromJS([
