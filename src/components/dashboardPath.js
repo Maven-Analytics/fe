@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
-import Link from 'next/link';
 import {Map, List} from 'immutable';
 
 import ImageContentful from './imageContentful';
@@ -10,39 +9,34 @@ import RichText from './richText';
 import ProductTools from './productTools';
 import ProductMeta from './productMeta';
 import ProductMetaItem from './productMetaItem';
+import ResumeProduct from './resumeProduct';
 
 const DashboardPath = ({title, percentage_completed, onDetailClick, resumeUrl, badge, shortDescription, match, courseCount, hours, tools}) => {
   return (
     <div className="dashboard-path">
       <div className="dashboard-path__badge">
-        <ImageContentful image={badge}/>
+        <ImageContentful image={badge} />
       </div>
       <div className="dashboard-path__content">
         <h4>{title}</h4>
-        <RichText content={shortDescription}/>
+        <RichText content={shortDescription} />
         <div className="dashboard-path__footer">
           {resumeUrl ? (
-            <Link href={resumeUrl}>
-              <a className="btn btn--primary-solid">Resume Path</a>
-            </Link>
+            <ResumeProduct resumeUrl={resumeUrl} productTerm="Course" started={percentage_completed > 0} className="btn btn--primary-solid" />
           ) : null}
-          <button onClick={onDetailClick} className="btn btn--default">View Path Details</button>
+          <button onClick={onDetailClick} className="btn btn--default">
+            View Path Details
+          </button>
         </div>
       </div>
       <div className="dashboard-path__details">
-        <ProgressMeter value={percentage_completed} title="Progress"/>
+        <ProgressMeter value={percentage_completed} title="Progress" />
         <ProductMeta className="product-meta--grid-2x2 product-meta--border-top">
-          <ProductMetaItem label="Number of Courses">
-            {courseCount}
-          </ProductMetaItem>
-          <ProductMetaItem label="Total Hours">
-            {hours || 0}
-          </ProductMetaItem>
-          <ProductMetaItem label="Match Score">
-            {match}
-          </ProductMetaItem>
+          <ProductMetaItem label="Number of Courses">{courseCount}</ProductMetaItem>
+          <ProductMetaItem label="Total Hours">{hours || 0}</ProductMetaItem>
+          <ProductMetaItem label="Match Score">{match}</ProductMetaItem>
           <ProductMetaItem label="Tools Featured">
-            <ProductTools tools={tools}/>
+            <ProductTools tools={tools} />
           </ProductMetaItem>
         </ProductMeta>
       </div>

@@ -40,11 +40,7 @@ class DashboardPage extends Component {
     const RecentCourse = (
       <DashboardCard showWelcome loading={loadingProgress || loadingCourses} title="Your Most Recent Course">
         {(!recentCourse || recentCourse.isEmpty()) && loadingProgress === false && loadingCourses === false ? (
-          <DashboardNoData
-            btnText="View Courses"
-            btnUrl={Routes.Courses}
-            text="You haven’t started any courses yet. Let’s get started!"
-          >
+          <DashboardNoData btnText="View Courses" btnUrl={Routes.Courses} text="You haven’t started any courses yet. Let’s get started!">
             <Image
               src="/static/img/dashboard-no-data-328.jpg"
               wrapStyle={{
@@ -75,8 +71,8 @@ class DashboardPage extends Component {
     const RockstarProgress = (
       <DashboardCard loading={loadingProgress} title="Data Rockstar Progress">
         <Tabs tabs={['Paths', 'Courses']}>
-          <DashboardProgress items={progress.get('paths')} modal="pathDrawer"/>
-          <DashboardProgress items={progress.get('courses')} modal="courseDrawer"/>
+          <DashboardProgress items={progress.get('paths')} modal="pathDrawer" />
+          <DashboardProgress items={progress.get('courses')} modal="courseDrawer" />
         </Tabs>
       </DashboardCard>
     );
@@ -97,16 +93,12 @@ class DashboardPage extends Component {
             title="You haven’t earned any badges yet."
             text="Complete courses to earn badges and credentials."
           >
-            <MaIcon icon="badge-alt"/>
+            <MaIcon icon="badge-alt" />
           </DashboardNoData>
         ) : (
           <DashboardCredentialIcons>
             {completed.map(cred => (
-              <DashboardCredential
-                key={cred.get('id')}
-                image={cred.get('badge')}
-                title={cred.get('title')}
-              />
+              <DashboardCredential key={cred.get('id')} image={cred.get('badge')} title={cred.get('title')} />
             ))}
           </DashboardCredentialIcons>
         )}
@@ -162,14 +154,20 @@ const mapStateToProps = state => ({
   completedPaths: pathSelectors.getCompletedPaths(state)
 });
 
-const mapDispatchToProps = function (dispatch) {
+const mapDispatchToProps = function(dispatch) {
   return {
-    actions: bindActionCreators({
-      ...dashboardActions,
-      ...pathActions,
-      ...courseActions
-    }, dispatch)
+    actions: bindActionCreators(
+      {
+        ...dashboardActions,
+        ...pathActions,
+        ...courseActions
+      },
+      dispatch
+    )
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withAuthSync(DashboardPage));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withAuthSync(DashboardPage));

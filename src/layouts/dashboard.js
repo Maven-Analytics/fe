@@ -19,6 +19,7 @@ const DashboardLayout = ({children, title, activeLink, user, showWelcome, sideba
       mainClass="layout-dashboard"
       hideModals={['mobileMenu']}
     >
+      {/* @TODO: Show alert if the user is enrolled, but all enrollments are expired */}
       <div className="layout-dashboard__wrap">
         <DashboardHeader
           welcome={showWelcome && isImmutable(user) ? `Good afternoon, ${user.get('first_name')}` : null}
