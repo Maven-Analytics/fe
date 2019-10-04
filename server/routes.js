@@ -63,7 +63,9 @@ module.exports = app => {
           auth: false,
           validate: {
             payload: {
-              email: Joi.string().email().required(),
+              email: Joi.string()
+                .email()
+                .required(),
               password: Joi.string().required(),
               redirectTo: Joi.string().required()
             }
@@ -92,7 +94,9 @@ module.exports = app => {
           auth: false,
           validate: {
             payload: {
-              email: Joi.string().email().required(),
+              email: Joi.string()
+                .email()
+                .required(),
               password: Joi.string().required(),
               token: Joi.string().required()
             }
@@ -108,7 +112,9 @@ module.exports = app => {
           auth: false,
           validate: {
             payload: {
-              email: Joi.string().email().required()
+              email: Joi.string()
+                .email()
+                .required()
             }
           }
         },
@@ -133,7 +139,9 @@ module.exports = app => {
           auth: false,
           validate: {
             payload: {
-              email: Joi.string().email().required(),
+              email: Joi.string()
+                .email()
+                .required(),
               password: Joi.string().required(),
               first_name: Joi.string().required(),
               last_name: Joi.string().required(),
@@ -219,6 +227,19 @@ module.exports = app => {
             payload: {
               paths: Joi.array().required(),
               courses: Joi.array().required()
+            }
+          }
+        }
+      });
+
+      server.route({
+        method: 'GET',
+        path: '/api/v1/credentials',
+        handler: require('./controllers/credentials/get'),
+        config: {
+          validate: {
+            query: {
+              group_id: Joi.number()
             }
           }
         }

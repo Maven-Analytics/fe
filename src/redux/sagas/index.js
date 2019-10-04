@@ -22,8 +22,9 @@ import config from '../../config';
 import {watchContact} from './contact';
 import {watchSubscribe} from './subscribe';
 import zapier from '../../services/zapier';
+import {watchCredentials} from './credentials';
 
-function * logoutRequest({payload: {ctx}}) {
+function* logoutRequest({payload: {ctx}}) {
   removeCookie('token', ctx);
 
   window.localStorage.setItem('logout', Date.now());
@@ -40,7 +41,7 @@ function * logoutRequest({payload: {ctx}}) {
   ]);
 }
 
-function * reauthenticateRequest({payload: {token, isServer, ctx}}) {
+function* reauthenticateRequest({payload: {token, isServer, ctx}}) {
   if (!token) {
     return;
   }
@@ -84,7 +85,7 @@ function * reauthenticateRequest({payload: {token, isServer, ctx}}) {
   }
 }
 
-function * loginRequest({payload}) {
+function* loginRequest({payload}) {
   try {
     const data = yield login(payload);
 
@@ -116,7 +117,7 @@ function * loginRequest({payload}) {
   }
 }
 
-function * forgotRequest({payload}) {
+function* forgotRequest({payload}) {
   try {
     const data = yield forgot(payload);
 
@@ -136,7 +137,7 @@ function * forgotRequest({payload}) {
   }
 }
 
-function * resetRequest({payload}) {
+function* resetRequest({payload}) {
   try {
     const data = yield reset(payload);
 
@@ -156,7 +157,7 @@ function * resetRequest({payload}) {
   }
 }
 
-function * registerRequest({payload}) {
+function* registerRequest({payload}) {
   try {
     const recommendedCourses = yield select(userSelectors.getRecommendedCourses);
     const recommendedPaths = yield select(userSelectors.getRecommendedPaths);
@@ -193,7 +194,7 @@ function * registerRequest({payload}) {
   }
 }
 
-function * ssoRequest({payload}) {
+function* ssoRequest({payload}) {
   try {
     const data = yield sso(payload);
 
@@ -214,7 +215,7 @@ function * ssoRequest({payload}) {
   }
 }
 
-function * rootSaga() {
+function* rootSaga() {
   yield all([
     takeLatest(authTypes.REAUTHENTICATE_REQUEST, reauthenticateRequest),
     takeLatest(authTypes.LOGIN_REQUEST, loginRequest),
@@ -236,7 +237,8 @@ function * rootSaga() {
     fork(watchSpotlights),
     fork(watchPages),
     fork(watchContact),
-    fork(watchSubscribe)
+    fork(watchSubscribe),
+    fork(watchCredentials)
   ]);
 }
 
@@ -263,11 +265,12 @@ function register({email, password, first_name, last_name, country, postal_code,
 async function authReq(type, data) {
   const baseUrl = config.HOST_APP;
 
-  return axios.post(`${baseUrl}/api/v1/${type}`, data, {
-    headers: {
-      authorization: getCookie('token')
-    }
-  })
+  return axios
+    .post(`${baseUrl}/api/v1/${type}`, data, {
+      headers: {
+        authorization: getCookie('token')
+      }
+    })
     .then(res => res.data)
     .then(response => response.data);
 }
@@ -275,14 +278,14 @@ async function authReq(type, data) {
 function reauthenticate(token) {
   const baseUrl = config.HOST_APP;
 
-  return axios.get(`${baseUrl}/api/v1/me`, {
-    headers: {
-      authorization: token
-    }
-  })
+  return axios
+    .get(`${baseUrl}/api/v1/me`, {
+      headers: {
+        authorization: token
+      }
+    })
     .then(res => res.data)
     .then(response => response.data);
 }
 
 export default rootSaga;
-

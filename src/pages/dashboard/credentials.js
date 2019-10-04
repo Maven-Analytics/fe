@@ -34,6 +34,7 @@ class DashboardCredentials extends Component {
                 title={path.get('title')}
                 progress={path.get('percentage_completed')}
                 image={path.get('badge')}
+                accredibleId={path.get('accredibleId')}
               />
             );
           })}
@@ -48,6 +49,7 @@ class DashboardCredentials extends Component {
                 title={course.get('title')}
                 progress={course.get('percentage_completed')}
                 image={course.get('badge')}
+                accredibleId={course.get('accredibleId')}
               />
             );
           })}
@@ -74,13 +76,19 @@ const mapStateToProps = state => ({
   errorPaths: errorSelectors.getError(['PATHSINIT'])(state)
 });
 
-const mapDispatchToProps = function (dispatch) {
+const mapDispatchToProps = function(dispatch) {
   return {
-    actions: bindActionCreators({
-      ...pathActions,
-      ...courseActions
-    }, dispatch)
+    actions: bindActionCreators(
+      {
+        ...pathActions,
+        ...courseActions
+      },
+      dispatch
+    )
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withAuthSync(DashboardCredentials));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withAuthSync(DashboardCredentials));
