@@ -2,7 +2,6 @@
   @extend .welcome-survey;
   position: relative;
 
-
   &__loading {
     left: 0;
     margin: 12vh auto;
@@ -32,6 +31,12 @@
   &__recommended-path {
     .course-carousel {
       padding-top: 0;
+    }
+  }
+
+  .course-carousel {
+    .flickity-prev-next-button {
+      color: $white;
     }
   }
 }
