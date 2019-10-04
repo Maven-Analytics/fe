@@ -40,8 +40,12 @@ class MinMaxInput extends Component {
     const {current: el} = this.el;
 
     const elRect = el.getBoundingClientRect();
-    const total = elRect.width;
+    let total = elRect.width;
     let distance = x - elRect.left;
+
+    if (total > this.props.maxWidth) {
+      total = this.props.maxWidth;
+    }
 
     if (distance < 0) {
       distance = 0;
@@ -68,8 +72,12 @@ class MinMaxInput extends Component {
     const {current: el} = this.el;
 
     const elRect = el.getBoundingClientRect();
-    const total = elRect.width;
+    let total = elRect.width;
     let distance = x - elRect.left;
+
+    if (total > this.props.maxWidth) {
+      total = this.props.maxWidth;
+    }
 
     if (distance < 0) {
       distance = 0;
@@ -92,8 +100,13 @@ class MinMaxInput extends Component {
     const {current: el} = this.el;
     const elRect = el.getBoundingClientRect();
 
-    const total = elRect.width;
-    const x = (total / this.props.max * value) + elRect.left;
+    let total = elRect.width;
+
+    if (total > this.props.maxWidth) {
+      total = this.props.maxWidth;
+    }
+
+    const x = (total / this.props.max) * value + elRect.left;
 
     return this.getXPos(x);
   }
@@ -227,12 +240,8 @@ class MinMaxInput extends Component {
     const {percentageMin, percentageMax} = this.state;
 
     return (
-      <div
-        ref={this.el}
-        draggable
-        className="range-input minmax"
-      >
-        <div className="bar"/>
+      <div ref={this.el} draggable className="range-input minmax" style={{maxWidth: this.props.maxWidth}}>
+        <div className="bar" />
         <div
           className="progress"
           style={{
@@ -298,7 +307,8 @@ MinMaxInput.propTypes = {
   valueMin: PropTypes.number,
   valueMax: PropTypes.number,
   idMin: PropTypes.string,
-  idMax: PropTypes.string
+  idMax: PropTypes.string,
+  maxWidth: PropTypes.number.isRequired
 };
 
 MinMaxInput.defaultProps = {

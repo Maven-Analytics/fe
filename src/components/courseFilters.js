@@ -90,21 +90,17 @@ class CourseFilters extends Component {
 
     return (
       <div className={classList.join(' ')}>
-        <div className="course-filters__fog" onClick={clickPrevent(actions.offmenuToggle, 'filters')}/>
+        <div className="course-filters__fog" onClick={clickPrevent(actions.offmenuToggle, 'filters')} />
         <header>
           <h4>{title}</h4>
-          <button onClick={clickPrevent(actions.offmenuToggle, 'filters')}>
-            {open ? <MaIcon icon="minus"/> : <MaIcon icon="times"/>}
-          </button>
+          <button onClick={clickPrevent(actions.offmenuToggle, 'filters')}>{open ? <MaIcon icon="minus" /> : <MaIcon icon="times" />}</button>
         </header>
         <div className="course-filters__content">
           <div className="course-filters__content-header">
-            <button onClick={clickPrevent(actions.offmenuToggle, 'filters')}>
-              {<MaIcon icon="times"/>}
-            </button>
+            <button onClick={clickPrevent(actions.offmenuToggle, 'filters')}>{<MaIcon icon="times" />}</button>
           </div>
           <div className="course-filters__content-inner">
-            {loading ? <Loader loading={loading}/> : null}
+            {loading ? <Loader loading={loading} /> : null}
             <LoggedIn>
               <CourseFilterChecks
                 id="status"
@@ -151,6 +147,7 @@ class CourseFilters extends Component {
             <div className="form-group form-group--dark form-group--inline course-filter">
               <label htmlFor="fields.length[gt]">Course Hours</label>
               <MinMaxInput
+                maxWidth={180}
                 idMin="fields.length[gt]"
                 idMax="fields.length[lt]"
                 valueMin={activeFilters.getIn(['fields.length[gt]', 0])}
@@ -162,7 +159,9 @@ class CourseFilters extends Component {
             </div>
           </div>
           <div className="course-filters__footer">
-            <button className="btn btn--primary-solid" onClick={clickPrevent(this.handleFilter)}>Apply</button>
+            <button className="btn btn--primary-solid" onClick={clickPrevent(this.handleFilter)}>
+              Apply
+            </button>
           </div>
         </div>
       </div>
@@ -196,12 +195,18 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    ...filterActions,
-    ...activeFilterActions,
-    ...courseActions,
-    ...stateActions
-  }, dispatch)
+  actions: bindActionCreators(
+    {
+      ...filterActions,
+      ...activeFilterActions,
+      ...courseActions,
+      ...stateActions
+    },
+    dispatch
+  )
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CourseFilters));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(CourseFilters));
