@@ -19,6 +19,7 @@ import {actions as courseActions} from '../../redux/ducks/courses';
 import {actions as userActions} from '../../redux/ducks/user';
 import {Routes} from '../../routes';
 import Loader from '../../components/loader';
+import MaIcon from '../../components/maIcon';
 
 class WelcomeSurveyResults extends Component {
   constructor(props) {
@@ -26,11 +27,13 @@ class WelcomeSurveyResults extends Component {
 
     this.state = {
       loading: true,
-      items: ['loading']
+      items: ['loading'],
+      coursesOpen: false
     };
 
     this.willLeave = this.willLeave.bind(this);
     this.willEnter = this.willEnter.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
   }
 
   static getDerivedStateFromProps(props) {
@@ -82,10 +85,16 @@ class WelcomeSurveyResults extends Component {
     };
   }
 
+  handleToggle() {
+    this.setState(prevState => ({
+      coursesOpen: !prevState.coursesOpen
+    }));
+  }
+
   renderLoading(style) {
     return (
       <div key="loading" className="welcome-survey-results__loading" style={this.getDivStyle(style)}>
-        <Loader loading position="relative top-center" width={70} height={70} center={false}/>
+        <Loader loading position="relative top-center" width={70} height={70} center={false} />
         <p>Just one moment, we’re finding the best courses and learning paths for your goals</p>
       </div>
     );
@@ -93,6 +102,7 @@ class WelcomeSurveyResults extends Component {
 
   renderResults(style) {
     const {recommendedPaths, recommendedCourses} = this.props;
+    const {coursesOpen} = this.state;
     const recommendedPath = recommendedPaths.first();
 
     return (
@@ -112,11 +122,31 @@ class WelcomeSurveyResults extends Component {
             tools={recommendedPath.get('tools')}
             url={`${Routes.Path}/${recommendedPath.get('slug')}`}
           />
-          <CourseCarousel
-            separator
-            helperText="Courses included in this path"
-            courses={recommendedPath.get('courses')}
-          />
+          <button
+            className="path-listing-item__toggle welcome-survey-results__recommended-path-courses-toggle"
+            aria-hidden={coursesOpen === false}
+            aria-controls="welcome-survey-recommended-path-courses"
+            onClick={this.handleToggle}
+          >
+            {coursesOpen ? (
+              <Fragment>
+                Hide included courses
+                <MaIcon icon="chevron-up" />
+              </Fragment>
+            ) : (
+              <Fragment>
+                Show included courses
+                <MaIcon icon="chevron-down" />
+              </Fragment>
+            )}
+          </button>
+          <div
+            id="welcome-survey-recommended-path-courses"
+            hidden={coursesOpen === false}
+            className="welcome-survey-results__recommended-path-courses"
+          >
+            {coursesOpen ? <CourseCarousel separator helperText="Courses included in this path" courses={recommendedPath.get('courses')} /> : null}
+          </div>
         </div>
         <CourseCarousel
           title="More Individual Courses"
@@ -131,11 +161,7 @@ class WelcomeSurveyResults extends Component {
   render() {
     return (
       <Checkout full fullNav>
-        <TransitionMotion
-          styles={this.getStyles()}
-          willEnter={this.willEnter}
-          willLeave={this.willLeave}
-        >
+        <TransitionMotion styles={this.getStyles()} willEnter={this.willEnter} willLeave={this.willLeave}>
           {interpolatedStyles => (
             <div className="welcome-survey-results">
               {interpolatedStyles.map(config => {
@@ -190,13 +216,19 @@ const mapStateToProps = state => ({
   loading: loadingSelectors.getLoading(['USER_RECOMMENDED_SET'])(state)
 });
 
-const mapDispatchToProps = function (dispatch) {
+const mapDispatchToProps = function(dispatch) {
   return {
-    actions: bindActionCreators({
-      ...surveyResultActions,
-      ...userActions
-    }, dispatch)
+    actions: bindActionCreators(
+      {
+        ...surveyResultActions,
+        ...userActions
+      },
+      dispatch
+    )
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(WelcomeSurveyResults));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(WelcomeSurveyResults));

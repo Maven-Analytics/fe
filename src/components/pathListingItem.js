@@ -60,7 +60,7 @@ class PathListingItem extends PureComponent {
             )}
           </button>
         </div>
-        <div hidden={coursesOpen === false} className="path-listing-item__courses">
+        <div id={id} hidden={coursesOpen === false} className="path-listing-item__courses">
           {coursesOpen ? <CourseCarousel hideOffscreenSlides courses={path.get('courses')} largeCols={2} /> : null}
         </div>
       </div>
