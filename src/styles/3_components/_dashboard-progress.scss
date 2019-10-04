@@ -1,6 +1,17 @@
 .dashboard-progress {
   font-size: 1.4rem;
   line-height: 1.5;
+  position: relative;
+
+  &::after {
+    background-color: rgba($white, 0.5);
+    bottom: 0;
+    content: ' ';
+    height: 30px;
+    position: absolute;
+    left: 0;
+    width: 100%;
+  }
 
   @include media-breakpoint-up(md) {
     font-size: 1.6rem;
@@ -9,6 +20,8 @@
   ul {
     @include list-unstyled();
     margin: 0;
+    max-height: 400px;
+    overflow: auto;
 
     li {
       margin: $spacing-unit 0;
@@ -20,7 +33,7 @@
       > p {
         color: $black-2;
         font-weight: 900;
-        margin: 0 0 .4rem;
+        margin: 0 0 0.4rem;
       }
     }
   }
