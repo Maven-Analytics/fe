@@ -31,19 +31,19 @@ const initialState = utils.initialState({
 
 export default (state = initialState, action) => {
   switch (action.type) {
-  case types.TOKEN_SET:
-    return state.set('token', action.payload);
-  case types.USER_SET:
-    return state.update('user', u => u.merge(fromJS(action.payload)));
-  case types.TOKEN_UNSET:
-    return state.set('token', initialState.get('token'));
-  case types.USER_UNSET:
-    return state.set('user', initialState.get('user'));
-  case types.USER_RECOMMENDED_SET_REQUEST:
-    return state.set('recommended', fromJS(action.payload));
+    case types.TOKEN_SET:
+      return state.set('token', action.payload);
+    case types.USER_SET:
+      return state.update('user', u => u.merge(fromJS(action.payload)));
+    case types.TOKEN_UNSET:
+      return state.set('token', initialState.get('token'));
+    case types.USER_UNSET:
+      return state.set('user', initialState.get('user'));
+    case types.USER_RECOMMENDED_SET_REQUEST:
+      return state.set('recommended', fromJS(action.payload));
 
-  default:
-    return state;
+    default:
+      return state;
   }
 };
 
@@ -53,32 +53,50 @@ const getRecommendedPaths = state => state.getIn(['user', 'recommended', 'paths'
 const getRecommendedCourses = state => state.getIn(['user', 'recommended', 'courses']);
 
 export const selectors = {
-  getUser: createSelector([getUser], u => u),
-  getToken: createSelector([getToken], t => t),
-  getRecommendedCourses: createSelector([getRecommendedCourses], r => r),
-  getRecommendedPaths: createSelector([getRecommendedPaths], r => r),
-  getRecommendedPathsForDisplay: createSelector([getUser, getRecommendedPaths, pathSelectors.getPaths], (user, recommended, paths) => {
-    recommended = user.get('recommended_paths') && user.get('recommended_paths').count() ? user.get('recommended_paths') : recommended;
+  getUser: createSelector(
+    [getUser],
+    u => u
+  ),
+  getToken: createSelector(
+    [getToken],
+    t => t
+  ),
+  getRecommendedCourses: createSelector(
+    [getRecommendedCourses],
+    r => r
+  ),
+  getRecommendedPaths: createSelector(
+    [getRecommendedPaths],
+    r => r
+  ),
+  getRecommendedPathsForDisplay: createSelector(
+    [getUser, getRecommendedPaths, pathSelectors.getPaths],
+    (user, recommended, paths) => {
+      recommended = user.get('recommended_paths') && user.get('recommended_paths').count() ? user.get('recommended_paths') : recommended;
 
-    return recommended.map(r => {
-      const path = paths.find(p => p.get('id') === r.get('id')) || Map();
-      return fromJS({
-        ...r.toJS(),
-        match: r.get('percentage'),
-        ...path.toJS()
+      return recommended.map(r => {
+        const path = paths.find(p => p.get('id') === r.get('id')) || Map();
+        return fromJS({
+          ...r.toJS(),
+          match: r.get('percentage'),
+          ...path.toJS()
+        });
       });
-    });
-  }),
-  getRecommendedCoursesForDisplay: createSelector([getUser, getRecommendedCourses, courseSelectors.getCourses], (user, recommended, courses) => {
-    recommended = user.get('recommended_courses') && user.get('recommended_courses').count() ? user.get('recommended_courses') : recommended;
+    }
+  ),
+  getRecommendedCoursesForDisplay: createSelector(
+    [getUser, getRecommendedCourses, courseSelectors.getCourses],
+    (user, recommended, courses) => {
+      recommended = user.get('recommended_courses') && user.get('recommended_courses').count() ? user.get('recommended_courses') : recommended;
 
-    return recommended.map(r => {
-      const course = courses.find(c => c.get('id') === r.get('id')) || Map();
-      return fromJS({
-        ...r.toJS(),
-        match: r.get('percentage'),
-        ...course.toJS()
+      return recommended.map(r => {
+        const course = courses.find(c => c.get('id') === r.get('id')) || Map();
+        return fromJS({
+          ...r.toJS(),
+          match: r.get('percentage'),
+          ...course.toJS()
+        });
       });
-    });
-  })
+    }
+  )
 };

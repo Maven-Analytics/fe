@@ -9,11 +9,10 @@ import {selectors as userSelectors} from '../redux/ducks/user';
 import CloseButton from '../components/closeButton';
 import ProductDetail from '../components/productDetail';
 import {clickAction} from '../utils/componentHelpers';
-import {getResumeCourseUrl} from '../utils/routeHelpers';
 import {getMatchScoreForCourse} from '../utils/courseHelpers';
 import RichText from '../components/richText';
 import CourseLessons from '../components/courseLessons';
-import { Routes } from '../routes';
+import {Routes} from '../routes';
 
 const CourseDrawer = ({actions, state, user}) => {
   const isOpen = state.getIn(['courseDrawer', 'open']);
@@ -28,9 +27,9 @@ const CourseDrawer = ({actions, state, user}) => {
 
   return (
     <div className={classList.join(' ')} tabIndex={isOpen ? 0 : -1}>
-      <div onClick={close} className="course-drawer__fog"/>
+      <div onClick={close} className="course-drawer__fog" />
       <div className="course-drawer__inner">
-        <CloseButton onClick={close}/>
+        <CloseButton onClick={close} />
         <div className="course-drawer__content">
           {course ? (
             <ProductDetail
@@ -49,9 +48,9 @@ const CourseDrawer = ({actions, state, user}) => {
               id={course.get('thinkificCourseId')}
               url={Routes.Course(course.get('slug'))}
             >
-              {course.get('description') && course.get('description') !== '' ? <RichText content={course.get('description')}/> : null}
-              {course.get('lessons') ? <CourseLessons lessons={course.get('lessons')}/> : null}
-              {course.get('descriptionDetails') ? <RichText content={course.get('descriptionDetails')}/> : null}
+              {course.get('description') && course.get('description') !== '' ? <RichText content={course.get('description')} /> : null}
+              {course.get('lessons') ? <CourseLessons lessons={course.get('lessons')} /> : null}
+              {course.get('descriptionDetails') ? <RichText content={course.get('descriptionDetails')} /> : null}
             </ProductDetail>
           ) : null}
         </div>
@@ -72,10 +71,15 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    ...stateActions
-  }, dispatch)
+  actions: bindActionCreators(
+    {
+      ...stateActions
+    },
+    dispatch
+  )
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CourseDrawer);
-
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CourseDrawer);

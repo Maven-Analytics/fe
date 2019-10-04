@@ -13,9 +13,7 @@ export const getMatchScoreForCourse = (course, user) => {
     return;
   }
 
-  const match = user
-    .get('recommended_courses')
-    .find(r => r.get('id') === course.get('id'));
+  const match = user.get('recommended_courses').find(r => r.get('id').toString() === course.get('id').toString());
 
   return match ? match.get('percentage') : null;
 };

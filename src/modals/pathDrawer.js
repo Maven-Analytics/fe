@@ -6,14 +6,15 @@ import {bindActionCreators} from 'redux';
 
 import {actions as stateActions, selectors as stateSelectors} from '../redux/ducks/state';
 import {selectors as dashboardSelectors} from '../redux/ducks/dashboard';
+import {selectors as userSelectors} from '../redux/ducks/user';
 import CloseButton from '../components/closeButton';
 import ProductDetail from '../components/productDetail';
 import RichText from '../components/richText';
 import {clickAction} from '../utils/componentHelpers';
-import {getLatestCourse, getPathHours, getPathInstructors} from '../utils/pathHelpers';
+import {getLatestCourse, getPathHours, getPathInstructors, getMatchForPath} from '../utils/pathHelpers';
 import {getResumeCourseUrl} from '../utils/routeHelpers';
 
-const PathDrawer = ({actions, state, enrollments}) => {
+const PathDrawer = ({actions, state, enrollments, user}) => {
   const isOpen = state.getIn(['pathDrawer', 'open']);
   const path = state.getIn(['pathDrawer', 'data']);
 
@@ -26,9 +27,9 @@ const PathDrawer = ({actions, state, enrollments}) => {
 
   return (
     <div className={classList.join(' ')} tabIndex={isOpen ? 0 : -1}>
-      <div onClick={close} className="path-drawer__fog"/>
+      <div onClick={close} className="path-drawer__fog" />
       <div className="path-drawer__inner">
-        <CloseButton onClick={close}/>
+        <CloseButton onClick={close} />
         <div className="path-drawer__content">
           {path ? (
             <ProductDetail
@@ -39,11 +40,12 @@ const PathDrawer = ({actions, state, enrollments}) => {
               percentage_completed={path.get('percentage_completed')}
               resumeUrl={getLatestCourse(path, enrollments).get('url')}
               tools={path.get('tools')}
+              match={getMatchForPath(path, user)}
               courseCount={path.get('courses').count()}
               hours={getPathHours(path)}
               instructors={getPathInstructors(path)}
             >
-              {path.get('description') && path.get('description') !== '' ? <RichText content={path.get('description')}/> : null}
+              {path.get('description') && path.get('description') !== '' ? <RichText content={path.get('description')} /> : null}
             </ProductDetail>
           ) : null}
         </div>
@@ -55,19 +57,26 @@ const PathDrawer = ({actions, state, enrollments}) => {
 PathDrawer.propTypes = {
   state: ImmutablePropTypes.map.isRequired,
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  enrollments: ImmutablePropTypes.list
+  enrollments: ImmutablePropTypes.list,
+  user: ImmutablePropTypes.map
 };
 
 const mapStateToProps = state => ({
   state: stateSelectors.getState(state),
-  enrollments: dashboardSelectors.getEnrollments(state)
+  enrollments: dashboardSelectors.getEnrollments(state),
+  user: userSelectors.getUser(state)
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    ...stateActions
-  }, dispatch)
+  actions: bindActionCreators(
+    {
+      ...stateActions
+    },
+    dispatch
+  )
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PathDrawer);
-
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PathDrawer);

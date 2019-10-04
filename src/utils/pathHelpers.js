@@ -23,7 +23,7 @@ export const getMatchForPath = (path, user) => {
     return 0;
   }
 
-  const recommendedPath = user.get('recommended_paths').find(rp => rp.get('id') === path.get('id'));
+  const recommendedPath = user.get('recommended_paths').find(rp => rp.get('id').toString() === path.get('id').toString());
 
   if (!recommendedPath || !recommendedPath.has('percentage')) {
     return 0;
@@ -65,8 +65,7 @@ export const getLatestCourse = (path, enrollments) => {
     latestEnrollment = fromJS({courseId: path.getIn(['courses', 0, 'thinkificCourseId'])});
   }
 
-  const latestCourse = path.get('courses')
-    .find(c => c.get('thinkificCourseId') === latestEnrollment.get('courseId'));
+  const latestCourse = path.get('courses').find(c => c.get('thinkificCourseId') === latestEnrollment.get('courseId'));
   return latestCourse ? latestCourse : Map();
 };
 
