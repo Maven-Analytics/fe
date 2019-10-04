@@ -134,8 +134,10 @@ class Home extends Component {
 
     return (
       <Brochure>
-        {isImmutable(page) && page.get('meta') && isImmutable(page.get('meta')) && !page.get('meta').isEmpty() ? <Head meta={page.get('meta')}/> : null}
-        <Hero/>
+        {isImmutable(page) && page.get('meta') && isImmutable(page.get('meta')) && !page.get('meta').isEmpty() ? (
+          <Head meta={page.get('meta')} />
+        ) : null}
+        <Hero />
 
         <StatCounter
           stats={fromJS([
@@ -150,7 +152,7 @@ class Home extends Component {
               postFix: '+'
             },
             {
-              value: 5000,
+              value: 30000,
               text: '5-Star Reviews',
               postFix: '+'
             },
@@ -185,14 +187,12 @@ class Home extends Component {
           ])}
         />
         <div id="method">
-          <MethodMobile items={methodItems}/>
-          <MethodScroll items={methodItems}/>
+          <MethodMobile items={methodItems} />
+          <MethodScroll items={methodItems} />
         </div>
-        <TrendingCourses
-          courses={this.props.courses}
-        />
-        <StudentSpotlights spotlights={spotlights}/>
-        <Clients clients={HappyClients}/>
+        <TrendingCourses courses={this.props.courses} />
+        <StudentSpotlights spotlights={spotlights} />
+        <Clients clients={HappyClients} />
       </Brochure>
     );
   }
@@ -200,11 +200,13 @@ class Home extends Component {
 
 Home.getInitialProps = ctx => {
   const {store} = ctx;
-  store.dispatch(courseActions.coursesInit({
-    params: {
-      'fields.trending': true
-    }
-  }));
+  store.dispatch(
+    courseActions.coursesInit({
+      params: {
+        'fields.trending': true
+      }
+    })
+  );
 
   store.dispatch(spotlightActions.spotlightsGet());
   store.dispatch(pageActions.pagesGet({slug: 'home'}));
@@ -230,12 +232,18 @@ const mapStateToProps = state => ({
   page: pageSelectors.getPage(state, 'home')
 });
 
-const mapDispatchToProps = function (dispatch) {
+const mapDispatchToProps = function(dispatch) {
   return {
-    actions: bindActionCreators({
-      ...authActions
-    }, dispatch)
+    actions: bindActionCreators(
+      {
+        ...authActions
+      },
+      dispatch
+    )
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home);
