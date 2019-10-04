@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 
-const DashboardNoData = ({btnUrl, btnText, text, title, btnClass, children, className}) => {
+const DashboardNoData = ({btnUrl, btnText, text, title, btnClass, children, className, imgWidth}) => {
   const classList = ['dashboard-no-data'];
 
   if (className) {
@@ -11,9 +11,11 @@ const DashboardNoData = ({btnUrl, btnText, text, title, btnClass, children, clas
 
   return (
     <div className={classList.join(' ')}>
-      {children ? <div className="dashboard-no-data__image" style={{maxWidth: 328}}>
-        {children}
-      </div> : null}
+      {children ? (
+        <div className="dashboard-no-data__image" style={{maxWidth: imgWidth}}>
+          {children}
+        </div>
+      ) : null}
       <p className="title">{title}</p>
       {text ? <p className="text">{text}</p> : null}
       {btnUrl ? (
@@ -32,11 +34,13 @@ DashboardNoData.propTypes = {
   btnText: PropTypes.string,
   btnClass: PropTypes.string,
   children: PropTypes.node,
-  className: PropTypes.string
+  className: PropTypes.string,
+  imgWidth: PropTypes.number
 };
 
 DashboardNoData.defaultProps = {
-  btnClass: 'btn btn--primary-solid'
+  btnClass: 'btn btn--primary-solid',
+  imgWidth: 328
 };
 
 export default DashboardNoData;

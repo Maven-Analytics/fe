@@ -10,6 +10,7 @@ import {actions as pathActions, selectors as pathSelectors} from '../../redux/du
 import {actions as courseActions, selectors as courseSelectors} from '../../redux/ducks/courses';
 import {selectors as errorSelectors} from '../../redux/ducks/error';
 import {selectors as loadingSelectors} from '../../redux/ducks/loading';
+import {selectors as userSelectors} from '../../redux/ducks/user';
 import DashboardLayout from '../../layouts/dashboard';
 import DashboardCard from '../../components/dashboardCard';
 import DashboardCourse from '../../components/dashboardCourse';
@@ -24,6 +25,7 @@ import MaIcon from '../../components/maIcon';
 import DashboardCredentialIcons from '../../components/dashboardCredentialIcons';
 import DashboardCredential from '../../components/dashboardCredential';
 import withAuthSync from '../../components/withAuthSync';
+import DashboardRecommendedPath from '../../components/dashboardRecommendedPath';
 
 class DashboardPage extends Component {
   componentDidMount() {
@@ -33,7 +35,13 @@ class DashboardPage extends Component {
   }
 
   render() {
-    const {recentCourse, progress, loadingProgress, completedCourses, completedPaths, loadingCourses} = this.props;
+    const {recentCourse, progress, loadingProgress, completedCourses, completedPaths, loadingCourses, user, loadingPaths} = this.props;
+    const recommendedUserPath = user.getIn(['recommended_paths', 0]);
+    let recommendedPath = null;
+
+    if (recommendedUserPath) {
+      recommendedPath = progress.get('paths').find(p => p.get('id').toString() === recommendedUserPath.get('id').toString());
+    }
 
     const completed = fromJS([...completedPaths.toJS(), ...completedCourses.toJS()]);
 
@@ -63,6 +71,41 @@ class DashboardPage extends Component {
             resumeUrl={recentCourse.get('url')}
             excerpt={recentCourse.get('excerpt')}
             badge={recentCourse.get('badge')}
+          />
+        ) : null}
+      </DashboardCard>
+    );
+
+    const RecommendedPath = (
+      <DashboardCard showWelcome loading={loadingPaths} title="Your Recommended Path">
+        {(!recommendedPath || recommendedPath.isEmpty()) && loadingPaths === false ? (
+          <DashboardNoData
+            btnText="Take Survey"
+            btnUrl={Routes.WelcomeSurvey}
+            imgWidth={176}
+            title="Take the Match Survey to find your personal recommended learning path!"
+            btnClass="btn btn--default"
+          >
+            <Image
+              src="/static/img/dashboard-no-data-328.jpg"
+              wrapStyle={{
+                paddingBottom: '79.55%'
+              }}
+              srcSet="
+                /static/img/no-data-match-survey-176.png 176w,
+                /static/img/no-data-match-survey-356.png 356w
+              "
+            />
+          </DashboardNoData>
+        ) : null}
+        {recommendedPath && !recommendedPath.isEmpty() && loadingPaths === false ? (
+          <DashboardRecommendedPath
+            path={recommendedPath}
+            match={recommendedUserPath.get('percentage')}
+            title={recommendedPath.get('title')}
+            percentage_completed={recommendedPath.get('percentage_completed')}
+            excerpt={recommendedPath.get('excerpt')}
+            badge={recommendedPath.get('badge')}
           />
         ) : null}
       </DashboardCard>
@@ -114,6 +157,7 @@ class DashboardPage extends Component {
               {NewsUpdates}
             </DashboardGrid>
             <DashboardGrid vertical>
+              {RecommendedPath}
               {RockstarProgress}
               {BadgeCreds}
             </DashboardGrid>
@@ -122,6 +166,7 @@ class DashboardPage extends Component {
         <MediaQuery max="lg">
           <DashboardGrid vertical>
             {RecentCourse}
+            {RecommendedPath}
             {RockstarProgress}
             {BadgeCreds}
             {NewsUpdates}
@@ -135,12 +180,14 @@ class DashboardPage extends Component {
 DashboardPage.propTypes = {
   loadingProgress: PropTypes.bool,
   loadingCourses: PropTypes.bool,
+  loadingPaths: PropTypes.bool,
   errorProgress: PropTypes.string,
   actions: PropTypes.objectOf(PropTypes.func),
   recentCourse: ImmutablePropTypes.map,
   progress: ImmutablePropTypes.map,
   completedPaths: ImmutablePropTypes.list,
-  completedCourses: ImmutablePropTypes.list
+  completedCourses: ImmutablePropTypes.list,
+  user: ImmutablePropTypes.map
 };
 
 const mapStateToProps = state => ({
@@ -148,10 +195,12 @@ const mapStateToProps = state => ({
   progress: dashboardSelectors.getProgress(state),
   courses: courseSelectors.getCourses(state),
   loadingCourses: loadingSelectors.getLoading(['COURSESINIT'])(state),
+  loadingPaths: loadingSelectors.getLoading(['PATHSINIT'])(state),
   loadingProgress: loadingSelectors.getLoading(['DASHBOARD_PROGRESS'])(state),
   errorProgress: errorSelectors.getError(['DASHBOARD_PROGRESS'])(state),
   completedCourses: courseSelectors.getCompletedCourses(state),
-  completedPaths: pathSelectors.getCompletedPaths(state)
+  completedPaths: pathSelectors.getCompletedPaths(state),
+  user: userSelectors.getUser(state)
 });
 
 const mapDispatchToProps = function(dispatch) {

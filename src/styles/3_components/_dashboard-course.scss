@@ -1,4 +1,5 @@
 .dashboard-course {
+  $self: &;
   font-size: 1.4rem;
   display: flex;
 
@@ -55,7 +56,7 @@
     margin: $spacing-unit--md 0 0;
 
     .btn {
-      font-size: .7em;
+      font-size: 0.7em;
     }
 
     .btn--primary-solid {
@@ -64,6 +65,35 @@
 
     .btn--empty {
       @include btnFixed(40px, 103, 20px);
+    }
+  }
+
+  &.dashboard-recommended-path {
+    display: block;
+
+    #{$self}__inner {
+      display: flex;
+    }
+
+    #{$self}__footer {
+      justify-content: space-between;
+
+      button {
+        min-width: 103px;
+      }
+    }
+
+    #{$self}__footer-right-buttons {
+      display: flex;
+    }
+
+    .course-banner {
+      left: auto;
+      right: 0;
+    }
+
+    .progress-meter {
+      margin: 2.3rem 0 2.7rem;
     }
   }
 }

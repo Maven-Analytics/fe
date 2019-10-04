@@ -20,6 +20,7 @@ import {actions as userActions} from '../../redux/ducks/user';
 import {Routes} from '../../routes';
 import Loader from '../../components/loader';
 import MaIcon from '../../components/maIcon';
+import {canUseDOM} from '../../utils/componentHelpers';
 
 class WelcomeSurveyResults extends Component {
   constructor(props) {
@@ -105,6 +106,13 @@ class WelcomeSurveyResults extends Component {
     const {coursesOpen} = this.state;
     const recommendedPath = recommendedPaths.first();
 
+    if (!recommendedPath) {
+      if (canUseDOM()) {
+        this.props.router.push(Routes.WelcomeSurvey);
+      }
+      return null;
+    }
+
     return (
       <div key="results" style={this.getDivStyle(style)}>
         <header>
@@ -186,10 +194,10 @@ class WelcomeSurveyResults extends Component {
 WelcomeSurveyResults.getInitialProps = ctx => {
   const {store} = ctx;
 
-  if (ctx && ctx.req) {
-    ctx.res.writeHead(302, {Location: Routes.WelcomeSurvey});
-    ctx.res.end();
-  }
+  // if (ctx && ctx.req) {
+  //   ctx.res.writeHead(302, {Location: Routes.WelcomeSurvey});
+  //   ctx.res.end();
+  // }
 
   store.dispatch(pathActions.pathsInit());
   store.dispatch(courseActions.coursesInit());
@@ -200,7 +208,8 @@ WelcomeSurveyResults.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func),
   recommendedPaths: ImmutablePropTypes.list,
   recommendedCourses: ImmutablePropTypes.list,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  router: PropTypes.object
 };
 
 WelcomeSurveyResults.defaultProps = {
