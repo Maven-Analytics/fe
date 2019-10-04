@@ -37,8 +37,8 @@ class Carousel extends Component {
       this.goToSlide(activeIndex);
     }
 
-    if (!this.objectsEqual(prevProps.options, this.props.options)) {
-      // this.initCarousel();
+    if (this.props.options.groupCells !== prevProps.options.groupCells) {
+      this.initCarousel();
     }
 
     if (this.flickity) {
@@ -147,7 +147,8 @@ Carousel.propTypes = {
   activeIndex: PropTypes.number,
   className: PropTypes.string,
   onChange: PropTypes.func,
-  isStatic: PropTypes.bool
+  isStatic: PropTypes.bool,
+  showArrows: PropTypes.bool
 };
 
 Carousel.defaultProps = {
@@ -158,4 +159,3 @@ Carousel.defaultProps = {
 };
 
 export default Carousel;
-

@@ -1,12 +1,12 @@
 @font-face {
   font-family: 'maicon';
-  src:  url('/static/fonts/maicon/fonts/maicon.woff2?1qo22k') format('woff2'),
-    url('/static/fonts/maicon/fonts/maicon.woff?1qo22k') format('woff');
+  src: url('/static/fonts/maicon/fonts/maicon.woff2?1qo22k') format('woff2'), url('/static/fonts/maicon/fonts/maicon.woff?1qo22k') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 
-[class^="maicon-"], [class*=" maicon-"] {
+[class^='maicon-'],
+[class*=' maicon-'] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-display: block;
   font-style: normal;
@@ -25,90 +25,93 @@
     visibility: visible;
   }
 }
+.maicon-long-arrow-alt-left:before {
+  content: '\e91d';
+}
 .maicon-analytics:before {
-  content: "\e91c";
+  content: '\e91c';
 }
 .maicon-dashboard:before {
-  content: "\e91b";
+  content: '\e91b';
 }
 .maicon-map-marker:before {
-  content: "\e919";
+  content: '\e919';
 }
 .maicon-phone:before {
-  content: "\e91a";
+  content: '\e91a';
 }
 .maicon-visualisation:before {
-  content: "\e916";
+  content: '\e916';
 }
 .maicon-database:before {
-  content: "\e917";
+  content: '\e917';
 }
 .maicon-productivity:before {
-  content: "\e918";
+  content: '\e918';
 }
 .maicon-power-bi:before {
-  content: "\e90d";
+  content: '\e90d';
 }
 .maicon-sliders-h:before {
-  content: "\e915";
+  content: '\e915';
 }
 .maicon-long-arrow-alt-right:before {
-  content: "\e914";
+  content: '\e914';
 }
 .maicon-chevron-up:before {
-  content: "\e913";
+  content: '\e913';
 }
 .maicon-star:before {
-  content: "\e912";
+  content: '\e912';
 }
 .maicon-play-triangle:before {
-  content: "\e911";
+  content: '\e911';
 }
 .maicon-minus:before {
-  content: "\e90f";
+  content: '\e90f';
 }
 .maicon-times:before {
-  content: "\e910";
+  content: '\e910';
 }
 .maicon-badge-alt:before {
-  content: "\e90e";
+  content: '\e90e';
 }
 .maicon-excel:before {
-  content: "\e90b";
+  content: '\e90b';
 }
 .maicon-mysql:before {
-  content: "\e90c";
+  content: '\e90c';
 }
 .maicon-envelope:before {
-  content: "\e90a";
+  content: '\e90a';
 }
 .maicon-check:before {
-  content: "\e909";
+  content: '\e909';
 }
 .maicon-recommended:before {
-  content: "\e908";
+  content: '\e908';
 }
 .maicon-chevron-down:before {
-  content: "\e905";
+  content: '\e905';
 }
 .maicon-chevron-right:before {
-  content: "\e906";
+  content: '\e906';
 }
 .maicon-user:before {
-  content: "\e907";
+  content: '\e907';
 }
 .maicon-maven:before {
-  content: "\e903";
+  content: '\e903';
 }
 .maicon-team:before {
-  content: "\e904";
+  content: '\e904';
 }
 .maicon-play:before {
-  content: "\e900";
+  content: '\e900';
 }
 .maicon-badge:before {
-  content: "\e901";
+  content: '\e901';
 }
 .maicon-quiz:before {
-  content: "\e902";
+  content: '\e902';
 }

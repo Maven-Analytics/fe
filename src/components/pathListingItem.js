@@ -50,22 +50,18 @@ class PathListingItem extends PureComponent {
             {coursesOpen ? (
               <Fragment>
                 Hide included courses
-                <MaIcon icon="chevron-up"/>
+                <MaIcon icon="chevron-up" />
               </Fragment>
             ) : (
               <Fragment>
                 Show included courses
-                <MaIcon icon="chevron-down"/>
+                <MaIcon icon="chevron-down" />
               </Fragment>
             )}
           </button>
         </div>
         <div hidden={coursesOpen === false} className="path-listing-item__courses">
-          {coursesOpen ? (
-            <CourseCarousel
-              courses={path.get('courses')}
-            />
-          ) : null}
+          {coursesOpen ? <CourseCarousel hideOffscreenSlides courses={path.get('courses')} largeCols={2} /> : null}
         </div>
       </div>
     );

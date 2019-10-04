@@ -7,26 +7,31 @@ import Carousel from '../components/carousel';
 import CarouselSlide from '../components/carouselSlide';
 import CourseCard from '../components/courseCard';
 import TrackVisibility from '../components/trackVisibility';
-import {isLg, isMd, isSm} from '../components/mediaQuery';
+import {isLg, isMd, isSm, isXl} from '../components/mediaQuery';
 import withWindowSize from '../components/withWindowSize';
 import {prettyPercent} from '../utils/componentHelpers';
 
-const CourseCarousel = ({courses, title, eyelash, description, helperText, separator}) => {
+const CourseCarousel = ({courses, title, eyelash, description, helperText, separator, largeCols, hideOffscreenSlides}) => {
   if (!courses || !courses.count()) {
     return null;
   }
 
   return (
-    <div className="course-carousel">
+    <div className={['course-carousel', hideOffscreenSlides ? 'hide-offscreen' : ''].join(' ')}>
       <header>
-        {title ? <h2>{title} <span>{eyelash}</span></h2> : null}
+        {title ? (
+          <h2>
+            {title} <span>{eyelash}</span>
+          </h2>
+        ) : null}
         {description ? <p>{description}</p> : null}
-        {helperText ? <small>{helperText}</small> : null }
+        {helperText ? <small>{helperText}</small> : null}
       </header>
       <Carousel
         options={{
           pageDots: false,
-          groupCells: isLg() ? 3 : isSm() ? 2 : 1
+          groupCells: isXl() ? 3 : isLg() ? largeCols : isSm() ? 2 : 1,
+          prevNextButtons: true
         }}
       >
         {courses.map(course => {
@@ -38,15 +43,12 @@ const CourseCarousel = ({courses, title, eyelash, description, helperText, separ
 
           return (
             <CarouselSlide key={course.get('id')}>
-              <CourseCard
-                match={match}
-                course={course}
-              />
+              <CourseCard match={match} course={course} />
             </CarouselSlide>
           );
         })}
       </Carousel>
-      {separator ? <hr/> : null}
+      {separator ? <hr /> : null}
     </div>
   );
 };
@@ -58,11 +60,14 @@ CourseCarousel.propTypes = {
   helperText: PropTypes.string,
   courses: ImmutablePropTypes.list,
   separator: PropTypes.bool,
-  actions: PropTypes.objectOf(PropTypes.func)
+  actions: PropTypes.objectOf(PropTypes.func),
+  largeCols: PropTypes.number,
+  hideOffscreenSlides: PropTypes.bool
 };
 
 CourseCarousel.defaultProps = {
-  courses: List()
+  courses: List(),
+  largeCols: 3
 };
 
 export default withWindowSize(CourseCarousel);

@@ -12,11 +12,11 @@
     h2 {
       font-size: 1.5em;
       font-weight: 700;
-      margin: 0 0 .4rem;
+      margin: 0 0 0.4rem;
 
       span {
         color: $yellow;
-        font-size: .5em;
+        font-size: 0.5em;
         margin-left: $spacing-unit--md;
         text-transform: uppercase;
         vertical-align: middle;
@@ -48,9 +48,49 @@
       overflow: visible;
     }
 
+    .flickity-prev-next-button {
+      background: none;
+
+      &::before {
+        font-family: 'maicon' !important;
+        font-size: 2.5rem;
+      }
+
+      svg {
+        display: none;
+      }
+
+      &.next {
+        right: -1.5rem;
+
+        &::before {
+          content: '\e914';
+        }
+        @include media-breakpoint-up(lg) {
+          right: -4rem;
+        }
+        @include media-breakpoint-up(xl) {
+          right: -7rem;
+        }
+      }
+      &.previous {
+        left: -1.5rem;
+
+        &::before {
+          content: '\e91d';
+        }
+        @include media-breakpoint-up(lg) {
+          left: -4rem;
+        }
+        @include media-breakpoint-up(xl) {
+          left: -7rem;
+        }
+      }
+    }
+
     .carousel-slide {
       margin-right: $spacing-unit;
-      opacity: .5;
+      opacity: 0.5;
       // transition: opacity .3s ease-in-out;
       width: calc(100% - #{$spacing-unit});
 
@@ -95,4 +135,18 @@
       margin: $spacing-unit--ll 0 0;
     }
   }
+
+  // &.hide-offscreen {
+  //   .carousel {
+  //     .carousel-slide {
+  //       opacity: 0;
+  //       transition: opacity 0.2s 0.3s;
+
+  //       &.is-selected {
+  //         opacity: 1;
+  //         transition: none;
+  //       }
+  //     }
+  //   }
+  // }
 }

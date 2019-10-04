@@ -112,15 +112,11 @@ class CoursesLearningPaths extends PureComponent {
     const {paths, loadingPaths} = this.props;
 
     return (
-      <li
-        key="paths"
-        className="courses-learning-paths__tab"
-        style={this.getTabStyle(style)}
-      >
-        <Loader center={false} loading={loadingPaths} position="top-center" width={70} height={70}/>
+      <li key="paths" className="courses-learning-paths__tab" style={this.getTabStyle(style)}>
+        <Loader center={false} loading={loadingPaths} position="top-center" width={70} height={70} />
 
         {paths.map((path, index) => (
-          <PathListingItem key={index} coursesOpen={index === 0} path={path}/>
+          <PathListingItem key={index} coursesOpen={index === 0} path={path} />
         ))}
       </li>
     );
@@ -130,13 +126,9 @@ class CoursesLearningPaths extends PureComponent {
     const {courses, loadingCourses} = this.props;
 
     return (
-      <li
-        key="courses"
-        className="courses-learning-paths__tab"
-        style={this.getTabStyle(style)}
-      >
-        <DashboardGrid cols={3} >
-          <Loader center={false} loading={loadingCourses} position="top-center" width={70} height={70}/>
+      <li key="courses" className="courses-learning-paths__tab" style={this.getTabStyle(style)}>
+        <DashboardGrid cols={3}>
+          <Loader center={false} loading={loadingCourses} position="top-center" width={70} height={70} />
           {courses.map(course => (
             <CourseCard
               full
@@ -158,7 +150,7 @@ class CoursesLearningPaths extends PureComponent {
     const scrollTo = (
       <Fragment>
         View course & paths
-        <MaIcon icon="long-arrow-alt-right"/>
+        <MaIcon icon="long-arrow-alt-right" />
       </Fragment>
     );
 
@@ -198,15 +190,14 @@ class CoursesLearningPaths extends PureComponent {
     return (
       <Brochure>
         <div className="courses-learning-paths">
-          <CourseFilters className="course-filters--offmenu"/>
+          <CourseFilters className="course-filters--offmenu" />
           <BrochureHero
             meta={false}
             className="course-hero--large"
-
             eyelash={page.get('heroEyelash')}
             title={page.get('heroTitle')}
             description={page.get('heroDescription')}
-            image={<ImageContentful image={page.get('heroImage')}/>}
+            image={<ImageContentful image={page.get('heroImage')} />}
             colClasses={['col-md-7 col-lg-6 col-xl-5', 'col-md-5 col-lg-6 col-xl-7']}
             backgroundSources={[
               {srcSet: `${page.getIn(['heroBackground', 'file', 'url'])} 768w`, type: page.getIn(['heroBackground', 'file', 'contentType'])},
@@ -217,19 +208,11 @@ class CoursesLearningPaths extends PureComponent {
             linkHref="#"
             onLinkClick={handleScrollIntoView('#courses-paths-main')}
           />
-          <CtaSurvey/>
+          <CtaSurvey />
           <div className="container container--lg">
             <div id="courses-paths-main" className="courses-learning-paths__main">
-              <CoursePathNav
-                onFilterClick={click(actions.offmenuToggle, 'filters')}
-                onViewChange={this.handleNavClick}
-                activeItem={activeItem}
-              />
-              <TransitionMotion
-                styles={this.getStyles()}
-                willLeave={this.willLeave}
-                willEnter={this.willEnter}
-              >
+              <CoursePathNav onFilterClick={click(actions.offmenuToggle, 'filters')} onViewChange={this.handleNavClick} activeItem={activeItem} />
+              <TransitionMotion styles={this.getStyles()} willLeave={this.willLeave} willEnter={this.willEnter}>
                 {interpolatedStyles => (
                   <ul className="courses-learning-paths__tabs">
                     {interpolatedStyles.map(config => {
@@ -297,12 +280,18 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    ...stateActions,
-    ...pathActions,
-    ...courseActions,
-    ...pageActions
-  }, dispatch)
+  actions: bindActionCreators(
+    {
+      ...stateActions,
+      ...pathActions,
+      ...courseActions,
+      ...pageActions
+    },
+    dispatch
+  )
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CoursesLearningPaths));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(CoursesLearningPaths));
