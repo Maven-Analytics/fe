@@ -30,7 +30,7 @@ const methodItems = [
     height: 633,
     title: 'Find your Path',
     description: 'Take a quick, 2-minute survey and we’ll match you with the best courses & paths to help you reach your goals',
-    linkTitle: 'TAKE THE SURVEY',
+    linkTitle: 'FIND YOUR PATH',
     linkHref: Routes.WelcomeSurvey,
     imgMobile: {
       src: '/static/img/step1-mobile.png',
