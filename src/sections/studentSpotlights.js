@@ -48,12 +48,14 @@ class StudentSpotlights extends Component {
         </div>
         <div className="container container--lg">
           <header className="student-spotlights__header">
-            <h2>Student <strong>Spotlight</strong></h2>
+            <h2>
+              Student <strong>Spotlight</strong>
+            </h2>
           </header>
           <Carousel activeIndex={activeIndex} options={{pageDots: false}} onChange={this.handleNavClick}>
             {spotlights.map(spotlight => (
               <CarouselSlide key={spotlight.get('id')}>
-                <StudentSpotlight {...spotlight.toJS()}/>
+                <StudentSpotlight {...spotlight.toJS()} />
               </CarouselSlide>
             ))}
           </Carousel>
@@ -63,7 +65,7 @@ class StudentSpotlights extends Component {
             options={{
               pageDots: false,
               usePercent: false,
-              autoPlay: 4000,
+              autoPlay: 8000,
               cellAlign: 'center'
             }}
             onChange={this.handleNavClick}
@@ -71,7 +73,7 @@ class StudentSpotlights extends Component {
             {spotlights.map((spotlight, index) => (
               <CarouselSlide key={spotlight.get('id')}>
                 <button onClick={click(this.handleNavClick, index)}>
-                  <ImageContentful cover image={spotlight.get('image')}/>
+                  <ImageContentful cover image={spotlight.get('image')} />
                 </button>
               </CarouselSlide>
             ))}
