@@ -8,16 +8,17 @@ const md = new Remarkable({
   html: true
 });
 
-const Markdown = ({content, tag: Tag, ...props}) => {
+const Markdown = ({content, className, tag: Tag, ...props}) => {
   const parsed = md.render(content);
 
   // eslint-disable-next-line react/no-danger
-  return <Tag dangerouslySetInnerHTML={innerHtml(parsed)} {...props}/>;
+  return <Tag className={className} dangerouslySetInnerHTML={innerHtml(parsed)} {...props} />;
 };
 
 Markdown.propTypes = {
   content: PropTypes.string.isRequired,
-  tag: PropTypes.string
+  tag: PropTypes.string,
+  className: PropTypes.string
 };
 
 Markdown.defaultProps = {

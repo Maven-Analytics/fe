@@ -15,7 +15,7 @@ import CourseLessons from '../components/courseLessons';
 const FAQPage = ({page}) => {
   return (
     <BrochureLayout>
-      <Head meta={page.get('meta')}/>
+      <Head meta={page.get('meta')} />
       <BrochureHero
         className="brochure-hero--medium"
         eyelash={page.get('heroEyelash')}
@@ -30,10 +30,12 @@ const FAQPage = ({page}) => {
       />
       <BrochureContent className="page-faq" title={page.get('brochureTitle')}>
         <div className="page-faq__content">
-          <p>Below are some of the most common questions we hear from our students. Still can't find what you need? <Link href={Routes.Contact}>Send us a message</Link> and we'd be happy to help!</p>
+          <p>
+            Below are some of the most common questions we hear from our students. Still can't find what you need?{' '}
+            <Link href={Routes.Contact}>Send us a message</Link> and we'd be happy to help!
+          </p>
         </div>
-        <CourseLessons showCount={false} lessons={page.get('flexibleContent')}/>
-
+        <CourseLessons showCount={false} lessons={page.get('flexibleContent')} />
       </BrochureContent>
     </BrochureLayout>
   );

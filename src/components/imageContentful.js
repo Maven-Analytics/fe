@@ -1,6 +1,6 @@
 import React from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
-import {Map} from 'immutable';
+import {Map, fromJS} from 'immutable';
 
 import Image from './image';
 
@@ -9,13 +9,14 @@ const ImageContentful = ({image, ...props}) => {
     return null;
   }
 
-  return (
-    <Image
-      {...props}
-      alt={image.get('title')}
-      src={image.getIn(['file', 'url'])}
-    />
-  );
+  if (image.has('fields')) {
+    image = fromJS({
+      id: image.getIn(['sys', 'id']),
+      ...image.get('fields').toJS()
+    });
+  }
+
+  return <Image {...props} alt={image.get('title')} src={image.getIn(['file', 'url'])} />;
 };
 
 ImageContentful.propTypes = {

@@ -16,17 +16,28 @@ const initialState = utils.initialState([]);
 
 export default (state = initialState, action) => {
   switch (action.type) {
-  case types.PAGES_GET_SUCCESS:
-    return utils.stateListMerge(state, action.payload);
-  default:
-    return state;
+    case types.PAGES_GET_SUCCESS:
+      return utils.stateListMerge(state, action.payload);
+    default:
+      return state;
   }
 };
 
 const getPages = state => state.get('pages');
 const getPage = (state, slug) => state.get('pages').find(p => p.get('slug') === slug);
+const getPageById = (state, id) => state.get('pages').find(p => p.get('id') === id);
 
 export const selectors = {
-  getPages: createSelector([getPages], p => p),
-  getPage: createSelector([getPage], p => p)
+  getPages: createSelector(
+    [getPages],
+    p => p
+  ),
+  getPage: createSelector(
+    [getPage],
+    p => p
+  ),
+  getPageById: createSelector(
+    [getPageById],
+    p => p
+  )
 };
