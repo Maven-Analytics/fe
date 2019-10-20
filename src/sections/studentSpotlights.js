@@ -65,7 +65,7 @@ class StudentSpotlights extends Component {
             options={{
               pageDots: false,
               usePercent: false,
-              autoPlay: 8000,
+              autoPlay: 10000,
               cellAlign: 'center'
             }}
             onChange={this.handleNavClick}
