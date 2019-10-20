@@ -149,7 +149,7 @@ class CoursesLearningPaths extends PureComponent {
 
     const scrollTo = (
       <Fragment>
-        View course & paths
+        View courses & paths
         <MaIcon icon="long-arrow-alt-right" />
       </Fragment>
     );
