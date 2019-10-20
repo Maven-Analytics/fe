@@ -52,7 +52,7 @@ class StudentSpotlights extends Component {
               Student <strong>Spotlight</strong>
             </h2>
           </header>
-          <Carousel activeIndex={activeIndex} options={{pageDots: false}} onChange={this.handleNavClick}>
+          <Carousel activeIndex={activeIndex} options={{pageDots: false, prevNextButtons: true}} onChange={this.handleNavClick}>
             {spotlights.map(spotlight => (
               <CarouselSlide key={spotlight.get('id')}>
                 <StudentSpotlight {...spotlight.toJS()} />
@@ -65,7 +65,6 @@ class StudentSpotlights extends Component {
             options={{
               pageDots: false,
               usePercent: false,
-              autoPlay: 10000,
               cellAlign: 'center'
             }}
             onChange={this.handleNavClick}
