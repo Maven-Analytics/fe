@@ -25,7 +25,7 @@ class PathListingItem extends PureComponent {
   }
 
   render() {
-    const {path} = this.props;
+    const {path, toggleText} = this.props;
     const {coursesOpen} = this.state;
 
     if (!path || path.isEmpty()) {
@@ -49,12 +49,12 @@ class PathListingItem extends PureComponent {
           <button className="path-listing-item__toggle" aria-hidden={coursesOpen === false} aria-controls={id} onClick={this.handleToggle}>
             {coursesOpen ? (
               <Fragment>
-                Hide included courses
+                Hide {toggleText}
                 <MaIcon icon="chevron-up" />
               </Fragment>
             ) : (
               <Fragment>
-                Show included courses
+                Show {toggleText}
                 <MaIcon icon="chevron-down" />
               </Fragment>
             )}
@@ -70,7 +70,12 @@ class PathListingItem extends PureComponent {
 
 PathListingItem.propTypes = {
   coursesOpen: PropTypes.bool,
-  path: ImmutablePropTypes.map
+  path: ImmutablePropTypes.map,
+  toggleText: PropTypes.string
+};
+
+PathListingItem.defaultProps = {
+  toggleText: 'included courses'
 };
 
 export default PathListingItem;
