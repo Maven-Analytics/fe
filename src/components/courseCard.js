@@ -61,33 +61,31 @@ class CourseCard extends Component {
         ) : null}
         {recommended && condensed === false ? (
           <CourseBanner>
-            <MaIcon icon="recommended"/>
+            <MaIcon icon="recommended" />
             <span className="text">{recommended}</span>
           </CourseBanner>
         ) : null}
         <div className="course-card__image">
-          <ImageContentful cover onLoad={this.handleImageLoad} image={course.get('thumbnail')}/>
+          <ImageContentful cover onLoad={this.handleImageLoad} image={course.get('thumbnail')} />
           {condensed === false ? (
             <div className="badge">
-              <ImageContentful onLoad={this.handleImageLoad} showLoader={false} image={course.get('badge')}/>
+              <ImageContentful onLoad={this.handleImageLoad} showLoader={false} image={course.get('badge')} />
             </div>
           ) : null}
         </div>
         <div className="course-card__content">
           <h4>{course.get('title')}</h4>
-          {condensed === false ? (
-            <p>{course.get('cardDescription')}</p>
-          ) : null}
-          {progress > -1 ? <ProgressMeter value={progress} title="Progress"/> : null}
+          {condensed === false ? <p>{course.get('cardDescription')}</p> : null}
+          {progress > -1 ? <ProgressMeter value={progress} title="Progress" /> : null}
         </div>
         <div className="course-card__footer">
           <span>
-            <button onClick={clickAction(actions.modalOpen, 'courseDrawer', course)} className="btn">View Course</button>
+            <button onClick={clickAction(actions.modalOpen, 'courseDrawer', course)} className="btn">
+              Course Info
+            </button>
           </span>
-          {condensed === false ? (
-            <CourseHours hours={course.get('length')}/>
-          ) : null}
-          <CourseAuthor name={course.getIn(['author', 'name'])} thumbnail={course.getIn(['author', 'thumbnail'])}/>
+          {condensed === false ? <CourseHours hours={course.get('length')} /> : null}
+          <CourseAuthor name={course.getIn(['author', 'name'])} thumbnail={course.getIn(['author', 'thumbnail'])} />
         </div>
       </div>
     );

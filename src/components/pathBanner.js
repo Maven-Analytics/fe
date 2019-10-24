@@ -24,14 +24,14 @@ const PathBanner = ({badge, title, excerpt, match, courses, length, tools, path,
 
   const btn = (
     <button onClick={clickAction(actions.modalOpen, 'pathDrawer', path)} className="btn btn--primary-solid">
-      View Path
+      Path Info
     </button>
   );
 
   return (
     <div className={classList.join(' ')}>
       <div className="path-banner__badge">
-        <ImageContentful showLoader={false} image={badge}/>
+        <ImageContentful showLoader={false} image={badge} />
       </div>
       <div className="path-banner__content">
         <h2>{title}</h2>
@@ -55,18 +55,14 @@ const PathBanner = ({badge, title, excerpt, match, courses, length, tools, path,
         <li className="tools">
           <div className="value">
             {tools.map(tool => (
-              <MaIcon key={tool} icon={tool.toLowerCase().replace(' ', '-')}/>
+              <MaIcon key={tool} icon={tool.toLowerCase().replace(' ', '-')} />
             ))}
           </div>
           <div className="text">Tools</div>
         </li>
-        <li>
-          {btn}
-        </li>
+        <li>{btn}</li>
       </ul>
-      <div className="path-banner__cta">
-        {btn}
-      </div>
+      <div className="path-banner__cta">{btn}</div>
     </div>
   );
 };
@@ -95,9 +91,15 @@ const mapStateToProps = (state, props) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    ...stateActions
-  }, dispatch)
+  actions: bindActionCreators(
+    {
+      ...stateActions
+    },
+    dispatch
+  )
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PathBanner);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PathBanner);

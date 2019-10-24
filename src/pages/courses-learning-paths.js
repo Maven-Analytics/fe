@@ -116,7 +116,7 @@ class CoursesLearningPaths extends PureComponent {
         <Loader center={false} loading={loadingPaths} position="top-center" width={70} height={70} />
 
         {paths.map((path, index) => (
-          <PathListingItem key={index} path={path} toggleText="Course Info" />
+          <PathListingItem key={index} path={path} />
         ))}
       </li>
     );

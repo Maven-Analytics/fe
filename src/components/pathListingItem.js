@@ -75,7 +75,7 @@ PathListingItem.propTypes = {
 };
 
 PathListingItem.defaultProps = {
-  toggleText: 'Course Info'
+  toggleText: 'included courses'
 };
 
 export default PathListingItem;

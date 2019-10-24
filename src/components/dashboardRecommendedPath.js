@@ -32,7 +32,7 @@ const DashboardRecommendedPath = ({title, percentage_completed, badge, excerpt, 
       <ProgressMeter value={percentage_completed} />
       <div className="dashboard-course__footer">
         <button onClick={clickAction(actions.modalOpen, 'pathDrawer', path)} className="btn btn--default">
-          View Path
+          Path Info
         </button>
         <div className="dashboard-course__footer-right-buttons">
           <Link href={Routes.WelcomeResults}>
