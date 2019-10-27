@@ -19,7 +19,7 @@ export const SurveyQuestions = fromJS([
     id: 'question-2',
     text: 'On a scale of 1-10, how interested are you in developing the following skills?',
     answers: [
-      {id: '2a', text: 'General Productivity', className: 'has-note', note: '(Efficiently managing data stored in spreadsheets)', icon: 'productivity'},
+      {id: '2a', text: 'General Productivity', className: 'has-note', note: '(Efficiently managing data and information stored in spreadsheets)', icon: 'productivity'},
       {id: '2b', text: 'Data Analysis', className: 'has-note', note: '(Exploring and analyzing raw data to expose insights and trends)', icon: 'analytics'},
       {id: '2c', text: 'Data Visualization', className: 'has-note', note: '(Using charts, graphs, and dashboards to bring data to life)', icon: 'visualisation'},
       {id: '2d', text: 'Database Design & Modeling', className: 'has-note', note: '(Building and analyzing relational models from multiple data sources)', icon: 'database'}
