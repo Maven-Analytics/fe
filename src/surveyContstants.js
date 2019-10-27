@@ -19,10 +19,10 @@ export const SurveyQuestions = fromJS([
     id: 'question-2',
     text: 'On a scale of 1-10, how interested are you in developing the following skills?',
     answers: [
-      {id: '2a', text: 'General Productivity', className: 'has-note', note: '(Efficiently managing data and information stored in spreadsheets)', icon: 'productivity'},
-      {id: '2b', text: 'Data Analysis', className: 'has-note', note: '(Exploring and analyzing raw data to expose meaningful insights and trends)', icon: 'analytics'},
-      {id: '2c', text: 'Data Visualization', className: 'has-note', note: '(Using charts, graphs, and custom dashboards to bring your data to life)', icon: 'visualisation'},
-      {id: '2d', text: 'Database Design & Modeling', className: 'has-note', note: '(Building and analyzing relational data models from multiple sources)', icon: 'database'}
+      {id: '2a', text: 'General Productivity', className: 'has-note', note: '(Efficiently managing data stored in spreadsheets)', icon: 'productivity'},
+      {id: '2b', text: 'Data Analysis', className: 'has-note', note: '(Exploring and analyzing raw data to expose insights and trends)', icon: 'analytics'},
+      {id: '2c', text: 'Data Visualization', className: 'has-note', note: '(Using charts, graphs, and dashboards to bring data to life)', icon: 'visualisation'},
+      {id: '2d', text: 'Database Design & Modeling', className: 'has-note', note: '(Building and analyzing relational models from multiple data sources)', icon: 'database'}
     ]
   },
   {
@@ -97,7 +97,9 @@ export const CourseMappings = fromJS({
   // Microsoft Power BI: Publishing to Power BI Service
   '205FN5BVSKzWteSPxocOxk': ['1d', '1e', '2b', '2c', '3b', '3e', '3f'],
   // MySQL for Data Analysis
-  '4KnXuUga0siTQ81rYWLcsx': ['1g', '2b', '2d', '3b']
+  '4KnXuUga0siTQ81rYWLcsx': ['1g', '2b', '2d', '3b'],
+  // Advanced MySQL for Data Analysis
+  '399GpujXI2dtopCfRO6G1w': ['1g', '2b', '2d', '3b']
 });
 
 // Count each answer for each of the paths and multiply it by the maximum value
