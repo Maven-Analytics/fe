@@ -8,6 +8,7 @@ import {fromJS} from 'immutable';
 import {TransitionGroup, Transition} from 'react-transition-group';
 import * as FontFaceObserver from 'fontfaceobserver';
 import Router from 'next/router';
+import TagManager from 'react-gtm-module';
 
 import initStore from '../redux/store';
 import {actions as authActions} from '../redux/ducks/auth';
@@ -42,11 +43,22 @@ class MavenApp extends App {
     }
 
     // If there is a recommendedPaths & recommendedCourses cookie, but it has not been saved to the user. save it
-    if (recommendedPaths && recommendedCourses && user && user.get('id') && (!user.get('recommended_paths') || user.get('recommended_paths').isEmpty() || !user.get('recommended_courses') || user.get('recommended_courses').isEmpty())) {
-      store.dispatch(userActions.userRecommendedSet({
-        paths: recommendedPaths,
-        courses: recommendedCourses
-      }));
+    if (
+      recommendedPaths &&
+      recommendedCourses &&
+      user &&
+      user.get('id') &&
+      (!user.get('recommended_paths') ||
+        user.get('recommended_paths').isEmpty() ||
+        !user.get('recommended_courses') ||
+        user.get('recommended_courses').isEmpty())
+    ) {
+      store.dispatch(
+        userActions.userRecommendedSet({
+          paths: recommendedPaths,
+          courses: recommendedCourses
+        })
+      );
 
       removeCookie('recommendedPaths', ctx);
       removeCookie('recommendedCourses', ctx);
@@ -71,9 +83,12 @@ class MavenApp extends App {
     //   new FontFaceObserver('Lato'),
     //   new FontFaceObserver('D-DIN')
     // ];
-    const icons = [
-      new FontFaceObserver('maicon')
-    ];
+
+    TagManager.initialize({
+      gtmId: 'GTM-M5F3PPK'
+    });
+
+    const icons = [new FontFaceObserver('maicon')];
 
     // const fontPromises = fonts.map(font => font.load());
 
@@ -84,10 +99,9 @@ class MavenApp extends App {
     //     document.body.classList.add('fonts-loaded');
     //   });
 
-    Promise.all(iconPromises)
-      .then(() => {
-        document.body.classList.add('icons-loaded');
-      });
+    Promise.all(iconPromises).then(() => {
+      document.body.classList.add('icons-loaded');
+    });
 
     Router.events.on('routeChangeComplete', this.handleRouteChange);
   }
@@ -111,14 +125,14 @@ class MavenApp extends App {
       <Container>
         <Provider store={store}>
           {/* <TransitionGroup component={null}> */}
-            {/* <Transition
+          {/* <Transition
               key={pathname}
               // onEnter={(node, appears) => enter(Component.animationTimeline, node, appears)}
               onExit={exit}
               timeout={{enter: 100, exit: 150}}
             > */}
-            <Component {...pageProps} />
-            {/* </Transition> */}
+          <Component {...pageProps} />
+          {/* </Transition> */}
           {/* </TransitionGroup> */}
         </Provider>
       </Container>
@@ -133,4 +147,4 @@ MavenApp.propTypes = {
 export default withRedux(initStore, {
   serializeState: state => state.toJS(),
   deserializeState: state => fromJS(state)
-})(withReduxSaga((MavenApp)));
+})(withReduxSaga(MavenApp));
