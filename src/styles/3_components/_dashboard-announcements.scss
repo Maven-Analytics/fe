@@ -1,0 +1,61 @@
+.dashboard-announcements {
+  font-size: 1.6rem;
+
+  ul {
+    @include list-unstyled();
+
+    li {
+      &:not(:last-child) {
+        border-bottom: 1px solid $gray-light-2;
+      }
+    }
+  }
+
+  &__item {
+    padding: $spacing-unit 0 $spacing-unit--sm;
+
+    @include media-breakpoint-up(desktop) {
+      padding: $spacing-unit--l 0 $spacing-unit;
+    }
+
+    span {
+      color: $gray-border;
+    }
+
+    h4 {
+      color: $black-2;
+      font-size: 1.25em;
+      line-height: 1.25;
+    }
+
+    p {
+      color: $gray-copy;
+      line-height: 1.5;
+    }
+  }
+
+  &__item-meta {
+    align-items: center;
+    display: flex;
+    font-size: 0.75em;
+    font-weight: 700;
+    margin: 0 0 $spacing-unit--xs;
+
+    .pill {
+      border-radius: 10px;
+      color: $black;
+      font-size: 0.8em;
+      letter-spacing: 1px;
+      margin-left: $spacing-unit;
+      padding: 0.3rem 0.6rem;
+
+      &.new {
+        background-color: $yellow;
+      }
+
+      &.pinned {
+        background-color: $blue;
+      }
+    }
+  }
+}

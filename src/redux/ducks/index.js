@@ -16,6 +16,7 @@ import scores from './scores';
 import spotlights from './spotlights';
 import pages from './pages';
 import credentials from './credentials';
+import announcements from './announcements';
 
 const Ducks = combineReducers({
   loading,
@@ -34,7 +35,8 @@ const Ducks = combineReducers({
   scores,
   spotlights,
   pages,
-  credentials
+  credentials,
+  announcements
 });
 
 export default Ducks;

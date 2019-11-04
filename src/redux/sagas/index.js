@@ -23,6 +23,7 @@ import {watchContact} from './contact';
 import {watchSubscribe} from './subscribe';
 import zapier from '../../services/zapier';
 import {watchCredentials} from './credentials';
+import {watchAnnouncements} from './announcements';
 
 function* logoutRequest({payload: {ctx}}) {
   removeCookie('token', ctx);
@@ -238,7 +239,8 @@ function* rootSaga() {
     fork(watchPages),
     fork(watchContact),
     fork(watchSubscribe),
-    fork(watchCredentials)
+    fork(watchCredentials),
+    fork(watchAnnouncements)
   ]);
 }
 

@@ -15,14 +15,13 @@ export async function getPaths({query = {}, include = 10}) {
       ...query
     });
 
-    return mapFromResponseItems(res.items)
-      .map(item => {
-        return {
-          ...item,
-          badge: mapResponseImage(item.badge),
-          courses: item.courses.map(mapCourseItem)
-        };
-      });
+    return mapFromResponseItems(res.items).map(item => {
+      return {
+        ...item,
+        badge: mapResponseImage(item.badge),
+        courses: item.courses.map(mapCourseItem)
+      };
+    });
   } catch (error) {
     return error;
   }
@@ -97,6 +96,25 @@ export async function getCourses({query = {}, include = 10, limit = 100}) {
     });
 
     return res.items.map(mapCourseItem);
+  } catch (error) {
+    return error;
+  }
+}
+
+export async function getAnnouncements({query = {}, include = 10}, order) {
+  try {
+    let res = await ContenfulClient.getEntries({
+      content_type: 'announcement', // eslint-disable-line camelcase,
+      include,
+      order,
+      ...query
+    });
+
+    return mapFromResponseItems(res.items).map(item => {
+      return {
+        ...item
+      };
+    });
   } catch (error) {
     return error;
   }

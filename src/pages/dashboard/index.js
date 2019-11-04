@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {fromJS} from 'immutable';
+import {fromJS, List} from 'immutable';
 
 import {actions as dashboardActions, selectors as dashboardSelectors} from '../../redux/ducks/dashboard';
 import {actions as pathActions, selectors as pathSelectors} from '../../redux/ducks/paths';
 import {actions as courseActions, selectors as courseSelectors} from '../../redux/ducks/courses';
+import {actions as announcementActions, selectors as announcementSelectors} from '../../redux/ducks/announcements';
 import {selectors as errorSelectors} from '../../redux/ducks/error';
 import {selectors as loadingSelectors} from '../../redux/ducks/loading';
 import {selectors as userSelectors} from '../../redux/ducks/user';
@@ -26,16 +27,32 @@ import DashboardCredentialIcons from '../../components/dashboardCredentialIcons'
 import DashboardCredential from '../../components/dashboardCredential';
 import withAuthSync from '../../components/withAuthSync';
 import DashboardRecommendedPath from '../../components/dashboardRecommendedPath';
+import DashboardAnnouncements from '../../components/dashboardAnnouncements';
 
 class DashboardPage extends Component {
   componentDidMount() {
     this.props.actions.pathsInit();
     this.props.actions.coursesInit();
     this.props.actions.getProgress();
+    this.props.actions.announcementsGet({
+      order: '-fields.date'
+    });
   }
 
+  // eslint-disable-next-line complexity
   render() {
-    const {recentCourse, progress, loadingProgress, completedCourses, completedPaths, loadingCourses, user, loadingPaths} = this.props;
+    const {
+      recentCourse,
+      progress,
+      loadingProgress,
+      completedCourses,
+      completedPaths,
+      loadingCourses,
+      user,
+      loadingPaths,
+      announcements,
+      loadingAnnouncements
+    } = this.props;
     const recommendedUserPath = user.getIn(['recommended_paths', 0]);
     let recommendedPath = null;
 
@@ -122,7 +139,11 @@ class DashboardPage extends Component {
 
     const NewsUpdates = (
       <DashboardCard title="News & Updates">
-        <h5>Coming Soon!</h5>
+        {(!announcements || announcements.isEmpty()) && loadingAnnouncements === false ? (
+          <DashboardNoData text="Comming Soon!" />
+        ) : (
+          <DashboardAnnouncements announcements={announcements} />
+        )}
       </DashboardCard>
     );
 
@@ -181,13 +202,15 @@ DashboardPage.propTypes = {
   loadingProgress: PropTypes.bool,
   loadingCourses: PropTypes.bool,
   loadingPaths: PropTypes.bool,
+  loadingAnnouncements: PropTypes.bool,
   errorProgress: PropTypes.string,
   actions: PropTypes.objectOf(PropTypes.func),
   recentCourse: ImmutablePropTypes.map,
   progress: ImmutablePropTypes.map,
   completedPaths: ImmutablePropTypes.list,
   completedCourses: ImmutablePropTypes.list,
-  user: ImmutablePropTypes.map
+  user: ImmutablePropTypes.map,
+  announcements: ImmutablePropTypes.list
 };
 
 const mapStateToProps = state => ({
@@ -197,24 +220,25 @@ const mapStateToProps = state => ({
   loadingCourses: loadingSelectors.getLoading(['COURSESINIT'])(state),
   loadingPaths: loadingSelectors.getLoading(['PATHSINIT'])(state),
   loadingProgress: loadingSelectors.getLoading(['DASHBOARD_PROGRESS'])(state),
+  loadingAnnouncements: loadingSelectors.getLoading(['ANNOUNCEMENTS_GET'])(state),
   errorProgress: errorSelectors.getError(['DASHBOARD_PROGRESS'])(state),
   completedCourses: courseSelectors.getCompletedCourses(state),
   completedPaths: pathSelectors.getCompletedPaths(state),
-  user: userSelectors.getUser(state)
+  user: userSelectors.getUser(state),
+  announcements: announcementSelectors.getAnnouncements(state)
 });
 
-const mapDispatchToProps = function(dispatch) {
-  return {
-    actions: bindActionCreators(
-      {
-        ...dashboardActions,
-        ...pathActions,
-        ...courseActions
-      },
-      dispatch
-    )
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(
+    {
+      ...dashboardActions,
+      ...pathActions,
+      ...courseActions,
+      ...announcementActions
+    },
+    dispatch
+  )
+});
 
 export default connect(
   mapStateToProps,
