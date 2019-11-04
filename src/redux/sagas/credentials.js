@@ -1,10 +1,10 @@
-import {takeLatest, put, all} from 'redux-saga/effects';
+import {takeEvery, put, all} from 'redux-saga/effects';
 
 import {types as credentialTypes} from '../ducks/credentials';
 import api from '../../services/api';
 
 export function* watchCredentials() {
-  yield takeLatest(credentialTypes.CREDENTIALS_GET_REQUEST, onCredentialsGet);
+  yield takeEvery(credentialTypes.CREDENTIALS_GET_REQUEST, onCredentialsGet);
 }
 
 function* onCredentialsGet({payload}) {
