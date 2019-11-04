@@ -48,7 +48,7 @@ export const selectors = {
     [getEnrollments, courseSelectors.getCourses],
     (enrollments, courses) => {
       // Get the latest enrollment that the user has started
-      const latestEnrollment = enrollments.first();
+      const latestEnrollment = enrollments.filter(e => e.get('percentage_completed')).first();
 
       // If there are no enrollments or the laltestEnrollment has not been started, return an empty map
       if (!latestEnrollment || !latestEnrollment.has('percentage_completed')) {
