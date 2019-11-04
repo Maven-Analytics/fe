@@ -87,9 +87,10 @@ class Carousel extends Component {
 
     const Flickity = require('flickity');
 
-    if (this.flickity) {
-      this.flickity.destroy();
-    }
+    // if (this.flickity) {
+    //   console.log(this.flickity);
+    //   this.flickity.destroy();
+    // }
 
     this.flickity = new Flickity(this.el.current, {
       ...this.defaultOptions,
