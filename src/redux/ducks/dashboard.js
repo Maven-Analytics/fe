@@ -22,36 +22,44 @@ const initialState = utils.initialState({
 
 export default (state = initialState, action) => {
   switch (action.type) {
-  case types.DASHBOARD_PROGRESS_SUCCESS:
-    return fromJS(action.payload);
-  default:
-    return state;
+    case types.DASHBOARD_PROGRESS_SUCCESS:
+      return fromJS(action.payload);
+    default:
+      return state;
   }
 };
 
 const getEnrollments = state => state.getIn(['dashboard', 'enrollments']);
 
 export const selectors = {
-  getProgress: createSelector([pathSelectors.getPaths, courseSelectors.getCourses], (paths, courses) => {
-    let courseProgress = courses
-      .sort(sortEnrollmentsByPercentageDesc);
-    let pathProgress = paths
-      .sort(sortEnrollmentsByPercentageDesc);
+  getProgress: createSelector(
+    [pathSelectors.getPaths, courseSelectors.getCourses],
+    (paths, courses) => {
+      let courseProgress = courses.sort(sortEnrollmentsByPercentageDesc);
+      let pathProgress = paths.sort(sortEnrollmentsByPercentageDesc);
 
-    return fromJS({
-      courses: courseProgress || [],
-      paths: pathProgress || []
-    });
-  }),
-  getRecentCourse: createSelector([getEnrollments, courseSelectors.getCourses], (enrollments, courses) => {
-    const latestEnrollment = enrollments.first();
-
-    // If there are no enrollments or the laltestEnrollment has not been started, return an empty map
-    if (!latestEnrollment || !latestEnrollment.has('percentage_completed')) {
-      return Map();
+      return fromJS({
+        courses: courseProgress || [],
+        paths: pathProgress || []
+      });
     }
+  ),
+  getRecentCourse: createSelector(
+    [getEnrollments, courseSelectors.getCourses],
+    (enrollments, courses) => {
+      // Get the latest enrollment that the user has started
+      const latestEnrollment = enrollments.first();
 
-    return courses.find(c => c.get('thinkificCourseId') === latestEnrollment.get('courseId'));
-  }),
-  getEnrollments: createSelector([getEnrollments], e => e)
+      // If there are no enrollments or the laltestEnrollment has not been started, return an empty map
+      if (!latestEnrollment || !latestEnrollment.has('percentage_completed')) {
+        return Map();
+      }
+
+      return courses.find(c => c.get('thinkificCourseId') === latestEnrollment.get('courseId'));
+    }
+  ),
+  getEnrollments: createSelector(
+    [getEnrollments],
+    e => e
+  )
 };
