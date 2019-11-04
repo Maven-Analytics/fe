@@ -7,6 +7,7 @@ export const Routes = {
   Account: '/dashboard/account',
   AccountPassword: '/dashboard/account/password',
   Badges: '/badges',
+  BiVideoSeries: '/bi-video-series',
   Contact: '/contact',
   Consulting: '/consulting',
   CoursesPaths: '/courses-learning-paths',
@@ -106,6 +107,10 @@ export const footerLinks = fromJS([
       {
         text: 'Consulting',
         url: Routes.Consulting
+      },
+      {
+        text: 'Why BI?',
+        url: Routes.BiVideoSeries
       }
     ]
   }
