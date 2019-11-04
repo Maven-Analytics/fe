@@ -1,7 +1,12 @@
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import {click} from '../utils/componentHelpers';
+import {withRouter} from 'next/router';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+
+import {actions as stateActions} from '../redux/ducks/state';
+import {click, canUseDOM} from '../utils/componentHelpers';
 
 class TabListTopics extends Component {
   constructor(props) {
@@ -12,6 +17,25 @@ class TabListTopics extends Component {
     };
 
     this.handleClick = this.handleClick.bind(this);
+
+    this.el = createRef();
+  }
+
+  componentDidMount() {
+    if (canUseDOM() && window.location.hash) {
+      const slug = window.location.hash.split('#')[1];
+      const topicIndex = this.props.tabs.findIndex(t => t.get('slug') === slug);
+
+      if (topicIndex > -1) {
+        const topic = this.props.tabs.find(t => t.get('slug') === slug);
+
+        this.props.actions.modalOpen('video', topic && {video: topic.get('video')});
+
+        this.setState({
+          activeTab: topicIndex
+        });
+      }
+    }
   }
 
   handleClick(activeTab) {
@@ -22,7 +46,7 @@ class TabListTopics extends Component {
     const {tabs, itemComponent: ItemComponent, title} = this.props;
 
     return (
-      <div className="tab-list-topics">
+      <div ref={this.el} className="tab-list-topics">
         <div className="row">
           <div className="col-md-6 col-lg-4">
             <div className="tab-list-topics__content">
@@ -50,7 +74,22 @@ class TabListTopics extends Component {
 TabListTopics.propTypes = {
   tabs: ImmutablePropTypes.list,
   title: PropTypes.string.isRequired,
-  itemComponent: PropTypes.oneOfType([PropTypes.object, PropTypes.func])
+  itemComponent: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+  actions: PropTypes.objectOf(PropTypes.func)
 };
 
-export default TabListTopics;
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(
+    {
+      ...stateActions
+    },
+    dispatch
+  )
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(TabListTopics));
