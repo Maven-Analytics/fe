@@ -25,6 +25,10 @@
     @extend %btn--empty-dark;
   }
 
+  &--empty-yellow-medium {
+    @extend %btn--empty-yellow-medium;
+  }
+
   &--lg {
     @extend %btn--lg;
   }

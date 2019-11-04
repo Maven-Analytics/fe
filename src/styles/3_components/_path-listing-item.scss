@@ -11,7 +11,7 @@
 
     &__content {
       p {
-        color: #7E7E7E;
+        color: #7e7e7e;
       }
     }
 
@@ -35,9 +35,12 @@
   &__toggle {
     align-items: center;
     background-color: transparent;
-    border: none;
     display: flex;
-    font-weight: 700;
+
+    &:not(.path-listing-item__toggle--unstyled) {
+      border: none;
+      font-weight: 700;
+    }
 
     @include media-breakpoint-up(lg) {
       margin-left: 115px;

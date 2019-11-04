@@ -37,7 +37,7 @@ const withWindowSize = BaseComponent => {
     }
 
     render() {
-      return <BaseComponent {...this.props} {...this.state}/>;
+      return <BaseComponent {...this.props} {...this.state} />;
     }
   };
 };

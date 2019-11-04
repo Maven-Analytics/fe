@@ -20,7 +20,7 @@
 
   .headroom {
     background-color: $black;
-    transition: background-color .15s ease-in;
+    transition: background-color 0.15s ease-in;
     z-index: index($globalIndex, globalHeader) !important;
 
     @include desktopHeader {
@@ -37,7 +37,7 @@
     display: flex;
     height: $header-height-mobile;
     justify-content: space-between;
-    padding: .8rem 0;
+    padding: 0.8rem 0;
 
     @include desktopHeader {
       height: auto;
@@ -56,7 +56,7 @@
     @include desktopHeader {
       height: 46px;
       flex: 0 1 192px;
-      margin-right: $spacing-unit--l + .5rem;
+      margin-right: $spacing-unit--l + 0.5rem;
       width: 192px;
     }
 
@@ -140,7 +140,7 @@
               height: 1px;
               left: 0;
               position: absolute;
-              transition: width .15s ease-in-out;
+              transition: width 0.15s ease-in-out;
               width: 0;
 
               @include desktopHeader() {
@@ -214,7 +214,9 @@
     }
 
     nav {
-      display: flex;
+      @include desktopHeader() {
+        display: flex;
+      }
 
       > ul {
         @include list-inline();

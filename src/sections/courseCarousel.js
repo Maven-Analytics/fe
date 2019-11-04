@@ -21,7 +21,7 @@ const CourseCarousel = ({courses, title, eyelash, description, helperText, separ
       <header>
         {title ? (
           <h2>
-            {title} <span>{eyelash}</span>
+            <span>{title}</span> <span className="eyelash">{eyelash}</span>
           </h2>
         ) : null}
         {description ? <p>{description}</p> : null}

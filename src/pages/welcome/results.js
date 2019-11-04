@@ -116,7 +116,7 @@ class WelcomeSurveyResults extends Component {
     return (
       <div key="results" style={this.getDivStyle(style)}>
         <header>
-          <h1>Your Recommended Learning Path</h1>
+          <h1>Recommended Learning Path For You</h1>
         </header>
         <div className="welcome-survey-results__recommended-path">
           <PathBanner
@@ -131,20 +131,18 @@ class WelcomeSurveyResults extends Component {
             url={`${Routes.Path}/${recommendedPath.get('slug')}`}
           />
           <button
-            className="path-listing-item__toggle welcome-survey-results__recommended-path-courses-toggle"
+            className="path-listing-item__toggle path-listing-item__toggle--unstyled  welcome-survey-results__recommended-path-courses-toggle"
             aria-hidden={coursesOpen === false}
             aria-controls="welcome-survey-recommended-path-courses"
             onClick={this.handleToggle}
           >
             {coursesOpen ? (
               <Fragment>
-                Hide included courses
-                <MaIcon icon="chevron-up" />
+                Hide courses in this path <MaIcon icon="chevron-up" />
               </Fragment>
             ) : (
               <Fragment>
-                Show included courses
-                <MaIcon icon="chevron-down" />
+                Show courses in this path <MaIcon icon="chevron-down" />
               </Fragment>
             )}
           </button>
@@ -153,13 +151,14 @@ class WelcomeSurveyResults extends Component {
             hidden={coursesOpen === false}
             className="welcome-survey-results__recommended-path-courses"
           >
-            {coursesOpen ? <CourseCarousel separator helperText="Courses included in this path" courses={recommendedPath.get('courses')} /> : null}
+            {coursesOpen ? <CourseCarousel courses={recommendedPath.get('courses')} /> : null}
           </div>
         </div>
+        <hr className="welcome-survey-results__hr" />
         <CourseCarousel
-          title="More Individual Courses"
-          eyelash="Recommended for you"
-          description="These individual courses are highly recommended based on your personal preferences to help you achieve your data rockstar goals. "
+          title="Individual Self-Paced Courses"
+          eyelash="Recommended courses for you"
+          description="These individual courses are highly recommended based on your personal preferences to help you achieve your data rockstar goals."
           courses={recommendedCourses}
         />
       </div>

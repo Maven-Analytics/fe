@@ -15,7 +15,7 @@
   vertical-align: middle;
   text-align: center;
   text-transform: uppercase;
-  transition: background-color .2s ease-in-out, color .2s ease-in-out, border-color .2s ease-in-out, box-shadow .2s ease-in-out;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   white-space: nowrap;
 
   &:hover {
@@ -31,7 +31,7 @@
   &:focus,
   &.focus {
     outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba($blue, .5);
+    box-shadow: 0 0 0 0.2rem rgba($blue, 0.5);
   }
 
   &:disabled,
@@ -69,7 +69,7 @@
     position: absolute;
     right: 0;
     top: 0;
-    transition: opacity .2s ease-in-out;
+    transition: opacity 0.2s ease-in-out;
     z-index: -1;
   }
 
@@ -119,7 +119,7 @@
   &:disabled,
   &.disabled {
     color: $black;
-    opacity: .43;
+    opacity: 0.43;
   }
 }
 
@@ -161,6 +161,21 @@
   &:hover,
   &:focus {
     color: $black;
+  }
+}
+
+%btn--empty-yellow-medium {
+  @extend %btn--empty;
+  border: 1px solid $yellow-medium;
+  color: $white;
+
+  &:focus {
+    border: 1px solid $yellow-medium;
+  }
+
+  &:hover,
+  &:hover:focus {
+    border: 1px solid $white;
   }
 }
 
