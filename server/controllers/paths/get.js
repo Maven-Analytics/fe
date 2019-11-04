@@ -12,9 +12,7 @@ module.exports = async request => {
     let enrollments;
     if (id) {
       enrollments = await getEnrollments(id);
-      paths = paths
-        .map(p => getPathProgress(fromJS(p), fromJS(enrollments)))
-        .filter(c => c);
+      paths = paths.map(p => getPathProgress(fromJS(p), fromJS(enrollments))).filter(c => c);
     }
 
     return {
@@ -27,10 +25,11 @@ module.exports = async request => {
 };
 
 function getEnrollments(id) {
-  return axios.get(`${process.env.HOST_API}/api/v1/dashboard/progress`, {
-    params: {
-      user_id: id
-    }
-  })
+  return axios
+    .get(`${process.env.HOST_API}/api/v1/dashboard/progress`, {
+      params: {
+        user_id: id
+      }
+    })
     .then(res => res.data.data.enrollments);
 }

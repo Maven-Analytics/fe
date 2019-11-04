@@ -16,19 +16,23 @@ module.exports = {
 
 async function getPaths({query = {}, include = 10}) {
   try {
-    let res = await ContenfulClient.getEntries(Object.assign({
-      content_type: 'path', // eslint-disable-line camelcase,
-      include,
-      order: 'fields.order'
-    }, query));
+    let res = await ContenfulClient.getEntries(
+      Object.assign(
+        {
+          content_type: 'path', // eslint-disable-line camelcase,
+          include,
+          order: 'fields.order'
+        },
+        query
+      )
+    );
 
-    const paths = mapFromResponseItems(res.items)
-      .map(item => {
-        return Object.assign(item, {
-          badge: mapResponseImage(item.badge),
-          courses: item.courses && item.courses.length ? item.courses.map(mapCourseItem) : []
-        });
+    const paths = mapFromResponseItems(res.items).map(item => {
+      return Object.assign(item, {
+        badge: mapResponseImage(item.badge),
+        courses: item.courses && item.courses.length ? item.courses.map(mapCourseItem) : []
       });
+    });
 
     return paths;
   } catch (error) {
@@ -39,18 +43,22 @@ async function getPaths({query = {}, include = 10}) {
 
 async function getFilters({query = {}, include = 10}) {
   try {
-    let res = await ContenfulClient.getEntries(Object.assign({
-      content_type: 'filter', // eslint-disable-line camelcase,
-      include,
-      order: 'fields.order'
-    }, query));
+    let res = await ContenfulClient.getEntries(
+      Object.assign(
+        {
+          content_type: 'filter', // eslint-disable-line camelcase,
+          include,
+          order: 'fields.order'
+        },
+        query
+      )
+    );
 
-    const paths = mapFromResponseItems(res.items)
-      .map(item => {
-        return Object.assign(item, {
-          image: mapResponseImage(item.image)
-        });
+    const paths = mapFromResponseItems(res.items).map(item => {
+      return Object.assign(item, {
+        image: mapResponseImage(item.image)
       });
+    });
 
     return paths;
   } catch (error) {
@@ -60,11 +68,16 @@ async function getFilters({query = {}, include = 10}) {
 
 async function getCourses({query = {}, include = 10, limit = 100}) {
   try {
-    let res = await ContenfulClient.getEntries(Object.assign({
-      content_type: 'course', // eslint-disable-line camelcase,
-      include,
-      limit
-    }, query));
+    let res = await ContenfulClient.getEntries(
+      Object.assign(
+        {
+          content_type: 'course', // eslint-disable-line camelcase,
+          include,
+          limit
+        },
+        query
+      )
+    );
 
     return res.items.map(mapCourseItem);
   } catch (error) {
@@ -85,9 +98,12 @@ function mapResponseItem(item) {
     return;
   }
 
-  return Object.assign({
-    id: item.sys.id
-  }, item.fields);
+  return Object.assign(
+    {
+      id: item.sys.id
+    },
+    item.fields
+  );
 }
 
 function mapCourseItem(item) {
@@ -122,10 +138,13 @@ function mapResponseImage(image) {
     return;
   }
 
-  return Object.assign({
-    id: image.sys ? image.sys.id : image.id,
-    title: image.sys ? image.sys.title : image.title
-  }, image.fields ? image.fields : image);
+  return Object.assign(
+    {
+      id: image.sys ? image.sys.id : image.id,
+      title: image.sys ? image.sys.title : image.title
+    },
+    image.fields ? image.fields : image
+  );
 }
 
 function getCourseProgress(course, enrollments) {
@@ -143,34 +162,35 @@ function getCourseProgress(course, enrollments) {
 
   const enrollment = enrollments.find(enrollment => enrollment.get('courseId') === course.get('thinkificCourseId'));
 
-  const progress = fromJS(Object.assign(course.toJS(), {
-    courseId: course.get('thinkificCourseId'),
-    percentage_completed: 0,
-    enrollment: enrollment ? enrollment.toJS() : {}
-  }));
+  const progress = fromJS(
+    Object.assign(course.toJS(), {
+      courseId: course.get('thinkificCourseId'),
+      percentage_completed: 0,
+      enrollment: enrollment ? enrollment.toJS() : {}
+    })
+  );
 
   if (!enrollment) {
     return progress;
   }
 
-  return progress.merge(enrollment)
-    .update(u => {
-      let status = 'Not Started';
+  return progress.merge(enrollment).update(u => {
+    let status = 'Not Started';
 
-      if (u.get('percentage_completed') > 0) {
-        status = 'In Progress';
-      }
+    if (u.get('percentage_completed') > 0) {
+      status = 'In Progress';
+    }
 
-      if (u.get('percentage_completed') === 1) {
-        status = 'Complete';
-        u = u.set('completed', true);
-      }
+    if (u.get('percentage_completed') === 1) {
+      status = 'Complete';
+      u = u.set('completed', true);
+    }
 
-      // DEBUG
-      // u = u.set('completed', true);
+    // DEBUG
+    // u = u.set('completed', true);
 
-      return u.set('status', status);
-    });
+    return u.set('status', status);
+  });
 }
 
 function getPathProgress(path, enrollments) {
@@ -186,33 +206,37 @@ function getPathProgress(path, enrollments) {
     return;
   }
 
-  let progress = fromJS(Object.assign(path.toJS(), {
-    pathId: path.get('id'),
-    percentage_completed: 0,
-    enrollments: []
-    // DEBUG
-    // completed: true
-  }));
+  let progress = fromJS(
+    Object.assign(path.toJS(), {
+      pathId: path.get('id'),
+      percentage_completed: 0,
+      enrollments: []
+      // DEBUG
+      // completed: true
+    })
+  );
 
   const totalCourses = path.get('courses').count();
   const pathEnrollments = getPathEnrollments(path, enrollments);
 
   progress = pathEnrollments.reduce((map, enrollment) => {
+    if (!enrollment) {
+      return map;
+    }
+
     return map.update(u => {
       const prevPercentage = u.get('percentage_completed');
       const newPercentage = enrollment.get('percentage_completed') + prevPercentage;
 
-      return u.set('percentage_completed', newPercentage)
-        .update('enrollments', e => e.push(enrollment));
+      return u.set('percentage_completed', newPercentage).update('enrollments', e => e.push(enrollment));
     });
   }, progress);
 
   // Divide the total progress by the amount of courses in the path
-  progress = progress.update('percentage_completed', p => totalCourses > 0 ? p / totalCourses : 0);
+  progress = progress.update('percentage_completed', p => (totalCourses > 0 ? p / totalCourses : 0));
 
   if (progress.get('percentage_completed') === 1) {
-    progress = progress.set('completed', true)
-      .set('completed_at', pathEnrollments.getIn([0, 'completed_at']));
+    progress = progress.set('completed', true).set('completed_at', pathEnrollments.getIn([0, 'completed_at']));
   }
 
   return progress;
