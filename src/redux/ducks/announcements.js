@@ -28,6 +28,8 @@ const getAnnouncements = state => state.get('announcements');
 export const selectors = {
   getAnnouncements: createSelector(
     [getAnnouncements],
-    c => c
+    announcements => {
+      return announcements.filter(a => a.get('pinned')).concat(announcements.filter(a => !a.get('pinned')));
+    }
   )
 };
