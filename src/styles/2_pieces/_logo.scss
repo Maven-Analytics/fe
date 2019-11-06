@@ -4,11 +4,35 @@
   max-width: 100%;
   width: 100%;
 
+  // .cls-1 {
+  //   fill:url(#linear-gradient);
+  // }
+
+  // .cls-2{
+  //   fill:#fff;
+  // }
+
   .cls-1 {
-    fill:url(#linear-gradient);
+    fill: url(#linear-gradient);
   }
 
-  .cls-2{
-    fill:#fff;
+  .cls-2 {
+    fill: url(#linear-gradient-2);
+  }
+
+  .cls-3 {
+    fill: #fff;
+  }
+
+  .cls-4 {
+    mask: url(#mask);
+  }
+
+  .cls-5 {
+    fill: url(#linear-gradient-3);
+  }
+
+  .cls-6 {
+    filter: url(#luminosity-invert-noclip);
   }
 }
