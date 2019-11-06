@@ -26,19 +26,19 @@ class SignupThanks extends Component {
   componentDidMount() {
     const {first_name, last_name, email, id} = this.props.user.toJS();
 
-    this.props.actions.contactSend({
-      hook: 'https://hooks.zapier.com/hooks/catch/4268756/obkwr87/',
-      first_name,
-      last_name,
-      email,
-      id
-    });
+    // this.props.actions.contactSend({
+    //   hook: 'https://hooks.zapier.com/hooks/catch/4268756/obkwr87/',
+    //   first_name,
+    //   last_name,
+    //   email,
+    //   id
+    // });
   }
 
   render() {
     return (
       <Checkout full>
-        <CheckoutThanks content={thanksContent}/>
+        <CheckoutThanks content={thanksContent} />
       </Checkout>
     );
   }
@@ -51,12 +51,18 @@ SignupThanks.propTypes = {
 
 const mapStateToProps = () => ({});
 
-const mapDispatchToProps = function (dispatch) {
+const mapDispatchToProps = function(dispatch) {
   return {
-    actions: bindActionCreators({
-      ...contactActions
-    }, dispatch)
+    actions: bindActionCreators(
+      {
+        ...contactActions
+      },
+      dispatch
+    )
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withAuthSync(SignupThanks));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withAuthSync(SignupThanks));
