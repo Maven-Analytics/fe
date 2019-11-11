@@ -1,5 +1,12 @@
 import React from 'react';
 import Document, {Html, Head, Main, NextScript} from 'next/document';
+import {innerHtml} from '../utils/componentHelpers';
+
+const mcScript = `
+window.dojoRequire(['mojo/signup-forms/Loader'], L => {
+  L.start({baseUrl: 'mc.us7.list-manage.com', uuid: '4cab28e9b9ed67ca67e50a8c6', lid: 'cfe484f1ce', uniqueMethods: true});
+});
+`;
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -36,13 +43,6 @@ class MyDocument extends Document {
           {/* Outgrow Script */}
 
           <script async src="//dyv6f9ner1ir9.cloudfront.net/assets/js/nloader.js" />
-
-          <script
-            async
-            type="text/javascript"
-            src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js"
-            data-dojo-config="usePlainJson: true, isDebug: false"
-          />
         </Head>
         <body>
           <Main />
