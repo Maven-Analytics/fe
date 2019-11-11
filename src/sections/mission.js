@@ -25,7 +25,6 @@ class Mission extends Component {
   }
 
   handleShow() {
-    console.log(this.tween);
     this.setState({
       visible: true
     });
@@ -54,18 +53,24 @@ class Mission extends Component {
         </div>
         <TrackVisibility alwaysShow className="container" onShow={this.handleShow}>
           <Fragment>
-            <Tween playState={this.state.visible ? 'play' : 'pause'} staggerFrom={{alpha: 0, y: 10}} staggerTo={{alpha: 1, y: 0}} stagger={0.2} duration={1} ease="Back.easeOut" delay={0.5}>
+            <Tween
+              playState={this.state.visible ? 'play' : 'pause'}
+              staggerFrom={{alpha: 0, y: 10}}
+              staggerTo={{alpha: 1, y: 0}}
+              stagger={0.2}
+              duration={1}
+              ease="Back.easeOut"
+              delay={0.5}
+            >
               <div>
-                <MaIcon icon="maven" className="mission__header-icon"/>
+                <MaIcon icon="maven" className="mission__header-icon" />
               </div>
               <div>
-                <Markdown content={content}/>
+                <Markdown content={content} />
               </div>
               {icons.map(icon => (
                 <div key={icon.get('title')} className="mission__icon">
-                  <MaIcon
-                    icon={icon.get('icon')}
-                  />
+                  <MaIcon icon={icon.get('icon')} />
                   <p>{icon.get('title')}</p>
                 </div>
               ))}
@@ -76,7 +81,7 @@ class Mission extends Component {
               </div>
             </Tween>
 
-            {scrollTo ? <ScrollToNext target={scrollTo} title="The Maven Method"/> : null}
+            {scrollTo ? <ScrollToNext target={scrollTo} title="The Maven Method" /> : null}
           </Fragment>
         </TrackVisibility>
       </div>
