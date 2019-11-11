@@ -6,12 +6,12 @@ export function fire(actions, func, val) {
   return e => {
     let _func = actions[func];
 
-    return (actions && func && typeof _func === 'function') ? _func(val || e) : null;
+    return actions && func && typeof _func === 'function' ? _func(val || e) : null;
   };
 }
 
 export function click(func, val) {
-  return e => (func && typeof func === 'function') ? func(val || typeof val !== 'undefined' ? val : e) : null;
+  return e => (func && typeof func === 'function' ? func(val || typeof val !== 'undefined' ? val : e) : null);
 }
 
 export function clickPrevent(func, val) {
@@ -45,43 +45,43 @@ export function imageLoaded(func, val) {
 }
 
 export function key(func, val) {
-  return e => (func && typeof func === 'function') ? func(val || e) : null;
+  return e => (func && typeof func === 'function' ? func(val || e) : null);
 }
 
 export function enter(func) {
   return e => {
-    return (func && typeof func === 'function' && e.keyCode === 13) ? func() : null;
+    return func && typeof func === 'function' && e.keyCode === 13 ? func() : null;
   };
 }
 
 export function escape(func) {
   return keyCode => {
-    return (func && typeof func === 'function' && keyCode === 27) ? func() : null;
+    return func && typeof func === 'function' && keyCode === 27 ? func() : null;
   };
 }
 
 export function state(func, key) {
-  return e => (func && typeof func === 'function') ? func({[key]: e.target.value}) : null;
+  return e => (func && typeof func === 'function' ? func({[key]: e.target.value}) : null);
 }
 
 export function stateVal(func, key) {
-  return val => (func && typeof func === 'function') ? func({[key]: val}) : null;
+  return val => (func && typeof func === 'function' ? func({[key]: val}) : null);
 }
 
 export function stateCheck(func, key) {
-  return e => (func && typeof func === 'function') ? func({[key]: e.target.checked}) : null;
+  return e => (func && typeof func === 'function' ? func({[key]: e.target.checked}) : null);
 }
 
 export function check(func) {
-  return e => (func && typeof func === 'function') ? func(e.target.checked) : null;
+  return e => (func && typeof func === 'function' ? func(e.target.checked) : null);
 }
 
 export function stateNum(func, key) {
-  return e => (func && typeof func === 'function') ? func({[key]: parseFloat(e.target.value)}) : null;
+  return e => (func && typeof func === 'function' ? func({[key]: parseFloat(e.target.value)}) : null);
 }
 
 export function input(func, val) {
-  return e => (func && typeof func === 'function') ? func(val || e.target.value) : null;
+  return e => (func && typeof func === 'function' ? func(val || e.target.value) : null);
 }
 
 export function ref(target) {
@@ -144,7 +144,11 @@ export function camelCase(str) {
  * @return {Number} Y coordinate for how far a user has scrolled down a page
  */
 export function getCurrentScrollY() {
-  return window.scrollY ? window.scrollY : window.pageYOffset ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+  return window.scrollY
+    ? window.scrollY
+    : window.pageYOffset
+    ? window.pageYOffset
+    : (document.documentElement || document.body.parentNode || document.body).scrollTop;
 }
 
 /**
@@ -164,17 +168,17 @@ export function canUseDOM() {
   return Boolean(typeof window !== 'undefined' && window.document && window.document.createElement);
 }
 
-export const isElementXPercentInViewport = function (el, percentVisible = 0) {
+export const isElementXPercentInViewport = function(el, percentVisible = 0) {
   if (!el) {
     return false;
   }
 
   let rect = el.getBoundingClientRect();
-  let windowHeight = (window.innerHeight || document.documentElement.clientHeight);
+  let windowHeight = window.innerHeight || document.documentElement.clientHeight;
 
   return !(
-    Math.floor(100 - (((rect.top >= 0 ? 0 : rect.top) / Number(-(rect.height / 1))) * 100)) < percentVisible ||
-    Math.floor(100 - (((rect.bottom - windowHeight) / rect.height) * 100)) < percentVisible
+    Math.floor(100 - ((rect.top >= 0 ? 0 : rect.top) / Number(-(rect.height / 1))) * 100) < percentVisible ||
+    Math.floor(100 - ((rect.bottom - windowHeight) / rect.height) * 100) < percentVisible
   );
 };
 
@@ -240,4 +244,19 @@ export const handleScrollIntoView = selector => {
       block: 'start'
     });
   };
+};
+
+export const getTimeOfDay = () => {
+  var today = new Date();
+  var curHr = today.getHours();
+
+  if (curHr < 12) {
+    return 'morning';
+  }
+
+  if (curHr < 17) {
+    return 'afternoon';
+  }
+
+  return 'evening';
 };

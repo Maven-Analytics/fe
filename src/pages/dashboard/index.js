@@ -170,7 +170,7 @@ class DashboardPage extends Component {
     );
 
     return (
-      <DashboardLayout title="My Dashboard" activeLink={0}>
+      <DashboardLayout showWelcome title="My Dashboard" activeLink={0}>
         <MediaQuery min="lg">
           <DashboardGrid horizontal>
             <DashboardGrid vertical>

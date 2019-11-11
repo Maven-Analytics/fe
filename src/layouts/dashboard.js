@@ -10,19 +10,15 @@ import {selectors as userSelectors} from '../redux/ducks/user';
 import BaseLayout from './base';
 import CopyrightFooter from '../sections/copyrightFooter';
 import Loader from '../components/loader';
+import {getTimeOfDay} from '../utils/componentHelpers';
 
 const DashboardLayout = ({children, title, activeLink, user, showWelcome, sidebar: Sidebar, loading}) => {
   return (
-    <BaseLayout
-      header={CheckoutHeader}
-      footer={CopyrightFooter}
-      mainClass="layout-dashboard"
-      hideModals={['mobileMenu']}
-    >
+    <BaseLayout header={CheckoutHeader} footer={CopyrightFooter} mainClass="layout-dashboard" hideModals={['mobileMenu']}>
       {/* @TODO: Show alert if the user is enrolled, but all enrollments are expired */}
       <div className="layout-dashboard__wrap">
         <DashboardHeader
-          welcome={showWelcome && isImmutable(user) ? `Good afternoon, ${user.get('first_name')}` : null}
+          welcome={showWelcome && isImmutable(user) ? `Good ${getTimeOfDay()}, ${user.get('first_name')}` : null}
           title={title}
           activeLink={activeLink}
         />
@@ -30,12 +26,10 @@ const DashboardLayout = ({children, title, activeLink, user, showWelcome, sideba
           <div className={['layout-dashboard__container', Sidebar ? 'has-sidebar' : ''].join(' ')}>
             {Sidebar ? (
               <aside className="layout-dashboard__sidebar">
-                <Sidebar/>
+                <Sidebar />
               </aside>
             ) : null}
-            <div className="layout-dashboard__content">
-              {loading ? <Loader width={100} height={100} loading={loading}/> : children}
-            </div>
+            <div className="layout-dashboard__content">{loading ? <Loader width={100} height={100} loading={loading} /> : children}</div>
           </div>
         </div>
       </div>
