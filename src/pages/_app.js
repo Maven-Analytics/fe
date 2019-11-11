@@ -109,7 +109,6 @@ class MavenApp extends App {
   }
 
   initMc() {
-    console.log('initmc');
     window.dojoRequire(['mojo/signup-forms/Loader'], L => {
       L.start({baseUrl: 'mc.us7.list-manage.com', uuid: '4cab28e9b9ed67ca67e50a8c6', lid: 'cfe484f1ce', uniqueMethods: true});
     });

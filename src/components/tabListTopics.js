@@ -45,6 +45,10 @@ class TabListTopics extends Component {
   render() {
     const {tabs, itemComponent: ItemComponent, title} = this.props;
 
+    if (!tabs) {
+      return null;
+    }
+
     return (
       <div ref={this.el} className="tab-list-topics">
         <div className="row">
