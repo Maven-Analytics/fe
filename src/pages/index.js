@@ -94,9 +94,9 @@ const methodItems = [
   }
 ];
 
-const MissionContent = `## REAL WORLD SKILLS
+const MissionContent = `## THE WORLD RUNS ON DATA. DO YOU HAVE THE SKILLS TO KEEP UP?
 
-In a world that runs on data, we’re here to help you keep pace. Our formula is simple: quality content, exceptional instructors, unparalleled support, and tools to help you build powerful, practical analytics and BI skills.`;
+Our formula is simple: quality content, exceptional instructors, unparalleled support, and unique tools to help you build the exact skills you need, exactly when you need them.`;
 const HappyClients = fromJS([
   {
     name: 'Beam',
