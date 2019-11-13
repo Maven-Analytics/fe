@@ -96,7 +96,7 @@ const methodItems = [
 
 const MissionContent = `## THE WORLD RUNS ON DATA. DO YOU HAVE THE SKILLS TO KEEP UP?
 
-Our formula is simple: quality content, exceptional instructors, unparalleled support, and unique tools to help you build the exact skills you need, exactly when you need them.`;
+Our formula is simple: quality content, exceptional instructors, and unique tools to help you build the exact skills you need, exactly when you need them.`;
 const HappyClients = fromJS([
   {
     name: 'Beam',
