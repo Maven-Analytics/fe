@@ -7,9 +7,18 @@ import {withRouter} from 'next/router';
 import {bindActionCreators} from 'redux';
 
 import CourseFilterChecks from './courseFilterChecks';
-import {selectors as filterSelectors, actions as filterActions} from '../redux/ducks/filters';
-import {selectors as activeFilterSelectors, actions as activeFilterActions} from '../redux/ducks/activeFilters';
-import {selectors as stateSelectors, actions as stateActions} from '../redux/ducks/state';
+import {
+  selectors as filterSelectors,
+  actions as filterActions
+} from '../redux/ducks/filters';
+import {
+  selectors as activeFilterSelectors,
+  actions as activeFilterActions
+} from '../redux/ducks/activeFilters';
+import {
+  selectors as stateSelectors,
+  actions as stateActions
+} from '../redux/ducks/state';
 import {actions as courseActions} from '../redux/ducks/courses';
 import {selectors as errorSelectors} from '../redux/ducks/error';
 import {selectors as loadingSelectors} from '../redux/ducks/loading';
@@ -75,7 +84,15 @@ class CourseFilters extends Component {
   }
 
   render() {
-    const {title, className, loading, filters, activeFilters, actions, state} = this.props;
+    const {
+      title,
+      className,
+      loading,
+      filters,
+      activeFilters,
+      actions,
+      state
+    } = this.props;
 
     const open = state.get('filters');
     const classList = ['course-filters'];
@@ -90,14 +107,30 @@ class CourseFilters extends Component {
 
     return (
       <div className={classList.join(' ')}>
-        <div className="course-filters__fog" onClick={clickPrevent(actions.offmenuToggle, 'filters')} />
+        <div
+          className="course-filters__fog"
+          onClick={clickPrevent(actions.offmenuToggle, 'filters')}
+        />
         <header>
           <h4>{title}</h4>
-          <button onClick={clickPrevent(actions.offmenuToggle, 'filters')}>{open ? <MaIcon icon="minus" /> : <MaIcon icon="times" />}</button>
+          <button onClick={clickPrevent(actions.offmenuToggle, 'filters')}>
+            {open ? <MaIcon icon="minus" /> : <MaIcon icon="times" />}
+          </button>
         </header>
         <div className="course-filters__content">
           <div className="course-filters__content-header">
-            <button onClick={clickPrevent(actions.offmenuToggle, 'filters')}>{<MaIcon icon="times" />}</button>
+            <button
+              className="btn btn--primary-solid"
+              onClick={clickPrevent(this.handleFilter)}
+            >
+              Apply
+            </button>
+            <button
+              className="close"
+              onClick={clickPrevent(actions.offmenuToggle, 'filters')}
+            >
+              {<MaIcon icon="times" />}
+            </button>
           </div>
           <div className="course-filters__content-inner">
             {loading ? <Loader loading={loading} /> : null}
@@ -157,11 +190,6 @@ class CourseFilters extends Component {
                 max={this.max}
               />
             </div>
-          </div>
-          <div className="course-filters__footer">
-            <button className="btn btn--primary-solid" onClick={clickPrevent(this.handleFilter)}>
-              Apply
-            </button>
           </div>
         </div>
       </div>

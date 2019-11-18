@@ -5,9 +5,9 @@ const axios = require('axios');
 const dev = process.env.NODE_ENV !== 'production';
 const port = parseInt(process.env.PORT || 5000, 10);
 
-if (dev) {
-  require('dotenv').config();
-}
+// If (dev) {
+//   require('dotenv').config();
+// }
 
 axios.defaults.headers.common.Authorization = process.env.API_KEY;
 
