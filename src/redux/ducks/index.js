@@ -1,4 +1,5 @@
 import {combineReducers} from 'redux-immutable';
+
 import loading from './loading';
 import error from './error';
 import response from './response';

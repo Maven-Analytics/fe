@@ -5,7 +5,6 @@ import App, {Container} from 'next/app';
 import withRedux from 'next-redux-wrapper';
 import withReduxSaga from 'next-redux-saga';
 import {fromJS} from 'immutable';
-import {TransitionGroup, Transition} from 'react-transition-group';
 import * as FontFaceObserver from 'fontfaceobserver';
 import Router from 'next/router';
 import TagManager from 'react-gtm-module';
@@ -116,26 +115,18 @@ class MavenApp extends App {
     this.props.store.dispatch(stateActions.stateReset());
     this.props.store.dispatch(responseActions.responseReset());
     this.props.store.dispatch(errorActions.errorReset());
+    this.props.store.dispatch(authActions.reauthenticate({
+      token: getCookie('token')
+    }));
   }
 
   render() {
     const {Component, pageProps, store} = this.props;
 
-    const {pathname} = this.props.router;
-
     return (
       <Container>
         <Provider store={store}>
-          {/* <TransitionGroup component={null}> */}
-          {/* <Transition
-              key={pathname}
-              // onEnter={(node, appears) => enter(Component.animationTimeline, node, appears)}
-              onExit={exit}
-              timeout={{enter: 100, exit: 150}}
-            > */}
           <Component {...pageProps} />
-          {/* </Transition> */}
-          {/* </TransitionGroup> */}
         </Provider>
       </Container>
     );

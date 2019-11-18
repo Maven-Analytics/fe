@@ -112,8 +112,14 @@ class CourseFilters extends Component {
           onClick={clickPrevent(actions.offmenuToggle, 'filters')}
         />
         <header>
-          <h4>{title}</h4>
-          <button onClick={clickPrevent(actions.offmenuToggle, 'filters')}>
+          <h4>{title}</h4><br />
+          <button
+            className="btn btn--primary-solid"
+            onClick={clickPrevent(this.handleFilter)}
+          >
+            Apply
+          </button>
+          <button className="close" onClick={clickPrevent(actions.offmenuToggle, 'filters')}>
             {open ? <MaIcon icon="minus" /> : <MaIcon icon="times" />}
           </button>
         </header>
@@ -190,6 +196,11 @@ class CourseFilters extends Component {
                 max={this.max}
               />
             </div>
+          </div>
+          <div className="course-filters__footer">
+            <button className="btn btn--primary-solid" onClick={clickPrevent(this.handleFilter)}>
+              Apply
+            </button>
           </div>
         </div>
       </div>

@@ -29,7 +29,7 @@ const DashboardLayout = ({children, title, activeLink, user, showWelcome, sideba
                 <Sidebar />
               </aside>
             ) : null}
-            <div className="layout-dashboard__content">{loading ? <Loader width={100} height={100} loading={loading} /> : children}</div>
+            <div className="layout-dashboard__content">{loading ? <Loader width={100} height={100} loading={loading} position="top-center" /> : children}</div>
           </div>
         </div>
       </div>

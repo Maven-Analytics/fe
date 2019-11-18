@@ -16,6 +16,7 @@ const bindMiddleware = middleware => {
 
 function configureStore(initialState = fromJS({})) {
   const sagaMiddleware = createSagaMiddleware();
+
   const store = createStore(
     rootReducer,
     initialState,

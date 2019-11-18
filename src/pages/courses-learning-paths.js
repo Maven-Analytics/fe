@@ -240,7 +240,7 @@ class CoursesLearningPaths extends PureComponent {
 CoursesLearningPaths.getInitialProps = ctx => {
   const {store, asPath} = ctx;
 
-  // store.dispatch(courseActions.coursesFilter());
+  // Store.dispatch(courseActions.coursesFilter());
   // store.dispatch(pathActions.pathsInit());
 
   const url = asPath;

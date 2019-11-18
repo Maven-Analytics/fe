@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
-import PropTypes from 'prop-types';
 import Router from 'next/router';
 import {connect} from 'react-redux';
 import {Map} from 'immutable';
 
 import {selectors as userSelectors} from '../redux/ducks/user';
-import {selectors as loadingSelectors} from '../redux/ducks/loading';
 import {getCookie} from '../utils/cookies';
 
 const withAuthSync = WrappedComponent => {
@@ -45,18 +43,15 @@ const withAuthSync = WrappedComponent => {
   }
 
   const mapStateToProps = state => ({
-    user: userSelectors.getUser(state),
-    loading: loadingSelectors.getLoading(['REAUTHENTICATE'])(state)
+    user: userSelectors.getUser(state)
   });
 
   WithAuthSync.propTypes = {
-    user: ImmutablePropTypes.map.isRequired,
-    loading: PropTypes.bool
+    user: ImmutablePropTypes.map.isRequired
   };
 
   WithAuthSync.defaultProps = {
-    user: Map(),
-    loading: true
+    user: Map()
   };
 
   return connect(mapStateToProps)(WithAuthSync);

@@ -19,8 +19,9 @@ function syncUser(user) {
   return axios
     .post(`${process.env.HOST_WEBHOOKS}/v1/sync/${user.email}`)
     .catch(err => {
-      console.log(`Error syncing user ${user.id}`);
-      console.log(err);
+      console.log(`Error syncing user ${user.id}`, err.message);
+      // console.log(err);
+      return err;
     });
 }
 
@@ -29,7 +30,7 @@ function shouldSync(user) {
     return false;
   }
 
-  const {last_sync} = user;
+  const { last_sync } = user;
 
   if (!last_sync) {
     return true;

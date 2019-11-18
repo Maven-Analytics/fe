@@ -69,6 +69,7 @@
     align-items: center;
     color: $black-2;
     display: flex;
+    flex-wrap: wrap;
     margin: 0;
 
     @include media-breakpoint-up(md) {
@@ -78,7 +79,7 @@
     h4 {
       font-family: $font-body;
       font-size: 1em;
-      margin: 0;
+      margin: 0 0 $spacing-unit;
       text-transform: uppercase;
     }
 
@@ -235,8 +236,8 @@
       @extend %fixedContentHeader;
     }
 
-    // #{$self}__footer {
-    //   @extend %fixedFooter;
-    // }
+    #{$self}__footer {
+      display: none;
+    }
   }
 }

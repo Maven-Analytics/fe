@@ -29,6 +29,8 @@ class DashboardCourses extends Component {
     const {loading, progress, user} = this.props;
     const courses = progress.get('courses');
 
+    console.log(loading);
+
     return (
       <DashboardLayout sidebar={CourseFilters} showWelcome loading={loading} title="Self-Paced Courses" activeLink={2}>
         <DashboardGrid>

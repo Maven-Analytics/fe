@@ -3,6 +3,7 @@
   position: absolute;
   visibility: hidden;
   transition: opacity .2s ease-in-out, visibility 0s 0.2s;
+  z-index: index($globalIndex, 'loader');
 
   @keyframes loader {
     0% {
