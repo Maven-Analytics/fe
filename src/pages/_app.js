@@ -20,6 +20,7 @@ import {getCookie, removeCookie} from '../utils/cookies';
 import {enter, exit} from '../utils/animations';
 
 import '../styles/index.scss';
+import IntercomScript from '../scripts/IntercomScript';
 
 class MavenApp extends App {
   static async getInitialProps({Component, ctx}) {
@@ -127,6 +128,7 @@ class MavenApp extends App {
       <Container>
         <Provider store={store}>
           <Component {...pageProps} />
+          <IntercomScript />
         </Provider>
       </Container>
     );

@@ -232,7 +232,7 @@ const mapStateToProps = state => ({
   page: pageSelectors.getPage(state, 'home')
 });
 
-const mapDispatchToProps = function(dispatch) {
+const mapDispatchToProps = function (dispatch) {
   return {
     actions: bindActionCreators(
       {

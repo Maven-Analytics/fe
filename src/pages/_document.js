@@ -1,12 +1,5 @@
 import React from 'react';
 import Document, {Html, Head, Main, NextScript} from 'next/document';
-import {innerHtml} from '../utils/componentHelpers';
-
-const mcScript = `
-window.dojoRequire(['mojo/signup-forms/Loader'], L => {
-  L.start({baseUrl: 'mc.us7.list-manage.com', uuid: '4cab28e9b9ed67ca67e50a8c6', lid: 'cfe484f1ce', uniqueMethods: true});
-});
-`;
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {

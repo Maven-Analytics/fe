@@ -1,4 +1,5 @@
 FROM node:10-jessie
+EXPOSE 5000
 
  # Create app directory
 WORKDIR /usr/src/app
@@ -15,7 +16,4 @@ RUN npm install
  # Bundle app source
 COPY . .
 
-RUN npm run build
-
-EXPOSE 5000
-CMD [ "node", "inde.js" ]
+CMD [ "npm", "run", "dev" ]

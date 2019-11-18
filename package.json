@@ -62,6 +62,7 @@
     "react-gtm-module": "^2.0.8",
     "react-headroom": "^2.2.8",
     "react-immutable-proptypes": "^2.1.0",
+    "react-intercom": "^1.0.15",
     "react-motion": "^0.5.2",
     "react-redux": "^7.0.2",
     "react-scrollmagic": "^2.1.0",
