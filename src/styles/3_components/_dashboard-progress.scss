@@ -21,6 +21,7 @@
     @include list-unstyled();
     margin: 0;
     max-height: 400px;
+    padding: 0 $spacing-unit 0 0;
     overflow: auto;
 
     li {
