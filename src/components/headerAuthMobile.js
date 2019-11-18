@@ -16,34 +16,40 @@ const HeaderAuthMobile = ({actions}) => {
   return (
     <ul>
       <li>
-        <Link href={Routes.Contact}><a>Contact</a></Link>
+        <Link href={Routes.Contact}>
+          <a>Contact</a>
+        </Link>
       </li>
       <LoggedOut>
         <li>
           <Link href={Routes.Login}>
             <a>
-              <MaIcon icon="user"/>
+              <MaIcon icon="user" />
               Login
             </a>
           </Link>
         </li>
         <li>
           <Link href={Routes.Signup}>
-            <a className="btn btn--primary">
-              Sign up
-            </a>
+            <a className="btn btn--primary">Sign up</a>
           </Link>
         </li>
       </LoggedOut>
       <LoggedIn>
         <li>
-          <Link href={Routes.Dashboard}><a>Dashboard</a></Link>
+          <Link href={Routes.Dashboard}>
+            <a>Dashboard</a>
+          </Link>
         </li>
         <li>
-          <Link href={Routes.Account}><a>My Account</a></Link>
+          <Link href={Routes.Account}>
+            <a>My Account</a>
+          </Link>
         </li>
         <li>
-          <a href="#" onClick={clickPrevent(actions.logout)}>Logout</a>
+          <a href="#" onClick={clickPrevent(actions.logout)}>
+            Logout
+          </a>
         </li>
       </LoggedIn>
     </ul>
@@ -61,10 +67,12 @@ HeaderAuthMobile.defaultProps = {
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    ...authActions
-  }, dispatch)
+  actions: bindActionCreators(
+    {
+      ...authActions
+    },
+    dispatch
+  )
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderAuthMobile);
-

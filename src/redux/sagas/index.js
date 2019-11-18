@@ -25,9 +25,11 @@ import zapier from '../../services/zapier';
 import {watchCredentials} from './credentials';
 import {watchAnnouncements} from './announcements';
 
-function* logoutRequest({payload: {ctx}}) {
+function * logoutRequest({payload: {ctx}}) {
   removeCookie('token', ctx);
 
+  const logoutEvt = new window.Event('logout');
+  window.dispatchEvent(logoutEvt);
   window.localStorage.setItem('logout', Date.now());
   yield all([
     put({
@@ -42,7 +44,7 @@ function* logoutRequest({payload: {ctx}}) {
   ]);
 }
 
-function* reauthenticateRequest({payload: {token, isServer, ctx}}) {
+function * reauthenticateRequest({payload: {token, isServer, ctx}}) {
   if (!token) {
     return;
   }
@@ -52,7 +54,7 @@ function* reauthenticateRequest({payload: {token, isServer, ctx}}) {
 
     if (!data.user) {
       removeCookie('token', ctx);
-      // removeCookie('surveyResult', ctx);
+      // RemoveCookie('surveyResult', ctx);
       removeCookie('checkout', ctx);
       removeCookie('recommendedPaths', ctx);
       removeCookie('recommendedCourses', ctx);
@@ -78,7 +80,7 @@ function* reauthenticateRequest({payload: {token, isServer, ctx}}) {
       })
     ]);
   } catch (error) {
-    console.log('REAUTHENTICATE_FAILURE');
+    console.log('REAUTHENTICATE_FAILURE', error);
     yield put({
       type: authTypes.REAUTHENTICATE_FAILURE,
       payload: error.response ? error.response.data : error.message
@@ -86,7 +88,7 @@ function* reauthenticateRequest({payload: {token, isServer, ctx}}) {
   }
 }
 
-function* loginRequest({payload}) {
+function * loginRequest({payload}) {
   try {
     const data = yield login(payload);
 
@@ -118,7 +120,7 @@ function* loginRequest({payload}) {
   }
 }
 
-function* forgotRequest({payload}) {
+function * forgotRequest({payload}) {
   try {
     const data = yield forgot(payload);
 
@@ -138,7 +140,7 @@ function* forgotRequest({payload}) {
   }
 }
 
-function* resetRequest({payload}) {
+function * resetRequest({payload}) {
   try {
     const data = yield reset(payload);
 
@@ -158,7 +160,7 @@ function* resetRequest({payload}) {
   }
 }
 
-function* registerRequest({payload}) {
+function * registerRequest({payload}) {
   try {
     const recommendedCourses = yield select(userSelectors.getRecommendedCourses);
     const recommendedPaths = yield select(userSelectors.getRecommendedPaths);
@@ -169,7 +171,11 @@ function* registerRequest({payload}) {
       email: payload.email
     });
 
-    const data = yield register({...payload, recommended_courses: recommendedCourses.toJS(), recommended_paths: recommendedPaths.toJS()});
+    const data = yield register({
+      ...payload,
+      recommended_courses: recommendedCourses.toJS(),
+      recommended_paths: recommendedPaths.toJS()
+    });
 
     setCookie('token', data.token);
 
@@ -195,7 +201,7 @@ function* registerRequest({payload}) {
   }
 }
 
-function* ssoRequest({payload}) {
+function * ssoRequest({payload}) {
   try {
     const data = yield sso(payload);
 
@@ -216,7 +222,7 @@ function* ssoRequest({payload}) {
   }
 }
 
-function* rootSaga() {
+function * rootSaga() {
   yield all([
     takeLatest(authTypes.REAUTHENTICATE_REQUEST, reauthenticateRequest),
     takeLatest(authTypes.LOGIN_REQUEST, loginRequest),
@@ -260,8 +266,28 @@ function login({email, password, redirectTo}) {
   return authReq('login', {email, password, redirectTo});
 }
 
-function register({email, password, first_name, last_name, country, postal_code, redirectTo, recommended_paths, recommended_courses}) {
-  return authReq('register', {email, password, first_name, last_name, country, postal_code, redirectTo, recommended_paths, recommended_courses});
+function register({
+  email,
+  password,
+  first_name,
+  last_name,
+  country,
+  postal_code,
+  redirectTo,
+  recommended_paths,
+  recommended_courses
+}) {
+  return authReq('register', {
+    email,
+    password,
+    first_name,
+    last_name,
+    country,
+    postal_code,
+    redirectTo,
+    recommended_paths,
+    recommended_courses
+  });
 }
 
 async function authReq(type, data) {
@@ -277,8 +303,8 @@ async function authReq(type, data) {
     .then(response => response.data);
 }
 
-function reauthenticate(token) {
-  const baseUrl = config.HOST_APP;
+function reauthenticate(token, isServer) {
+  const baseUrl = isServer ? config.HOST_SERVER : config.HOST_APP;
 
   return axios
     .get(`${baseUrl}/api/v1/me`, {

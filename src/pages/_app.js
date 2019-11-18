@@ -67,7 +67,9 @@ class MavenApp extends App {
     return {
       isServer,
       pageProps: {
-        ...(Component.getInitialProps ? await Component.getInitialProps(ctx) : {})
+        ...(Component.getInitialProps ?
+          await Component.getInitialProps(ctx) :
+          {})
       }
     };
   }
@@ -79,7 +81,7 @@ class MavenApp extends App {
   }
 
   componentDidMount() {
-    // const fonts = [
+    // Const fonts = [
     //   new FontFaceObserver('Lato'),
     //   new FontFaceObserver('D-DIN')
     // ];
@@ -90,7 +92,7 @@ class MavenApp extends App {
 
     const icons = [new FontFaceObserver('maicon')];
 
-    // const fontPromises = fonts.map(font => font.load());
+    // Const fontPromises = fonts.map(font => font.load());
 
     const iconPromises = icons.map(icon => icon.load());
 

@@ -12,9 +12,13 @@ export function * watchCheckout() {
 
 function * onCheckoutRequest({payload: {plan, ctx}}) {
   try {
-    setCookie('checkout', {
-      plan: plan.toJS()
-    }, ctx);
+    setCookie(
+      'checkout',
+      {
+        plan: plan.toJS()
+      },
+      ctx
+    );
 
     yield all([
       put({
@@ -50,19 +54,21 @@ function * onGetCheckoutRequest({payload: {token, isServer}}) {
 }
 
 function updateCheckout(plan) {
-  return axios.put('/api/v1/checkout', {
-    plan: {
-      id: plan.get('id'),
-      checkoutUrl: plan.get('checkoutUrl')
-    }
-  })
+  return axios
+    .put('/api/v1/checkout', {
+      plan: {
+        id: plan.get('id'),
+        checkoutUrl: plan.get('checkoutUrl')
+      }
+    })
     .then(res => res.data)
     .then(response => response.data);
 }
 
 function getCheckout(token, isServer) {
-  const baseUrl = isServer ? 'http://localhost:3000' : config.HOST_APP;
-  return axios.get(`${baseUrl}/api/v1/checkout/${token}`)
+  const baseUrl = isServer ? config.HOST_SERVER : config.HOST_APP;
+  return axios
+    .get(`${baseUrl}/api/v1/checkout/${token}`)
     .then(res => res.data)
     .then(response => response.data);
 }
