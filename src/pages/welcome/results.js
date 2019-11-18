@@ -110,8 +110,11 @@ class WelcomeSurveyResults extends Component {
       if (canUseDOM()) {
         this.props.router.push(Routes.WelcomeSurvey);
       }
+
       return null;
     }
+
+    console.log(recommendedPath.toJS());
 
     return (
       <div key="results" style={this.getDivStyle(style)}>
@@ -142,7 +145,7 @@ class WelcomeSurveyResults extends Component {
               </Fragment>
             ) : (
               <Fragment>
-                Show courses in this path <MaIcon icon="chevron-down" />
+                  Show courses in this path <MaIcon icon="chevron-down" />
               </Fragment>
             )}
           </button>
@@ -193,7 +196,7 @@ class WelcomeSurveyResults extends Component {
 WelcomeSurveyResults.getInitialProps = ctx => {
   const {store} = ctx;
 
-  // if (ctx && ctx.req) {
+  // If (ctx && ctx.req) {
   //   ctx.res.writeHead(302, {Location: Routes.WelcomeSurvey});
   //   ctx.res.end();
   // }
@@ -224,7 +227,7 @@ const mapStateToProps = state => ({
   loading: loadingSelectors.getLoading(['USER_RECOMMENDED_SET'])(state)
 });
 
-const mapDispatchToProps = function(dispatch) {
+const mapDispatchToProps = function (dispatch) {
   return {
     actions: bindActionCreators(
       {
