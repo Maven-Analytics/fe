@@ -3,7 +3,7 @@ const next = require('next');
 const Boom = require('@hapi/boom');
 const axios = require('axios');
 const dev = process.env.NODE_ENV !== 'production';
-const port = parseInt(process.env.PORT || 3000, 10);
+const port = parseInt(process.env.PORT || 5000, 10);
 
 if (dev) {
   require('dotenv').config();
@@ -52,8 +52,7 @@ app.prepare().then(async () => {
     ]);
 
     await server.start();
-    console.log('> New Log Statement');
-    console.log(`> Ready on http://localhost:${port}`);
+    console.log(`Server running at: ${server.info.uri}`);
   } catch (error) {
     console.log('Error starting server');
     console.log(error);

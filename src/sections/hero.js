@@ -11,7 +11,7 @@ const Hero = () => {
       <div className="hero__background">
         <ParallaxBg
           placeholderColor="#252525"
-          // sources={[
+          // Sources={[
           //   {
           //     srcSet: '/static/img/home-hero-tall-2400.webp 1600w',
           //     type: 'image/webp',
@@ -47,10 +47,21 @@ const Hero = () => {
       <div className="hero__content">
         <div className="container container--lg">
           <div className="hero__content-inner">
-            <h1>You are about<br/>to become a</h1>
-            <h1><span>Data Rockstar</span></h1>
-            <p><MaIcon icon="chevron-right"/> Award-winning business intelligence training and resources</p>
-            <Link href={Routes.Signup}><a className="btn btn--primary-solid">Free 10-Day Trial</a></Link>
+            <h1>
+              You are about
+              <br />
+              to become a
+            </h1>
+            <h1>
+              <span>Data Rockstar</span>
+            </h1>
+            <p>
+              <MaIcon icon="chevron-right" /> Award-winning business
+              intelligence training and resources
+            </p>
+            <Link href={Routes.Signup}>
+              <a className="btn btn--primary-solid">Free 10-Day Trial</a>
+            </Link>
           </div>
         </div>
       </div>
@@ -58,8 +69,6 @@ const Hero = () => {
   );
 };
 
-Hero.propTypes = {
-
-};
+Hero.propTypes = {};
 
 export default Hero;
