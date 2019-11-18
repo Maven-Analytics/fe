@@ -78,15 +78,15 @@ class DashboardPage extends Component {
         {(!recentCourse || recentCourse.isEmpty()) && loadingProgress === false && loadingCourses === false ? (
           <DashboardNoData btnText="View Courses" btnUrl={Routes.Courses} text="You haven’t started any courses yet. Let’s get started!">
             <Image
-              src="/static/img/dashboard-no-data-328.jpg"
+              src="/static/img/dashboard-no-data-328.png"
               wrapStyle={{
                 paddingBottom: '70.12%'
               }}
               srcSet="
+                /static/img/dashboard-no-data-328.png 328w,
                 /static/img/dashboard-no-data-328.webp 328w,
-                /static/img/dashboard-no-data-328.jpg 328w,
+                /static/img/dashboard-no-data-656.png 656w
                 /static/img/dashboard-no-data-656.webp 656w,
-                /static/img/dashboard-no-data-656.jpg 656w
               "
             />
           </DashboardNoData>
@@ -115,7 +115,7 @@ class DashboardPage extends Component {
             btnClass="btn btn--default"
           >
             <Image
-              src="/static/img/dashboard-no-data-328.jpg"
+              src="/static/img/dashboard-no-data-328.png"
               wrapStyle={{
                 paddingBottom: '79.55%'
               }}
