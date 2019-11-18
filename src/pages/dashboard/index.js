@@ -34,6 +34,7 @@ class DashboardPage extends Component {
     this.props.actions.pathsInit();
     this.props.actions.coursesInit();
     this.props.actions.getProgress();
+    // this.props.actions.getOnboarding();
     this.props.actions.announcementsGet({
       order: '-fields.date'
     });
@@ -51,7 +52,9 @@ class DashboardPage extends Component {
       user,
       loadingPaths,
       announcements,
-      loadingAnnouncements
+      loadingAnnouncements,
+      onboarding,
+      loadingOnboarding
     } = this.props;
     const recommendedUserPath = user.getIn(['recommended_paths', 0]);
     let recommendedPath = null;
@@ -61,6 +64,14 @@ class DashboardPage extends Component {
     }
 
     const completed = fromJS([...completedPaths.toJS(), ...completedCourses.toJS()]);
+
+    const Onboarding = (
+      <DashboardCard loading={loadingOnboarding || loadingCourses} title="YOUR GETTING STARTED CHECKLIST">
+        {loadingOnboarding === false ? (
+          <h1>getting started</h1>
+        ) : null}
+      </DashboardCard>
+    );
 
     const RecentCourse = (
       <DashboardCard showWelcome loading={loadingProgress || loadingCourses} title="Your Most Recent Course">
@@ -174,6 +185,7 @@ class DashboardPage extends Component {
         <MediaQuery min="lg">
           <DashboardGrid horizontal>
             <DashboardGrid vertical>
+              {/* {Onboarding} */}
               {RecentCourse}
               {NewsUpdates}
             </DashboardGrid>
@@ -186,6 +198,7 @@ class DashboardPage extends Component {
         </MediaQuery>
         <MediaQuery max="lg">
           <DashboardGrid vertical>
+            {/* {Onboarding} */}
             {RecentCourse}
             {RecommendedPath}
             {RockstarProgress}
@@ -200,6 +213,7 @@ class DashboardPage extends Component {
 
 DashboardPage.propTypes = {
   loadingProgress: PropTypes.bool,
+  loadingOnboarding: PropTypes.bool,
   loadingCourses: PropTypes.bool,
   loadingPaths: PropTypes.bool,
   loadingAnnouncements: PropTypes.bool,
@@ -207,6 +221,7 @@ DashboardPage.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func),
   recentCourse: ImmutablePropTypes.map,
   progress: ImmutablePropTypes.map,
+  onboarding: ImmutablePropTypes.map,
   completedPaths: ImmutablePropTypes.list,
   completedCourses: ImmutablePropTypes.list,
   user: ImmutablePropTypes.map,
@@ -216,10 +231,12 @@ DashboardPage.propTypes = {
 const mapStateToProps = state => ({
   recentCourse: dashboardSelectors.getRecentCourse(state),
   progress: dashboardSelectors.getProgress(state),
+  onboarding: dashboardSelectors.getOnboarding(state),
   courses: courseSelectors.getCourses(state),
   loadingCourses: loadingSelectors.getLoading(['COURSESINIT'])(state),
   loadingPaths: loadingSelectors.getLoading(['PATHSINIT'])(state),
   loadingProgress: loadingSelectors.getLoading(['DASHBOARD_PROGRESS'])(state),
+  loadingOnboarding: loadingSelectors.getLoading(['DASHBOARD_ONBOARDING'])(state),
   loadingAnnouncements: loadingSelectors.getLoading(['ANNOUNCEMENTS_GET'])(state),
   errorProgress: errorSelectors.getError(['DASHBOARD_PROGRESS'])(state),
   completedCourses: courseSelectors.getCompletedCourses(state),

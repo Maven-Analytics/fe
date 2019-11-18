@@ -5,6 +5,7 @@ import api from '../../services/api';
 
 export function * watchDashboard() {
   yield takeLatest(dashboardTypes.DASHBOARD_PROGRESS_REQUEST, onGetProgressRequest);
+  yield takeLatest(dashboardTypes.DASHBOARD_ONBOARDING_REQUEST, onGetOnboarding);
 }
 
 function * onGetProgressRequest() {
@@ -25,9 +26,34 @@ function * onGetProgressRequest() {
   }
 }
 
+function * onGetOnboarding() {
+  try {
+    const data = yield getGettingStarted();
+
+    yield all([
+      put({
+        type: dashboardTypes.DASHBOARD_ONBOARDING_SUCCESS,
+        payload: data
+      })
+    ]);
+  } catch (error) {
+    yield put({
+      type: dashboardTypes.DASHBOARD_ONBOARDING_FAILURE,
+      payload: error.response ? error.response.data : error.message
+    });
+  }
+}
+
 function getProgress() {
   return api({
     method: 'get',
     url: '/api/v1/dashboard/progress'
+  });
+}
+
+function getGettingStarted() {
+  return api({
+    method: 'get',
+    url: '/api/v1/dashboard/gettingStarted'
   });
 }

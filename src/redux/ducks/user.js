@@ -26,24 +26,25 @@ const initialState = utils.initialState({
   recommended: {
     paths: [],
     courses: []
-  }
+  },
+  gettingStarted: {}
 });
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case types.TOKEN_SET:
-      return state.set('token', action.payload);
-    case types.USER_SET:
-      return state.update('user', u => u.merge(fromJS(action.payload)));
-    case types.TOKEN_UNSET:
-      return state.set('token', initialState.get('token'));
-    case types.USER_UNSET:
-      return state.set('user', initialState.get('user'));
-    case types.USER_RECOMMENDED_SET_REQUEST:
-      return state.set('recommended', fromJS(action.payload));
+  case types.TOKEN_SET:
+    return state.set('token', action.payload);
+  case types.USER_SET:
+    return state.update('user', u => u.merge(fromJS(action.payload)));
+  case types.TOKEN_UNSET:
+    return state.set('token', initialState.get('token'));
+  case types.USER_UNSET:
+    return state.set('user', initialState.get('user'));
+  case types.USER_RECOMMENDED_SET_REQUEST:
+    return state.set('recommended', fromJS(action.payload));
 
-    default:
-      return state;
+  default:
+    return state;
   }
 };
 

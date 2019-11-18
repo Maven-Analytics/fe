@@ -9,27 +9,35 @@ import {getCourseProgress, getPathProgress, sortEnrollmentsByPercentageDesc} fro
 export const types = {
   DASHBOARD_PROGRESS_REQUEST: 'DASHBOARD_PROGRESS_REQUEST',
   DASHBOARD_PROGRESS_SUCCESS: 'DASHBOARD_PROGRESS_SUCCESS',
-  DASHBOARD_PROGRESS_FAILURE: 'DASHBOARD_PROGRESS_FAILURE'
+  DASHBOARD_PROGRESS_FAILURE: 'DASHBOARD_PROGRESS_FAILURE',
+  DASHBOARD_ONBOARDING_REQUEST: 'DASHBOARD_ONBOARDING_REQUEST',
+  DASHBOARD_ONBOARDING_SUCCESS: 'DASHBOARD_ONBOARDING_SUCCESS',
+  DASHBOARD_ONBOARDING_FAILURE: 'DASHBOARD_ONBOARDING_FAILURE'
 };
 
 export const actions = {
-  getProgress: obj => utils.action(types.DASHBOARD_PROGRESS_REQUEST, obj)
+  getProgress: obj => utils.action(types.DASHBOARD_PROGRESS_REQUEST, obj),
+  getOnboarding: () => utils.action(types.DASHBOARD_ONBOARDING_REQUEST)
 };
 
 const initialState = utils.initialState({
-  enrollments: []
+  enrollments: [],
+  onboarding: {}
 });
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case types.DASHBOARD_PROGRESS_SUCCESS:
-      return fromJS(action.payload);
-    default:
-      return state;
+  case types.DASHBOARD_PROGRESS_SUCCESS:
+    return state.set('enrollments', fromJS(action.payload.enrollments));
+  case types.DASHBOARD_GETTING_STARTED_SUCCESS:
+    return state.set('onboarding', fromJS(action.payload));
+  default:
+    return state;
   }
 };
 
 const getEnrollments = state => state.getIn(['dashboard', 'enrollments']);
+const getOnboarding = state => state.getIn(['dashboard', 'onboarding']);
 
 export const selectors = {
   getProgress: createSelector(
@@ -61,5 +69,9 @@ export const selectors = {
   getEnrollments: createSelector(
     [getEnrollments],
     e => e
+  ),
+  getOnboarding: createSelector(
+    [getOnboarding],
+    s => s
   )
 };
