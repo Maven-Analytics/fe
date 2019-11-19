@@ -13,7 +13,6 @@ import {selectors as pageSelectors, actions as pageActions} from '../redux/ducks
 import Brochure from '../layouts/brochure';
 import Hero from '../sections/hero';
 import StatCounter from '../sections/statCounter';
-import MethodScroll from '../sections/methodScroll';
 import MethodMobile from '../sections/methodMobile';
 import Mission from '../sections/mission';
 import TrendingCourses from '../sections/trendingCourses';
@@ -207,7 +206,6 @@ class Home extends Component {
         <div id="method">
           <MethodMobile items={methodItems} />
           <MethodPath items={methodItems} />
-          {/* <MethodScroll items={methodItems} /> */}
         </div>
         <TrendingCourses courses={this.props.courses} />
         <StudentSpotlights spotlights={spotlights} />

@@ -2,18 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {List} from 'immutable';
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
 
-import {actions as stateActions} from '../redux/ducks/state';
 import Carousel from '../components/carousel';
 import CarouselSlide from '../components/carouselSlide';
-import TrackVisibility from '../components/trackVisibility';
-import {isXl, isLg, isMd} from '../components/mediaQuery';
-import {clickAction} from '../utils/componentHelpers';
+import {isLg, isMd} from '../components/mediaQuery';
 import CourseCard from '../components/courseCard';
 
-const TrendingCourses = ({courses, actions}) => {
+const TrendingCourses = ({courses}) => {
   return (
     <div className="trending-courses">
       <div className="container container--lg">
@@ -52,12 +47,4 @@ TrendingCourses.defaultProps = {
   courses: List()
 };
 
-const mapStateToProps = () => ({});
-
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    ...stateActions
-  }, dispatch)
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(TrendingCourses);
+export default TrendingCourses;
