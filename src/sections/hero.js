@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import MaIcon from '../components/maIcon';
 import ParallaxBg from '../components/parallaxBg';
-import {Routes} from '../routes';
+import { Routes } from '../routes';
 
 const Hero = () => {
   return (
@@ -48,19 +48,16 @@ const Hero = () => {
         <div className="container container--lg">
           <div className="hero__content-inner">
             <h1>
-              You are about
-              <br />
-              to become a
+              Award-winning
             </h1>
             <h1>
-              <span>Data Rockstar</span>
+              <span>ANALYTICS & BUSINESS<br />INTELLIGENCE TRAINING</span>
             </h1>
             <p>
-              <MaIcon icon="chevron-right" /> Award-winning business
-              intelligence training and resources
+              Transforming everyday people into data rockstars
             </p>
             <Link href={Routes.Signup}>
-              <a className="btn btn--primary-solid">Free 10-Day Trial</a>
+              <a className="btn btn--primary-solid">SIGN UP FOR FREE</a>
             </Link>
           </div>
         </div>
