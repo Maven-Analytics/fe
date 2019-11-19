@@ -21,6 +21,7 @@ import Clients from '../sections/clients';
 import StudentSpotlights from '../sections/studentSpotlights';
 import Head from '../components/head';
 import {Routes} from '../routes';
+import MethodPath from '../sections/methodPath';
 
 const methodItems = [
   {
@@ -32,6 +33,7 @@ const methodItems = [
     description: 'Take a quick, 2-minute survey and we’ll match you with the best courses & paths to help you reach your goals',
     linkTitle: 'FIND YOUR PATH',
     linkHref: Routes.WelcomeSurvey,
+    sectionHeight: 540,
     imgMobile: {
       src: '/static/img/step1-mobile.png',
       alt: 'Match your learning needs with the best Maven Analytics courses and paths',
@@ -49,6 +51,7 @@ const methodItems = [
     description: 'Kick off each course with a benchmark assessment to see how your skills stack up, and where they fall short',
     linkTitle: 'TRY A PRACTICE ASSESSMENT',
     linkHref: Routes.SkillsAssessments,
+    sectionHeight: 606,
     imgMobile: {
       src: '/static/img/step2-mobile.png',
       alt: 'We’ll match your current skills with the right courses and paths',
@@ -64,6 +67,7 @@ const methodItems = [
     width: 1000,
     height: 633,
     top: 234,
+    sectionHeight: 597,
     title: 'Build your Expertise',
     description: 'Complete courses & paths to develop expert-level analytics and business intelligence skills',
     linkTitle: 'EXPLORE COURSES & PATHS',
@@ -202,7 +206,8 @@ class Home extends Component {
         />
         <div id="method">
           <MethodMobile items={methodItems} />
-          <MethodScroll items={methodItems} />
+          <MethodPath items={methodItems} />
+          {/* <MethodScroll items={methodItems} /> */}
         </div>
         <TrendingCourses courses={this.props.courses} />
         <StudentSpotlights spotlights={spotlights} />

@@ -22,14 +22,14 @@ class MethodScroll extends Component {
   }
 
   componentDidMount() {
-    // this.init();
+    // This.init();
 
     this.setState({
       duration: window.innerHeight * 3
     });
   }
 
-  // init() {
+  // Init() {
   //   const items = this.items.current.querySelectorAll('.method-item');
   //   let totalHeight = 0;
   //   let heights = [];
@@ -65,7 +65,7 @@ class MethodScroll extends Component {
             {progress => {
               let activeIndex = progress > 0 && progress < 1 ? Math.floor(progress * items.length) : progress === 1 ? items.length - 1 : 0;
 
-              // this.state.ratios.forEach((r, index) => {
+              // This.state.ratios.forEach((r, index) => {
               //   if (r <= progress) {
               //     activeIndex = index;
               //   }
@@ -78,9 +78,9 @@ class MethodScroll extends Component {
                 <div className="method-scroll__wrap">
                   <div className="method-scroll__inner">
                     <div className="method-scroll__content">
-                      <MethodHeader/>
+                      <MethodHeader />
                       <div ref={this.items} className="method-scroll__items">
-                        <Scroller progress={progress}/>
+                        <Scroller progress={progress} />
                         {items.map((item, index) => (
                           <MethodItem
                             key={item.title}
@@ -107,7 +107,7 @@ class MethodScroll extends Component {
                             <Image
                               modifier="image-1"
                               src={item.img}
-                              // srcSet={`${item.img} 1x, ${item.imgRetina} 2x`}
+                              // SrcSet={`${item.img} 1x, ${item.imgRetina} 2x`}
                               placeholderColor="transparent"
                               wrapStyle={{
                                 paddingTop: '53.19%'
@@ -116,7 +116,7 @@ class MethodScroll extends Component {
                             <Image
                               modifier="image-2"
                               src={item.img2}
-                              // srcSet={`${item.img2} 1x, ${item.img2Retina} 2x`}
+                              // SrcSet={`${item.img2} 1x, ${item.img2Retina} 2x`}
                               placeholderColor="transparent"
                               wrapStyle={{
                                 width: item.width,
