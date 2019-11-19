@@ -20,21 +20,24 @@ const TrendingCourses = ({courses, actions}) => {
         <header>
           <h2>Trending Courses</h2>
         </header>
-        <Carousel
-          options={{
-            groupCells: isLg() ? 3 : isMd() ? 2 : 1
-          }}
-        >
-          {courses.map(course => (
-            <CarouselSlide key={course.get('id')}>
-              <CourseCard
-                full
-                course={course}
-                recommended={course.get('recommended') ? 'Recommended for you' : null}
-              />
-            </CarouselSlide>
-          ))}
-        </Carousel>
+        <div className="trending-courses__inner">
+
+          <Carousel
+            options={{
+              groupCells: isLg() ? 3 : isMd() ? 2 : 1
+            }}
+          >
+            {courses.map(course => (
+              <CarouselSlide key={course.get('id')}>
+                <CourseCard
+                  full
+                  course={course}
+                  recommended={course.get('recommended') ? 'Recommended for you' : null}
+                />
+              </CarouselSlide>
+            ))}
+          </Carousel>
+        </div>
       </div>
     </div>
   );

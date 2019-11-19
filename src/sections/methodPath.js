@@ -39,7 +39,7 @@ class MethodPath extends Component {
   }
 
   handleScroll() {
-    if (!this.elEnd.current) {
+    if (!this.endEl || !this.elEnd.current || !this.startEl || !this.startEl.current || !this.path || !this.path.current) {
       return;
     }
 

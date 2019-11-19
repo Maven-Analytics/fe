@@ -1,10 +1,14 @@
 .student-spotlights {
   color: $white;
-  padding: 5rem 0 8rem;
+  padding: 20rem 0 8rem;
   position: relative;
 
+  @include media-breakpoint-up(md) {
+
+  }
+
   @include media-breakpoint-up(lg) {
-    padding: 10rem 0 13rem;
+    padding: 20rem 0 13rem;
   }
 
   &__background {
