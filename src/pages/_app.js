@@ -18,6 +18,7 @@ import {actions as responseActions} from '../redux/ducks/response';
 import {actions as errorActions} from '../redux/ducks/error';
 import {getCookie, removeCookie} from '../utils/cookies';
 import {enter, exit} from '../utils/animations';
+import config from '../config';
 
 import '../styles/index.scss';
 import IntercomScript from '../scripts/IntercomScript';
@@ -86,9 +87,11 @@ class MavenApp extends App {
     //   new FontFaceObserver('D-DIN')
     // ];
 
-    TagManager.initialize({
-      gtmId: 'GTM-M5F3PPK'
-    });
+    if (!config.DISABLE_GTAG) {
+      TagManager.initialize({
+        gtmId: 'GTM-M5F3PPK'
+      });
+    }
 
     const icons = [new FontFaceObserver('maicon')];
 

@@ -1,0 +1,29 @@
+.thanks-page {
+  @keyframes pulse {
+    0%   { opacity:1; }
+    50%  { opacity:0.6; }
+    100% { opacity:1; }
+  }
+
+  &__content {
+    text-align: center;
+
+    .async-loader {
+      left: 0;
+      margin: 0 auto $spacing-unit--md;
+      position: static;
+      top: 0;
+      transform: none;
+    }
+
+    h2 {
+      animation: 2s pulse ease infinite alternate;
+      color: $white;
+      opacity: 0;
+
+      @at-root .fonts-loaded {
+        opacity: 1;
+      }
+    }
+  }
+}

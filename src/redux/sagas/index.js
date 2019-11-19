@@ -1,31 +1,31 @@
-import {all, put, takeLatest, fork, select} from 'redux-saga/effects';
+import { all, put, takeLatest, fork, select, delay } from 'redux-saga/effects';
 import axios from 'axios';
 
-import {watchState} from './state';
-import {types as authTypes} from '../ducks/auth';
-import {types as userTypes, selectors as userSelectors} from '../ducks/user';
-import {types as surveyResultTypes} from '../ducks/surveyResult';
-import {types as responseTypes} from '../ducks/response';
-import {watchCheckout} from './checkout';
-import {watchPaths} from './paths';
-import {watchCourses} from './courses';
-import {watchSurveys} from './surveyResults';
-import {watchProfile} from './profile';
-import {watchDashboard} from './dashboard';
-import {watchUser} from './user';
-import {watchFilters} from './filter';
-import {watchScores} from './scores';
-import {watchSpotlights} from './spotlights';
-import {watchPages} from './pages';
-import {setCookie, removeCookie, getCookie} from '../../utils/cookies';
+import { watchState } from './state';
+import { types as authTypes } from '../ducks/auth';
+import { types as userTypes, selectors as userSelectors } from '../ducks/user';
+import { types as surveyResultTypes } from '../ducks/surveyResult';
+import { types as responseTypes } from '../ducks/response';
+import { watchCheckout } from './checkout';
+import { watchPaths } from './paths';
+import { watchCourses } from './courses';
+import { watchSurveys } from './surveyResults';
+import { watchProfile } from './profile';
+import { watchDashboard } from './dashboard';
+import { watchUser } from './user';
+import { watchFilters } from './filter';
+import { watchScores } from './scores';
+import { watchSpotlights } from './spotlights';
+import { watchPages } from './pages';
+import { setCookie, removeCookie, getCookie } from '../../utils/cookies';
 import config from '../../config';
-import {watchContact} from './contact';
-import {watchSubscribe} from './subscribe';
+import { watchContact } from './contact';
+import { watchSubscribe } from './subscribe';
 import zapier from '../../services/zapier';
-import {watchCredentials} from './credentials';
-import {watchAnnouncements} from './announcements';
+import { watchCredentials } from './credentials';
+import { watchAnnouncements } from './announcements';
 
-function * logoutRequest({payload: {ctx}}) {
+function* logoutRequest({ payload: { ctx } }) {
   removeCookie('token', ctx);
 
   const logoutEvt = new window.Event('logout');
@@ -44,7 +44,7 @@ function * logoutRequest({payload: {ctx}}) {
   ]);
 }
 
-function * reauthenticateRequest({payload: {token, isServer, ctx}}) {
+function* reauthenticateRequest({ payload: { token, isServer, ctx } }) {
   if (!token) {
     return;
   }
@@ -88,7 +88,38 @@ function * reauthenticateRequest({payload: {token, isServer, ctx}}) {
   }
 }
 
-function * loginRequest({payload}) {
+function* ensureEnrolled({ payload }) {
+  try {
+    let data = {};
+
+    do {
+      data = yield reauthenticate(payload, false);
+      yield delay(1000);
+    } while (!data || !data.user || !data.user.enrolled);
+
+    yield all([
+      put({
+        type: userTypes.TOKEN_SET,
+        payload: data.token
+      }),
+      put({
+        type: userTypes.USER_SET,
+        payload: data.user
+      }),
+      put({
+        type: authTypes.ENSURE_ENROLLED_SUCCESS
+      })
+    ]);
+  } catch (error) {
+    console.log('ENSURE_ENROLLED_FAILURE', error);
+    yield put({
+      type: authTypes.ENSURE_ENROLLED_FAILURE,
+      payload: error.response ? error.response.data : error.message
+    });
+  }
+}
+
+function* loginRequest({ payload }) {
   try {
     const data = yield login(payload);
 
@@ -120,7 +151,7 @@ function * loginRequest({payload}) {
   }
 }
 
-function * forgotRequest({payload}) {
+function* forgotRequest({ payload }) {
   try {
     const data = yield forgot(payload);
 
@@ -140,7 +171,7 @@ function * forgotRequest({payload}) {
   }
 }
 
-function * resetRequest({payload}) {
+function* resetRequest({ payload }) {
   try {
     const data = yield reset(payload);
 
@@ -160,7 +191,7 @@ function * resetRequest({payload}) {
   }
 }
 
-function * registerRequest({payload}) {
+function* registerRequest({ payload }) {
   try {
     const recommendedCourses = yield select(userSelectors.getRecommendedCourses);
     const recommendedPaths = yield select(userSelectors.getRecommendedPaths);
@@ -201,7 +232,7 @@ function * registerRequest({payload}) {
   }
 }
 
-function * ssoRequest({payload}) {
+function* ssoRequest({ payload }) {
   try {
     const data = yield sso(payload);
 
@@ -222,9 +253,10 @@ function * ssoRequest({payload}) {
   }
 }
 
-function * rootSaga() {
+function* rootSaga() {
   yield all([
     takeLatest(authTypes.REAUTHENTICATE_REQUEST, reauthenticateRequest),
+    takeLatest(authTypes.ENSURE_ENROLLED_REQUEST, ensureEnrolled),
     takeLatest(authTypes.LOGIN_REQUEST, loginRequest),
     takeLatest(authTypes.REGISTER_REQUEST, registerRequest),
     takeLatest(authTypes.LOGOUT_REQUEST, logoutRequest),
@@ -250,20 +282,20 @@ function * rootSaga() {
   ]);
 }
 
-function sso({redirectTo}) {
-  return authReq('sso', {redirectTo});
+function sso({ redirectTo }) {
+  return authReq('sso', { redirectTo });
 }
 
-function reset({email, password, token}) {
-  return authReq('reset', {email, password, token});
+function reset({ email, password, token }) {
+  return authReq('reset', { email, password, token });
 }
 
-function forgot({email}) {
-  return authReq('forgot', {email});
+function forgot({ email }) {
+  return authReq('forgot', { email });
 }
 
-function login({email, password, redirectTo}) {
-  return authReq('login', {email, password, redirectTo});
+function login({ email, password, redirectTo }) {
+  return authReq('login', { email, password, redirectTo });
 }
 
 function register({
