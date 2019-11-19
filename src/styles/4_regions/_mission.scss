@@ -2,7 +2,6 @@
   color: $white;
   padding: $spacing-unit--lml 0 $spacing-unit--xxl;
   position: relative;
-  text-align: center;
 
   @include media-breakpoint-up(lg) {
     padding: 7rem 0 20rem;
@@ -17,52 +16,78 @@
     z-index: -1;
   }
 
-  .container {
-    max-width: 300px;
-
-    @include media-breakpoint-up(md) {
-      max-width: 710px;
-    }
-  }
-
   &__header-icon {
     @include gradient-font();
     display: inline-block;
     font-size: 3.5rem;
-    margin: 0 0 $spacing-unit;
 
     @include media-breakpoint-up(md) {
       font-size: 8rem;
-      margin-bottom: $spacing-unit--l;
     }
   }
 
-  h2 {
-    font-size: 2.8rem;
-    font-weight: 500;
-    line-height: .9;
-    margin-bottom: $spacing-unit--ss;
-
-    @include media-breakpoint-up(md) {
-      font-size: 5.5rem;
-      line-height: .8;
-      margin-bottom: $spacing-unit--md;
-    }
-
-    strong {
+  &__copy {
+    p:first-child {
+      @include gradient-font();
+      font-size: 1rem;
       font-weight: 900;
+      letter-spacing: 2px;
+      line-height: 1;
+      margin: $spacing-unit--md 0 0;
+      text-transform: uppercase;
+
+      @include media-breakpoint-up(md) {
+        font-size: 1.6rem;
+        margin: $spacing-unit--lmm 0 0;
+      }
     }
-  }
 
-  p {
-    font-size: 1.2rem;
-    line-height: 1.666;
+    h2 {
+      font-size: 2rem;
+      font-weight: 500;
+      line-height: 1;
+      margin: $spacing-unit--ss 0;
 
-    @include media-breakpoint-up(md) {
-      font-size: 1.8rem;
+      @include media-breakpoint-up(md) {
+        font-size: 2.8rem;
+      }
+
+      @include media-breakpoint-up(lg) {
+        font-size: 4.2rem;
+        margin: $spacing-unit--md 0;
+      }
+
+      strong {
+        font-weight: 900;
+      }
+    }
+
+    h2 + p {
+      background: none;
+      color: $whiteish;
+      font-size: 1.2rem;
+      letter-spacing: 0;
       line-height: 1.555;
+      text-transform: none;
+
+      @include media-breakpoint-up(md) {
+        font-size: 1.8rem;
+      }
+    }
+
+    a {
+      @include btnFixed(39px, 140px, 20px);
+      font-size: 1.2rem;
+      margin-top: $spacing-unit--md;
+
+      @include media-breakpoint-up(md) {
+        @include btnFixed(50px, 200px, 27px);
+        font-size: 1.4rem;
+        margin-top: $spacing-unit--ll;
+      }
     }
   }
+
 
   // &__icons {
   //   display: grid;
@@ -79,51 +104,270 @@
   //   }
   // }
 
-  &__icon {
-    display: inline-block;
-    margin-top: $spacing-unit--md;
-    text-align: center;
-    width: 50%;
+  &__features {
+    display: grid;
+    grid-gap: $spacing-unit--md;
+    grid-template-columns: 1fr;
+    margin: $spacing-unit--l 0 0;
+    width: 100%;
+
+    @include media-breakpoint-up(sm) {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+    }
 
     @include media-breakpoint-up(md) {
-      margin-top: $spacing-unit--ll;
-      width: 25%;
+      grid-gap: 10px;
+      margin: 0;
+    }
+
+    @include media-breakpoint-up(lg) {
+      grid-gap: 22px;
+    }
+
+    &.has-active {
+      .mission__feature:not(.active) {
+        @include media-breakpoint-up(md) {
+          opacity: 0 !important;
+        }
+      }
+    }
+  }
+
+  &__feature {
+    background: none;
+    border: none;
+    display: block;
+    opacity: 1;
+    outline: none;
+    position: relative;
+    transition: opacity 0.2s;
+    width: 100%;
+
+    &::after {
+      @include media-breakpoint-up(md) {
+        content: '';
+        display: block;
+        padding-bottom: 100%;
+      }
+    }
+
+    &:nth-child(1) {
+      .mission__feature-inner {
+        left: 0;
+        top: 0;
+      }
+
+    }
+
+    &:nth-child(2) {
+      .mission__feature-inner {
+        right: 0;
+        top: 0;
+      }
+    }
+
+    &:nth-child(3) {
+      .mission__feature-inner {
+        bottom: 0;
+        left: 0;
+      }
+    }
+
+    &:nth-child(4) {
+      .mission__feature-inner {
+        bottom: 0;
+        right: 0;
+      }
+    }
+  }
+
+  &__feature-inner {
+    box-sizing: border-box;
+    height: 100%;
+    transition: border-left-color 0.2s, border-right-color 0.2s, height 0.2s,
+      width 0.2s, background-color 0.2s;
+    width: 100%;
+
+    @include media-breakpoint-up(md) {
+      align-items: center;
+      background-color: rgba(#000, 0.2);
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: absolute;
+    }
+
+    &::before,
+    &::after {
+      background: $brand-gradient;
+      height: 5px;
+      left: 0;
+      opacity: 0;
+      position: absolute;
+      transition: opacity 0.2s;
+      width: 100%;
+
+      @include media-breakpoint-up(md) {
+        content: " ";
+      }
+    }
+
+    &::before {
+      top: 0;
+    }
+
+    &::after {
+      bottom: 0;
+    }
+  }
+
+  &__feature-preview {
+    margin: 0 auto;
+    padding: 0 $spacing-unit;
+    text-align: center;
+    width: 162px;
+    z-index: 0;
+
+    @include media-breakpoint-up(md) {
+      padding: 0;
     }
 
     i {
       @include gradient-font();
       display: inline-block;
       font-size: 2.5rem;
-      margin: 0 auto;
+      margin: 0 auto $spacing-unit--ss;
 
-      @include media-breakpoint-up(md) {
+      @include media-breakpoint-up(lg) {
         font-size: 3.8rem;
         margin: 0 auto $spacing-unit--ss;
       }
     }
 
     p {
-      font-size: 1rem;
+      color: $white;
+      font-size: 1.6rem;
       font-weight: 700;
-      line-height: 2.8;
+      line-height: 1.55;
       margin: 0;
       white-space: nowrap;
 
       @include media-breakpoint-up(md) {
-        font-size: 1.6rem;
-        line-height: 1.75;
+        font-size: 1.4rem;
+      }
+
+      @include media-breakpoint-up(lg) {
+        font-size: 1.8rem;
       }
     }
   }
 
-  &__cta {
-    @include btnFixed(40px, 140px, 20px);
-    margin-top: $spacing-unit--md;
+  &__feature-close {
+    color: $white;
+    display: none;
+    font-size: 2rem;
+    opacity: 0;
+    position: absolute;
+    top: 27px;
+    right: 30px;
+    transition: opacity 0.2s;
 
     @include media-breakpoint-up(md) {
-      @include btnFixed(50px, 200px, 27px);
-      font-size: 1.4rem;
-      margin-top: $spacing-unit--ll;
+      display: block;
+    }
+  }
+
+  &__feature-description {
+    max-width: 405px;
+    overflow: hidden;
+    margin: 0 auto;
+
+    @include media-breakpoint-up(md) {
+      opacity: 1;
+      max-height: 0;
+      transition: all 0.15s;
+
+    }
+
+    @include media-breakpoint-up(md) {
+      padding: 0 $spacing-unit--l;
+    }
+
+    p {
+      color: $whiteish;
+      font-size: 1.2rem;
+      line-height: 1.75;
+      margin: $spacing-unit 0 $spacing-unit--md;
+      text-align: left;
+
+      @include media-breakpoint-up(sm) {
+        height: 130px;
+      }
+
+      @include media-breakpoint-up(md) {
+        height: auto;
+      }
+
+      @include media-breakpoint-up(lg) {
+        font-size: 1.6rem;
+        margin: $spacing-unit--md 0 $spacing-unit--l;
+      }
+    }
+
+    .btn {
+      align-items: center;
+      display: inline-flex;
+      justify-content: center;
+      font-size: 1rem;
+
+      @include media-breakpoint-up(lg) {
+        border-radius: 19.5px;
+        font-size: 1.2rem;
+        height: 39px;
+      }
+    }
+  }
+
+  &__feature:hover,
+  &__feature:focus,
+  &__feature.active {
+    outline: none;
+
+    .mission__feature-inner {
+      border-left-color: $blue;
+      border-right-color: $yellow;
+
+      &::before,
+      &::after {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__feature.active {
+    .mission__feature-close {
+      opacity: 1;
+      transition: opacity 0.2s 0.4s ease-in;
+    }
+
+    .mission__feature-inner {
+      z-index: 1;
+
+      @include media-breakpoint-up(md) {
+        height: calc(200% + 22px);
+        width: calc(200% + 22px);
+      }
+    }
+
+    .mission__feature-description {
+      @include media-breakpoint-up(md) {
+        opacity: 1;
+        max-height: 500px;
+        transition: max-height 0.7s 0.15s, opacity 0.6s 0.175s;
+      }
     }
   }
 }
