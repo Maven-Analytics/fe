@@ -28,9 +28,8 @@ class MethodPath extends Component {
   }
 
   componentDidMount() {
-    // This.init();
-
     window.addEventListener('scroll', this.handleScroll);
+    this.handleScroll();
   }
 
   componentWillUnmount() {
@@ -79,7 +78,7 @@ class MethodPath extends Component {
           <MethodHeader />
           <div ref={this.elStart} className="method-path__items">
             <div className="method-path__items-bg">
-              <svg width="725px" height="1938px" viewBox="0 0 725 1938" version="1.1" style={{overflow: 'visible'}} xmlns="http://www.w3.org/2000/svg">
+              <svg width="725px" height="1938px" viewBox="0 0 725 1938" version="1.1" xmlns="http://www.w3.org/2000/svg" style={{overflow: 'visible'}}>
                 <defs>
                   <linearGradient id="pathStrokeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="0%" stopColor="#F6FDA5" />
@@ -87,11 +86,9 @@ class MethodPath extends Component {
                   </linearGradient>
                 </defs>
                 <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-                  <g id="Home-Copy" transform="translate(-138.000000, -1924.000000)" >
-                    <path ref={this.path} stroke="#F0F0F0" strokeWidth="5" d="M720,1924.51953 L720,1928.4 C720,1953.25281 699.852814,1973.4 675,1973.4 L186,1973.4 C161.147186,1973.4 141,1993.54719 141,2018.4 L141,2038 L141,2468 C141,2492.85281 161.147186,2513 186,2513 L815,2513 C839.852814,2513 860,2533.14719 860,2558 L860,3073 C860,3097.85281 839.852814,3118 815,3118 L186,3118 C161.147186,3118 141,3138.14719 141,3163 L141,3669 C141,3693.85281 161.147186,3714 186,3714 L815,3714 C839.852814,3714 860,3734.14719 860,3759 L860,3862" id="Master-path"></path>
-                    <path style={pathStyle} stroke="url(#pathStrokeGradient)" strokeWidth="5" d="M720,1924.51953 L720,1928.4 C720,1953.25281 699.852814,1973.4 675,1973.4 L186,1973.4 C161.147186,1973.4 141,1993.54719 141,2018.4 L141,2038 L141,2468 C141,2492.85281 161.147186,2513 186,2513 L815,2513 C839.852814,2513 860,2533.14719 860,2558 L860,3073 C860,3097.85281 839.852814,3118 815,3118 L186,3118 C161.147186,3118 141,3138.14719 141,3163 L141,3669 C141,3693.85281 161.147186,3714 186,3714 L815,3714 C839.852814,3714 860,3734.14719 860,3759 L860,3862" id="Master-path"></path>
-                    {circle.x && circle.y ? <circle id="app-walkthrough-circle" strokeOpacity=".48" stroke="#F6FDA5" strokeWidth="8" fill="#23E3D7" cx={circle.x} cy={circle.y} r="6"></circle> : null}
-                  </g>
+                  <path ref={this.path} stroke="#F0F0F0" strokeWidth="5" d="M582,0 L582,3.88046875 C582,28.7332825 561.852814,48.8804688 537,48.8804688 L48,48.8804688 C23.1471863,48.8804688 3,69.027655 3,93.8804688 L3,113.480469 L3,543.480469 C3,568.333282 23.1471863,588.480469 48,588.480469 L677,588.480469 C701.852814,588.480469 722,608.627655 722,633.480469 L722,1148.48047 C722,1173.33328 701.852814,1193.48047 677,1193.48047 L48,1193.48047 C23.1471863,1193.48047 3,1213.62766 3,1238.48047 L3,1744.48047 C3,1769.33328 23.1471863,1789.48047 48,1789.48047 L677,1789.48047 C701.852814,1789.48047 722,1809.62766 722,1834.48047 L722,1937.48047"></path>
+                  {pathStyle.strokeDasharray ? <path style={pathStyle} stroke="url(#pathStrokeGradient)" strokeWidth="5" d="M582,0 L582,3.88046875 C582,28.7332825 561.852814,48.8804688 537,48.8804688 L48,48.8804688 C23.1471863,48.8804688 3,69.027655 3,93.8804688 L3,113.480469 L3,543.480469 C3,568.333282 23.1471863,588.480469 48,588.480469 L677,588.480469 C701.852814,588.480469 722,608.627655 722,633.480469 L722,1148.48047 C722,1173.33328 701.852814,1193.48047 677,1193.48047 L48,1193.48047 C23.1471863,1193.48047 3,1213.62766 3,1238.48047 L3,1744.48047 C3,1769.33328 23.1471863,1789.48047 48,1789.48047 L677,1789.48047 C701.852814,1789.48047 722,1809.62766 722,1834.48047 L722,1937.48047"></path> : null}
+                  {circle.x && circle.y ? <circle id="app-walkthrough-circle" strokeOpacity=".48" stroke="#F6FDA5" strokeWidth="8" fill="#23E3D7" cx={circle.x} cy={circle.y} r="6"></circle> : null}
                 </g>
               </svg>
             </div>
