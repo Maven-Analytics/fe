@@ -4,6 +4,9 @@ export const types = {
   REAUTHENTICATE_REQUEST: 'REAUTHENTICATE_REQUEST',
   REAUTHENTICATE_SUCCESS: 'REAUTHENTICATE_SUCCESS',
   REAUTHENTICATE_FAILURE: 'REAUTHENTICATE_FAILURE',
+  ENSURE_ENROLLED_REQUEST: 'ENSURE_ENROLLED_REQUEST',
+  ENSURE_ENROLLED_SUCCESS: 'ENSURE_ENROLLED_SUCCESS',
+  ENSURE_ENROLLED_FAILURE: 'ENSURE_ENROLLED_FAILURE',
   LOGIN_REQUEST: 'LOGIN_REQUEST',
   LOGIN_SUCCESS: 'LOGIN_SUCCESS',
   LOGIN_FAILURE: 'LOGIN_FAILURE',
@@ -26,6 +29,7 @@ export const types = {
 
 export const actions = {
   reauthenticate: obj => utils.action(types.REAUTHENTICATE_REQUEST, obj),
+  ensureEnrolled: obj => utils.action(types.ENSURE_ENROLLED_REQUEST, obj),
   login: obj => utils.action(types.LOGIN_REQUEST, obj),
   logout: obj => utils.action(types.LOGOUT_REQUEST, obj),
   forgot: obj => utils.action(types.FORGOT_REQUEST, obj),

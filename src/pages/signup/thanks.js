@@ -4,58 +4,64 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import {actions as contactActions} from '../../redux/ducks/contact';
+import {actions as authActions} from '../../redux/ducks/auth';
+import {selectors as loadingSelectors} from '../../redux/ducks/loading';
+import {selectors as userSelectors} from '../../redux/ducks/user';
 import Checkout from '../../layouts/checkout';
 import CheckoutThanks from '../../components/checkoutThanks';
-import {Routes} from '../../routes';
 import withAuthSync from '../../components/withAuthSync';
-
-const thanksContent = `
-# Welcome to Maven Analytics
-## Now Let's Get Started!
-
-Take a quick 2-minute survey, and we’ll match you to the best courses & paths to help you reach your goals.
-
-The survey should take 3-5 minutes to complete and is designed to measure your career goals and create
-a customized learning cirriculum.
-
-[Start Survey](${Routes.WelcomeSurvey} "Start Survey")
-`;
+import Loader from '../../components/loader';
 
 class SignupThanks extends Component {
   componentDidMount() {
-    const {first_name, last_name, email, id} = this.props.user.toJS();
-
-    // this.props.actions.contactSend({
-    //   hook: 'https://hooks.zapier.com/hooks/catch/4268756/obkwr87/',
-    //   first_name,
-    //   last_name,
-    //   email,
-    //   id
-    // });
+    const {user} = this.props;
+    if (user && !user.get('enrolled')) {
+      this.props.actions.ensureEnrolled(this.props.token);
+    }
   }
 
   render() {
+    const {loading, user} = this.props;
     return (
       <Checkout full>
-        <CheckoutThanks content={thanksContent} />
+        <div className="thanks-page">
+          {loading === false && user.get('enrolled') ? (
+            <CheckoutThanks />
+          ) : (
+            <div className="checkout-thanks thanks-page__content ">
+              <Loader center loading={loading} width={100} height={100} />
+              <h2>{'Hang tight, we\'re creating your account...'}</h2>
+            </div>
+          )}
+        </div>
       </Checkout>
     );
   }
 }
 
-SignupThanks.propTypes = {
-  user: ImmutablePropTypes.map.isRequired,
-  actions: PropTypes.objectOf(PropTypes.func)
+SignupThanks.getInitialProps = () => {
+  return {
+    loading: true
+  };
 };
 
-const mapStateToProps = () => ({});
+SignupThanks.propTypes = {
+  user: ImmutablePropTypes.map.isRequired,
+  token: PropTypes.string.isRequired,
+  actions: PropTypes.objectOf(PropTypes.func),
+  loading: PropTypes.bool
+};
 
-const mapDispatchToProps = function(dispatch) {
+const mapStateToProps = state => ({
+  loading: loadingSelectors.getLoading(['ENSURE_ENROLLED'])(state),
+  token: userSelectors.getToken(state)
+});
+
+const mapDispatchToProps = function (dispatch) {
   return {
     actions: bindActionCreators(
       {
-        ...contactActions
+        ...authActions
       },
       dispatch
     )

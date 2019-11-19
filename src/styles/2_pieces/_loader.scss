@@ -31,6 +31,26 @@
     stroke-dashoffset: 0;
   }
 
+  @keyframes pulse {
+    0%   { opacity:1; }
+    50%  { opacity:0.6; }
+    100% { opacity:1; }
+  }
+
+  p {
+    animation: 2s pulse ease infinite alternate;
+    color: $white;
+    font-size: 1.6rem;
+    margin-left: -50%;
+    line-height: 1.55;
+    text-align: center;
+    width: 200%;
+
+    @include media-breakpoint-up(md) {
+      font-size: 1.8rem;
+    }
+  }
+
   &--center {
     left: 50%;
     top: 50%;
