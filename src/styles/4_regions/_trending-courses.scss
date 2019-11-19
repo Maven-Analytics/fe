@@ -77,7 +77,6 @@
       }
 
       @include media-breakpoint-up(lg) {
-        min-height: 100%;
         width: calc(33.33333% - 10px);
       }
 
