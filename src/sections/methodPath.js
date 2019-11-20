@@ -46,14 +46,14 @@ class MethodPath extends Component {
     const {current: path} = this.path;
 
     const windowBottom = window.scrollY + window.innerHeight;
-    const startY = elStart.offsetTop + (window.innerHeight / 2); // Start when the middle of the window is at the top of the line
+    const startY = elStart.offsetTop + 50; // Start when bottom of the screen is at the start el + 50
     const endY = elEnd.offsetTop + (elEnd.offsetHeight / 2); // End when the line reaches the middle of the last item
 
     const progress = (windowBottom - startY) / endY;
     const pathLength = path.getTotalLength();
     const drawLength = pathLength * progress;
 
-    const points = path.getPointAtLength(drawLength);
+    const points = path.getPointAtLength(progress > 0 ? drawLength : 0.5);
 
     this.setState({
       progress,
