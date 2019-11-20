@@ -1,4 +1,4 @@
-import React, { Component, createRef } from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 
@@ -41,12 +41,12 @@ class MethodPath extends Component {
       return;
     }
 
-    const { current: elStart } = this.elStart;
-    const { current: elEnd } = this.elEnd;
-    const { current: path } = this.path;
+    const {current: elStart} = this.elStart;
+    const {current: elEnd} = this.elEnd;
+    const {current: path} = this.path;
 
     const windowBottom = window.scrollY + window.innerHeight;
-    const startY = elStart.offsetTop + 50; // Start when bottom of the screen is at the start el + 50
+    const startY = elStart.offsetTop + 200; // Start when bottom of the screen is at the start el + 50
     const endY = elEnd.offsetTop + (elEnd.offsetHeight / 2); // End when the line reaches the middle of the last item
 
     const progress = (windowBottom - startY) / endY;
@@ -69,8 +69,8 @@ class MethodPath extends Component {
   }
 
   render() {
-    const { items } = this.props;
-    const { pathStyle, circle } = this.state;
+    const {items} = this.props;
+    const {pathStyle, circle} = this.state;
 
     return (
       <div className="method-path">
@@ -78,7 +78,7 @@ class MethodPath extends Component {
           <MethodHeader />
           <div ref={this.elStart} className="method-path__items">
             <div className="method-path__items-bg">
-              <svg width="725px" height="1938px" viewBox="0 0 725 1938" version="1.1" xmlns="http://www.w3.org/2000/svg" style={{ overflow: 'visible' }}>
+              <svg width="725px" height="1938px" viewBox="0 0 725 1938" version="1.1" xmlns="http://www.w3.org/2000/svg" style={{overflow: 'visible'}}>
                 <defs>
                   <linearGradient id="pathStrokeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="0%" stopColor="#F6FDA5" />
@@ -94,7 +94,7 @@ class MethodPath extends Component {
             </div>
             <div className="method-path__items-inner">
               {items.map((item, index) => (
-                <div key={index} ref={index === items.length - 1 ? this.elEnd : null} style={{ height: item.sectionHeight }} className="method-path-item">
+                <div key={index} ref={index === items.length - 1 ? this.elEnd : null} style={{height: item.sectionHeight}} className="method-path-item">
                   <div className="method-path-item__content">
                     <span className="method-path-item__step">{index + 1}</span>
                     <div className="method-path-item__content-inner">
