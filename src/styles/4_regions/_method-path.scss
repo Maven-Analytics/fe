@@ -63,18 +63,15 @@
       padding-left: 2rem;
     }
 
-    &__step,
+    &__step {
+      font-size: 4rem;
+      font-weight: 900;
+      transform: translateY(-8px);
+    }
+
     &__title {
       font-family: $font-heading;
       font-weight: 900;
-    }
-
-    &__step {
-      font-size: 5rem;
-      transform: translateY(-16px);
-    }
-
-    &__title {
       font-size: 3.1rem;
       line-height: 1;
       margin: 0 0 $spacing-unit--mdl;
