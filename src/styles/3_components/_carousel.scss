@@ -1,0 +1,43 @@
+.carousel {
+  &.arrow-buttons {
+    .flickity-prev-next-button {
+      background: none;
+
+      &::before {
+        font-family: 'maicon' !important;
+        font-size: 2.5rem;
+      }
+
+      svg {
+        display: none;
+      }
+
+      &.next {
+        right: -1.5rem;
+
+        &::before {
+          content: '\e914';
+        }
+        @include media-breakpoint-up(lg) {
+          right: -4rem;
+        }
+        @include media-breakpoint-up(xl) {
+          right: -7rem;
+        }
+      }
+      &.previous {
+        left: -1.5rem;
+
+        &::before {
+          content: '\e91d';
+        }
+        @include media-breakpoint-up(lg) {
+          left: -4rem;
+        }
+        @include media-breakpoint-up(xl) {
+          left: -7rem;
+        }
+      }
+    }
+  }
+}

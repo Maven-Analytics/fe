@@ -18,8 +18,10 @@ const TrendingCourses = ({courses}) => {
         <div className="trending-courses__inner">
 
           <Carousel
+            className="arrow-buttons"
             options={{
-              groupCells: isLg() ? 3 : isMd() ? 2 : 1
+              groupCells: isLg() ? 3 : isMd() ? 2 : 1,
+              prevNextButtons: true
             }}
           >
             {courses.map(course => (
