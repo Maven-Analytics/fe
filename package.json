@@ -13,10 +13,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.4.5",
-    "@babel/preset-env": "^7.7.1",
-    "@babel/preset-react": "^7.7.0",
-    "@babel/register": "^7.4.4",
     "babel-jest": "^24.9.0",
     "eslint": "^5.16.0",
     "eslint-config-xo": "^0.26.0",
@@ -29,6 +25,10 @@
     "redux-logger": "^3.0.6"
   },
   "dependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.7.1",
+    "@babel/preset-react": "^7.7.0",
+    "@babel/register": "^7.4.4",
     "@contentful/rich-text-react-renderer": "^13.2.0",
     "@hapi/boom": "^7.4.2",
     "@hapi/joi": "^15.0.1",
