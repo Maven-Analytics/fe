@@ -4,14 +4,20 @@ import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {List} from 'immutable';
 import Link from 'next/link';
 import {Timeline, Tween} from 'react-gsap';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 
+import {actions as stateActions} from '../redux/ducks/state';
+import {isLg, isMd, isSm, isXl} from '../components/mediaQuery';
 import ParallaxBg from '../components/parallaxBg';
 import Markdown from '../components/markdown';
 import ScrollToNext from '../components/scrollToNext';
 import MaIcon from '../components/maIcon';
 import TrackVisibility from '../components/trackVisibility';
 import {Routes} from '../routes';
-import {click, noop} from '../utils/componentHelpers';
+import withWindowSize from '../components/withWindowSize';
+import {click, noop, clickAction} from '../utils/componentHelpers';
+import MissionFeature from '../components/missionFeature';
 
 class Mission extends Component {
   constructor(props) {
@@ -33,8 +39,14 @@ class Mission extends Component {
     });
   }
 
-  handleFeatureClick(activeIndex) {
-    this.setState({activeIndex});
+  handleFeatureClick(index, feature) {
+    return () => {
+      if (isMd()) {
+        this.setState({activeIndex: index});
+      } else {
+        this.props.actions.modalOpen('missionItem', feature);
+      }
+    };
   }
 
   render() {
@@ -100,27 +112,40 @@ class Mission extends Component {
                     delay={0.5}
                   >
                     {features.map((feature, index) => (
-                      <button
-                        key={feature.get('title')}
-                        className={['mission__feature', index === activeIndex ? 'active' : ''].join(' ')}
-                        onClick={activeIndex > -1 ? noop : click(this.handleFeatureClick, index)}
-                      >
-                        <div className="mission__feature-inner">
-                          <span role="button" className="mission__feature-close" onClick={click(this.handleFeatureClick, -1)}>
-                            <MaIcon icon="times" />
-                          </span>
-                          <div className="mission__feature-preview">
-                            <MaIcon icon={feature.get('icon')} />
-                            <p>{feature.get('title')}</p>
-                          </div>
-                          <div className="mission__feature-description">
-                            <p>{feature.get('description')}</p>
-                            <Link href={feature.get('linkUrl')}>
-                              <a className="btn btn--primary-solid">{feature.get('linkText')}</a>
-                            </Link>
-                          </div>
-                        </div>
-                      </button>
+                      <div key={index}>
+                        <MissionFeature
+                          tag="button"
+                          active={index === activeIndex}
+                          title={feature.get('title')}
+                          description={feature.get('description')}
+                          icon={feature.get('icon')}
+                          linkText={feature.get('linkText')}
+                          linkUrl={feature.get('linkUrl')}
+                          onClick={activeIndex > -1 ? noop : this.handleFeatureClick(index, feature)}
+                          onClose={this.handleFeatureClick(-1)}
+                        />
+                      </div>
+                      // <button
+                      //   key={feature.get('title')}
+                      //   className={['mission-feature', index === activeIndex ? 'active' : ''].join(' ')}
+                      //   onClick={}
+                      // >
+                      //   <div className="mission-feature__inner">
+                      //     <span role="button" className="mission-feature__close" onClick={click(this.handleFeatureClick, -1)}>
+                      //       <MaIcon icon="times" />
+                      //     </span>
+                      //     <div className="mission-feature__preview">
+                      //       <MaIcon icon={feature.get('icon')} />
+                      //       <p>{feature.get('title')}</p>
+                      //     </div>
+                      //     <div className="mission-feature__description">
+                      //       <p>{feature.get('description')}</p>
+                      //       <Link href={feature.get('linkUrl')}>
+                      //         <a className="btn btn--primary-solid">{feature.get('linkText')}</a>
+                      //       </Link>
+                      //     </div>
+                      //   </div>
+                      // </button>
                     ))}
                   </Tween>
                 </div>
@@ -138,11 +163,20 @@ class Mission extends Component {
 Mission.propTypes = {
   content: PropTypes.string,
   features: ImmutablePropTypes.list,
-  scrollTo: PropTypes.string
+  scrollTo: PropTypes.string,
+  actions: PropTypes.objectOf(PropTypes.func)
 };
 
 Mission.defaultProps = {
   features: List()
 };
 
-export default Mission;
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    ...stateActions
+  }, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withWindowSize(Mission));

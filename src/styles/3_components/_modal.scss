@@ -46,6 +46,12 @@
       top: 50%;
       transform: translateX(-50%) translateY(-50%);
     }
+
+    &[data-position="top-center"] {
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+    }
   }
 
   &__close {
@@ -91,6 +97,24 @@
       @include media-breakpoint-up(md) {
         padding: 6rem;
       }
+    }
+  }
+
+  &--mission-item {
+    position: fixed;
+
+    #{$self}__fog {
+      position: fixed;
+    }
+
+    #{$self}__body {
+      background-color: rgba(37,37,37,0.95);
+      padding-top: 4.5rem;
+      position: fixed;
+    }
+
+    #{$self}__close {
+      font-size: 2rem;
     }
   }
 }

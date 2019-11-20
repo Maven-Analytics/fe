@@ -2,11 +2,11 @@
   display: flex;
 
   &__step {
-    color: $gray-medium-2;
+    color: #fff;
     font-size: 2.6rem;
     font-weight: 700;
     line-height: 45px;
-    margin-right: $spacing-unit--ss;
+    margin-right: 1.2rem;
 
     @include media-breakpoint-up(lg) {
       color: $black;
@@ -26,10 +26,10 @@
     align-items: center;
     display: flex;
     font-family: $font-body;
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: 900;
     height: 45px;
-    // line-height: 30px;
+    line-height: 1.66;
     margin-bottom: 0;
 
     @include media-breakpoint-up(lg) {
@@ -48,9 +48,9 @@
   }
 
   &__description {
-    color: $gray-medium-2;
+    color: $black-2;
     font-size: 1.2rem;
-    line-height: 1.6;
+    line-height: 1.66;
     margin-bottom: $spacing-unit;
     max-width: 500px;
 
@@ -66,6 +66,8 @@
   }
 
   .btn {
+    font-size: 1rem;
+
     @include media-breakpoint-up(lg) {
       align-items: center;
       display: inline-flex;
