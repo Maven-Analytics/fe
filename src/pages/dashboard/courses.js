@@ -29,8 +29,6 @@ class DashboardCourses extends Component {
     const {loading, progress, user} = this.props;
     const courses = progress.get('courses');
 
-    console.log(loading);
-
     return (
       <DashboardLayout sidebar={CourseFilters} showWelcome loading={loading} title="Self-Paced Courses" activeLink={2}>
         <DashboardGrid>
@@ -40,6 +38,7 @@ class DashboardCourses extends Component {
               <CourseCard
                 full
                 key={course.get('id')}
+                resumeUrl={course.get('url')}
                 match={`${prettyPercent(getMatchScoreForCourse(course, user))}%`}
                 course={course}
                 progress={course.get('percentage_completed')}

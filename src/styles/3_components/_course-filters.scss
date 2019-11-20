@@ -66,20 +66,26 @@
   // }
 
   header {
-    align-items: center;
     color: $black-2;
-    display: flex;
-    flex-wrap: wrap;
     margin: 0;
 
     @include media-breakpoint-up(md) {
       margin: 0 0 $spacing-unit--l;
     }
 
+    > div {
+      align-items: center;
+      display: flex;
+
+      @include collapseUp() {
+        margin: 0 0 $spacing-unit;
+      }
+    }
+
     h4 {
       font-family: $font-body;
       font-size: 1em;
-      margin: 0 0 $spacing-unit;
+      margin: 0;
       text-transform: uppercase;
     }
 
@@ -104,6 +110,13 @@
 
       @include collapseUp() {
         display: none;
+      }
+    }
+
+    .btn {
+      display: none;
+      @include collapseUp() {
+        display: inline-block;
       }
     }
   }

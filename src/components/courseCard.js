@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
 import {Map} from 'immutable';
+import Link from 'next/link';
 
 import {clickAction} from '../utils/componentHelpers';
 import ImageContentful from './imageContentful';
@@ -34,7 +35,7 @@ class CourseCard extends Component {
   }
 
   render() {
-    const {course, condensed, match, recommended, progress, full, actions} = this.props;
+    const {course, condensed, match, recommended, progress, full, actions, resumeUrl} = this.props;
     const {loaded} = this.state;
 
     const classList = ['course-card'];
@@ -51,6 +52,8 @@ class CourseCard extends Component {
       classList.push('loaded');
     }
 
+    const headerImg = <ImageContentful cover onLoad={this.handleImageLoad} image={course.get('thumbnail')} />;
+
     return (
       <div className={classList.join(' ')}>
         {match && condensed === false ? (
@@ -66,7 +69,13 @@ class CourseCard extends Component {
           </CourseBanner>
         ) : null}
         <div className="course-card__image">
-          <ImageContentful cover onLoad={this.handleImageLoad} image={course.get('thumbnail')} />
+          {resumeUrl ? (
+            <Link href={resumeUrl}>
+              <a>
+                {headerImg}
+              </a>
+            </Link>
+          ) : headerImg}
           {condensed === false ? (
             <div className="badge">
               <ImageContentful onLoad={this.handleImageLoad} showLoader={false} image={course.get('badge')} />
@@ -74,7 +83,15 @@ class CourseCard extends Component {
           ) : null}
         </div>
         <div className="course-card__content">
-          <h4>{course.get('title')}</h4>
+          <h4>
+            {resumeUrl ? (
+              <Link href={resumeUrl}>
+                <a>
+                  {course.get('title')}
+                </a>
+              </Link>
+            ) : course.get('title')}
+          </h4>
           {condensed === false ? <p>{course.get('cardDescription')}</p> : null}
           {progress > -1 ? <ProgressMeter value={progress} title="Progress" /> : null}
         </div>
@@ -99,7 +116,8 @@ CourseCard.propTypes = {
   recommended: PropTypes.string,
   progress: PropTypes.number,
   full: PropTypes.bool,
-  actions: PropTypes.objectOf(PropTypes.func)
+  actions: PropTypes.objectOf(PropTypes.func),
+  resumeUrl: PropTypes.string
 };
 
 CourseCard.defaultProps = {

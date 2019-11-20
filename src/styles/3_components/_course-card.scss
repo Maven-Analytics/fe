@@ -66,6 +66,14 @@
       min-height: 40px;
       text-transform: uppercase;
 
+      a {
+        color: $black;
+
+        &:hover {
+          color: $black;
+        }
+      }
+
       @include media-breakpoint-up(lg) {
         padding-right: 100px;
         min-height: 0;

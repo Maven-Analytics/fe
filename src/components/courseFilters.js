@@ -112,15 +112,17 @@ class CourseFilters extends Component {
           onClick={clickPrevent(actions.offmenuToggle, 'filters')}
         />
         <header>
-          <h4>{title}</h4><br />
+          <div>
+            <h4>{title}</h4>
+            <button className="close" onClick={clickPrevent(actions.offmenuToggle, 'filters')}>
+              {open ? <MaIcon icon="minus" /> : <MaIcon icon="times" />}
+            </button>
+          </div>
           <button
             className="btn btn--primary-solid"
             onClick={clickPrevent(this.handleFilter)}
           >
             Apply
-          </button>
-          <button className="close" onClick={clickPrevent(actions.offmenuToggle, 'filters')}>
-            {open ? <MaIcon icon="minus" /> : <MaIcon icon="times" />}
           </button>
         </header>
         <div className="course-filters__content">

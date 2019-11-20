@@ -12,6 +12,7 @@ import ProductMetaItem from './productMetaItem';
 import ProductTools from './productTools';
 import CourseAuthor from './courseAuthor';
 import {prettyPercent} from '../utils/componentHelpers';
+import ResumeProduct from './resumeProduct';
 
 const PathDetail = ({badge, titleTag: TitleTag, title, resumeUrl, description, percentage_completed, tools, courseCount, hours, match, instructors}) => {
   const classList = ['path-detail'];
@@ -19,23 +20,23 @@ const PathDetail = ({badge, titleTag: TitleTag, title, resumeUrl, description, p
   return (
     <div className={classList.join(' ')}>
       <div className="path-detail__header">
-        <ImageContentful showLoader={false} image={badge}/>
+        <ImageContentful showLoader={false} image={badge} />
         <TitleTag>{title}</TitleTag>
-        {resumeUrl ? (<Link href={resumeUrl}><a className="btn btn--primary-solid">Resume Path</a></Link>) : null}
+        <ResumeProduct resumeUrl={resumeUrl} productTerm="Path" started={percentage_completed > 0} className="btn btn--primary-solid" />
       </div>
       <div className="path-detail__content">
         <div className="path-detail__content__main">
-          <RichText content={description}/>
+          <RichText content={description} />
         </div>
         <div className="path-detail__content__sidebar">
           <ProductMeta className="product-meta--stacked path-detail__meta">
             {percentage_completed > -1 ? (
               <ProductMetaItem label="Progress">
-                <ProgressMeter value={percentage_completed}/>
+                <ProgressMeter value={percentage_completed} />
               </ProductMetaItem>
             ) : null}
             <ProductMetaItem label="Featured Tools">
-              <ProductTools tools={tools}/>
+              <ProductTools tools={tools} />
             </ProductMetaItem>
             <ProductMetaItem label="Number of Courses">
               {courseCount}
@@ -51,7 +52,7 @@ const PathDetail = ({badge, titleTag: TitleTag, title, resumeUrl, description, p
             {instructors ? (
               <ProductMetaItem label="Course Instructors">
                 {instructors.map(instructor => (
-                  <CourseAuthor key={instructor.get('id')} name={instructor.get('name')} thumbnail={instructor.get('thumbnail')}/>
+                  <CourseAuthor key={instructor.get('id')} name={instructor.get('name')} thumbnail={instructor.get('thumbnail')} />
                 ))}
               </ProductMetaItem>
             ) : null}
