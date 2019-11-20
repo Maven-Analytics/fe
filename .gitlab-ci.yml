@@ -1,6 +1,9 @@
-include:
-  - template: Auto-DevOps.gitlab-ci.yml
-  
 stages:
   - build
   - test
+  - deploy
+
+include:
+  - template: Jobs/Build.gitlab-ci.yml
+  - template: Jobs/Test.gitlab-ci.yml
+  - template: Jobs/Deploy.gitlab-ci.yml
