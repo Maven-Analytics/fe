@@ -46,6 +46,7 @@
     margin: $spacing-unit 0 0;
 
     @include media-breakpoint-up(lg) {
+      font-size: 1.8rem;
       margin: $spacing-unit--mdl 0 0;
     }
   }
