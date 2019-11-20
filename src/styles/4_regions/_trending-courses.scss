@@ -86,6 +86,10 @@
         max-width: 335px;
         margin: 0 auto 2.1rem;
 
+        @include media-breakpoint-up(md) {
+          max-width: none;
+        }
+
         @include media-breakpoint-up(lg) {
           min-height: 507px;
         }
