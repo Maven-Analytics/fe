@@ -5,16 +5,16 @@ import MaIcon from '../components/maIcon';
 import ParallaxBg from '../components/parallaxBg';
 import withWindowSize from '../components/withWindowSize';
 import {Routes} from '../routes';
-import {isSm, isLg, isXl} from '../components/mediaQuery';
+import {isLg, isXl} from '../components/mediaQuery';
 import {canUseWebP} from '../utils/componentHelpers';
 
 const heroImages = {
   mdWebp: '/static/img/home-hero-tall.webp',
-  lgWebp: '/static/img/home-hero-tall-1600.webp',
-  xlWebp: '/static/img/home-hero-tall-2400.webp',
+  lgWebp: '/static/img/hero-parallax-1600.webp',
+  xlWebp: '/static/img/hero-parallax-2400.webp',
   lgJpg: '/static/img/home-hero-tall.jpg',
-  mdJpg: '/static/img/home-hero-tall-1600.jpg',
-  xlJpg: '/static/img/home-hero-tall-2400.jpg'
+  mdJpg: '/static/img/hero-parallax-1600.jpg',
+  xlJpg: '/static/img/hero-parallax-2400.jpg'
 };
 
 const Img = () => {
