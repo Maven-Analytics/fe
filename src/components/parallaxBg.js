@@ -1,140 +1,65 @@
-import React, {Component, createRef} from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import throttle from 'lodash.throttle';
-
-import Image from './image';
-import {canUseDOM, isScrolledIntoView, getNodeHeight, isTouchDevice} from '../utils/componentHelpers';
-
-const strength = 500;
+import {ParallaxBanner} from 'react-scroll-parallax';
 
 class ParallaxBg extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      imgStyle: {},
-      enabled: false
+      loading: true
     };
-
-    this.el = createRef();
-    this.handleScroll = throttle(this.handleScroll.bind(this), 10);
-    this.handleResize = this.handleResize.bind(this);
   }
 
   componentDidMount() {
-    if (!isTouchDevice()) {
-      window.addEventListener('scroll', this.handleScroll);
-      window.addEventListener('resize', this.handleResize);
-      this.handleResize();
-      this.handleScroll();
+    this.loadImage(this.props.src);
+  }
 
-      this.setState({
-        enabled: true
+  componentDidUpdate(prevProps) {
+    if (prevProps.src !== this.props.src) {
+      this.loadImage(this.props.src);
+    }
+  }
+
+  loadImage(src) {
+    this.setState({
+      loading: true
+    });
+
+    const img = new window.Image();
+    img.src = src;
+
+    if (img.complete) {
+      return this.setState({
+        loading: false
       });
     }
-  }
 
-  componentWillUnmount() {
-    if (!isTouchDevice()) {
-      window.removeEventListener('scroll', this.handleScroll);
-      window.removeEventListener('resize', this.handleResize);
-    }
-  }
-
-  handleScroll() {
-    const {current: el} = this.el;
-
-    if (isScrolledIntoView(el, 100, canUseDOM())) {
-      window.requestAnimationFrame(this.onScroll.bind(this));
-    }
-  }
-
-  handleResize() {
-    const {current: el} = this.el;
-
-    this.setState(this.updateImgStyle({
-      height: el.offsetHeight + this.props.strength,
-      width: el.offsetWidth,
-      left: '50%',
-      transform: 'translate3d(-50%, 0, 0)',
-      WebkitTransformStyle: 'preserve-3d',
-      WebkitBackfaceVisibility: 'hidden',
-      MozBackfaceVisibility: 'hidden',
-      MsBackfaceVisibility: 'hidden'
-    }));
-
-    this.handleScroll();
-  }
-
-  onScroll() {
-    const {current: el} = this.el;
-
-    if (!el) {
-      return;
-    }
-
-    const perc = this.getRelativePosition(el, canUseDOM());
-
-    const nt = 0 - (perc * this.props.strength);
-
-    this.setState(this.updateImgStyle({
-      transform: `translate3d(-50%, ${nt}px, 0)`
-    }));
-  }
-
-  updateImgStyle(imgStyle) {
-    return prevState => ({
-      ...prevState,
-      imgStyle: {
-        ...prevState.imgStyle,
-        ...imgStyle
-      }
-    });
-  }
-
-  getRelativePosition(node, useDOM) {
-    if (!useDOM) {
-      return 0;
-    }
-
-    if (!node) {
-      return 0;
-    }
-
-    const element = node;
-
-    const {top, height} = element.getBoundingClientRect();
-    const parentHeight = getNodeHeight(useDOM);
-    const maxHeight = height > parentHeight ? height : parentHeight;
-    const y = Math.round(top > maxHeight ? maxHeight : top);
-
-    return this.getPercentage(-height, maxHeight, y, height);
-  }
-
-  getPercentage(startpos, endpos, currentpos) {
-    const distance = endpos - startpos;
-    const displacement = currentpos - startpos;
-    return displacement / distance || 0;
+    img.onload = () => {
+      this.setState({
+        loading: false
+      });
+    };
   }
 
   render() {
-    const {src, alt, srcSet, placeholderColor, sources, className, overlay} = this.props;
-    const {imgStyle, enabled} = this.state;
-    const wrapStyle = {overflow: 'hidden', height: '100%', width: '100%'};
+    const {src, className, overlay, strength} = this.props;
+    const {loading} = this.state;
 
     return (
-      <div ref={this.el} className={className} style={wrapStyle}>
+      <div className={['parallax-bg', loading ? 'loading' : '', className].filter(f => f && f !== '').join(' ')}>
         {overlay ? <div className="overlay" /> : null}
-        <Image
-          cover
-          lazyLoad={false}
-          placeholderColor={placeholderColor}
-          sources={sources}
-          modifier={enabled ? 'parallax-enabled' : ''}
-          src={src}
-          alt={alt}
-          srcSet={srcSet}
-          style={enabled ? imgStyle : {}}
+        <ParallaxBanner
+          // ClassName={[loading ? 'loading' : '']}
+          layers={[
+            {
+              image: src,
+              amount: strength
+            }
+          ]}
+          style={{
+            height: '100%'
+          }}
         />
       </div>
     );
@@ -143,21 +68,14 @@ class ParallaxBg extends Component {
 
 ParallaxBg.propTypes = {
   src: PropTypes.string.isRequired,
-  modifier: PropTypes.string,
-  alt: PropTypes.string,
-  preload: PropTypes.bool,
-  srcSet: PropTypes.string,
   placeholderColor: PropTypes.string,
-  sources: PropTypes.array,
   className: PropTypes.string,
   overlay: PropTypes.bool,
   strength: PropTypes.number
 };
 
 ParallaxBg.defaultProps = {
-  preload: false,
-  sources: [],
-  strength
+  strength: 0.5
 };
 
 export default ParallaxBg;
