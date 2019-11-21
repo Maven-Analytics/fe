@@ -15,7 +15,6 @@
       2
     ],
     "camelcase": "off",
-    "mocha/no-exclusive-tests": "error",
     "new-cap": "off"
   },
   "globals": {

@@ -1,6 +1,6 @@
 import {List, Map} from 'immutable';
 
-export function noop() {}
+export function noop() { }
 
 export function fire(actions, func, val) {
   return e => {
@@ -144,11 +144,11 @@ export function camelCase(str) {
  * @return {Number} Y coordinate for how far a user has scrolled down a page
  */
 export function getCurrentScrollY() {
-  return window.scrollY
-    ? window.scrollY
-    : window.pageYOffset
-    ? window.pageYOffset
-    : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+  return window.scrollY ?
+    window.scrollY :
+    window.pageYOffset ?
+      window.pageYOffset :
+      (document.documentElement || document.body.parentNode || document.body).scrollTop;
 }
 
 /**
@@ -168,7 +168,7 @@ export function canUseDOM() {
   return Boolean(typeof window !== 'undefined' && window.document && window.document.createElement);
 }
 
-export const isElementXPercentInViewport = function(el, percentVisible = 0) {
+export const isElementXPercentInViewport = function (el, percentVisible = 0) {
   if (!el) {
     return false;
   }
@@ -259,4 +259,20 @@ export const getTimeOfDay = () => {
   }
 
   return 'evening';
+};
+
+export const canUseWebP = () => {
+  if (!canUseDOM()) {
+    return false;
+  }
+
+  var elem = document.createElement('canvas');
+
+  if (elem && elem.getContext && elem.getContext('2d')) {
+    // Was able or not to get WebP representation
+    return elem.toDataURL('image/webp').indexOf('data:image/webp') === 0;
+  }
+
+  // Very old browser like IE 8, canvas not supported
+  return false;
 };

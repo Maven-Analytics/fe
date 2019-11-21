@@ -1,0 +1,16 @@
+.parallax-bg {
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+
+  .parallax-banner {
+    opacity: 1;
+    transition: all 0.3s ease-in-out;
+  }
+
+  &.loading {
+    .parallax-banner {
+      opacity: 0;
+    }
+  }
+}
