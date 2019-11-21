@@ -10,6 +10,7 @@ import {bindActionCreators} from 'redux';
 import {click} from '../utils/componentHelpers';
 import {selectors as stateSelectors, actions as stateActions} from '../redux/ducks/state';
 import Logo from '../components/logo';
+import withWindowSize from '../components/withWindowSize';
 import Hamburger from '../components/hamburger';
 import {menuLinksMain} from '../routes';
 import HeaderAuth from '../components/headerAuth';
@@ -29,10 +30,10 @@ const GlobalHeader = ({state, actions, className}) => {
           <div className="global-header__inner">
             <Link href={Routes.Home}>
               <a className="global-header__brand">
-                <Logo/>
+                <Logo />
               </a>
             </Link>
-            <Hamburger isActive={state.get('mobileMenu')} onClick={click(actions.offmenuToggle, 'mobileMenu')}/>
+            <Hamburger isActive={state.get('mobileMenu')} onClick={click(actions.offmenuToggle, 'mobileMenu')} />
             <nav>
               <ul>
                 {menuLinksMain.map(link => {
@@ -43,7 +44,7 @@ const GlobalHeader = ({state, actions, className}) => {
                   );
                 })}
               </ul>
-              <HeaderAuth showContact showRegister onUserClick={click(actions.offmenuToggle, 'headerUser')}/>
+              <HeaderAuth showContact showRegister onUserClick={click(actions.offmenuToggle, 'headerUser')} />
             </nav>
           </div>
         </div>
@@ -72,5 +73,5 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(GlobalHeader);
+export default connect(mapStateToProps, mapDispatchToProps)(withWindowSize(GlobalHeader));
 
