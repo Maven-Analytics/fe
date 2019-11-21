@@ -3,7 +3,43 @@ import Link from 'next/link';
 
 import MaIcon from '../components/maIcon';
 import ParallaxBg from '../components/parallaxBg';
+import withWindowSize from '../components/withWindowSize';
 import {Routes} from '../routes';
+import {isSm, isLg, isXl} from '../components/mediaQuery';
+import {canUseWebP} from '../utils/componentHelpers';
+
+const heroImages = {
+  mdWebp: '/static/img/home-hero-tall.webp',
+  lgWebp: '/static/img/home-hero-tall-1600.webp',
+  xlWebp: '/static/img/home-hero-tall-2400.webp',
+  lgJpg: '/static/img/home-hero-tall.jpg',
+  mdJpg: '/static/img/home-hero-tall-1600.jpg',
+  xlJpg: '/static/img/home-hero-tall-2400.jpg'
+};
+
+const Img = () => {
+  if (canUseWebP()) {
+    if (isXl()) {
+      return heroImages.xlWebp;
+    }
+
+    if (isLg()) {
+      return heroImages.lgWebp;
+    }
+
+    return heroImages.mdWebp;
+  }
+
+  if (isXl()) {
+    return heroImages.xlJpg;
+  }
+
+  if (isLg()) {
+    return heroImages.lgJpg;
+  }
+
+  return heroImages.mdJpg;
+};
 
 const Hero = () => {
   return (
@@ -11,37 +47,7 @@ const Hero = () => {
       <div className="hero__background">
         <ParallaxBg
           placeholderColor="#252525"
-          // Sources={[
-          //   {
-          //     srcSet: '/static/img/home-hero-tall-2400.webp 1600w',
-          //     type: 'image/webp',
-          //     media: '(min-width: 1600px)'
-          //   },
-          //   {
-          //     srcSet: '/static/img/home-hero-tall-2400.jpg 1600w',
-          //     type: 'image/jpeg',
-          //     media: '(min-width: 1600px)'
-          //   },
-          //   {
-          //     srcSet: '/static/img/home-hero-tall-1600.webp',
-          //     type: 'image/webp',
-          //     media: '(min-width: 1000px)'
-          //   },
-          //   {
-          //     srcSet: '/static/img/home-hero-tall-1600.jpg',
-          //     type: 'image/jpeg',
-          //     media: '(min-width: 1000px)'
-          //   },
-          //   {
-          //     srcSet: '/static/img/home-hero-tall-1000.webp',
-          //     type: 'image/webp'
-          //   },
-          //   {
-          //     srcSet: '/static/img/home-hero-tall-1000.jpg',
-          //     type: 'image/jpeg'
-          //   }
-          // ]}
-          src="/static/img/home-hero-tall.jpg"
+          src={Img()}
         />
       </div>
       <div className="hero__content">
@@ -71,4 +77,4 @@ const Hero = () => {
 
 Hero.propTypes = {};
 
-export default Hero;
+export default withWindowSize(Hero);
