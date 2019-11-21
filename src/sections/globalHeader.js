@@ -7,10 +7,9 @@ import {Map} from 'immutable';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import {click} from '../utils/componentHelpers';
+import {click, canUseDOM} from '../utils/componentHelpers';
 import {selectors as stateSelectors, actions as stateActions} from '../redux/ducks/state';
 import Logo from '../components/logo';
-import withWindowSize from '../components/withWindowSize';
 import Hamburger from '../components/hamburger';
 import {menuLinksMain} from '../routes';
 import HeaderAuth from '../components/headerAuth';
@@ -25,8 +24,8 @@ const GlobalHeader = ({state, actions, className}) => {
 
   return (
     <header className={classList.join(' ')}>
-      <Headroom>
-        <div className="container container--lg">
+      <Headroom disable={canUseDOM() === false}>
+        <div id="testContainer" className="container container--lg">
           <div className="global-header__inner">
             <Link href={Routes.Home}>
               <a className="global-header__brand">
@@ -73,5 +72,5 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withWindowSize(GlobalHeader));
+export default connect(mapStateToProps, mapDispatchToProps)(GlobalHeader);
 

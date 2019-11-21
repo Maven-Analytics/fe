@@ -18,6 +18,13 @@
     height: auto;
   }
 
+  .headroom-wrapper{
+    max-height: $header-height-mobile;
+    @include desktopHeader {
+      max-height: auto;
+    }
+  }
+
   .headroom {
     background-color: $black;
     transition: background-color 0.15s ease-in;
