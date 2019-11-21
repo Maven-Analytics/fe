@@ -25,7 +25,7 @@ const GlobalHeader = ({state, actions, className}) => {
   return (
     <header className={classList.join(' ')}>
       <Headroom disable={canUseDOM() === false}>
-        <div id="testContainer" className="container container--lg">
+        <div className="container container--lg">
           <div className="global-header__inner">
             <Link href={Routes.Home}>
               <a className="global-header__brand">
@@ -55,7 +55,7 @@ const GlobalHeader = ({state, actions, className}) => {
 GlobalHeader.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   state: ImmutablePropTypes.map,
-  classList: PropTypes.string
+  className: PropTypes.string
 };
 
 GlobalHeader.defaultProps = {

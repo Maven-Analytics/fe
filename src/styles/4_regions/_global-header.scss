@@ -19,8 +19,10 @@
   }
 
   .headroom-wrapper{
+    background-color: $black;
     max-height: $header-height-mobile;
     @include desktopHeader {
+      background-color: transparent;
       max-height: auto;
     }
   }
