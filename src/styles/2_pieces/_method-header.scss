@@ -1,29 +1,29 @@
 .method-header {
-  margin: 0 0 $spacing-unit--l;
+  margin: 0 auto $spacing-unit--l;
+  max-width: 710px;
+  text-align: center;
 
   @include media-breakpoint-up(lg) {
-    margin: -2rem 0 $spacing-unit--ll;
+    margin: 0 auto 0;
   }
 
   h2 {
     font-size: .9rem;
     font-weight: 900;
-    text-align: center;
     text-transform: uppercase;
 
     @include media-breakpoint-up(lg) {
       font-size: 1.6rem;
-      text-align: left;
     }
 
     span:first-child {
       display: block;
       letter-spacing: 2.25px;
-      margin-bottom: .2rem;
+      margin-bottom: .5rem;
 
       @include media-breakpoint-up(lg) {
         letter-spacing: 4px;
-        margin-bottom: .2rem;
+        margin-bottom: 1rem;
       }
     }
 
@@ -36,6 +36,18 @@
       @include media-breakpoint-up(lg) {
         font-size: 3.4em;
       }
+    }
+  }
+
+  p {
+    color: $black-2;
+    font-size: 1.6rem;
+    line-height: 1.66;
+    margin: $spacing-unit 0 0;
+
+    @include media-breakpoint-up(lg) {
+      font-size: 1.8rem;
+      margin: $spacing-unit--mdl 0 0;
     }
   }
 }

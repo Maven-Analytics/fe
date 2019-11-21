@@ -28,6 +28,7 @@ const CourseCarousel = ({courses, title, eyelash, description, helperText, separ
         {helperText ? <small>{helperText}</small> : null}
       </header>
       <Carousel
+        className="arrow-buttons"
         options={{
           pageDots: false,
           groupCells: isXl() ? 3 : isLg() ? largeCols : isSm() ? 2 : 1,

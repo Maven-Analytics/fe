@@ -15,6 +15,8 @@ export const isMd = () => canUseDOM() ? window.innerWidth > Breakpoints.md : fal
 export const isLg = () => canUseDOM() ? window.innerWidth > Breakpoints.lg : false;
 export const isXl = () => canUseDOM() ? window.innerWidth > Breakpoints.xl : false;
 
+export const isCollapseDown = () => canUseDOM() ? window.innerWidth <= Breakpoints.lg : false;
+
 class MediaQuery extends Component {
   constructor(props) {
     super(props);

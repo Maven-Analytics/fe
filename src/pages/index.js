@@ -13,7 +13,6 @@ import {selectors as pageSelectors, actions as pageActions} from '../redux/ducks
 import Brochure from '../layouts/brochure';
 import Hero from '../sections/hero';
 import StatCounter from '../sections/statCounter';
-import MethodScroll from '../sections/methodScroll';
 import MethodMobile from '../sections/methodMobile';
 import Mission from '../sections/mission';
 import TrendingCourses from '../sections/trendingCourses';
@@ -21,6 +20,7 @@ import Clients from '../sections/clients';
 import StudentSpotlights from '../sections/studentSpotlights';
 import Head from '../components/head';
 import {Routes} from '../routes';
+import MethodPath from '../sections/methodPath';
 
 const methodItems = [
   {
@@ -32,6 +32,7 @@ const methodItems = [
     description: 'Take a quick, 2-minute survey and we’ll match you with the best courses & paths to help you reach your goals',
     linkTitle: 'FIND YOUR PATH',
     linkHref: Routes.WelcomeSurvey,
+    sectionHeight: 540,
     imgMobile: {
       src: '/static/img/step1-mobile.png',
       alt: 'Match your learning needs with the best Maven Analytics courses and paths',
@@ -49,6 +50,7 @@ const methodItems = [
     description: 'Kick off each course with a benchmark assessment to see how your skills stack up, and where they fall short',
     linkTitle: 'TRY A PRACTICE ASSESSMENT',
     linkHref: Routes.SkillsAssessments,
+    sectionHeight: 606,
     imgMobile: {
       src: '/static/img/step2-mobile.png',
       alt: 'We’ll match your current skills with the right courses and paths',
@@ -64,6 +66,7 @@ const methodItems = [
     width: 1000,
     height: 633,
     top: 234,
+    sectionHeight: 597,
     title: 'Build your Expertise',
     description: 'Complete courses & paths to develop expert-level analytics and business intelligence skills',
     linkTitle: 'EXPLORE COURSES & PATHS',
@@ -94,9 +97,11 @@ const methodItems = [
   }
 ];
 
-const MissionContent = `## THE WORLD RUNS ON DATA. DO YOU HAVE THE SKILLS TO KEEP UP?
-
+const MissionContent = `
+Our Mission
+## Empower everyday people to change the world with data.
 Our formula is simple: quality content, exceptional instructors, and unique tools to help you build the exact skills you need, exactly when you need them.`;
+
 const HappyClients = fromJS([
   {
     name: 'Beam',
@@ -167,28 +172,40 @@ class Home extends Component {
         <Mission
           scrollTo="#method"
           content={MissionContent}
-          icons={fromJS([
+          features={fromJS([
             {
               title: 'Self-Paced Courses',
-              icon: 'play'
+              icon: 'play',
+              description: 'Stay ahead of the curve with our award-winning, self-paced courses and paths. Our training is designed to help you quickly build the most practical, in-demand analytics and business intelligence skills',
+              linkText: 'Explore Courses & Paths',
+              linkUrl: Routes.CoursesPaths
             },
             {
               title: 'Skills Assessments',
-              icon: 'quiz'
+              icon: 'quiz',
+              description: 'Labels like “beginner” and “expert” mean different things to different people. That’s why our courses include preliminary assessments to benchmark your skills, along with final assessments to prove how far you’ve come',
+              linkText: 'Try A Practice Assessment',
+              linkUrl: Routes.SkillsAssessments
             },
             {
               title: 'Verified Credentials',
-              icon: 'badge'
+              icon: 'badge',
+              description: 'Instead of traditional certificates, we issue secure digital credentials (in the form of badges) to validate your skills. They even link directly to real-time job postings, to help you turn your new skills into a new career',
+              linkText: 'View Credentials',
+              linkUrl: Routes.Credentials
             },
             {
               title: 'Student Dashboard',
-              icon: 'dashboard'
+              icon: 'dashboard',
+              description: 'Your student dashboard allows you to track your progress towards courses and paths, manage your credentials, explore new content, and share your achievements with the world',
+              linkText: 'Sign Up For Free',
+              linkUrl: Routes.Signup
             }
           ])}
         />
         <div id="method">
           <MethodMobile items={methodItems} />
-          <MethodScroll items={methodItems} />
+          <MethodPath items={methodItems} />
         </div>
         <TrendingCourses courses={this.props.courses} />
         <StudentSpotlights spotlights={spotlights} />

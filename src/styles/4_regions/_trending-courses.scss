@@ -1,8 +1,13 @@
 .trending-courses {
   background: $brand-gradient;
+  height: 400px;
   padding: 2.5rem 0 4.8rem;
 
+  @include media-breakpoint-up(md) {
+  }
+
   @include media-breakpoint-up(lg) {
+    height: 500px;
     padding: 5.5rem 0 6.8rem;
   }
 
@@ -12,7 +17,7 @@
     text-align: left;
 
     h2 {
-      font-size: 1.2rem;
+      font-size: 1.6rem;
       font-weight: 900;
       letter-spacing: 3px;
       margin: 0;
@@ -25,7 +30,23 @@
     }
   }
 
+  &__bg {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+  }
+
+  &__inner {
+    position: relative;
+  }
+
   .carousel {
+    left:0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+
     &:not(.flickity-enabled) {
       display: flex;
       overflow: hidden;
@@ -47,7 +68,7 @@
     }
 
     .carousel-slide {
-      min-height: 100%;
+      // min-height: 100%;
       width: 100%;
 
       @include media-breakpoint-up(md) {
@@ -61,8 +82,17 @@
 
       .course-card {
         box-shadow: none;
-        margin: 0 auto 2.1rem;
         height: 100%;
+        max-width: 335px;
+        margin: 0 auto 2.1rem;
+
+        @include media-breakpoint-up(md) {
+          max-width: none;
+        }
+
+        @include media-breakpoint-up(lg) {
+          min-height: 507px;
+        }
       }
     }
 

@@ -12,6 +12,9 @@ import CourseDrawer from '../modals/courseDrawer';
 import VideoModal from '../modals/videoModal';
 import AssessmentModal from '../modals/assessmentModal';
 import {click} from '../utils/componentHelpers';
+import MissionItemModal from '../modals/missionItemModal';
+import {isCollapseDown} from '../components/mediaQuery';
+import withWindowSize from '../components/withWindowSize';
 
 const Modals = ({state, actions, hideModals}) => {
   return (
@@ -22,8 +25,8 @@ const Modals = ({state, actions, hideModals}) => {
           offmenuToggle={actions.offmenuToggle}
         />
       ) : null}
-      <PathDrawer/>
-      <CourseDrawer/>
+      <PathDrawer />
+      <CourseDrawer />
       <VideoModal
         open={state.getIn(['video', 'open'])}
         video={state.getIn(['video', 'data', 'video'])}
@@ -33,6 +36,11 @@ const Modals = ({state, actions, hideModals}) => {
         open={state.getIn(['assessment', 'open'])}
         id={state.getIn(['assessment', 'data', 'id'])}
         onClose={click(actions.modalClose, 'assessment')}
+      />
+      <MissionItemModal
+        open={isCollapseDown() && state.getIn(['missionItem', 'open'])}
+        data={state.getIn(['missionItem', 'data'])}
+        onClose={click(actions.modalClose, 'missionItem')}
       />
     </Fragment>
   );
@@ -54,4 +62,4 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Modals);
+export default connect(mapStateToProps, mapDispatchToProps)(withWindowSize(Modals));

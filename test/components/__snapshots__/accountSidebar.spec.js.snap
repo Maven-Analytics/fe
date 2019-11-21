@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AccountSidebar/> Should render without crashing 1`] = `
+<div
+  className="account-sidebar"
+>
+  <ul>
+    <li>
+      <a
+        className="active"
+        href="/dashboard/account"
+        onClick={[Function]}
+      >
+        Profile
+      </a>
+    </li>
+    <li>
+      <a
+        className=""
+        href="/dashboard/account/password"
+        onClick={[Function]}
+      >
+        Password
+      </a>
+    </li>
+    <li>
+      <a
+        className=""
+        href="//mavenanalytics.thinkific.com/account/billing"
+        onClick={[Function]}
+      >
+        Billing
+      </a>
+    </li>
+    <li>
+      <a
+        className=""
+        href="//mavenanalytics.thinkific.com/account/orders"
+        onClick={[Function]}
+      >
+        Order History
+      </a>
+    </li>
+  </ul>
+</div>
+`;
