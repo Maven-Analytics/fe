@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {ParallaxBanner} from 'react-scroll-parallax';
+import { ParallaxBanner, withController } from 'react-scroll-parallax';
 
 class ParallaxBg extends Component {
   constructor(props) {
@@ -30,21 +30,26 @@ class ParallaxBg extends Component {
     img.src = src;
 
     if (img.complete) {
-      return this.setState({
-        loading: false
-      });
+      this.handleImageLoad();
     }
 
     img.onload = () => {
-      this.setState({
-        loading: false
-      });
+      this.handleImageLoad();
     };
   }
 
+  handleImageLoad() {
+    this.props.parallaxController.update();
+    setTimeout(() => {
+      this.setState({
+        loading: false
+      });
+    }, 100);
+  }
+
   render() {
-    const {src, className, overlay, strength} = this.props;
-    const {loading} = this.state;
+    const { src, className, overlay, strength } = this.props;
+    const { loading } = this.state;
 
     return (
       <div className={['parallax-bg', loading ? 'loading' : '', className].filter(f => f && f !== '').join(' ')}>
@@ -71,11 +76,12 @@ ParallaxBg.propTypes = {
   placeholderColor: PropTypes.string,
   className: PropTypes.string,
   overlay: PropTypes.bool,
-  strength: PropTypes.number
+  strength: PropTypes.number,
+  parallaxController: PropTypes.object.isRequired
 };
 
 ParallaxBg.defaultProps = {
   strength: 0.5
 };
 
-export default ParallaxBg;
+export default withController(ParallaxBg);
