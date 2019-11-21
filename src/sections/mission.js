@@ -11,6 +11,7 @@ import ScrollToNext from '../components/scrollToNext';
 import MaIcon from '../components/maIcon';
 import TrackVisibility from '../components/trackVisibility';
 import {Routes} from '../routes';
+import {canUseWebP} from '../utils/componentHelpers';
 
 class Mission extends Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class Mission extends Component {
       visible: false
     };
 
-    // this.tween = createRef();
+    // This.tween = createRef();
     this.handleShow = this.handleShow.bind(this);
   }
 
@@ -38,17 +39,7 @@ class Mission extends Component {
         <div className="mission__background">
           <ParallaxBg
             placeholderColor="#252525"
-            src="/static/img/mission-bg.jpg"
-            sources={[
-              {
-                type: 'image/webp',
-                srcSet: '/static/img/mission-bg.webp'
-              },
-              {
-                type: 'image/jpeg',
-                srcSet: '/static/img/mission-bg.jpg'
-              }
-            ]}
+            src={canUseWebP() ? '/static/img/mission-bg.webp' : '/static/img/mission-bg.jpg'}
           />
         </div>
         <TrackVisibility alwaysShow className="container" onShow={this.handleShow}>

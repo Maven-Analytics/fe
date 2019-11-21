@@ -8,6 +8,7 @@ import {fromJS} from 'immutable';
 import * as FontFaceObserver from 'fontfaceobserver';
 import Router from 'next/router';
 import TagManager from 'react-gtm-module';
+import {ParallaxProvider} from 'react-scroll-parallax';
 
 import initStore from '../redux/store';
 import {actions as authActions} from '../redux/ducks/auth';
@@ -130,8 +131,10 @@ class MavenApp extends App {
     return (
       <Container>
         <Provider store={store}>
-          <Component {...pageProps} />
-          <IntercomScript />
+          <ParallaxProvider>
+            <Component {...pageProps} />
+            <IntercomScript />
+          </ParallaxProvider>
         </Provider>
       </Container>
     );
