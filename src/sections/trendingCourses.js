@@ -21,7 +21,7 @@ const TrendingCourses = ({courses}) => {
             className="arrow-buttons"
             options={{
               groupCells: isLg() ? 3 : isMd() ? 2 : 1,
-              prevNextButtons: true
+              prevNextButtons: !!isMd()
             }}
           >
             {courses.map(course => (
