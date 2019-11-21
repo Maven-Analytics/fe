@@ -15,9 +15,13 @@ import ScrollToNext from '../components/scrollToNext';
 import MaIcon from '../components/maIcon';
 import TrackVisibility from '../components/trackVisibility';
 import {Routes} from '../routes';
+<<<<<<< HEAD
 import withWindowSize from '../components/withWindowSize';
 import {click, noop, clickAction} from '../utils/componentHelpers';
 import MissionFeature from '../components/missionFeature';
+=======
+import {canUseWebP} from '../utils/componentHelpers';
+>>>>>>> enhancement-hero-image
 
 class Mission extends Component {
   constructor(props) {
@@ -58,17 +62,7 @@ class Mission extends Component {
         <div className="mission__background">
           <ParallaxBg
             placeholderColor="#252525"
-            src="/static/img/mission-bg.jpg"
-            sources={[
-              {
-                type: 'image/webp',
-                srcSet: '/static/img/mission-bg.webp'
-              },
-              {
-                type: 'image/jpeg',
-                srcSet: '/static/img/mission-bg.jpg'
-              }
-            ]}
+            src={canUseWebP() ? '/static/img/mission-bg.webp' : '/static/img/mission-bg.jpg'}
           />
         </div>
         <TrackVisibility alwaysShow className="container" onShow={this.handleShow}>

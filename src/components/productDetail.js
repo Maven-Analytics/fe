@@ -43,7 +43,7 @@ const ProductDetail = ({
     classList.push(className);
   }
 
-  // let linkTerm = 'Resume';
+  // Let linkTerm = 'Resume';
 
   // if (!percentage_completed) {
   //   linkTerm = 'Start';
@@ -63,7 +63,9 @@ const ProductDetail = ({
             <Link href={url}>
               <a className="btn btn--primary-solid">View Full Details</a>
             </Link>
-          ) : null}
+          ) : (
+            <ResumeProduct productTerm={productTerm} started={percentage_completed > 0} className="btn btn--primary-solid" />
+          )}
         </LoggedOut>
       </div>
       <div className="product-detail__content">

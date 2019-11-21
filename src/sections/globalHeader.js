@@ -7,7 +7,7 @@ import {Map} from 'immutable';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import {click} from '../utils/componentHelpers';
+import {click, canUseDOM} from '../utils/componentHelpers';
 import {selectors as stateSelectors, actions as stateActions} from '../redux/ducks/state';
 import Logo from '../components/logo';
 import Hamburger from '../components/hamburger';
@@ -24,15 +24,15 @@ const GlobalHeader = ({state, actions, className}) => {
 
   return (
     <header className={classList.join(' ')}>
-      <Headroom>
+      <Headroom disable={canUseDOM() === false}>
         <div className="container container--lg">
           <div className="global-header__inner">
             <Link href={Routes.Home}>
               <a className="global-header__brand">
-                <Logo/>
+                <Logo />
               </a>
             </Link>
-            <Hamburger isActive={state.get('mobileMenu')} onClick={click(actions.offmenuToggle, 'mobileMenu')}/>
+            <Hamburger isActive={state.get('mobileMenu')} onClick={click(actions.offmenuToggle, 'mobileMenu')} />
             <nav>
               <ul>
                 {menuLinksMain.map(link => {
@@ -43,7 +43,7 @@ const GlobalHeader = ({state, actions, className}) => {
                   );
                 })}
               </ul>
-              <HeaderAuth showContact showRegister onUserClick={click(actions.offmenuToggle, 'headerUser')}/>
+              <HeaderAuth showContact showRegister onUserClick={click(actions.offmenuToggle, 'headerUser')} />
             </nav>
           </div>
         </div>
@@ -55,7 +55,7 @@ const GlobalHeader = ({state, actions, className}) => {
 GlobalHeader.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   state: ImmutablePropTypes.map,
-  classList: PropTypes.string
+  className: PropTypes.string
 };
 
 GlobalHeader.defaultProps = {

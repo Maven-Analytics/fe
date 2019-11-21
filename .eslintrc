@@ -1,13 +1,20 @@
 {
-  "extends": ["xo", "plugin:react/recommended"],
+  "extends": [
+    "xo",
+    "plugin:react/recommended"
+  ],
   "env": {
-    "mocha": true
+    "jest": true
   },
-  "plugins": ["mocha", "react"],
+  "plugins": [
+    "react"
+  ],
   "rules": {
-    "indent": ["error", 2],
+    "indent": [
+      "error",
+      2
+    ],
     "camelcase": "off",
-    "mocha/no-exclusive-tests": "error",
     "new-cap": "off"
   },
   "globals": {
