@@ -22,7 +22,7 @@ const DashboardPath = ({title, percentage_completed, onDetailClick, resumeUrl, b
         <RichText content={shortDescription} />
         <div className="dashboard-path__footer">
           {resumeUrl ? (
-            <ResumeProduct resumeUrl={resumeUrl} productTerm="Course" started={percentage_completed > 0} className="btn btn--primary-solid" />
+            <ResumeProduct resumeUrl={resumeUrl} productTerm="Path" started={percentage_completed > 0} className="btn btn--primary-solid" />
           ) : null}
           <button onClick={onDetailClick} className="btn btn--default">
             View Path Details
