@@ -1,5 +1,5 @@
 FROM node:10-jessie
-
+EXPOSE 5000
  # Create app directory
 WORKDIR /usr/src/app
 
@@ -17,5 +17,4 @@ COPY . .
 
 RUN npm run build
 
-EXPOSE 5000
-CMD [ "npm", "start" ]
+CMD [ "node", "index.js" ]
