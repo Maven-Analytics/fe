@@ -2,8 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 
 import ParallaxBg from '../components/parallaxBg';
-import {Routes} from '../routes';
 import withWindowSize from '../components/withWindowSize';
+import {Routes} from '../routes';
 import {isLg, isXl} from '../components/mediaQuery';
 import {canUseWebP} from '../utils/componentHelpers';
 
