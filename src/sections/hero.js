@@ -1,13 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 
-import MaIcon from '../components/maIcon';
 import ParallaxBg from '../components/parallaxBg';
-<<<<<<< HEAD
-import { Routes } from '../routes';
-=======
-import withWindowSize from '../components/withWindowSize';
 import {Routes} from '../routes';
+import withWindowSize from '../components/withWindowSize';
 import {isLg, isXl} from '../components/mediaQuery';
 import {canUseWebP} from '../utils/componentHelpers';
 
@@ -43,7 +39,6 @@ const Img = () => {
 
   return heroImages.mdJpg;
 };
->>>>>>> enhancement-hero-image
 
 const Hero = () => {
   return (

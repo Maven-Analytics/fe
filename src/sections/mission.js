@@ -15,13 +15,10 @@ import ScrollToNext from '../components/scrollToNext';
 import MaIcon from '../components/maIcon';
 import TrackVisibility from '../components/trackVisibility';
 import {Routes} from '../routes';
-<<<<<<< HEAD
 import withWindowSize from '../components/withWindowSize';
 import {click, noop, clickAction} from '../utils/componentHelpers';
 import MissionFeature from '../components/missionFeature';
-=======
 import {canUseWebP} from '../utils/componentHelpers';
->>>>>>> enhancement-hero-image
 
 class Mission extends Component {
   constructor(props) {
