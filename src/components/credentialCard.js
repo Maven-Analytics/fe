@@ -12,22 +12,26 @@ import ProgressMeter from './progressMeter';
 
 class CredentialCard extends Component {
   componentDidMount() {
-    if (this.props.completed) {
-      this.props.actions.credentialsGet({
-        query: {
-          group_id: this.props.accredibleId
-        }
-      });
-    }
+    // If (this.props.completed) {
+    //   this.props.actions.credentialsGet({
+    //     query: {
+    //       group_id: this.props.accredibleId
+    //     }
+    //   });
+    // }
   }
 
   render() {
-    const {completed, progress, title, image, promoteUrl, credential} = this.props;
+    let {completed, progress, title, image, promoteUrl, credential} = this.props;
     const classList = ['credential-card'];
     const url = credential && credential.has('url') && credential.get('url') !== '' ? credential.get('url') : promoteUrl;
 
-    if (completed) {
+    if (completed || credential) {
       classList.push('completed');
+    }
+
+    if (credential) {
+      completed = true;
     }
 
     return (

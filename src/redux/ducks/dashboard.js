@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
   switch (action.type) {
   case types.DASHBOARD_PROGRESS_SUCCESS:
     return state.set('enrollments', fromJS(action.payload.enrollments));
-  case types.DASHBOARD_GETTING_STARTED_SUCCESS:
+  case types.DASHBOARD_ONBOARDING_SUCCESS:
     return state.set('onboarding', fromJS(action.payload));
   default:
     return state;

@@ -28,7 +28,7 @@ function * onGetProgressRequest() {
 
 function * onGetOnboarding() {
   try {
-    const data = yield getGettingStarted();
+    const data = yield getOnboarding();
 
     yield all([
       put({
@@ -51,9 +51,9 @@ function getProgress() {
   });
 }
 
-function getGettingStarted() {
+function getOnboarding() {
   return api({
     method: 'get',
-    url: '/api/v1/dashboard/gettingStarted'
+    url: '/api/v1/dashboard/onboarding'
   });
 }

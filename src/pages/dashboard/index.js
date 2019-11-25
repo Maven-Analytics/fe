@@ -9,6 +9,7 @@ import {actions as dashboardActions, selectors as dashboardSelectors} from '../.
 import {actions as pathActions, selectors as pathSelectors} from '../../redux/ducks/paths';
 import {actions as courseActions, selectors as courseSelectors} from '../../redux/ducks/courses';
 import {actions as announcementActions, selectors as announcementSelectors} from '../../redux/ducks/announcements';
+import {actions as credentialActions, selectors as credentialSelectors} from '../../redux/ducks/credentials';
 import {selectors as errorSelectors} from '../../redux/ducks/error';
 import {selectors as loadingSelectors} from '../../redux/ducks/loading';
 import {selectors as userSelectors} from '../../redux/ducks/user';
@@ -28,13 +29,15 @@ import DashboardCredential from '../../components/dashboardCredential';
 import withAuthSync from '../../components/withAuthSync';
 import DashboardRecommendedPath from '../../components/dashboardRecommendedPath';
 import DashboardAnnouncements from '../../components/dashboardAnnouncements';
+import DashboardOnboarding from '../../components/dashboardOnboarding';
 
 class DashboardPage extends Component {
   componentDidMount() {
     this.props.actions.pathsInit();
     this.props.actions.coursesInit();
     this.props.actions.getProgress();
-    // this.props.actions.getOnboarding();
+    this.props.actions.getOnboarding();
+    this.props.actions.credentialsGet();
     this.props.actions.announcementsGet({
       order: '-fields.date'
     });
@@ -53,8 +56,12 @@ class DashboardPage extends Component {
       loadingPaths,
       announcements,
       loadingAnnouncements,
+      loadingCredentials,
       onboarding,
-      loadingOnboarding
+      loadingOnboarding,
+      courses,
+      paths,
+      credentials
     } = this.props;
     const recommendedUserPath = user.getIn(['recommended_paths', 0]);
     let recommendedPath = null;
@@ -66,10 +73,32 @@ class DashboardPage extends Component {
     const completed = fromJS([...completedPaths.toJS(), ...completedCourses.toJS()]);
 
     const Onboarding = (
-      <DashboardCard loading={loadingOnboarding || loadingCourses} title="YOUR GETTING STARTED CHECKLIST">
+      <DashboardCard loading={loadingOnboarding} title="YOUR GETTING STARTED CHECKLIST">
         {loadingOnboarding === false ? (
-          <h1>getting started</h1>
-        ) : null}
+          <DashboardOnboarding
+            onboarding={onboarding}
+            items={fromJS([
+              {
+                text: 'Complete the match survey',
+                complete: onboarding.get('completedMatch'),
+                linkUrl: Routes.WelcomeSurvey,
+                linkText: 'Start Survey'
+              },
+              {
+                text: 'Start your first course',
+                complete: onboarding.get('startedCourse')
+              },
+              {
+                text: 'Complete a benchmark assessment',
+                complete: onboarding.get('completedBenchmark')
+              },
+              {
+                text: 'Earned your first credential',
+                complete: onboarding.get('earnedCredential')
+              }
+            ])}
+          />
+        ) : <div/>}
       </DashboardCard>
     );
 
@@ -159,8 +188,8 @@ class DashboardPage extends Component {
     );
 
     const BadgeCreds = (
-      <DashboardCard title="Earned badges & credentials" loading={loadingProgress}>
-        {loadingProgress === false && loadingCourses === false && completed.isEmpty() ? (
+      <DashboardCard title="Earned badges & credentials" loading={loadingProgress || loadingCourses || loadingCredentials}>
+        {loadingProgress === false && loadingCourses === false && loadingCredentials && credentials.isEmpty() ? (
           <DashboardNoData
             btnText="View All Badges"
             btnUrl={Routes.DashboardCredentials}
@@ -172,9 +201,21 @@ class DashboardPage extends Component {
           </DashboardNoData>
         ) : (
           <DashboardCredentialIcons>
-            {completed.map(cred => (
-              <DashboardCredential key={cred.get('id')} image={cred.get('badge')} title={cred.get('title')} />
-            ))}
+            {credentials.map(cred => {
+              let item = courses.find(c => c.get('accredibleId') === cred.get('group_id'));
+
+              console.log(paths.toJS());
+
+              if (!item) {
+                item = paths.find(p => p.get('accredibleId') === cred.get('group_id'));
+              }
+
+              if (!item) {
+                return null;
+              }
+
+              return <DashboardCredential key={item.get('id')} image={item.get('badge')} title={item.get('title')} />
+            })}
           </DashboardCredentialIcons>
         )}
       </DashboardCard>
@@ -185,7 +226,7 @@ class DashboardPage extends Component {
         <MediaQuery min="lg">
           <DashboardGrid horizontal>
             <DashboardGrid vertical>
-              {/* {Onboarding} */}
+              {Onboarding}
               {RecentCourse}
               {NewsUpdates}
             </DashboardGrid>
@@ -198,7 +239,7 @@ class DashboardPage extends Component {
         </MediaQuery>
         <MediaQuery max="lg">
           <DashboardGrid vertical>
-            {/* {Onboarding} */}
+            {Onboarding}
             {RecentCourse}
             {RecommendedPath}
             {RockstarProgress}
@@ -217,6 +258,7 @@ DashboardPage.propTypes = {
   loadingCourses: PropTypes.bool,
   loadingPaths: PropTypes.bool,
   loadingAnnouncements: PropTypes.bool,
+  loadingCredentials: PropTypes.bool,
   errorProgress: PropTypes.string,
   actions: PropTypes.objectOf(PropTypes.func),
   recentCourse: ImmutablePropTypes.map,
@@ -225,7 +267,10 @@ DashboardPage.propTypes = {
   completedPaths: ImmutablePropTypes.list,
   completedCourses: ImmutablePropTypes.list,
   user: ImmutablePropTypes.map,
-  announcements: ImmutablePropTypes.list
+  announcements: ImmutablePropTypes.list,
+  credentials: ImmutablePropTypes.list,
+  courses: ImmutablePropTypes.list,
+  paths: ImmutablePropTypes.list
 };
 
 const mapStateToProps = state => ({
@@ -233,16 +278,19 @@ const mapStateToProps = state => ({
   progress: dashboardSelectors.getProgress(state),
   onboarding: dashboardSelectors.getOnboarding(state),
   courses: courseSelectors.getCourses(state),
+  paths: pathSelectors.getPaths(state),
   loadingCourses: loadingSelectors.getLoading(['COURSESINIT'])(state),
   loadingPaths: loadingSelectors.getLoading(['PATHSINIT'])(state),
   loadingProgress: loadingSelectors.getLoading(['DASHBOARD_PROGRESS'])(state),
   loadingOnboarding: loadingSelectors.getLoading(['DASHBOARD_ONBOARDING'])(state),
   loadingAnnouncements: loadingSelectors.getLoading(['ANNOUNCEMENTS_GET'])(state),
+  loadingCredentials: loadingSelectors.getLoading(['CREDENTIALS_GET'])(state),
   errorProgress: errorSelectors.getError(['DASHBOARD_PROGRESS'])(state),
   completedCourses: courseSelectors.getCompletedCourses(state),
   completedPaths: pathSelectors.getCompletedPaths(state),
   user: userSelectors.getUser(state),
-  announcements: announcementSelectors.getAnnouncements(state)
+  announcements: announcementSelectors.getAnnouncements(state),
+  credentials: credentialSelectors.getCredentials(state)
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -251,7 +299,8 @@ const mapDispatchToProps = dispatch => ({
       ...dashboardActions,
       ...pathActions,
       ...courseActions,
-      ...announcementActions
+      ...announcementActions,
+      ...credentialActions
     },
     dispatch
   )

@@ -1,0 +1,96 @@
+.dashboard-onboarding {
+  $btnHeight: 40px;
+  position: relative;
+
+  &__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: $spacing-unit;
+
+    @include media-breakpoint-up(md) {
+      grid-template-columns: 116px auto;
+      grid-gap: $spacing-unit--l;
+    }
+  }
+
+  .btn {
+    @include btnFixed($btnHeight, auto, 20px);
+    max-width: 103px;
+
+    @include media-breakpoint-up(md) {
+      bottom: 0;
+      left: 0;
+      max-width: none;
+      position: absolute;
+    }
+  }
+
+  &__left {
+    @include media-breakpoint-up(md) {
+      padding-bottom: $btnHeight + 20px;
+    }
+  }
+
+  &__graph {
+    position: relative;
+    width: 116px;
+
+    .value {
+      align-items: center;
+      bottom: 0;
+      display: flex;
+      font-size: 2.6rem;
+      font-weight: 900;
+      justify-content: center;
+      left: 0;
+      line-height: 1;
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: 0;
+    }
+  }
+
+  &__steps {
+    @include list-unstyled();
+
+    li {
+      align-items: center;
+      color: $black;
+      display: flex;
+      font-size: 1.6rem;
+      font-weight: 500;
+      line-height: 1.25;
+
+      &:not(:last-child) {
+        margin-bottom: $spacing-unit--md;
+      }
+
+      span {
+        align-items: center;
+        border: 2px solid $gray-lightest;
+        border-radius: 50%;
+        display: inline-flex;
+        height: 21px;
+        justify-content: center;
+        margin-right: $spacing-unit;
+        width: 21px;
+
+        .maicon {
+          color: $white;
+          margin-top: 2px;
+        }
+      }
+
+
+      &.complete {
+        color: $gray-medium-2;
+
+        span {
+          border: none;
+          background: $brand-gradient;
+        }
+      }
+    }
+  }
+}

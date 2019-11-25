@@ -7,6 +7,7 @@ import {bindActionCreators} from 'redux';
 import DashboardLayout from '../../layouts/dashboard';
 import {actions as pathActions, selectors as pathSelectors} from '../../redux/ducks/paths';
 import {actions as courseActions, selectors as courseSelectors} from '../../redux/ducks/courses';
+import {actions as credentialsActions} from '../../redux/ducks/credentials';
 import {selectors as errorSelectors} from '../../redux/ducks/error';
 import {selectors as loadingSelectors} from '../../redux/ducks/loading';
 import DashboardCredentialList from '../../components/dashboardCredentialList';
@@ -17,6 +18,7 @@ class DashboardCredentials extends Component {
   componentDidMount() {
     this.props.actions.pathsInit();
     this.props.actions.coursesInit();
+    this.props.actions.credentialsGet();
   }
 
   render() {
@@ -76,12 +78,13 @@ const mapStateToProps = state => ({
   errorPaths: errorSelectors.getError(['PATHSINIT'])(state)
 });
 
-const mapDispatchToProps = function(dispatch) {
+const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators(
       {
         ...pathActions,
-        ...courseActions
+        ...courseActions,
+        ...credentialsActions
       },
       dispatch
     )
