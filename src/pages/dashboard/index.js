@@ -93,7 +93,7 @@ class DashboardPage extends Component {
                 complete: onboarding.get('completedBenchmark')
               },
               {
-                text: 'Earned your first credential',
+                text: 'Earn your first credential',
                 complete: onboarding.get('earnedCredential')
               }
             ])}
