@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import {List, Map, isImmutable} from 'immutable';
+import { List, Map, isImmutable } from 'immutable';
 import Link from 'next/link';
 
 import RichText from '../components/richText';
@@ -11,7 +11,7 @@ import ProductMeta from '../components/productMeta';
 import ProductMetaItem from '../components/productMetaItem';
 import DifficultyMeter from '../components/difficultyMeter';
 import ParallaxBg from '../components/parallaxBg';
-import {innerHtml} from '../utils/componentHelpers';
+import { innerHtml } from '../utils/componentHelpers';
 
 const BrochureHero = ({
   image,
@@ -56,14 +56,14 @@ const BrochureHero = ({
           <div className="row">
             <div className={colClasses[0]}>
               {eyelash ? <p className="brochure-hero__eyelash">{eyelash}</p> : null}
-              <h1 dangerouslySetInnerHTML={innerHtml(title)}/>
+              <h1 dangerouslySetInnerHTML={innerHtml(title)} />
               {isImmutable(description) ? (
                 <div className="brochure-hero__description">
-                  <RichText content={description}/>
+                  <RichText content={description} />
                 </div>
               ) : (
-                <div className="brochure-hero__description" dangerouslySetInnerHTML={innerHtml(description)}/>
-              )}
+                  <div className="brochure-hero__description" dangerouslySetInnerHTML={innerHtml(description)} />
+                )}
               {linkHref ? (
                 <Link href={linkHref}>
                   <a className="brochure-hero__link" onClick={onLinkClick}>
@@ -73,12 +73,12 @@ const BrochureHero = ({
               ) : null}
             </div>
             <div className={colClasses[1]}>
-              <div className="brochure-hero__video">
+              <div className={['brochure-hero__video', video ? '' : 'no-video'].filter(c => c !== '').join(' ')}>
                 {image ? image : null}
-                {thumbnail ? <ImageContentful image={thumbnail}/> : thumbnail}
+                {thumbnail ? <ImageContentful image={thumbnail} /> : thumbnail}
                 {video ? (
                   <button onClick={onVideoClick} aria-label="Play Video">
-                    <MaIcon icon="play-triangle"/>
+                    <MaIcon icon="play-triangle" />
                   </button>
                 ) : null}
               </div>
@@ -106,15 +106,15 @@ const BrochureHero = ({
                     </div>
                   </ProductMetaItem>
                   <ProductMetaItem label="Difficulty">
-                    <DifficultyMeter difficulty={difficulty} startingHeight={14} diff={6}/>
+                    <DifficultyMeter difficulty={difficulty} startingHeight={14} diff={6} />
                   </ProductMetaItem>
                   <ProductMetaItem label="Credentials">
-                    <ImageContentful image={badge} modifier="badge"/>
+                    <ImageContentful image={badge} modifier="badge" />
                   </ProductMetaItem>
                   <ProductMetaItem label="Paths">
                     <div className="paths">
                       {paths.map(path => (
-                        <ImageContentful key={path.get('id')} image={path.get('badge')} modifier="badge"/>
+                        <ImageContentful key={path.get('id')} image={path.get('badge')} modifier="badge" />
                       ))}
                     </div>
                   </ProductMetaItem>
