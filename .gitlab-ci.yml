@@ -11,7 +11,6 @@ variables:
   ROLLOUT_RESOURCE_TYPE: deployment
 
 stages:
-  - cleanup
   - build
   - test
   - deploy # dummy stage to follow the template guidelines
@@ -25,22 +24,7 @@ stages:
   - incremental rollout 50%
   - incremental rollout 100%
   - performance
-
-.auto-deploy:
-  image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:v0.7.0"
-
-stop_staging:
-  extends: .auto-deploy
-  stage: cleanup
-  variables:
-    GIT_STRATEGY: none
-  script:
-    - auto-deploy initialize_tiller
-    - auto-deploy delete
-  environment:
-    name: staging
-    action: stop
-  allow_failure: true
+  - cleanup
 
 include:
   - template: Jobs/Build.gitlab-ci.yml # https://gitlab.com/gitlab-org/gitlab-foss/blob/master/lib/gitlab/ci/templates/Jobs/Build.gitlab-ci.yml
