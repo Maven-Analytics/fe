@@ -40,7 +40,6 @@ stop_staging:
   environment:
     name: staging
     action: stop
-  when: manual
   allow_failure: true
 
 include:
