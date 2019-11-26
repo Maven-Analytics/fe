@@ -53,9 +53,10 @@ class SignupIndex extends Component {
     return (
       <Checkout
         activeStep={0}
+        loginRedirect={Routes.Signup}
         title="SELECT A MEMBERSHIP PLAN"
       >
-        <CheckoutPlans plans={plans} checkout={checkout} onPlanChange={actions.setPlan}/>
+        <CheckoutPlans plans={plans} checkout={checkout} onPlanChange={actions.setPlan} />
         <CheckoutFooter
           showLogin={user.isEmpty()}
           error={error}

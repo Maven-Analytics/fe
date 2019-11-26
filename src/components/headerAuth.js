@@ -15,7 +15,7 @@ import LoggedIn from './loggedIn';
 import LoggedOut from './loggedOut';
 import {Routes} from '../routes';
 
-const HeaderAuth = ({showContact, showRegister, state, actions}) => {
+const HeaderAuth = ({showContact, showRegister, state, actions, loginRedirect}) => {
   return (
     <ul>
       {showContact ? (
@@ -48,9 +48,9 @@ const HeaderAuth = ({showContact, showRegister, state, actions}) => {
       </LoggedIn>
       <LoggedOut>
         <li>
-          <Link href={Routes.Login}>
+          <Link href={{pathname: Routes.Login, query: {redirectTo: loginRedirect}}} >
             <a>
-              <MaIcon icon="user"/>
+              <MaIcon icon="user" />
               Login
             </a>
           </Link>
@@ -73,7 +73,8 @@ HeaderAuth.propTypes = {
   showRegister: PropTypes.bool,
   showContact: PropTypes.bool,
   state: ImmutablePropTypes.map,
-  actions: PropTypes.objectOf(PropTypes.func)
+  actions: PropTypes.objectOf(PropTypes.func),
+  loginRedirect: PropTypes.string
 };
 
 HeaderAuth.defaultProps = {

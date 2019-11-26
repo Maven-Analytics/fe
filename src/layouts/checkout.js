@@ -43,7 +43,7 @@ Subscriptions include access to ALL courses, paths, assessments, and personalize
 - 100% satisfaction guarantee
 `;
 
-const CheckoutLayout = ({children, activeStep, title, full, containerClass, fullNav}) => {
+const CheckoutLayout = ({children, activeStep, title, full, containerClass, fullNav, loginRedirect}) => {
   const Background = (
     <div className="layout-checkout__background">
       <Image
@@ -83,13 +83,13 @@ const CheckoutLayout = ({children, activeStep, title, full, containerClass, full
   ) : (
     <div className="layout-checkout__wrap">
       <div className={containerClass}>
-        <CheckoutSteps links={checkoutLinks} activeIndex={activeStep}/>
+        <CheckoutSteps links={checkoutLinks} activeIndex={activeStep} />
         <div className="layout-checkout__row">
           <div className="layout-checkout__content">
             <h1 className="layout-checkout__title">{title}</h1>
             {children}
           </div>
-          <Markdown className="layout-checkout__promo" content={promoMd}/>
+          <Markdown className="layout-checkout__promo" content={promoMd} />
         </div>
       </div>
     </div>
@@ -99,6 +99,7 @@ const CheckoutLayout = ({children, activeStep, title, full, containerClass, full
     <BaseLayout
       header={fullNav ? GlobalHeader : CheckoutHeader}
       footer={CopyrightFooter}
+      loginRedirect={loginRedirect}
       mainClass="layout-checkout"
       headerClass="global-header--checkout"
     >
@@ -114,7 +115,8 @@ CheckoutLayout.propTypes = {
   title: PropTypes.string,
   full: PropTypes.bool,
   containerClass: PropTypes.string,
-  fullNav: PropTypes.bool
+  fullNav: PropTypes.bool,
+  loginRedirect: PropTypes.string
 };
 
 CheckoutLayout.defaultProps = {

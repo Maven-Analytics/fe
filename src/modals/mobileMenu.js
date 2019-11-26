@@ -1,13 +1,13 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 
 import Logo from '../components/logo';
 import CloseIcon from '../components/closeButton';
-import {click, ref} from '../utils/componentHelpers';
-import {menuLinksMain} from '../routes';
+import { click, ref } from '../utils/componentHelpers';
+import { menuLinksMain } from '../routes';
 import HeaderAuthMobile from '../components/headerAuthMobile';
-import {Routes} from '../routes';
+import { Routes } from '../routes';
 
 class MobileMenu extends Component {
   constructor(props) {
@@ -35,7 +35,7 @@ class MobileMenu extends Component {
   }
 
   handleTouchMove(e) {
-    const {startY} = this.state;
+    const { startY } = this.state;
 
     const currentY = e.touches && e.touches[0] ? e.touches[0].clientY : 0;
 
@@ -50,7 +50,7 @@ class MobileMenu extends Component {
   }
 
   render() {
-    const {isActive, offmenuToggle} = this.props;
+    const { isActive, offmenuToggle, loginRedirect } = this.props;
     const className = ['mobile-menu'];
 
     if (isActive) {
@@ -59,15 +59,15 @@ class MobileMenu extends Component {
 
     return (
       <div className={className.join(' ')}>
-        <div className="mobile-menu__fog"/>
+        <div className="mobile-menu__fog" />
         <div className="mobile-menu__inner">
           <div className="container">
-            <CloseIcon className="mobile-menu__close" onClick={click(offmenuToggle, 'mobileMenu')}/>
+            <CloseIcon className="mobile-menu__close" onClick={click(offmenuToggle, 'mobileMenu')} />
             <div ref={ref.call(this, 'menuScroll')} onTouchStart={this.handleTouchStart} onTouchMove={this.handleTouchMove} className="mobile-menu__scroll">
               <div className="mobile-menu__container">
                 <Link href={Routes.Home}>
                   <a className="mobile-menu__brand">
-                    <Logo height={39} width={157}/>
+                    <Logo height={39} width={157} />
                   </a>
                 </Link>
                 <nav>
@@ -80,7 +80,7 @@ class MobileMenu extends Component {
                       );
                     })}
                   </ul>
-                  <HeaderAuthMobile/>
+                  <HeaderAuthMobile loginRedirect={loginRedirect} />
                 </nav>
               </div>
             </div>
@@ -93,7 +93,8 @@ class MobileMenu extends Component {
 
 MobileMenu.propTypes = {
   offmenuToggle: PropTypes.func.isRequired,
-  isActive: PropTypes.bool.isRequired
+  isActive: PropTypes.bool.isRequired,
+  loginRedirect: PropTypes.string
 };
 
 export default MobileMenu;

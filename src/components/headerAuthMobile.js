@@ -12,7 +12,7 @@ import LoggedIn from './loggedIn';
 import LoggedOut from './loggedOut';
 import {Routes} from '../routes';
 
-const HeaderAuthMobile = ({actions}) => {
+const HeaderAuthMobile = ({actions, loginRedirect}) => {
   return (
     <ul>
       <li>
@@ -22,7 +22,7 @@ const HeaderAuthMobile = ({actions}) => {
       </li>
       <LoggedOut>
         <li>
-          <Link href={Routes.Login}>
+          <Link href={{pathname: Routes.Login, query: {redirectTo: loginRedirect}}}>
             <a>
               <MaIcon icon="user" />
               Login
@@ -57,7 +57,8 @@ const HeaderAuthMobile = ({actions}) => {
 };
 
 HeaderAuthMobile.propTypes = {
-  actions: PropTypes.objectOf(PropTypes.func)
+  actions: PropTypes.objectOf(PropTypes.func),
+  loginRedirect: PropTypes.string
 };
 
 HeaderAuthMobile.defaultProps = {

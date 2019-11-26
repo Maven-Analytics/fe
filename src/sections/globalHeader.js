@@ -3,19 +3,19 @@ import PropTypes from 'prop-types';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import Headroom from 'react-headroom';
 import Link from 'next/link';
-import {Map} from 'immutable';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import { Map } from 'immutable';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import {click, canUseDOM} from '../utils/componentHelpers';
-import {selectors as stateSelectors, actions as stateActions} from '../redux/ducks/state';
+import { click, canUseDOM } from '../utils/componentHelpers';
+import { selectors as stateSelectors, actions as stateActions } from '../redux/ducks/state';
 import Logo from '../components/logo';
 import Hamburger from '../components/hamburger';
-import {menuLinksMain} from '../routes';
+import { menuLinksMain } from '../routes';
 import HeaderAuth from '../components/headerAuth';
-import {Routes} from '../routes';
+import { Routes } from '../routes';
 
-const GlobalHeader = ({state, actions, className}) => {
+const GlobalHeader = ({ state, actions, className, loginRedirect }) => {
   const classList = ['global-header'];
 
   if (className) {
@@ -43,7 +43,7 @@ const GlobalHeader = ({state, actions, className}) => {
                   );
                 })}
               </ul>
-              <HeaderAuth showContact showRegister onUserClick={click(actions.offmenuToggle, 'headerUser')} />
+              <HeaderAuth showContact showRegister loginRedirect={loginRedirect} onUserClick={click(actions.offmenuToggle, 'headerUser')} />
             </nav>
           </div>
         </div>
@@ -55,7 +55,8 @@ const GlobalHeader = ({state, actions, className}) => {
 GlobalHeader.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   state: ImmutablePropTypes.map,
-  className: PropTypes.string
+  className: PropTypes.string,
+  loginRedirect: PropTypes.string
 };
 
 GlobalHeader.defaultProps = {

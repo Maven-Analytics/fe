@@ -1,19 +1,19 @@
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import Modals from '../sections/modals';
 import IeWarn from '../components/ieWarn';
 
-const BaseLayout = ({children, header: Header, footer: Footer, mainClass, hideModals, headerClass}) => {
+const BaseLayout = ({ children, header: Header, footer: Footer, mainClass, hideModals, headerClass, loginRedirect }) => {
   return (
     <Fragment>
-      <IeWarn/>
-      {Header ? <Header className={headerClass}/> : null}
+      <IeWarn />
+      {Header ? <Header loginRedirect={loginRedirect} className={headerClass} /> : null}
       <main id="main" className={mainClass}>
         {children}
       </main>
-      <Modals hideModals={hideModals}/>
-      {Footer ? <Footer/> : null}
+      <Modals hideModals={hideModals} loginRedirect={loginRedirect} />
+      {Footer ? <Footer /> : null}
     </Fragment>
   );
 };
@@ -25,7 +25,8 @@ BaseLayout.propTypes = {
   mainClass: PropTypes.string,
   actions: PropTypes.objectOf(PropTypes.func),
   hideModals: PropTypes.array,
-  headerClass: PropTypes.string
+  headerClass: PropTypes.string,
+  loginRedirect: PropTypes.string
 };
 
 BaseLayout.defaultProps = {

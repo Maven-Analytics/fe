@@ -16,13 +16,14 @@ import MissionItemModal from '../modals/missionItemModal';
 import {isCollapseDown} from '../components/mediaQuery';
 import withWindowSize from '../components/withWindowSize';
 
-const Modals = ({state, actions, hideModals}) => {
+const Modals = ({state, actions, hideModals, loginRedirect}) => {
   return (
     <Fragment>
       {hideModals.indexOf('mobileMenu') === -1 ? (
         <MobileMenu
           isActive={state.get('mobileMenu')}
           offmenuToggle={actions.offmenuToggle}
+          loginRedirect={loginRedirect}
         />
       ) : null}
       <PathDrawer />
@@ -49,7 +50,8 @@ const Modals = ({state, actions, hideModals}) => {
 Modals.propTypes = {
   state: ImmutablePropTypes.map.isRequired,
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  hideModals: PropTypes.array.isRequired
+  hideModals: PropTypes.array.isRequired,
+  loginRedirect: PropTypes.string
 };
 
 const mapStateToProps = state => ({

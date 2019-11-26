@@ -124,7 +124,7 @@ class SignupAccount extends Component {
     const btnDisabled = !this.canSubmit();
 
     return (
-      <Checkout activeStep={1} title="Tell us about yourself">
+      <Checkout activeStep={1} title="Tell us about yourself" loginRedirect={getCheckoutUrl(checkout) || Routes.SignupAccount}>
         <form onSubmit={this.handleSubmit}>
           <AccountForm
             showPassword={user.isEmpty()}
@@ -153,7 +153,7 @@ class SignupAccount extends Component {
             loading={loading || profileLoading}
             disabled={btnDisabled}
             btnType="submit"
-            loginRedirect={getCheckoutUrl(checkout) || '/signup/account'}
+            loginRedirect={getCheckoutUrl(checkout) || Routes.SignupAccount}
           />
         </form>
       </Checkout>
