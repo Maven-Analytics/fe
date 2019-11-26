@@ -24,8 +24,8 @@
     max-height: $header-height-mobile;
     @include desktopHeader {
       background-color: transparent;
-      height: auto;
-      max-height: auto;
+      height: auto !important;
+      max-height: none;
     }
   }
 
