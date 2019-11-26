@@ -1,10 +1,11 @@
-import {takeLatest, put, all} from 'redux-saga/effects';
+import {takeLatest, put, all, call} from 'redux-saga/effects';
 import axios from 'axios';
 
 import {getCookie} from '../../utils/cookies';
 import config from '../../config';
 import {types as profileTypes} from '../ducks/profile';
 import {types as userTypes} from '../ducks/user';
+import {checkRedirect} from './redirect';
 
 export function * watchProfile() {
   yield takeLatest(profileTypes.PROFILEUPDATE_REQUEST, onPathsInitRequest);
@@ -28,9 +29,7 @@ function * onPathsInitRequest({payload}) {
       })
     ]);
 
-    if (payload.redirectTo) {
-      window.location.href = payload.redirectTo;
-    }
+    yield call(checkRedirect, payload);
   } catch (error) {
     yield put({
       type: profileTypes.PROFILEUPDATE_FAILURE,
@@ -52,9 +51,7 @@ function * onPasswordResetRequest({payload}) {
       })
     ]);
 
-    if (payload.redirectTo) {
-      window.location.href = payload.redirectTo;
-    }
+    yield call(checkRedirect, payload);
   } catch (error) {
     yield put({
       type: profileTypes.PROFILE_PASSWORD_RESET_FAILURE,

@@ -1,13 +1,10 @@
 import {all, put, takeLatest} from 'redux-saga/effects';
-import axios from 'axios';
 
 import {types as checkoutTypes} from '../ducks/checkout';
 import {setCookie} from '../../utils/cookies';
-import config from '../../config';
 
 export function * watchCheckout() {
-  yield takeLatest(checkoutTypes.CHECKOUT_REQUEST, onCheckoutRequest);
-  yield takeLatest(checkoutTypes.GET_CHECKOUT_REQUEST, onGetCheckoutRequest);
+  yield takeLatest(checkoutTypes.CHECKOUT_SET_PLAN_REQUEST, onCheckoutRequest);
 }
 
 function * onCheckoutRequest({payload: {plan, ctx}}) {
@@ -22,53 +19,14 @@ function * onCheckoutRequest({payload: {plan, ctx}}) {
 
     yield all([
       put({
-        type: checkoutTypes.CHECKOUT_SUCCESS
+        type: checkoutTypes.CHECKOUT_SET_PLAN_SUCCESS
       })
     ]);
   } catch (error) {
     console.log(error);
     yield put({
-      type: checkoutTypes.CHECKOUT_FAILURE,
+      type: checkoutTypes.CHECKOUT_SET_PLAN_FAILURE,
       payload: error.response ? error.response.data : error.message
     });
   }
-}
-
-function * onGetCheckoutRequest({payload: {token, isServer}}) {
-  try {
-    const data = yield getCheckout(token, isServer);
-
-    yield all([
-      put({
-        type: checkoutTypes.GET_CHECKOUT_SUCCESS,
-        payload: data
-      })
-    ]);
-  } catch (error) {
-    console.log(error);
-    yield put({
-      type: checkoutTypes.GET_CHECKOUT_FAILURE,
-      payload: error.response ? error.response.data : error.message
-    });
-  }
-}
-
-function updateCheckout(plan) {
-  return axios
-    .put('/api/v1/checkout', {
-      plan: {
-        id: plan.get('id'),
-        checkoutUrl: plan.get('checkoutUrl')
-      }
-    })
-    .then(res => res.data)
-    .then(response => response.data);
-}
-
-function getCheckout(token, isServer) {
-  const baseUrl = isServer ? config.HOST_SERVER : config.HOST_APP;
-  return axios
-    .get(`${baseUrl}/api/v1/checkout/${token}`)
-    .then(res => res.data)
-    .then(response => response.data);
 }

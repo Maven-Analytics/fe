@@ -9,7 +9,7 @@ module.exports = async (request, h) => {
   const res = await makeRequest(data);
   const user = await findUser(res.id);
 
-  await runSync(user);
+  await runSync(user, true);
 
   return login(h, user, data.redirectTo);
 };

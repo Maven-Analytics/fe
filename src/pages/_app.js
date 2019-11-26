@@ -41,7 +41,7 @@ class MavenApp extends App {
     }
 
     if (checkoutCookie && checkoutCookie !== '') {
-      store.dispatch(checkoutActions.setPlan(fromJS(checkoutCookie.plan)));
+      store.dispatch(checkoutActions.checkoutSetPlan(fromJS(checkoutCookie.plan)));
     }
 
     // If there is a recommendedPaths & recommendedCourses cookie, but it has not been saved to the user. save it

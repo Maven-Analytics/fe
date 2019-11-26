@@ -4,7 +4,7 @@ import {getCookie} from '../utils/cookies';
 import config from '../config';
 import {canUseDOM} from '../utils/componentHelpers';
 
-export default ({method = 'get', data = {}, params = {}, url = '', useAuth = true}) => {
+export default ({method = 'get', data = {}, params = {}, url = '', useAuth = true, token = getCookie('token') || ''}) => {
   const baseURL = canUseDOM() ? config.HOST_APP : config.HOST_SERVER;
 
   return axios({
@@ -14,7 +14,7 @@ export default ({method = 'get', data = {}, params = {}, url = '', useAuth = tru
     params,
     url,
     headers: {
-      authorization: useAuth ? getCookie('token') || '' : ''
+      authorization: useAuth ? token : ''
     }
   }).then(res => res.data.data);
 };

@@ -1,6 +1,6 @@
 const Joi = require('@hapi/joi');
 
-const {pathWrapper, defaultHandlerWrapper, nextHandlerWrapper} = require('./nextWrapper');
+const { pathWrapper, defaultHandlerWrapper, nextHandlerWrapper } = require('./nextWrapper');
 
 module.exports = app => {
   return {
@@ -195,6 +195,22 @@ module.exports = app => {
           }
         },
         handler: require('./controllers/checkout/get')
+      });
+
+      server.route({
+        method: 'GET',
+        path: '/api/v1/checkout/redirect',
+        handler: require('./controllers/checkout/redirect'),
+        options: {
+          auth: {
+            mode: 'try'
+          },
+          validate: {
+            query: {
+              planId: Joi.number().required()
+            }
+          }
+        }
       });
 
       server.route({

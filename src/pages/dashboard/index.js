@@ -204,8 +204,6 @@ class DashboardPage extends Component {
             {credentials.map(cred => {
               let item = courses.find(c => c.get('accredibleId') === cred.get('group_id'));
 
-              console.log(paths.toJS());
-
               if (!item) {
                 item = paths.find(p => p.get('accredibleId') === cred.get('group_id'));
               }

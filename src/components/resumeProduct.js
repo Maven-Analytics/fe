@@ -5,16 +5,13 @@ import {connect} from 'react-redux';
 import Link from 'next/link';
 
 import {selectors as userSelectors} from '../redux/ducks/user';
-import {selectors as checkoutSelectors} from '../redux/ducks/checkout';
-import {getCheckoutUrl} from '../utils/checkoutHelpers';
 import {Routes} from '../routes';
 
-const ResumeProduct = ({resumeUrl, user, productTerm, className, started, checkout}) => {
+const ResumeProduct = ({resumeUrl, user, productTerm, className, started}) => {
   let resumeText = `${started ? 'Resume' : 'Start'} ${productTerm}`;
 
   if (!user.get('enrolled')) {
-    const checkoutUrl = getCheckoutUrl(checkout);
-    resumeUrl = checkoutUrl ? checkoutUrl : Routes.Signup;
+    resumeUrl = Routes.Signup;
     resumeText = 'Signup';
   }
 
@@ -35,8 +32,7 @@ ResumeProduct.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  user: userSelectors.getUser(state),
-  checkout: checkoutSelectors.getCheckout(state)
+  user: userSelectors.getUser(state)
 });
 
 export default connect(mapStateToProps)(ResumeProduct);

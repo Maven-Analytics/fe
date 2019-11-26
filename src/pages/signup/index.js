@@ -16,8 +16,8 @@ import {actions as authActions} from '../../redux/ducks/auth';
 import {selectors as checkoutSelectors, actions as checkoutActions} from '../../redux/ducks/checkout';
 import CheckoutFooter from '../../components/checkoutFooter';
 import {Routes} from '../../routes';
-import config from '../../config';
-import {getCheckoutUrl} from '../../utils/checkoutHelpers';
+import {getCheckoutUrlAsync} from '../../utils/checkoutHelpers';
+import {canUseDOM} from '../../utils/componentHelpers';
 
 class SignupIndex extends Component {
   constructor(props) {
@@ -30,16 +30,18 @@ class SignupIndex extends Component {
     const {checkout, plans} = this.props;
 
     if (!checkout || !checkout.get('plan') || checkout.get('plan').isEmpty()) {
-      this.props.actions.setPlan(plans.first());
+      this.props.actions.checkoutSetPlan(plans.first());
     }
   }
 
-  handleNextClick() {
-    const {user, checkout} = this.props;
+  async handleNextClick() {
+    const {user} = this.props;
 
     if (user && user.get('id')) {
+      const redirectTo = await getCheckoutUrlAsync();
+
       this.props.actions.sso({
-        redirectTo: getCheckoutUrl(checkout)
+        redirectTo
       });
     } else {
       Router.push(Routes.SignupAccount);
@@ -50,13 +52,15 @@ class SignupIndex extends Component {
     const {plans, checkout, actions, error, loading, user} = this.props;
     const btnDisabled = !checkout || !checkout.has('plan');
 
+    const loginRedirect = canUseDOM() ? window.location.origin + Routes.Signup : Routes.Signup;
+
     return (
       <Checkout
         activeStep={0}
-        loginRedirect={Routes.Signup}
+        loginRedirect={loginRedirect}
         title="SELECT A MEMBERSHIP PLAN"
       >
-        <CheckoutPlans plans={plans} checkout={checkout} onPlanChange={actions.setPlan} />
+        <CheckoutPlans plans={plans} checkout={checkout} onPlanChange={actions.checkoutSetPlan} />
         <CheckoutFooter
           showLogin={user.isEmpty()}
           error={error}

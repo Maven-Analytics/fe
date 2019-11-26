@@ -7,7 +7,7 @@ module.exports = async (request, h) => {
   try {
     let user = await apiLogin(data.email, data.password);
 
-    runSync(user);
+    runSync(user, true);
 
     return login(h, user, data.redirectTo);
   } catch (error) {
