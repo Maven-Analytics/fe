@@ -1,29 +1,29 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
-import { Map } from 'immutable';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import {Map} from 'immutable';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import Router from 'next/router';
 
-import { selectors as checkoutSelectors, actions as checkoutActions } from '../../redux/ducks/checkout';
-import { actions as authActions } from '../../redux/ducks/auth';
-import { selectors as loadingSelectors } from '../../redux/ducks/loading';
-import { selectors as errorSelectors } from '../../redux/ducks/error';
-import { selectors as userSelectors } from '../../redux/ducks/user';
-import { actions as profileActions } from '../../redux/ducks/profile';
+import {selectors as checkoutSelectors, actions as checkoutActions} from '../../redux/ducks/checkout';
+import {actions as authActions} from '../../redux/ducks/auth';
+import {selectors as loadingSelectors} from '../../redux/ducks/loading';
+import {selectors as errorSelectors} from '../../redux/ducks/error';
+import {selectors as userSelectors} from '../../redux/ducks/user';
+import {actions as profileActions} from '../../redux/ducks/profile';
 import Checkout from '../../layouts/checkout';
-import { stateCheck, canUseDOM } from '../../utils/componentHelpers';
+import {stateCheck, canUseDOM} from '../../utils/componentHelpers';
 import CheckoutFooter from '../../components/checkoutFooter';
 import AccountForm from '../../forms/accountForm';
-import { Routes } from '../../routes';
+import {Routes} from '../../routes';
 import Checkbox from '../../components/inputs/checkbox';
-import { getCheckoutUrlAsync } from '../../utils/checkoutHelpers';
-import { getCookie } from '../../utils/cookies';
+import {getCheckoutUrlAsync} from '../../utils/checkoutHelpers';
+import {getCookie} from '../../utils/cookies';
 
 class SignupAccount extends Component {
   static async getInitialProps(ctx) {
-    const { res, store } = ctx;
+    const {res, store} = ctx;
     const state = store.getState();
     const checkout = state.get('checkout');
     const checkoutPlan = checkout.get('plan');
@@ -115,8 +115,8 @@ class SignupAccount extends Component {
   }
 
   render() {
-    const { email, password, first_name, last_name, country, postal_code, terms } = this.state;
-    const { loading, error, user, profileError, profileLoading } = this.props;
+    const {email, password, first_name, last_name, country, postal_code, terms} = this.state;
+    const {loading, error, user, profileError, profileLoading} = this.props;
 
     const btnDisabled = !this.canSubmit();
 
@@ -139,7 +139,7 @@ class SignupAccount extends Component {
             <Checkbox
               id="terms"
               name="terms"
-              style={{ marginTop: 30 }}
+              style={{marginTop: 30}}
               checked={terms}
               onChange={stateCheck(this.handleChange, 'terms')}
             >

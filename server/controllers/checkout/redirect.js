@@ -1,5 +1,7 @@
 const axios = require('axios');
 
+const {getServerUri} = require('../../utils/serverUtils');
+
 const plans = [
   {
     id: 1,
@@ -13,16 +15,14 @@ const plans = [
   }
 ];
 
-const port = process.env.PORT || 5000;
-
-module.exports = async (request, h) => {
+module.exports = async request => {
   try {
     const planId = request.query.planId;
 
     let user = null;
 
     if (request.auth.token) {
-      user = await getUser(request.auth.token);
+      user = await getUser(request);
     }
 
     // Const checkout = await getCheckout(request.params.token);
@@ -44,11 +44,12 @@ function getCheckoutUrl(planId, user) {
   return user && user.expired ? plan.noTrialUrl : plan.checkoutUrl;
 }
 
-function getUser(token) {
-  return axios.get(`http://localhost:${port}/api/v1/me`, {
+function getUser(request) {
+  console.log(request.auth.token);
+  return axios.get(`${getServerUri(request)}/api/v1/me`, {
     headers: {
-      Authorization: token
+      Authorization: request.auth.token
     }
   })
-    .then(res => res.data.data.user);
+    .then(res => res.data.data ? res.data.data.user : null);
 }
