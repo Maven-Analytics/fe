@@ -7,49 +7,70 @@ import {withRouter} from 'next/router';
 
 import config from '../config';
 
-const Head = ({meta, router}) => {
-  if (!meta) {
+const getAttribute = (attribute, defaultValue, meta, page) => {
+  if (meta && meta.get(attribute)) {
+    return meta.get(attribute);
+  }
+
+  if (page && page.get(attribute)) {
+    return page.get(attribute);
+  }
+
+  return defaultValue;
+};
+
+const Head = ({meta, page, title, router}) => {
+  if (!meta && !page) {
     return null;
   }
 
-  const image = meta.getIn(['image', 'fields', 'file', 'url']);
   const titleDefault = 'Maven Analytics';
-  const title = meta.get('title') && meta.get('title') !== '' && meta.get('title') !== 'Maven Analytics' ? `${meta.get('title')} | ${titleDefault}` : titleDefault;
-  const keywords = meta.has('keywords') ? meta.get('keywords').join(',') : '';
+  title = getAttribute('title', title, meta, page);
 
-  const description = meta.get('description');
+  if (title && title !== titleDefault) {
+    title = `${title} | ${titleDefault}`;
+  }
+
+  const image = meta && meta.getIn(['image', 'fields', 'file', 'url']) ? meta.getIn(['image', 'fields', 'file', 'url']) : null;
+  const keywords = meta && meta.get('keywords') ? meta.get('keywords').join(',') : null;
+
+  const description = meta && meta.get('description') ? meta.get('description') : null;
 
   const url = `${config.HOST_APP}${router.asPath}`;
 
   return (
     <NextHead>
       <title>{title}</title>
-      <meta name="description" content={description}/>
-      <meta name="keywords" content={keywords}/>
+      {description ? <meta name="description" content={description}/> : null}
+      {keywords ? <meta name="keywords" content={keywords}/> : null}
       <meta property="og:title" content={title} />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={url} />
-      <meta property="og:image" content={image} />
+      {image ? <meta property="og:image" content={image} /> : null}
 
       <meta name="twitter:card" content="summary"/>
       <meta name="twitter:site" content="@TWITTER_ID"/>
       <meta name="twitter:title" content={title}/>
-      <meta name="twitter:description" content={description}/>
+      {description ? <meta name="twitter:description" content={description}/> : null}
       <meta name="twitter:creator" content="@CREATOR"/>
-      <meta name="twitter:image" content={image}/>
+      {image ? <meta name="twitter:image" content={image}/> : null}
 
-      <link rel="canonical" href="" />
+      <link rel="canonical" href={url} />
     </NextHead>
   );
 };
 
 Head.propTypes = {
   meta: ImmutablePropTypes.map,
-  router: PropTypes.object
+  page: ImmutablePropTypes.map,
+  router: PropTypes.object,
+  title: PropTypes.string
 };
 
 Head.defaultProps = {
-  meta: Map()
+  meta: Map(),
+  page: Map(),
+  title: 'Maven Analytics'
 };
 
 export default withRouter(Head);

@@ -13,6 +13,7 @@ import RichText from '../components/richText';
 import CtaForm from '../sections/ctaForm';
 import TeamTrainingForm from '../forms/teamTraining';
 import CtaQuote from '../components/ctaQuote';
+import Wysiwyg from '../components/wysiwyg';
 
 const TeamTraining = ({page}) => {
   return (
@@ -33,9 +34,7 @@ const TeamTraining = ({page}) => {
         backgroundSrc={page.getIn(['heroBackgroundSmall', 'file', 'url'])}
       />
       <BrochureContent className="page-training" title={page.get('brochureTitle')}>
-        <div className="page-training__content">
-          <RichText content={page.get('content')}/>
-        </div>
+        <Wysiwyg className="page-training__content" content={page.get('content')}/>
         <CtaForm title="Request A Quote" form={TeamTrainingForm}>
           <CtaQuote
             cite="- Patrick O’Donnell, VP of Sales"

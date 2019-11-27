@@ -129,11 +129,11 @@ export const footerConnectLinks = fromJS([
 
 export const copyLinks = fromJS([
   {
-    url: Routes.Home,
+    url: Routes.Terms,
     text: 'Terms & Conditions'
   },
   {
-    url: Routes.Home,
+    url: Routes.PrivacyPolicy,
     text: 'Privacy'
   },
   {

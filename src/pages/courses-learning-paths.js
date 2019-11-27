@@ -203,7 +203,7 @@ class CoursesLearningPaths extends PureComponent {
               {srcSet: `${page.getIn(['heroBackground', 'file', 'url'])} 768w`, type: page.getIn(['heroBackground', 'file', 'contentType'])},
               {srcSet: `${page.getIn(['heroBackgroundSmall', 'file', 'url'])}`, type: page.getIn(['heroBackgroundSmall', 'file', 'contentType'])}
             ]}
-            backgroundSrc={page.getIn(['heroBackgroundSmall', 'file', 'url'])}
+            backgroundSrc={page.getIn(['heroBackground', 'file', 'url'])}
             linkContent={scrollTo}
             linkHref="#"
             onLinkClick={handleScrollIntoView('#courses-paths-main')}

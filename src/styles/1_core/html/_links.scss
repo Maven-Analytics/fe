@@ -3,7 +3,8 @@ a:not(.btn) {
   // transition: color .2s ease-in-out;
 
   &:hover {
-    color: $yellow;
+    color: $blue;
+    text-decoration: underline;
   }
 }
 

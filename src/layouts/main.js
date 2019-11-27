@@ -6,9 +6,10 @@ import GlobalFooter from '../sections/globalFooter';
 
 import BaseLayout from './base';
 
-const MainLayout = ({children}) => {
+const MainLayout = ({children, className}) => {
   return (
     <BaseLayout
+      headerClass={className}
       header={GlobalHeader}
       footer={GlobalFooter}
     >
@@ -18,7 +19,8 @@ const MainLayout = ({children}) => {
 };
 
 MainLayout.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string
 };
 
 export default MainLayout;

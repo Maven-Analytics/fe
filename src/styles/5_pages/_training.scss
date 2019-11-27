@@ -1,33 +1,11 @@
 .page-training {
   &__content {
-    color: $gray-medium-2;
-    font-size: 1.6rem;
-    line-height: 1.55;
     max-width: $brochureContentContainer;
     margin: 0 auto $spacing-unit--l;
 
     @include media-breakpoint-up(lg) {
       font-size: 1.8rem;
       margin: 0 auto $spacing-unit--xl;
-    }
-
-    ol,
-    p {
-      margin: 0 0 $spacing-unit--md;
-
-      @include media-breakpoint-up(lg) {
-        margin: 0 0 $spacing-unit--l;
-      }
-    }
-
-    ol {
-      li {
-        margin: $spacing-unit;
-
-        p {
-          margin: 0;
-        }
-      }
     }
   }
 }

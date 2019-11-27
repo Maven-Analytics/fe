@@ -22,6 +22,10 @@ class ParallaxBg extends Component {
   }
 
   loadImage(src, setLoading) {
+    if (!src) {
+      return;
+    }
+
     if (setLoading) {
       this.setState({
         loading: true
@@ -51,7 +55,7 @@ class ParallaxBg extends Component {
   }
 
   render() {
-    const {src, className, overlay, strength} = this.props;
+    const {className, overlay, strength} = this.props;
     const {loading, img} = this.state;
 
     return (
@@ -75,7 +79,7 @@ class ParallaxBg extends Component {
 }
 
 ParallaxBg.propTypes = {
-  src: PropTypes.string.isRequired,
+  src: PropTypes.string,
   placeholderColor: PropTypes.string,
   className: PropTypes.string,
   overlay: PropTypes.bool,

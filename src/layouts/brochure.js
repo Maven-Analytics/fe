@@ -15,7 +15,7 @@ class BrochureLayout extends Component {
     }
 
     return (
-      <Main>
+      <Main className={className}>
         <div className="layout-brochure">
           {children}
           <CtaSection/>
