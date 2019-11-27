@@ -13,6 +13,8 @@ const plans = [
   }
 ];
 
+const port = process.env.PORT || 5000;
+
 module.exports = async (request, h) => {
   try {
     const planId = request.query.planId;
@@ -43,7 +45,7 @@ function getCheckoutUrl(planId, user) {
 }
 
 function getUser(token) {
-  return axios.get('http://localhost:5000/api/v1/me', {
+  return axios.get(`http://localhost:${port}/api/v1/me`, {
     headers: {
       Authorization: token
     }
