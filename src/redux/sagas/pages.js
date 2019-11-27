@@ -1,10 +1,10 @@
-import {takeLatest, put, all} from 'redux-saga/effects';
+import {takeEvery, put, all} from 'redux-saga/effects';
 
 import {types as pageTypes} from '../ducks/pages';
 import {getPages} from '../../services/contentful';
 
 export function * watchPages() {
-  yield takeLatest(pageTypes.PAGES_GET_REQUEST, onPagesGet);
+  yield takeEvery(pageTypes.PAGES_GET_REQUEST, onPagesGet);
 }
 
 function * onPagesGet({payload}) {
@@ -22,7 +22,7 @@ function * onPagesGet({payload}) {
       })
     ]);
   } catch (error) {
-    console.log('pages err', error)
+    console.log('pages err', error);
     yield put({
       type: pageTypes.PAGES_GET_FAILURE,
       payload: error.response ? error.response.data : error.message

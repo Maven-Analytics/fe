@@ -10,7 +10,6 @@ class Modal extends Component {
     super(props);
 
     this.state = {
-      wrapperStyle: {},
       modalStyle: {},
       innerStyle: {}
     };
@@ -18,22 +17,6 @@ class Modal extends Component {
     this.getStyles = this.getStyles.bind(this);
     this.renderModal = this.renderModal.bind(this);
     this.modal = createRef();
-  }
-
-  componentDidMount() {
-    if (this.props.isLesson) {
-      this.positionModal();
-    }
-  }
-
-  positionModal() {
-    const rightSidebar = document.getElementById('right-sidebar');
-
-    this.setState({
-      wrapperStyle: {
-        maxWidth: `calc(100% - ${rightSidebar.offsetWidth}px)`
-      }
-    });
   }
 
   getStyles() {
@@ -78,7 +61,7 @@ class Modal extends Component {
     }
 
     return (
-      <div ref={this.modal} key={key} style={this.state.wrapperStyle} className={classList.join(' ')} onKeyUp={escape(onClose)} tabIndex={0}>
+      <div ref={this.modal} key={key} className={classList.join(' ')} onKeyUp={escape(onClose)}>
         <div
           className="modal__fog"
           onClick={onClose}
@@ -107,6 +90,8 @@ class Modal extends Component {
   render() {
     const {open} = this.props;
 
+    // Return open ? this.renderModal('key', {opacity: 1}) : null;
+
     return (
       <TransitionMotion
         willLeave={this.willLeave}
@@ -118,7 +103,7 @@ class Modal extends Component {
             return this.renderModal(items[0].key, items[0].style);
           }
 
-          return null;
+          return <span />;
         }}
       </TransitionMotion>
     );
@@ -131,7 +116,6 @@ Modal.propTypes = {
   children: PropTypes.element,
   position: PropTypes.string,
   showClose: PropTypes.bool,
-  isLesson: PropTypes.bool,
   size: PropTypes.string,
   className: PropTypes.string
 };
@@ -139,8 +123,7 @@ Modal.propTypes = {
 Modal.defaultProps = {
   position: 'center',
   onClose: noop,
-  showClose: false,
-  isLesson: false
+  showClose: false
 };
 
 export default Modal;

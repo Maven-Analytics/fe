@@ -12,8 +12,9 @@ import {selectors as loadingSelectors} from '../../redux/ducks/loading';
 import {selectors as errorSelectors} from '../../redux/ducks/error';
 import {selectors as userSelectors} from '../../redux/ducks/user';
 import {actions as profileActions} from '../../redux/ducks/profile';
+import {actions as stateActions} from '../../redux/ducks/state';
 import Checkout from '../../layouts/checkout';
-import {stateCheck, canUseDOM} from '../../utils/componentHelpers';
+import {stateCheck, canUseDOM, clickAction} from '../../utils/componentHelpers';
 import CheckoutFooter from '../../components/checkoutFooter';
 import AccountForm from '../../forms/accountForm';
 import {Routes} from '../../routes';
@@ -116,7 +117,7 @@ class SignupAccount extends Component {
 
   render() {
     const {email, password, first_name, last_name, country, postal_code, terms} = this.state;
-    const {loading, error, user, profileError, profileLoading} = this.props;
+    const {loading, error, user, profileError, profileLoading, actions} = this.props;
 
     const btnDisabled = !this.canSubmit();
 
@@ -143,7 +144,9 @@ class SignupAccount extends Component {
               checked={terms}
               onChange={stateCheck(this.handleChange, 'terms')}
             >
-              I have read and agree to the <a href={Routes.Terms} target="_blank" rel="noopener noreferrer">Terms of Service</a> and <a href={Routes.PrivacyPolicy} target="_blank">Customer Privacy Policy</a>
+              I have read and agree to the&nbsp;
+              <a href="#" onClick={clickAction(actions.modalOpen, 'pageModal', 'terms')}>Terms of Service</a> and&nbsp;
+              <a href="#" onClick={clickAction(actions.modalOpen, 'pageModal', 'privacy-policy')}>Customer Privacy Policy</a>
             </Checkbox>
           </div>
           <CheckoutFooter
@@ -188,7 +191,8 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     ...checkoutActions,
     ...authActions,
-    ...profileActions
+    ...profileActions,
+    ...stateActions
   }, dispatch)
 });
 

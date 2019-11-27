@@ -38,6 +38,10 @@ const initialState = utils.initialState({
     open: false,
     data: null
   },
+  pageModal: {
+    open: false,
+    data: null
+  },
   filters: false
 });
 

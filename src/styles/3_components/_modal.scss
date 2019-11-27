@@ -117,4 +117,30 @@
       font-size: 2rem;
     }
   }
+
+  &--page {
+    position: fixed;
+
+    #{$self}__fog {
+      position: fixed;
+    }
+
+    #{$self}__close {
+      color: $black;
+      font-size: 3rem;
+      position: fixed;
+    }
+
+    #{$self}__body {
+      background-color: $white;
+      height: 100%;
+      overflow: auto;
+      padding: $spacing-unit--md $spacing-unit;
+      position: fixed;
+
+      @include media-breakpoint-up(lg) {
+        min-width: 874px;
+      }
+    }
+  }
 }

@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 
-import Modals from '../sections/modals';
+import ModalController from '../modals/modalController';
 import IeWarn from '../components/ieWarn';
 
-const BaseLayout = ({ children, header: Header, footer: Footer, mainClass, hideModals, headerClass, loginRedirect }) => {
+const BaseLayout = ({children, header: Header, footer: Footer, mainClass, hideModals, headerClass, loginRedirect}) => {
   return (
     <Fragment>
       <IeWarn />
@@ -12,7 +12,7 @@ const BaseLayout = ({ children, header: Header, footer: Footer, mainClass, hideM
       <main id="main" className={mainClass}>
         {children}
       </main>
-      <Modals hideModals={hideModals} loginRedirect={loginRedirect} />
+      <ModalController hideModals={hideModals} loginRedirect={loginRedirect} />
       {Footer ? <Footer /> : null}
     </Fragment>
   );

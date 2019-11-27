@@ -6,17 +6,18 @@ import {bindActionCreators} from 'redux';
 
 import {actions as stateActions, selectors as stateSelectors} from '../redux/ducks/state';
 
-import MobileMenu from '../modals/mobileMenu';
-import PathDrawer from '../modals/pathDrawer';
-import CourseDrawer from '../modals/courseDrawer';
-import VideoModal from '../modals/videoModal';
-import AssessmentModal from '../modals/assessmentModal';
+import MobileMenu from './mobileMenu';
+import PathDrawer from './pathDrawer';
+import CourseDrawer from './courseDrawer';
+import VideoModal from './videoModal';
+import AssessmentModal from './assessmentModal';
 import {click} from '../utils/componentHelpers';
-import MissionItemModal from '../modals/missionItemModal';
+import MissionItemModal from './missionItemModal';
 import {isCollapseDown} from '../components/mediaQuery';
 import withWindowSize from '../components/withWindowSize';
+import PageModal from './pageModal';
 
-const Modals = ({state, actions, hideModals, loginRedirect}) => {
+const ModalController = ({state, actions, hideModals, loginRedirect}) => {
   return (
     <Fragment>
       {hideModals.indexOf('mobileMenu') === -1 ? (
@@ -43,11 +44,16 @@ const Modals = ({state, actions, hideModals, loginRedirect}) => {
         data={state.getIn(['missionItem', 'data'])}
         onClose={click(actions.modalClose, 'missionItem')}
       />
+      <PageModal
+        open={state.getIn(['pageModal', 'open'])}
+        slug={state.getIn(['pageModal', 'data'])}
+        onClose={click(actions.modalClose, 'pageModal')}
+      />
     </Fragment>
   );
 };
 
-Modals.propTypes = {
+ModalController.propTypes = {
   state: ImmutablePropTypes.map.isRequired,
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   hideModals: PropTypes.array.isRequired,
@@ -64,4 +70,4 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withWindowSize(Modals));
+export default connect(mapStateToProps, mapDispatchToProps)(withWindowSize(ModalController));
