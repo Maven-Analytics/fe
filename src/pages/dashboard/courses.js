@@ -18,6 +18,7 @@ import DashboardNoData from '../../components/dashboardNoData';
 import withAuthSync from '../../components/withAuthSync';
 import {getMatchScoreForCourse} from '../../utils/courseHelpers';
 import {prettyPercent} from '../../utils/componentHelpers';
+import {Routes} from '../../routes';
 
 class DashboardCourses extends Component {
   componentDidMount() {
@@ -38,7 +39,7 @@ class DashboardCourses extends Component {
               <CourseCard
                 full
                 key={course.get('id')}
-                resumeUrl={course.get('url')}
+                resumeUrl={user.get('enrolled') ? course.get('url') : Routes.Signup}
                 match={`${prettyPercent(getMatchScoreForCourse(course, user))}%`}
                 course={course}
                 progress={course.get('percentage_completed')}
@@ -70,7 +71,7 @@ class DashboardCourses extends Component {
 DashboardCourses.getInitialProps = async ctx => {
   const {store, asPath} = ctx;
 
-  // store.dispatch(courseActions.coursesFilter());
+  // Store.dispatch(courseActions.coursesFilter());
   // store.dispatch(dashboardActions.getProgress());
 
   // const url = asPath;
@@ -99,7 +100,7 @@ const mapStateToProps = state => ({
   user: userSelectors.getUser(state)
 });
 
-const mapDispatchToProps = function(dispatch) {
+const mapDispatchToProps = function (dispatch) {
   return {
     actions: bindActionCreators(
       {
