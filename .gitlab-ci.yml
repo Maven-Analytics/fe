@@ -9,7 +9,7 @@ variables:
   PERFORMANCE_DISABLED: "true"
   SAST_DISABLED: "true"
   ROLLOUT_RESOURCE_TYPE: deployment
-
+  POSTGRES_ENABLED: "false"
 stages:
   - build
   - test
