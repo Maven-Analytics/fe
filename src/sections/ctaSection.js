@@ -11,7 +11,7 @@ const defaultContent = `
 ## Ready to become a
 ## **data rockstar?**
 
-Sign up today for a **10-Day Free Trial** and start learning today!`;
+Sign up today for a **7-Day Free Trial** and start learning today!`;
 
 const CtaSection = ({content, linkUrl, linkText}) => {
   return (
@@ -48,7 +48,7 @@ CtaSection.propTypes = {
 CtaSection.defaultProps = {
   content: defaultContent,
   linkUrl: Routes.Signup,
-  linkText: 'FREE 10-DAY TRIAL'
+  linkText: 'FREE 7-DAY TRIAL'
 };
 
 export default CtaSection;

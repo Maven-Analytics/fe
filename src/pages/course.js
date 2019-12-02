@@ -58,7 +58,7 @@ const Course = ({course, actions}) => {
                 {course.get('descriptionDetails') ? <RichText content={course.get('descriptionDetails')}/> : null}
               </div>
               <div className="course-detail__cta">
-                <h3>Are you ready to become a DATA ROCKSTAR? Start learning today with your FREE 10-Day trial! </h3>
+                <h3>Are you ready to become a DATA ROCKSTAR? Start learning today with your FREE 7-Day trial! </h3>
                 <p>Every subscription includes access to the following course materials</p>
                 <ul>
                   <li><MaIcon icon="check"/>Interactive Project files</li>

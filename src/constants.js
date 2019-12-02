@@ -4,18 +4,18 @@ export const plans = fromJS([
   {
     id: 1,
     eyelash: 'Monthly',
-    title: '10 Day FREE Trial',
+    title: '7 Day FREE Trial',
     price: 'then <sup>$</sup>29/mo',
     description:
-      'Monthly subscription includes a free 10-day, all-access trial. You will be subscribed monthly after the trial period for $29 per month. No obligation, cancel anytime. 100% satisfaction guarantee'
+      'Monthly subscription includes a free 7-day, all-access trial. You will be subscribed monthly after the trial period for $29 per month. No obligation, cancel anytime. 100% satisfaction guarantee'
   },
   {
     id: 2,
     eyelash: 'ANNUAL - SAVE $49 PER YEAR',
-    title: '10 Day FREE Trial',
+    title: '7 Day FREE Trial',
     price: 'then <sup>$</sup>299/yr',
     description:
-      'Annual subscription includes a free 10-day, all-access trial. You will be subscribed annual after the trial period for $299 per year. No obligation, cancel anytime. 100% satisfaction guarantee'
+      'Annual subscription includes a free 7-day, all-access trial. You will be subscribed annual after the trial period for $299 per year. No obligation, cancel anytime. 100% satisfaction guarantee'
   }
 ]);
 
