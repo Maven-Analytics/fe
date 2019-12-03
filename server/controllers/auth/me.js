@@ -1,5 +1,5 @@
 const axios = require('axios');
-const {runSync, userExpired, userIsFreeTrial} = require('../../utils/user');
+const {runSync, userExpired, userIsFreeTrial, userEnrolled} = require('../../utils/user');
 
 module.exports = async request => {
   const id = request.auth && request.auth.credentials ? request.auth.credentials.id : null;
@@ -14,7 +14,7 @@ module.exports = async request => {
   const enrollments = await getEnrollments(id);
 
   user.expired = userExpired(enrollments);
-  user.enrolled = !userExpired(enrollments);
+  user.enrolled = userEnrolled(enrollments);
   user.is_free_trial = userIsFreeTrial(enrollments);
 
   runSync(user);

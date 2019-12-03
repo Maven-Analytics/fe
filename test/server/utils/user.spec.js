@@ -78,6 +78,56 @@ describe('UserUtils', () => {
     });
   });
 
+  describe('userEnrolled', () => {
+    it('Should return true if their are enrollments that are not expired', () => {
+      const enrollments = [
+        {
+          expired: false,
+          expiry_date: new Date().getTime() + 10000
+        }
+      ];
+
+      const res = UserUtils.userEnrolled(enrollments);
+      expect(res).toBeTruthy();
+    });
+
+    it('Should return false if their are enrollments that are expired', () => {
+      const enrollments = [
+        {
+          expired: true,
+          expiry_date: new Date().getTime() + 10000
+        }
+      ];
+
+      const res = UserUtils.userEnrolled(enrollments);
+      expect(res).toBeFalsy();
+    });
+
+    it('Should return false if their is an enrollment with a past expiry_date', () => {
+      const enrollments = [
+        {
+          expired: false,
+          expiry_date: new Date().getTime() - 10000
+        }
+      ];
+
+      const res = UserUtils.userEnrolled(enrollments);
+      expect(res).toBeFalsy();
+    });
+
+    it('Should return false if their are NO enrollments', () => {
+      const enrollments = [];
+
+      const res = UserUtils.userEnrolled(enrollments);
+      expect(res).toBeFalsy();
+    });
+
+    it('Should return false if enrollments is not defined', () => {
+      const res = UserUtils.userEnrolled();
+      expect(res).toBeFalsy();
+    });
+  });
+
   describe('userIsFreeTrial', () => {
     it('Should return false if the user has no enrollments', () => {
       const enrollments = [];
