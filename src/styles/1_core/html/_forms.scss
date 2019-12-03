@@ -86,6 +86,7 @@ select.input {
 
 label {
   color: $gray-light;
+  font-size: 1.4rem;
   margin-bottom: $spacing-unit--ss;
 }
 
@@ -132,6 +133,7 @@ label {
 }
 
 .form-footer {
+  font-size: 1.2rem;
   margin-top: $spacing-unit;
 
   @include media-breakpoint-up(lg) {
