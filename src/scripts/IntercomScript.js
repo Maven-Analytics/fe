@@ -16,7 +16,11 @@ class IntercomScript extends Component {
       return 'Free trial';
     }
 
-    return 'Paid subscription';
+    if (user.get('enrolled')) {
+      return 'Paid subscription';
+    }
+
+    return 'Prospect';
   }
 
   render() {
