@@ -4,7 +4,8 @@ module.exports = {
   runSync,
   getUserById,
   userExpired,
-  userIsFreeTrial
+  userIsFreeTrial,
+  userEnrolled
 };
 
 const SYNC_TIME = 300000; // 5 mins
@@ -32,7 +33,7 @@ function shouldSync(user) {
     return false;
   }
 
-  const { last_sync } = user;
+  const {last_sync} = user;
 
   if (!last_sync) {
     return true;
@@ -47,6 +48,25 @@ function shouldSync(user) {
 function getUserById(id) {
   return axios.get(`${process.env.HOST_API}/api/v1/user/${id}`)
     .then(res => res.data.data[0]);
+}
+
+function userEnrolled(enrollments) {
+  // If their are no enrollments, the user is not enrolled
+  if (!enrollments || !enrollments.length) {
+    return false;
+  }
+
+  return enrollments.reduce((enrolled, enrollment) => {
+    const hasExpirted = Boolean(enrollment.expiry_date);
+    const expiryDate = new Date(enrollment.expiry_date).getTime();
+    const now = new Date().getTime();
+
+    if (enrollment.expired || (hasExpirted && now > expiryDate)) {
+      enrolled = false;
+    }
+
+    return enrolled;
+  }, true);
 }
 
 function userExpired(enrollments) {
