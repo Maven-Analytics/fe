@@ -114,8 +114,6 @@ class WelcomeSurveyResults extends Component {
       return null;
     }
 
-    console.log(recommendedPath.toJS());
-
     return (
       <div key="results" style={this.getDivStyle(style)}>
         <header>

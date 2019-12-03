@@ -22,7 +22,9 @@ import {enter, exit} from '../utils/animations';
 import config from '../config';
 
 import '../styles/index.scss';
+import LoggedIn from '../components/loggedIn';
 import IntercomScript from '../scripts/IntercomScript';
+import UserSettingsGet from '../scripts/UserSettingsGet';
 
 class MavenApp extends App {
   static async getInitialProps({Component, ctx}) {
@@ -133,6 +135,9 @@ class MavenApp extends App {
         <Provider store={store}>
           <ParallaxProvider>
             <Component {...pageProps} />
+            <LoggedIn>
+              <UserSettingsGet />
+            </LoggedIn>
             <IntercomScript />
           </ParallaxProvider>
         </Provider>

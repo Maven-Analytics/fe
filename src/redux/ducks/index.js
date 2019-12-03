@@ -18,6 +18,7 @@ import spotlights from './spotlights';
 import pages from './pages';
 import credentials from './credentials';
 import announcements from './announcements';
+import userSettings from './userSettings';
 
 const Ducks = combineReducers({
   loading,
@@ -37,7 +38,8 @@ const Ducks = combineReducers({
   spotlights,
   pages,
   credentials,
-  announcements
+  announcements,
+  userSettings
 });
 
 export default Ducks;

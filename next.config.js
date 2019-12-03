@@ -4,12 +4,7 @@ const withSass = require('@zeit/next-sass');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = withPlugins([withSass], {
-  // Env: {
-  //   HOST_APP: process.env.HOST_APP,
-  //   THINKIFIC_SUBDOMAIN: process.env.THINKIFIC_SUBDOMAIN
-  // },
   publicRuntimeConfig: {
-    HOST_APP: process.env.HOST_APP,
     HOST_SERVER: process.env.HOST_SERVER,
     THINKIFIC_SUBDOMAIN: process.env.THINKIFIC_SUBDOMAIN,
     CONTENTFUL_SPACE: process.env.CONTENTFUL_SPACE,

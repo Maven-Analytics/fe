@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 
-import {noop} from '../utils/componentHelpers';
+import {noop, canUseDOM} from '../utils/componentHelpers';
 import {Routes} from '../routes';
 import config from '../config';
 
@@ -41,7 +41,7 @@ CheckoutFooter.propTypes = {
 
 CheckoutFooter.defaultProps = {
   onClick: noop,
-  loginRedirect: `${config.HOST_APP}${Routes.Signup}`,
+  loginRedirect: canUseDOM() ? `${window.location.origin}${Routes.Signup}` : '',
   showLogin: true,
   btnText: 'Next Step'
 };

@@ -8,15 +8,14 @@ import {selectors as userSelectors} from '../redux/ducks/user';
 import {actions as authActions} from '../redux/ducks/auth';
 import {selectors as loadingSelectors} from '../redux/ducks/loading';
 import {selectors as errorSelectors} from '../redux/ducks/error';
-import {state} from '../utils/componentHelpers';
+import {state, canUseDOM} from '../utils/componentHelpers';
 import Auth from '../layouts/auth';
-import config from '../config';
 import {Routes} from '../routes';
 
 class Login extends Component {
   static async getInitialProps(ctx) {
     return {
-      redirectTo: ctx.query.redirectTo ? `${ctx.query.redirectTo}` : `${config.HOST_APP}${Routes.Dashboard}`
+      redirectTo: ctx.query.redirectTo ? `${ctx.query.redirectTo}` : canUseDOM() ? `${window.location.origin}${Routes.Dashboard}` : null
     };
   }
 
@@ -40,7 +39,7 @@ class Login extends Component {
     this.props.actions.login({
       email: this.state.email,
       password: this.state.password,
-      redirectTo: this.props.redirectTo ? this.props.redirectTo : `${config.HOST_APP}${Routes.Dashboard}`
+      redirectTo: this.props.redirectTo && this.props.redirectTo !== '' ? this.props.redirectTo : `${window.location.origin}${Routes.Dashboard}`
     });
   }
 
@@ -96,7 +95,7 @@ Login.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
-  redirectTo: PropTypes.string.isRequired
+  redirectTo: PropTypes.string
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
