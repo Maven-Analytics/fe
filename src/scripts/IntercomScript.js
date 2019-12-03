@@ -7,6 +7,18 @@ import {selectors as userSelectors} from '../redux/ducks/user';
 import config from '../config';
 
 class IntercomScript extends Component {
+  getSubscriptionStatus(user = this.props.user) {
+    if (user.get('expired')) {
+      return 'Expired';
+    }
+
+    if (user.get('is_free_trial')) {
+      return 'Free trial';
+    }
+
+    return 'Paid subscription';
+  }
+
   render() {
     if (config.DISABLE_INTERCOM) {
       return null;
@@ -20,7 +32,8 @@ class IntercomScript extends Component {
       userProps = {
         name: `${user.get('first_name')} ${user.get('last_name')}`,
         email: user.get('email'),
-        created_at: user.get('createdAt')
+        created_at: user.get('createdAt'),
+        subscription_status: this.getSubscriptionStatus(user)
       };
     }
 
