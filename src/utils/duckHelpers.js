@@ -38,6 +38,22 @@ export function stateListMerge(state, newData) {
   }, state);
 }
 
+export function stateListUpdate(state, newData, key = 'id') {
+  if (!isImmutable(newData)) {
+    newData = fromJS(newData);
+  }
+
+  return newData.reduce((s, newObject) => {
+    const existingPathIndex = s.findIndex(p => p.get(key) === newObject.get(key));
+
+    if (existingPathIndex > -1) {
+      return s.update(existingPathIndex, existingData => existingData.merge(fromJS(newObject)));
+    }
+
+    return s.push(fromJS(newObject));
+  }, state);
+}
+
 export function stateMapMerge(state, newData) {
   if (!isImmutable(newData)) {
     newData = fromJS(newData);

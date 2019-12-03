@@ -6,6 +6,7 @@ import {Map} from 'immutable';
 import {withRouter} from 'next/router';
 
 import config from '../config';
+import {canUseDOM} from '../utils/componentHelpers';
 
 const getAttribute = (attribute, defaultValue, meta, page) => {
   if (meta && meta.get(attribute)) {
@@ -36,7 +37,7 @@ const Head = ({meta, page, title, router}) => {
 
   const description = meta && meta.get('description') ? meta.get('description') : null;
 
-  const url = `${config.HOST_APP}${router.asPath}`;
+  const url = canUseDOM() ? `${window.location.origin}${router.asPath}` : `https://mavenanalytics.io/${router.asPath}`;
 
   return (
     <NextHead>

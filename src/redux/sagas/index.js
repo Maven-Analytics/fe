@@ -1,5 +1,5 @@
 import {all, put, takeLatest, fork, select, delay} from 'redux-saga/effects';
-import axios from 'axios';
+// Import axios from 'axios';
 
 import {watchState} from './state';
 import {types as authTypes} from '../ducks/auth';
@@ -9,7 +9,6 @@ import {types as responseTypes} from '../ducks/response';
 import {watchCheckout} from './checkout';
 import {watchPaths} from './paths';
 import {watchCourses} from './courses';
-import {watchSurveys} from './surveyResults';
 import {watchProfile} from './profile';
 import {watchDashboard} from './dashboard';
 import {watchUser} from './user';
@@ -24,6 +23,8 @@ import {watchSubscribe} from './subscribe';
 import zapier from '../../services/zapier';
 import {watchCredentials} from './credentials';
 import {watchAnnouncements} from './announcements';
+import {watchUserSettings} from './userSettings';
+import api from '../../services/api';
 
 function * logoutRequest({payload: {ctx}}) {
   removeCookie('token', ctx);
@@ -267,7 +268,6 @@ function * rootSaga() {
     fork(watchCheckout),
     fork(watchPaths),
     fork(watchCourses),
-    fork(watchSurveys),
     fork(watchProfile),
     fork(watchUser),
     fork(watchDashboard),
@@ -278,7 +278,8 @@ function * rootSaga() {
     fork(watchContact),
     fork(watchSubscribe),
     fork(watchCredentials),
-    fork(watchAnnouncements)
+    fork(watchAnnouncements),
+    fork(watchUserSettings)
   ]);
 }
 
@@ -323,29 +324,40 @@ function register({
 }
 
 async function authReq(type, data) {
-  const baseUrl = config.HOST_APP;
+  // Const baseUrl = config.HOST_APP;
 
-  return axios
-    .post(`${baseUrl}/api/v1/${type}`, data, {
-      headers: {
-        authorization: getCookie('token')
-      }
-    })
-    .then(res => res.data)
-    .then(response => response.data);
+  return api({
+    method: 'post',
+    url: `/api/v1/${type}`,
+    data
+  });
+
+  // Return axios
+  //   .post(`${baseUrl}/api/v1/${type}`, data, {
+  //     headers: {
+  //       authorization: getCookie('token')
+  //     }
+  //   })
+  //   .then(res => res.data)
+  //   .then(response => response.data);
 }
 
 function reauthenticate(token, isServer) {
-  const baseUrl = isServer ? config.HOST_SERVER : config.HOST_APP;
+  return api({
+    method: 'get',
+    url: '/api/v1/me',
+    token
+  });
+  // Const baseUrl = isServer ? config.HOST_SERVER : config.HOST_APP;
 
-  return axios
-    .get(`${baseUrl}/api/v1/me`, {
-      headers: {
-        authorization: token
-      }
-    })
-    .then(res => res.data)
-    .then(response => response.data);
+  // Return axios
+  //   .get(`${baseUrl}/api/v1/me`, {
+  //     headers: {
+  //       authorization: token
+  //     }
+  //   })
+  //   .then(res => res.data)
+  //   .then(response => response.data);
 }
 
 export default rootSaga;

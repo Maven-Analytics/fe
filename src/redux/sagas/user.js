@@ -1,9 +1,10 @@
 import {takeLatest, put, select, all} from 'redux-saga/effects';
-import axios from 'axios';
+// Import axios from 'axios';
 
 import {types as userTypes, selectors as userSelectors} from '../ducks/user';
 import {setCookie, removeCookie} from '../../utils/cookies';
 import config from '../../config';
+import api from '../../services/api';
 
 export function * watchUser() {
   yield takeLatest(userTypes.USER_RECOMMENDED_SET_REQUEST, onRecommendedSet);
@@ -28,8 +29,8 @@ function * onRecommendedSet() {
           type: userTypes.USER_RECOMMENDED_SET_SUCCESS
         })
       ]);
-      removeCookie('recommendedPaths', paths);
-      removeCookie('recommendedCourses', courses);
+      removeCookie('recommendedPaths');
+      removeCookie('recommendedCourses');
     } else {
       setCookie('recommendedPaths', paths);
       setCookie('recommendedCourses', courses);
@@ -50,13 +51,19 @@ function * onRecommendedSet() {
 }
 
 async function saveRecommended(paths, courses, token) {
-  const baseUrl = config.HOST_APP;
+  return api({
+    method: 'post',
+    url: '/api/v1/user/recommended',
+    data: {paths, courses},
+    token
+  });
+  // Const baseUrl = config.HOST_APP;
 
-  return axios.post(`${baseUrl}/api/v1/user/recommended`, {paths, courses}, {
-    headers: {
-      authorization: token
-    }
-  })
-    .then(res => res.data)
-    .then(response => response.data);
+  // return axios.post(`${baseUrl}/api/v1/user/recommended`, {paths, courses}, {
+  //   headers: {
+  //     authorization: token
+  //   }
+  // })
+  //   .then(res => res.data)
+  //   .then(response => response.data);
 }

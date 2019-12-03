@@ -1,11 +1,12 @@
 import {takeLatest, put, all, call} from 'redux-saga/effects';
-import axios from 'axios';
+// Import axios from 'axios';
 
 import {getCookie} from '../../utils/cookies';
 import config from '../../config';
 import {types as profileTypes} from '../ducks/profile';
 import {types as userTypes} from '../ducks/user';
 import {checkRedirect} from './redirect';
+import api from '../../services/api';
 
 export function * watchProfile() {
   yield takeLatest(profileTypes.PROFILEUPDATE_REQUEST, onPathsInitRequest);
@@ -19,12 +20,12 @@ function * onPathsInitRequest({payload}) {
     yield all([
       put({
         type: userTypes.USER_SET,
-        payload: res.data.user
+        payload: res.user
       }),
       put({
         type: profileTypes.PROFILEUPDATE_SUCCESS,
         payload: {
-          message: res.data.message
+          message: res.message
         }
       })
     ]);
@@ -46,7 +47,7 @@ function * onPasswordResetRequest({payload}) {
       put({
         type: profileTypes.PROFILE_PASSWORD_RESET_SUCCESS,
         payload: {
-          message: res.data.message
+          message: res.message
         }
       })
     ]);
@@ -69,10 +70,15 @@ function resetPassword(data) {
 }
 
 function apiRequest(url, data) {
-  return axios.put(`${config.HOST_APP}${url}`, data, {
-    headers: {
-      authorization: getCookie('token')
-    }
-  })
-    .then(res => res.data);
+  return api({
+    method: 'put',
+    url,
+    data
+  });
+  // Return axios.put(`${config.HOST_APP}${url}`, data, {
+  //   headers: {
+  //     authorization: getCookie('token')
+  //   }
+  // })
+  //   .then(res => res.data);
 }

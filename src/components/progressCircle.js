@@ -15,24 +15,30 @@ class ProgressCircle extends Component {
 
     this.circle = createRef();
     this.bar = createRef();
+    this.el = createRef();
   }
 
-  componentDidMount() {
-    this.init();
-  }
+  // ComponentDidMount() {
+  //   this.init();
+  // }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.percent !== this.props.percent) {
-      this.init();
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   if (prevProps.percent !== this.props.percent) {
+  //     this.init();
+  //   }
+  // }
 
   init() {
     const {current: bar} = this.bar;
+    const {current: el} = this.el;
     let {percent} = this.props;
 
     if (!bar) {
       console.warn('Couldn\'t find ref: bar');
+      return;
+    }
+
+    if (!el.offsetParent) {
       return;
     }
 
@@ -54,24 +60,27 @@ class ProgressCircle extends Component {
   }
 
   render() {
-    const {size, borderWidth} = this.props;
+    const {size, borderWidth, percent} = this.props;
     const halfSize = size / 2;
     const radius = halfSize - borderWidth;
     const pathLength = (size - (borderWidth * 2)) * Math.PI;
+    const offset = ((100 - percent) / 100) * pathLength;
 
     return (
       <TrackVisibility alwaysShow className="progress-circle">
         {inView => (
-          <svg id="svg" width={size} height={size} viewport={`0 0 ${halfSize} ${halfSize}`} version="1.1" xmlns="http://www.w3.org/2000/svg" transform="rotate(-90)">
-            <defs>
-              <linearGradient id="progressCircleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#F6FDA5" />
-                <stop offset="100%" stopColor="#23E3D7" />
-              </linearGradient>
-            </defs>
-            <circle ref={this.circle} stroke="#f3f3f3" strokeWidth={borderWidth} r={radius} cx={halfSize} cy={halfSize} fill="transparent" strokeDasharray={pathLength} strokeDashoffset="0"></circle>
-            <circle ref={this.bar} stroke="url(#progressCircleGradient)" strokeWidth={borderWidth} id="bar" r={radius} cx={halfSize} cy={halfSize} fill="transparent" strokeDasharray={pathLength} style={{transition: 'all 0.5s 0.3s'}} strokeDashoffset={inView ? this.state.barProps.strokeDashoffset : pathLength}></circle>
-          </svg>
+          <div ref={this.el}>
+            <svg id="svg-progress-circle" width={size} height={size} viewport={`0 0 ${halfSize} ${halfSize}`} version="1.1" xmlns="http://www.w3.org/2000/svg" transform="rotate(-90)">
+              <defs>
+                <linearGradient id="progressCircleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#F6FDA5" />
+                  <stop offset="100%" stopColor="#23E3D7" />
+                </linearGradient>
+              </defs>
+              <circle ref={this.circle} stroke="#f3f3f3" strokeWidth={borderWidth} r={radius} cx={halfSize} cy={halfSize} fill="transparent" strokeDasharray={pathLength} strokeDashoffset="0"></circle>
+              <circle ref={this.bar} stroke="url(#progressCircleGradient)" strokeWidth={borderWidth} id="bar" r={radius} cx={halfSize} cy={halfSize} fill="transparent" strokeDasharray={pathLength} style={{transition: 'all 0.5s 0.3s'}} strokeDashoffset={inView ? offset : pathLength}></circle>
+            </svg>
+          </div>
         )}
       </TrackVisibility>
     );

@@ -44,6 +44,23 @@ app.prepare().then(async () => {
         plugin: require('hapi-require-https'),
         options: {}
       });
+
+      await server.register({
+        plugin: require('hapi-sentry'),
+        options: {
+          scope: {
+            tags: [
+              {
+                name: 'environment',
+                value: 'production'
+              }
+            ]
+          },
+          client: {
+            dsn: 'https://434c351258864811b971abf940ed32e0@sentry.io/1843596'
+          }
+        }
+      });
     }
 
     await server.register([

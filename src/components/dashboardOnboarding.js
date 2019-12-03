@@ -8,7 +8,7 @@ import Countup from './countup';
 import TrackVisibility from './trackVisibility';
 import MaIcon from './maIcon';
 
-const DashboardOnboarding = ({ items }) => {
+const DashboardOnboarding = ({items}) => {
   const percent = items.filter(item => item.get('complete')).count() / items.count() * 100;
   const firstNotComplete = items.filter(i => !i.get('complete')).first();
 

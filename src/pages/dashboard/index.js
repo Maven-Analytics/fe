@@ -73,7 +73,7 @@ class DashboardPage extends Component {
     const completed = fromJS([...completedPaths.toJS(), ...completedCourses.toJS()]);
 
     const Onboarding = (
-      <DashboardCard loading={loadingOnboarding} title="YOUR GETTING STARTED CHECKLIST">
+      <DashboardCard canToggleVisibility showClose={onboarding.filter(f => f).count() === onboarding.count()} settingsKey="onboarding" loading={loadingOnboarding} title="YOUR GETTING STARTED CHECKLIST">
         {loadingOnboarding === false ? (
           <DashboardOnboarding
             onboarding={onboarding}
@@ -103,7 +103,7 @@ class DashboardPage extends Component {
     );
 
     const RecentCourse = (
-      <DashboardCard showWelcome loading={loadingProgress || loadingCourses} title="Your Most Recent Course">
+      <DashboardCard showWelcome settingsKey="recentCourse" loading={loadingProgress || loadingCourses} title="Your Most Recent Course">
         {(!recentCourse || recentCourse.isEmpty()) && loadingProgress === false && loadingCourses === false ? (
           <DashboardNoData btnText="View Courses" btnUrl={Routes.Courses} text="You haven’t started any courses yet. Let’s get started!">
             <Image
@@ -134,7 +134,7 @@ class DashboardPage extends Component {
     );
 
     const RecommendedPath = (
-      <DashboardCard showWelcome loading={loadingPaths} title="Your Recommended Path">
+      <DashboardCard showWelcome settingsKey="recommendedPath" loading={loadingPaths} title="Your Recommended Path">
         {(!recommendedPath || recommendedPath.isEmpty()) && loadingPaths === false ? (
           <DashboardNoData
             btnText="Take Survey"
@@ -169,7 +169,7 @@ class DashboardPage extends Component {
     );
 
     const RockstarProgress = (
-      <DashboardCard loading={loadingProgress} title="Data Rockstar Progress">
+      <DashboardCard loading={loadingProgress} settingsKey="rockstarProgress" title="Data Rockstar Progress">
         <Tabs tabs={['Paths', 'Courses']}>
           <DashboardProgress items={progress.get('paths')} modal="pathDrawer" />
           <DashboardProgress items={progress.get('courses')} modal="courseDrawer" />
@@ -178,7 +178,7 @@ class DashboardPage extends Component {
     );
 
     const NewsUpdates = (
-      <DashboardCard title="News & Updates">
+      <DashboardCard settingsKey="news" title="News & Updates">
         {(!announcements || announcements.isEmpty()) && loadingAnnouncements === false ? (
           <DashboardNoData text="Comming Soon!" />
         ) : (
@@ -188,7 +188,7 @@ class DashboardPage extends Component {
     );
 
     const BadgeCreds = (
-      <DashboardCard title="Earned badges & credentials" loading={loadingProgress || loadingCourses || loadingCredentials}>
+      <DashboardCard settingsKey="credentials" title="Earned badges & credentials" loading={loadingProgress || loadingCourses || loadingCredentials}>
         {loadingProgress === false && loadingCourses === false && loadingCredentials && credentials.isEmpty() ? (
           <DashboardNoData
             btnText="View All Badges"
@@ -212,7 +212,7 @@ class DashboardPage extends Component {
                 return null;
               }
 
-              return <DashboardCredential key={item.get('id')} image={item.get('badge')} title={item.get('title')} />
+              return <DashboardCredential key={item.get('id')} image={item.get('badge')} title={item.get('title')} />;
             })}
           </DashboardCredentialIcons>
         )}

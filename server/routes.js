@@ -1,6 +1,6 @@
 const Joi = require('@hapi/joi');
 
-const { pathWrapper, defaultHandlerWrapper, nextHandlerWrapper } = require('./nextWrapper');
+const {pathWrapper, defaultHandlerWrapper, nextHandlerWrapper} = require('./nextWrapper');
 
 module.exports = app => {
   return {
@@ -217,6 +217,28 @@ module.exports = app => {
         method: 'PUT',
         path: '/api/v1/account/profile',
         handler: require('./controllers/account/profile')
+      });
+
+      server.route({
+        method: 'GET',
+        path: '/api/v1/usersettings',
+        handler: require('./controllers/usersettings/get')
+      });
+
+      server.route({
+        method: 'POST',
+        path: '/api/v1/usersettings',
+        handler: require('./controllers/usersettings/update'),
+        options: {
+          validate: {
+            payload: {
+              settings: Joi.array().items(Joi.object().keys({
+                setting_id: Joi.number().required(),
+                value: Joi.object().required()
+              })).required()
+            }
+          }
+        }
       });
 
       server.route({
