@@ -18,7 +18,7 @@ async function makeRequest(data) {
   return axios({
     url: `${process.env.HOST_API}/api/v1/user`,
     method: 'post',
-    data
+    data: Object.assign(data, {group: 1})
   })
     .then(res => res.data.data)
     .catch(handleApiError);
