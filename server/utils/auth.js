@@ -74,6 +74,7 @@ async function getLoginToken(user) {
     id: user.id,
     email: user.email,
     first_name: user.first_name,
-    last_name: user.last_name
+    last_name: user.last_name,
+    group: user.group
   }, process.env.JWT_SECRET, {algorithm: 'HS256', expiresIn: '7d'});
 }
