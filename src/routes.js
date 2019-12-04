@@ -20,6 +20,7 @@ export const Routes = {
   DashboardCredentials: '/dashboard/credentials',
   FAQ: '/faq',
   ForgotPassword: '/forgot',
+  HelpCenter: '//help.mavenanalytics.io',
   Login: '/login',
   Path: '/path',
   PrivacyPolicy: '/privacy-policy',
@@ -94,7 +95,7 @@ export const footerLinks = fromJS([
     links: [
       {
         text: 'FAQ',
-        url: Routes.FAQ
+        url: Routes.HelpCenter
       },
       {
         text: 'Credentials & Badges',

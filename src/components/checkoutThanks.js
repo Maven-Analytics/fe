@@ -21,8 +21,4 @@ const CheckoutThanks = () => {
   );
 };
 
-CheckoutThanks.propTypes = {
-  content: PropTypes.string.isRequired
-};
-
 export default CheckoutThanks;

@@ -16,10 +16,14 @@
       transform: none;
     }
 
-    h2 {
+    p {
       animation: 2s pulse ease infinite alternate;
       color: $white;
       opacity: 0;
+
+      &:last-of-type {
+        margin: $spacing-unit--md 0 0 !important;
+      }
 
       @at-root .fonts-loaded {
         opacity: 1;

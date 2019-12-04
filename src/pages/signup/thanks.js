@@ -30,7 +30,7 @@ class SignupThanks extends Component {
           ) : (
             <div className="checkout-thanks thanks-page__content ">
               <Loader center loading={loading} width={100} height={100} />
-              <h2>{'Hang tight, we\'re creating your account...'}</h2>
+              <p>{'Hang Tight, Creating your Account...'}</p>
             </div>
           )}
         </div>
