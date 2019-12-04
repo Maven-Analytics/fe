@@ -92,9 +92,19 @@ function * reauthenticateRequest({payload: {token, isServer, ctx}}) {
 function * ensureEnrolled({payload}) {
   try {
     let data = {};
+    const user = yield select(userSelectors.getUser);
+
+    if (user.get('enrolled')) {
+      return yield all([
+        put({
+          type: authTypes.ENSURE_ENROLLED_SUCCESS
+        })
+      ]);
+    }
 
     do {
-      data = yield reauthenticate(payload, false);
+      data = yield sync(payload);
+      console.log(data);
       yield delay(1000);
     } while (!data || !data.user || !data.user.enrolled);
 
@@ -340,6 +350,14 @@ async function authReq(type, data) {
   //   })
   //   .then(res => res.data)
   //   .then(response => response.data);
+}
+
+function sync(token) {
+  return api({
+    method: 'get',
+    url: '/api/v1/sync',
+    token
+  });
 }
 
 function reauthenticate(token, isServer) {

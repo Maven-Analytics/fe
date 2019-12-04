@@ -168,6 +168,12 @@ module.exports = app => {
       });
 
       server.route({
+        method: 'GET',
+        path: '/api/v1/sync',
+        handler: require('./controllers/auth/sync')
+      });
+
+      server.route({
         method: 'PUT',
         path: '/api/v1/checkout',
         options: {
