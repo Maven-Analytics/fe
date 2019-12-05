@@ -118,7 +118,8 @@
     }
   }
 
-  &--page {
+  &--page,
+  &--assessment {
     position: fixed;
 
     #{$self}__fog {
@@ -126,9 +127,19 @@
     }
 
     #{$self}__close {
-      color: $black;
       font-size: 3rem;
       position: fixed;
+    }
+
+    #{$self}__body {
+      height: 100%;
+      position: fixed;
+    }
+  }
+
+  &--page {
+    #{$self}__close {
+      color: $black;
     }
 
     #{$self}__body {
