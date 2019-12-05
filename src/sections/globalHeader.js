@@ -15,7 +15,7 @@ import { menuLinksMain } from '../routes';
 import HeaderAuth from '../components/headerAuth';
 import { Routes } from '../routes';
 
-const GlobalHeader = ({ state, actions, className, loginRedirect }) => {
+const GlobalHeader = ({ state, actions, className, loginRedirect, headroomDisabled}) => {
   const classList = ['global-header'];
 
   if (className) {
@@ -24,7 +24,7 @@ const GlobalHeader = ({ state, actions, className, loginRedirect }) => {
 
   return (
     <header className={classList.join(' ')}>
-      <Headroom disable={canUseDOM() === false}>
+      <Headroom disable={canUseDOM() === false || headroomDisabled}>
         <div className="container container--lg">
           <div className="global-header__inner">
             <Link href={Routes.Home}>
@@ -56,11 +56,13 @@ GlobalHeader.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   state: ImmutablePropTypes.map,
   className: PropTypes.string,
-  loginRedirect: PropTypes.string
+  loginRedirect: PropTypes.string,
+  headroomDisabled: PropTypes.bool
 };
 
 GlobalHeader.defaultProps = {
-  state: Map()
+  state: Map(),
+  headroomDisabled: false
 };
 
 const mapStateToProps = state => ({

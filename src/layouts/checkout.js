@@ -97,6 +97,7 @@ const CheckoutLayout = ({children, activeStep, title, full, containerClass, full
 
   return (
     <BaseLayout
+      headroomDisabled
       header={fullNav ? GlobalHeader : CheckoutHeader}
       footer={CopyrightFooter}
       loginRedirect={loginRedirect}
