@@ -94,7 +94,7 @@ export const footerLinks = fromJS([
     title: 'Resources',
     links: [
       {
-        text: 'FAQ',
+        text: 'Help Center',
         url: Routes.HelpCenter
       },
       {
