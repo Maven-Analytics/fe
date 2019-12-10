@@ -11,7 +11,7 @@ variables:
   ROLLOUT_RESOURCE_TYPE: deployment
   POSTGRES_ENABLED: "false"
   K8S_SECRET_SENTRY_ENVIRONMENT: $CI_COMMIT_REF_NAME
-  
+
 stages:
   - build
   - test
@@ -33,7 +33,7 @@ include:
   - template: Jobs/Test.gitlab-ci.yml # https://gitlab.com/gitlab-org/gitlab-foss/blob/master/lib/gitlab/ci/templates/Jobs/Test.gitlab-ci.yml
   - template: Jobs/Deploy.gitlab-ci.yml # https://gitlab.com/gitlab-org/gitlab-foss/blob/master/lib/gitlab/ci/templates/Jobs/Deploy.gitlab-ci.yml
 
-staging_deaploy:
+staging_deploy:
   extends: .auto-deploy
   stage: staging
   script:
