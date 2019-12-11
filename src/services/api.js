@@ -5,7 +5,7 @@ import config from '../config';
 import {canUseDOM} from '../utils/componentHelpers';
 
 export default ({method = 'get', data = {}, params = {}, url = '', useAuth = true, token = getCookie('token') || ''}) => {
-  const baseURL = canUseDOM() ? window.location.origin : config.HOST_SERVER;
+  const baseURL = canUseDOM() ? window.location.origin : 'http://localhost:5000';
 
   return axios({
     baseURL,
