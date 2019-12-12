@@ -94,47 +94,6 @@ import api from '../../services/api';
 //   }
 // }
 
-// function * ensureEnrolled({payload}) {
-//   try {
-//     let data = {};
-//     const user = yield select(userSelectors.getUser);
-
-//     if (user.get('enrolled')) {
-//       return yield all([
-//         put({
-//           type: authTypes.ENSURE_ENROLLED_SUCCESS
-//         })
-//       ]);
-//     }
-
-//     do {
-//       data = yield sync(payload);
-//       console.log(data);
-//       yield delay(1000);
-//     } while (!data || !data.user || !data.user.enrolled);
-
-//     yield all([
-//       put({
-//         type: userTypes.TOKEN_SET,
-//         payload: data.token
-//       }),
-//       put({
-//         type: userTypes.USER_SET,
-//         payload: data.user
-//       }),
-//       put({
-//         type: authTypes.ENSURE_ENROLLED_SUCCESS
-//       })
-//     ]);
-//   } catch (error) {
-//     console.log('ENSURE_ENROLLED_FAILURE', error);
-//     yield put({
-//       type: authTypes.ENSURE_ENROLLED_FAILURE,
-//       payload: error.response ? error.response.data : error.message
-//     });
-//   }
-// }
-
 // Function * loginRequest({payload}) {
 //   try {
 //     const data = yield login(payload);

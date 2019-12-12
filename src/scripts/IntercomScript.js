@@ -5,22 +5,20 @@ import Intercom from 'react-intercom';
 
 import {selectors as userSelectors} from '../redux/ducks/user';
 import config from '../config';
+import {subscriptionStatuses} from '../constants';
 
 class IntercomScript extends Component {
   getSubscriptionStatus(user = this.props.user) {
-    if (user.get('expired')) {
+    switch (user.get('subscription_status')) {
+    case subscriptionStatuses.canceled:
       return 'Expired';
-    }
-
-    if (user.get('is_free_trial')) {
+    case subscriptionStatuses.trial:
       return 'Free trial';
-    }
-
-    if (user.get('enrolled')) {
+    case subscriptionStatuses.paid:
       return 'Paid subscription';
+    default:
+      return 'Prospect';
     }
-
-    return 'Prospect';
   }
 
   render() {

@@ -19,6 +19,7 @@ import withAuthSync from '../../components/withAuthSync';
 import {getMatchScoreForCourse} from '../../utils/courseHelpers';
 import {prettyPercent} from '../../utils/componentHelpers';
 import {Routes} from '../../routes';
+import {userEnrolled} from '../../utils/userHelpers';
 
 class DashboardCourses extends Component {
   componentDidMount() {
@@ -39,7 +40,7 @@ class DashboardCourses extends Component {
               <CourseCard
                 full
                 key={course.get('id')}
-                resumeUrl={user.get('enrolled') ? course.get('url') : Routes.Signup}
+                resumeUrl={userEnrolled(user) ? course.get('url') : Routes.Signup}
                 match={`${prettyPercent(getMatchScoreForCourse(course, user))}%`}
                 course={course}
                 progress={course.get('percentage_completed')}
