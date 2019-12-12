@@ -11,7 +11,8 @@ module.exports = withPlugins([withSass], {
     CONTENTFUL_ACCESS_TOKEN: process.env.CONTENTFUL_ACCESS_TOKEN,
     NODE_ENV: process.env.NODE_ENV,
     DISABLE_INTERCOM: process.env.DISABLE_INTERCOM,
-    DISABLE_GTAG: process.env.DISABLE_GTAG
+    DISABLE_GTAG: process.env.DISABLE_GTAG,
+    HOST_PUBLIC_API: process.env.HOST_PUBLIC_API
   },
   webpack: (config, {isServer}) => {
     if (isServer) {

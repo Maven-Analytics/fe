@@ -11,11 +11,12 @@ import Checkout from '../../layouts/checkout';
 import CheckoutThanks from '../../components/checkoutThanks';
 import withAuthSync from '../../components/withAuthSync';
 import Loader from '../../components/loader';
+import {userEnrolled} from '../../utils/userHelpers';
 
 class SignupThanks extends Component {
   componentDidMount() {
     const {user} = this.props;
-    if (user && !user.get('enrolled')) {
+    if (user && !userEnrolled(user)) {
       this.props.actions.ensureEnrolled(this.props.token);
     }
   }
@@ -25,7 +26,7 @@ class SignupThanks extends Component {
     return (
       <Checkout full>
         <div className="thanks-page">
-          {loading === false && user.get('enrolled') ? (
+          {loading === false && userEnrolled(user) ? (
             <CheckoutThanks />
           ) : (
             <div className="checkout-thanks thanks-page__content ">

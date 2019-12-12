@@ -39,3 +39,10 @@ export const courseHeroBgSources = [
     type: 'image/jpeg'
   }
 ];
+
+export const subscriptionStatuses = {
+  prospect: 'prospect',
+  trial: 'trial',
+  paid: 'paid',
+  canceled: 'canceled'
+};
