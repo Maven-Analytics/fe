@@ -10,6 +10,7 @@ variables:
   SAST_DISABLED: "true"
   ROLLOUT_RESOURCE_TYPE: deployment
   POSTGRES_ENABLED: "false"
+  PRODUCTION_ADDITIONAL_HOSTS: mavenanalytics.io,www.mavenanalytics.io
   K8S_SECRET_SENTRY_ENVIRONMENT: $CI_COMMIT_REF_NAME
 
 stages:
