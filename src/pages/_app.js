@@ -25,6 +25,7 @@ import '../styles/index.scss';
 import LoggedIn from '../components/loggedIn';
 import IntercomScript from '../scripts/IntercomScript';
 import UserSettingsGet from '../scripts/UserSettingsGet';
+import {reauthenticateSync} from '../services/apiv2';
 
 class MavenApp extends App {
   static async getInitialProps({Component, ctx}) {
@@ -39,7 +40,9 @@ class MavenApp extends App {
     const user = state.getIn(['user', 'user']);
 
     if (token && token !== '' && (!user || user.isEmpty())) {
+      const user = await reauthenticateSync(token);
       store.dispatch(authActions.reauthenticate({token, ctx, isServer}));
+      console.log(user);
     }
 
     if (checkoutCookie && checkoutCookie !== '') {
