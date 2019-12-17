@@ -1,7 +1,7 @@
 import {takeLatest, put, all} from 'redux-saga/effects';
 
 import {types as filterTypes} from '../ducks/filters';
-import api from '../../services/api';
+import apiv2 from '../../services/apiv2';
 
 export function * watchFilters() {
   yield takeLatest(filterTypes.FILTERS_GET_REQUEST, onFiltersGet);
@@ -26,8 +26,7 @@ function * onFiltersGet() {
 }
 
 function getFilters() {
-  return api({
-    method: 'get',
-    url: '/api/v1/filters'
+  return apiv2({
+    url: '/public/filters'
   });
 }
