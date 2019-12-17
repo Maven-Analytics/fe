@@ -8,7 +8,6 @@ import {actions as courseActions, selectors as courseSelectors} from '../../redu
 import {selectors as errorSelectors} from '../../redux/ducks/error';
 import {selectors as loadingSelectors} from '../../redux/ducks/loading';
 import {selectors as userSelectors} from '../../redux/ducks/user';
-import {actions as dashboardActions, selectors as dashboardSelectors} from '../../redux/ducks/dashboard';
 import DashboardLayout from '../../layouts/dashboard';
 import CourseFilters from '../../components/courseFilters';
 import DashboardGrid from '../../components/dashboardGrid';
@@ -24,12 +23,10 @@ import {userEnrolled} from '../../utils/userHelpers';
 class DashboardCourses extends Component {
   componentDidMount() {
     this.props.actions.coursesFilter();
-    this.props.actions.getProgress();
   }
 
   render() {
-    const {loading, progress, user} = this.props;
-    const courses = progress.get('courses');
+    const {loading, user, courses} = this.props;
 
     return (
       <DashboardLayout sidebar={CourseFilters} showWelcome loading={loading} title="Self-Paced Courses" activeLink={2}>
@@ -90,23 +87,22 @@ DashboardCourses.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.string,
   actions: PropTypes.objectOf(PropTypes.func),
-  progress: ImmutablePropTypes.map,
-  user: ImmutablePropTypes.map
+  user: ImmutablePropTypes.map,
+  courses: ImmutablePropTypes.list
 };
 
 const mapStateToProps = state => ({
   loading: loadingSelectors.getLoading(['COURSES_FILTER'])(state),
   error: errorSelectors.getError(['COURSES_FILTER'])(state),
-  progress: dashboardSelectors.getProgress(state),
-  user: userSelectors.getUser(state)
+  user: userSelectors.getUser(state),
+  courses: courseSelectors.getCoursesByCompletionDesc(state)
 });
 
 const mapDispatchToProps = function (dispatch) {
   return {
     actions: bindActionCreators(
       {
-        ...courseActions,
-        ...dashboardActions
+        ...courseActions
       },
       dispatch
     )

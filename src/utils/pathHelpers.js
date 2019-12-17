@@ -43,7 +43,7 @@ export const getMatchForPath = (path, user) => {
 //   return pathEnrollments;
 // };
 
-export const getLatestCourse = (path, enrollments) => {
+export const getLatestCourse = path => {
   const pathEnrollments = path.get('enrollments'); // GetPathEnrollments(path, enrollments);
 
   if (!pathEnrollments || pathEnrollments.isEmpty()) {
@@ -57,15 +57,17 @@ export const getLatestCourse = (path, enrollments) => {
     .filter(e => e.get('percentage_completed') !== 1)
     .first();
 
+  console.log(pathEnrollments.toJS());
+
   if (!latestEnrollment || latestEnrollment.isEmpty()) {
-    latestEnrollment = enrollments.find(e => e.get('courseId') === path.getIn(['courses', 0, 'thinkificCourseId']));
+    latestEnrollment = pathEnrollments.find(e => e.get('course_id') === path.getIn(['courses', 0, 'thinkificCourseId']));
   }
 
   if (!latestEnrollment) {
     latestEnrollment = fromJS({courseId: path.getIn(['courses', 0, 'thinkificCourseId'])});
   }
 
-  const latestCourse = path.get('courses').find(c => c.get('thinkificCourseId') === latestEnrollment.get('courseId'));
+  const latestCourse = path.get('courses').find(c => c.get('thinkificCourseId') === latestEnrollment.get('course_id'));
   return latestCourse ? latestCourse : Map();
 };
 

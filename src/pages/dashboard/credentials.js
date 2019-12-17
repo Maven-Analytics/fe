@@ -16,7 +16,7 @@ import withAuthSync from '../../components/withAuthSync';
 
 class DashboardCredentials extends Component {
   componentDidMount() {
-    this.props.actions.pathsInit();
+    this.props.actions.pathsGet();
     this.props.actions.coursesInit();
     this.props.actions.credentialsGet();
   }
@@ -74,8 +74,8 @@ const mapStateToProps = state => ({
   courses: courseSelectors.getCoursesByCompletionDesc(state),
   loadingCourses: loadingSelectors.getLoading(['COURSESINIT'])(state),
   errorCourses: errorSelectors.getError(['COURSESINIT'])(state),
-  loadingPaths: loadingSelectors.getLoading(['PATHSINIT'])(state),
-  errorPaths: errorSelectors.getError(['PATHSINIT'])(state)
+  loadingPaths: loadingSelectors.getLoading(['PATHS_GET'])(state),
+  errorPaths: errorSelectors.getError(['PATHS_GET'])(state)
 });
 
 const mapDispatchToProps = dispatch => {

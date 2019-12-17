@@ -1,23 +1,30 @@
 import {takeLatest, put, all} from 'redux-saga/effects';
 
 import {types as announcementTypes} from '../ducks/announcements';
-import {getAnnouncements} from '../../services/contentful';
+// Import {getAnnouncements} from '../../services/contentful';
+import apiv2 from '../../services/apiv2';
 
-export function* watchAnnouncements() {
+export function * watchAnnouncements() {
   yield takeLatest(announcementTypes.ANNOUNCEMENTS_GET_REQUEST, onAnnouncementsGet);
 }
 
-function* onAnnouncementsGet({payload}) {
+function * onAnnouncementsGet({payload}) {
   try {
     const query = payload.query || {};
     const order = payload.order || null;
 
-    const credentials = yield getAnnouncements(query, order);
+    const announcements = yield apiv2({
+      url: '/public/announcements',
+      params: {
+        ...query,
+        order
+      }
+    });
 
     yield all([
       put({
         type: announcementTypes.ANNOUNCEMENTS_GET_SUCCESS,
-        payload: credentials
+        payload: announcements
       })
     ]);
   } catch (error) {

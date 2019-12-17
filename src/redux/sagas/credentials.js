@@ -1,17 +1,20 @@
 import {takeEvery, put, all} from 'redux-saga/effects';
 
 import {types as credentialTypes} from '../ducks/credentials';
-import api from '../../services/api';
+import apiv2 from '../../services/apiv2';
 
-export function* watchCredentials() {
+export function * watchCredentials() {
   yield takeEvery(credentialTypes.CREDENTIALS_GET_REQUEST, onCredentialsGet);
 }
 
-function* onCredentialsGet({payload}) {
+function * onCredentialsGet({payload}) {
   try {
     const query = payload.query || {};
 
-    const credentials = yield getCredentials(query);
+    const credentials = yield apiv2({
+      url: '/me/credentials',
+      params: query
+    });
 
     yield all([
       put({
@@ -25,12 +28,4 @@ function* onCredentialsGet({payload}) {
       payload: error.response ? error.response.data : error.message
     });
   }
-}
-
-function getCredentials(params) {
-  return api({
-    method: 'get',
-    url: '/api/v1/credentials',
-    params
-  });
 }

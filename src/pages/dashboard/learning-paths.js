@@ -4,9 +4,7 @@ import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import {actions as dashboardActions, selectors as dashboardSelectors} from '../../redux/ducks/dashboard';
-import {actions as pathActions} from '../../redux/ducks/paths';
-import {actions as courseActions} from '../../redux/ducks/courses';
+import {actions as pathActions, selectors as pathSelectors} from '../../redux/ducks/paths';
 import {selectors as errorSelectors} from '../../redux/ducks/error';
 import {selectors as loadingSelectors} from '../../redux/ducks/loading';
 import {selectors as userSelectors} from '../../redux/ducks/user';
@@ -21,25 +19,23 @@ import withAuthSync from '../../components/withAuthSync';
 
 class DashboardLearningPaths extends Component {
   componentDidMount() {
-    this.props.actions.pathsInit();
-    this.props.actions.coursesInit();
-    this.props.actions.getProgress();
+    this.props.actions.pathsGet();
   }
 
   render() {
-    const {progress, loadingProgress, user, enrollments, actions} = this.props;
+    const {paths, loading, user, actions} = this.props;
 
     return (
-      <DashboardLayout showWelcome loading={loadingProgress} title="Learning Paths" activeLink={1}>
+      <DashboardLayout showWelcome loading={loading} title="Learning Paths" activeLink={1}>
         <DashboardGrid vertical>
-          {progress.get('paths').map(path => {
+          {paths.map(path => {
             return (
               <DashboardCard key={path.get('pathId')} size="xl" style={{margin: 0}}>
                 <DashboardPath
                   title={path.getIn(['title'])}
                   badge={path.getIn(['badge'])}
                   shortDescription={path.getIn(['shortDescription'])}
-                  resumeUrl={getLatestCourse(path, enrollments).get('url')}
+                  resumeUrl={getLatestCourse(path, path.get('enrollments')).get('url')}
                   percentage_completed={path.get('percentage_completed')}
                   match={`${prettyPercent(getMatchForPath(path, user))}%`}
                   courseCount={path.getIn(['courses']).count()}
@@ -48,7 +44,7 @@ class DashboardLearningPaths extends Component {
                   hours={getPathHours(path)}
                 />
               </DashboardCard>
-            )
+            );
           })}
         </DashboardGrid>
       </DashboardLayout>
@@ -56,36 +52,26 @@ class DashboardLearningPaths extends Component {
   }
 }
 
-DashboardLearningPaths.getInitialProps = async ctx => {
-  const {store} = ctx;
-  // store.dispatch(pathActions.pathsInit());
-  // store.dispatch(courseActions.coursesInit());
-};
-
 DashboardLearningPaths.propTypes = {
-  loadingProgress: PropTypes.bool,
-  errorProgress: PropTypes.string,
+  loading: PropTypes.bool,
+  error: PropTypes.string,
   actions: PropTypes.objectOf(PropTypes.func),
-  progress: ImmutablePropTypes.map,
-  user: ImmutablePropTypes.map,
-  enrollments: ImmutablePropTypes.list
+  paths: ImmutablePropTypes.list,
+  user: ImmutablePropTypes.map
 };
 
 const mapStateToProps = state => ({
-  progress: dashboardSelectors.getProgress(state),
-  loadingProgress: loadingSelectors.getLoading(['DASHBOARD_PROGRESS'])(state),
-  errorProgress: errorSelectors.getError(['DASHBOARD_PROGRESS'])(state),
-  user: userSelectors.getUser(state),
-  enrollments: dashboardSelectors.getEnrollments(state)
+  paths: pathSelectors.getPathsByCompletionDesc(state),
+  loading: loadingSelectors.getLoading(['PATHS_GET'])(state),
+  error: errorSelectors.getError(['PATHS_GET'])(state),
+  user: userSelectors.getUser(state)
 });
 
 const mapDispatchToProps = function (dispatch) {
   return {
     actions: bindActionCreators({
-      ...dashboardActions,
       ...stateActions,
-      ...pathActions,
-      ...courseActions
+      ...pathActions
     }, dispatch)
   };
 };

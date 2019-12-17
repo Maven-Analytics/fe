@@ -46,7 +46,7 @@ class CoursesLearningPaths extends PureComponent {
 
   componentDidMount() {
     this.props.actions.coursesFilter();
-    this.props.actions.pathsInit();
+    this.props.actions.pathsGet();
     this.props.actions.pagesGet({slug: PAGE_SLUG});
   }
 
@@ -240,9 +240,6 @@ class CoursesLearningPaths extends PureComponent {
 CoursesLearningPaths.getInitialProps = ctx => {
   const {store, asPath} = ctx;
 
-  // Store.dispatch(courseActions.coursesFilter());
-  // store.dispatch(pathActions.pathsInit());
-
   const url = asPath;
 
   const search = url.split('?')[1] || '';
@@ -276,7 +273,7 @@ const mapStateToProps = state => ({
   paths: pathSelectors.getPaths(state),
   page: pageSelectors.getPage(state, PAGE_SLUG),
   loadingCourses: loadingSelectors.getLoading(['COURSES_FILTER'])(state),
-  loadingPaths: loadingSelectors.getLoading(['PATHSINIT'])(state)
+  loadingPaths: loadingSelectors.getLoading(['PATHS_GET'])(state)
 });
 
 const mapDispatchToProps = dispatch => ({

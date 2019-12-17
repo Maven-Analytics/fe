@@ -178,7 +178,7 @@ class WelcomeSurvey extends Component {
 WelcomeSurvey.getInitialProps = ctx => {
   const {store} = ctx;
 
-  store.dispatch(pathActions.pathsInit());
+  store.dispatch(pathActions.pathsGet());
   store.dispatch(courseActions.coursesInit());
 };
 

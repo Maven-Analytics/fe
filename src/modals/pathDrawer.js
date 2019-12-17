@@ -5,7 +5,6 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import {actions as stateActions, selectors as stateSelectors} from '../redux/ducks/state';
-import {selectors as dashboardSelectors} from '../redux/ducks/dashboard';
 import {selectors as userSelectors} from '../redux/ducks/user';
 import CloseButton from '../components/closeButton';
 import ProductDetail from '../components/productDetail';
@@ -14,7 +13,7 @@ import {clickAction} from '../utils/componentHelpers';
 import {getLatestCourse, getPathHours, getPathInstructors, getMatchForPath} from '../utils/pathHelpers';
 import {getResumeCourseUrl} from '../utils/routeHelpers';
 
-const PathDrawer = ({actions, state, enrollments, user}) => {
+const PathDrawer = ({actions, state, user}) => {
   const isOpen = state.getIn(['pathDrawer', 'open']);
   const path = state.getIn(['pathDrawer', 'data']);
 
@@ -38,7 +37,7 @@ const PathDrawer = ({actions, state, enrollments, user}) => {
               title={path.get('title')}
               titleTag="h2"
               percentage_completed={path.get('percentage_completed')}
-              resumeUrl={getLatestCourse(path, enrollments).get('url')}
+              resumeUrl={getLatestCourse(path).get('url')}
               tools={path.get('tools')}
               match={getMatchForPath(path, user)}
               courseCount={path.get('courses').count()}
@@ -57,13 +56,11 @@ const PathDrawer = ({actions, state, enrollments, user}) => {
 PathDrawer.propTypes = {
   state: ImmutablePropTypes.map.isRequired,
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  enrollments: ImmutablePropTypes.list,
   user: ImmutablePropTypes.map
 };
 
 const mapStateToProps = state => ({
   state: stateSelectors.getState(state),
-  enrollments: dashboardSelectors.getEnrollments(state),
   user: userSelectors.getUser(state)
 });
 

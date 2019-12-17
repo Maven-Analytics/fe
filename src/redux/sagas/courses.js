@@ -1,10 +1,8 @@
-import {takeLatest, put, all, select} from 'redux-saga/effects';
-import {fromJS} from 'immutable';
+import {takeLatest, put, all, select, call} from 'redux-saga/effects';
 
 import {types as courseTypes} from '../ducks/courses';
 import {selectors as activeFilterSelectors} from '../ducks/activeFilters';
-import {getFiltersFromCourses} from '../../utils/filterHelpers';
-import api from '../../services/api';
+import apiv2 from '../../services/apiv2';
 
 export function * watchCourses() {
   yield takeLatest(courseTypes.COURSESINIT_REQUEST, onCoursesInitRequest);
@@ -42,7 +40,9 @@ function * onCoursesFilter() {
       .map(v => v.join(','))
       .toJS();
 
-    const courses = yield getCourses(params, true);
+    const {enrollmentFilter, ...query} = params;
+
+    let courses = yield getCourses({...query, progress: enrollmentFilter}, true);
 
     yield all([
       put({
@@ -92,11 +92,10 @@ function * onCoursesGet({payload}) {
   }
 }
 
-function getCourses(params = {}, useAuth = true) {
-  return api({
+function getCourses(params = {}) {
+  return apiv2({
     method: 'get',
-    url: '/api/v1/courses',
-    params,
-    useAuth
+    url: '/public/courses',
+    params
   });
 }

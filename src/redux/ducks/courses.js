@@ -44,11 +44,14 @@ const getCourse = (state, slug) => {
   return getCourseBySlug(state.get('courses'), slug);
 };
 
+const getCourseById = (state, id) => state.get('courses').find(c => c.get('thinkificCourseId') === id);
+
 export const selectors = {
   getCourses: createSelector([getCourses], c => c),
   getCourse: createSelector([getCourse], c => c),
+  getCourseById: createSelector([getCourseById], c => c),
   getFilteredCourses: createSelector([getCourses], courses => courses),
-  getCompletedCourses: createSelector([getCourses], c => c.filter(c => c.get('completed'))),
+  // GetCompletedCourses: createSelector([getCourses], c => c.filter(c => c.get('completed'))),
   getCoursesByCompletionDesc: createSelector([getCourses], c => c.sort((a, b) => b.get('percentage_completed') - a.get('percentage_completed'))),
   getCoursesForAssessmentPage: createSelector([getCourses], c => c.filter(c => c.get('assessmentPage')))
 };

@@ -57,7 +57,7 @@ CredentialsPage.getInitialProps = ctx => {
 
   store.dispatch(pageActions.pagesGet({slug: 'credentials'}));
   store.dispatch(courseActions.coursesInit());
-  store.dispatch(pathActions.pathsInit());
+  store.dispatch(pathActions.pathsGet());
   return {};
 };
 

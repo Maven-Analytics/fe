@@ -2,11 +2,13 @@ import {createSelector} from 'reselect';
 
 import * as utils from '../../utils/duckHelpers';
 import {getPathBySlug} from '../../utils/pathHelpers';
+import {fromJS} from 'immutable';
 
 export const types = {
   CREDENTIALS_GET_REQUEST: 'CREDENTIALS_GET_REQUEST',
   CREDENTIALS_GET_SUCCESS: 'CREDENTIALS_GET_SUCCESS',
-  CREDENTIALS_GET_FAILURE: 'CREDENTIALS_GET_FAILURE'
+  CREDENTIALS_GET_FAILURE: 'CREDENTIALS_GET_FAILURE',
+  CREDENTIALS_SET: 'CREDENTIALS_SET'
 };
 
 export const actions = {
@@ -17,10 +19,12 @@ const initialState = utils.initialState([]);
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case types.CREDENTIALS_GET_SUCCESS:
-      return utils.stateListMerge(state, action.payload);
-    default:
-      return state;
+  case types.CREDENTIALS_GET_SUCCESS:
+    return utils.stateListMerge(state, action.payload);
+  case types.CREDENTIALS_SET:
+    return fromJS(action.payload);
+  default:
+    return state;
   }
 };
 

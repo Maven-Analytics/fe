@@ -26,6 +26,7 @@ import {watchCredentials} from './credentials';
 import {watchAnnouncements} from './announcements';
 import {watchUserSettings} from './userSettings';
 import api from '../../services/api';
+import {watchEnrollments} from './enrollments';
 
 // Function * logoutRequest({payload: {ctx}}) {
 //   removeCookie('token', ctx);
@@ -254,13 +255,14 @@ function * rootSaga() {
     fork(watchSubscribe),
     fork(watchCredentials),
     fork(watchAnnouncements),
-    fork(watchUserSettings)
+    fork(watchUserSettings),
+    fork(watchEnrollments)
   ]);
 }
 
-function sso({redirectTo}) {
-  return authReq('sso', {redirectTo});
-}
+// Function sso({redirectTo}) {
+//   return authReq('sso', {redirectTo});
+// }
 
 function reset({email, password, token}) {
   return authReq('reset', {email, password, token});
@@ -270,33 +272,33 @@ function forgot({email}) {
   return authReq('forgot', {email});
 }
 
-function login({email, password, redirectTo}) {
-  return authReq('login', {email, password, redirectTo});
-}
+// Function login({email, password, redirectTo}) {
+//   return authReq('login', {email, password, redirectTo});
+// }
 
-function register({
-  email,
-  password,
-  first_name,
-  last_name,
-  country,
-  postal_code,
-  redirectTo,
-  recommended_paths,
-  recommended_courses
-}) {
-  return authReq('register', {
-    email,
-    password,
-    first_name,
-    last_name,
-    country,
-    postal_code,
-    redirectTo,
-    recommended_paths,
-    recommended_courses
-  });
-}
+// function register({
+//   email,
+//   password,
+//   first_name,
+//   last_name,
+//   country,
+//   postal_code,
+//   redirectTo,
+//   recommended_paths,
+//   recommended_courses
+// }) {
+//   return authReq('register', {
+//     email,
+//     password,
+//     first_name,
+//     last_name,
+//     country,
+//     postal_code,
+//     redirectTo,
+//     recommended_paths,
+//     recommended_courses
+//   });
+// }
 
 async function authReq(type, data) {
   // Const baseUrl = config.HOST_APP;
@@ -317,30 +319,30 @@ async function authReq(type, data) {
   //   .then(response => response.data);
 }
 
-function sync(token) {
-  return api({
-    method: 'get',
-    url: '/api/v1/sync',
-    token
-  });
-}
+// Function sync(token) {
+//   return api({
+//     method: 'get',
+//     url: '/api/v1/sync',
+//     token
+//   });
+// }
 
-function reauthenticate(token, isServer) {
-  return api({
-    method: 'get',
-    url: '/api/v1/me',
-    token
-  });
-  // Const baseUrl = isServer ? config.HOST_SERVER : config.HOST_APP;
+// function reauthenticate(token, isServer) {
+//   return api({
+//     method: 'get',
+//     url: '/api/v1/me',
+//     token
+//   });
+//   // Const baseUrl = isServer ? config.HOST_SERVER : config.HOST_APP;
 
-  // Return axios
-  //   .get(`${baseUrl}/api/v1/me`, {
-  //     headers: {
-  //       authorization: token
-  //     }
-  //   })
-  //   .then(res => res.data)
-  //   .then(response => response.data);
-}
+//   // Return axios
+//   //   .get(`${baseUrl}/api/v1/me`, {
+//   //     headers: {
+//   //       authorization: token
+//   //     }
+//   //   })
+//   //   .then(res => res.data)
+//   //   .then(response => response.data);
+// }
 
 export default rootSaga;

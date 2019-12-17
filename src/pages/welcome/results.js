@@ -199,7 +199,7 @@ WelcomeSurveyResults.getInitialProps = ctx => {
   //   ctx.res.end();
   // }
 
-  store.dispatch(pathActions.pathsInit());
+  store.dispatch(pathActions.pathsGet());
   store.dispatch(courseActions.coursesInit());
 };
 

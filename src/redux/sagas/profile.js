@@ -9,11 +9,11 @@ import {checkRedirect} from './redirect';
 import api from '../../services/api';
 
 export function * watchProfile() {
-  yield takeLatest(profileTypes.PROFILEUPDATE_REQUEST, onPathsInitRequest);
+  yield takeLatest(profileTypes.PROFILEUPDATE_REQUEST, profileUpdateRequest);
   yield takeLatest(profileTypes.PROFILE_PASSWORD_RESET_REQUEST, onPasswordResetRequest);
 }
 
-function * onPathsInitRequest({payload}) {
+function * profileUpdateRequest({payload}) {
   try {
     const res = yield updateProfile(payload);
 
