@@ -22,7 +22,7 @@ const DashboardCourse = ({percentage_completed, course, actions}) => {
         <p>{course.get('excerpt')}</p>
         <ProgressMeter value={percentage_completed} title="Progress" />
         <div className="dashboard-course__footer">
-          <button onClick={clickAction(actions.modalOpen, 'courseDrawer', course)} className="btn btn--empty-dark">
+          <button onClick={clickAction(actions.modalOpen, 'courseDrawer', course.get('id'))} className="btn btn--empty-dark">
             View Course Details
           </button>
           <ResumeProduct resumeUrl={course.get('url')} productTerm="Course" started={percentage_completed > 0} className="btn btn--primary-solid" />

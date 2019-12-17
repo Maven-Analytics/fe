@@ -97,7 +97,7 @@ class CourseCard extends Component {
         </div>
         <div className="course-card__footer">
           <span>
-            <button onClick={clickAction(actions.modalOpen, 'courseDrawer', course)} className="btn">
+            <button onClick={clickAction(actions.modalOpen, 'courseDrawer', course.get('id'))} className="btn">
               Course Info
             </button>
           </span>

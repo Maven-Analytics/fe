@@ -1,10 +1,17 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
+import {actions as stateActions} from '../redux/ducks/state';
 import Main from './main';
 import CtaSection from '../sections/ctaSection';
 
 class BrochureLayout extends Component {
+  componentDidMount() {
+    this.props.actions.resetProductSort();
+  }
+
   render() {
     const {children, className} = this.props;
 
@@ -27,7 +34,16 @@ class BrochureLayout extends Component {
 
 BrochureLayout.propTypes = {
   children: PropTypes.node.isRequired,
-  className: PropTypes.string
+  className: PropTypes.string,
+  actions: PropTypes.objectOf(PropTypes.func)
 };
 
-export default BrochureLayout;
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    ...stateActions
+  }, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(BrochureLayout);

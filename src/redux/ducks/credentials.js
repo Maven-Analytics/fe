@@ -1,7 +1,6 @@
 import {createSelector} from 'reselect';
 
 import * as utils from '../../utils/duckHelpers';
-import {getPathBySlug} from '../../utils/pathHelpers';
 import {fromJS} from 'immutable';
 
 export const types = {

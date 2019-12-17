@@ -5,17 +5,16 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import {actions as stateActions, selectors as stateSelectors} from '../redux/ducks/state';
+import {selectors as pathSelectors} from '../redux/ducks/paths';
 import {selectors as userSelectors} from '../redux/ducks/user';
 import CloseButton from '../components/closeButton';
 import ProductDetail from '../components/productDetail';
 import RichText from '../components/richText';
 import {clickAction} from '../utils/componentHelpers';
-import {getLatestCourse, getPathHours, getPathInstructors, getMatchForPath} from '../utils/pathHelpers';
-import {getResumeCourseUrl} from '../utils/routeHelpers';
 
-const PathDrawer = ({actions, state, user}) => {
+const PathDrawer = ({actions, state, user, paths}) => {
   const isOpen = state.getIn(['pathDrawer', 'open']);
-  const path = state.getIn(['pathDrawer', 'data']);
+  const path = paths.find(p => p.get('id') === state.getIn(['pathDrawer', 'data']));
 
   const classList = ['path-drawer'];
   const close = clickAction(actions.modalClose, 'pathDrawer');
@@ -37,12 +36,12 @@ const PathDrawer = ({actions, state, user}) => {
               title={path.get('title')}
               titleTag="h2"
               percentage_completed={path.get('percentage_completed')}
-              resumeUrl={getLatestCourse(path).get('url')}
+              resumeUrl={path.get('resumeUrl')}
               tools={path.get('tools')}
-              match={getMatchForPath(path, user)}
+              match={path.get('match')}
               courseCount={path.get('courses').count()}
-              hours={getPathHours(path)}
-              instructors={getPathInstructors(path)}
+              hours={path.get('length')}
+              instructors={path.get('instructors')}
             >
               {path.get('description') && path.get('description') !== '' ? <RichText content={path.get('description')} /> : null}
             </ProductDetail>
@@ -56,12 +55,14 @@ const PathDrawer = ({actions, state, user}) => {
 PathDrawer.propTypes = {
   state: ImmutablePropTypes.map.isRequired,
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  user: ImmutablePropTypes.map
+  user: ImmutablePropTypes.map,
+  paths: ImmutablePropTypes.list
 };
 
 const mapStateToProps = state => ({
   state: stateSelectors.getState(state),
-  user: userSelectors.getUser(state)
+  user: userSelectors.getUser(state),
+  paths: pathSelectors.getPaths(state)
 });
 
 const mapDispatchToProps = dispatch => ({

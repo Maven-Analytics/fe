@@ -14,6 +14,8 @@ import initStore from '../redux/store';
 import {actions as authActions} from '../redux/ducks/auth';
 import {actions as checkoutActions} from '../redux/ducks/checkout';
 import {actions as userActions} from '../redux/ducks/user';
+import {actions as recommendedActions} from '../redux/ducks/recommended';
+import {actions as enrollmentActions} from '../redux/ducks/enrollments';
 import {actions as stateActions} from '../redux/ducks/state';
 import {actions as responseActions} from '../redux/ducks/response';
 import {actions as errorActions} from '../redux/ducks/error';
@@ -40,9 +42,10 @@ class MavenApp extends App {
     const user = state.getIn(['user', 'user']);
 
     if (token && token !== '' && (!user || user.isEmpty())) {
-      const user = await reauthenticateSync(token);
+      // Const user = await reauthenticateSync(token);
       store.dispatch(authActions.reauthenticate({token, ctx, isServer}));
-      console.log(user);
+      store.dispatch(enrollmentActions.enrollmentsGet({token}));
+      // Console.log(user);
     }
 
     if (checkoutCookie && checkoutCookie !== '') {
@@ -61,7 +64,7 @@ class MavenApp extends App {
         user.get('recommended_courses').isEmpty())
     ) {
       store.dispatch(
-        userActions.userRecommendedSet({
+        recommendedActions.recommendedSet({
           paths: recommendedPaths,
           courses: recommendedCourses
         })

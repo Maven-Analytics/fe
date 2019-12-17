@@ -8,7 +8,9 @@ export const types = {
   OFFMENU_CLOSE: 'OFFMENU_CLOSE',
   STATE_RESET: 'STATE_RESET',
   MODAL_OPEN: 'MODAL_OPEN',
-  MODAL_CLOSE: 'MODAL_CLOSE'
+  MODAL_CLOSE: 'MODAL_CLOSE',
+  PRODUCT_SORT_SET: 'PRODUCT_SORT_SET',
+  PRODUCT_SORT_RESET: 'PRODUCT_SORT_RESET'
 };
 
 export const actions = {
@@ -16,7 +18,9 @@ export const actions = {
   offmenuClose: obj => utils.action(types.OFFMENU_CLOSE, obj),
   modalClose: (key, delay) => utils.action(types.MODAL_CLOSE, {key, delay}),
   modalOpen: (key, data) => utils.action(types.MODAL_OPEN, {key, data}),
-  stateReset: () => utils.action(types.STATE_RESET)
+  stateReset: () => utils.action(types.STATE_RESET),
+  setProductSort: obj => utils.action(types.PRODUCT_SORT_SET, obj),
+  resetProductSort: obj => utils.action(types.PRODUCT_SORT_RESET, obj)
 };
 
 const initialState = utils.initialState({
@@ -42,7 +46,11 @@ const initialState = utils.initialState({
     open: false,
     data: null
   },
-  filters: false
+  filters: false,
+  productSort: {
+    key: 'surveyWeight',
+    order: 'DESC'
+  }
 });
 
 export default (state = initialState, action) => {
@@ -60,6 +68,11 @@ export default (state = initialState, action) => {
     return state.set(action.payload, !state.get(action.payload));
   case types.OFFMENU_CLOSE:
     return state.set(action.payload, false);
+  case types.PRODUCT_SORT_SET:
+    return state.setIn(['productSort', 'key'], action.payload.key || state.getIn(['productSort', 'key']))
+      .setIn(['productSort', 'order'], action.payload.order.toUpperCase() || state.getIn(['productSort', 'order']));
+  case types.PRODUCT_SORT_RESET:
+    return state.set('productSort', initialState.get('productSort'));
   case types.STATE_RESET:
     return initialState;
 

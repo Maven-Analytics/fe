@@ -5,6 +5,11 @@ import * as utils from '../../utils/duckHelpers';
 import {getCourseBySlug} from '../../utils/courseHelpers';
 import {selectors as filterSelectors} from './filters';
 import {getFilteredCourses} from '../../utils/filterHelpers';
+import {selectors as enrollmentSelectors} from './enrollments';
+import {selectors as courseSelectors} from './courses';
+import {selectors as userSelectors} from './user';
+import {selectors as stateSelectors} from './state';
+import {selectors as pathSelectors} from './paths';
 
 export const types = {
   COURSESINIT_REQUEST: 'COURSESINIT_REQUEST',
@@ -47,11 +52,26 @@ const getCourse = (state, slug) => {
 const getCourseById = (state, id) => state.get('courses').find(c => c.get('thinkificCourseId') === id);
 
 export const selectors = {
-  getCourses: createSelector([getCourses], c => c),
+  getCourses: createSelector([getCourses, enrollmentSelectors.getEnrollments, userSelectors.getUser, stateSelectors.getState], (courses, enrollments, user, state) => {
+    courses = courses.map(course => {
+      const enrollment = enrollments.find(enrollment => enrollment.get('course_id') === course.get('thinkificCourseId'));
+      const recommendedCourse = user.getIn(['user', 'recommended_courses']) && user.getIn(['user', 'recommended_courses']).find(rc => rc.get('id') === course.get('id'));
+
+      return course
+        .set('percentage_completed', enrollment && enrollment.get('percentage_completed'))
+        .set('resumeUrl', course.get('url'))
+        .set('lastTaken', enrollment && enrollment.get('updatedAt'))
+        .set('match', recommendedCourse && recommendedCourse.get('percentage'));
+    });
+
+    courses = utils.sortProducts(courses, state);
+
+    return courses;
+  }),
   getCourse: createSelector([getCourse], c => c),
   getCourseById: createSelector([getCourseById], c => c),
   getFilteredCourses: createSelector([getCourses], courses => courses),
   // GetCompletedCourses: createSelector([getCourses], c => c.filter(c => c.get('completed'))),
-  getCoursesByCompletionDesc: createSelector([getCourses], c => c.sort((a, b) => b.get('percentage_completed') - a.get('percentage_completed'))),
+  // getCoursesByCompletionDesc: createSelector([getCourses], c => c.sort((a, b) => b.get('percentage_completed') - a.get('percentage_completed'))),
   getCoursesForAssessmentPage: createSelector([getCourses], c => c.filter(c => c.get('assessmentPage')))
 };

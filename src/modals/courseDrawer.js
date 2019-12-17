@@ -6,17 +6,17 @@ import {bindActionCreators} from 'redux';
 
 import {actions as stateActions, selectors as stateSelectors} from '../redux/ducks/state';
 import {selectors as userSelectors} from '../redux/ducks/user';
+import {selectors as courseSelectors} from '../redux/ducks/courses';
 import CloseButton from '../components/closeButton';
 import ProductDetail from '../components/productDetail';
 import {clickAction} from '../utils/componentHelpers';
-import {getMatchScoreForCourse} from '../utils/courseHelpers';
 import RichText from '../components/richText';
 import CourseLessons from '../components/courseLessons';
 import {Routes} from '../routes';
 
-const CourseDrawer = ({actions, state, user}) => {
+const CourseDrawer = ({actions, state, courses}) => {
   const isOpen = state.getIn(['courseDrawer', 'open']);
-  const course = state.getIn(['courseDrawer', 'data']);
+  const course = courses.find(course => course.get('id') === state.getIn(['courseDrawer', 'data']));
 
   const classList = ['course-drawer'];
   const close = clickAction(actions.modalClose, 'courseDrawer');
@@ -39,12 +39,11 @@ const CourseDrawer = ({actions, state, user}) => {
               title={course.get('title')}
               percentage_completed={course.get('percentage_completed')}
               titleTag="h2"
-              match={getMatchScoreForCourse(course, user)}
+              match={course.get('match')}
               resumeUrl={course.get('url')}
               tools={course.get('tools')}
               hours={course.get('length')}
               instructors={course.get('author')}
-              showScores={user.has('id')}
               id={course.get('thinkificCourseId')}
               url={Routes.Course(course.get('slug'))}
             >
@@ -62,12 +61,12 @@ const CourseDrawer = ({actions, state, user}) => {
 CourseDrawer.propTypes = {
   state: ImmutablePropTypes.map.isRequired,
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  user: ImmutablePropTypes.map
+  courses: ImmutablePropTypes.list
 };
 
 const mapStateToProps = state => ({
   state: stateSelectors.getState(state),
-  user: userSelectors.getUser(state)
+  courses: courseSelectors.getCourses(state)
 });
 
 const mapDispatchToProps = dispatch => ({

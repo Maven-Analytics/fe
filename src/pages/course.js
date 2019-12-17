@@ -7,6 +7,8 @@ import {bindActionCreators} from 'redux';
 import Link from 'next/link';
 
 import {actions as courseActions, selectors as courseSelectors} from '../redux/ducks/courses';
+import {selectors as pathSelectors} from '../redux/ducks/paths';
+import {actions as pathActions} from '../redux/ducks/paths';
 import {actions as stateActions} from '../redux/ducks/state';
 import BrochureLayout from '../layouts/brochure';
 import {redirect} from '../utils/routingHelpers';
@@ -20,8 +22,10 @@ import ImageContentful from '../components/imageContentful';
 import MaIcon from '../components/maIcon';
 import Head from '../components/head';
 import {courseHeroBgSources, courseHeroBgSrc} from '../constants';
+import {List} from 'immutable';
 
-const Course = ({course, actions}) => {
+const Course = ({course, actions, paths}) => {
+  paths = paths.filter(path => path.has('courses') && path.get('courses').find(c => c.get('id') === course.get('id')));
   return (
     <BrochureLayout>
       <Head meta={course.get('meta')}/>
@@ -35,7 +39,7 @@ const Course = ({course, actions}) => {
           tools={course.get('tools')}
           skills={course.get('skills')}
           badge={course.get('badge')}
-          paths={course.get('paths')}
+          paths={paths}
           thumbnail={course.get('thumbnail')}
           video={course.get('video')}
           backgroundSources={courseHeroBgSources}
@@ -128,6 +132,7 @@ Course.getInitialProps = ctx => {
   }
 
   store.dispatch(courseActions.coursesGet({params: {'fields.slug': query.id}}));
+  store.dispatch(pathActions.pathsGet());
 
   return {
     slug: query.id
@@ -136,16 +141,19 @@ Course.getInitialProps = ctx => {
 
 Course.propTypes = {
   course: ImmutablePropTypes.map.isRequired,
+  paths: ImmutablePropTypes.list.isRequired,
   slug: PropTypes.string.isRequired,
   actions: PropTypes.objectOf(PropTypes.func)
 };
 
 Course.defaultProps = {
-  course: Map()
+  course: Map(),
+  paths: List()
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  course: courseSelectors.getCourse(state, ownProps.slug)
+  course: courseSelectors.getCourses(state).find(c => c.get('slug') === ownProps.slug),
+  paths: pathSelectors.getPaths(state)
 });
 
 const mapDispatchToProps = dispatch => ({

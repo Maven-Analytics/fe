@@ -8,8 +8,8 @@ export function getRecommendedScores(results, initial, data) {
   }
 
   return results.reduce((recommendedObjects, score, answerId) => {
-    return data.reduce((recommendedObjects, path, key) => {
-      if (path.find(a => a === answerId)) {
+    return data.reduce((recommendedObjects, item, key) => {
+      if (item.find(a => a === answerId)) {
         return recommendedObjects.update(key, u => u + score);
       }
 

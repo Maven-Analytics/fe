@@ -8,12 +8,11 @@ import {TransitionMotion, spring, presets} from 'react-motion';
 import {withRouter} from 'next/router';
 
 import {selectors as surveyResultSelectors, actions as surveyResultActions} from '../../redux/ducks/surveyResult';
-import {selectors as userSelectors} from '../../redux/ducks/user';
+import {selectors as recommendedSelectors} from '../../redux/ducks/recommended';
 import {selectors as loadingSelectors} from '../../redux/ducks/loading';
 import Checkout from '../../layouts/checkout';
 import CourseCarousel from '../../sections/courseCarousel';
 import PathBanner from '../../components/pathBanner';
-import {getPathHours} from '../../utils/pathHelpers';
 import {actions as pathActions} from '../../redux/ducks/paths';
 import {actions as courseActions} from '../../redux/ducks/courses';
 import {actions as userActions} from '../../redux/ducks/user';
@@ -102,8 +101,10 @@ class WelcomeSurveyResults extends Component {
   }
 
   renderResults(style) {
-    const {recommendedPaths, recommendedCourses} = this.props;
+    const {recommended} = this.props;
     const {coursesOpen} = this.state;
+    const recommendedPaths = recommended.get('paths');
+    const recommendedCourses = recommended.get('courses');
     const recommendedPath = recommendedPaths.first();
 
     if (!recommendedPath) {
@@ -121,13 +122,14 @@ class WelcomeSurveyResults extends Component {
         </header>
         <div className="welcome-survey-results__recommended-path">
           <PathBanner
+            id={recommendedPath.get('id')}
             slug={recommendedPath.get('slug') ? recommendedPath.get('slug') : ''}
             badge={recommendedPath.get('badge')}
             title={recommendedPath.get('title')}
             excerpt={recommendedPath.get('excerpt')}
             match={parseInt(recommendedPath.get('match') * 100, 10)}
             courses={recommendedPath.get('courses') && recommendedPath.get('courses').count()}
-            length={getPathHours(recommendedPath)}
+            length={recommendedPath.get('length')}
             tools={recommendedPath.get('tools')}
             url={`${Routes.Path}/${recommendedPath.get('slug')}`}
           />
@@ -206,23 +208,26 @@ WelcomeSurveyResults.getInitialProps = ctx => {
 WelcomeSurveyResults.propTypes = {
   surveyResults: ImmutablePropTypes.map.isRequired,
   actions: PropTypes.objectOf(PropTypes.func),
-  recommendedPaths: ImmutablePropTypes.list,
-  recommendedCourses: ImmutablePropTypes.list,
+  recommended: ImmutablePropTypes.mapContains({
+    courses: ImmutablePropTypes.list,
+    paths: ImmutablePropTypes.list
+  }),
   loading: PropTypes.bool,
   router: PropTypes.object
 };
 
 WelcomeSurveyResults.defaultProps = {
   surveyResults: Map(),
-  recommendedPaths: List(),
-  recommendedCourses: List()
+  recommended: fromJS({
+    courses: [],
+    paths: []
+  })
 };
 
 const mapStateToProps = state => ({
   surveyResults: surveyResultSelectors.getSurveyResult(state),
-  recommendedCourses: userSelectors.getRecommendedCoursesForDisplay(state),
-  recommendedPaths: userSelectors.getRecommendedPathsForDisplay(state),
-  loading: loadingSelectors.getLoading(['USER_RECOMMENDED_SET'])(state)
+  recommended: recommendedSelectors.getRecommended(state),
+  loading: loadingSelectors.getLoading(['RECOMMENDED_SET'])(state)
 });
 
 const mapDispatchToProps = function (dispatch) {

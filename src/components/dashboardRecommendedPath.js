@@ -31,7 +31,7 @@ const DashboardRecommendedPath = ({title, percentage_completed, badge, excerpt, 
       </div>
       <ProgressMeter value={percentage_completed} />
       <div className="dashboard-course__footer">
-        <button onClick={clickAction(actions.modalOpen, 'pathDrawer', path)} className="btn btn--default">
+        <button onClick={clickAction(actions.modalOpen, 'pathDrawer', path.get('id'))} className="btn btn--default">
           Path Info
         </button>
         <div className="dashboard-course__footer-right-buttons">

@@ -8,9 +8,9 @@ export function * watchEnrollments() {
   yield takeEvery(enrollmentTypes.ENROLLMENTS_GET_REQUEST, onEnrollmentsGet);
 }
 
-function * onEnrollmentsGet({payload}) {
+function * onEnrollmentsGet({payload: {token, ...payload}}) {
   try {
-    const enrollments = yield call(getEnrollments, payload);
+    const enrollments = yield call(getEnrollments, payload, token);
 
     yield all([
       put({
@@ -26,12 +26,13 @@ function * onEnrollmentsGet({payload}) {
   }
 }
 
-function * getEnrollments({query = {}, order = null}) {
+function * getEnrollments({query = {}, order = null}, token) {
   return yield apiv2({
     url: '/me/enrollments',
     params: {
       ...query,
       order
-    }
+    },
+    token
   });
 }

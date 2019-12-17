@@ -15,7 +15,6 @@ import CourseCard from '../../components/courseCard';
 import Image from '../../components/image';
 import DashboardNoData from '../../components/dashboardNoData';
 import withAuthSync from '../../components/withAuthSync';
-import {getMatchScoreForCourse} from '../../utils/courseHelpers';
 import {prettyPercent} from '../../utils/componentHelpers';
 import {Routes} from '../../routes';
 import {userEnrolled} from '../../utils/userHelpers';
@@ -38,7 +37,7 @@ class DashboardCourses extends Component {
                 full
                 key={course.get('id')}
                 resumeUrl={userEnrolled(user) ? course.get('url') : Routes.Signup}
-                match={`${prettyPercent(getMatchScoreForCourse(course, user))}%`}
+                match={`${prettyPercent(course.get('match'))}%`}
                 course={course}
                 progress={course.get('percentage_completed')}
                 recommended={course.get('recommended') ? 'Recommended for you' : null}
@@ -66,18 +65,7 @@ class DashboardCourses extends Component {
   }
 }
 
-DashboardCourses.getInitialProps = async ctx => {
-  const {store, asPath} = ctx;
-
-  // Store.dispatch(courseActions.coursesFilter());
-  // store.dispatch(dashboardActions.getProgress());
-
-  // const url = asPath;
-
-  // const search = url.split('?')[1] || '';
-
-  // const query = qs.parse(search);
-
+DashboardCourses.getInitialProps = async () => {
   return {
     loading: true
   };
@@ -95,7 +83,7 @@ const mapStateToProps = state => ({
   loading: loadingSelectors.getLoading(['COURSES_FILTER'])(state),
   error: errorSelectors.getError(['COURSES_FILTER'])(state),
   user: userSelectors.getUser(state),
-  courses: courseSelectors.getCoursesByCompletionDesc(state)
+  courses: courseSelectors.getCourses(state)
 });
 
 const mapDispatchToProps = function (dispatch) {

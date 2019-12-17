@@ -259,8 +259,8 @@ DashboardPage.propTypes = {
 const mapStateToProps = state => ({
   latestEnrollment: enrollmentSelectors.getLatestEnrollment(state),
   onboarding: dashboardSelectors.getOnboarding(state),
-  courses: courseSelectors.getCoursesByCompletionDesc(state),
-  paths: pathSelectors.getPathsByCompletionDesc(state),
+  courses: courseSelectors.getCourses(state),
+  paths: pathSelectors.getPaths(state),
   user: userSelectors.getUser(state),
   announcements: announcementSelectors.getAnnouncements(state),
   credentials: credentialSelectors.getCredentials(state),

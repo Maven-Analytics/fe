@@ -20,6 +20,7 @@ import credentials from './credentials';
 import announcements from './announcements';
 import userSettings from './userSettings';
 import enrollments from './enrollments';
+import recommended from './recommended';
 
 const Ducks = combineReducers({
   loading,
@@ -41,7 +42,8 @@ const Ducks = combineReducers({
   credentials,
   announcements,
   userSettings,
-  enrollments
+  enrollments,
+  recommended
 });
 
 export default Ducks;

@@ -70,8 +70,8 @@ DashboardCredentials.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  paths: pathSelectors.getPathsByCompletionDesc(state),
-  courses: courseSelectors.getCoursesByCompletionDesc(state),
+  paths: pathSelectors.getPaths(state),
+  courses: courseSelectors.getCourses(state),
   loadingCourses: loadingSelectors.getLoading(['COURSESINIT'])(state),
   errorCourses: errorSelectors.getError(['COURSESINIT'])(state),
   loadingPaths: loadingSelectors.getLoading(['PATHS_GET'])(state),

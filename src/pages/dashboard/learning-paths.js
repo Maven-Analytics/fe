@@ -14,7 +14,6 @@ import DashboardCard from '../../components/dashboardCard';
 import DashboardPath from '../../components/dashboardPath';
 import DashboardGrid from '../../components/dashboardGrid';
 import {prettyPercent, clickAction} from '../../utils/componentHelpers';
-import {getMatchForPath, getLatestCourse, getPathHours} from '../../utils/pathHelpers';
 import withAuthSync from '../../components/withAuthSync';
 
 class DashboardLearningPaths extends Component {
@@ -23,25 +22,25 @@ class DashboardLearningPaths extends Component {
   }
 
   render() {
-    const {paths, loading, user, actions} = this.props;
+    const {paths, loading, actions} = this.props;
 
     return (
       <DashboardLayout showWelcome loading={loading} title="Learning Paths" activeLink={1}>
         <DashboardGrid vertical>
           {paths.map(path => {
             return (
-              <DashboardCard key={path.get('pathId')} size="xl" style={{margin: 0}}>
+              <DashboardCard key={path.get('id')} size="xl" style={{margin: 0}}>
                 <DashboardPath
                   title={path.getIn(['title'])}
                   badge={path.getIn(['badge'])}
                   shortDescription={path.getIn(['shortDescription'])}
-                  resumeUrl={getLatestCourse(path, path.get('enrollments')).get('url')}
+                  resumeUrl={path.get('resumeUrl')}
                   percentage_completed={path.get('percentage_completed')}
-                  match={`${prettyPercent(getMatchForPath(path, user))}%`}
+                  match={`${prettyPercent(path.get('match'))}%`}
                   courseCount={path.getIn(['courses']).count()}
                   tools={path.getIn(['tools'])}
-                  onDetailClick={clickAction(actions.modalOpen, 'pathDrawer', path)}
-                  hours={getPathHours(path)}
+                  onDetailClick={clickAction(actions.modalOpen, 'pathDrawer', path.get('id'))}
+                  hours={path.get('length')}
                 />
               </DashboardCard>
             );
@@ -56,15 +55,13 @@ DashboardLearningPaths.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.string,
   actions: PropTypes.objectOf(PropTypes.func),
-  paths: ImmutablePropTypes.list,
-  user: ImmutablePropTypes.map
+  paths: ImmutablePropTypes.list
 };
 
 const mapStateToProps = state => ({
-  paths: pathSelectors.getPathsByCompletionDesc(state),
+  paths: pathSelectors.getPaths(state),
   loading: loadingSelectors.getLoading(['PATHS_GET'])(state),
-  error: errorSelectors.getError(['PATHS_GET'])(state),
-  user: userSelectors.getUser(state)
+  error: errorSelectors.getError(['PATHS_GET'])(state)
 });
 
 const mapDispatchToProps = function (dispatch) {

@@ -19,7 +19,7 @@ const DashboardProgress = ({items, active, actions, modal}) => {
     <div className={classList.join(' ')}>
       <ul>
         {items.map(item => (
-          <li key={item.get('id')} style={{cursor: 'pointer'}} onClick={clickAction(actions.modalOpen, modal, item)}>
+          <li key={item.get('id')} style={{cursor: 'pointer'}} onClick={clickAction(actions.modalOpen, modal, item.get('id'))}>
             <p>{item.get('title') || item.getIn(['path', 'title'])}</p>
             {active ? <ProgressMeter value={item.get('percentage_completed')}/> : null}
           </li>

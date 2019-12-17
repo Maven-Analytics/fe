@@ -7,7 +7,7 @@ import config from '../../config';
 import api from '../../services/api';
 
 export function * watchUser() {
-  yield takeLatest(userTypes.USER_RECOMMENDED_SET_REQUEST, onRecommendedSet);
+  // Yield takeLatest(userTypes.USER_RECOMMENDED_SET_REQUEST, onRecommendedSet);
 }
 
 function * onRecommendedSet() {

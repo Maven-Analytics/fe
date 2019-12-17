@@ -27,6 +27,7 @@ import {watchAnnouncements} from './announcements';
 import {watchUserSettings} from './userSettings';
 import api from '../../services/api';
 import {watchEnrollments} from './enrollments';
+import {watchRecommended} from './recommended';
 
 // Function * logoutRequest({payload: {ctx}}) {
 //   removeCookie('token', ctx);
@@ -256,7 +257,8 @@ function * rootSaga() {
     fork(watchCredentials),
     fork(watchAnnouncements),
     fork(watchUserSettings),
-    fork(watchEnrollments)
+    fork(watchEnrollments),
+    fork(watchRecommended)
   ]);
 }
 
