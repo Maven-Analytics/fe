@@ -22,23 +22,19 @@ class CredentialCard extends Component {
   }
 
   render() {
-    let {completed, progress, title, image, promoteUrl, credential} = this.props;
+    let {progress, title, image, promoteUrl, credential} = this.props;
     const classList = ['credential-card'];
     const url = credential && credential.has('url') && credential.get('url') !== '' ? credential.get('url') : promoteUrl;
 
-    if (completed || credential) {
-      classList.push('completed');
-    }
-
     if (credential) {
-      completed = true;
+      classList.push('completed');
     }
 
     return (
       <div className={classList.join(' ')}>
         <ImageContentful image={image} />
         <p>{title}</p>
-        {completed && url ? (
+        {url ? (
           <Link href={url}>
             <a className="btn" target="_blank">
               See Badge
@@ -55,7 +51,6 @@ class CredentialCard extends Component {
 CredentialCard.propTypes = {
   title: PropTypes.string,
   image: ImmutablePropTypes.map,
-  completed: PropTypes.bool,
   progress: PropTypes.number,
   promoteUrl: PropTypes.string,
   accredibleId: PropTypes.number,

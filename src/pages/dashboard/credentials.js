@@ -30,7 +30,6 @@ class DashboardCredentials extends Component {
           {paths.map(path => {
             return (
               <CredentialCard
-                completed={path.get('completed')}
                 promoteUrl={path.get('badgeUrl')}
                 key={path.get('id')}
                 title={path.get('title')}
@@ -45,7 +44,6 @@ class DashboardCredentials extends Component {
           {courses.map(course => {
             return (
               <CredentialCard
-                completed={course.get('completed')}
                 promoteUrl={course.get('badgeUrl')}
                 key={course.get('id')}
                 title={course.get('title')}

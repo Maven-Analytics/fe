@@ -2,14 +2,9 @@ import {createSelector} from 'reselect';
 import {fromJS} from 'immutable';
 
 import * as utils from '../../utils/duckHelpers';
-import {getCourseBySlug} from '../../utils/courseHelpers';
-import {selectors as filterSelectors} from './filters';
-import {getFilteredCourses} from '../../utils/filterHelpers';
 import {selectors as enrollmentSelectors} from './enrollments';
-import {selectors as courseSelectors} from './courses';
 import {selectors as userSelectors} from './user';
 import {selectors as stateSelectors} from './state';
-import {selectors as pathSelectors} from './paths';
 
 export const types = {
   COURSESINIT_REQUEST: 'COURSESINIT_REQUEST',
@@ -45,11 +40,6 @@ export default (state = initialState, action) => {
 };
 
 const getCourses = state => state.get('courses');
-const getCourse = (state, slug) => {
-  return getCourseBySlug(state.get('courses'), slug);
-};
-
-const getCourseById = (state, id) => state.get('courses').find(c => c.get('thinkificCourseId') === id);
 
 export const selectors = {
   getCourses: createSelector([getCourses, enrollmentSelectors.getEnrollments, userSelectors.getUser, stateSelectors.getState], (courses, enrollments, user, state) => {
@@ -67,11 +57,5 @@ export const selectors = {
     courses = utils.sortProducts(courses, state);
 
     return courses;
-  }),
-  getCourse: createSelector([getCourse], c => c),
-  getCourseById: createSelector([getCourseById], c => c),
-  getFilteredCourses: createSelector([getCourses], courses => courses),
-  // GetCompletedCourses: createSelector([getCourses], c => c.filter(c => c.get('completed'))),
-  // getCoursesByCompletionDesc: createSelector([getCourses], c => c.sort((a, b) => b.get('percentage_completed') - a.get('percentage_completed'))),
-  getCoursesForAssessmentPage: createSelector([getCourses], c => c.filter(c => c.get('assessmentPage')))
+  })
 };

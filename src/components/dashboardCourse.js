@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
-import {Map} from 'immutable';
+import {Map, List} from 'immutable';
 import {connect} from 'react-redux';
 
 import {selectors as courseSelectors} from '../redux/ducks/courses';
@@ -11,7 +11,13 @@ import ProgressMeter from './progressMeter';
 import ResumeProduct from './resumeProduct';
 import {clickAction} from '../utils/componentHelpers';
 
-const DashboardCourse = ({percentage_completed, course, actions}) => {
+const DashboardCourse = ({percentage_completed, courses, courseId, actions}) => {
+  const course = courses.find(c => c.get('thinkificCourseId') === courseId);
+
+  if (!course) {
+    return null;
+  }
+
   return (
     <div className="dashboard-course">
       <div className="dashboard-course__badge">
@@ -35,17 +41,17 @@ const DashboardCourse = ({percentage_completed, course, actions}) => {
 DashboardCourse.propTypes = {
   percentage_completed: PropTypes.number,
   actions: PropTypes.objectOf(PropTypes.func),
-  course: ImmutablePropTypes.map,
+  courses: ImmutablePropTypes.list,
   courseId: PropTypes.number.isRequired
 };
 
 DashboardCourse.defaultProps = {
   badge: Map(),
-  course: Map()
+  courses: List()
 };
 
-const mapStateToProps = (state, props) => ({
-  course: courseSelectors.getCourseById(state, props.courseId)
+const mapStateToProps = state => ({
+  courses: courseSelectors.getCourses(state)
 });
 
 export default connect(mapStateToProps)(withState(DashboardCourse));

@@ -125,7 +125,7 @@ class MavenApp extends App {
   }
 
   handleRouteChange() {
-    this.props.store.dispatch(stateActions.stateReset());
+    // This.props.store.dispatch(stateActions.stateReset());
     this.props.store.dispatch(responseActions.responseReset());
     this.props.store.dispatch(errorActions.errorReset());
     this.props.store.dispatch(authActions.reauthenticate({
