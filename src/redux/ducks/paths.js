@@ -55,7 +55,7 @@ export const selectors = {
 
       const latestEnrollment = pathEnrollments && pathEnrollments.get(0);
       const lastNotCompleteEnrollment = pathEnrollments && pathEnrollments.filter(enrollment => enrollment.get('percentage_completed') !== 1).first();
-      const latestCourse = lastNotCompleteEnrollment ? pathCourses.find(course => course.get('thinkificCourseId') === lastNotCompleteEnrollment.getIn([0, 'course_id'])) : path.getIn(['courses', 0]);
+      const latestCourse = lastNotCompleteEnrollment ? pathCourses.find(course => course.get('thinkificCourseId') === lastNotCompleteEnrollment.get('course_id')) : path.getIn(['courses', 0]);
       const totalComplete = pathEnrollments.reduce((total, enrollment) => enrollment.get('percentage_completed') + total, 0);
 
       return path
