@@ -34,7 +34,7 @@ function * onDashboardGet() {
     ]);
   } catch (error) {
     yield put({
-      type: dashboardTypes.DASHBOARD_GET_SUCCESS,
+      type: dashboardTypes.DASHBOARD_GET_FAILURE,
       payload: error.response ? error.response.data : error.message
     });
   }
