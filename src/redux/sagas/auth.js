@@ -3,6 +3,7 @@ import {all, put, takeLatest, call, select, delay} from 'redux-saga/effects';
 
 import {types as authTypes} from '../ducks/auth';
 import {types as userTypes, selectors as userSelectors} from '../ducks/user';
+import {selectors as recommendedSelectors} from '../ducks/recommended';
 import {setCookie, removeCookie} from '../../utils/cookies';
 import apiv2 from '../../services/apiv2';
 import {ssoRedirect} from '../../services/sso';
@@ -72,8 +73,10 @@ function * ssoRequest({payload: {redirectTo}}) {
 
 function * registerRequest({payload: {redirectTo, ...data}}) {
   try {
-    const recommendedCourses = yield select(userSelectors.getRecommendedCourses);
-    const recommendedPaths = yield select(userSelectors.getRecommendedPaths);
+    const recommended = yield select(recommendedSelectors.getRecommended);
+
+    const recommendedCourses = recommended.get('courses');
+    const recommendedPaths = recommended.get('paths');
 
     const res = yield apiv2({
       url: '/public/auth/register',
