@@ -74,7 +74,8 @@ export default (state = initialState, action) => {
   case types.PRODUCT_SORT_RESET:
     return state.set('productSort', initialState.get('productSort'));
   case types.STATE_RESET:
-    return initialState;
+    return initialState
+      .set('productSort', state.get('productSort'));
 
   default:
     return state;
