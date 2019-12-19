@@ -75,5 +75,5 @@ export const selectors = {
 };
 
 function getPathEnrollments(path, enrollments) {
-  return path.has('courses') && enrollments && enrollments.count() && path.get('courses').map(course => enrollments.find(enrollment => enrollment.get('course_id') === course.get('thinkificCourseId')));
+  return path.has('courses') && enrollments && enrollments.count() && path.get('courses').map(course => enrollments.find(enrollment => enrollment.get('course_id') === course.get('thinkificCourseId'))).filter(e => e);
 }
