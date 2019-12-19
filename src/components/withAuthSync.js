@@ -73,9 +73,11 @@ export const auth = async ctx => {
   try {
     await reauthenticateSync(token);
   } catch (error) {
-    ctx.res.writeHead(302, {Location: '/login'});
-    ctx.res.end();
-    return;
+    if (ctx.req) {
+      ctx.res.writeHead(302, {Location: '/login'});
+      ctx.res.end();
+      return;
+    }
   }
   /*
    * This happens on server only, ctx.req is available means it's being
