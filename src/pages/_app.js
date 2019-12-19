@@ -16,6 +16,7 @@ import {actions as checkoutActions} from '../redux/ducks/checkout';
 import {actions as userActions} from '../redux/ducks/user';
 import {actions as recommendedActions} from '../redux/ducks/recommended';
 import {actions as enrollmentActions} from '../redux/ducks/enrollments';
+import {actions as subscriptionActions} from '../redux/ducks/subscription';
 import {actions as stateActions} from '../redux/ducks/state';
 import {actions as responseActions} from '../redux/ducks/response';
 import {actions as errorActions} from '../redux/ducks/error';
@@ -45,6 +46,7 @@ class MavenApp extends App {
       // Const user = await reauthenticateSync(token);
       store.dispatch(authActions.reauthenticate({token, ctx, isServer}));
       store.dispatch(enrollmentActions.enrollmentsGet({token}));
+      store.dispatch(subscriptionActions.subscriptionGet({token}));
       // Console.log(user);
     }
 
