@@ -3,12 +3,13 @@ import {all, put, takeLatest, call, select, delay} from 'redux-saga/effects';
 
 import {types as authTypes} from '../ducks/auth';
 import {types as userTypes, selectors as userSelectors} from '../ducks/user';
+import {selectors as subscriptionSelectors} from '../ducks/subscription';
 import {selectors as recommendedSelectors} from '../ducks/recommended';
 import {setCookie, removeCookie} from '../../utils/cookies';
 import apiv2 from '../../services/apiv2';
 import {ssoRedirect} from '../../services/sso';
-import {userEnrolled} from '../../utils/userHelpers';
 import {fromJS} from 'immutable';
+import {subscriptionEnrolled} from '../../utils/subscriptionHelpers';
 
 export function * watchAuth() {
   yield takeLatest(authTypes.LOGIN_REQUEST, loginRequest);
@@ -161,9 +162,9 @@ function * reauthenticateRequest({payload: {token, ctx}}) {
 
 function * ensureEnrolled() {
   try {
-    const user = yield select(userSelectors.getUser);
+    const subscription = yield select(subscriptionSelectors.getCurrentSubscription);
 
-    if (userEnrolled(user)) {
+    if (subscriptionEnrolled(subscription)) {
       return yield all([
         put({
           type: authTypes.ENSURE_ENROLLED_SUCCESS
@@ -176,17 +177,16 @@ function * ensureEnrolled() {
     do {
       data = yield apiv2({
         method: 'get',
-        url: '/me'
+        url: '/me/subscriptions'
       });
 
       yield delay(1000);
-    } while (!userEnrolled(fromJS(data.user)));
+    } while (!subscriptionEnrolled(fromJS(data)));
 
     yield all([
       put({
         type: authTypes.ENSURE_ENROLLED_SUCCESS
-      }),
-      call(doLogin, data, false)
+      })
     ]);
   } catch (error) {
     console.log('ENSURE_ENROLLED_FAILURE', error);

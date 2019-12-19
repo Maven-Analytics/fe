@@ -1,10 +1,10 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
-import {userEnrolled} from '../../utils/userHelpers';
-import withUser from '../withUser';
+import {subscriptionEnrolled} from '../../utils/subscriptionHelpers';
+import withSubscription from '../withSubscription';
 
-const EnrolledUser = ({user, children}) => {
-  if (userEnrolled(user)) {
+const EnrolledUser = ({subscription, children}) => {
+  if (subscriptionEnrolled(subscription)) {
     return children;
   }
 
@@ -12,7 +12,7 @@ const EnrolledUser = ({user, children}) => {
 };
 
 EnrolledUser.propTypes = {
-  user: ImmutablePropTypes.map
+  subscription: ImmutablePropTypes.map
 };
 
-export default withUser(EnrolledUser);
+export default withSubscription(EnrolledUser);

@@ -28,11 +28,16 @@ export default (state = initialState, action) => {
   }
 };
 
+const getSubscription = state => state.get('subscription');
 const getSubscriptions = state => state.getIn(['subscription', 'subscriptions']);
 const getCurrentSubscription = state => state.getIn(['subscription', 'current']);
 const getSubscriptionStatus = state => state.getIn(['subscription', 'status']);
 
 export const selectors = {
+  getSubscription: createSelector(
+    [getSubscription],
+    s => s
+  ),
   getSubscriptions: createSelector(
     [getSubscriptions],
     s => s

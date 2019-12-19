@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import {actions as courseActions, selectors as courseSelectors} from '../../redux/ducks/courses';
+import {selectors as subscriptionSelectors} from '../../redux/ducks/subscription';
 import {selectors as errorSelectors} from '../../redux/ducks/error';
 import {selectors as loadingSelectors} from '../../redux/ducks/loading';
 import {selectors as userSelectors} from '../../redux/ducks/user';
@@ -17,7 +18,7 @@ import DashboardNoData from '../../components/dashboardNoData';
 import withAuthSync from '../../components/withAuthSync';
 import {prettyPercent} from '../../utils/componentHelpers';
 import {Routes} from '../../routes';
-import {userEnrolled} from '../../utils/userHelpers';
+import {subscriptionEnrolled} from '../../utils/subscriptionHelpers';
 
 class DashboardCourses extends Component {
   componentDidMount() {
@@ -25,7 +26,7 @@ class DashboardCourses extends Component {
   }
 
   render() {
-    const {loading, user, courses} = this.props;
+    const {loading, subscription, courses} = this.props;
 
     return (
       <DashboardLayout sidebar={CourseFilters} showWelcome loading={loading} title="Self-Paced Courses" activeLink={2}>
@@ -36,7 +37,7 @@ class DashboardCourses extends Component {
               <CourseCard
                 full
                 key={course.get('id')}
-                resumeUrl={userEnrolled(user) ? course.get('url') : Routes.Signup}
+                resumeUrl={subscriptionEnrolled(subscription) ? course.get('url') : Routes.Signup}
                 match={`${prettyPercent(course.get('match'))}%`}
                 course={course}
                 progress={course.get('percentage_completed')}
@@ -75,14 +76,14 @@ DashboardCourses.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.string,
   actions: PropTypes.objectOf(PropTypes.func),
-  user: ImmutablePropTypes.map,
+  subscription: ImmutablePropTypes.map,
   courses: ImmutablePropTypes.list
 };
 
 const mapStateToProps = state => ({
   loading: loadingSelectors.getLoading(['COURSES_FILTER'])(state),
   error: errorSelectors.getError(['COURSES_FILTER'])(state),
-  user: userSelectors.getUser(state),
+  subscription: subscriptionSelectors.getSubscription(state),
   courses: courseSelectors.getCourses(state)
 });
 

@@ -34,7 +34,7 @@ class CredentialCard extends Component {
       <div className={classList.join(' ')}>
         <ImageContentful image={image} />
         <p>{title}</p>
-        {url ? (
+        {url && credential ? (
           <Link href={url}>
             <a className="btn" target="_blank">
               See Badge

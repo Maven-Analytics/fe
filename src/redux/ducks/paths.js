@@ -39,7 +39,8 @@ export const selectors = {
       // Set basic info
       path = path
         .set('instructors', pathCourses.map(course => course.get('author')).toSet().toList())
-        .set('length', pathCourses.reduce((hours, course) => hours + (course.get('length') || 0), 0));
+        .set('length', pathCourses.reduce((hours, course) => hours + (course.get('length') || 0), 0))
+        .set('resumeUrl', pathCourses.getIn([0, 'url']));
 
       if (user) {
         const recommendedPath = user.getIn(['user', 'recommended_paths']) && user.getIn(['user', 'recommended_paths']).find(rp => rp.get('id') === path.get('id'));
