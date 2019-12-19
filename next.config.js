@@ -12,7 +12,8 @@ module.exports = withPlugins([withSass], {
     NODE_ENV: process.env.NODE_ENV,
     DISABLE_INTERCOM: process.env.DISABLE_INTERCOM,
     DISABLE_GTAG: process.env.DISABLE_GTAG,
-    HOST_PUBLIC_API: process.env.HOST_PUBLIC_API
+    HOST_PUBLIC_API: process.env.HOST_PUBLIC_API,
+    SENTRY_ENVIRONMENT: process.env.SENTRY_ENVIRONMENT
   },
   webpack: (config, {isServer}) => {
     if (isServer) {

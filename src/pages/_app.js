@@ -109,6 +109,10 @@ class MavenApp extends App {
     // ];
     Sentry.init({dsn: 'https://fa3ec528363e494188ec3638755f3ce9@sentry.io/1862460'});
 
+    Sentry.configureScope(scope => {
+      scope.setTag('environment', config.SENTRY_ENVIRONMENT);
+    });
+
     if (!config.DISABLE_GTAG) {
       TagManager.initialize({
         gtmId: 'GTM-M5F3PPK'
