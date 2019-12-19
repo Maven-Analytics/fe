@@ -36,6 +36,8 @@ class MavenApp extends App {
 
     const token = getCookie('token', ctx);
     const checkoutCookie = getCookie('checkout', ctx);
+    const recommendedPaths = getCookie('recommendedPaths', ctx);
+    const recommendedCourses = getCookie('recommendedCourses', ctx);
 
     const state = store.getState();
     const user = state.getIn(['user', 'user']);
@@ -53,6 +55,13 @@ class MavenApp extends App {
 
     if (checkoutCookie && checkoutCookie !== '') {
       store.dispatch(checkoutActions.checkoutSetPlan(fromJS(checkoutCookie.plan)));
+    }
+
+    if (recommendedPaths && Array.isArray(recommendedPaths) && recommendedCourses && Array.isArray(recommendedCourses)) {
+      store.dispatch(recommendedActions.recommendedInit({
+        paths: recommendedPaths,
+        courses: recommendedCourses
+      }));
     }
 
     // If there is a recommendedPaths & recommendedCourses cookie, but it has not been saved to the user. save it

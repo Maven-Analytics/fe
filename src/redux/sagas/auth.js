@@ -96,10 +96,8 @@ function * ssoRequest({payload: {redirectTo}}) {
 
 function * registerRequest({payload: {redirectTo, ...data}}) {
   try {
-    const recommended = yield select(recommendedSelectors.getRecommended);
-
-    const recommendedCourses = recommended.get('courses');
-    const recommendedPaths = recommended.get('paths');
+    const recommendedCourses = yield select(recommendedSelectors.getRecommendedCourses);
+    const recommendedPaths = yield select(recommendedSelectors.getRecommendedPaths);
 
     const res = yield apiv2({
       url: '/public/auth/register',

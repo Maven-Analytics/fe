@@ -9,11 +9,13 @@ import * as utils from '../../utils/duckHelpers';
 export const types = {
   RECOMMENDED_SET_REQUEST: 'RECOMMENDED_SET_REQUEST',
   RECOMMENDED_SET_SUCCESS: 'RECOMMENDED_SET_SUCCESS',
-  RECOMMENDED_SET_FAILURE: 'RECOMMENDED_SET_FAILURE'
+  RECOMMENDED_SET_FAILURE: 'RECOMMENDED_SET_FAILURE',
+  RECOMMENDED_INIT: 'RECOMMENDED_INIT'
 };
 
 export const actions = {
-  recommendedSet: obj => utils.action(types.RECOMMENDED_SET_REQUEST, obj)
+  recommendedSet: obj => utils.action(types.RECOMMENDED_SET_REQUEST, obj),
+  recommendedInit: obj => utils.action(types.RECOMMENDED_INIT, obj)
 };
 
 const initialState = utils.initialState({
@@ -24,6 +26,7 @@ const initialState = utils.initialState({
 export default (state = initialState, action) => {
   switch (action.type) {
   case types.RECOMMENDED_SET_REQUEST:
+  case types.RECOMMENDED_INIT:
     return fromJS(action.payload);
 
   default:
@@ -59,5 +62,7 @@ export const selectors = {
           })
       });
     }
-  )
+  ),
+  getRecommendedPaths: createSelector([getRecommended], r => r.get('paths')),
+  getRecommendedCourses: createSelector([getRecommended], r => r.get('courses'))
 };
