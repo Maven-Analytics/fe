@@ -107,8 +107,8 @@ class DashboardPage extends Component {
               srcSet="
                 /static/img/dashboard-no-data-328.png 328w,
                 /static/img/dashboard-no-data-328.webp 328w,
-                /static/img/dashboard-no-data-656.png 656w
-                /static/img/dashboard-no-data-656.webp 656w,
+                /static/img/dashboard-no-data-656.png 656w,
+                /static/img/dashboard-no-data-656.webp 656w
               "
             />
           </DashboardNoData>

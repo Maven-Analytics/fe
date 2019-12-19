@@ -45,7 +45,12 @@ class ParallaxBg extends Component {
   }
 
   handleImageLoad(src) {
-    this.props.parallaxController.update();
+    const {parallaxController} = this.props;
+
+    if (parallaxController && parallaxController.update && typeof parallaxController.update === 'function') {
+      parallaxController.update();
+    }
+
     setTimeout(() => {
       this.setState({
         loading: false,
@@ -84,7 +89,7 @@ ParallaxBg.propTypes = {
   className: PropTypes.string,
   overlay: PropTypes.bool,
   strength: PropTypes.number,
-  parallaxController: PropTypes.object.isRequired
+  parallaxController: PropTypes.object
 };
 
 ParallaxBg.defaultProps = {
