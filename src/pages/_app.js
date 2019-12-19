@@ -9,6 +9,7 @@ import * as FontFaceObserver from 'fontfaceobserver';
 import Router from 'next/router';
 import TagManager from 'react-gtm-module';
 import {ParallaxProvider} from 'react-scroll-parallax';
+import * as Sentry from '@sentry/browser';
 
 import initStore from '../redux/store';
 import {actions as authActions} from '../redux/ducks/auth';
@@ -106,6 +107,7 @@ class MavenApp extends App {
     //   new FontFaceObserver('Lato'),
     //   new FontFaceObserver('D-DIN')
     // ];
+    Sentry.init({dsn: 'https://fa3ec528363e494188ec3638755f3ce9@sentry.io/1862460'});
 
     if (!config.DISABLE_GTAG) {
       TagManager.initialize({
