@@ -24,17 +24,26 @@ const withAuthSync = WrappedComponent => {
     }
 
     componentDidMount() {
-      window.addEventListener('logout', this.syncLogout);
+      // Window.addEventListener('logout', this.syncLogout);
+      this.syncLogout();
+    }
+
+    componentDidUpdate() {
+      this.syncLogout();
     }
 
     componentWillUnmount() {
-      window.removeEventListener('logout', this.syncLogout);
-      window.localStorage.removeItem('logout');
+      // Window.removeEventListener('logout', this.syncLogout);
+      // window.localStorage.removeItem('logout');
     }
 
     syncLogout(e) {
+      if (this.props.user.get('id')) {
+        return;
+      }
+
       // If logging out from another tab
-      e.preventDefault();
+      // e.preventDefault();
       Router.push('/login');
     }
 

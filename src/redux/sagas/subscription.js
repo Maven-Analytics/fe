@@ -11,8 +11,6 @@ function * onSubscriptionGet({payload: {token, ...payload}}) {
   try {
     const subscription = yield call(getSubscription, payload, token);
 
-    console.log(subscription);
-
     yield all([
       put({
         type: subscriptionTypes.SUBSCRIPTION_GET_SUCCESS,

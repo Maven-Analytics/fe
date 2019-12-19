@@ -20,7 +20,7 @@ import {actions as subscriptionActions} from '../redux/ducks/subscription';
 import {actions as stateActions} from '../redux/ducks/state';
 import {actions as responseActions} from '../redux/ducks/response';
 import {actions as errorActions} from '../redux/ducks/error';
-import {getCookie, removeCookie} from '../utils/cookies';
+import {getCookie, removeCookie, setCookie} from '../utils/cookies';
 import {enter, exit} from '../utils/animations';
 import config from '../config';
 
@@ -36,8 +36,6 @@ class MavenApp extends App {
 
     const token = getCookie('token', ctx);
     const checkoutCookie = getCookie('checkout', ctx);
-    const recommendedPaths = getCookie('recommendedPaths', ctx);
-    const recommendedCourses = getCookie('recommendedCourses', ctx);
 
     const state = store.getState();
     const user = state.getIn(['user', 'user']);
@@ -45,9 +43,12 @@ class MavenApp extends App {
     if (token && token !== '' && (!user || user.isEmpty())) {
       // Const user = await reauthenticateSync(token);
       store.dispatch(authActions.reauthenticate({token, ctx, isServer}));
+      // Console.log(user);
+    }
+
+    if (token && token !== '') {
       store.dispatch(enrollmentActions.enrollmentsGet({token}));
       store.dispatch(subscriptionActions.subscriptionGet({token}));
-      // Console.log(user);
     }
 
     if (checkoutCookie && checkoutCookie !== '') {
@@ -55,26 +56,25 @@ class MavenApp extends App {
     }
 
     // If there is a recommendedPaths & recommendedCourses cookie, but it has not been saved to the user. save it
-    if (
-      recommendedPaths &&
-      recommendedCourses &&
-      user &&
-      user.get('id') &&
-      (!user.get('recommended_paths') ||
-        user.get('recommended_paths').isEmpty() ||
-        !user.get('recommended_courses') ||
-        user.get('recommended_courses').isEmpty())
-    ) {
-      store.dispatch(
-        recommendedActions.recommendedSet({
-          paths: recommendedPaths,
-          courses: recommendedCourses
-        })
-      );
-
-      removeCookie('recommendedPaths', ctx);
-      removeCookie('recommendedCourses', ctx);
-    }
+    // if (
+    //   recommendedPaths &&
+    //   recommendedCourses &&
+    //   token
+    //   // User &&
+    //   // user.get('id') &&
+    //   // (!user.get('recommended_paths') ||
+    //   //   user.get('recommended_paths').isEmpty() ||
+    //   //   !user.get('recommended_courses') ||
+    //   //   user.get('recommended_courses').isEmpty())
+    // ) {
+    //   // Store.dispatch(
+    //   //   recommendedActions.recommendedSet({
+    //   //     paths: recommendedPaths,
+    //   //     courses: recommendedCourses,
+    //   //     ctx
+    //   //   })
+    //   // );
+    // }
 
     return {
       isServer,
@@ -130,9 +130,9 @@ class MavenApp extends App {
     this.props.store.dispatch(stateActions.stateReset());
     this.props.store.dispatch(responseActions.responseReset());
     this.props.store.dispatch(errorActions.errorReset());
-    this.props.store.dispatch(authActions.reauthenticate({
-      token: getCookie('token')
-    }));
+    // This.props.store.dispatch(authActions.reauthenticate({
+    //   token: getCookie('token')
+    // }));
   }
 
   render() {

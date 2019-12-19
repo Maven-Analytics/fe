@@ -6,7 +6,8 @@ import * as utils from '../../utils/duckHelpers';
 export const types = {
   SCORES_GET_REQUEST: 'SCORES_GET_REQUEST',
   SCORES_GET_SUCCESS: 'SCORES_GET_SUCCESS',
-  SCORES_GET_FAILURE: 'SCORES_GET_FAILURE'
+  SCORES_GET_FAILURE: 'SCORES_GET_FAILURE',
+  SCORES_RESET: 'SCORES_RESET'
 };
 
 export const actions = {
@@ -19,6 +20,8 @@ export default (state = initialState, action) => {
   switch (action.type) {
   case types.SCORES_GET_SUCCESS:
     return utils.stateListMerge(state, action.payload);
+  case types.SCORES_RESET:
+    return initialState;
   default:
     return state;
   }

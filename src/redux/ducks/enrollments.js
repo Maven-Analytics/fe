@@ -7,7 +7,8 @@ export const types = {
   ENROLLMENTS_GET_REQUEST: 'ENROLLMENTS_GET_REQUEST',
   ENROLLMENTS_GET_SUCCESS: 'ENROLLMENTS_GET_SUCCESS',
   ENROLLMENTS_GET_FAILURE: 'ENROLLMENTS_GET_FAILURE',
-  ENROLLMENTS_SET: 'ENROLLMENTS_SET'
+  ENROLLMENTS_SET: 'ENROLLMENTS_SET',
+  ENROLLMENTS_RESET: 'ENROLLMENTS_REST'
 };
 
 export const actions = {
@@ -22,6 +23,8 @@ export default (state = initialState, action) => {
     return utils.stateListMerge(state, action.payload);
   case types.ENROLLMENTS_SET:
     return fromJS(action.payload);
+  case types.ENROLLMENTS_RESET:
+    return initialState;
   default:
     return state;
   }

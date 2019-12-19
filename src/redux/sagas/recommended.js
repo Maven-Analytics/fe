@@ -12,25 +12,20 @@ export function * watchRecommended() {
 
 function * onRecommendedSet({payload: {paths, courses}}) {
   try {
-    console.log(paths, courses);
-
-    const token = yield select(userSelectors.getToken);
     const user = yield select(userSelectors.getUser);
+    const token = yield select(userSelectors.getToken);
 
     if (token) {
       const res = yield saveRecommended(user, token, paths, courses);
-      console.log(res);
       yield all([
         put({
           type: userTypes.USER_SET,
-          payload: res
+          payload: res.user
         }),
         put({
           type: recommendedTypes.RECOMMENDED_SET_SUCCESS
         })
       ]);
-      removeCookie('recommendedPaths');
-      removeCookie('recommendedCourses');
     } else {
       setCookie('recommendedPaths', paths);
       setCookie('recommendedCourses', courses);
@@ -45,7 +40,8 @@ function * onRecommendedSet({payload: {paths, courses}}) {
     console.log('RECOMMENDED_SET error', error);
 
     yield put({
-      type: recommendedTypes.RECOMMENDED_SET_FAILURE
+      type: recommendedTypes.RECOMMENDED_SET_FAILURE,
+      payload: error
     });
   }
 }

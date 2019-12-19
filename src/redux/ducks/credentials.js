@@ -7,7 +7,8 @@ export const types = {
   CREDENTIALS_GET_REQUEST: 'CREDENTIALS_GET_REQUEST',
   CREDENTIALS_GET_SUCCESS: 'CREDENTIALS_GET_SUCCESS',
   CREDENTIALS_GET_FAILURE: 'CREDENTIALS_GET_FAILURE',
-  CREDENTIALS_SET: 'CREDENTIALS_SET'
+  CREDENTIALS_SET: 'CREDENTIALS_SET',
+  CREDENTIALS_RESET: 'CREDENTIALS_RESET'
 };
 
 export const actions = {
@@ -22,6 +23,8 @@ export default (state = initialState, action) => {
     return utils.stateListMerge(state, action.payload);
   case types.CREDENTIALS_SET:
     return fromJS(action.payload);
+  case types.CREDENTIALS_RESET:
+    return initialState;
   default:
     return state;
   }

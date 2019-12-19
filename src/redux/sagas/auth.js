@@ -1,11 +1,17 @@
 
-import {all, put, takeLatest, call, select, delay} from 'redux-saga/effects';
+import {all, put, takeLatest, call, select, delay, take} from 'redux-saga/effects';
 
 import {types as authTypes} from '../ducks/auth';
 import {types as userTypes, selectors as userSelectors} from '../ducks/user';
 import {selectors as subscriptionSelectors} from '../ducks/subscription';
 import {selectors as recommendedSelectors} from '../ducks/recommended';
-import {setCookie, removeCookie} from '../../utils/cookies';
+import {types as enrollmentTypes} from '../ducks/enrollments';
+import {types as subscriptionTypes} from '../ducks/subscription';
+import {types as dashboardTypes} from '../ducks/dashboard';
+import {types as credentialTypes} from '../ducks/credentials';
+import {types as scoreTypes} from '../ducks/scores';
+import {types as recommendedTypes} from '../ducks/recommended';
+import {setCookie, removeCookie, getCookie} from '../../utils/cookies';
 import apiv2 from '../../services/apiv2';
 import {ssoRedirect} from '../../services/sso';
 import {fromJS} from 'immutable';
@@ -47,9 +53,9 @@ function * logoutRequest({payload: {ctx}}) {
   removeCookie('token', ctx);
   removeCookie('thinkificToken', ctx);
 
-  const logoutEvt = new window.Event('logout');
-  window.dispatchEvent(logoutEvt);
-  window.localStorage.setItem('logout', Date.now());
+  // Const logoutEvt = new window.Event('logout');
+  // window.dispatchEvent(logoutEvt);
+  // window.localStorage.setItem('logout', Date.now());
   yield all([
     put({
       type: userTypes.TOKEN_UNSET
@@ -59,6 +65,22 @@ function * logoutRequest({payload: {ctx}}) {
     }),
     put({
       type: userTypes.USER_UNSET
+    }),
+    delay(500), // Delay 1/2 a second so the user is redirected to login
+    put({
+      type: subscriptionTypes.SUBSCRIPTION_RESET
+    }),
+    put({
+      type: enrollmentTypes.ENROLLMENTS_RESET
+    }),
+    put({
+      type: dashboardTypes.DASHBOARD_RESET
+    }),
+    put({
+      type: credentialTypes.CREDENTIALS_RESET
+    }),
+    put({
+      type: scoreTypes.SCORES_RESET
     }),
     put({
       type: authTypes.LOGOUT_SUCCESS
@@ -144,7 +166,8 @@ function * reauthenticateRequest({payload: {token, ctx}}) {
       put({
         type: authTypes.REAUTHENTICATE_SUCCESS
       }),
-      call(doLogin, res, false)
+      call(doLogin, res, false),
+      call(checkRecommended, ctx)
     ]);
   } catch (error) {
     console.log('REAUTHENTICATE_FAILURE', error);
@@ -194,5 +217,25 @@ function * ensureEnrolled() {
       type: authTypes.ENSURE_ENROLLED_FAILURE,
       payload: error.response ? error.response.data : error.message
     });
+  }
+}
+
+function * checkRecommended(ctx) {
+  const paths = getCookie('recommendedPaths', ctx);
+  const courses = getCookie('recommendedCourses', ctx);
+
+  if (paths && courses) {
+    yield all([
+      put({
+        type: recommendedTypes.RECOMMENDED_SET_REQUEST,
+        payload: {
+          paths,
+          courses
+        }
+      }),
+      take(recommendedTypes.RECOMMENDED_SET_SUCCESS),
+      call(removeCookie, 'recommendedPaths', ctx),
+      call(removeCookie, 'recommendedCourses', ctx)
+    ]);
   }
 }
