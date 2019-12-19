@@ -225,8 +225,6 @@ Home.getInitialProps = async ctx => {
     })
   );
 
-  console.log('HOME GET INITIAL PROPS');
-
   store.dispatch(spotlightActions.spotlightsGet());
   store.dispatch(pageActions.pagesGet({slug: 'home'}));
 

@@ -47,9 +47,8 @@ function * onCoursesFilter() {
     let courses = yield getCourses(query, true);
 
     // Run a local filter if the enrollment filter is present
-    if (enrollmentFilter) {
-      let enrollments = yield select(enrollmentSelectors.getEnrollments);
-
+    let enrollments = yield select(enrollmentSelectors.getEnrollments);
+    if (enrollmentFilter && enrollments.count()) {
       enrollments = enrollments.filter(enrollment => {
         const pc = enrollment.get('percentage_completed');
 
