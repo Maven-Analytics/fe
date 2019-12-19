@@ -83,7 +83,7 @@ export const auth = async ctx => {
    * means user is not logged in.
    */
 
-  if (ctx.req && (!token)) {
+  if (ctx.req && ctx.res && (!token)) {
     ctx.res.writeHead(302, {Location: '/login'});
     ctx.res.end();
     return;
