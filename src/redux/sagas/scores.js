@@ -1,7 +1,7 @@
 import {takeLatest, put, all} from 'redux-saga/effects';
 
 import {types as scoreTypes} from '../ducks/scores';
-import api from '../../services/api';
+import apiv2 from '../../services/apiv2';
 
 export function * watchScores() {
   yield takeLatest(scoreTypes.SCORES_GET_REQUEST, onScoresGet);
@@ -26,9 +26,9 @@ function * onScoresGet({payload}) {
 }
 
 function getScores(params) {
-  return api({
+  return apiv2({
     method: 'get',
-    url: '/api/v1/assessment',
+    url: '/me/assessments',
     params
   });
 }

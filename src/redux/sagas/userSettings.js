@@ -1,7 +1,7 @@
 import {takeLatest, put, all} from 'redux-saga/effects';
 
 import {types as userSettingsTypes} from '../ducks/userSettings';
-import api from '../../services/api';
+import apiv2 from '../../services/apiv2';
 
 export function * watchUserSettings() {
   yield takeLatest(userSettingsTypes.USER_SETTINGS_GET_REQUEST, onUserSettingsGet);
@@ -55,16 +55,15 @@ function * onUserSettingsUpdate({payload: settings}) {
 }
 
 function getSettings() {
-  return api({
-    method: 'get',
-    url: '/api/v1/usersettings'
+  return apiv2({
+    url: '/me/usersettings'
   });
 }
 
 function updateSettings(data) {
-  return api({
+  return apiv2({
     method: 'post',
-    url: '/api/v1/usersettings',
+    url: '/me/usersettings',
     data
   });
 }

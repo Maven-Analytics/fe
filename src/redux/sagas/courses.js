@@ -1,10 +1,10 @@
-import {takeLatest, put, all, select} from 'redux-saga/effects';
+import {takeLatest, put, all, select, call} from 'redux-saga/effects';
 import {fromJS} from 'immutable';
 
 import {types as courseTypes} from '../ducks/courses';
 import {selectors as activeFilterSelectors} from '../ducks/activeFilters';
-import {getFiltersFromCourses} from '../../utils/filterHelpers';
-import api from '../../services/api';
+import {selectors as enrollmentSelectors} from '../ducks/enrollments';
+import apiv2 from '../../services/apiv2';
 
 export function * watchCourses() {
   yield takeLatest(courseTypes.COURSESINIT_REQUEST, onCoursesInitRequest);
@@ -42,7 +42,33 @@ function * onCoursesFilter() {
       .map(v => v.join(','))
       .toJS();
 
-    const courses = yield getCourses(params, true);
+    const {enrollmentFilter, ...query} = params;
+
+    let courses = yield getCourses(query, true);
+
+    // Run a local filter if the enrollment filter is present
+    let enrollments = yield select(enrollmentSelectors.getEnrollments);
+    if (enrollmentFilter && enrollments.count()) {
+      enrollments = enrollments.filter(enrollment => {
+        const pc = enrollment.get('percentage_completed');
+
+        if (pc === 0 && enrollmentFilter.includes('Not Started')) {
+          return true;
+        }
+
+        if (pc > 0 && pc < 1 && enrollmentFilter.includes('In Progress')) {
+          return true;
+        }
+
+        if (pc === 1 && enrollmentFilter.includes('Complete')) {
+          return true;
+        }
+
+        return false;
+      });
+
+      courses = fromJS(courses).filter(course => enrollments.find(enrollment => enrollment.get('course_id') === course.get('thinkificCourseId')));
+    }
 
     yield all([
       put({
@@ -92,11 +118,10 @@ function * onCoursesGet({payload}) {
   }
 }
 
-function getCourses(params = {}, useAuth = true) {
-  return api({
+function getCourses(params = {}) {
+  return apiv2({
     method: 'get',
-    url: '/api/v1/courses',
-    params,
-    useAuth
+    url: '/public/courses',
+    params
   });
 }

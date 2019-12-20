@@ -1,24 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import {connect} from 'react-redux';
 import Link from 'next/link';
 
-import {selectors as userSelectors} from '../redux/ducks/user';
 import {Routes} from '../routes';
+import EnrolledUser from './helpers/EnrolledUser';
+import UnenrolledUser from './helpers/UnenrolledUser';
 
-const ResumeProduct = ({resumeUrl, user, productTerm, className, started}) => {
-  let resumeText = `${started ? 'Resume' : 'Start'} ${productTerm}`;
-
-  if (!user.get('enrolled')) {
-    resumeUrl = Routes.Signup;
-    resumeText = 'Signup';
-  }
-
+const ResumeProduct = ({resumeUrl, productTerm, className, started}) => {
   return (
-    <Link href={resumeUrl}>
-      <a className={className}>{resumeText}</a>
-    </Link>
+    <>
+      <EnrolledUser>
+        <Link href={resumeUrl}>
+          <a className={className}>
+            {`${started ? 'Resume' : 'Start'} ${productTerm}`}
+          </a>
+        </Link>
+      </EnrolledUser>
+      <UnenrolledUser>
+        <Link href={Routes.Signup}>
+          <a className={className}>Signup</a>
+        </Link>
+      </UnenrolledUser>
+    </>
   );
 };
 
@@ -31,8 +35,4 @@ ResumeProduct.propTypes = {
   checkout: ImmutablePropTypes.map
 };
 
-const mapStateToProps = state => ({
-  user: userSelectors.getUser(state)
-});
-
-export default connect(mapStateToProps)(ResumeProduct);
+export default ResumeProduct;

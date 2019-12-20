@@ -6,11 +6,12 @@ import {Map} from 'immutable';
 
 import {selectors as userSelectors} from '../redux/ducks/user';
 import {getCookie} from '../utils/cookies';
+import {reauthenticateSync} from '../services/apiv2';
 
 const withAuthSync = WrappedComponent => {
   class WithAuthSync extends Component {
     static async getInitialProps(ctx) {
-      const token = auth(ctx);
+      const token = await auth(ctx);
 
       const componentProps =
         WrappedComponent.getInitialProps &&
@@ -23,17 +24,26 @@ const withAuthSync = WrappedComponent => {
     }
 
     componentDidMount() {
-      window.addEventListener('logout', this.syncLogout);
+      // Window.addEventListener('logout', this.syncLogout);
+      this.syncLogout();
+    }
+
+    componentDidUpdate() {
+      this.syncLogout();
     }
 
     componentWillUnmount() {
-      window.removeEventListener('logout', this.syncLogout);
-      window.localStorage.removeItem('logout');
+      // Window.removeEventListener('logout', this.syncLogout);
+      // window.localStorage.removeItem('logout');
     }
 
     syncLogout(e) {
+      if (this.props.user.get('id')) {
+        return;
+      }
+
       // If logging out from another tab
-      e.preventDefault();
+      // e.preventDefault();
       Router.push('/login');
     }
 
@@ -57,15 +67,25 @@ const withAuthSync = WrappedComponent => {
   return connect(mapStateToProps)(WithAuthSync);
 };
 
-export const auth = ctx => {
+export const auth = async ctx => {
   const token = getCookie('token', ctx);
 
+  try {
+    await reauthenticateSync(token);
+  } catch (error) {
+    if (ctx.req) {
+      ctx.res.writeHead(302, {Location: '/login'});
+      ctx.res.end();
+      return;
+    }
+  }
   /*
    * This happens on server only, ctx.req is available means it's being
    * rendered on server. If we are on server and token is not available,
    * means user is not logged in.
    */
-  if (ctx.req && !token) {
+
+  if (ctx.req && ctx.res && (!token)) {
     ctx.res.writeHead(302, {Location: '/login'});
     ctx.res.end();
     return;

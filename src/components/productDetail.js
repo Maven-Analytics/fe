@@ -27,7 +27,6 @@ const ProductDetail = ({
   titleTag: TitleTag,
   title,
   resumeUrl,
-  showScores,
   id,
   percentage_completed,
   tools,
@@ -94,33 +93,35 @@ const ProductDetail = ({
                 <CourseAuthor key={instructors.get('id')} name={instructors.get('name')} thumbnail={instructors.get('thumbnail')} />
               </ProductMetaItem>
             )}
-            {showScores ? (
-              <CourseScores courseId={id}>
-                {(loading, scores) => {
-                  const loader = <Loader loading={loading} />;
-                  const noScore = <MaIcon icon="minus" />;
-                  const final = scores.getIn(['final', 'score']) || -1;
-                  const benchmark = scores.getIn(['benchmark', 'score']) || -1;
+            <LoggedIn>
+              {productTerm && !productTerm.toLowerCase().includes('path') ? (
+                <CourseScores courseId={id}>
+                  {(loading, scores) => {
+                    const loader = <Loader loading={loading} />;
+                    const noScore = <MaIcon icon="minus" />;
+                    const final = scores.getIn(['final', 'score']) || -1;
+                    const benchmark = scores.getIn(['benchmark', 'score']) || -1;
 
-                  return (
-                    <Fragment>
-                      <ProductMetaItem label="Benchmark Assessment Score">
-                        <div style={{position: 'relative'}}>
-                          {loader}
-                          {benchmark > -1 && loading === false ? `${prettyPercent(benchmark)}%` : noScore}
-                        </div>
-                      </ProductMetaItem>
-                      <ProductMetaItem label="Final Assessment Score">
-                        <div style={{position: 'relative'}}>
-                          {loader}
-                          {final > -1 && loading === false ? `${prettyPercent(final)}%` : noScore}
-                        </div>
-                      </ProductMetaItem>
-                    </Fragment>
-                  );
-                }}
-              </CourseScores>
-            ) : null}
+                    return (
+                      <Fragment>
+                        <ProductMetaItem label="Benchmark Assessment Score">
+                          <div style={{position: 'relative'}}>
+                            {loader}
+                            {benchmark > -1 && loading === false ? `${prettyPercent(benchmark)}%` : noScore}
+                          </div>
+                        </ProductMetaItem>
+                        <ProductMetaItem label="Final Assessment Score">
+                          <div style={{position: 'relative'}}>
+                            {loader}
+                            {final > -1 && loading === false ? `${prettyPercent(final)}%` : noScore}
+                          </div>
+                        </ProductMetaItem>
+                      </Fragment>
+                    );
+                  }}
+                </CourseScores>
+              ) : null}
+            </LoggedIn>
           </ProductMeta>
         </div>
       </div>
@@ -142,7 +143,6 @@ ProductDetail.propTypes = {
   instructors: PropTypes.oneOfType([ImmutablePropTypes.map, ImmutablePropTypes.list]),
   className: PropTypes.string,
   children: PropTypes.node,
-  showScores: PropTypes.bool,
   id: PropTypes.number,
   url: PropTypes.string
 };

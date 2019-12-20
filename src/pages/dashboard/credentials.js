@@ -16,7 +16,7 @@ import withAuthSync from '../../components/withAuthSync';
 
 class DashboardCredentials extends Component {
   componentDidMount() {
-    this.props.actions.pathsInit();
+    this.props.actions.pathsGet();
     this.props.actions.coursesInit();
     this.props.actions.credentialsGet();
   }
@@ -30,7 +30,6 @@ class DashboardCredentials extends Component {
           {paths.map(path => {
             return (
               <CredentialCard
-                completed={path.get('completed')}
                 promoteUrl={path.get('badgeUrl')}
                 key={path.get('id')}
                 title={path.get('title')}
@@ -45,7 +44,6 @@ class DashboardCredentials extends Component {
           {courses.map(course => {
             return (
               <CredentialCard
-                completed={course.get('completed')}
                 promoteUrl={course.get('badgeUrl')}
                 key={course.get('id')}
                 title={course.get('title')}
@@ -70,12 +68,12 @@ DashboardCredentials.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  paths: pathSelectors.getPathsByCompletionDesc(state),
-  courses: courseSelectors.getCoursesByCompletionDesc(state),
+  paths: pathSelectors.getPaths(state),
+  courses: courseSelectors.getCourses(state),
   loadingCourses: loadingSelectors.getLoading(['COURSESINIT'])(state),
   errorCourses: errorSelectors.getError(['COURSESINIT'])(state),
-  loadingPaths: loadingSelectors.getLoading(['PATHSINIT'])(state),
-  errorPaths: errorSelectors.getError(['PATHSINIT'])(state)
+  loadingPaths: loadingSelectors.getLoading(['PATHS_GET'])(state),
+  errorPaths: errorSelectors.getError(['PATHS_GET'])(state)
 });
 
 const mapDispatchToProps = dispatch => {

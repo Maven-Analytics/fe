@@ -60,7 +60,7 @@ export const courseHasFilters = (filters, course) => {
       const hasFilter = courseHasFilter(filter, course);
 
       if (hasFilter) {
-        // return filter.get('range') ? contains.concat(filter.get('active').map(() => true)) : contains.push(true);
+        // Return filter.get('range') ? contains.concat(filter.get('active').map(() => true)) : contains.push(true);
         return contains.concat(filter.get('active').map(() => true));
       }
 
@@ -71,19 +71,6 @@ export const courseHasFilters = (filters, course) => {
     // .count() === filter.get('active').count();
     // OR FILTERING
     .count() > 0;
-};
-
-export const getFilteredCourses = (filters, courses) => {
-  const activeFilters = getActiveFilters(filters);
-
-  if (!activeFilters || !activeFilters.count()) {
-    return courses;
-  }
-
-  return courses
-    .filter(course => {
-      return courseHasFilters(activeFilters, course);
-    });
 };
 
 export const setFiltersFromQuery = (query, filters) => {
@@ -149,7 +136,7 @@ export const getFiltersFromCourses = courses => {
     return List();
   }
 
-  // const tools = courses
+  // Const tools = courses
   //   .reduce((list, course) => {
   //     return list.concat(course.get('tools'));
   //   }, List())

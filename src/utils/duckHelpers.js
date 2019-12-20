@@ -61,3 +61,16 @@ export function stateMapMerge(state, newData) {
 
   return state.merge(newData);
 }
+
+export function sortProducts(products, state) {
+  return products.sort((productA, productB) => {
+    const key = state.getIn(['productSort', 'key']);
+    const order = state.getIn(['productSort', 'order']);
+
+    if (order === 'DESC') {
+      return productB.get(key) - productA.get(key);
+    }
+
+    return productA.get(key) - productB.get(key);
+  });
+}

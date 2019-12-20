@@ -9,15 +9,19 @@ import * as FontFaceObserver from 'fontfaceobserver';
 import Router from 'next/router';
 import TagManager from 'react-gtm-module';
 import {ParallaxProvider} from 'react-scroll-parallax';
+import * as Sentry from '@sentry/browser';
 
 import initStore from '../redux/store';
 import {actions as authActions} from '../redux/ducks/auth';
 import {actions as checkoutActions} from '../redux/ducks/checkout';
 import {actions as userActions} from '../redux/ducks/user';
+import {actions as recommendedActions} from '../redux/ducks/recommended';
+import {actions as enrollmentActions} from '../redux/ducks/enrollments';
+import {actions as subscriptionActions} from '../redux/ducks/subscription';
 import {actions as stateActions} from '../redux/ducks/state';
 import {actions as responseActions} from '../redux/ducks/response';
 import {actions as errorActions} from '../redux/ducks/error';
-import {getCookie, removeCookie} from '../utils/cookies';
+import {getCookie, removeCookie, setCookie} from '../utils/cookies';
 import {enter, exit} from '../utils/animations';
 import config from '../config';
 
@@ -25,6 +29,7 @@ import '../styles/index.scss';
 import LoggedIn from '../components/loggedIn';
 import IntercomScript from '../scripts/IntercomScript';
 import UserSettingsGet from '../scripts/UserSettingsGet';
+import {reauthenticateSync} from '../services/apiv2';
 
 class MavenApp extends App {
   static async getInitialProps({Component, ctx}) {
@@ -39,34 +44,47 @@ class MavenApp extends App {
     const user = state.getIn(['user', 'user']);
 
     if (token && token !== '' && (!user || user.isEmpty())) {
+      // Const user = await reauthenticateSync(token);
       store.dispatch(authActions.reauthenticate({token, ctx, isServer}));
+      // Console.log(user);
+    }
+
+    if (token && token !== '') {
+      store.dispatch(enrollmentActions.enrollmentsGet({token}));
+      store.dispatch(subscriptionActions.subscriptionGet({token}));
     }
 
     if (checkoutCookie && checkoutCookie !== '') {
       store.dispatch(checkoutActions.checkoutSetPlan(fromJS(checkoutCookie.plan)));
     }
 
-    // If there is a recommendedPaths & recommendedCourses cookie, but it has not been saved to the user. save it
-    if (
-      recommendedPaths &&
-      recommendedCourses &&
-      user &&
-      user.get('id') &&
-      (!user.get('recommended_paths') ||
-        user.get('recommended_paths').isEmpty() ||
-        !user.get('recommended_courses') ||
-        user.get('recommended_courses').isEmpty())
-    ) {
-      store.dispatch(
-        userActions.userRecommendedSet({
-          paths: recommendedPaths,
-          courses: recommendedCourses
-        })
-      );
-
-      removeCookie('recommendedPaths', ctx);
-      removeCookie('recommendedCourses', ctx);
+    if (recommendedPaths && Array.isArray(recommendedPaths) && recommendedCourses && Array.isArray(recommendedCourses)) {
+      store.dispatch(recommendedActions.recommendedInit({
+        paths: recommendedPaths,
+        courses: recommendedCourses
+      }));
     }
+
+    // If there is a recommendedPaths & recommendedCourses cookie, but it has not been saved to the user. save it
+    // if (
+    //   recommendedPaths &&
+    //   recommendedCourses &&
+    //   token
+    //   // User &&
+    //   // user.get('id') &&
+    //   // (!user.get('recommended_paths') ||
+    //   //   user.get('recommended_paths').isEmpty() ||
+    //   //   !user.get('recommended_courses') ||
+    //   //   user.get('recommended_courses').isEmpty())
+    // ) {
+    //   // Store.dispatch(
+    //   //   recommendedActions.recommendedSet({
+    //   //     paths: recommendedPaths,
+    //   //     courses: recommendedCourses,
+    //   //     ctx
+    //   //   })
+    //   // );
+    // }
 
     return {
       isServer,
@@ -89,6 +107,11 @@ class MavenApp extends App {
     //   new FontFaceObserver('Lato'),
     //   new FontFaceObserver('D-DIN')
     // ];
+    Sentry.init({dsn: 'https://fa3ec528363e494188ec3638755f3ce9@sentry.io/1862460'});
+
+    Sentry.configureScope(scope => {
+      scope.setTag('environment', config.SENTRY_ENVIRONMENT);
+    });
 
     if (!config.DISABLE_GTAG) {
       TagManager.initialize({
@@ -122,9 +145,9 @@ class MavenApp extends App {
     this.props.store.dispatch(stateActions.stateReset());
     this.props.store.dispatch(responseActions.responseReset());
     this.props.store.dispatch(errorActions.errorReset());
-    this.props.store.dispatch(authActions.reauthenticate({
-      token: getCookie('token')
-    }));
+    // This.props.store.dispatch(authActions.reauthenticate({
+    //   token: getCookie('token')
+    // }));
   }
 
   render() {

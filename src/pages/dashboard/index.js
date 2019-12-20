@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {fromJS, List} from 'immutable';
+import {fromJS} from 'immutable';
 
 import {actions as dashboardActions, selectors as dashboardSelectors} from '../../redux/ducks/dashboard';
 import {actions as pathActions, selectors as pathSelectors} from '../../redux/ducks/paths';
 import {actions as courseActions, selectors as courseSelectors} from '../../redux/ducks/courses';
 import {actions as announcementActions, selectors as announcementSelectors} from '../../redux/ducks/announcements';
 import {actions as credentialActions, selectors as credentialSelectors} from '../../redux/ducks/credentials';
-import {selectors as errorSelectors} from '../../redux/ducks/error';
+import {selectors as enrollmentSelectors} from '../../redux/ducks/enrollments';
 import {selectors as loadingSelectors} from '../../redux/ducks/loading';
 import {selectors as userSelectors} from '../../redux/ducks/user';
 import DashboardLayout from '../../layouts/dashboard';
@@ -33,32 +33,27 @@ import DashboardOnboarding from '../../components/dashboardOnboarding';
 
 class DashboardPage extends Component {
   componentDidMount() {
-    this.props.actions.pathsInit();
+    this.props.actions.pathsGet();
     this.props.actions.coursesInit();
-    this.props.actions.getProgress();
-    this.props.actions.getOnboarding();
-    this.props.actions.credentialsGet();
     this.props.actions.announcementsGet({
       order: '-fields.date'
     });
+
+    // V2 calls
+    this.props.actions.dashboardGet();
   }
 
   // eslint-disable-next-line complexity
   render() {
     const {
-      recentCourse,
-      progress,
-      loadingProgress,
-      completedCourses,
-      completedPaths,
+      latestEnrollment,
+      loadingDashboard,
       loadingCourses,
       user,
       loadingPaths,
       announcements,
       loadingAnnouncements,
-      loadingCredentials,
       onboarding,
-      loadingOnboarding,
       courses,
       paths,
       credentials
@@ -67,14 +62,12 @@ class DashboardPage extends Component {
     let recommendedPath = null;
 
     if (recommendedUserPath) {
-      recommendedPath = progress.get('paths').find(p => p.get('id').toString() === recommendedUserPath.get('id').toString());
+      recommendedPath = paths.find(p => p.get('id').toString() === recommendedUserPath.get('id').toString());
     }
 
-    const completed = fromJS([...completedPaths.toJS(), ...completedCourses.toJS()]);
-
     const Onboarding = (
-      <DashboardCard canToggleVisibility showClose={onboarding.filter(f => f).count() === onboarding.count()} settingsKey="onboarding" loading={loadingOnboarding} title="YOUR GETTING STARTED CHECKLIST">
-        {loadingOnboarding === false ? (
+      <DashboardCard canToggleVisibility showClose={onboarding.filter(f => f).count() === onboarding.count()} settingsKey="onboarding" loading={loadingDashboard} title="YOUR GETTING STARTED CHECKLIST">
+        {loadingDashboard === false ? (
           <DashboardOnboarding
             onboarding={onboarding}
             items={fromJS([
@@ -103,8 +96,8 @@ class DashboardPage extends Component {
     );
 
     const RecentCourse = (
-      <DashboardCard showWelcome settingsKey="recentCourse" loading={loadingProgress || loadingCourses} title="Your Most Recent Course">
-        {(!recentCourse || recentCourse.isEmpty()) && loadingProgress === false && loadingCourses === false ? (
+      <DashboardCard showWelcome settingsKey="recentCourse" loading={loadingDashboard || loadingCourses} title="Your Most Recent Course">
+        {(!latestEnrollment || latestEnrollment.isEmpty()) && loadingDashboard === false && loadingCourses === false ? (
           <DashboardNoData btnText="View Courses" btnUrl={Routes.Courses} text="You haven’t started any courses yet. Let’s get started!">
             <Image
               src="/static/img/dashboard-no-data-328.png"
@@ -114,20 +107,16 @@ class DashboardPage extends Component {
               srcSet="
                 /static/img/dashboard-no-data-328.png 328w,
                 /static/img/dashboard-no-data-328.webp 328w,
-                /static/img/dashboard-no-data-656.png 656w
-                /static/img/dashboard-no-data-656.webp 656w,
+                /static/img/dashboard-no-data-656.png 656w,
+                /static/img/dashboard-no-data-656.webp 656w
               "
             />
           </DashboardNoData>
         ) : null}
-        {recentCourse && !recentCourse.isEmpty() && loadingProgress === false ? (
+        {latestEnrollment && !latestEnrollment.isEmpty() && loadingDashboard === false && loadingCourses === false ? (
           <DashboardCourse
-            course={recentCourse}
-            title={recentCourse.get('title')}
-            percentage_completed={recentCourse.get('percentage_completed')}
-            resumeUrl={recentCourse.get('url')}
-            excerpt={recentCourse.get('excerpt')}
-            badge={recentCourse.get('badge')}
+            courseId={latestEnrollment.get('course_id')}
+            percentage_completed={latestEnrollment.get('percentage_completed')}
           />
         ) : null}
       </DashboardCard>
@@ -169,10 +158,10 @@ class DashboardPage extends Component {
     );
 
     const RockstarProgress = (
-      <DashboardCard loading={loadingProgress} settingsKey="rockstarProgress" title="Data Rockstar Progress">
+      <DashboardCard loading={loadingDashboard} settingsKey="rockstarProgress" title="Data Rockstar Progress">
         <Tabs tabs={['Paths', 'Courses']}>
-          <DashboardProgress items={progress.get('paths')} modal="pathDrawer" />
-          <DashboardProgress items={progress.get('courses')} modal="courseDrawer" />
+          <DashboardProgress items={paths} modal="pathDrawer" />
+          <DashboardProgress items={courses} modal="courseDrawer" />
         </Tabs>
       </DashboardCard>
     );
@@ -188,8 +177,8 @@ class DashboardPage extends Component {
     );
 
     const BadgeCreds = (
-      <DashboardCard settingsKey="credentials" title="Earned badges & credentials" loading={loadingProgress || loadingCourses || loadingCredentials}>
-        {loadingProgress === false && loadingCourses === false && loadingCredentials && credentials.isEmpty() ? (
+      <DashboardCard settingsKey="credentials" title="Earned badges & credentials" loading={loadingDashboard || loadingCourses}>
+        {loadingDashboard === false && loadingCourses === false && loadingDashboard && credentials.isEmpty() ? (
           <DashboardNoData
             btnText="View All Badges"
             btnUrl={Routes.DashboardCredentials}
@@ -251,16 +240,12 @@ class DashboardPage extends Component {
 }
 
 DashboardPage.propTypes = {
-  loadingProgress: PropTypes.bool,
-  loadingOnboarding: PropTypes.bool,
+  loadingDashboard: PropTypes.bool,
   loadingCourses: PropTypes.bool,
   loadingPaths: PropTypes.bool,
   loadingAnnouncements: PropTypes.bool,
-  loadingCredentials: PropTypes.bool,
-  errorProgress: PropTypes.string,
   actions: PropTypes.objectOf(PropTypes.func),
-  recentCourse: ImmutablePropTypes.map,
-  progress: ImmutablePropTypes.map,
+  latestEnrollment: ImmutablePropTypes.map,
   onboarding: ImmutablePropTypes.map,
   completedPaths: ImmutablePropTypes.list,
   completedCourses: ImmutablePropTypes.list,
@@ -272,23 +257,18 @@ DashboardPage.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  recentCourse: dashboardSelectors.getRecentCourse(state),
-  progress: dashboardSelectors.getProgress(state),
+  latestEnrollment: enrollmentSelectors.getLatestEnrollment(state),
   onboarding: dashboardSelectors.getOnboarding(state),
   courses: courseSelectors.getCourses(state),
   paths: pathSelectors.getPaths(state),
-  loadingCourses: loadingSelectors.getLoading(['COURSESINIT'])(state),
-  loadingPaths: loadingSelectors.getLoading(['PATHSINIT'])(state),
-  loadingProgress: loadingSelectors.getLoading(['DASHBOARD_PROGRESS'])(state),
-  loadingOnboarding: loadingSelectors.getLoading(['DASHBOARD_ONBOARDING'])(state),
-  loadingAnnouncements: loadingSelectors.getLoading(['ANNOUNCEMENTS_GET'])(state),
-  loadingCredentials: loadingSelectors.getLoading(['CREDENTIALS_GET'])(state),
-  errorProgress: errorSelectors.getError(['DASHBOARD_PROGRESS'])(state),
-  completedCourses: courseSelectors.getCompletedCourses(state),
-  completedPaths: pathSelectors.getCompletedPaths(state),
   user: userSelectors.getUser(state),
   announcements: announcementSelectors.getAnnouncements(state),
-  credentials: credentialSelectors.getCredentials(state)
+  credentials: credentialSelectors.getCredentials(state),
+  loadingDashboard: loadingSelectors.getLoading(['DASHBOARD_GET'])(state),
+  loadingCourses: loadingSelectors.getLoading(['COURSESINIT'])(state),
+  loadingPaths: loadingSelectors.getLoading(['PATHS_GET'])(state),
+  loadingAnnouncements: loadingSelectors.getLoading(['ANNOUNCEMENTS_GET'])(state),
+  loadingCredentials: loadingSelectors.getLoading(['CREDENTIALS_GET'])(state)
 });
 
 const mapDispatchToProps = dispatch => ({

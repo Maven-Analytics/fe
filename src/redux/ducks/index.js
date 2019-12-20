@@ -19,6 +19,9 @@ import pages from './pages';
 import credentials from './credentials';
 import announcements from './announcements';
 import userSettings from './userSettings';
+import enrollments from './enrollments';
+import recommended from './recommended';
+import subscription from './subscription';
 
 const Ducks = combineReducers({
   loading,
@@ -39,7 +42,10 @@ const Ducks = combineReducers({
   pages,
   credentials,
   announcements,
-  userSettings
+  userSettings,
+  enrollments,
+  recommended,
+  subscription
 });
 
 export default Ducks;

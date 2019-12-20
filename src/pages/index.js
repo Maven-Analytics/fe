@@ -215,7 +215,7 @@ class Home extends Component {
   }
 }
 
-Home.getInitialProps = ctx => {
+Home.getInitialProps = async ctx => {
   const {store} = ctx;
   store.dispatch(
     courseActions.coursesInit({
@@ -227,6 +227,8 @@ Home.getInitialProps = ctx => {
 
   store.dispatch(spotlightActions.spotlightsGet());
   store.dispatch(pageActions.pagesGet({slug: 'home'}));
+
+  return {};
 };
 
 Home.propTypes = {

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { List, Map, isImmutable } from 'immutable';
+import {List, Map, isImmutable} from 'immutable';
 import Link from 'next/link';
 
 import RichText from '../components/richText';
@@ -11,7 +11,7 @@ import ProductMeta from '../components/productMeta';
 import ProductMetaItem from '../components/productMetaItem';
 import DifficultyMeter from '../components/difficultyMeter';
 import ParallaxBg from '../components/parallaxBg';
-import { innerHtml } from '../utils/componentHelpers';
+import {innerHtml} from '../utils/componentHelpers';
 
 const BrochureHero = ({
   image,
@@ -62,8 +62,8 @@ const BrochureHero = ({
                   <RichText content={description} />
                 </div>
               ) : (
-                  <div className="brochure-hero__description" dangerouslySetInnerHTML={innerHtml(description)} />
-                )}
+                <div className="brochure-hero__description" dangerouslySetInnerHTML={innerHtml(description)} />
+              )}
               {linkHref ? (
                 <Link href={linkHref}>
                   <a className="brochure-hero__link" onClick={onLinkClick}>

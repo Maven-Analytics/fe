@@ -15,7 +15,7 @@ import Head from '../components/head';
 import {courseHeroBgSources, courseHeroBgSrc} from '../constants';
 import BrochureContent from '../components/brochureContent';
 import ImageContentful from '../components/imageContentful';
-import { clickAction } from '../utils/componentHelpers';
+import {clickAction} from '../utils/componentHelpers';
 
 const SkillsAssessments = ({courses, page, actions}) => {
   return (
@@ -77,7 +77,7 @@ SkillsAssessments.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  courses: courseSelectors.getCoursesForAssessmentPage(state),
+  courses: courseSelectors.getCourses(state).filter(c => c.get('assessmentPage')),
   page: pageSelectors.getPage(state, 'skills-assessments')
 });
 

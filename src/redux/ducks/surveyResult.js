@@ -4,9 +4,8 @@ import {fromJS} from 'immutable';
 import * as utils from '../../utils/duckHelpers';
 import {selectors as courseSelectors} from './courses';
 import {selectors as pathSelectors} from './paths';
+import {selectors as userSelectors} from './user';
 import {getRecommendedCourses, getCoursePercentages, getAdjustedCoursePercentages, getRecommendedPaths, getPathPercentages, getAdjustedPathPercentages, sortResults, getInitialAnswers, getSurveyWeights} from '../../utils/surveyHelpers';
-import {getCourseById} from '../../utils/courseHelpers';
-import {getPathById} from '../../utils/pathHelpers';
 import {SurveyQuestions} from '../../surveyContstants';
 
 export const types = {
@@ -45,7 +44,6 @@ export const selectors = {
     return sorted.map(id => {
       return fromJS({
         id: id,
-        ...getCourseById(courses, id).toJS(),
         percentage: percentages.get(id),
         adjustedPercentage: adjustedPercentages.get(id)
       });
@@ -60,7 +58,6 @@ export const selectors = {
     return sorted.map(id => {
       return fromJS({
         id: id,
-        ...getPathById(paths, id).toJS(),
         percentage: percentages.get(id),
         adjustedPercentage: adjustedPercentages.get(id)
       });

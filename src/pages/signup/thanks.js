@@ -7,25 +7,27 @@ import {bindActionCreators} from 'redux';
 import {actions as authActions} from '../../redux/ducks/auth';
 import {selectors as loadingSelectors} from '../../redux/ducks/loading';
 import {selectors as userSelectors} from '../../redux/ducks/user';
+import {selectors as subscriptionSelectors} from '../../redux/ducks/subscription';
 import Checkout from '../../layouts/checkout';
 import CheckoutThanks from '../../components/checkoutThanks';
 import withAuthSync from '../../components/withAuthSync';
 import Loader from '../../components/loader';
+import {subscriptionEnrolled} from '../../utils/subscriptionHelpers';
 
 class SignupThanks extends Component {
   componentDidMount() {
-    const {user} = this.props;
-    if (user && !user.get('enrolled')) {
+    const {subscription} = this.props;
+    if (subscription && !subscriptionEnrolled(subscription)) {
       this.props.actions.ensureEnrolled(this.props.token);
     }
   }
 
   render() {
-    const {loading, user} = this.props;
+    const {loading, subscription} = this.props;
     return (
       <Checkout full>
         <div className="thanks-page">
-          {loading === false && user.get('enrolled') ? (
+          {loading === false && subscriptionEnrolled(subscription) ? (
             <CheckoutThanks />
           ) : (
             <div className="checkout-thanks thanks-page__content ">
@@ -46,7 +48,7 @@ SignupThanks.getInitialProps = () => {
 };
 
 SignupThanks.propTypes = {
-  user: ImmutablePropTypes.map.isRequired,
+  subscription: ImmutablePropTypes.map.isRequired,
   token: PropTypes.string.isRequired,
   actions: PropTypes.objectOf(PropTypes.func),
   loading: PropTypes.bool
@@ -54,7 +56,8 @@ SignupThanks.propTypes = {
 
 const mapStateToProps = state => ({
   loading: loadingSelectors.getLoading(['ENSURE_ENROLLED'])(state),
-  token: userSelectors.getToken(state)
+  token: userSelectors.getToken(state),
+  subscription: subscriptionSelectors.getSubscription(state)
 });
 
 const mapDispatchToProps = function (dispatch) {

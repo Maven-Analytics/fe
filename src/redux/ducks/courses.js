@@ -2,9 +2,9 @@ import {createSelector} from 'reselect';
 import {fromJS} from 'immutable';
 
 import * as utils from '../../utils/duckHelpers';
-import {getCourseBySlug} from '../../utils/courseHelpers';
-import {selectors as filterSelectors} from './filters';
-import {getFilteredCourses} from '../../utils/filterHelpers';
+import {selectors as enrollmentSelectors} from './enrollments';
+import {selectors as userSelectors} from './user';
+import {selectors as stateSelectors} from './state';
 
 export const types = {
   COURSESINIT_REQUEST: 'COURSESINIT_REQUEST',
@@ -40,15 +40,22 @@ export default (state = initialState, action) => {
 };
 
 const getCourses = state => state.get('courses');
-const getCourse = (state, slug) => {
-  return getCourseBySlug(state.get('courses'), slug);
-};
 
 export const selectors = {
-  getCourses: createSelector([getCourses], c => c),
-  getCourse: createSelector([getCourse], c => c),
-  getFilteredCourses: createSelector([getCourses], courses => courses),
-  getCompletedCourses: createSelector([getCourses], c => c.filter(c => c.get('completed'))),
-  getCoursesByCompletionDesc: createSelector([getCourses], c => c.sort((a, b) => b.get('percentage_completed') - a.get('percentage_completed'))),
-  getCoursesForAssessmentPage: createSelector([getCourses], c => c.filter(c => c.get('assessmentPage')))
+  getCourses: createSelector([getCourses, enrollmentSelectors.getEnrollments, userSelectors.getUser, stateSelectors.getState], (courses, enrollments, user, state) => {
+    courses = courses.map(course => {
+      const enrollment = enrollments.find(enrollment => enrollment.get('course_id') === course.get('thinkificCourseId'));
+      const recommendedCourse = user.getIn(['user', 'recommended_courses']) && user.getIn(['user', 'recommended_courses']).find(rc => rc.get('id') === course.get('id'));
+
+      return course
+        .set('percentage_completed', enrollment && enrollment.get('percentage_completed'))
+        .set('resumeUrl', course.get('url'))
+        .set('lastTaken', enrollment && enrollment.get('updatedAt'))
+        .set('match', recommendedCourse && recommendedCourse.get('percentage'));
+    });
+
+    courses = utils.sortProducts(courses, state);
+
+    return courses;
+  })
 };

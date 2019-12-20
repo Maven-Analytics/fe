@@ -10,6 +10,7 @@ import Router from 'next/router';
 
 import {selectors as surveyResultSelectors, actions as surveyResultActions} from '../../redux/ducks/surveyResult';
 import {actions as userActions} from '../../redux/ducks/user';
+import {actions as recommendedActions} from '../../redux/ducks/recommended';
 import {actions as pathActions} from '../../redux/ducks/paths';
 import {actions as courseActions} from '../../redux/ducks/courses';
 import Checkout from '../../layouts/checkout';
@@ -100,7 +101,7 @@ class WelcomeSurvey extends Component {
       });
     });
 
-    this.props.actions.userRecommendedSet({
+    this.props.actions.recommendedSet({
       paths: recommendedPaths.toJS(),
       courses: recommendedCourses.toJS()
     });
@@ -178,7 +179,7 @@ class WelcomeSurvey extends Component {
 WelcomeSurvey.getInitialProps = ctx => {
   const {store} = ctx;
 
-  store.dispatch(pathActions.pathsInit());
+  store.dispatch(pathActions.pathsGet());
   store.dispatch(courseActions.coursesInit());
 };
 
@@ -205,7 +206,7 @@ const mapDispatchToProps = function (dispatch) {
   return {
     actions: bindActionCreators({
       ...surveyResultActions,
-      ...userActions
+      ...recommendedActions
     }, dispatch)
   };
 };

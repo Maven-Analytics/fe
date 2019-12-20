@@ -16,8 +16,8 @@ import {actions as authActions} from '../../redux/ducks/auth';
 import {selectors as checkoutSelectors, actions as checkoutActions} from '../../redux/ducks/checkout';
 import CheckoutFooter from '../../components/checkoutFooter';
 import {Routes} from '../../routes';
-import {getCheckoutUrlAsync} from '../../utils/checkoutHelpers';
 import {canUseDOM} from '../../utils/componentHelpers';
+import {getCheckoutUrlAsync} from '../../services/apiv2';
 
 class SignupIndex extends Component {
   constructor(props) {

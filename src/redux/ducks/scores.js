@@ -6,27 +6,22 @@ import * as utils from '../../utils/duckHelpers';
 export const types = {
   SCORES_GET_REQUEST: 'SCORES_GET_REQUEST',
   SCORES_GET_SUCCESS: 'SCORES_GET_SUCCESS',
-  SCORES_GET_FAILURE: 'SCORES_GET_FAILURE'
+  SCORES_GET_FAILURE: 'SCORES_GET_FAILURE',
+  SCORES_RESET: 'SCORES_RESET'
 };
 
 export const actions = {
   scoresGet: obj => utils.action(types.SCORES_GET_REQUEST, obj)
 };
 
-const initialState = utils.initialState({
-  final: [],
-  benchmark: []
-});
+const initialState = utils.initialState([]);
 
 export default (state = initialState, action) => {
   switch (action.type) {
   case types.SCORES_GET_SUCCESS:
-    return state.update(s => {
-      s = s.set('final', utils.stateListMerge(s.get('final'), action.payload.final));
-      s = s.set('benchmark', utils.stateListMerge(s.get('benchmark'), action.payload.benchmark));
-
-      return s;
-    });
+    return utils.stateListMerge(state, action.payload);
+  case types.SCORES_RESET:
+    return initialState;
   default:
     return state;
   }
@@ -34,8 +29,8 @@ export default (state = initialState, action) => {
 
 const getScores = state => state.get('scores');
 const getScoreForCourse = (state, courseId) => {
-  const final = state.getIn(['scores', 'final']).filter(s => s.get('course_id') === courseId).first();
-  const benchmark = state.getIn(['scores', 'benchmark']).filter(s => s.get('course_id') === courseId).first();
+  const final = state.get('scores').filter(score => score.get('type') === 'final').filter(s => s.get('course_id') === courseId).first();
+  const benchmark = state.get('scores').filter(score => score.get('type') === 'benchmark').filter(s => s.get('course_id') === courseId).first();
   let map = Map();
 
   if (benchmark) {

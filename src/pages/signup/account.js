@@ -19,8 +19,8 @@ import CheckoutFooter from '../../components/checkoutFooter';
 import AccountForm from '../../forms/accountForm';
 import {Routes} from '../../routes';
 import Checkbox from '../../components/inputs/checkbox';
-import {getCheckoutUrlAsync} from '../../utils/checkoutHelpers';
 import {getCookie} from '../../utils/cookies';
+import {getCheckoutUrlAsync} from '../../services/apiv2';
 
 class SignupAccount extends Component {
   static async getInitialProps(ctx) {

@@ -4,7 +4,6 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import MaIcon from './maIcon';
 
 import PathBanner from './pathBanner';
-import {getPathHours} from '../utils/pathHelpers';
 import CourseCarousel from '../sections/courseCarousel';
 
 class PathListingItem extends PureComponent {
@@ -38,12 +37,13 @@ class PathListingItem extends PureComponent {
       <div className="path-listing-item">
         <div className="path-listing-item__banner">
           <PathBanner
+            id={path.get('id')}
             slug={path.get('slug')}
             badge={path.get('badge')}
             title={path.get('title')}
             excerpt={path.get('excerpt')}
             courses={path.get('courses') && path.get('courses').count()}
-            length={getPathHours(path)}
+            length={path.get('length')}
             tools={path.get('tools')}
           />
           <button className="path-listing-item__toggle" aria-hidden={coursesOpen === false} aria-controls={id} onClick={this.handleToggle}>

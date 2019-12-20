@@ -47,7 +47,12 @@ class MethodPath extends Component {
 
     const windowBottom = window.scrollY + window.innerHeight;
     const startY = elStart.offsetTop + 200; // Start when bottom of the screen is at the start el + 50
-    const endY = elEnd.offsetTop + (elEnd.offsetHeight / 2); // End when the line reaches the middle of the last item
+    let endY = elEnd.offsetTop + (elEnd.offsetHeight / 2); // End when the line reaches the middle of the last item
+
+    // If endY is 0, progress is set to Infinity, make sure that doens't happen
+    if (!endY) {
+      endY = windowBottom;
+    }
 
     const progress = (windowBottom - startY) / endY;
     const pathLength = path.getTotalLength();

@@ -11,7 +11,7 @@ import ImageContentful from './imageContentful';
 import MaIcon from './maIcon';
 import {clickAction} from '../utils/componentHelpers';
 
-const PathBanner = ({badge, title, excerpt, match, courses, length, tools, path, actions}) => {
+const PathBanner = ({badge, title, excerpt, match, courses, length, tools, id, actions}) => {
   const classList = ['path-banner'];
 
   if (match) {
@@ -23,7 +23,7 @@ const PathBanner = ({badge, title, excerpt, match, courses, length, tools, path,
   }
 
   const btn = (
-    <button onClick={clickAction(actions.modalOpen, 'pathDrawer', path)} className="btn btn--primary-solid">
+    <button onClick={clickAction(actions.modalOpen, 'pathDrawer', id)} className="btn btn--primary-solid">
       Path Info
     </button>
   );
@@ -75,20 +75,16 @@ PathBanner.propTypes = {
   courses: PropTypes.number,
   length: PropTypes.number,
   tools: ImmutablePropTypes.list,
-  slug: PropTypes.string.isRequired,
-  actions: PropTypes.objectOf(PropTypes.func),
-  path: ImmutablePropTypes.map
+  id: PropTypes.string.isRequired,
+  actions: PropTypes.objectOf(PropTypes.func)
 };
 
 PathBanner.defaultProps = {
   tools: List(),
-  badge: Map(),
-  path: Map()
+  badge: Map()
 };
 
-const mapStateToProps = (state, props) => ({
-  path: pathSelectors.getPath(state, props.slug)
-});
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(

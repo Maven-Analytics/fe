@@ -5,10 +5,10 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import {actions as courseActions, selectors as courseSelectors} from '../../redux/ducks/courses';
+import {selectors as subscriptionSelectors} from '../../redux/ducks/subscription';
 import {selectors as errorSelectors} from '../../redux/ducks/error';
 import {selectors as loadingSelectors} from '../../redux/ducks/loading';
 import {selectors as userSelectors} from '../../redux/ducks/user';
-import {actions as dashboardActions, selectors as dashboardSelectors} from '../../redux/ducks/dashboard';
 import DashboardLayout from '../../layouts/dashboard';
 import CourseFilters from '../../components/courseFilters';
 import DashboardGrid from '../../components/dashboardGrid';
@@ -16,19 +16,17 @@ import CourseCard from '../../components/courseCard';
 import Image from '../../components/image';
 import DashboardNoData from '../../components/dashboardNoData';
 import withAuthSync from '../../components/withAuthSync';
-import {getMatchScoreForCourse} from '../../utils/courseHelpers';
 import {prettyPercent} from '../../utils/componentHelpers';
 import {Routes} from '../../routes';
+import {subscriptionEnrolled} from '../../utils/subscriptionHelpers';
 
 class DashboardCourses extends Component {
   componentDidMount() {
     this.props.actions.coursesFilter();
-    this.props.actions.getProgress();
   }
 
   render() {
-    const {loading, progress, user} = this.props;
-    const courses = progress.get('courses');
+    const {loading, subscription, courses} = this.props;
 
     return (
       <DashboardLayout sidebar={CourseFilters} showWelcome loading={loading} title="Self-Paced Courses" activeLink={2}>
@@ -39,8 +37,8 @@ class DashboardCourses extends Component {
               <CourseCard
                 full
                 key={course.get('id')}
-                resumeUrl={user.get('enrolled') ? course.get('url') : Routes.Signup}
-                match={`${prettyPercent(getMatchScoreForCourse(course, user))}%`}
+                resumeUrl={subscriptionEnrolled(subscription) ? course.get('url') : Routes.Signup}
+                match={`${prettyPercent(course.get('match'))}%`}
                 course={course}
                 progress={course.get('percentage_completed')}
                 recommended={course.get('recommended') ? 'Recommended for you' : null}
@@ -68,18 +66,7 @@ class DashboardCourses extends Component {
   }
 }
 
-DashboardCourses.getInitialProps = async ctx => {
-  const {store, asPath} = ctx;
-
-  // Store.dispatch(courseActions.coursesFilter());
-  // store.dispatch(dashboardActions.getProgress());
-
-  // const url = asPath;
-
-  // const search = url.split('?')[1] || '';
-
-  // const query = qs.parse(search);
-
+DashboardCourses.getInitialProps = async () => {
   return {
     loading: true
   };
@@ -89,23 +76,22 @@ DashboardCourses.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.string,
   actions: PropTypes.objectOf(PropTypes.func),
-  progress: ImmutablePropTypes.map,
-  user: ImmutablePropTypes.map
+  subscription: ImmutablePropTypes.map,
+  courses: ImmutablePropTypes.list
 };
 
 const mapStateToProps = state => ({
   loading: loadingSelectors.getLoading(['COURSES_FILTER'])(state),
   error: errorSelectors.getError(['COURSES_FILTER'])(state),
-  progress: dashboardSelectors.getProgress(state),
-  user: userSelectors.getUser(state)
+  subscription: subscriptionSelectors.getSubscription(state),
+  courses: courseSelectors.getCourses(state)
 });
 
 const mapDispatchToProps = function (dispatch) {
   return {
     actions: bindActionCreators(
       {
-        ...courseActions,
-        ...dashboardActions
+        ...courseActions
       },
       dispatch
     )
