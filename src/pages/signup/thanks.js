@@ -10,24 +10,23 @@ import {selectors as userSelectors} from '../../redux/ducks/user';
 import {selectors as subscriptionSelectors} from '../../redux/ducks/subscription';
 import Checkout from '../../layouts/checkout';
 import CheckoutThanks from '../../components/checkoutThanks';
-import withAuthSync from '../../components/withAuthSync';
 import Loader from '../../components/loader';
 import {subscriptionEnrolled} from '../../utils/subscriptionHelpers';
 
 class SignupThanks extends Component {
   componentDidMount() {
-    const {subscription} = this.props;
-    if (subscription && !subscriptionEnrolled(subscription)) {
+    const {subscription, user} = this.props;
+    if (user && !user.isEmpty() && subscription && !subscriptionEnrolled(subscription)) {
       this.props.actions.ensureEnrolled(this.props.token);
     }
   }
 
   render() {
-    const {loading, subscription} = this.props;
+    const {loading, subscription, user} = this.props;
     return (
       <Checkout full>
         <div className="thanks-page">
-          {loading === false && subscriptionEnrolled(subscription) ? (
+          {!user || user.isEmpty() || (loading === false && subscriptionEnrolled(subscription)) ? (
             <CheckoutThanks />
           ) : (
             <div className="checkout-thanks thanks-page__content ">
@@ -49,14 +48,16 @@ SignupThanks.getInitialProps = () => {
 
 SignupThanks.propTypes = {
   subscription: ImmutablePropTypes.map.isRequired,
-  token: PropTypes.string.isRequired,
+  token: PropTypes.string,
   actions: PropTypes.objectOf(PropTypes.func),
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  user: ImmutablePropTypes.map
 };
 
 const mapStateToProps = state => ({
   loading: loadingSelectors.getLoading(['ENSURE_ENROLLED'])(state),
   token: userSelectors.getToken(state),
+  user: userSelectors.getUser(state),
   subscription: subscriptionSelectors.getSubscription(state)
 });
 
@@ -74,4 +75,4 @@ const mapDispatchToProps = function (dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withAuthSync(SignupThanks));
+)(SignupThanks);
