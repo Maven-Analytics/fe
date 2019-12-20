@@ -3,10 +3,9 @@ import {all, put, takeLatest, call, select, delay, take} from 'redux-saga/effect
 
 import {types as authTypes} from '../ducks/auth';
 import {types as userTypes, selectors as userSelectors} from '../ducks/user';
-import {selectors as subscriptionSelectors} from '../ducks/subscription';
+import {selectors as subscriptionSelectors, types as subscriptionTypes} from '../ducks/subscription';
 import {selectors as recommendedSelectors} from '../ducks/recommended';
 import {types as enrollmentTypes} from '../ducks/enrollments';
-import {types as subscriptionTypes} from '../ducks/subscription';
 import {types as dashboardTypes} from '../ducks/dashboard';
 import {types as credentialTypes} from '../ducks/credentials';
 import {types as scoreTypes} from '../ducks/scores';
@@ -207,6 +206,10 @@ function * ensureEnrolled() {
     yield all([
       put({
         type: authTypes.ENSURE_ENROLLED_SUCCESS
+      }),
+      put({
+        type: subscriptionTypes.SUBSCRIPTION_GET_SUCCESS,
+        payload: data
       })
     ]);
   } catch (error) {
