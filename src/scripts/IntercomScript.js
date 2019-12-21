@@ -1,13 +1,10 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
 import Intercom from 'react-intercom';
 
 import {selectors as userSelectors} from '../redux/ducks/user';
-import {selectors as subscriptionSelectors} from '../redux/ducks/subscription';
 import config from '../config';
-import {subscriptionStatuses} from '../constants';
 
 class IntercomScript extends Component {
   render() {

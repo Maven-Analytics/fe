@@ -27,9 +27,9 @@ class TabListTopics extends Component {
       const topicIndex = this.props.tabs.findIndex(t => t.get('slug') === slug);
 
       if (topicIndex > -1) {
-        const topic = this.props.tabs.find(t => t.get('slug') === slug);
+        // Const topic = this.props.tabs.find(t => t.get('slug') === slug);
 
-        this.props.actions.modalOpen('video', topic && {video: topic.get('video')});
+        // This.props.actions.modalOpen('video', topic && {video: topic.get('video')});
 
         this.setState({
           activeTab: topicIndex
