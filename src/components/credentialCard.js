@@ -26,7 +26,7 @@ class CredentialCard extends Component {
     const classList = ['credential-card'];
     const url = credential && credential.has('url') && credential.get('url') !== '' ? credential.get('url') : promoteUrl;
 
-    if (credential) {
+    if (credential || progress >= 1) {
       classList.push('completed');
     }
 
@@ -34,7 +34,7 @@ class CredentialCard extends Component {
       <div className={classList.join(' ')}>
         <ImageContentful image={image} />
         <p>{title}</p>
-        {url && credential ? (
+        {url ? (
           <Link href={url}>
             <a className="btn" target="_blank">
               See Badge

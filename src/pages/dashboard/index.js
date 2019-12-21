@@ -65,6 +65,33 @@ class DashboardPage extends Component {
       recommendedPath = paths.find(p => p.get('id').toString() === recommendedUserPath.get('id').toString());
     }
 
+    const completed = paths.filter(p => p.get('percentage_completed') >= 1)
+      .concat(courses.filter(c => c.get('percentage_completed') >= 1))
+      .filter(item => {
+        const cred = credentials.find(c => c.get('group_id') === item.get('accredibleId'));
+
+        return !cred;
+      })
+      .concat(credentials)
+      .map(comp => {
+        if (!comp || !comp.get('group_id')) {
+          return comp;
+        }
+
+        let item = courses.find(c => c.get('accredibleId') === comp.get('group_id'));
+
+        if (!item) {
+          item = paths.find(p => p.get('accredibleId') === comp.get('group_id'));
+        }
+
+        if (!item) {
+          return null;
+        }
+
+        return item;
+      })
+      .filter(item => item);
+
     const Onboarding = (
       <DashboardCard canToggleVisibility showClose={onboarding.filter(f => f).count() === onboarding.count()} settingsKey="onboarding" loading={loadingDashboard} title="YOUR GETTING STARTED CHECKLIST">
         {loadingDashboard === false ? (
@@ -189,18 +216,23 @@ class DashboardPage extends Component {
             <MaIcon icon="badge-alt" />
           </DashboardNoData>
         ) : (
+        // <DashboardCredentialIcons>
+        //   {credentials.map(cred => {
+        //     let item = courses.find(c => c.get('accredibleId') === cred.get('group_id'));
+
+        //     if (!item) {
+        //       item = paths.find(p => p.get('accredibleId') === cred.get('group_id'));
+        //     }
+
+        //     if (!item) {
+        //       return null;
+        //     }
+
+          //     return <DashboardCredential key={item.get('id')} image={item.get('badge')} title={item.get('title')} />;
+          //   })}
+          // </DashboardCredentialIcons>
           <DashboardCredentialIcons>
-            {credentials.map(cred => {
-              let item = courses.find(c => c.get('accredibleId') === cred.get('group_id'));
-
-              if (!item) {
-                item = paths.find(p => p.get('accredibleId') === cred.get('group_id'));
-              }
-
-              if (!item) {
-                return null;
-              }
-
+            {completed.map(item => {
               return <DashboardCredential key={item.get('id')} image={item.get('badge')} title={item.get('title')} />;
             })}
           </DashboardCredentialIcons>
