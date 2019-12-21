@@ -10,25 +10,12 @@ import config from '../config';
 import {subscriptionStatuses} from '../constants';
 
 class IntercomScript extends Component {
-  getSubscriptionStatus(status) {
-    switch (status) {
-    case subscriptionStatuses.canceled:
-      return 'Expired';
-    case subscriptionStatuses.trial:
-      return 'Free trial';
-    case subscriptionStatuses.paid:
-      return 'Paid subscription';
-    default:
-      return 'Prospect';
-    }
-  }
-
   render() {
     if (config.DISABLE_INTERCOM) {
       return null;
     }
 
-    const {user, status} = this.props;
+    const {user} = this.props;
 
     let userProps = {};
 
@@ -36,8 +23,7 @@ class IntercomScript extends Component {
       userProps = {
         name: `${user.get('first_name')} ${user.get('last_name')}`,
         email: user.get('email'),
-        created_at: user.get('createdAt'),
-        subscription_status: this.getSubscriptionStatus(status)
+        created_at: user.get('createdAt')
       };
     }
 
@@ -51,13 +37,11 @@ class IntercomScript extends Component {
 }
 
 IntercomScript.propTypes = {
-  user: ImmutablePropTypes.map,
-  status: PropTypes.string
+  user: ImmutablePropTypes.map
 };
 
 const mapStateToProps = state => ({
-  user: userSelectors.getUser(state),
-  status: subscriptionSelectors.getSubscriptionStatus(state)
+  user: userSelectors.getUser(state)
 });
 
 export default connect(mapStateToProps)(IntercomScript);
