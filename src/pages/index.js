@@ -134,6 +134,14 @@ const HappyClients = fromJS([
 ]);
 
 class Home extends Component {
+  componentDidMount() {
+    this.props.actions.coursesInit({
+      params: {
+        'fields.trending': true
+      }
+    });
+  }
+
   render() {
     const {spotlights, page} = this.props;
 
@@ -217,13 +225,6 @@ class Home extends Component {
 
 Home.getInitialProps = async ctx => {
   const {store} = ctx;
-  store.dispatch(
-    courseActions.coursesInit({
-      params: {
-        'fields.trending': true
-      }
-    })
-  );
 
   store.dispatch(spotlightActions.spotlightsGet());
   store.dispatch(pageActions.pagesGet({slug: 'home'}));
@@ -255,7 +256,8 @@ const mapDispatchToProps = function (dispatch) {
   return {
     actions: bindActionCreators(
       {
-        ...authActions
+        ...authActions,
+        ...courseActions
       },
       dispatch
     )
