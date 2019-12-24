@@ -226,6 +226,8 @@ class Home extends Component {
 Home.getInitialProps = async ctx => {
   const {store} = ctx;
 
+  console.log('HOME getInitialProps');
+
   store.dispatch(spotlightActions.spotlightsGet());
   store.dispatch(pageActions.pagesGet({slug: 'home'}));
 
