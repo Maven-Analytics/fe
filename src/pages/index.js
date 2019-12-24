@@ -228,6 +228,13 @@ Home.getInitialProps = async ctx => {
 
   console.log('HOME getInitialProps');
 
+  if (ctx.req) {
+    console.log('request coming from');
+    console.info(ctx.req.connection.remoteAddress);
+    // Or
+    console.info(ctx.req.headers['x-forwarded-for']);
+  }
+
   store.dispatch(spotlightActions.spotlightsGet());
   store.dispatch(pageActions.pagesGet({slug: 'home'}));
 
