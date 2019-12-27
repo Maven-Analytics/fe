@@ -6,8 +6,24 @@ const nextHandlerWrapper = app => {
   };
 };
 
-const defaultHandlerWrapper = app => async ({raw: {req, res}, url}) => {
+const defaultHandlerWrapper = app => async ({raw: {req, res}, url}, h) => {
   const {pathname, query} = url;
+
+  // Readiness
+  if (pathname === '/-/readiness' || pathname === '/-/readiness/') {
+    return {
+      ready: true,
+      app: 'fe'
+    };
+  }
+
+  // Livenexx
+  if (pathname === '/-/liveness' || pathname === '/-/liveness/') {
+    return {
+      live: true,
+      app: 'fe'
+    };
+  }
 
   return app.renderToHTML(req, res, pathname, query);
 };
