@@ -129,45 +129,45 @@ import {watchSubscription} from './subscription';
 //   }
 // }
 
-function * forgotRequest({payload}) {
-  try {
-    const data = yield forgot(payload);
+// function * forgotRequest({payload}) {
+//   try {
+//     const data = yield forgot(payload);
 
-    yield all([
-      put({
-        type: authTypes.FORGOT_SUCCESS,
-        payload: {
-          ...data
-        }
-      })
-    ]);
-  } catch (error) {
-    yield put({
-      type: authTypes.FORGOT_FAILURE,
-      payload: error.response ? error.response.data : error.message
-    });
-  }
-}
+//     yield all([
+//       put({
+//         type: authTypes.FORGOT_SUCCESS,
+//         payload: {
+//           ...data
+//         }
+//       })
+//     ]);
+//   } catch (error) {
+//     yield put({
+//       type: authTypes.FORGOT_FAILURE,
+//       payload: error.response ? error.response.data : error.message
+//     });
+//   }
+// }
 
-function * resetRequest({payload}) {
-  try {
-    const data = yield reset(payload);
+// function * resetRequest({payload}) {
+//   try {
+//     const data = yield reset(payload);
 
-    yield all([
-      put({
-        type: authTypes.RESET_SUCCESS,
-        payload: {
-          ...data
-        }
-      })
-    ]);
-  } catch (error) {
-    yield put({
-      type: authTypes.RESET_FAILURE,
-      payload: error.response ? error.response.data : error.message
-    });
-  }
-}
+//     yield all([
+//       put({
+//         type: authTypes.RESET_SUCCESS,
+//         payload: {
+//           ...data
+//         }
+//       })
+//     ]);
+//   } catch (error) {
+//     yield put({
+//       type: authTypes.RESET_FAILURE,
+//       payload: error.response ? error.response.data : error.message
+//     });
+//   }
+// }
 
 // Function * registerRequest({payload}) {
 //   try {
@@ -238,8 +238,8 @@ function * rootSaga() {
     // TakeLatest(authTypes.LOGIN_REQUEST, loginRequest),
     // takeLatest(authTypes.REGISTER_REQUEST, registerRequest),
     // takeLatest(authTypes.LOGOUT_REQUEST, logoutRequest),
-    takeLatest(authTypes.FORGOT_REQUEST, forgotRequest),
-    takeLatest(authTypes.RESET_REQUEST, resetRequest),
+    // takeLatest(authTypes.FORGOT_REQUEST, forgotRequest),
+    // takeLatest(authTypes.RESET_REQUEST, resetRequest),
     // TakeLatest(authTypes.SSO_REQUEST, ssoRequest),
     fork(watchAuth),
     fork(watchState),
@@ -268,13 +268,13 @@ function * rootSaga() {
 //   return authReq('sso', {redirectTo});
 // }
 
-function reset({email, password, token}) {
-  return authReq('reset', {email, password, token});
-}
+// function reset({email, password, token}) {
+//   return authReq('reset', {email, password, token});
+// }
 
-function forgot({email}) {
-  return authReq('forgot', {email});
-}
+// function forgot({email}) {
+//   return authReq('forgot', {email});
+// }
 
 // Function login({email, password, redirectTo}) {
 //   return authReq('login', {email, password, redirectTo});
@@ -304,24 +304,24 @@ function forgot({email}) {
 //   });
 // }
 
-async function authReq(type, data) {
-  // Const baseUrl = config.HOST_APP;
+// async function authReq(type, data) {
+//   // Const baseUrl = config.HOST_APP;
 
-  return api({
-    method: 'post',
-    url: `/api/v1/${type}`,
-    data
-  });
+//   return api({
+//     method: 'post',
+//     url: `/api/v1/${type}`,
+//     data
+//   });
 
-  // Return axios
-  //   .post(`${baseUrl}/api/v1/${type}`, data, {
-  //     headers: {
-  //       authorization: getCookie('token')
-  //     }
-  //   })
-  //   .then(res => res.data)
-  //   .then(response => response.data);
-}
+//   // Return axios
+//   //   .post(`${baseUrl}/api/v1/${type}`, data, {
+//   //     headers: {
+//   //       authorization: getCookie('token')
+//   //     }
+//   //   })
+//   //   .then(res => res.data)
+//   //   .then(response => response.data);
+// }
 
 // Function sync(token) {
 //   return api({
