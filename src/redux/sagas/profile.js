@@ -1,12 +1,11 @@
-import {takeLatest, put, all, call} from 'redux-saga/effects';
+import {takeLatest, put, all, call, select} from 'redux-saga/effects';
 // Import axios from 'axios';
 
 import {getCookie} from '../../utils/cookies';
-import config from '../../config';
 import {types as profileTypes} from '../ducks/profile';
-import {types as userTypes} from '../ducks/user';
+import {selectors as userSelectors, types as userTypes} from '../ducks/user';
 import {checkRedirect} from './redirect';
-import api from '../../services/api';
+import apiv2 from '../../services/apiv2';
 
 export function * watchProfile() {
   yield takeLatest(profileTypes.PROFILEUPDATE_REQUEST, profileUpdateRequest);
@@ -15,7 +14,11 @@ export function * watchProfile() {
 
 function * profileUpdateRequest({payload}) {
   try {
-    const res = yield updateProfile(payload);
+    const res = yield call(apiv2, {
+      url: '/me',
+      method: 'put',
+      data: payload
+    });
 
     yield all([
       put({
@@ -25,7 +28,7 @@ function * profileUpdateRequest({payload}) {
       put({
         type: profileTypes.PROFILEUPDATE_SUCCESS,
         payload: {
-          message: res.message
+          message: 'Your profile has been updated.'
         }
       })
     ]);
@@ -41,13 +44,25 @@ function * profileUpdateRequest({payload}) {
 
 function * onPasswordResetRequest({payload}) {
   try {
-    const res = yield resetPassword(payload);
+    const user = yield select(userSelectors.getUser);
+    yield call(apiv2, {
+      url: '/me',
+      method: 'put',
+      data: {
+        ...payload,
+        email: user.get('email'),
+        first_name: user.get('first_name'),
+        last_name: user.get('last_name'),
+        postal_code: user.get('postal_code'),
+        country: user.get('country')
+      }
+    });
 
     yield all([
       put({
         type: profileTypes.PROFILE_PASSWORD_RESET_SUCCESS,
         payload: {
-          message: res.message
+          message: 'Your password has been reset.'
         }
       })
     ]);
@@ -59,26 +74,4 @@ function * onPasswordResetRequest({payload}) {
       payload: error.response ? error.response.data : error.message
     });
   }
-}
-
-function updateProfile(data) {
-  return apiRequest('/api/v1/account/profile', data);
-}
-
-function resetPassword(data) {
-  return apiRequest('/api/v1/account/password', data);
-}
-
-function apiRequest(url, data) {
-  return api({
-    method: 'put',
-    url,
-    data
-  });
-  // Return axios.put(`${config.HOST_APP}${url}`, data, {
-  //   headers: {
-  //     authorization: getCookie('token')
-  //   }
-  // })
-  //   .then(res => res.data);
 }

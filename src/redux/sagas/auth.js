@@ -23,6 +23,8 @@ export function * watchAuth() {
   yield takeLatest(authTypes.LOGOUT_REQUEST, logoutRequest);
   yield takeLatest(authTypes.SSO_REQUEST, ssoRequest);
   yield takeLatest(authTypes.ENSURE_ENROLLED_REQUEST, ensureEnrolled);
+  yield takeLatest(authTypes.FORGOT_REQUEST, onForgotRequest);
+  yield takeLatest(authTypes.RESET_REQUEST, onResetRequest);
 }
 
 function * loginRequest({payload: {redirectTo, ...data}}) {
@@ -238,5 +240,53 @@ function * checkRecommended(ctx) {
       call(removeCookie, 'recommendedPaths', ctx),
       call(removeCookie, 'recommendedCourses', ctx)
     ]);
+  }
+}
+
+function * onForgotRequest({payload}) {
+  try {
+    yield call(apiv2, {
+      url: '/public/auth/forgot',
+      data: payload,
+      method: 'post'
+    });
+
+    yield all([
+      put({
+        type: authTypes.FORGOT_SUCCESS,
+        payload: {
+          message: `An email has been sent to ${payload.email}`
+        }
+      })
+    ]);
+  } catch (error) {
+    yield put({
+      type: authTypes.FORGOT_FAILURE,
+      payload: error.response ? error.response.data : error.message
+    });
+  }
+}
+
+function * onResetRequest({payload}) {
+  try {
+    yield call(apiv2, {
+      url: '/public/auth/reset',
+      data: payload,
+      method: 'post'
+    });
+
+    yield all([
+      put({
+        type: authTypes.RESET_SUCCESS,
+        payload: {
+          message: 'Your password has been reset.'
+        }
+      })
+    ]);
+  } catch (error) {
+    yield put({
+      type: authTypes.RESET_FAILURE,
+      payload: error.response ? error.response.data : error.message
+    });
   }
 }
