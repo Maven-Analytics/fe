@@ -218,15 +218,6 @@ class Home extends Component {
 Home.getInitialProps = async ctx => {
   const {store} = ctx;
 
-  console.log('HOME getInitialProps');
-
-  if (ctx.req) {
-    console.log('request coming from');
-    console.info(ctx.req.connection.remoteAddress);
-    // Or
-    console.info(ctx.req.headers['x-forwarded-for']);
-  }
-
   store.dispatch(courseActions.coursesInit({
     params: {
       'fields.trending': true

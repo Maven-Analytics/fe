@@ -35,14 +35,14 @@ const Consulting = ({page}) => {
         </div>
         <CtaForm title="Request A Quote" form={ConsultingForm}>
           <CtaQuote
-            cite="- Kym Recco, Digital Marketing Manager"
-            image="/static/img/toms-maine-logo.png"
+            cite="- Blakely F, Digital Marketing Director"
+            image="/static/img/Renovia_Logo.png"
             imageStyle={{
-              width: 128,
-              height: 99
+              width: 200,
+              height: 55
             }}
           >
-            <p>Maven Analytics does magic with data.  They have a gift for visualizing data and helping me tell the story of what is in the data. They are collaborative at any level I need from the basics to the toughest challenges.  Most importantly, they taught me the skills to do all of this on my own in the process.  So I not only gained a beautiful dashboard - I now have the skills to do incredible things with my data on my own too.</p>
+            <p>Maven took a very complicated request to create a digital attribution solution and produced an outstanding dashboard for my company, which has made a huge impact on my ability to run campaigns. They are game changers for marketers. I will continue to use them for all our analytics needs and highly recommend working with them!</p>
           </CtaQuote>
         </CtaForm>
       </BrochureContent>
