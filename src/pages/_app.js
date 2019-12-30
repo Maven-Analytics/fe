@@ -43,8 +43,6 @@ class MavenApp extends App {
     const state = store.getState();
     const user = state.getIn(['user', 'user']);
 
-    console.log('APP getInitialProps');
-
     if (token && token !== '' && (!user || user.isEmpty())) {
       // Const user = await reauthenticateSync(token);
       store.dispatch(authActions.reauthenticate({token, ctx, isServer}));
