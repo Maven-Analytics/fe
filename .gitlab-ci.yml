@@ -37,6 +37,10 @@ include:
 staging_deploy:
   extends: .auto-deploy
   stage: staging
+  before_script: 
+    - export K8S_SECRET_SENTRY_ENVIRONMENT=staging
+    - export K8S_SECRET_HOST_API=http://staging-auto-deploy.api-15461716-staging.svc.cluster.local:5000
+    - export K8S_SECRET_GATEWAY=http://staging-auto-deploy.gateway-15469306-staging.svc.cluster.local:5000  
   script:
     - auto-deploy check_kube_domain
     - auto-deploy download_chart
@@ -47,6 +51,23 @@ staging_deploy:
   environment:
     name: staging
     url: https://staging.$KUBE_INGRESS_BASE_DOMAIN
+  only:
+    refs:
+      - staging
+
+stop_staging:
+  extends: .auto-deploy
+  stage: cleanup
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - auto-deploy initialize_tiller
+    - auto-deploy delete
+  environment:
+    name: staging
+    action: stop
+  when: manual
+  allow_failure: true
   only:
     refs:
       - staging
