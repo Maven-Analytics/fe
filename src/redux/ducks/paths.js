@@ -2,7 +2,6 @@ import {createSelector} from 'reselect';
 
 import * as utils from '../../utils/duckHelpers';
 import {selectors as enrollmentSelectors} from './enrollments';
-import {selectors as courseSelectors} from './courses';
 import {selectors as userSelectors} from './user';
 import {selectors as stateSelectors} from './state';
 import {List} from 'immutable';
