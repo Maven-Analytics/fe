@@ -1,3 +1,5 @@
+require('@babel/polyfill');
+
 const Hapi = require('hapi');
 const next = require('next');
 const Boom = require('@hapi/boom');
