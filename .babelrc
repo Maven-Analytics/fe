@@ -1,4 +1,14 @@
 {
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "#root": "./src"
+        }
+      }
+    ]
+  ],
   "env": {
     "development": {
       "presets": [

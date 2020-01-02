@@ -6,6 +6,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 module.exports = withPlugins([withSass], {
   publicRuntimeConfig: {
     HOST_SERVER: process.env.HOST_SERVER,
+    HOST_GATEWAY: process.env.HOST_GATEWAY,
     THINKIFIC_SUBDOMAIN: process.env.THINKIFIC_SUBDOMAIN,
     CONTENTFUL_SPACE: process.env.CONTENTFUL_SPACE,
     CONTENTFUL_ACCESS_TOKEN: process.env.CONTENTFUL_ACCESS_TOKEN,
@@ -31,11 +32,6 @@ module.exports = withPlugins([withSass], {
 
       config.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}));
     }
-
-    // Config.plugins.push(new webpack.DefinePlugin({
-    //   'process.env.HOST_APP': JSON.stringify(process.env.HOST_APP),
-    //   'process.env.THINKIFIC_SUBDOMAIN': JSON.stringify(process.env.THINKIFIC_SUBDOMAIN)
-    // }));
 
     return config;
   },

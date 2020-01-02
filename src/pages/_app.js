@@ -10,6 +10,7 @@ import Router from 'next/router';
 import TagManager from 'react-gtm-module';
 import {ParallaxProvider} from 'react-scroll-parallax';
 import * as Sentry from '@sentry/browser';
+import {ApolloProvider} from 'react-apollo';
 
 import initStore from '../redux/store';
 import {actions as authActions} from '../redux/ducks/auth';
@@ -30,6 +31,8 @@ import LoggedIn from '../components/loggedIn';
 import IntercomScript from '../scripts/IntercomScript';
 import UserSettingsGet from '../scripts/UserSettingsGet';
 import {reauthenticateSync} from '../services/apiv2';
+import accessConfig from '#root/utils/accessConfig';
+import client from '#root/api/graphQlClient';
 
 class MavenApp extends App {
   static async getInitialProps({Component, ctx}) {
@@ -155,6 +158,7 @@ class MavenApp extends App {
 
     return (
       <Container>
+        {/* <ApolloProvider client={client}> */}
         <Provider store={store}>
           <ParallaxProvider>
             <Component {...pageProps} />
@@ -164,6 +168,7 @@ class MavenApp extends App {
             <IntercomScript />
           </ParallaxProvider>
         </Provider>
+        {/* </ApolloProvider> */}
       </Container>
     );
   }
