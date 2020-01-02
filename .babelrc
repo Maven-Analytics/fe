@@ -6,7 +6,8 @@
         "alias": {
           "#root": "./src"
         }
-      }
+      },
+      "@babel/plugin-transform-runtime"
     ]
   ],
   "env": {
