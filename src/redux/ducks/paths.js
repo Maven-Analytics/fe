@@ -43,7 +43,7 @@ export const selectors = {
         .set('resumeUrl', pathCourses.getIn([0, 'url']));
 
       if (user) {
-        const recommendedPath = user.getIn(['user', 'recommended_paths']) && user.getIn(['user', 'recommended_paths']).find(rp => rp.get('id') === path.get('id'));
+        const recommendedPath = user.get('recommended_paths') && user.get('recommended_paths').find(rp => rp.get('id') === path.get('id'));
         path = path
           .set('match', (recommendedPath && recommendedPath.get('percentage')) || 0);
       }
