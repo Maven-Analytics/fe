@@ -12,11 +12,13 @@
   "env": {
     "development": {
       "presets": [
+        "@babel/preset-env",
         "next/babel"
       ]
     },
     "production": {
       "presets": [
+        "@babel/preset-env",
         "next/babel"
       ]
     },
