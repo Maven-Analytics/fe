@@ -1,3 +1,4 @@
+import {Map} from 'immutable';
 import React from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
