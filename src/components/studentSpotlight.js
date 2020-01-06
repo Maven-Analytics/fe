@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import {fromJS} from 'immutable';
+import PropTypes from 'prop-types';
+import React from 'react';
 
+import ImageContentful from './imageContentful';
 import MaIcon from './maIcon';
 import RichText from './richText';
-import ImageContentful from './imageContentful';
 
 const StudentSpotlight = ({name, title, location, description, completedCourses, callout, image}) => {
   return (

@@ -1,8 +1,8 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import Remarkable from 'remarkable';
 
-import {innerHtml} from '../utils/componentHelpers';
+import {innerHtml} from '#root/utils/componentHelpers';
 
 const md = new Remarkable({
   html: true

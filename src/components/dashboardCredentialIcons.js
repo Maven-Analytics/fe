@@ -1,6 +1,6 @@
+import {List} from 'immutable';
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import {List} from 'immutable';
 
 const DashboardCredentialIcons = ({children}) => {
   return (

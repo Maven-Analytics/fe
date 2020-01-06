@@ -1,35 +1,36 @@
-import React, {Component} from 'react';
+import {fromJS} from 'immutable';
 import PropTypes from 'prop-types';
+import React, {Component} from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {fromJS} from 'immutable';
 
-import {actions as dashboardActions, selectors as dashboardSelectors} from '../../redux/ducks/dashboard';
-import {actions as pathActions, selectors as pathSelectors} from '../../redux/ducks/paths';
-import {actions as courseActions, selectors as courseSelectors} from '../../redux/ducks/courses';
-import {actions as announcementActions, selectors as announcementSelectors} from '../../redux/ducks/announcements';
-import {actions as credentialActions, selectors as credentialSelectors} from '../../redux/ducks/credentials';
-import {selectors as enrollmentSelectors} from '../../redux/ducks/enrollments';
-import {selectors as loadingSelectors} from '../../redux/ducks/loading';
-import {selectors as userSelectors} from '../../redux/ducks/user';
-import DashboardLayout from '../../layouts/dashboard';
+import DashboardLayout from '#root/components/layout/dashboard';
+import {actions as announcementActions, selectors as announcementSelectors} from '#root/redux/ducks/announcements';
+import {actions as courseActions, selectors as courseSelectors} from '#root/redux/ducks/courses';
+import {actions as credentialActions, selectors as credentialSelectors} from '#root/redux/ducks/credentials';
+import {actions as dashboardActions, selectors as dashboardSelectors} from '#root/redux/ducks/dashboard';
+import {selectors as enrollmentSelectors} from '#root/redux/ducks/enrollments';
+import {selectors as loadingSelectors} from '#root/redux/ducks/loading';
+import {actions as pathActions, selectors as pathSelectors} from '#root/redux/ducks/paths';
+import {selectors as userSelectors} from '#root/redux/ducks/user';
+
+import DashboardAnnouncements from '../../components/dashboardAnnouncements';
 import DashboardCard from '../../components/dashboardCard';
 import DashboardCourse from '../../components/dashboardCourse';
+import DashboardCredential from '../../components/dashboardCredential';
+import DashboardCredentialIcons from '../../components/dashboardCredentialIcons';
 import DashboardGrid from '../../components/dashboardGrid';
 import DashboardNoData from '../../components/dashboardNoData';
-import Image from '../../components/image';
-import Tabs from '../../components/tabs';
-import MediaQuery from '../../components/mediaQuery';
-import {Routes} from '../../routes';
-import DashboardProgress from '../../components/dashboardProgress';
-import MaIcon from '../../components/maIcon';
-import DashboardCredentialIcons from '../../components/dashboardCredentialIcons';
-import DashboardCredential from '../../components/dashboardCredential';
-import withAuthSync from '../../components/withAuthSync';
-import DashboardRecommendedPath from '../../components/dashboardRecommendedPath';
-import DashboardAnnouncements from '../../components/dashboardAnnouncements';
 import DashboardOnboarding from '../../components/dashboardOnboarding';
+import DashboardProgress from '../../components/dashboardProgress';
+import DashboardRecommendedPath from '../../components/dashboardRecommendedPath';
+import Image from '../../components/image';
+import MaIcon from '../../components/maIcon';
+import MediaQuery from '../../components/mediaQuery';
+import Tabs from '../../components/tabs';
+import withAuthSync from '../../components/withAuthSync';
+import {Routes} from '../../routes';
 
 class DashboardPage extends Component {
   componentDidMount() {

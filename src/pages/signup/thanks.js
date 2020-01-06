@@ -1,14 +1,15 @@
+import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import {actions as authActions} from '../../redux/ducks/auth';
-import {selectors as loadingSelectors} from '../../redux/ducks/loading';
-import {selectors as userSelectors} from '../../redux/ducks/user';
-import {selectors as subscriptionSelectors} from '../../redux/ducks/subscription';
-import Checkout from '../../layouts/checkout';
+import Checkout from '#root/components/layout/checkout';
+import {actions as authActions} from '#root/redux/ducks/auth';
+import {selectors as loadingSelectors} from '#root/redux/ducks/loading';
+import {selectors as subscriptionSelectors} from '#root/redux/ducks/subscription';
+import {selectors as userSelectors} from '#root/redux/ducks/user';
+
 import CheckoutThanks from '../../components/checkoutThanks';
 import Loader from '../../components/loader';
 import {subscriptionEnrolled} from '../../utils/subscriptionHelpers';

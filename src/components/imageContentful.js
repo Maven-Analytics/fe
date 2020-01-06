@@ -1,6 +1,6 @@
+import {fromJS, Map} from 'immutable';
 import React from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
-import {Map, fromJS} from 'immutable';
 
 import Image from './image';
 

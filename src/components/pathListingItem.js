@@ -1,10 +1,11 @@
-import React, {PureComponent, Fragment} from 'react';
 import PropTypes from 'prop-types';
+import React, {Fragment, PureComponent} from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import MaIcon from './maIcon';
 
+import CourseCarousel from '#root/components/sections/courseCarousel';
+
+import MaIcon from './maIcon';
 import PathBanner from './pathBanner';
-import CourseCarousel from '../sections/courseCarousel';
 
 class PathListingItem extends PureComponent {
   constructor(props) {

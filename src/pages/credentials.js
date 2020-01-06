@@ -1,17 +1,18 @@
+import {fromJS, List, Map} from 'immutable';
+import Link from 'next/link';
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
-import {Map, List, fromJS} from 'immutable';
-import Link from 'next/link';
 
-import {actions as courseActions, selectors as courseSelectors} from '../redux/ducks/courses';
-import {actions as pathActions, selectors as pathSelectors} from '../redux/ducks/paths';
-import {actions as pageActions, selectors as pageSelectors} from '../redux/ducks/pages';
-import BrochureLayout from '../layouts/brochure';
-import BrochureHero from '../sections/brochureHero';
-import Head from '../components/head';
+import BrochureLayout from '#root/components/layout/brochure';
+import BrochureHero from '#root/components/sections/brochureHero';
+
 import BrochureContent from '../components/brochureContent';
+import Head from '../components/head';
 import ImageContentful from '../components/imageContentful';
+import {actions as courseActions, selectors as courseSelectors} from '../redux/ducks/courses';
+import {actions as pageActions, selectors as pageSelectors} from '../redux/ducks/pages';
+import {actions as pathActions, selectors as pathSelectors} from '../redux/ducks/paths';
 
 const CredentialsPage = ({page, courses, paths}) => {
   const products = fromJS([...courses.toJS(), ...paths.toJS()]);

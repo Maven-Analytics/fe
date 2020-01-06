@@ -15,6 +15,7 @@ import apiv2 from '../../services/apiv2';
 import {ssoRedirect} from '../../services/sso';
 import {fromJS} from 'immutable';
 import {subscriptionEnrolled} from '../../utils/subscriptionHelpers';
+import client from '#root/api/graphQlClient';
 
 export function * watchAuth() {
   yield takeLatest(authTypes.LOGIN_REQUEST, loginRequest);
@@ -25,6 +26,31 @@ export function * watchAuth() {
   yield takeLatest(authTypes.ENSURE_ENROLLED_REQUEST, ensureEnrolled);
   yield takeLatest(authTypes.FORGOT_REQUEST, onForgotRequest);
   yield takeLatest(authTypes.RESET_REQUEST, onResetRequest);
+  yield takeLatest(authTypes.LOGIN, login);
+}
+
+function * login({payload: {user, token, thinkificToken, redirectTo}}) {
+  setCookie('token', token);
+  setCookie('thinkificToken', thinkificToken);
+
+  yield all([
+    put({
+      type: userTypes.TOKEN_SET,
+      payload: token
+    }),
+    put({
+      type: userTypes.THINKIFIC_TOKEN_SET,
+      payload: thinkificToken
+    }),
+    put({
+      type: userTypes.USER_SET,
+      payload: user
+    })
+  ]);
+
+  if (redirectTo) {
+    ssoRedirect(thinkificToken, redirectTo);
+  }
 }
 
 function * loginRequest({payload: {redirectTo, ...data}}) {

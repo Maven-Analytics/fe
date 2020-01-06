@@ -1,20 +1,20 @@
+import {List, Map} from 'immutable';
+import PropTypes from 'prop-types';
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {Map, List} from 'immutable';
-import Link from 'next/link';
 import {bindActionCreators} from 'redux';
 
+import BrochureLayout from '#root/components/layout/brochure';
+import BrochureHero from '#root/components/sections/brochureHero';
+
+import BrochureContent from '../components/brochureContent';
+import Head from '../components/head';
+import ImageContentful from '../components/imageContentful';
+import {courseHeroBgSources, courseHeroBgSrc} from '../constants';
 import {actions as courseActions, selectors as courseSelectors} from '../redux/ducks/courses';
 import {actions as pageActions, selectors as pageSelectors} from '../redux/ducks/pages';
 import {actions as stateActions} from '../redux/ducks/state';
-import BrochureLayout from '../layouts/brochure';
-import BrochureHero from '../sections/brochureHero';
-import Head from '../components/head';
-import {courseHeroBgSources, courseHeroBgSrc} from '../constants';
-import BrochureContent from '../components/brochureContent';
-import ImageContentful from '../components/imageContentful';
 import {clickAction} from '../utils/componentHelpers';
 
 const SkillsAssessments = ({courses, page, actions}) => {

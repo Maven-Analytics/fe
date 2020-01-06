@@ -1,8 +1,9 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
+
+import {innerHtml} from '#root/utils/componentHelpers';
 
 import MaIcon from './maIcon';
-import {innerHtml} from '../utils/componentHelpers';
 
 const CheckoutPlan = ({selected, eyelash, title, description, onClick, id, price}) => {
   const classList = ['checkout-plan'];

@@ -15,7 +15,8 @@ export const types = {
 };
 
 export const actions = {
-  userSet: obj => utils.action(types.USER_SET, obj)
+  userSet: obj => utils.action(types.USER_SET, obj),
+  userUnset: () => utils.action(types.USER_UNSET)
 };
 
 const initialState = utils.initialState({
@@ -39,8 +40,8 @@ export default (state = initialState, action) => {
   case types.TOKEN_UNSET:
     return state.set('token', initialState.get('token'));
   case types.USER_UNSET:
+    console.log('initialState', initialState.get('user').toJS());
     return state.set('user', initialState.get('user'));
-
   default:
     return state;
   }

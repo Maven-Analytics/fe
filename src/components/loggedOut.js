@@ -1,7 +1,7 @@
-import * as ImmutablePropTypes from 'react-immutable-proptypes';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 import {Map} from 'immutable';
+import PropTypes from 'prop-types';
+import * as ImmutablePropTypes from 'react-immutable-proptypes';
+import {connect} from 'react-redux';
 
 import {selectors as userSelectors} from '../redux/ducks/user';
 

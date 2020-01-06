@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
 import debounce from 'lodash.debounce';
+import React, {Component} from 'react';
 
-import {canUseDOM, getWindowHeight} from '../utils/componentHelpers';
+import {canUseDOM, getWindowHeight} from '#root/utils/componentHelpers';
 
 const withWindowSize = BaseComponent => {
   return class WithWindowSize extends Component {

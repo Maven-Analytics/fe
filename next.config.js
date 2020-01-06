@@ -6,7 +6,6 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 module.exports = withPlugins([withSass], {
   publicRuntimeConfig: {
     HOST_SERVER: process.env.HOST_SERVER,
-    HOST_GATEWAY: process.env.HOST_GATEWAY,
     THINKIFIC_SUBDOMAIN: process.env.THINKIFIC_SUBDOMAIN,
     CONTENTFUL_SPACE: process.env.CONTENTFUL_SPACE,
     CONTENTFUL_ACCESS_TOKEN: process.env.CONTENTFUL_ACCESS_TOKEN,
@@ -14,27 +13,28 @@ module.exports = withPlugins([withSass], {
     DISABLE_INTERCOM: process.env.DISABLE_INTERCOM,
     DISABLE_GTAG: process.env.DISABLE_GTAG,
     HOST_PUBLIC_API: process.env.HOST_PUBLIC_API,
+    HOST_PUBLIC_GATEWAY: process.env.HOST_PUBLIC_GATEWAY,
     SENTRY_ENVIRONMENT: process.env.SENTRY_ENVIRONMENT
   },
-  webpack: (config, {isServer}) => {
-    if (isServer) {
-      return config;
-    }
+  // Webpack: (config, {isServer}) => {
+  //   if (isServer) {
+  //     return config;
+  //   }
 
-    var isProduction = config.mode === 'production';
+  //   var isProduction = config.mode === 'production';
 
-    if (isProduction) {
-      config.plugins.push(
-        new webpack.optimize.LimitChunkCountPlugin({
-          maxChunks: 1
-        })
-      );
+  //   if (isProduction) {
+  //     config.plugins.push(
+  //       new webpack.optimize.LimitChunkCountPlugin({
+  //         maxChunks: 1
+  //       })
+  //     );
 
-      config.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}));
-    }
+  //     config.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}));
+  //   }
 
-    return config;
-  },
+  //   return config;
+  // },
   webpackDevMiddleware: config => {
     // Solve compiling problem via vagrant
     config.watchOptions = {

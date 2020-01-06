@@ -6,41 +6,41 @@ module.exports = app => {
   return {
     name: 'routes',
     register: async server => {
-      server.route({
-        method: 'GET',
-        path: '/home',
-        config: {
-          auth: false
-        },
-        handler: pathWrapper(app, '/')
-      });
+      // Server.route({
+      //   method: 'GET',
+      //   path: '/home',
+      //   config: {
+      //     auth: false
+      //   },
+      //   handler: pathWrapper(app, '/')
+      // });
 
-      server.route({
-        method: 'GET',
-        path: '/reset/{token}',
-        config: {
-          auth: false
-        },
-        handler: pathWrapper(app, '/reset')
-      });
+      // Server.route({
+      //   method: 'GET',
+      //   path: '/reset/{token}',
+      //   config: {
+      //     auth: false
+      //   },
+      //   handler: pathWrapper(app, '/reset')
+      // });
 
-      server.route({
-        method: 'GET',
-        path: '/path/{id}',
-        config: {
-          auth: false
-        },
-        handler: pathWrapper(app, '/path')
-      });
+      // server.route({
+      //   method: 'GET',
+      //   path: '/path/{id}',
+      //   config: {
+      //     auth: false
+      //   },
+      //   handler: pathWrapper(app, '/path')
+      // });
 
-      server.route({
-        method: 'GET',
-        path: '/course/{id}',
-        config: {
-          auth: false
-        },
-        handler: pathWrapper(app, '/course')
-      });
+      // Server.route({
+      //   method: 'GET',
+      //   path: '/course/{id}',
+      //   config: {
+      //     auth: false
+      //   },
+      //   handler: pathWrapper(app, '/course')
+      // });
 
       // Server.route({
       //   method: 'GET',

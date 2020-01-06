@@ -97,6 +97,7 @@ export async function getCourses({query = {}, include = 10, limit = 100}) {
 
     return res.items.map(mapCourseItem);
   } catch (error) {
+    console.log('getCourses error: ', error);
     return error;
   }
 }
@@ -144,13 +145,22 @@ function mapCourseItem(item) {
     return;
   }
 
+  // Console.log('here');
+
+  // const paths = await getPaths({query: {
+  //   links_to_entry: item.sys.id
+  // }});
+
+  // console.log(paths);
+
   return {
     id: item.sys.id,
     ...item.fields,
     thumbnail: mapResponseImage(item.fields.thumbnail),
     badge: mapResponseImage(item.fields.badge),
     image: mapResponseImage(item.fields.image),
-    author: mapAuthorItem(item.fields.author)
+    author: mapAuthorItem(item.fields.author),
+    testimonials: item.fields.testimonials ? mapFromResponseItems(item.fields.testimonials) : item.fields.testimonials
   };
 }
 

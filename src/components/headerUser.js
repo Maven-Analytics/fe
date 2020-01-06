@@ -1,14 +1,13 @@
+import Link from 'next/link';
+import PropTypes from 'prop-types';
 import React from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
-import PropTypes from 'prop-types';
-import Link from 'next/link';
 
-import MaIcon from './maIcon';
-import {clickPrevent} from '../utils/componentHelpers';
 import {Routes} from '../routes';
 import ClickOutside from './clickOutside';
+import MaIcon from './maIcon';
 
-const HeaderUser = ({user, onClick, open, logout}) => {
+const HeaderUser = ({user, onClick, open}) => {
   const classList = ['header-user'];
 
   if (open) {
@@ -29,7 +28,7 @@ const HeaderUser = ({user, onClick, open, logout}) => {
       <ul id="header-user-dropdown" className="header-user__dropdown">
         <li><Link href={Routes.Dashboard}><a>Dashboard</a></Link></li>
         <li><Link href={Routes.Account}><a>My Account</a></Link></li>
-        <li><a href="#" onClick={clickPrevent(logout)}>Sign Out</a></li>
+        <li><Link href={Routes.Logout}><a>Sign Out</a></Link></li>
       </ul>
     </ClickOutside>
   );
@@ -38,8 +37,7 @@ const HeaderUser = ({user, onClick, open, logout}) => {
 HeaderUser.propTypes = {
   user: ImmutablePropTypes.map.isRequired,
   open: PropTypes.bool,
-  onClick: PropTypes.func,
-  logout: PropTypes.func.isRequired
+  onClick: PropTypes.func
 };
 
 export default HeaderUser;

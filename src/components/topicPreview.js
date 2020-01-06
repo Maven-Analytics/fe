@@ -1,13 +1,14 @@
-import React from 'react';
+import {fromJS} from 'immutable';
 import PropTypes from 'prop-types';
+import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {fromJS} from 'immutable';
+
+import {clickAction} from '#root/utils/componentHelpers';
 
 import {actions as stateActions} from '../redux/ducks/state';
 import ImageContentful from './imageContentful';
 import MaIcon from './maIcon';
-import {clickAction} from '../utils/componentHelpers';
 import Markdown from './markdown';
 
 const TopicPreview = ({description, video, thumbnail, actions}) => (

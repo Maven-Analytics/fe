@@ -1,17 +1,18 @@
-import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import React, {Component} from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import DashboardLayout from '../../layouts/dashboard';
-import {actions as pathActions, selectors as pathSelectors} from '../../redux/ducks/paths';
-import {actions as courseActions, selectors as courseSelectors} from '../../redux/ducks/courses';
-import {actions as credentialsActions} from '../../redux/ducks/credentials';
-import {selectors as errorSelectors} from '../../redux/ducks/error';
-import {selectors as loadingSelectors} from '../../redux/ducks/loading';
-import DashboardCredentialList from '../../components/dashboardCredentialList';
+import DashboardLayout from '#root/components/layout/dashboard';
+import {actions as courseActions, selectors as courseSelectors} from '#root/redux/ducks/courses';
+import {actions as credentialsActions} from '#root/redux/ducks/credentials';
+import {selectors as errorSelectors} from '#root/redux/ducks/error';
+import {selectors as loadingSelectors} from '#root/redux/ducks/loading';
+import {actions as pathActions, selectors as pathSelectors} from '#root/redux/ducks/paths';
+
 import CredentialCard from '../../components/credentialCard';
+import DashboardCredentialList from '../../components/dashboardCredentialList';
 import withAuthSync from '../../components/withAuthSync';
 
 class DashboardCredentials extends Component {

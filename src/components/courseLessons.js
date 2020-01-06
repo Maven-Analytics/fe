@@ -1,9 +1,10 @@
+import {List} from 'immutable';
+import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import PropTypes from 'prop-types';
 
-import {click} from '../utils/componentHelpers';
-import {List} from 'immutable';
+import {click} from '#root/utils/componentHelpers';
+
 import RichText from './richText';
 
 const CourseLessons = ({lessons, showCount}) => {

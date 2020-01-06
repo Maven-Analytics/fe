@@ -1,17 +1,18 @@
+import {Map} from 'immutable';
 import React from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
-import {Map} from 'immutable';
 
-import {actions as pageActions, selectors as pageSelectors} from '../redux/ducks/pages';
-import BrochureLayout from '../layouts/brochure';
-import BrochureHero from '../sections/brochureHero';
-import Head from '../components/head';
+import ConsultingForm from '#root/components/forms//consulting';
+import BrochureLayout from '#root/components/layout/brochure';
+import BrochureHero from '#root/components/sections/brochureHero';
+import CtaForm from '#root/components/sections/ctaForm';
+
 import BrochureContent from '../components/brochureContent';
-import RichText from '../components/richText';
-import CtaForm from '../sections/ctaForm';
-import ConsultingForm from '../forms/consulting';
 import CtaQuote from '../components/ctaQuote';
+import Head from '../components/head';
+import RichText from '../components/richText';
+import {actions as pageActions, selectors as pageSelectors} from '../redux/ducks/pages';
 
 const Consulting = ({page}) => {
   return (

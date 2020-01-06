@@ -9,25 +9,7 @@
       }
     ]
   ],
-  "env": {
-    "development": {
-      "presets": [
-        "@babel/preset-env",
-        "next/babel"
-      ]
-    },
-    "production": {
-      "presets": [
-        "@babel/preset-env",
-        "next/babel"
-      ]
-    },
-    "test": {
-      "presets": [
-        "@babel/preset-env",
-        "@babel/preset-react",
-        "next/babel"
-      ]
-    }
-  }
+  "presets": [
+    "next/babel"
+  ]
 }

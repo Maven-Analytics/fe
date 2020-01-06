@@ -1,12 +1,13 @@
-import React, {Component, createRef} from 'react';
-import PropTypes from 'prop-types';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import {withRouter} from 'next/router';
+import PropTypes from 'prop-types';
+import React, {Component, createRef} from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
+import {canUseDOM, click} from '#root/utils/componentHelpers';
+
 import {actions as stateActions} from '../redux/ducks/state';
-import {click, canUseDOM} from '../utils/componentHelpers';
 
 class TabListTopics extends Component {
   constructor(props) {

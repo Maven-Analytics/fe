@@ -1,12 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import Link from 'next/link';
+import React from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
-import ProgressCircle from './progressCircle';
 import Countup from './countup';
-import TrackVisibility from './trackVisibility';
 import MaIcon from './maIcon';
+import ProgressCircle from './progressCircle';
+import TrackVisibility from './trackVisibility';
 
 const DashboardOnboarding = ({items}) => {
   const percent = items.filter(item => item.get('complete')).count() / items.count() * 100;

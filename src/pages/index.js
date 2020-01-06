@@ -1,26 +1,26 @@
-import React, {Component} from 'react';
+import {fromJS, isImmutable, List, Map} from 'immutable';
 import PropTypes from 'prop-types';
+import React from 'react';
+import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {fromJS, List, Map, isImmutable} from 'immutable';
-import * as ImmutablePropTypes from 'react-immutable-proptypes';
 
-import {selectors as userSelectors} from '../redux/ducks/user';
-import {actions as authActions} from '../redux/ducks/auth';
-import {selectors as courseSelectors, actions as courseActions} from '../redux/ducks/courses';
-import {selectors as spotlightSelectors, actions as spotlightActions} from '../redux/ducks/spotlights';
-import {selectors as pageSelectors, actions as pageActions} from '../redux/ducks/pages';
-import Brochure from '../layouts/brochure';
-import Hero from '../sections/hero';
-import StatCounter from '../sections/statCounter';
-import MethodMobile from '../sections/methodMobile';
-import Mission from '../sections/mission';
-import TrendingCourses from '../sections/trendingCourses';
-import Clients from '../sections/clients';
-import StudentSpotlights from '../sections/studentSpotlights';
-import Head from '../components/head';
-import {Routes} from '../routes';
-import MethodPath from '../sections/methodPath';
+import Head from '#root/components/head';
+import Brochure from '#root/components/layout/brochure';
+import Clients from '#root/components/sections/clients';
+import Hero from '#root/components/sections/hero';
+import MethodMobile from '#root/components/sections/methodMobile';
+import MethodPath from '#root/components/sections/methodPath';
+import Mission from '#root/components/sections/mission';
+import StatCounter from '#root/components/sections/statCounter';
+import StudentSpotlights from '#root/components/sections/studentSpotlights';
+import TrendingCourses from '#root/components/sections/trendingCourses';
+import {actions as authActions} from '#root/redux/ducks/auth';
+import {actions as courseActions, selectors as courseSelectors} from '#root/redux/ducks/courses';
+import {actions as pageActions, selectors as pageSelectors} from '#root/redux/ducks/pages';
+import {actions as spotlightActions, selectors as spotlightSelectors} from '#root/redux/ducks/spotlights';
+import {selectors as userSelectors} from '#root/redux/ducks/user';
+import {Routes} from '#root/routes';
 
 const methodItems = [
   {
@@ -133,87 +133,83 @@ const HappyClients = fromJS([
   }
 ]);
 
-class Home extends Component {
-  render() {
-    const {spotlights, page} = this.props;
+const Home = ({spotlights, page, courses}) => {
+  return (
+    <Brochure>
+      {isImmutable(page) && page.get('meta') && isImmutable(page.get('meta')) && !page.get('meta').isEmpty() ? (
+        <Head meta={page.get('meta')} />
+      ) : null}
+      <Hero />
 
-    return (
-      <Brochure>
-        {isImmutable(page) && page.get('meta') && isImmutable(page.get('meta')) && !page.get('meta').isEmpty() ? (
-          <Head meta={page.get('meta')} />
-        ) : null}
-        <Hero />
+      <StatCounter
+        stats={fromJS([
+          {
+            value: 97,
+            text: 'Student Satisfaction',
+            postFix: '%'
+          },
+          {
+            value: 850,
+            text: 'Training Videos',
+            postFix: '+'
+          },
+          {
+            value: 30000,
+            text: '5-Star Reviews',
+            postFix: '+'
+          },
+          {
+            value: 200,
+            text: 'Happy Students',
+            postFix: 'K+'
+          }
+        ])}
+      />
 
-        <StatCounter
-          stats={fromJS([
-            {
-              value: 97,
-              text: 'Student Satisfaction',
-              postFix: '%'
-            },
-            {
-              value: 850,
-              text: 'Training Videos',
-              postFix: '+'
-            },
-            {
-              value: 30000,
-              text: '5-Star Reviews',
-              postFix: '+'
-            },
-            {
-              value: 200,
-              text: 'Happy Students',
-              postFix: 'K+'
-            }
-          ])}
-        />
-
-        <Mission
-          scrollTo="#method"
-          content={MissionContent}
-          features={fromJS([
-            {
-              title: 'Self-Paced Courses',
-              icon: 'play',
-              description: 'Stay ahead of the curve with our award-winning, self-paced courses and paths. Our training is designed to help you quickly build the most practical, in-demand analytics and business intelligence skills',
-              linkText: 'Explore Courses & Paths',
-              linkUrl: Routes.CoursesPaths
-            },
-            {
-              title: 'Skills Assessments',
-              icon: 'quiz',
-              description: 'Labels like “beginner” and “expert” mean different things to different people. That’s why our courses include preliminary assessments to benchmark your skills, along with final assessments to prove how far you’ve come',
-              linkText: 'Try A Practice Assessment',
-              linkUrl: Routes.SkillsAssessments
-            },
-            {
-              title: 'Verified Credentials',
-              icon: 'badge',
-              description: 'Instead of traditional certificates, we issue secure digital credentials (in the form of badges) to validate your skills. They even link directly to real-time job postings, to help you turn your new skills into a new career',
-              linkText: 'View Credentials',
-              linkUrl: Routes.Credentials
-            },
-            {
-              title: 'Student Dashboard',
-              icon: 'dashboard',
-              description: 'Your student dashboard allows you to track your progress towards courses and paths, manage your credentials, explore new content, and share your achievements with the world',
-              linkText: 'Sign Up For Free',
-              linkUrl: Routes.Signup
-            }
-          ])}
-        />
-        <div id="method">
-          <MethodMobile items={methodItems} />
-          <MethodPath items={methodItems} />
-        </div>
-        <TrendingCourses courses={this.props.courses} />
-        <StudentSpotlights spotlights={spotlights} />
-        <Clients clients={HappyClients} />
-      </Brochure>
-    );
-  }
-}
+      <Mission
+        scrollTo="#method"
+        content={MissionContent}
+        features={fromJS([
+          {
+            title: 'Self-Paced Courses',
+            icon: 'play',
+            description: 'Stay ahead of the curve with our award-winning, self-paced courses and paths. Our training is designed to help you quickly build the most practical, in-demand analytics and business intelligence skills',
+            linkText: 'Explore Courses & Paths',
+            linkUrl: Routes.CoursesPaths
+          },
+          {
+            title: 'Skills Assessments',
+            icon: 'quiz',
+            description: 'Labels like “beginner” and “expert” mean different things to different people. That’s why our courses include preliminary assessments to benchmark your skills, along with final assessments to prove how far you’ve come',
+            linkText: 'Try A Practice Assessment',
+            linkUrl: Routes.SkillsAssessments
+          },
+          {
+            title: 'Verified Credentials',
+            icon: 'badge',
+            description: 'Instead of traditional certificates, we issue secure digital credentials (in the form of badges) to validate your skills. They even link directly to real-time job postings, to help you turn your new skills into a new career',
+            linkText: 'View Credentials',
+            linkUrl: Routes.Credentials
+          },
+          {
+            title: 'Student Dashboard',
+            icon: 'dashboard',
+            description: 'Your student dashboard allows you to track your progress towards courses and paths, manage your credentials, explore new content, and share your achievements with the world',
+            linkText: 'Sign Up For Free',
+            linkUrl: Routes.Signup
+          }
+        ])}
+      />
+      <div id="method">
+        <MethodMobile items={methodItems} />
+        <MethodPath items={methodItems} />
+      </div>
+      <TrendingCourses courses={courses} />
+      <StudentSpotlights spotlights={spotlights} />
+      <Clients clients={HappyClients} />
+    </Brochure>
+  );
+};
 
 Home.getInitialProps = async ctx => {
   const {store} = ctx;
@@ -223,8 +219,13 @@ Home.getInitialProps = async ctx => {
       'fields.trending': true
     }
   }));
+
   store.dispatch(spotlightActions.spotlightsGet());
   store.dispatch(pageActions.pagesGet({slug: 'home'}));
+
+  // Const {data} = await client.query({query: meQuery});
+
+  // console.log(data);
 
   return {};
 };

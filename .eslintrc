@@ -6,8 +6,10 @@
   "env": {
     "jest": true
   },
+  "parser": "babel-eslint",
   "plugins": [
-    "react"
+    "react",
+    "simple-import-sort"
   ],
   "rules": {
     "indent": [
@@ -15,7 +17,8 @@
       2
     ],
     "camelcase": "off",
-    "new-cap": "off"
+    "new-cap": "off",
+    "simple-import-sort/sort": "error"
   },
   "globals": {
     "window": true,

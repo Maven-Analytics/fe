@@ -1,7 +1,7 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
-const Loader = ({loading, width, height, color, center, position, text}) => {
+const Loader = ({loading, width, height, center, position, text}) => {
   const classList = ['async-loader'];
 
   if (center) {
@@ -40,7 +40,6 @@ Loader.propTypes = {
   loading: PropTypes.bool,
   width: PropTypes.number,
   height: PropTypes.number,
-  color: PropTypes.string,
   center: PropTypes.bool,
   position: PropTypes.string,
   text: PropTypes.string
@@ -49,7 +48,6 @@ Loader.propTypes = {
 Loader.defaultProps = {
   width: 45,
   height: 45,
-  color: '#252525',
   center: true
 };
 

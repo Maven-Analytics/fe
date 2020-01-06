@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {Map, List} from 'immutable';
 
-import AccountLayout from '../../../layouts/account';
-import PasswordForm from '../../../forms/password';
+import AccountLayout from '#root/components/layout/account';
+import PasswordForm from '#root/components/forms/password';
 import withAuthSync from '../../../components/withAuthSync';
 
 const AccountProfile = () => {

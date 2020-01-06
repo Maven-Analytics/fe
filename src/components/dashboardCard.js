@@ -1,11 +1,12 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
+import {click} from '#root/utils/componentHelpers';
+
 import {actions as userSettingsActions, selectors as userSettingSelectors} from '../redux/ducks/userSettings';
-import {click} from '../utils/componentHelpers';
 import Loader from './loader';
 import MaIcon from './maIcon';
 

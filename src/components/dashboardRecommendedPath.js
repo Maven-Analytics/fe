@@ -1,15 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {Map} from 'immutable';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
+import React from 'react';
+import * as ImmutablePropTypes from 'react-immutable-proptypes';
 
-import ImageContentful from './imageContentful';
-import withState from './withState';
-import ProgressMeter from './progressMeter';
-import {clickAction, prettyPercent} from '../utils/componentHelpers';
-import CourseBanner from './courseBanner';
+import {clickAction, prettyPercent} from '#root/utils/componentHelpers';
+
 import {Routes} from '../routes';
+import CourseBanner from './courseBanner';
+import ImageContentful from './imageContentful';
+import ProgressMeter from './progressMeter';
+import withState from './withState';
 
 const DashboardRecommendedPath = ({title, percentage_completed, badge, excerpt, path, actions, match}) => {
   return (

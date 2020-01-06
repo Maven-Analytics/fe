@@ -1,7 +1,7 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
-import {stateCheck} from '../utils/componentHelpers';
+import {stateCheck} from '#root/utils/componentHelpers';
 
 const SurveyAnswerCheck = ({id, text, value, onChange, style}) => {
   const classList = ['survey-answer', 'survey-answer--check'];

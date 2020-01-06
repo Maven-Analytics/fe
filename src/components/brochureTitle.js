@@ -1,7 +1,7 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
-import {innerHtml} from '../utils/componentHelpers';
+import {innerHtml} from '#root/utils/componentHelpers';
 
 const BrochureTitle = ({title, className, tag: Tag}) => (
   <Tag

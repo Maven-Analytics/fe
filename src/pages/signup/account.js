@@ -1,26 +1,27 @@
+import {Map} from 'immutable';
+import Router from 'next/router';
+import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
-import PropTypes from 'prop-types';
-import {Map} from 'immutable';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import Router from 'next/router';
 
-import {selectors as checkoutSelectors, actions as checkoutActions} from '../../redux/ducks/checkout';
-import {actions as authActions} from '../../redux/ducks/auth';
-import {selectors as loadingSelectors} from '../../redux/ducks/loading';
-import {selectors as errorSelectors} from '../../redux/ducks/error';
-import {selectors as userSelectors} from '../../redux/ducks/user';
-import {actions as profileActions} from '../../redux/ducks/profile';
-import {actions as stateActions} from '../../redux/ducks/state';
-import Checkout from '../../layouts/checkout';
-import {stateCheck, canUseDOM, clickAction} from '../../utils/componentHelpers';
+import AccountForm from '#root/components/forms//accountForm';
+import Checkout from '#root/components/layout/checkout';
+import {actions as authActions} from '#root/redux/ducks/auth';
+import {actions as checkoutActions, selectors as checkoutSelectors} from '#root/redux/ducks/checkout';
+import {selectors as errorSelectors} from '#root/redux/ducks/error';
+import {selectors as loadingSelectors} from '#root/redux/ducks/loading';
+import {actions as profileActions} from '#root/redux/ducks/profile';
+import {actions as stateActions} from '#root/redux/ducks/state';
+import {selectors as userSelectors} from '#root/redux/ducks/user';
+
 import CheckoutFooter from '../../components/checkoutFooter';
-import AccountForm from '../../forms/accountForm';
-import {Routes} from '../../routes';
 import Checkbox from '../../components/inputs/checkbox';
-import {getCookie} from '../../utils/cookies';
+import {Routes} from '../../routes';
 import {getCheckoutUrlAsync} from '../../services/apiv2';
+import {canUseDOM, clickAction, stateCheck} from '../../utils/componentHelpers';
+import {getCookie} from '../../utils/cookies';
 
 class SignupAccount extends Component {
   static async getInitialProps(ctx) {

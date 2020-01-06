@@ -1,4 +1,4 @@
-import {subscriptionStatuses} from '../constants';
+import {subscriptionStatuses} from '#root/constants';
 
 export const subscriptionEnrolled = subscription => {
   return subscription &&

@@ -1,12 +1,11 @@
+import {Map} from 'immutable';
+import NextHead from 'next/head';
+import {withRouter} from 'next/router';
+import PropTypes from 'prop-types';
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import PropTypes from 'prop-types';
-import NextHead from 'next/head';
-import {Map} from 'immutable';
-import {withRouter} from 'next/router';
 
-import config from '../config';
-import {canUseDOM} from '../utils/componentHelpers';
+import {canUseDOM} from '#root/utils/componentHelpers';
 
 const getAttribute = (attribute, defaultValue, meta, page) => {
   if (meta && meta.get(attribute)) {

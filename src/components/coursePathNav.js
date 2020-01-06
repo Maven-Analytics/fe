@@ -1,8 +1,9 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
+
+import {click} from '#root/utils/componentHelpers';
 
 import MaIcon from './maIcon';
-import {click} from '../utils/componentHelpers';
 
 const CoursePathNav = ({onFilterClick, onViewChange, activeItem}) => (
   <div className="course-path-nav">

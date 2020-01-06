@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {List} from 'immutable';
+import PropTypes from 'prop-types';
+import React from 'react';
+import * as ImmutablePropTypes from 'react-immutable-proptypes';
 
 const DashboardGrid = ({children, horizontal, vertical, cols}) => {
   const classList = ['dashboard-grid'];

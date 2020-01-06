@@ -1,14 +1,15 @@
-import React, {Component} from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import PropTypes from 'prop-types';
 import {Map} from 'immutable';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
+import React, {Component} from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
-import {clickAction} from '../utils/componentHelpers';
-import ImageContentful from './imageContentful';
-import CourseHours from './courseHours';
+import {clickAction} from '#root/utils/componentHelpers';
+
 import CourseAuthor from './courseAuthor';
 import CourseBanner from './courseBanner';
+import CourseHours from './courseHours';
+import ImageContentful from './imageContentful';
 import MaIcon from './maIcon';
 import ProgressMeter from './progressMeter';
 import withState from './withState';

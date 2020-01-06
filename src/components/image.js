@@ -1,7 +1,8 @@
-import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
+import React, {Component, createRef} from 'react';
 
-import {noop, canUseDOM} from '../utils/componentHelpers';
+import {canUseDOM, noop} from '#root/utils/componentHelpers';
+
 import TrackVisibility from './trackVisibility';
 
 class Image extends Component {

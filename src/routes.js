@@ -22,6 +22,7 @@ export const Routes = {
   ForgotPassword: '/forgot',
   HelpCenter: '//help.mavenanalytics.io',
   Login: '/login',
+  Logout: '/logout',
   Path: '/path',
   PrivacyPolicy: '/privacy-policy',
   Reset: '/reset',

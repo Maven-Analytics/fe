@@ -1,9 +1,10 @@
-import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
+import React, {Fragment} from 'react';
 
-import TrackVisibility from './trackVisibility';
+import {prettyPercent} from '#root/utils/componentHelpers';
+
 import CountUp from './countup';
-import {prettyPercent} from '../utils/componentHelpers';
+import TrackVisibility from './trackVisibility';
 
 const ProgressMeter = ({value, title, barHeight, animationDuration}) => {
   return (

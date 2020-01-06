@@ -1,28 +1,29 @@
-import React from 'react';
+import {Map} from 'immutable';
+import {List} from 'immutable';
+import Link from 'next/link';
 import PropTypes from 'prop-types';
+import React from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
-import {Map} from 'immutable';
 import {bindActionCreators} from 'redux';
-import Link from 'next/link';
 
+import BrochureLayout from '#root/components/layout/brochure';
+import BrochureHero from '#root/components/sections/brochureHero';
+import CtaSurvey from '#root/components/sections/ctaSurvey';
+import redirect from '#root/utils/redirect';
+
+import CourseLessons from '../components/courseLessons';
+import Head from '../components/head';
+import ImageContentful from '../components/imageContentful';
+import MaIcon from '../components/maIcon';
+import RichText from '../components/richText';
+import {courseHeroBgSources, courseHeroBgSrc} from '../constants';
 import {actions as courseActions, selectors as courseSelectors} from '../redux/ducks/courses';
 import {selectors as pathSelectors} from '../redux/ducks/paths';
 import {actions as pathActions} from '../redux/ducks/paths';
 import {actions as stateActions} from '../redux/ducks/state';
-import BrochureLayout from '../layouts/brochure';
-import {redirect} from '../utils/routingHelpers';
 import {Routes} from '../routes';
-import BrochureHero from '../sections/brochureHero';
 import {clickAction} from '../utils/componentHelpers';
-import CtaSurvey from '../sections/ctaSurvey';
-import RichText from '../components/richText';
-import CourseLessons from '../components/courseLessons';
-import ImageContentful from '../components/imageContentful';
-import MaIcon from '../components/maIcon';
-import Head from '../components/head';
-import {courseHeroBgSources, courseHeroBgSrc} from '../constants';
-import {List} from 'immutable';
 
 const Course = ({course, actions, paths}) => {
   paths = paths.filter(path => path.has('courses') && path.get('courses').find(c => c.get('id') === course.get('id')));
@@ -125,17 +126,21 @@ const Course = ({course, actions, paths}) => {
 };
 
 Course.getInitialProps = ctx => {
-  const {res, query, store} = ctx;
+  const {query, store} = ctx;
 
-  if (!query.id) {
-    return redirect(Routes.Home, res);
+  if (query.id) {
+    store.dispatch(courseActions.coursesGet({params: {'fields.slug': query.id}}));
+    store.dispatch(pathActions.pathsGet());
+
+    return {
+      slug: query.id
+    };
   }
 
-  store.dispatch(courseActions.coursesGet({params: {'fields.slug': query.id}}));
-  store.dispatch(pathActions.pathsGet());
+  redirect(ctx, Routes.Home);
 
   return {
-    slug: query.id
+    slug: null
   };
 };
 

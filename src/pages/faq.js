@@ -1,16 +1,17 @@
+import {Map} from 'immutable';
+import Link from 'next/link';
 import React from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
-import {Map, List} from 'immutable';
-import Link from 'next/link';
 
-import {actions as pageActions, selectors as pageSelectors} from '../redux/ducks/pages';
-import BrochureLayout from '../layouts/brochure';
-import BrochureHero from '../sections/brochureHero';
-import Head from '../components/head';
+import BrochureLayout from '#root/components/layout/brochure';
+import BrochureHero from '#root/components/sections/brochureHero';
+
 import BrochureContent from '../components/brochureContent';
-import {Routes} from '../routes';
 import CourseLessons from '../components/courseLessons';
+import Head from '../components/head';
+import {actions as pageActions, selectors as pageSelectors} from '../redux/ducks/pages';
+import {Routes} from '../routes';
 
 const FAQPage = ({page}) => {
   return (
@@ -31,8 +32,8 @@ const FAQPage = ({page}) => {
       <BrochureContent className="page-faq" title={page.get('brochureTitle')}>
         <div className="page-faq__content">
           <p>
-            Below are some of the most common questions we hear from our students. Still can't find what you need?{' '}
-            <Link href={Routes.Contact}>Send us a message</Link> and we'd be happy to help!
+            Below are some of the most common questions we hear from our students. Still {'can\'t'} find what you need?{' '}
+            <Link href={Routes.Contact}>Send us a message</Link> and {'we\'d'} be happy to help!
           </p>
         </div>
         <CourseLessons showCount={false} lessons={page.get('flexibleContent')} />

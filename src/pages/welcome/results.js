@@ -1,24 +1,25 @@
-import React, {Component, Fragment} from 'react';
+import {fromJS, Map} from 'immutable';
+import {withRouter} from 'next/router';
 import PropTypes from 'prop-types';
+import React, {Component, Fragment} from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
+import {presets, spring, TransitionMotion} from 'react-motion';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {Map, List, fromJS} from 'immutable';
-import {TransitionMotion, spring, presets} from 'react-motion';
-import {withRouter} from 'next/router';
 
-import {selectors as surveyResultSelectors, actions as surveyResultActions} from '../../redux/ducks/surveyResult';
-import {selectors as recommendedSelectors} from '../../redux/ducks/recommended';
-import {selectors as loadingSelectors} from '../../redux/ducks/loading';
-import Checkout from '../../layouts/checkout';
-import CourseCarousel from '../../sections/courseCarousel';
-import PathBanner from '../../components/pathBanner';
-import {actions as pathActions} from '../../redux/ducks/paths';
-import {actions as courseActions} from '../../redux/ducks/courses';
-import {actions as userActions} from '../../redux/ducks/user';
-import {Routes} from '../../routes';
+import Checkout from '#root/components/layout/checkout';
+import CourseCarousel from '#root/components/sections/courseCarousel';
+import {actions as courseActions} from '#root/redux/ducks/courses';
+import {selectors as loadingSelectors} from '#root/redux/ducks/loading';
+import {actions as pathActions} from '#root/redux/ducks/paths';
+import {selectors as recommendedSelectors} from '#root/redux/ducks/recommended';
+import {actions as surveyResultActions, selectors as surveyResultSelectors} from '#root/redux/ducks/surveyResult';
+import {actions as userActions} from '#root/redux/ducks/user';
+
 import Loader from '../../components/loader';
 import MaIcon from '../../components/maIcon';
+import PathBanner from '../../components/pathBanner';
+import {Routes} from '../../routes';
 import {canUseDOM} from '../../utils/componentHelpers';
 
 class WelcomeSurveyResults extends Component {

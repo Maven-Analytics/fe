@@ -1,33 +1,31 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import {connect} from 'react-redux';
 import {List, Map} from 'immutable';
 import {withRouter} from 'next/router';
+import PropTypes from 'prop-types';
+import React, {Component} from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import CourseFilterChecks from './courseFilterChecks';
+import {clickPrevent} from '#root/utils/componentHelpers';
+
 import {
-  selectors as filterSelectors,
-  actions as filterActions
-} from '../redux/ducks/filters';
-import {
-  selectors as activeFilterSelectors,
-  actions as activeFilterActions
-} from '../redux/ducks/activeFilters';
-import {
-  selectors as stateSelectors,
-  actions as stateActions
-} from '../redux/ducks/state';
+  actions as activeFilterActions,
+  selectors as activeFilterSelectors} from '../redux/ducks/activeFilters';
 import {actions as courseActions} from '../redux/ducks/courses';
 import {selectors as errorSelectors} from '../redux/ducks/error';
+import {
+  actions as filterActions,
+  selectors as filterSelectors} from '../redux/ducks/filters';
 import {selectors as loadingSelectors} from '../redux/ducks/loading';
+import {
+  actions as stateActions,
+  selectors as stateSelectors} from '../redux/ducks/state';
+import CourseFilterChecks from './courseFilterChecks';
 import CourseFilterTools from './courseFilterTools';
-import MaIcon from './maIcon';
-import {clickPrevent} from '../utils/componentHelpers';
+import MinMaxInput from './inputs/minmax';
 import Loader from './loader';
 import LoggedIn from './loggedIn';
-import MinMaxInput from './inputs/minmax';
+import MaIcon from './maIcon';
 
 class CourseFilters extends Component {
   constructor(props) {

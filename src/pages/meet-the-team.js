@@ -1,14 +1,15 @@
+import {Map} from 'immutable';
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
-import {Map} from 'immutable';
 
-import {actions as pageActions, selectors as pageSelectors} from '../redux/ducks/pages';
-import BrochureLayout from '../layouts/brochure';
-import BrochureHero from '../sections/brochureHero';
-import Head from '../components/head';
+import BrochureLayout from '#root/components/layout/brochure';
+import BrochureHero from '#root/components/sections/brochureHero';
+
 import BrochureContent from '../components/brochureContent';
+import Head from '../components/head';
 import ImageContentful from '../components/imageContentful';
+import {actions as pageActions, selectors as pageSelectors} from '../redux/ducks/pages';
 
 const MeetTheTeam = ({page}) => {
   return (
