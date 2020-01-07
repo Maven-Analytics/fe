@@ -33,6 +33,10 @@ LogoutPage.getInitialProps = async ({apolloClient, store, ...ctx}) => {
   // Unset the user
   store.dispatch(userActions.userUnset());
 
+  // Unset the tokens
+  store.dispatch(userActions.tokenSet(null));
+  store.dispatch(userActions.thinkificTokenSet(null));
+
   // Redirect to home page
   redirect(ctx, Routes.Home);
 
