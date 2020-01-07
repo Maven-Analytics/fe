@@ -1,10 +1,10 @@
-import {fromJS, isImmutable, List, Map} from 'immutable';
-import PropTypes from 'prop-types';
+import gql from 'graphql-tag';
+import {fromJS, isImmutable} from 'immutable';
+import * as PropTypes from 'prop-types';
 import React from 'react';
-import * as ImmutablePropTypes from 'react-immutable-proptypes';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
 
+import pageFragment from '#root/api/fragments/page';
+import spotlightFragment from '#root/api/fragments/spotlight';
 import Head from '#root/components/head';
 import Brochure from '#root/components/layout/brochure';
 import Clients from '#root/components/sections/clients';
@@ -15,11 +15,6 @@ import Mission from '#root/components/sections/mission';
 import StatCounter from '#root/components/sections/statCounter';
 import StudentSpotlights from '#root/components/sections/studentSpotlights';
 import TrendingCourses from '#root/components/sections/trendingCourses';
-import {actions as authActions} from '#root/redux/ducks/auth';
-import {actions as courseActions, selectors as courseSelectors} from '#root/redux/ducks/courses';
-import {actions as pageActions, selectors as pageSelectors} from '#root/redux/ducks/pages';
-import {actions as spotlightActions, selectors as spotlightSelectors} from '#root/redux/ducks/spotlights';
-import {selectors as userSelectors} from '#root/redux/ducks/user';
 import {Routes} from '#root/routes';
 
 const methodItems = [
@@ -133,7 +128,10 @@ const HappyClients = fromJS([
   }
 ]);
 
-const Home = ({spotlights, page, courses}) => {
+const Home = ({spotlights, page}) => {
+  spotlights = fromJS(spotlights);
+  page = fromJS(page);
+
   return (
     <Brochure>
       {isImmutable(page) && page.get('meta') && isImmutable(page.get('meta')) && !page.get('meta').isEmpty() ? (
@@ -204,64 +202,55 @@ const Home = ({spotlights, page, courses}) => {
         <MethodMobile items={methodItems} />
         <MethodPath items={methodItems} />
       </div>
-      <TrendingCourses courses={courses} />
+      <TrendingCourses />
       <StudentSpotlights spotlights={spotlights} />
       <Clients clients={HappyClients} />
     </Brochure>
   );
 };
 
-Home.getInitialProps = async ctx => {
-  const {store} = ctx;
-
-  store.dispatch(courseActions.coursesInit({
-    params: {
-      'fields.trending': true
+const spotlightQuery = gql`
+  {
+    spotlights {
+      ...spotlight
     }
-  }));
+  }
+  ${spotlightFragment}
+`;
 
-  store.dispatch(spotlightActions.spotlightsGet());
-  store.dispatch(pageActions.pagesGet({slug: 'home'}));
+const pageQuery = gql`
+  query($slug: String!) {
+    page(slug: $slug) {
+      ...page
+    }
+  }
+  ${pageFragment}
+`;
 
-  // Const {data} = await client.query({query: meQuery});
+Home.getInitialProps = async ({apolloClient}) => {
+  const {data: {page}} = await apolloClient.query({
+    query: pageQuery,
+    variables: {slug: 'home'}
+  });
 
-  // console.log(data);
+  const {data: {spotlights}} = await apolloClient.query({
+    query: spotlightQuery
+  });
 
-  return {};
-};
-
-Home.propTypes = {
-  actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  courses: ImmutablePropTypes.list,
-  spotlights: ImmutablePropTypes.list,
-  page: ImmutablePropTypes.map
-};
-
-Home.defaultProps = {
-  courses: List(),
-  spotlights: List(),
-  page: Map()
-};
-
-const mapStateToProps = state => ({
-  user: userSelectors.getUser(state),
-  courses: courseSelectors.getCourses(state),
-  spotlights: spotlightSelectors.getSpotlights(state),
-  page: pageSelectors.getPage(state, 'home')
-});
-
-const mapDispatchToProps = function (dispatch) {
   return {
-    actions: bindActionCreators(
-      {
-        ...authActions
-      },
-      dispatch
-    )
+    spotlights,
+    page
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home);
+Home.propTypes = {
+  spotlights: PropTypes.array,
+  page: PropTypes.object
+};
+
+Home.defaultProps = {
+  spotlights: [],
+  page: {}
+};
+
+export default Home;

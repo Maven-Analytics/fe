@@ -31,7 +31,7 @@ function * rootSaga() {
     fork(watchDashboard),
     fork(watchFilters),
     fork(watchScores),
-    fork(watchSpotlights),
+    // Fork(watchSpotlights),
     fork(watchPages),
     fork(watchContact),
     fork(watchSubscribe),

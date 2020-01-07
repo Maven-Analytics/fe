@@ -1,14 +1,49 @@
-import {List} from 'immutable';
+import gql from 'graphql-tag';
+import {fromJS, List} from 'immutable';
 import PropTypes from 'prop-types';
 import React from 'react';
+import {useQuery} from 'react-apollo';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 
+import imageFragment from '#root/api/fragments/image';
 import Carousel from '#root/components/carousel';
 import CarouselSlide from '#root/components/carouselSlide';
 import CourseCard from '#root/components/courseCard';
 import {isLg, isMd} from '#root/components/mediaQuery';
 
-const TrendingCourses = ({courses}) => {
+const trendingQuery = gql`
+{
+  courses(trending: true) {
+    author {
+      name
+      thumbnail {
+        ...image
+      }
+    }
+    cardDescription
+    badge {
+      ...image
+    }
+    id
+    length
+    thumbnail {
+      ...image
+    }
+    title
+  }
+}
+${imageFragment}
+`;
+
+const TrendingCourses = () => {
+  const getCourses = () => {
+    const {data: {courses = []} = {}} = useQuery(trendingQuery);
+
+    return fromJS(courses);
+  };
+
+  const courses = getCourses();
+
   return (
     <div className="trending-courses">
       <div className="container container--lg">
@@ -38,15 +73,6 @@ const TrendingCourses = ({courses}) => {
       </div>
     </div>
   );
-};
-
-TrendingCourses.propTypes = {
-  courses: ImmutablePropTypes.list,
-  actions: PropTypes.objectOf(PropTypes.func)
-};
-
-TrendingCourses.defaultProps = {
-  courses: List()
 };
 
 export default TrendingCourses;

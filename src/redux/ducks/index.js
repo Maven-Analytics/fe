@@ -1,27 +1,27 @@
 import {combineReducers} from 'redux-immutable';
 
-import loading from './loading';
-import error from './error';
-import response from './response';
-import user from './user';
-import state from './state';
-import plans from './plans';
-import checkout from './checkout';
-import paths from './paths';
-import courses from './courses';
-import surveyResult from './surveyResult';
-import dashboard from './dashboard';
-import filters from './filters';
 import activeFilters from './activeFilters';
+import announcements from './announcements';
+import checkout from './checkout';
+import courses from './courses';
+import credentials from './credentials';
+import dashboard from './dashboard';
+import enrollments from './enrollments';
+import error from './error';
+import filters from './filters';
+import loading from './loading';
+import pages from './pages';
+import paths from './paths';
+import plans from './plans';
+import recommended from './recommended';
+import response from './response';
 import scores from './scores';
 import spotlights from './spotlights';
-import pages from './pages';
-import credentials from './credentials';
-import announcements from './announcements';
-import userSettings from './userSettings';
-import enrollments from './enrollments';
-import recommended from './recommended';
+import state from './state';
 import subscription from './subscription';
+import surveyResult from './surveyResult';
+import user from './user';
+import userSettings from './userSettings';
 
 const Ducks = combineReducers({
   loading,
@@ -38,7 +38,7 @@ const Ducks = combineReducers({
   filters,
   activeFilters,
   scores,
-  spotlights,
+  // Spotlights,
   pages,
   credentials,
   announcements,
