@@ -71,7 +71,7 @@ class CourseCard extends Component {
         ) : null}
         <div className="course-card__image">
           {resumeUrl ? (
-            <Link href={resumeUrl}>
+            <Link prefetch={false} href={resumeUrl}>
               <a>
                 {headerImg}
               </a>
@@ -86,7 +86,7 @@ class CourseCard extends Component {
         <div className="course-card__content">
           <h4>
             {resumeUrl ? (
-              <Link href={resumeUrl}>
+              <Link prefetch={false} href={resumeUrl}>
                 <a>
                   {course.get('title')}
                 </a>

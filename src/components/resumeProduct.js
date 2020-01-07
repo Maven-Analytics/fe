@@ -11,7 +11,7 @@ const ResumeProduct = ({resumeUrl, productTerm, className, started}) => {
   return (
     <>
       <EnrolledUser>
-        <Link href={resumeUrl}>
+        <Link prefetch={false} href={resumeUrl}>
           <a className={className}>
             {`${started ? 'Resume' : 'Start'} ${productTerm}`}
           </a>
