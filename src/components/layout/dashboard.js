@@ -1,18 +1,19 @@
-import React, {Component} from 'react';
+import {isImmutable} from 'immutable';
 import PropTypes from 'prop-types';
+import React, {Component} from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
-import {isImmutable} from 'immutable';
 import {bindActionCreators} from 'redux';
 
-import {actions as stateActions} from '#root/redux/ducks/state';
 import CheckoutHeader from '#root/components/sections/checkoutHeader';
-import DashboardHeader from '../dashboardHeader';
-import {selectors as userSelectors} from '#root/redux/ducks/user';
-import BaseLayout from './base';
 import CopyrightFooter from '#root/components/sections/copyrightFooter';
-import Loader from '../loader';
+import {actions as stateActions} from '#root/redux/ducks/state';
+import {selectors as userSelectors} from '#root/redux/ducks/user';
+
 import {getTimeOfDay} from '../../utils/componentHelpers';
+import DashboardHeader from '../dashboardHeader';
+import Loader from '../loader';
+import BaseLayout from './base';
 
 class DashboardLayout extends Component {
   componentDidMount() {

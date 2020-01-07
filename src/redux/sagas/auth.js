@@ -1,21 +1,22 @@
 
-import {all, put, takeLatest, call, select, delay, take} from 'redux-saga/effects';
+import {fromJS} from 'immutable';
+import {all, call, delay, put, select, take, takeLatest} from 'redux-saga/effects';
 
-import {types as authTypes} from '../ducks/auth';
-import {types as userTypes, selectors as userSelectors} from '../ducks/user';
-import {selectors as subscriptionSelectors, types as subscriptionTypes} from '../ducks/subscription';
-import {selectors as recommendedSelectors} from '../ducks/recommended';
-import {types as enrollmentTypes} from '../ducks/enrollments';
-import {types as dashboardTypes} from '../ducks/dashboard';
-import {types as credentialTypes} from '../ducks/credentials';
-import {types as scoreTypes} from '../ducks/scores';
-import {types as recommendedTypes} from '../ducks/recommended';
-import {setCookie, removeCookie, getCookie} from '../../utils/cookies';
+import client from '#root/api/graphQlClient';
+
 import apiv2 from '../../services/apiv2';
 import {ssoRedirect} from '../../services/sso';
-import {fromJS} from 'immutable';
+import {getCookie, removeCookie, setCookie} from '../../utils/cookies';
 import {subscriptionEnrolled} from '../../utils/subscriptionHelpers';
-import client from '#root/api/graphQlClient';
+import {types as authTypes} from '../ducks/auth';
+import {types as credentialTypes} from '../ducks/credentials';
+import {types as dashboardTypes} from '../ducks/dashboard';
+import {types as enrollmentTypes} from '../ducks/enrollments';
+import {selectors as recommendedSelectors} from '../ducks/recommended';
+import {types as recommendedTypes} from '../ducks/recommended';
+import {types as scoreTypes} from '../ducks/scores';
+import {selectors as subscriptionSelectors, types as subscriptionTypes} from '../ducks/subscription';
+import {selectors as userSelectors, types as userTypes} from '../ducks/user';
 
 export function * watchAuth() {
   yield takeLatest(authTypes.LOGIN_REQUEST, loginRequest);
@@ -252,6 +253,8 @@ function * ensureEnrolled() {
 function * checkRecommended(ctx) {
   const paths = getCookie('recommendedPaths', ctx);
   const courses = getCookie('recommendedCourses', ctx);
+
+  console.log(paths);
 
   if (paths && courses) {
     yield all([
