@@ -27,13 +27,14 @@ import {actions as recommendedActions} from '../redux/ducks/recommended';
 import {actions as subscriptionActions} from '../redux/ducks/subscription';
 import {actions as userActions} from '../redux/ducks/user';
 import initStore from '../redux/store';
-import {getCookie} from '../utils/cookies';
+import {getCookie, removeCookie} from '../utils/cookies';
 
 class MavenApp extends App {
   static async getInitialProps({Component, ctx: {apolloClient, ...ctx}}) {
     const {store, isServer} = ctx;
 
     const token = getCookie('token', ctx);
+    const thinkificToken = getCookie('thinkificToken', ctx);
     const checkoutCookie = getCookie('checkout', ctx);
     const recommendedPaths = getCookie('recommendedPaths', ctx);
     const recommendedCourses = getCookie('recommendedCourses', ctx);
@@ -47,6 +48,11 @@ class MavenApp extends App {
     if (token && token !== '') {
       store.dispatch(enrollmentActions.enrollmentsGet({token}));
       store.dispatch(subscriptionActions.subscriptionGet({token}));
+      store.dispatch(userActions.tokenSet(token));
+    }
+
+    if (thinkificToken) {
+      store.dispatch(userActions.thinkificTokenSet(thinkificToken));
     }
 
     if (checkoutCookie && checkoutCookie !== '') {
@@ -58,6 +64,16 @@ class MavenApp extends App {
         paths: recommendedPaths,
         courses: recommendedCourses
       }));
+
+      if (token) {
+        store.dispatch(recommendedActions.recommendedSet({
+          paths: recommendedPaths,
+          courses: recommendedCourses,
+          token
+        }));
+        removeCookie('recommendedPaths', ctx);
+        removeCookie('recommendedCourses', ctx);
+      }
     }
 
     return {

@@ -1,19 +1,22 @@
-import {takeLatest, put, select, all} from 'redux-saga/effects';
-// Import axios from 'axios';
+import {all, put, select, takeLatest} from 'redux-saga/effects';
 
-import {selectors as recommendedSelectors, types as recommendedTypes} from '../ducks/recommended';
-import {types as userTypes, selectors as userSelectors} from '../ducks/user';
-import {setCookie, removeCookie} from '../../utils/cookies';
 import apiv2 from '../../services/apiv2';
+import {removeCookie, setCookie} from '../../utils/cookies';
+// Import axios from 'axios';
+import {selectors as recommendedSelectors, types as recommendedTypes} from '../ducks/recommended';
+import {selectors as userSelectors, types as userTypes} from '../ducks/user';
 
 export function * watchRecommended() {
   yield takeLatest(recommendedTypes.RECOMMENDED_SET_REQUEST, onRecommendedSet);
 }
 
-function * onRecommendedSet({payload: {paths, courses}}) {
+function * onRecommendedSet({payload: {paths, courses, token}}) {
   try {
     const user = yield select(userSelectors.getUser);
-    const token = yield select(userSelectors.getToken);
+
+    if (!token) {
+      token = yield select(userSelectors.getToken);
+    }
 
     if (token) {
       const res = yield saveRecommended(user, token, paths, courses);
