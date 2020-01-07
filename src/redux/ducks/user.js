@@ -16,7 +16,9 @@ export const types = {
 
 export const actions = {
   userSet: obj => utils.action(types.USER_SET, obj),
-  userUnset: () => utils.action(types.USER_UNSET)
+  userUnset: () => utils.action(types.USER_UNSET),
+  tokenSet: obj => utils.action(types.TOKEN_SET, obj),
+  thinkificTokenSet: obj => utils.action(types.THINKIFIC_TOKEN_SET, obj)
 };
 
 const initialState = utils.initialState({
