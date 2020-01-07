@@ -2,12 +2,20 @@ import gql from 'graphql-tag';
 
 const userFragment = gql`
 fragment user on User {
-  id
-  first_name
-  last_name
-  email
-  postal_code
   country
+  email
+  first_name
+  id
+  last_name
+  postal_code
+  recommended_courses {
+    id
+    percentage
+  }
+  recommended_paths {
+    id
+    percentage
+  }
 }
 `;
 
