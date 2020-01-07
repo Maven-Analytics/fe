@@ -8,6 +8,7 @@ import {connect, useDispatch} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import userFragment from '#root/api/fragments/user';
+import meQuery from '#root/api/query/me';
 import Auth from '#root/components/layout/auth';
 import GraphQlError from '#root/components/shared/GraphQlError';
 
@@ -97,7 +98,7 @@ const mutation = gql`
 `;
 
 const Login = ({redirectTo}) => {
-  const [login, {error}] = useMutation(mutation);
+  const [login, {error, client}] = useMutation(mutation);
   const {formState: {isSubmitting}, handleSubmit, register} = useForm();
   const dispatch = useDispatch();
 
@@ -107,6 +108,9 @@ const Login = ({redirectTo}) => {
     const {data: {login: loginData}} = await login({
       variables: {email, password}
     });
+
+    client.resetStore();
+    client.cache.reset();
 
     dispatch(authActions.login({...loginData, redirectTo: redirect}));
   });
