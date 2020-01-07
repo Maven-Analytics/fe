@@ -1,8 +1,7 @@
+import {ApolloProvider} from '@apollo/react-hooks';
 import Head from 'next/head';
 import * as PropTypes from 'prop-types';
 import React from 'react';
-
-import {ApolloProvider} from '@apollo/react-hooks';
 
 import client from './graphQlClient';
 

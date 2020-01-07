@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import {connect} from 'react-redux';
 import Intercom from 'react-intercom';
+import {connect} from 'react-redux';
+
+import accessConfig from '#root/utils/accessConfig';
 
 import {selectors as userSelectors} from '../redux/ducks/user';
-import config from '../config';
 
 class IntercomScript extends Component {
   render() {
-    if (config.DISABLE_INTERCOM) {
+    if (accessConfig('DISABLE_INTERCOM', false)) {
       return null;
     }
 

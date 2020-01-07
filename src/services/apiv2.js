@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-import {getCookie} from '../utils/cookies';
-import config from '../config';
+import accessConfig from '#root/utils/accessConfig';
+import {getCookie} from '#root/utils/cookies';
 
 const apiv2 = ({method = 'get', data = {}, params = {}, url = '', useAuth = true, token = getCookie('token') || ''}) => {
   return axios({
-    baseURL: `${config.HOST_PUBLIC_API}/v2`,
+    baseURL: `${accessConfig('HOST_PUBLIC_API')}/v2`,
     method,
     data,
     params,

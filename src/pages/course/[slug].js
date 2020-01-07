@@ -132,7 +132,7 @@ Course.getInitialProps = async ctx => {
     });
 
     if (!course) {
-      redirect(ctx, Routes.Home);
+      return redirect(ctx, Routes.Home);
     }
 
     const paths = await getPaths({
@@ -148,11 +148,7 @@ Course.getInitialProps = async ctx => {
     };
   }
 
-  redirect(ctx, Routes.Home);
-
-  return {
-    slug: null
-  };
+  return redirect(ctx, Routes.Home);
 };
 
 Course.propTypes = {

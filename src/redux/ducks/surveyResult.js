@@ -1,12 +1,12 @@
-import {createSelector} from 'reselect';
 import {fromJS} from 'immutable';
+import {createSelector} from 'reselect';
 
+import {SurveyQuestions} from '../../surveyContstants';
 import * as utils from '../../utils/duckHelpers';
+import {getAdjustedCoursePercentages, getAdjustedPathPercentages, getCoursePercentages, getInitialAnswers, getPathPercentages, getRecommendedCourses, getRecommendedPaths, getSurveyWeights, sortResults} from '../../utils/surveyHelpers';
 import {selectors as courseSelectors} from './courses';
 import {selectors as pathSelectors} from './paths';
 import {selectors as userSelectors} from './user';
-import {getRecommendedCourses, getCoursePercentages, getAdjustedCoursePercentages, getRecommendedPaths, getPathPercentages, getAdjustedPathPercentages, sortResults, getInitialAnswers, getSurveyWeights} from '../../utils/surveyHelpers';
-import {SurveyQuestions} from '../../surveyContstants';
 
 export const types = {
   SURVEY_RESULT_UPDATE: 'SURVEY_RESULT_UPDATE'
@@ -18,8 +18,7 @@ export const actions = {
 
 // @DEV
 // import {DEV_SURVEY_RESULTS} from '../../surveyContstants';
-// import config from '../../config';
-// const initialState = utils.initialState(config.NODE_ENV === 'development' ? DEV_SURVEY_RESULTS : {});
+// const initialState = utils.initialState(DEV_SURVEY_RESULTS);
 const initialState = utils.initialState(getInitialAnswers(SurveyQuestions, 5));
 
 export default (state = initialState, action) => {
