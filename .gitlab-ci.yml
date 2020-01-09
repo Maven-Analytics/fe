@@ -1,7 +1,6 @@
 image: alpine:latest
 
 variables:
-  APP_NAME: fe
   CODE_QUALITY_DISABLED: "true"
   CONTAINER_SCANNING_DISABLED: "true"
   DAST_DISABLED: "true"
@@ -11,10 +10,13 @@ variables:
   SAST_DISABLED: "true"
   ROLLOUT_RESOURCE_TYPE: deployment
   POSTGRES_ENABLED: "false"
-  PRODUCTION_ADDITIONAL_HOSTS: mavenanalytics.io,www.mavenanalytics.io
+  REVIEW_DISABLED: 1
+  REPLICAS: 2
+  # Custom Config
+  APP_NAME: fe
+  PRODUCTION_ADDITIONAL_HOSTS: $KUBE_INGRESS_BASE_DOMAIN,www.$KUBE_INGRESS_BASE_DOMAIN
+  STAGING_ADDITIONAL_HOSTS: staging.$KUBE_INGRESS_BASE_DOMAIN
   K8S_SECRET_SENTRY_ENVIRONMENT: $CI_COMMIT_REF_NAME
-  HELM_RELEASE_NAME: $APP_NAME
-  HELM_UPGRADE_EXTRA_ARGS: --set service.commonName=$KUBE_INGRESS_BASE_DOMAIN --set app.name=$APP_NAME
 
 stages:
   - build
@@ -35,82 +37,4 @@ stages:
 include:
   - template: Jobs/Build.gitlab-ci.yml # https://gitlab.com/gitlab-org/gitlab-foss/blob/master/lib/gitlab/ci/templates/Jobs/Build.gitlab-ci.yml
   - template: Jobs/Test.gitlab-ci.yml # https://gitlab.com/gitlab-org/gitlab-foss/blob/master/lib/gitlab/ci/templates/Jobs/Test.gitlab-ci.yml
-  # - template: Jobs/Deploy.gitlab-ci.yml # https://gitlab.com/gitlab-org/gitlab-foss/blob/master/lib/gitlab/ci/templates/Jobs/Deploy.gitlab-ci.yml
-
-.auto-deploy:
-  image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:v0.8.3"
-  
-
-staging:
-  extends: .auto-deploy
-  stage: staging
-  before_script:
-    - export REVIEW_DISABLED=true
-  script:
-    - auto-deploy check_kube_domain
-    - auto-deploy download_chart
-    - auto-deploy ensure_namespace
-    - auto-deploy initialize_tiller
-    - auto-deploy create_secret
-    - auto-deploy deploy
-    - auto-deploy persist_environment_url
-  environment:
-    name: staging
-    url: https://staging.$KUBE_INGRESS_BASE_DOMAIN
-  only:
-    refs:
-      - staging
-
-stop_staging:
-  extends: .auto-deploy
-  stage: cleanup
-  variables:
-    GIT_STRATEGY: none
-  script:
-    - auto-deploy initialize_tiller
-    - auto-deploy delete
-  environment:
-    name: staging
-    action: stop
-  when: manual
-  allow_failure: true
-  only:
-    refs:
-      - staging
-      
-production:
-  extends: .auto-deploy
-  stage: deploy
-  script:
-    - auto-deploy check_kube_domain
-    - auto-deploy download_chart
-    - auto-deploy ensure_namespace
-    - auto-deploy initialize_tiller
-    - auto-deploy create_secret
-    - auto-deploy deploy
-    - auto-deploy persist_environment_url
-  environment:
-    name: production
-    url: https://$KUBE_INGRESS_BASE_DOMAIN
-  only:
-    refs:
-      - master
-  artifacts:
-    paths: [environment_url.txt]
-    
-stop_production:
-  extends: .auto-deploy
-  stage: cleanup
-  variables:
-    GIT_STRATEGY: none
-  script:
-    - auto-deploy initialize_tiller
-    - auto-deploy delete
-  environment:
-    name: production
-    action: stop
-  when: manual
-  allow_failure: true
-  only:
-    refs:
-      - master
+  - template: Jobs/Deploy.gitlab-ci.yml # https://gitlab.com/gitlab-org/gitlab-foss/blob/master/lib/gitlab/ci/templates/Jobs/Deploy.gitlab-ci.yml
