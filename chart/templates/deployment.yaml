@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fe
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: fe
+  template:
+    metadata:
+      labels:
+        app: fe
+    spec:
+      containers:
+      - name: fe
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: Always
+        ports:
+        - name: fe
+          containerPort: 5000
+        livenessProbe:
+          httpGet:
+            path: /-/liveness
+            scheme: "HTTP"
+            port: 5000
+          initialDelaySeconds: 15
+          timeoutSeconds: 15
+        readinessProbe:
+          httpGet:
+            path: /-/readiness
+            scheme: "HTTP"
+            port: 5000
+          initialDelaySeconds: 5
+          timeoutSeconds: 15
+        envFrom:
+          - configMapRef:
+              name: env-config
+          - secretRef:
+              name: env-secret
+        env:
+          - name: GITLAB_ENVIRONMENT_NAME
+            value: {{ .Values.gitlab.envName }}
+          - name: GITLAB_ENVIRONMENT_URL
+            value: {{ .Values.gitlab.envURL }}
