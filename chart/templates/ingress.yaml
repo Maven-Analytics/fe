@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: fe
+  name: {{ .Values.app.name }}
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/rewrite-target: /$1
@@ -19,12 +19,12 @@ spec:
         paths:
           - path: /?(.*)
             backend:
-              serviceName: fe
+              serviceName: {{ .Values.app.name }}
               servicePort: 5000
     - host: www.{{ .Values.service.commonName }}
       http:
         paths:
           - path: /?(.*)
             backend:
-              serviceName: fe
+              serviceName: {{ .Values.app.name }}
               servicePort: 5000

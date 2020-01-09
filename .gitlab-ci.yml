@@ -1,6 +1,7 @@
 image: alpine:latest
 
 variables:
+  APP_NAME: fe
   CODE_QUALITY_DISABLED: "true"
   CONTAINER_SCANNING_DISABLED: "true"
   DAST_DISABLED: "true"
@@ -12,8 +13,8 @@ variables:
   POSTGRES_ENABLED: "false"
   PRODUCTION_ADDITIONAL_HOSTS: mavenanalytics.io,www.mavenanalytics.io
   K8S_SECRET_SENTRY_ENVIRONMENT: $CI_COMMIT_REF_NAME
-  HELM_RELEASE_NAME: fe
-  HELM_UPGRADE_EXTRA_ARGS: --set service.commonName=$KUBE_INGRESS_BASE_DOMAIN
+  HELM_RELEASE_NAME: $APP_NAME
+  HELM_UPGRADE_EXTRA_ARGS: --set service.commonName=$KUBE_INGRESS_BASE_DOMAIN --set app.name=$APP_NAME
 
 stages:
   - build
