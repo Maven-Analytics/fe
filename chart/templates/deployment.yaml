@@ -34,10 +34,8 @@ spec:
           initialDelaySeconds: 5
           timeoutSeconds: 15
         envFrom:
-          - configMapRef:
-              name: env-config
           - secretRef:
-              name: env-secret
+              name: {{ .Values.application.secretName }}
         env:
           - name: GITLAB_ENVIRONMENT_NAME
             value: {{ .Values.gitlab.envName }}
