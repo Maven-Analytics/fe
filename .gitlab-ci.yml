@@ -89,8 +89,11 @@ production:
     - auto-deploy deploy
     - auto-deploy persist_environment_url
   environment:
-    name: staging
+    name: production
     url: https://$KUBE_INGRESS_BASE_DOMAIN
   only:
     refs:
-      - staging
+      - master
+  artifacts:
+    paths: [environment_url.txt]
+    
