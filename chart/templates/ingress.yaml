@@ -9,8 +9,8 @@ metadata:
 spec:
   tls:
   - hosts:
-    - "{{ .Values.service.commonName }}"
-    - www."{{ .Values.service.commonName }}"
+    - {{ .Values.service.commonName }}
+    - www.{{ .Values.service.commonName }}
     secretName: certificate-tls
 
   rules:
