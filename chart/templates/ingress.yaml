@@ -9,8 +9,8 @@ metadata:
 spec:
   tls:
   - hosts:
-    - mavenanalytics.dev
-    - www.mavenanalytics.dev
+    - "{{ .Values.service.commonName }}"
+    - www."{{ .Values.service.commonName }}"
     secretName: certificate-tls
 
   rules:
