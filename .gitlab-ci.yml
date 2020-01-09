@@ -79,7 +79,7 @@ stop_staging:
       
 production:
   extends: .auto-deploy
-  stage: production
+  stage: deploy
   script:
     - auto-deploy check_kube_domain
     - auto-deploy download_chart
