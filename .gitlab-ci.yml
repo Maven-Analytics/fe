@@ -98,3 +98,19 @@ production:
   artifacts:
     paths: [environment_url.txt]
     
+stop_production:
+  extends: .auto-deploy
+  stage: cleanup
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - auto-deploy initialize_tiller
+    - auto-deploy delete
+  environment:
+    name: production
+    action: stop
+  when: manual
+  allow_failure: true
+  only:
+    refs:
+      - master
