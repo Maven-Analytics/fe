@@ -13,6 +13,7 @@ variables:
   PRODUCTION_ADDITIONAL_HOSTS: mavenanalytics.io,www.mavenanalytics.io
   K8S_SECRET_SENTRY_ENVIRONMENT: $CI_COMMIT_REF_NAME
   HELM_RELEASE_NAME: fe
+  HELM_UPGRADE_EXTRA_ARGS: --set service.commonName=$KUBE_INGRESS_BASE_DOMAIN
 
 stages:
   - build
