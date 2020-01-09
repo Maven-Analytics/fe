@@ -14,14 +14,14 @@ spec:
     secretName: certificate-tls
 
   rules:
-    - host: mavenanalytics.dev
+    - host: {{ .Values.service.commonName }}
       http:
         paths:
           - path: /?(.*)
             backend:
               serviceName: fe
               servicePort: 5000
-    - host: www.mavenanalytics.dev
+    - host: www.{{ .Values.service.commonName }}
       http:
         paths:
           - path: /?(.*)
