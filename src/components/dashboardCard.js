@@ -1,3 +1,4 @@
+import {fromJS} from 'immutable';
 import PropTypes from 'prop-types';
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
@@ -30,6 +31,24 @@ const DashboardCard = ({size, children, title, loading, style, canToggleVisibili
     classList.push('hidden');
   }
 
+  const handleClick = e => {
+    e.preventDefault();
+
+    actions.userSettingsUpdate([
+      {
+        id: cardVisibility.get('id'),
+        setting_id: cardVisibility.get('id'),
+        value: cardVisibility.update('value', u => {
+          if (!u) {
+            u = fromJS({});
+          }
+
+          return u.set(settingsKey, !value);
+        }).get('value')
+      }
+    ]);
+  };
+
   return (
     <div className={classList.join(' ')} style={style}>
       {loading ? <Loader loading={loading}/> : null}
@@ -39,16 +58,8 @@ const DashboardCard = ({size, children, title, loading, style, canToggleVisibili
           {canToggleVisibility && showClose ? (
             <button
               className="btn btn--empty-dark"
-              onClick={click(actions.userSettingsUpdate, [
-                {
-                  id: cardVisibility.get('id'),
-                  setting_id: cardVisibility.get('id'),
-                  value: {
-                    ...cardVisibility.setIn(['value', settingsKey], !value).get('value').toJS()
-                  }
-                }
-              ])
-              }>
+              onClick={handleClick}
+            >
               Hide
               <MaIcon icon="eye-slash"/>
             </button>
