@@ -20,7 +20,7 @@ function * onRecommendedSet({payload: {paths, courses}}) {
       yield all([
         put({
           type: userTypes.USER_SET,
-          payload: res.user
+          payload: res
         }),
         put({
           type: recommendedTypes.RECOMMENDED_SET_SUCCESS

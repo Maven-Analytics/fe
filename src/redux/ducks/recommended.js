@@ -39,8 +39,8 @@ export const selectors = {
   getRecommended: createSelector(
     [getRecommended, courseSelectors.getCourses, pathSelectors.getPaths, userSelectors.getUser],
     (recommended, courses, paths, user) => {
-      const recommendedPaths = user.has('recommended_paths') && user.get('recommended_paths').count() ? user.get('recommended_paths') : recommended.get('paths');
-      const recommendedCourses = user.has('recommended_courses') && user.get('recommended_courses').count() ? user.get('recommended_courses') : recommended.get('courses');
+      const recommendedPaths = user.has('recommended_paths') && user.get('recommended_paths') && user.get('recommended_paths').count() ? user.get('recommended_paths') : recommended.get('paths');
+      const recommendedCourses = user.has('recommended_courses') && user.get('recommended_courses') && user.get('recommended_courses').count() ? user.get('recommended_courses') : recommended.get('courses');
       return fromJS({
         paths: recommendedPaths
           .map(rp => {
