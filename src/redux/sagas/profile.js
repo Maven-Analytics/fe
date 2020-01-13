@@ -23,7 +23,7 @@ function * profileUpdateRequest({payload}) {
     yield all([
       put({
         type: userTypes.USER_SET,
-        payload: res.user
+        payload: res
       }),
       put({
         type: profileTypes.PROFILEUPDATE_SUCCESS,
