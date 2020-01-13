@@ -4,7 +4,7 @@ import accessConfig from '#root/utils/accessConfig';
 import {canUseDOM} from '#root/utils/componentHelpers';
 
 const GtagScript = () => {
-  if (!accessConfig('DISABLE_GTAG') && canUseDOM()) {
+  if (!accessConfig('DISABLE_GTAG', false) && canUseDOM()) {
     TagManager.initialize({
       gtmId: 'GTM-M5F3PPK'
     });
