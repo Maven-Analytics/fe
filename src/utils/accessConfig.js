@@ -6,7 +6,7 @@ const cache = {};
 
 const accessConfig = (key, defaultValue) => {
   if (!(key in publicRuntimeConfig)) {
-    if (defaultValue) {
+    if (typeof defaultValue !== 'undefined') {
       return defaultValue;
     }
 
