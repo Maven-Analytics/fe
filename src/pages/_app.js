@@ -95,9 +95,9 @@ class MavenApp extends App {
           <ParallaxProvider>
             <Root>
               <Component {...pageProps} />
-              <LoggedIn>
+              {/* <LoggedIn>
                 <UserSettingsGet />
-              </LoggedIn>
+              </LoggedIn> */}
               <SentryScript/>
               <FontLoaderScript/>
               <GtagScript/>

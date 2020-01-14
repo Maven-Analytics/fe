@@ -1,10 +1,12 @@
+import {useMutation} from '@apollo/react-hooks';
 import {fromJS} from 'immutable';
 import PropTypes from 'prop-types';
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import {connect} from 'react-redux';
+import {connect, useDispatch} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
+import updateUserSettingsMutation from '#root/api/mutations/updateUserSettings';
 import {click} from '#root/utils/componentHelpers';
 
 import {actions as userSettingsActions, selectors as userSettingSelectors} from '../redux/ducks/userSettings';
@@ -12,6 +14,9 @@ import Loader from './loader';
 import MaIcon from './maIcon';
 
 const DashboardCard = ({size, children, title, loading, style, canToggleVisibility, cardVisibility, settingsKey, actions, showClose}) => {
+  const [updateUserSettings] = useMutation(updateUserSettingsMutation);
+  const dispatch = useDispatch();
+
   const hasValue = cardVisibility.hasIn(['value', settingsKey]);
   const value = hasValue ? cardVisibility.getIn(['value', settingsKey]) : true;
 
@@ -31,22 +36,27 @@ const DashboardCard = ({size, children, title, loading, style, canToggleVisibili
     classList.push('hidden');
   }
 
-  const handleClick = e => {
+  const handleClick = async e => {
     e.preventDefault();
 
-    actions.userSettingsUpdate([
-      {
-        id: cardVisibility.get('id'),
-        setting_id: cardVisibility.get('id'),
-        value: cardVisibility.update('value', u => {
-          if (!u) {
-            u = fromJS({});
-          }
+    const {data: {updateUserSettings: userSettings} = {}} = await updateUserSettings({
+      variables: {
+        settings: [
+          {
+            setting_id: parseInt(cardVisibility.get('id'), 10),
+            value: cardVisibility.update('value', u => {
+              if (!u) {
+                u = fromJS({});
+              }
 
-          return u.set(settingsKey, !value);
-        }).get('value')
+              return u.set(settingsKey, !value);
+            }).get('value')
+          }
+        ]
       }
-    ]);
+    });
+
+    dispatch(userSettingsActions.userSettingsSet(userSettings));
   };
 
   return (

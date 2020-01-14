@@ -30,6 +30,8 @@
   }
 
   &__content {
+    flex: 0 0 100%;
+    
     > h5 {
       color: $black-2;
       font-family: $font-body;

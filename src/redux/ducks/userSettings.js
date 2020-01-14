@@ -1,5 +1,5 @@
-import {createSelector} from 'reselect';
 import {fromJS, Map} from 'immutable';
+import {createSelector} from 'reselect';
 
 import * as utils from '../../utils/duckHelpers';
 
@@ -14,6 +14,7 @@ export const types = {
 
 export const actions = {
   userSettingsGet: obj => utils.action(types.USER_SETTINGS_GET_REQUEST, obj),
+  userSettingsSet: obj => utils.action(types.USER_SETTINGS_GET_SUCCESS, obj),
   userSettingsUpdate: obj => utils.action(types.USER_SETTINGS_UPDATE_REQUEST, obj)
 };
 
