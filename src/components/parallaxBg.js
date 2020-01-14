@@ -47,9 +47,9 @@ class ParallaxBg extends Component {
   handleImageLoad(src) {
     const {parallaxController} = this.props;
 
-    if (parallaxController && parallaxController.update && typeof parallaxController.update === 'function') {
-      parallaxController.update();
-    }
+    // If (parallaxController && parallaxController.update && typeof parallaxController.update === 'function') {
+    //   parallaxController.update();
+    // }
 
     setTimeout(() => {
       this.setState({
@@ -96,4 +96,4 @@ ParallaxBg.defaultProps = {
   strength: 0.5
 };
 
-export default withController(ParallaxBg);
+export default ParallaxBg;
