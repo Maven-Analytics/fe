@@ -25,6 +25,9 @@
     visibility: visible;
   }
 }
+.maicon-cogs:before {
+  content: "\e91f";
+}
 .maicon-eye-slash:before {
   content: "\e91e";
 }

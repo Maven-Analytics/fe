@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 
-import {Routes} from '#root/routes';
 import {prettyPercent} from '#root/utils/componentHelpers';
 
 import CourseAuthor from './courseAuthor';
@@ -21,6 +20,7 @@ import ProgressMeter from './progressMeter';
 import ResumeProduct from './resumeProduct';
 
 const ProductDetail = ({
+  comingSoon,
   children,
   productTerm,
   className,
@@ -57,16 +57,15 @@ const ProductDetail = ({
         {id ? (
           <>
             <LoggedIn>
-              <ResumeProduct resumeUrl={resumeUrl} productTerm={productTerm} started={percentage_completed > 0} className="btn btn--primary-solid" />
+              {comingSoon ? null : <ResumeProduct resumeUrl={resumeUrl} productTerm={productTerm} started={percentage_completed > 0} className="btn btn--primary-solid" />}
+              {/* <Link href={resumeUrl || '#'}><a className="btn btn--primary-solid">{linkTerm} {productTerm}</a></Link> */}
             </LoggedIn>
             <LoggedOut>
               {url ? (
                 <Link href={url}>
                   <a className="btn btn--primary-solid">View Full Details</a>
                 </Link>
-              ) : (
-                <ResumeProduct resumeUrl={Routes.Signup} productTerm={productTerm} started={percentage_completed > 0} className="btn btn--primary-solid" />
-              )}
+              ) : comingSoon ? null : <ResumeProduct productTerm={productTerm} started={percentage_completed > 0} className="btn btn--primary-solid" />}
             </LoggedOut>
           </>
         ) : null}
@@ -135,6 +134,7 @@ const ProductDetail = ({
 };
 
 ProductDetail.propTypes = {
+  comingSoon: PropTypes.bool,
   productTerm: PropTypes.string,
   badge: ImmutablePropTypes.map,
   titleTag: PropTypes.string,

@@ -34,6 +34,7 @@ const CourseDrawer = ({actions, state, courses}) => {
             <ProductDetail
               productTerm="Course"
               className="product-detail--course"
+              comingSoon={course.get('comingSoon')}
               badge={course.get('badge')}
               title={course.get('title')}
               percentage_completed={course.get('percentage_completed')}
