@@ -34,6 +34,7 @@
     "@sentry/browser": "^5.10.2",
     "@zeit/next-sass": "^1.0.1",
     "axios": "^0.18.0",
+    "babel-plugin-module-resolver": "^4.0.0",
     "bootstrap": "^4.3.1",
     "contentful": "^7.7.0",
     "flickity": "^2.2.0",
