@@ -14,12 +14,12 @@ const SidebarLinks = fromJS([
   },
   {
     title: 'Billing',
-    url: '//mavenanalytics.thinkific.com/account/billing',
+    url: 'https://mavenanalytics.thinkific.com/account/billing',
     external: true
   },
   {
     title: 'Order History',
-    url: '//mavenanalytics.thinkific.com/account/orders',
+    url: 'https://mavenanalytics.thinkific.com/account/orders',
     external: true
   }
 ]);
