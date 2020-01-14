@@ -13,6 +13,44 @@ import MaIcon from './maIcon';
 import ProgressMeter from './progressMeter';
 import withState from './withState';
 
+const CourseCardBanner = ({match, condensed, recommended, comingSoon}) => {
+  if (comingSoon && condensed === false) {
+    return (
+      <CourseBanner>
+        <MaIcon icon="cogs" />
+        <span className="text">Coming Soon</span>
+      </CourseBanner>
+    );
+  }
+
+  if (match && condensed === false) {
+    return (
+      <CourseBanner>
+        <span className="text">Match</span>
+        <span className="value">{match}</span>
+      </CourseBanner>
+    );
+  }
+
+  if (recommended && condensed === false) {
+    return (
+      <CourseBanner>
+        <MaIcon icon="recommended" />
+        <span className="text">{recommended}</span>
+      </CourseBanner>
+    );
+  }
+
+  return null;
+};
+
+CourseCardBanner.propTypes = {
+  condensed: PropTypes.bool,
+  match: PropTypes.string,
+  recommended: PropTypes.string,
+  comingSoon: PropTypes.bool
+};
+
 class CourseCard extends Component {
   constructor(props) {
     super(props);
@@ -35,7 +73,8 @@ class CourseCard extends Component {
   }
 
   render() {
-    const {course, condensed, match, recommended, progress, full, actions, resumeUrl} = this.props;
+    const {course, condensed, match, recommended, progress, full, actions} = this.props;
+    let {resumeUrl} = this.props;
     const {loaded} = this.state;
 
     const classList = ['course-card'];
@@ -52,22 +91,20 @@ class CourseCard extends Component {
       classList.push('loaded');
     }
 
+    if (course.get('comingSoon')) {
+      resumeUrl = null;
+    }
+
     const headerImg = <ImageContentful cover onLoad={this.handleImageLoad} image={course.get('thumbnail')} />;
 
     return (
       <div className={classList.join(' ')}>
-        {match && condensed === false ? (
-          <CourseBanner>
-            <span className="text">Match</span>
-            <span className="value">{match}</span>
-          </CourseBanner>
-        ) : null}
-        {recommended && condensed === false ? (
-          <CourseBanner>
-            <MaIcon icon="recommended" />
-            <span className="text">{recommended}</span>
-          </CourseBanner>
-        ) : null}
+        <CourseCardBanner
+          comingSoon={course.get('comingSoon')}
+          condensed={condensed}
+          match={match}
+          recommended={recommended}
+        />
         <div className="course-card__image">
           {resumeUrl ? (
             <Link href={resumeUrl}>

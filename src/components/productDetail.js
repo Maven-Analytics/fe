@@ -20,6 +20,7 @@ import {Routes} from '../routes';
 import ResumeProduct from './resumeProduct';
 
 const ProductDetail = ({
+  comingSoon,
   children,
   productTerm,
   className,
@@ -54,7 +55,7 @@ const ProductDetail = ({
         <ImageContentful showLoader={false} image={badge} />
         <TitleTag>{title}</TitleTag>
         <LoggedIn>
-          <ResumeProduct resumeUrl={resumeUrl} productTerm={productTerm} started={percentage_completed > 0} className="btn btn--primary-solid" />
+          {comingSoon ? null : <ResumeProduct resumeUrl={resumeUrl} productTerm={productTerm} started={percentage_completed > 0} className="btn btn--primary-solid" />}
           {/* <Link href={resumeUrl || '#'}><a className="btn btn--primary-solid">{linkTerm} {productTerm}</a></Link> */}
         </LoggedIn>
         <LoggedOut>
@@ -62,9 +63,7 @@ const ProductDetail = ({
             <Link href={url}>
               <a className="btn btn--primary-solid">View Full Details</a>
             </Link>
-          ) : (
-            <ResumeProduct productTerm={productTerm} started={percentage_completed > 0} className="btn btn--primary-solid" />
-          )}
+          ) : comingSoon ? null : <ResumeProduct productTerm={productTerm} started={percentage_completed > 0} className="btn btn--primary-solid" />}
         </LoggedOut>
       </div>
       <div className="product-detail__content">
