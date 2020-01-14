@@ -1,10 +1,7 @@
 import * as PropTypes from 'prop-types';
 import React from 'react';
 
-import {noop} from '#root/utils/componentHelpers';
-
 const TextBox = ({className, type, register, name, label, id, required, placeholder}) => {
-  console.log(register);
   return (
     <div className="form-group">
       {label ? <label htmlFor={id}>{label}</label> : null}
