@@ -40,9 +40,13 @@ class MavenApp extends App {
     const recommendedCourses = getCookie('recommendedCourses', ctx);
 
     if (!ctx.pathname.includes('logout')) {
-      const {data: {me}} = await apolloClient.query({query: meQuery, fetchPolicy: 'no-cache'});
+      try {
+        const {data: {me}} = await apolloClient.query({query: meQuery, fetchPolicy: 'no-cache'});
 
-      store.dispatch(userActions.userSet(me));
+        store.dispatch(userActions.userSet(me));
+      } catch (error) {
+        console.log('Not logged in');
+      }
     }
 
     if (token && token !== '') {

@@ -5,6 +5,8 @@ import {useDispatch} from 'react-redux';
 import UserSettingFragment from '#root/api/fragments/UserSetting';
 import {actions as userSettingsActions} from '#root/redux/ducks/userSettings';
 
+import withUser from '../withUser';
+
 const userSettingsQuery = gql`
 {
   userSettings {
@@ -14,15 +16,17 @@ const userSettingsQuery = gql`
 ${UserSettingFragment}
 `;
 
-const Root = ({children}) => {
-  const {data: {userSettings} = {}} = useQuery(userSettingsQuery);
-  const dispatch = useDispatch();
+const Root = ({children, user}) => {
+  if (user && user.get('id')) {
+    const {data: {userSettings} = {}} = useQuery(userSettingsQuery);
+    const dispatch = useDispatch();
 
-  if (userSettings) {
-    dispatch(userSettingsActions.userSettingsSet(userSettings));
+    if (userSettings) {
+      dispatch(userSettingsActions.userSettingsSet(userSettings));
+    }
   }
 
   return children;
 };
 
-export default Root;
+export default withUser(Root);
