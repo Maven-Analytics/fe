@@ -1,10 +1,10 @@
-import {createSelector} from 'reselect';
 import {fromJS} from 'immutable';
+import {createSelector} from 'reselect';
 
 import * as utils from '../../utils/duckHelpers';
 import {selectors as enrollmentSelectors} from './enrollments';
-import {selectors as userSelectors} from './user';
 import {selectors as stateSelectors} from './state';
+import {selectors as userSelectors} from './user';
 
 export const types = {
   COURSESINIT_REQUEST: 'COURSESINIT_REQUEST',

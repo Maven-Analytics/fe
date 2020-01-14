@@ -90,12 +90,13 @@ import GraphQlError from '../shared/GraphQlError';
 const ProfileForm = ({user}) => {
   const [updateUser, {error}] = useMutation(updateUserMutation);
   const [response, setResponse] = useState(null);
-  const {formState: {isSubmitting}, handleSubmit, register} = useForm({
+  const {formState: {isSubmitting, isSubmitted}, handleSubmit, register, clearError, errors: formErrors} = useForm({
     defaultValues: user.toJS()
   });
   const dispatch = useDispatch();
 
   const onSubmit = handleSubmit(async ({email, first_name, last_name, postal_code, country}) => {
+    clearError();
     setResponse(null);
     const {data: {updateUser: user}} = await updateUser({
       variables: {email, first_name, last_name, postal_code, country}
@@ -105,17 +106,20 @@ const ProfileForm = ({user}) => {
     dispatch(userActions.userSet(user));
   });
 
+  console.log(formErrors);
+
   return (
     <form onSubmit={onSubmit} className="form--light form--account">
       <div className="row">
         <div className="col-sm-12">
           <TextBox
             required
+            error={isSubmitted ? formErrors.email : null}
             id="email"
             label="Email Address"
             name="email"
             placeholder="jason@email.com"
-            register={register}
+            register={register({required: true})}
             type="email"
           />
         </div>
@@ -124,19 +128,21 @@ const ProfileForm = ({user}) => {
         <div className="col-sm-6">
           <TextBox
             required
+            error={isSubmitted ? formErrors.first_name : null}
             id="first_name"
             label="First Name"
             name="first_name"
-            register={register}
+            register={register({required: true})}
           />
         </div>
         <div className="col-sm-6">
           <TextBox
             required
+            error={isSubmitted ? formErrors.last_name : null}
             id="last_name"
             label="Last Name"
             name="last_name"
-            register={register}
+            register={register({required: true})}
           />
         </div>
       </div>
@@ -144,20 +150,22 @@ const ProfileForm = ({user}) => {
         <div className="col-sm-6">
           <Select
             required
+            error={isSubmitted ? formErrors.country : null}
             id="country"
             label="Counrtry"
             options={countries}
             name="country"
-            register={register}
+            register={register({required: true})}
           />
         </div>
         <div className="col-sm-6">
           <TextBox
             required
+            error={isSubmitted ? formErrors.postal_code : null}
             id="postal_code"
             label="Postal Code"
             name="postal_code"
-            register={register}
+            register={register({required: true})}
           />
         </div>
       </div>

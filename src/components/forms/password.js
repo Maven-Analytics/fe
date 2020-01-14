@@ -129,7 +129,7 @@ const PasswordResetForm = () => {
   const [updateUser, {error}] = useMutation(updateUserMutation);
   const user = useSelector(userSelectors.getUser);
   const [response, setResponse] = useState(null);
-  const {formState: {isSubmitting}, handleSubmit, register} = useForm();
+  const {formState: {isSubmitting, isSubmitted}, handleSubmit, register, errors: formErrors, clearError, watch} = useForm();
 
   const onSubmit = handleSubmit(async ({currentPassword, newPassword, confirmPassword}) => {
     setResponse(null);
@@ -140,8 +140,6 @@ const PasswordResetForm = () => {
     setResponse('Your password has been reset!');
   });
 
-  // TODO: add frontend form validateion
-
   return (
     <form onSubmit={onSubmit} className="form--light form--account">
       <TextBox
@@ -149,7 +147,8 @@ const PasswordResetForm = () => {
         id="currentPassword"
         label="Current password"
         name="currentPassword"
-        register={register}
+        register={register({required: true})}
+        error={formErrors.currentPassword}
         type="password"
       />
       <TextBox
@@ -157,7 +156,8 @@ const PasswordResetForm = () => {
         id="newPassword"
         label="New password"
         name="newPassword"
-        register={register}
+        register={register({required: true})}
+        error={formErrors.newPassword}
         type="password"
       />
       <TextBox
@@ -165,9 +165,15 @@ const PasswordResetForm = () => {
         id="confirmPassword"
         label="Confirm new password"
         name="confirmPassword"
-        register={register}
+        register={register({required: true, validate: value => value === watch('newPassword')})}
         type="password"
-      />
+      >
+        {formErrors.confirmPassword ? (
+          <p className="form-text small error">
+            {formErrors.confirmPassword.type === 'validate' ? 'Must match the new password.' : null}
+          </p>
+        ) : null}
+      </TextBox>
       {error || response ? (
         <div className="form-message">
           {error ? (
