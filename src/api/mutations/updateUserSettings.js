@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-import UserSettingFragment from '../fragments/userSetting';
+import UserSettingFragment from '../fragments/UserSetting';
 
 const updateUserSettingsMutation = gql`
 mutation updateUserSettings($settings: [UserSettingInput!]!) {

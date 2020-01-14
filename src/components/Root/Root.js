@@ -2,7 +2,7 @@ import {useQuery} from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import {useDispatch} from 'react-redux';
 
-import UserSettingFragment from '#root/api/fragments/userSetting';
+import UserSettingFragment from '#root/api/fragments/UserSetting';
 import {actions as userSettingsActions} from '#root/redux/ducks/userSettings';
 
 const userSettingsQuery = gql`
