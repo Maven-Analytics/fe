@@ -1,12 +1,12 @@
 import '../styles/index.scss';
 
+import {ApolloProvider} from '@apollo/react-hooks';
 import {fromJS} from 'immutable';
 import withReduxSaga from 'next-redux-saga';
 import withRedux from 'next-redux-wrapper';
 import App from 'next/app';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {ApolloProvider} from 'react-apollo';
 import {Provider} from 'react-redux';
 import {ParallaxProvider} from 'react-scroll-parallax';
 
@@ -40,7 +40,7 @@ class MavenApp extends App {
     const recommendedCourses = getCookie('recommendedCourses', ctx);
 
     if (!ctx.pathname.includes('logout')) {
-      const {data: {me}} = await apolloClient.query({query: meQuery});
+      const {data: {me}} = await apolloClient.query({query: meQuery, fetchPolicy: 'no-cache'});
 
       store.dispatch(userActions.userSet(me));
     }

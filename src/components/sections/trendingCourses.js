@@ -1,8 +1,8 @@
+import {useQuery} from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import {fromJS, List} from 'immutable';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {useQuery} from 'react-apollo';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 
 import imageFragment from '#root/api/fragments/image';

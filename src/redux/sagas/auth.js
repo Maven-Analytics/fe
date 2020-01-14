@@ -67,6 +67,7 @@ function * loginRequest({payload: {redirectTo, ...data}}) {
         type: authTypes.LOGIN_SUCCESS,
         payload: res
       }),
+      // Call(delay, 1000),
       call(doLogin, res, true, redirectTo)
     ]);
   } catch (error) {
@@ -94,7 +95,7 @@ function * logoutRequest({payload: {ctx}}) {
     put({
       type: userTypes.USER_UNSET
     }),
-    delay(500), // Delay 1/2 a second so the user is redirected to login
+    // Delay(500), // Delay 1/2 a second so the user is redirected to login
     put({
       type: subscriptionTypes.SUBSCRIPTION_RESET
     }),
@@ -152,7 +153,7 @@ function * registerRequest({payload: {redirectTo, ...data}}) {
   }
 }
 
-function * doLogin({user, token, thinkificToken}, doRedirect, redirectTo) {
+function * doLogin({token, thinkificToken, ...user}, doRedirect, redirectTo) {
   setCookie('token', token);
   setCookie('thinkificToken', thinkificToken);
 

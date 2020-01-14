@@ -8,6 +8,8 @@ fragment user on User {
   id
   last_name
   postal_code
+  token
+  thinkificToken
   recommended_courses {
     id
     percentage

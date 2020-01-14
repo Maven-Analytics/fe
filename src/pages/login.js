@@ -87,11 +87,7 @@ import {canUseDOM} from '../utils/componentHelpers';
 const mutation = gql`
   mutation($email: String!, $password: String!) {
     login(email: $email, password: $password) {
-      token
-      thinkificToken
-      user {
-        ...user
-      }
+      ...user
     }
   }
   ${userFragment}
@@ -109,8 +105,8 @@ const Login = ({redirectTo}) => {
       variables: {email, password}
     });
 
-    client.resetStore();
-    client.cache.reset();
+    await client.resetStore();
+    await client.cache.reset();
 
     dispatch(authActions.login({...loginData, redirectTo: redirect}));
   });
