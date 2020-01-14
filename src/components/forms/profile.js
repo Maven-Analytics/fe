@@ -90,7 +90,7 @@ import GraphQlError from '../shared/GraphQlError';
 const ProfileForm = ({user}) => {
   const [updateUser, {error}] = useMutation(updateUserMutation);
   const [response, setResponse] = useState(null);
-  const {formState: {isSubmitting, isValid}, handleSubmit, register} = useForm({
+  const {formState: {isSubmitting}, handleSubmit, register} = useForm({
     defaultValues: user.toJS()
   });
   const dispatch = useDispatch();
@@ -174,7 +174,7 @@ const ProfileForm = ({user}) => {
         </div>
       ) : null}
       <div className="form-footer">
-        <button type="submit" onClick={onSubmit} disabled={isSubmitting || !isValid} className="btn btn--primary-solid">
+        <button type="submit" onClick={onSubmit} disabled={isSubmitting} className="btn btn--primary-solid">
           Update
         </button>
       </div>
