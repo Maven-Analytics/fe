@@ -20,7 +20,7 @@ const CourseCardBanner = ({match, condensed, recommended, comingSoon}) => {
     return (
       <CourseBanner>
         <MaIcon icon="cogs" />
-        <span className="text">Coming Soon</span>
+        <span className="text">Coming Soon!</span>
       </CourseBanner>
     );
   }
