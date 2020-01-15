@@ -68,6 +68,7 @@ class CourseFilters extends Component {
       pathname: this.props.router.pathname,
       query: qs.stringify(activeFilters.toJS())
     });
+
     this.props.actions.coursesFilter();
     this.props.actions.offmenuClose('filters');
   }

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import React from 'react';
 
 import {Routes} from '#root/routes';
@@ -32,7 +32,7 @@ CheckoutFooter.propTypes = {
   loading: PropTypes.bool,
   onClick: PropTypes.func,
   btnType: PropTypes.string,
-  error: PropTypes.string,
+  error: PropTypes.any,
   loginRedirect: PropTypes.string,
   showLogin: PropTypes.bool,
   btnText: PropTypes.string
