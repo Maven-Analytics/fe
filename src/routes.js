@@ -18,6 +18,7 @@ export const Routes = {
   DashboardPaths: '/dashboard/learning-paths',
   DashboardCourses: '/dashboard/courses',
   DashboardCredentials: '/dashboard/credentials',
+  Error: '/error',
   FAQ: '/faq',
   ForgotPassword: '/forgot',
   HelpCenter: '//help.mavenanalytics.io',

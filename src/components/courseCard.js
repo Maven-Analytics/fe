@@ -1,9 +1,10 @@
 import {Map} from 'immutable';
 import Link from 'next/link';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
+import * as ImmutablePropTypes from 'react-immutable-proptypes';
 
+import {Routes} from '#root/routes';
 import {clickAction} from '#root/utils/componentHelpers';
 
 import CourseAuthor from './courseAuthor';
@@ -74,9 +75,10 @@ class CourseCard extends Component {
   }
 
   render() {
-    const {course, condensed, match, recommended, progress, full, actions} = this.props;
+    const {course, condensed, match, recommended, progress, full, actions, state} = this.props;
     let {resumeUrl} = this.props;
     const {loaded} = this.state;
+    const thinkificHealthy = state.getIn(['health', 'thinkific']);
 
     const classList = ['course-card'];
 
@@ -94,11 +96,11 @@ class CourseCard extends Component {
 
     if (course.get('comingSoon')) {
       resumeUrl = null;
+    } else if (!thinkificHealthy) {
+      resumeUrl = Routes.Error;
     }
 
     const headerImg = <ImageContentful cover onLoad={this.handleImageLoad} image={course.get('thumbnail')} />;
-
-    console.log(progress);
 
     return (
       <div className={classList.join(' ')}>
@@ -157,12 +159,14 @@ CourseCard.propTypes = {
   progress: PropTypes.number,
   full: PropTypes.bool,
   actions: PropTypes.objectOf(PropTypes.func),
-  resumeUrl: PropTypes.string
+  resumeUrl: PropTypes.string,
+  state: ImmutablePropTypes.map
 };
 
 CourseCard.defaultProps = {
   course: Map(),
-  condensed: false
+  condensed: false,
+  state: Map()
 };
 
 export default withState(CourseCard);

@@ -1,19 +1,24 @@
-import {createSelector} from 'reselect';
 import {fromJS} from 'immutable';
+import {createSelector} from 'reselect';
 
 import * as utils from '../../utils/duckHelpers';
 
 export const types = {
+  HEALTH_SET: 'HEALTH_SET',
   OFFMENU_TOGGLE: 'OFFMENU_TOGGLE',
   OFFMENU_CLOSE: 'OFFMENU_CLOSE',
   STATE_RESET: 'STATE_RESET',
   MODAL_OPEN: 'MODAL_OPEN',
   MODAL_CLOSE: 'MODAL_CLOSE',
   PRODUCT_SORT_SET: 'PRODUCT_SORT_SET',
-  PRODUCT_SORT_RESET: 'PRODUCT_SORT_RESET'
+  PRODUCT_SORT_RESET: 'PRODUCT_SORT_RESET',
+  THINKIFIC_HEALTH_REQUEST: 'THINKIFIC_HEALTH_REQUEST',
+  THINKIFIC_HEALTH_SUCCESS: 'THINKIFIC_HEALTH_SUCCESS',
+  THINKIFIC_HEALTH_FAILURE: 'THINKIFIC_HEALTH_FAILURE'
 };
 
 export const actions = {
+  healthSet: (key, healthy) => utils.action(types.HEALTH_SET, {key, healthy}),
   offmenuToggle: obj => utils.action(types.OFFMENU_TOGGLE, obj),
   offmenuClose: obj => utils.action(types.OFFMENU_CLOSE, obj),
   modalClose: (key, delay) => utils.action(types.MODAL_CLOSE, {key, delay}),
@@ -50,11 +55,16 @@ const initialState = utils.initialState({
   productSort: {
     key: 'surveyWeight',
     order: 'DESC'
+  },
+  health: {
+    thinkific: true
   }
 });
 
 export default (state = initialState, action) => {
   switch (action.type) {
+  case types.HEALTH_SET:
+    return state.setIn(['health', action.payload.key], action.payload.healthy);
   case types.MODAL_OPEN:
     return state.set(action.payload.key, fromJS({
       open: true,
@@ -75,7 +85,8 @@ export default (state = initialState, action) => {
     return state.set('productSort', initialState.get('productSort'));
   case types.STATE_RESET:
     return initialState
-      .set('productSort', state.get('productSort'));
+      .set('productSort', state.get('productSort'))
+      .set('health', state.get('health'));
 
   default:
     return state;

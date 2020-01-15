@@ -1,7 +1,7 @@
+import {List} from 'immutable';
 import {createSelector} from 'reselect';
 
 import * as utils from '../../utils/duckHelpers';
-import {List} from 'immutable';
 
 export const types = {
   ERROR_RESET: 'ERROR_RESET'
@@ -30,7 +30,7 @@ export default (state = initialState, action) => {
   // Store whether a request is happening at the moment or not
   // e.g. will be true when receiving ACTIONNAME_REQUEST
   //      and false when receiving ACTIONNAME_SUCCESS / ACTIONNAME_FAILURE
-  return state.set(requestName, requestState === 'FAILURE' ? payload.message : null);
+  return state.set(requestName, requestState === 'FAILURE' && payload ? payload.message : null);
 };
 
 const getError = actions => {

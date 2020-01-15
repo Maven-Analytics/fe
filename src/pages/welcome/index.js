@@ -60,7 +60,6 @@ class WelcomeSurvey extends Component {
     const nextIndex = this.getPreviousIndex();
 
     if (nextIndex < 0) {
-      console.log('at first step');
       return;
     }
 

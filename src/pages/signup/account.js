@@ -126,39 +126,41 @@ class SignupAccount extends Component {
 
     return (
       <Checkout activeStep={1} title="Tell us about yourself" loginRedirect={loginRedirect}>
-        <form onSubmit={this.handleSubmit}>
-          <AccountForm
-            showPassword={user.isEmpty()}
-            email={email}
-            first_name={first_name}
-            last_name={last_name}
-            password={password}
-            country={country}
-            postal_code={postal_code}
-            onChange={this.handleChange}
-          />
-          <div className="form-group">
-            <Checkbox
-              id="terms"
-              name="terms"
-              style={{marginTop: 30}}
-              checked={terms}
-              onChange={stateCheck(this.handleChange, 'terms')}
-            >
+        <ThinkificDownRedirect>
+          <form onSubmit={this.handleSubmit}>
+            <AccountForm
+              showPassword={user.isEmpty()}
+              email={email}
+              first_name={first_name}
+              last_name={last_name}
+              password={password}
+              country={country}
+              postal_code={postal_code}
+              onChange={this.handleChange}
+            />
+            <div className="form-group">
+              <Checkbox
+                id="terms"
+                name="terms"
+                style={{marginTop: 30}}
+                checked={terms}
+                onChange={stateCheck(this.handleChange, 'terms')}
+              >
               I have read and agree to the&nbsp;
-              <a href="#" onClick={clickAction(actions.modalOpen, 'pageModal', 'terms')}>Terms of Service</a> and&nbsp;
-              <a href="#" onClick={clickAction(actions.modalOpen, 'pageModal', 'privacy-policy')}>Customer Privacy Policy</a>
-            </Checkbox>
-          </div>
-          <CheckoutFooter
-            showLogin={user.isEmpty()}
-            error={error || profileError}
-            loading={loading || profileLoading}
-            disabled={btnDisabled}
-            btnType="submit"
-            loginRedirect={loginRedirect}
-          />
-        </form>
+                <a href="#" onClick={clickAction(actions.modalOpen, 'pageModal', 'terms')}>Terms of Service</a> and&nbsp;
+                <a href="#" onClick={clickAction(actions.modalOpen, 'pageModal', 'privacy-policy')}>Customer Privacy Policy</a>
+              </Checkbox>
+            </div>
+            <CheckoutFooter
+              showLogin={user.isEmpty()}
+              error={error || profileError}
+              loading={loading || profileLoading}
+              disabled={btnDisabled}
+              btnType="submit"
+              loginRedirect={loginRedirect}
+            />
+          </form>
+        </ThinkificDownRedirect>
       </Checkout>
     );
   }

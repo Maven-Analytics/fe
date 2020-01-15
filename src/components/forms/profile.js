@@ -106,8 +106,6 @@ const ProfileForm = ({user}) => {
     dispatch(userActions.userSet(user));
   });
 
-  console.log(formErrors);
-
   return (
     <form onSubmit={onSubmit} className="form--light form--account">
       <div className="row">

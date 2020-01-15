@@ -6,6 +6,9 @@ import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
+import CheckoutFooter from '#root/components/checkoutFooter';
+import CheckoutPlans from '#root/components/checkoutPlans';
+import ThinkificDownRedirect from '#root/components/health/ThinkificDownRedirect';
 import Checkout from '#root/components/layout/checkout';
 import {actions as authActions} from '#root/redux/ducks/auth';
 import {actions as checkoutActions, selectors as checkoutSelectors} from '#root/redux/ducks/checkout';
@@ -13,12 +16,9 @@ import {selectors as errorSelectors} from '#root/redux/ducks/error';
 import {selectors as loadingSelectors} from '#root/redux/ducks/loading';
 import {selectors as planSelectors} from '#root/redux/ducks/plans';
 import {selectors as userSelectors} from '#root/redux/ducks/user';
-
-import CheckoutFooter from '../../components/checkoutFooter';
-import CheckoutPlans from '../../components/checkoutPlans';
-import {Routes} from '../../routes';
-import {getCheckoutUrlAsync} from '../../services/apiv2';
-import {canUseDOM} from '../../utils/componentHelpers';
+import {Routes} from '#root/routes';
+import {getCheckoutUrlAsync} from '#root/services/apiv2';
+import {canUseDOM} from '#root/utils/componentHelpers';
 
 class SignupIndex extends Component {
   constructor(props) {
@@ -61,15 +61,17 @@ class SignupIndex extends Component {
         loginRedirect={loginRedirect}
         title="SELECT A MEMBERSHIP PLAN"
       >
-        <CheckoutPlans plans={plans} checkout={checkout} onPlanChange={actions.checkoutSetPlan} />
-        <CheckoutFooter
-          showLogin={user.isEmpty()}
-          error={error}
-          loading={loading}
-          btnType="button"
-          disabled={btnDisabled}
-          onClick={this.handleNextClick}
-        />
+        <ThinkificDownRedirect>
+          <CheckoutPlans plans={plans} checkout={checkout} onPlanChange={actions.checkoutSetPlan} />
+          <CheckoutFooter
+            showLogin={user.isEmpty()}
+            error={error}
+            loading={loading}
+            btnType="button"
+            disabled={btnDisabled}
+            onClick={this.handleNextClick}
+          />
+        </ThinkificDownRedirect>
       </Checkout>
     );
   }

@@ -13,13 +13,11 @@ import {ParallaxProvider} from 'react-scroll-parallax';
 import client from '#root/api/graphQlClient';
 import meQuery from '#root/api/query/me';
 import {withApollo} from '#root/api/withApollo';
-import LoggedIn from '#root/components/loggedIn';
 import Root from '#root/components/Root';
 import FontLoaderScript from '#root/scripts/FontLoaderScript';
 import GtagScript from '#root/scripts/GtagScript';
 import IntercomScript from '#root/scripts/IntercomScript';
 import SentryScript from '#root/scripts/SentryScript';
-import UserSettingsGet from '#root/scripts/UserSettingsGet';
 
 import {actions as checkoutActions} from '../redux/ducks/checkout';
 import {actions as enrollmentActions} from '../redux/ducks/enrollments';

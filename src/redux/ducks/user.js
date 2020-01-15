@@ -38,12 +38,10 @@ export default (state = initialState, action) => {
   case types.THINKIFIC_TOKEN_SET:
     return state.set('thinkificToken', action.payload);
   case types.USER_SET:
-    console.log('setting user', action.payload && action.payload.email);
     return state.update('user', u => u.merge(fromJS(action.payload)));
   case types.TOKEN_UNSET:
     return state.set('token', initialState.get('token'));
   case types.USER_UNSET:
-    console.log('initialState', initialState.get('user').toJS());
     return state.set('user', initialState.get('user'));
   default:
     return state;

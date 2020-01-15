@@ -1,13 +1,21 @@
-import {select, takeLatest} from 'redux-saga/effects';
 import Router from 'next/router';
+import {all, call, delay, put, select, takeLatest} from 'redux-saga/effects';
 
-import {types as stateTypes, selectors as stateSelectors} from '../ducks/state';
+import gatewayService from '#root/services/gateway';
+import accessConfig from '#root/utils/accessConfig';
+import {canUseDOM} from '#root/utils/componentHelpers';
+
+import {selectors as stateSelectors, types as stateTypes} from '../ducks/state';
+
+// 5 mins
+const THINKIFIC_HEALTH_CHECK_INTERVAL = parseInt(accessConfig('THINKIFIC_HEALTH_CHECK_INTERVAL', 50000), 10);
 
 export function * watchState() {
   yield takeLatest(stateTypes.OFFMENU_TOGGLE, onOffmenuChange);
   yield takeLatest(stateTypes.MODAL_OPEN, onOffmenuChange);
   yield takeLatest(stateTypes.MODAL_CLOSE, onOffmenuChange);
   yield takeLatest(stateTypes.STATE_RESET, onStateReset);
+  yield call(thinkificHealthCheck);
 }
 
 function * onOffmenuChange() {
@@ -48,4 +56,56 @@ function * onStateReset() {
   document.body.classList.remove('mobile-menu-open');
 
   return yield true;
+}
+
+function * thinkificHealthCheck() {
+  if (!canUseDOM()) {
+    return;
+  }
+
+  while (true) {
+    yield put({
+      type: stateTypes.THINKIFIC_HEALTH_REQUEST
+    });
+    const {errors, data} = yield call(gatewayService, {query: `
+    {
+      thinkificHealth {
+        id
+        success
+      }
+    }
+    `
+    });
+
+    if (data) {
+      yield all([
+        put({
+          type: stateTypes.THINKIFIC_HEALTH_SUCCESS
+        }),
+        put({
+          type: stateTypes.HEALTH_SET,
+          payload: {
+            key: 'thinkific',
+            healthy: true
+          }
+        })
+      ]);
+    } else if (errors) {
+      yield all([
+        put({
+          type: stateTypes.THINKIFIC_HEALTH_FAILURE
+        }),
+        put({
+          type: stateTypes.HEALTH_SET,
+          payload: {
+            key: 'thinkific',
+            healthy: false
+          }
+        })
+      ]);
+    }
+
+    // Wait and then try again
+    yield delay(THINKIFIC_HEALTH_CHECK_INTERVAL);
+  }
 }
