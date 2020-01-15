@@ -1,4 +1,3 @@
-import Router from 'next/router';
 import {all, call, delay, put, select, takeLatest} from 'redux-saga/effects';
 
 import gatewayService from '#root/services/gateway';
