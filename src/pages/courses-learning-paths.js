@@ -8,24 +8,25 @@ import {presets, spring, TransitionMotion} from 'react-motion';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
+import CourseCard from '#root/components/courseCard';
+import CourseFilters from '#root/components/courseFilters';
+import CoursePathNav from '#root/components/coursePathNav';
+import DashboardGrid from '#root/components/dashboardGrid';
+import ImageContentful from '#root/components/imageContentful';
 import Brochure from '#root/components/layout/brochure';
+import Loader from '#root/components/loader';
+import MaIcon from '#root/components/maIcon';
+import PathListingItem from '#root/components/pathListingItem';
 import BrochureHero from '#root/components/sections/brochureHero';
 import CtaSurvey from '#root/components/sections/ctaSurvey';
-
-import CourseCard from '../components/courseCard';
-import CourseFilters from '../components/courseFilters';
-import CoursePathNav from '../components/coursePathNav';
-import DashboardGrid from '../components/dashboardGrid';
-import ImageContentful from '../components/imageContentful';
-import Loader from '../components/loader';
-import MaIcon from '../components/maIcon';
-import PathListingItem from '../components/pathListingItem';
-import {actions as courseActions, selectors as courseSelectors} from '../redux/ducks/courses';
-import {selectors as loadingSelectors} from '../redux/ducks/loading';
-import {actions as pageActions, selectors as pageSelectors} from '../redux/ducks/pages';
-import {actions as pathActions, selectors as pathSelectors} from '../redux/ducks/paths';
-import {actions as stateActions} from '../redux/ducks/state';
-import {click, handleScrollIntoView} from '../utils/componentHelpers';
+import {actions as activeFitlerActions} from '#root/redux/ducks/activeFilters';
+import {actions as courseActions, selectors as courseSelectors} from '#root/redux/ducks/courses';
+import {selectors as loadingSelectors} from '#root/redux/ducks/loading';
+import {actions as pageActions, selectors as pageSelectors} from '#root/redux/ducks/pages';
+import {actions as pathActions, selectors as pathSelectors} from '#root/redux/ducks/paths';
+import {actions as stateActions} from '#root/redux/ducks/state';
+import {click, handleScrollIntoView} from '#root/utils/componentHelpers';
+import pathToQuery from '#root/utils/pathToQuery';
 
 const PAGE_SLUG = 'courses-learning-paths';
 
@@ -237,16 +238,13 @@ class CoursesLearningPaths extends PureComponent {
 }
 
 CoursesLearningPaths.getInitialProps = ctx => {
-  const {asPath} = ctx;
+  const {asPath, store} = ctx;
 
-  const url = asPath;
-
-  const search = url.split('?')[1] || '';
-
-  const query = qs.parse(search);
+  const query = pathToQuery(asPath);
+  store.dispatch(activeFitlerActions.activeFiltersInit(query));
 
   return {
-    view: query.view || 'paths'
+    view: query.view ? query.view[0] : 'paths'
   };
 };
 

@@ -5,10 +5,12 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import DashboardLayout from '#root/components/layout/dashboard';
+import {actions as activeFitlerActions} from '#root/redux/ducks/activeFilters';
 import {actions as courseActions, selectors as courseSelectors} from '#root/redux/ducks/courses';
 import {selectors as errorSelectors} from '#root/redux/ducks/error';
 import {selectors as loadingSelectors} from '#root/redux/ducks/loading';
 import {selectors as subscriptionSelectors} from '#root/redux/ducks/subscription';
+import pathToQuery from '#root/utils/pathToQuery';
 
 import CourseCard from '../../components/courseCard';
 import CourseFilters from '../../components/courseFilters';
@@ -66,7 +68,10 @@ class DashboardCourses extends Component {
   }
 }
 
-DashboardCourses.getInitialProps = async () => {
+DashboardCourses.getInitialProps = async ({asPath, store}) => {
+  const query = pathToQuery(asPath);
+  store.dispatch(activeFitlerActions.activeFiltersInit(query));
+
   return {
     loading: true
   };
