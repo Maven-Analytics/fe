@@ -1,23 +1,24 @@
+import {List, Map} from 'immutable';
+import Router from 'next/router';
+import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
-import PropTypes from 'prop-types';
-import {List, Map} from 'immutable';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import Router from 'next/router';
 
-import Checkout from '../../layouts/checkout';
-import CheckoutPlans from '../../components/checkoutPlans';
-import {selectors as planSelectors} from '../../redux/ducks/plans';
-import {selectors as userSelectors} from '../../redux/ducks/user';
-import {selectors as loadingSelectors} from '../../redux/ducks/loading';
-import {selectors as errorSelectors} from '../../redux/ducks/error';
-import {actions as authActions} from '../../redux/ducks/auth';
-import {selectors as checkoutSelectors, actions as checkoutActions} from '../../redux/ducks/checkout';
-import CheckoutFooter from '../../components/checkoutFooter';
-import {Routes} from '../../routes';
-import {canUseDOM} from '../../utils/componentHelpers';
-import {getCheckoutUrlAsync} from '../../services/apiv2';
+import CheckoutFooter from '#root/components/checkoutFooter';
+import CheckoutPlans from '#root/components/checkoutPlans';
+import ThinkificDownRedirect from '#root/components/health/ThinkificDownRedirect';
+import Checkout from '#root/components/layout/checkout';
+import {actions as authActions} from '#root/redux/ducks/auth';
+import {actions as checkoutActions, selectors as checkoutSelectors} from '#root/redux/ducks/checkout';
+import {selectors as errorSelectors} from '#root/redux/ducks/error';
+import {selectors as loadingSelectors} from '#root/redux/ducks/loading';
+import {selectors as planSelectors} from '#root/redux/ducks/plans';
+import {selectors as userSelectors} from '#root/redux/ducks/user';
+import {Routes} from '#root/routes';
+import {getCheckoutUrlAsync} from '#root/services/apiv2';
+import {canUseDOM} from '#root/utils/componentHelpers';
 
 class SignupIndex extends Component {
   constructor(props) {
@@ -60,15 +61,17 @@ class SignupIndex extends Component {
         loginRedirect={loginRedirect}
         title="SELECT A MEMBERSHIP PLAN"
       >
-        <CheckoutPlans plans={plans} checkout={checkout} onPlanChange={actions.checkoutSetPlan} />
-        <CheckoutFooter
-          showLogin={user.isEmpty()}
-          error={error}
-          loading={loading}
-          btnType="button"
-          disabled={btnDisabled}
-          onClick={this.handleNextClick}
-        />
+        <ThinkificDownRedirect>
+          <CheckoutPlans plans={plans} checkout={checkout} onPlanChange={actions.checkoutSetPlan} />
+          <CheckoutFooter
+            showLogin={user.isEmpty()}
+            error={error}
+            loading={loading}
+            btnType="button"
+            disabled={btnDisabled}
+            onClick={this.handleNextClick}
+          />
+        </ThinkificDownRedirect>
       </Checkout>
     );
   }

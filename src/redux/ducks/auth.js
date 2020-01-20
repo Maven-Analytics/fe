@@ -24,13 +24,14 @@ export const types = {
   RESET_FAILURE: 'RESET_FAILURE',
   SSO_REQUEST: 'SSO_REQUEST',
   SSO_SUCCESS: 'SSO_SUCCESS',
-  SSO_FAILURE: 'SSO_FAILURE'
+  SSO_FAILURE: 'SSO_FAILURE',
+  LOGIN: 'LOGIN'
 };
 
 export const actions = {
   reauthenticate: obj => utils.action(types.REAUTHENTICATE_REQUEST, obj),
   ensureEnrolled: obj => utils.action(types.ENSURE_ENROLLED_REQUEST, obj),
-  login: obj => utils.action(types.LOGIN_REQUEST, obj),
+  login: obj => utils.action(types.LOGIN, obj),
   logout: obj => utils.action(types.LOGOUT_REQUEST, obj),
   forgot: obj => utils.action(types.FORGOT_REQUEST, obj),
   reset: obj => utils.action(types.RESET_REQUEST, obj),

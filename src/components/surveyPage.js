@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {List, Map} from 'immutable';
-import {StaggeredMotion, spring, presets} from 'react-motion';
+import PropTypes from 'prop-types';
+import React, {Component} from 'react';
+import * as ImmutablePropTypes from 'react-immutable-proptypes';
+import {presets, spring, StaggeredMotion} from 'react-motion';
 
 import SurveyAnswer from './surveyAnswer';
 import SurveyAnswerCheck from './surveyAnswerCheck';

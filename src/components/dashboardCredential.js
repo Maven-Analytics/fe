@@ -1,7 +1,7 @@
+import {Map} from 'immutable';
+import PropTypes from 'prop-types';
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import PropTypes from 'prop-types';
-import {Map} from 'immutable';
 
 import ImageContentful from './imageContentful';
 

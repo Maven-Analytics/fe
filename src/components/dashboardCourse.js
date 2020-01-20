@@ -1,15 +1,16 @@
-import React from 'react';
+import {List, Map} from 'immutable';
 import PropTypes from 'prop-types';
+import React from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
-import {Map, List} from 'immutable';
 import {connect} from 'react-redux';
+
+import {clickAction} from '#root/utils/componentHelpers';
 
 import {selectors as courseSelectors} from '../redux/ducks/courses';
 import ImageContentful from './imageContentful';
-import withState from './withState';
 import ProgressMeter from './progressMeter';
 import ResumeProduct from './resumeProduct';
-import {clickAction} from '../utils/componentHelpers';
+import withState from './withState';
 
 const DashboardCourse = ({percentage_completed, courses, courseId, actions}) => {
   const course = courses.find(c => c.get('thinkificCourseId') === courseId);

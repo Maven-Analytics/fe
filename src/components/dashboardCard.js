@@ -1,15 +1,22 @@
-import React from 'react';
+import {useMutation} from '@apollo/react-hooks';
+import {fromJS} from 'immutable';
 import PropTypes from 'prop-types';
+import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import {connect} from 'react-redux';
+import {connect, useDispatch} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
+import updateUserSettingsMutation from '#root/api/mutations/updateUserSettings';
+import {click} from '#root/utils/componentHelpers';
+
 import {actions as userSettingsActions, selectors as userSettingSelectors} from '../redux/ducks/userSettings';
-import {click} from '../utils/componentHelpers';
 import Loader from './loader';
 import MaIcon from './maIcon';
 
 const DashboardCard = ({size, children, title, loading, style, canToggleVisibility, cardVisibility, settingsKey, actions, showClose}) => {
+  const [updateUserSettings] = useMutation(updateUserSettingsMutation);
+  const dispatch = useDispatch();
+
   const hasValue = cardVisibility.hasIn(['value', settingsKey]);
   const value = hasValue ? cardVisibility.getIn(['value', settingsKey]) : true;
 
@@ -29,6 +36,29 @@ const DashboardCard = ({size, children, title, loading, style, canToggleVisibili
     classList.push('hidden');
   }
 
+  const handleClick = async e => {
+    e.preventDefault();
+
+    const {data: {updateUserSettings: userSettings} = {}} = await updateUserSettings({
+      variables: {
+        settings: [
+          {
+            setting_id: parseInt(cardVisibility.get('id'), 10),
+            value: cardVisibility.update('value', u => {
+              if (!u) {
+                u = fromJS({});
+              }
+
+              return u.set(settingsKey, !value);
+            }).get('value')
+          }
+        ]
+      }
+    });
+
+    dispatch(userSettingsActions.userSettingsSet(userSettings));
+  };
+
   return (
     <div className={classList.join(' ')} style={style}>
       {loading ? <Loader loading={loading}/> : null}
@@ -38,16 +68,8 @@ const DashboardCard = ({size, children, title, loading, style, canToggleVisibili
           {canToggleVisibility && showClose ? (
             <button
               className="btn btn--empty-dark"
-              onClick={click(actions.userSettingsUpdate, [
-                {
-                  id: cardVisibility.get('id'),
-                  setting_id: cardVisibility.get('id'),
-                  value: {
-                    ...cardVisibility.setIn(['value', settingsKey], !value).get('value').toJS()
-                  }
-                }
-              ])
-              }>
+              onClick={handleClick}
+            >
               Hide
               <MaIcon icon="eye-slash"/>
             </button>

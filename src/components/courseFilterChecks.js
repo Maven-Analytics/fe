@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import React, {Component} from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
-import {fromJS} from 'immutable';
 
-import Checkbox from './inputs/checkbox';
-import {check} from '../utils/componentHelpers';
+import {check} from '#root/utils/componentHelpers';
+
 import CourseAuthor from './courseAuthor';
+import Checkbox from './inputs/checkbox';
 
 class CourseFilterChecks extends Component {
   constructor(props) {

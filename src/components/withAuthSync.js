@@ -1,11 +1,12 @@
+import {Map} from 'immutable';
+import Router from 'next/router';
 import React, {Component} from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
-import Router from 'next/router';
 import {connect} from 'react-redux';
-import {Map} from 'immutable';
+
+import {getCookie} from '#root/utils/cookies';
 
 import {selectors as userSelectors} from '../redux/ducks/user';
-import {getCookie} from '../utils/cookies';
 import {reauthenticateSync} from '../services/apiv2';
 
 const withAuthSync = WrappedComponent => {
@@ -37,7 +38,7 @@ const withAuthSync = WrappedComponent => {
       // window.localStorage.removeItem('logout');
     }
 
-    syncLogout(e) {
+    syncLogout() {
       if (this.props.user.get('id')) {
         return;
       }

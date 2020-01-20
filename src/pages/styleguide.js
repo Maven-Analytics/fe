@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Main from '../layouts/main';
+import Main from '#root/components/layout/main';
 
 const StyleGuide = () => {
   return (

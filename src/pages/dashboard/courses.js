@@ -1,23 +1,25 @@
-import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import React, {Component} from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import {actions as courseActions, selectors as courseSelectors} from '../../redux/ducks/courses';
-import {selectors as subscriptionSelectors} from '../../redux/ducks/subscription';
-import {selectors as errorSelectors} from '../../redux/ducks/error';
-import {selectors as loadingSelectors} from '../../redux/ducks/loading';
-import {selectors as userSelectors} from '../../redux/ducks/user';
-import DashboardLayout from '../../layouts/dashboard';
+import DashboardLayout from '#root/components/layout/dashboard';
+import {actions as activeFitlerActions} from '#root/redux/ducks/activeFilters';
+import {actions as courseActions, selectors as courseSelectors} from '#root/redux/ducks/courses';
+import {selectors as errorSelectors} from '#root/redux/ducks/error';
+import {selectors as loadingSelectors} from '#root/redux/ducks/loading';
+import {selectors as subscriptionSelectors} from '#root/redux/ducks/subscription';
+import pathToQuery from '#root/utils/pathToQuery';
+
+import CourseCard from '../../components/courseCard';
 import CourseFilters from '../../components/courseFilters';
 import DashboardGrid from '../../components/dashboardGrid';
-import CourseCard from '../../components/courseCard';
-import Image from '../../components/image';
 import DashboardNoData from '../../components/dashboardNoData';
+import Image from '../../components/image';
 import withAuthSync from '../../components/withAuthSync';
-import {prettyPercent} from '../../utils/componentHelpers';
 import {Routes} from '../../routes';
+import {prettyPercent} from '../../utils/componentHelpers';
 import {subscriptionEnrolled} from '../../utils/subscriptionHelpers';
 
 class DashboardCourses extends Component {
@@ -66,7 +68,10 @@ class DashboardCourses extends Component {
   }
 }
 
-DashboardCourses.getInitialProps = async () => {
+DashboardCourses.getInitialProps = async ({asPath, store}) => {
+  const query = pathToQuery(asPath);
+  store.dispatch(activeFitlerActions.activeFiltersInit(query));
+
   return {
     loading: true
   };

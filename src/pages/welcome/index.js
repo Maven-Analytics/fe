@@ -1,22 +1,21 @@
-import React, {Component} from 'react';
+import {fromJS, List, Map} from 'immutable';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
+import React, {Component} from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
+import {presets, spring, TransitionMotion} from 'react-motion';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {fromJS, Map, List} from 'immutable';
-import {TransitionMotion, spring, presets} from 'react-motion';
-import Link from 'next/link';
-import Router from 'next/router';
 
-import {selectors as surveyResultSelectors, actions as surveyResultActions} from '../../redux/ducks/surveyResult';
-import {actions as userActions} from '../../redux/ducks/user';
-import {actions as recommendedActions} from '../../redux/ducks/recommended';
-import {actions as pathActions} from '../../redux/ducks/paths';
-import {actions as courseActions} from '../../redux/ducks/courses';
-import Checkout from '../../layouts/checkout';
-import {SurveyQuestions} from '../../surveyContstants';
+import Checkout from '#root/components/layout/checkout';
+import {actions as courseActions} from '#root/redux/ducks/courses';
+import {actions as pathActions} from '#root/redux/ducks/paths';
+import {actions as recommendedActions} from '#root/redux/ducks/recommended';
+import {actions as surveyResultActions, selectors as surveyResultSelectors} from '#root/redux/ducks/surveyResult';
+
 import SurveyPage from '../../components/surveyPage';
 import {Routes} from '../../routes';
+import {SurveyQuestions} from '../../surveyContstants';
 
 class WelcomeSurvey extends Component {
   constructor(props) {
@@ -61,7 +60,6 @@ class WelcomeSurvey extends Component {
     const nextIndex = this.getPreviousIndex();
 
     if (nextIndex < 0) {
-      console.log('at first step');
       return;
     }
 

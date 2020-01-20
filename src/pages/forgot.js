@@ -1,17 +1,18 @@
-import React, {Component} from 'react';
+import Link from 'next/link';
 import PropTypes from 'prop-types';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import Link from 'next/link';
 
-import {selectors as userSelectors} from '../redux/ducks/user';
+import Auth from '#root/components/layout/auth';
+
 import {actions as authActions} from '../redux/ducks/auth';
-import {selectors as loadingSelectors} from '../redux/ducks/loading';
 import {selectors as errorSelectors} from '../redux/ducks/error';
+import {selectors as loadingSelectors} from '../redux/ducks/loading';
 import {selectors as responseSelectors} from '../redux/ducks/response';
-import {state} from '../utils/componentHelpers';
-import Auth from '../layouts/auth';
+import {selectors as userSelectors} from '../redux/ducks/user';
 import {Routes} from '../routes';
+import {state} from '../utils/componentHelpers';
 
 class Forgot extends Component {
   constructor(props) {

@@ -1,7 +1,7 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
-import {state} from '../utils/componentHelpers';
+import {state} from '#root/utils/componentHelpers';
 
 const SurveyAnswerText = ({id, text, condition, conditionId, value, onChange, style}) => {
   const classList = ['survey-answer', 'survey-answer--text'];

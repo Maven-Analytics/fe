@@ -1,21 +1,20 @@
+import {render} from '@testing-library/react';
 import React from 'react';
-import renderer from 'react-test-renderer';
 
-import AccountSidebar from '../../src/components/accountSidebar';
+import AccountSidebar from '#root/components/accountSidebar';
 
 describe('<AccountSidebar/>', () => {
   it('Should render without crashing', () => {
-    const renderedComp = renderer.create(<AccountSidebar activeLink={0} />);
+    const {container} = render(<AccountSidebar activeLink={0} />);
 
-    let tree = renderedComp.toJSON();
-    expect(tree).toMatchSnapshot();
+    expect(container).toBeDefined();
   });
 
-  it('Should log a warning to the console if activeLink prop is not passed in', () => {
-    console.error = jest.fn();
+  it('Should render 4 links by default', () => {
+    const {container} = render(<AccountSidebar activeLink={0} />);
 
-    renderer.create(<AccountSidebar />);
+    const lis = container.querySelectorAll('li');
 
-    expect(console.error).toHaveBeenCalledTimes(1);
+    expect(lis.length).toEqual(4);
   });
 });

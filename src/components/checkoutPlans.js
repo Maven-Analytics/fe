@@ -1,10 +1,11 @@
+import {List, Map} from 'immutable';
+import PropTypes from 'prop-types';
 import React from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
-import PropTypes from 'prop-types';
-import {List, Map} from 'immutable';
+
+import {click} from '#root/utils/componentHelpers';
 
 import CheckoutPlan from './checkoutPlan';
-import {click} from '../utils/componentHelpers';
 
 const CheckoutPlans = ({plans, checkout, onPlanChange}) => {
   return (

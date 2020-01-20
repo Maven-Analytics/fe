@@ -1,14 +1,14 @@
-import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {bindActionCreators} from 'redux';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
-import {actions as subscribeActions} from '../redux/ducks/subscribe';
-import {selectors as loadingSelectors} from '../redux/ducks/loading';
+import {state} from '#root/utils/componentHelpers';
+
 import {selectors as errorSelectors} from '../redux/ducks/error';
+import {selectors as loadingSelectors} from '../redux/ducks/loading';
 import {selectors as responseSelectors} from '../redux/ducks/response';
-
-import {state} from '../utils/componentHelpers';
+import {actions as subscribeActions} from '../redux/ducks/subscribe';
 import Mailchimp from './mailchimp';
 
 class Subscribe extends Component {
@@ -94,6 +94,5 @@ const mapDispatchToProps = function (dispatch) {
     }, dispatch)
   };
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Subscribe);

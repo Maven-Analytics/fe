@@ -1,7 +1,7 @@
-import {takeEvery, put, all} from 'redux-saga/effects';
+import {all, put, takeEvery} from 'redux-saga/effects';
 
-import {types as credentialTypes} from '../ducks/credentials';
 import apiv2 from '../../services/apiv2';
+import {types as credentialTypes} from '../ducks/credentials';
 
 export function * watchCredentials() {
   yield takeEvery(credentialTypes.CREDENTIALS_GET_REQUEST, onCredentialsGet);

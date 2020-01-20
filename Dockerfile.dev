@@ -1,4 +1,4 @@
-FROM node:10-jessie
+FROM node:10-alpine
 EXPOSE 5000
 
  # Create app directory
@@ -8,6 +8,7 @@ WORKDIR /usr/src/app
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 # where available (npm@5+)
 COPY package*.json ./
+COPY yarn.lock ./
 
 RUN yarn
 # If you are building your code for production
@@ -16,4 +17,4 @@ RUN yarn
  # Bundle app source
 COPY . .
 
-CMD [ "npm", "run", "dev" ]
+CMD [ "yarn", "dev" ]

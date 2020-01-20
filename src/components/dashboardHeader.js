@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import {fromJS} from 'immutable';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import {Routes} from '../routes';
 

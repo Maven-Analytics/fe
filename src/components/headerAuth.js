@@ -1,19 +1,20 @@
+import {Map} from 'immutable';
+import Link from 'next/link';
+import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
-import PropTypes from 'prop-types';
-import Link from 'next/link';
-import {Map} from 'immutable';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import MaIcon from './maIcon';
-import {click} from '../utils/componentHelpers';
-import HeaderUser from './headerUser';
-import {selectors as stateSelectors, actions as stateActions} from '../redux/ducks/state';
+import {click} from '#root/utils/componentHelpers';
+
 import {actions as authActions} from '../redux/ducks/auth';
+import {actions as stateActions, selectors as stateSelectors} from '../redux/ducks/state';
+import {Routes} from '../routes';
+import HeaderUser from './headerUser';
 import LoggedIn from './loggedIn';
 import LoggedOut from './loggedOut';
-import {Routes} from '../routes';
+import MaIcon from './maIcon';
 
 const HeaderAuth = ({showContact, showRegister, state, actions, loginRedirect}) => {
   return (
@@ -31,7 +32,6 @@ const HeaderAuth = ({showContact, showRegister, state, actions, loginRedirect}) 
             <li>
               <HeaderUser
                 user={user}
-                logout={actions.logout}
                 onClick={click(actions.offmenuToggle, 'headerUser')}
                 open={state.get('headerUser')}
               />

@@ -1,8 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
+import React from 'react';
 
-import {noop} from '../utils/componentHelpers';
+import {noop} from '#root/utils/componentHelpers';
+
 import MaIcon from './maIcon';
 
 const MissionFeature = ({title, description, icon, linkText, linkUrl, onClick, onClose, tag: Tag, active, className}) => (

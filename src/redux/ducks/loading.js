@@ -1,9 +1,11 @@
+import {List} from 'immutable';
 import {createSelector} from 'reselect';
 
 import * as utils from '../../utils/duckHelpers';
-import {List} from 'immutable';
 
-const initialState = utils.initialState({});
+const initialState = utils.initialState({
+  THINKIFIC_HEALTH: true
+});
 export default (state = initialState, action) => {
   const {type} = action;
   const matches = /(.*)_(REQUEST|SUCCESS|FAILURE)/.exec(type);
@@ -25,6 +27,10 @@ const getLoading = actions => {
   actions = List.isList(actions) ? actions : List(actions);
 
   return state => {
+    if (!actions || actions.isEmpty()) {
+      return state.get('loading');
+    }
+
     return actions.some(action => state.getIn(['loading', action]));
   };
 };

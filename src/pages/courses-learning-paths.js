@@ -1,32 +1,32 @@
-import React, {Fragment, PureComponent} from 'react';
-import PropTypes from 'prop-types';
-import * as ImmutablePropTypes from 'react-immutable-proptypes';
-import {connect} from 'react-redux';
 import {List, Map} from 'immutable';
 import Router, {withRouter} from 'next/router';
+import PropTypes from 'prop-types';
 import qs from 'query-string';
+import React, {Fragment, PureComponent} from 'react';
+import * as ImmutablePropTypes from 'react-immutable-proptypes';
+import {presets, spring, TransitionMotion} from 'react-motion';
+import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {TransitionMotion, spring, presets} from 'react-motion';
 
-import {actions as courseActions, selectors as courseSelectors} from '../redux/ducks/courses';
-import {actions as pathActions, selectors as pathSelectors} from '../redux/ducks/paths';
-import {actions as pageActions, selectors as pageSelectors} from '../redux/ducks/pages';
-import {actions as stateActions} from '../redux/ducks/state';
-import {selectors as loadingSelectors} from '../redux/ducks/loading';
-import {handleScrollIntoView, click, clickAction} from '../utils/componentHelpers';
-import Brochure from '../layouts/brochure';
-import PathListingItem from '../components/pathListingItem';
-import BrochureHero from '../sections/brochureHero';
-import MaIcon from '../components/maIcon';
-import CtaSurvey from '../sections/ctaSurvey';
-import CourseFilters from '../components/courseFilters';
-import DashboardGrid from '../components/dashboardGrid';
-import CourseCard from '../components/courseCard';
-import Loader from '../components/loader';
-import CoursePathNav from '../components/coursePathNav';
-import Image from '../components/image';
-import {courseHeroBgSources, courseHeroBgSrc} from '../constants';
-import ImageContentful from '../components/imageContentful';
+import CourseCard from '#root/components/courseCard';
+import CourseFilters from '#root/components/courseFilters';
+import CoursePathNav from '#root/components/coursePathNav';
+import DashboardGrid from '#root/components/dashboardGrid';
+import ImageContentful from '#root/components/imageContentful';
+import Brochure from '#root/components/layout/brochure';
+import Loader from '#root/components/loader';
+import MaIcon from '#root/components/maIcon';
+import PathListingItem from '#root/components/pathListingItem';
+import BrochureHero from '#root/components/sections/brochureHero';
+import CtaSurvey from '#root/components/sections/ctaSurvey';
+import {actions as activeFitlerActions} from '#root/redux/ducks/activeFilters';
+import {actions as courseActions, selectors as courseSelectors} from '#root/redux/ducks/courses';
+import {selectors as loadingSelectors} from '#root/redux/ducks/loading';
+import {actions as pageActions, selectors as pageSelectors} from '#root/redux/ducks/pages';
+import {actions as pathActions, selectors as pathSelectors} from '#root/redux/ducks/paths';
+import {actions as stateActions} from '#root/redux/ducks/state';
+import {click, handleScrollIntoView} from '#root/utils/componentHelpers';
+import pathToQuery from '#root/utils/pathToQuery';
 
 const PAGE_SLUG = 'courses-learning-paths';
 
@@ -154,38 +154,38 @@ class CoursesLearningPaths extends PureComponent {
       </Fragment>
     );
 
-    const heroImg = (
-      <Image
-        placeholderColor="transparent"
-        sources={[
-          {
-            srcSet: '/static/img/course-listing-featured-1568.webp 1568w',
-            type: 'image/webp'
-          },
-          {
-            srcSet: '/static/img/course-listing-featured-1568.png 1568w',
-            type: 'image/jpeg'
-          },
-          {
-            srcSet: '/static/img/course-listing-featured-1400.webp 1400w',
-            type: 'image/webp'
-          },
-          {
-            srcSet: '/static/img/course-listing-featured-1400.png 1400w',
-            type: 'image/jpeg'
-          },
-          {
-            srcSet: '/static/img/course-listing-featured-700.webp 700w',
-            type: 'image/webp'
-          },
-          {
-            srcSet: '/static/img/course-listing-featured-700.png 700w',
-            type: 'image/jpeg'
-          }
-        ]}
-        src="/static/img/course-listing-featured-700.png"
-      />
-    );
+    // Const heroImg = (
+    //   <Image
+    //     placeholderColor="transparent"
+    //     sources={[
+    //       {
+    //         srcSet: '/static/img/course-listing-featured-1568.webp 1568w',
+    //         type: 'image/webp'
+    //       },
+    //       {
+    //         srcSet: '/static/img/course-listing-featured-1568.png 1568w',
+    //         type: 'image/jpeg'
+    //       },
+    //       {
+    //         srcSet: '/static/img/course-listing-featured-1400.webp 1400w',
+    //         type: 'image/webp'
+    //       },
+    //       {
+    //         srcSet: '/static/img/course-listing-featured-1400.png 1400w',
+    //         type: 'image/jpeg'
+    //       },
+    //       {
+    //         srcSet: '/static/img/course-listing-featured-700.webp 700w',
+    //         type: 'image/webp'
+    //       },
+    //       {
+    //         srcSet: '/static/img/course-listing-featured-700.png 700w',
+    //         type: 'image/jpeg'
+    //       }
+    //     ]}
+    //     src="/static/img/course-listing-featured-700.png"
+    //   />
+    // );
 
     return (
       <Brochure>
@@ -238,16 +238,13 @@ class CoursesLearningPaths extends PureComponent {
 }
 
 CoursesLearningPaths.getInitialProps = ctx => {
-  const {store, asPath} = ctx;
+  const {asPath, store} = ctx;
 
-  const url = asPath;
-
-  const search = url.split('?')[1] || '';
-
-  const query = qs.parse(search);
+  const query = pathToQuery(asPath);
+  store.dispatch(activeFitlerActions.activeFiltersInit(query));
 
   return {
-    view: query.view || 'paths'
+    view: query.view ? query.view[0] : 'paths'
   };
 };
 

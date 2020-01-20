@@ -1,4 +1,4 @@
-import {List, fromJS, isImmutable} from 'immutable';
+import {fromJS, isImmutable, List} from 'immutable';
 
 export const getActiveFilters = filters => {
   return filters

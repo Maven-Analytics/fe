@@ -1,6 +1,6 @@
-import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {documentToReactComponents} from '@contentful/rich-text-react-renderer';
 import {isImmutable} from 'immutable';
+import * as ImmutablePropTypes from 'react-immutable-proptypes';
 
 const RichText = ({content}) => {
   if (!content || (isImmutable(content) && content.isEmpty())) {

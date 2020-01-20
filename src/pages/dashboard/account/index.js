@@ -1,7 +1,8 @@
 import React from 'react';
 
-import AccountLayout from '../../../layouts/account';
-import ProfileForm from '../../../forms/profile';
+import ProfileForm from '#root/components/forms/profile';
+import AccountLayout from '#root/components/layout/account';
+
 import withAuthSync from '../../../components/withAuthSync';
 
 const AccountProfile = () => {

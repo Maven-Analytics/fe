@@ -13,32 +13,29 @@ module.exports = withPlugins([withSass], {
     DISABLE_INTERCOM: process.env.DISABLE_INTERCOM,
     DISABLE_GTAG: process.env.DISABLE_GTAG,
     HOST_PUBLIC_API: process.env.HOST_PUBLIC_API,
-    SENTRY_ENVIRONMENT: process.env.SENTRY_ENVIRONMENT
+    HOST_PUBLIC_GATEWAY: process.env.HOST_PUBLIC_GATEWAY,
+    SENTRY_ENVIRONMENT: process.env.SENTRY_ENVIRONMENT,
+    THINKIFIC_HEALTH_CHECK_INTERVAL: process.env.THINKIFIC_HEALTH_CHECK_INTERVAL
   },
-  webpack: (config, {isServer}) => {
-    if (isServer) {
-      return config;
-    }
+  // Webpack: (config, {isServer}) => {
+  //   if (isServer) {
+  //     return config;
+  //   }
 
-    var isProduction = config.mode === 'production';
+  //   var isProduction = config.mode === 'production';
 
-    if (isProduction) {
-      config.plugins.push(
-        new webpack.optimize.LimitChunkCountPlugin({
-          maxChunks: 1
-        })
-      );
+  //   if (isProduction) {
+  //     config.plugins.push(
+  //       new webpack.optimize.LimitChunkCountPlugin({
+  //         maxChunks: 1
+  //       })
+  //     );
 
-      config.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}));
-    }
+  //     config.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}));
+  //   }
 
-    // Config.plugins.push(new webpack.DefinePlugin({
-    //   'process.env.HOST_APP': JSON.stringify(process.env.HOST_APP),
-    //   'process.env.THINKIFIC_SUBDOMAIN': JSON.stringify(process.env.THINKIFIC_SUBDOMAIN)
-    // }));
-
-    return config;
-  },
+  //   return config;
+  // },
   webpackDevMiddleware: config => {
     // Solve compiling problem via vagrant
     config.watchOptions = {

@@ -1,8 +1,8 @@
-import React, {Component, createRef} from 'react';
-import PropTypes from 'prop-types';
 import {fromJS} from 'immutable';
+import PropTypes from 'prop-types';
+import React, {Component, createRef} from 'react';
 
-import {noop} from '../utils/componentHelpers';
+import {noop} from '#root/utils/componentHelpers';
 
 class ClickOutside extends Component {
   constructor(props) {

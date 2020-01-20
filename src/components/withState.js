@@ -1,11 +1,10 @@
-import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import React, {PureComponent} from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import {actions as stateActions, selectors as stateSelectors} from '../redux/ducks/state';
-import {noop} from '../utils/componentHelpers';
 
 const withState = WrappedComponent => {
   class WithState extends PureComponent {
@@ -21,17 +20,17 @@ const withState = WrappedComponent => {
     actions: PropTypes.objectOf(PropTypes.func)
   };
 
+  const mapStateToProps = state => ({
+    state: stateSelectors.getState(state)
+  });
+
+  const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators({
+      ...stateActions
+    }, dispatch)
+  });
+
   return connect(mapStateToProps, mapDispatchToProps)(WithState);
 };
-
-const mapStateToProps = state => ({
-  state: stateSelectors.getState(state)
-});
-
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    ...stateActions
-  }, dispatch)
-});
 
 export default withState;

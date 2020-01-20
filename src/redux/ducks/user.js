@@ -15,7 +15,10 @@ export const types = {
 };
 
 export const actions = {
-  userSet: obj => utils.action(types.USER_SET, obj)
+  userSet: obj => utils.action(types.USER_SET, obj),
+  userUnset: () => utils.action(types.USER_UNSET),
+  tokenSet: obj => utils.action(types.TOKEN_SET, obj),
+  thinkificTokenSet: obj => utils.action(types.THINKIFIC_TOKEN_SET, obj)
 };
 
 const initialState = utils.initialState({
@@ -40,7 +43,6 @@ export default (state = initialState, action) => {
     return state.set('token', initialState.get('token'));
   case types.USER_UNSET:
     return state.set('user', initialState.get('user'));
-
   default:
     return state;
   }

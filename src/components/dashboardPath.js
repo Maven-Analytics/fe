@@ -1,15 +1,15 @@
-import React from 'react';
+import {List, Map} from 'immutable';
 import PropTypes from 'prop-types';
+import React from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
-import {Map, List} from 'immutable';
 
 import ImageContentful from './imageContentful';
-import ProgressMeter from './progressMeter';
-import RichText from './richText';
-import ProductTools from './productTools';
 import ProductMeta from './productMeta';
 import ProductMetaItem from './productMetaItem';
+import ProductTools from './productTools';
+import ProgressMeter from './progressMeter';
 import ResumeProduct from './resumeProduct';
+import RichText from './richText';
 
 const DashboardPath = ({title, percentage_completed, onDetailClick, resumeUrl, badge, shortDescription, match, courseCount, hours, tools}) => {
   return (

@@ -1,22 +1,22 @@
-import React, {Fragment} from 'react';
-import PropTypes from 'prop-types';
-import * as ImmutablePropTypes from 'react-immutable-proptypes';
-import {Map, List} from 'immutable';
+import {List, Map} from 'immutable';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
+import React, {Fragment} from 'react';
+import * as ImmutablePropTypes from 'react-immutable-proptypes';
 
+import {prettyPercent} from '#root/utils/componentHelpers';
+
+import CourseAuthor from './courseAuthor';
+import CourseScores from './courseScores';
 import ImageContentful from './imageContentful';
-import ProgressMeter from './progressMeter';
+import Loader from './loader';
+import LoggedIn from './loggedIn';
+import LoggedOut from './loggedOut';
+import MaIcon from './maIcon';
 import ProductMeta from './productMeta';
 import ProductMetaItem from './productMetaItem';
 import ProductTools from './productTools';
-import CourseAuthor from './courseAuthor';
-import {prettyPercent} from '../utils/componentHelpers';
-import CourseScores from './courseScores';
-import Loader from './loader';
-import MaIcon from './maIcon';
-import LoggedIn from './loggedIn';
-import LoggedOut from './loggedOut';
-import {Routes} from '../routes';
+import ProgressMeter from './progressMeter';
 import ResumeProduct from './resumeProduct';
 
 const ProductDetail = ({
@@ -54,17 +54,22 @@ const ProductDetail = ({
       <div className="product-detail__header">
         <ImageContentful showLoader={false} image={badge} />
         <TitleTag>{title}</TitleTag>
-        <LoggedIn>
-          {comingSoon ? null : <ResumeProduct resumeUrl={resumeUrl} productTerm={productTerm} started={percentage_completed > 0} className="btn btn--primary-solid" />}
-          {/* <Link href={resumeUrl || '#'}><a className="btn btn--primary-solid">{linkTerm} {productTerm}</a></Link> */}
-        </LoggedIn>
-        <LoggedOut>
-          {url ? (
-            <Link href={url}>
-              <a className="btn btn--primary-solid">View Full Details</a>
-            </Link>
-          ) : comingSoon ? null : <ResumeProduct productTerm={productTerm} started={percentage_completed > 0} className="btn btn--primary-solid" />}
-        </LoggedOut>
+        {id ? (
+          <>
+            <LoggedIn>
+              {comingSoon ? null : <ResumeProduct resumeUrl={resumeUrl} productTerm={productTerm} started={percentage_completed > 0} className="btn btn--primary-solid" />}
+              {/* <Link href={resumeUrl || '#'}><a className="btn btn--primary-solid">{linkTerm} {productTerm}</a></Link> */}
+            </LoggedIn>
+            <LoggedOut>
+              {url ? (
+                <Link href={url}>
+                  <a className="btn btn--primary-solid">View Full Details</a>
+                </Link>
+              ) : comingSoon ? null : <ResumeProduct productTerm={productTerm} started={percentage_completed > 0} className="btn btn--primary-solid" />}
+            </LoggedOut>
+          </>
+        ) : null}
+
       </div>
       <div className="product-detail__content">
         <div className="product-detail__content__main">{children}</div>
@@ -129,6 +134,7 @@ const ProductDetail = ({
 };
 
 ProductDetail.propTypes = {
+  comingSoon: PropTypes.bool,
   productTerm: PropTypes.string,
   badge: ImmutablePropTypes.map,
   titleTag: PropTypes.string,
@@ -142,7 +148,7 @@ ProductDetail.propTypes = {
   instructors: PropTypes.oneOfType([ImmutablePropTypes.map, ImmutablePropTypes.list]),
   className: PropTypes.string,
   children: PropTypes.node,
-  id: PropTypes.number,
+  id: PropTypes.any.isRequired,
   url: PropTypes.string
 };
 

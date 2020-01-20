@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import {Map} from 'immutable';
+import PropTypes from 'prop-types';
+import React from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
-import RichText from './richText';
 import Markdown from './markdown';
+import RichText from './richText';
 
 const Wysiwyg = ({content, className}) => {
   return (

@@ -1,8 +1,7 @@
-import React, {Component, createRef, Children, cloneElement} from 'react';
-import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
+import React, {Children, cloneElement, Component, createRef} from 'react';
 
-import {click} from '../utils/componentHelpers';
+import {click} from '#root/utils/componentHelpers';
 
 class Tabs extends Component {
   constructor(props) {

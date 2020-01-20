@@ -1,10 +1,11 @@
-import React from 'react';
+import {List, Map} from 'immutable';
 import PropTypes from 'prop-types';
+import React from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
-import {Map, List} from 'immutable';
 
-import AccountLayout from '../../../layouts/account';
-import PasswordForm from '../../../forms/password';
+import PasswordForm from '#root/components/forms/password';
+import AccountLayout from '#root/components/layout/account';
+
 import withAuthSync from '../../../components/withAuthSync';
 
 const AccountProfile = () => {

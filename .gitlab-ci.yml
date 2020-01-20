@@ -10,7 +10,6 @@ variables:
   SAST_DISABLED: "true"
   ROLLOUT_RESOURCE_TYPE: deployment
   POSTGRES_ENABLED: "false"
-  REVIEW_DISABLED: 1
   REPLICAS: 2
   # Custom Config
   APP_NAME: fe

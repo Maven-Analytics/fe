@@ -1,7 +1,7 @@
-import {Component} from 'react';
 import PropTypes from 'prop-types';
+import {Component} from 'react';
 
-import {canUseDOM} from '../utils/componentHelpers';
+import {canUseDOM} from '#root/utils/componentHelpers';
 
 const Breakpoints = {
   sm: 576,

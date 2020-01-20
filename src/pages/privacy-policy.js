@@ -1,13 +1,14 @@
+import {Map} from 'immutable';
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
-import {Map} from 'immutable';
 
-import {actions as pageActions, selectors as pageSelectors} from '../redux/ducks/pages';
-import BrochureLayout from '../layouts/brochure';
-import Head from '../components/head';
+import BrochureLayout from '#root/components/layout/brochure';
+
 import BrochureContent from '../components/brochureContent';
+import Head from '../components/head';
 import Wysiwyg from '../components/wysiwyg';
+import {actions as pageActions, selectors as pageSelectors} from '../redux/ducks/pages';
 
 const PrivacyPolicy = ({page}) => {
   return (

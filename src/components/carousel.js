@@ -1,9 +1,9 @@
+import debounce from 'lodash.debounce';
+import PropTypes from 'prop-types';
 import React, {Component, createRef} from 'react';
 import {createPortal} from 'react-dom';
-import PropTypes from 'prop-types';
-import debounce from 'lodash.debounce';
 
-import {canUseDOM, noop} from '../utils/componentHelpers';
+import {canUseDOM, noop} from '#root/utils/componentHelpers';
 
 class Carousel extends Component {
   constructor(props) {

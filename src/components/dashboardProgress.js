@@ -1,12 +1,13 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
-import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
+import {clickAction} from '#root/utils/componentHelpers';
+
 import {actions as stateActions} from '../redux/ducks/state';
 import ProgressMeter from './progressMeter';
-import {clickAction} from '../utils/componentHelpers';
 
 const DashboardProgress = ({items, active, actions, modal}) => {
   const classList = ['dashboard-progress'];

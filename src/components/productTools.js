@@ -1,6 +1,6 @@
+import {List} from 'immutable';
 import React, {Fragment} from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
-import {List} from 'immutable';
 
 import MaIcon from './maIcon';
 

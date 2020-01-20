@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {fromJS, List} from 'immutable';
+import PropTypes from 'prop-types';
+import React, {Component} from 'react';
+import * as ImmutablePropTypes from 'react-immutable-proptypes';
+
+import {check} from '#root/utils/componentHelpers';
 
 import ChildCheckbox from './inputs/childCheckbox';
-import {stateCheck, check} from '../utils/componentHelpers';
-import CourseAuthor from './courseAuthor';
 import MaIcon from './maIcon';
 
 class CourseFilterTools extends Component {

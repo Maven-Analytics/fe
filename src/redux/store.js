@@ -1,6 +1,6 @@
+import {fromJS} from 'immutable';
 import {applyMiddleware, createStore} from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import {fromJS} from 'immutable';
 
 import rootReducer from './ducks';
 import rootSaga from './sagas';

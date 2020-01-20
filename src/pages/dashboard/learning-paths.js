@@ -1,20 +1,20 @@
-import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import React, {Component} from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import {actions as pathActions, selectors as pathSelectors} from '../../redux/ducks/paths';
-import {selectors as errorSelectors} from '../../redux/ducks/error';
-import {selectors as loadingSelectors} from '../../redux/ducks/loading';
-import {selectors as userSelectors} from '../../redux/ducks/user';
-import {actions as stateActions} from '../../redux/ducks/state';
-import DashboardLayout from '../../layouts/dashboard';
+import DashboardLayout from '#root/components/layout/dashboard';
+import {selectors as errorSelectors} from '#root/redux/ducks/error';
+import {selectors as loadingSelectors} from '#root/redux/ducks/loading';
+import {actions as pathActions, selectors as pathSelectors} from '#root/redux/ducks/paths';
+import {actions as stateActions} from '#root/redux/ducks/state';
+
 import DashboardCard from '../../components/dashboardCard';
-import DashboardPath from '../../components/dashboardPath';
 import DashboardGrid from '../../components/dashboardGrid';
-import {prettyPercent, clickAction} from '../../utils/componentHelpers';
+import DashboardPath from '../../components/dashboardPath';
 import withAuthSync from '../../components/withAuthSync';
+import {clickAction, prettyPercent} from '../../utils/componentHelpers';
 
 class DashboardLearningPaths extends Component {
   componentDidMount() {

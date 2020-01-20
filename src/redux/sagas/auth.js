@@ -1,20 +1,22 @@
 
-import {all, put, takeLatest, call, select, delay, take} from 'redux-saga/effects';
+import {fromJS} from 'immutable';
+import {all, call, delay, put, select, take, takeLatest} from 'redux-saga/effects';
 
-import {types as authTypes} from '../ducks/auth';
-import {types as userTypes, selectors as userSelectors} from '../ducks/user';
-import {selectors as subscriptionSelectors, types as subscriptionTypes} from '../ducks/subscription';
-import {selectors as recommendedSelectors} from '../ducks/recommended';
-import {types as enrollmentTypes} from '../ducks/enrollments';
-import {types as dashboardTypes} from '../ducks/dashboard';
-import {types as credentialTypes} from '../ducks/credentials';
-import {types as scoreTypes} from '../ducks/scores';
-import {types as recommendedTypes} from '../ducks/recommended';
-import {setCookie, removeCookie, getCookie} from '../../utils/cookies';
+import client from '#root/api/graphQlClient';
+
 import apiv2 from '../../services/apiv2';
 import {ssoRedirect} from '../../services/sso';
-import {fromJS} from 'immutable';
+import {getCookie, removeCookie, setCookie} from '../../utils/cookies';
 import {subscriptionEnrolled} from '../../utils/subscriptionHelpers';
+import {types as authTypes} from '../ducks/auth';
+import {types as credentialTypes} from '../ducks/credentials';
+import {types as dashboardTypes} from '../ducks/dashboard';
+import {types as enrollmentTypes} from '../ducks/enrollments';
+import {selectors as recommendedSelectors} from '../ducks/recommended';
+import {types as recommendedTypes} from '../ducks/recommended';
+import {types as scoreTypes} from '../ducks/scores';
+import {selectors as subscriptionSelectors, types as subscriptionTypes} from '../ducks/subscription';
+import {selectors as userSelectors, types as userTypes} from '../ducks/user';
 
 export function * watchAuth() {
   yield takeLatest(authTypes.LOGIN_REQUEST, loginRequest);
@@ -25,6 +27,31 @@ export function * watchAuth() {
   yield takeLatest(authTypes.ENSURE_ENROLLED_REQUEST, ensureEnrolled);
   yield takeLatest(authTypes.FORGOT_REQUEST, onForgotRequest);
   yield takeLatest(authTypes.RESET_REQUEST, onResetRequest);
+  yield takeLatest(authTypes.LOGIN, login);
+}
+
+function * login({payload: {user, token, thinkificToken, redirectTo}}) {
+  setCookie('token', token);
+  setCookie('thinkificToken', thinkificToken);
+
+  yield all([
+    put({
+      type: userTypes.TOKEN_SET,
+      payload: token
+    }),
+    put({
+      type: userTypes.THINKIFIC_TOKEN_SET,
+      payload: thinkificToken
+    }),
+    put({
+      type: userTypes.USER_SET,
+      payload: user
+    })
+  ]);
+
+  if (redirectTo) {
+    ssoRedirect(thinkificToken, redirectTo);
+  }
 }
 
 function * loginRequest({payload: {redirectTo, ...data}}) {
@@ -40,6 +67,7 @@ function * loginRequest({payload: {redirectTo, ...data}}) {
         type: authTypes.LOGIN_SUCCESS,
         payload: res
       }),
+      // Call(delay, 1000),
       call(doLogin, res, true, redirectTo)
     ]);
   } catch (error) {
@@ -67,7 +95,7 @@ function * logoutRequest({payload: {ctx}}) {
     put({
       type: userTypes.USER_UNSET
     }),
-    delay(500), // Delay 1/2 a second so the user is redirected to login
+    // Delay(500), // Delay 1/2 a second so the user is redirected to login
     put({
       type: subscriptionTypes.SUBSCRIPTION_RESET
     }),
@@ -125,7 +153,7 @@ function * registerRequest({payload: {redirectTo, ...data}}) {
   }
 }
 
-function * doLogin({user, token, thinkificToken}, doRedirect, redirectTo) {
+function * doLogin({token, thinkificToken, ...user}, doRedirect, redirectTo) {
   setCookie('token', token);
   setCookie('thinkificToken', thinkificToken);
 
@@ -226,6 +254,8 @@ function * ensureEnrolled() {
 function * checkRecommended(ctx) {
   const paths = getCookie('recommendedPaths', ctx);
   const courses = getCookie('recommendedCourses', ctx);
+
+  console.log(paths);
 
   if (paths && courses) {
     yield all([

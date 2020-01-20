@@ -1,8 +1,8 @@
-import React, {Component, Fragment, createRef} from 'react';
-import PropTypes from 'prop-types';
 import throttle from 'lodash.throttle';
+import PropTypes from 'prop-types';
+import React, {Component, createRef} from 'react';
 
-import {isElementXPercentInViewport, noop} from '../utils/componentHelpers';
+import {isElementXPercentInViewport, noop} from '#root/utils/componentHelpers';
 
 class TrackVisibility extends Component {
   constructor(props) {

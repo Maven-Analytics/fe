@@ -1,5 +1,5 @@
-import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
+import React, {Component, createRef} from 'react';
 
 import TrackVisibility from './trackVisibility';
 

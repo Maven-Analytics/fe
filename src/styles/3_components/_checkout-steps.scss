@@ -10,6 +10,12 @@
       font-weight: 700;
       opacity: .2;
 
+      a {
+        &:not(.btn) {
+          color: $gray-light;
+        }
+      }
+
       @include collapseUp() {
         font-size: 1.4rem;
       }

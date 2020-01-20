@@ -1,10 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import Link from 'next/link';
+import * as PropTypes from 'prop-types';
+import React from 'react';
 
-import {noop, canUseDOM} from '../utils/componentHelpers';
-import {Routes} from '../routes';
-import config from '../config';
+import {Routes} from '#root/routes';
+import {canUseDOM, noop} from '#root/utils/componentHelpers';
 
 const CheckoutFooter = ({disabled, onClick, btnType, error, loading, loginRedirect, showLogin, btnText}) => {
   return (
@@ -33,7 +32,7 @@ CheckoutFooter.propTypes = {
   loading: PropTypes.bool,
   onClick: PropTypes.func,
   btnType: PropTypes.string,
-  error: PropTypes.string,
+  error: PropTypes.any,
   loginRedirect: PropTypes.string,
   showLogin: PropTypes.bool,
   btnText: PropTypes.string

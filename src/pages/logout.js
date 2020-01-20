@@ -1,35 +1,47 @@
-import {Component} from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {withRouter} from 'next/router';
+import gql from 'graphql-tag';
 
-import {actions as authActions} from '../redux/ducks/auth';
-import {Routes} from '../routes';
+import {actions as userActions} from '#root/redux/ducks/user';
+import {Routes} from '#root/routes';
+import {removeCookie} from '#root/utils/cookies';
+import redirect from '#root/utils/redirect';
 
-class LogoutPage extends Component {
-  componentDidMount() {
-    this.props.actions.logout();
-    this.props.router.push(Routes.Login);
+const logoutMutation = gql`
+  mutation {
+    logout {
+      success
+    }
   }
+`;
 
-  render() {
-    return null;
-  }
-}
-
-LogoutPage.propTypes = {
-  actions: PropTypes.objectOf(PropTypes.func),
-  router: PropTypes.object
+const LogoutPage = () => {
+  return null;
 };
 
-const mapStateToProps = () => ({});
+LogoutPage.getInitialProps = async ({apolloClient, store, ...ctx}) => {
+  // Get rid of session on server
+  await apolloClient.mutate({mutation: logoutMutation});
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    ...authActions
-  }, dispatch)
-});
+  // Clear the apollo cache
+  await apolloClient.resetStore();
+  await apolloClient.cache.reset();
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(LogoutPage));
+  // Remove JWTs
+  removeCookie('token', ctx);
+  removeCookie('thinkificToken', ctx);
+  removeCookie('checkout', ctx);
+
+  // Unset the user
+  store.dispatch(userActions.userUnset());
+
+  // Unset the tokens
+  store.dispatch(userActions.tokenSet(null));
+  store.dispatch(userActions.thinkificTokenSet(null));
+
+  // Redirect to home page
+  redirect(ctx, Routes.Home);
+
+  return {};
+};
+
+export default LogoutPage;
 
