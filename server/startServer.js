@@ -39,33 +39,9 @@ const server = Hapi.server({
 
 app.prepare().then(async () => {
   try {
-    if (!dev) {
-      await server.register({
-        plugin: require('hapi-require-https'),
-        options: {}
-      });
-
-      await server.register({
-        plugin: require('hapi-sentry'),
-        options: {
-          scope: {
-            tags: [
-              {
-                name: 'environment',
-                value: 'production'
-              }
-            ]
-          },
-          client: {
-            dsn: 'https://434c351258864811b971abf940ed32e0@sentry.io/1843596'
-          }
-        }
-      });
-    }
-
     await server.register([
-      require('./server/auth'),
-      require('./server/routes')(app)
+      // Require('./server/auth'),
+      require('./setupRoutes')(app)
     ]);
 
     await server.start();

@@ -1,27 +1,80 @@
+import {useQuery} from '@apollo/react-hooks';
+import gql from 'graphql-tag';
+import {fromJS} from 'immutable';
 import PropTypes from 'prop-types';
 import React from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
+import imageFragment from '#root/api/fragments/image';
 import CloseButton from '#root/components/closeButton';
 import CourseLessons from '#root/components/courseLessons';
 import ProductDetail from '#root/components/productDetail';
 import RichText from '#root/components/richText';
-import {selectors as courseSelectors} from '#root/redux/ducks/courses';
 import {actions as stateActions, selectors as stateSelectors} from '#root/redux/ducks/state';
 import {Routes} from '#root/routes';
 import {clickAction} from '#root/utils/componentHelpers';
 
-const CourseDrawer = ({actions, state, courses}) => {
+const courseQuery = gql`
+query CourseById($id: String!) {
+  courses(id: $id) {
+    author {
+      name
+      thumbnail {
+        ...image
+      }
+    }
+    cardDescription
+    badge {
+      ...image
+    }
+    description
+    descriptionDetails
+    enrollment {
+      id
+      percentage_completed
+    }
+    hours
+    id
+    length
+    lessons {
+      lessons
+      title
+    }
+    match
+    slug
+    thinkificCourseId
+    thumbnail {
+      ...image
+    }
+    title
+    tools
+  }
+}
+${imageFragment}
+`;
+
+const CourseDrawer = ({actions, state}) => {
   const isOpen = state.getIn(['courseDrawer', 'open']);
-  const course = courses.find(course => course.get('id') === state.getIn(['courseDrawer', 'data']));
+  // Const course = courses.find(course => course.get('id') === state.getIn(['courseDrawer', 'data']));
 
   const classList = ['course-drawer'];
   const close = clickAction(actions.modalClose, 'courseDrawer');
+  let course = null;
 
   if (isOpen) {
     classList.push('open');
+  }
+
+  if (isOpen) {
+    const {data: {courses = []} = {}} = useQuery(courseQuery, {
+      variables: {
+        id: state.getIn(['courseDrawer', 'data'])
+      }
+    });
+
+    course = fromJS(courses[0]);
   }
 
   return (
@@ -37,7 +90,7 @@ const CourseDrawer = ({actions, state, courses}) => {
               comingSoon={course.get('comingSoon')}
               badge={course.get('badge')}
               title={course.get('title')}
-              percentage_completed={course.get('percentage_completed')}
+              percentage_completed={course.get('percentage_completed') || course.getIn(['enrollment', 'percentage_completed'])}
               titleTag="h2"
               match={course.get('match')}
               resumeUrl={course.get('url')}
@@ -60,13 +113,11 @@ const CourseDrawer = ({actions, state, courses}) => {
 
 CourseDrawer.propTypes = {
   state: ImmutablePropTypes.map.isRequired,
-  actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  courses: ImmutablePropTypes.list
+  actions: PropTypes.objectOf(PropTypes.func).isRequired
 };
 
 const mapStateToProps = state => ({
-  state: stateSelectors.getState(state),
-  courses: courseSelectors.getCourses(state)
+  state: stateSelectors.getState(state)
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -55,8 +55,9 @@ const TrendingCourses = () => {
           <Carousel
             className="arrow-buttons"
             options={{
-              groupCells: isLg() ? 3 : isMd() ? 2 : 1,
-              prevNextButtons: isMd()
+              pageDots: false,
+              prevNextButtons: isMd(),
+              groupCells: isLg() ? 3 : isMd() ? 2 : 1
             }}
           >
             {courses.map(course => (

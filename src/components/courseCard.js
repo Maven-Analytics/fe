@@ -102,6 +102,8 @@ class CourseCard extends Component {
 
     const headerImg = <ImageContentful cover onLoad={this.handleImageLoad} image={course.get('thumbnail')} />;
 
+    console.log(progress);
+
     return (
       <div className={classList.join(' ')}>
         <CourseCardBanner
@@ -135,7 +137,7 @@ class CourseCard extends Component {
             ) : course.get('title')}
           </h4>
           {condensed === false ? <p>{course.get('cardDescription')}</p> : null}
-          {progress !== null && progress > -1 ? <ProgressMeter value={progress} title="Progress" /> : <div className="progress-meter"/>}
+          {progress !== null && progress > -1 ? <ProgressMeter value={progress} title="Progress" /> : null}
         </div>
         <div className="course-card__footer">
           <span>
@@ -166,6 +168,7 @@ CourseCard.propTypes = {
 CourseCard.defaultProps = {
   course: Map(),
   condensed: false,
+  progress: null,
   state: Map()
 };
 

@@ -91,20 +91,32 @@
         }
 
         @include media-breakpoint-up(lg) {
-          min-height: 507px;
+          min-height: 467px;
+        }
+
+        &__content {
+          p {
+            @include media-breakpoint-up(sm) {
+              min-height: 75px;
+            }
+  
+            @include media-breakpoint-up(md) {
+              min-height: 100px;
+            }
+          }
         }
       }
     }
 
-    .flickity-page-dots {
-      bottom: -20px;
-
-      .dot {
-        background: $white;
-        opacity: .45;
-
-        &.is-selected {
-          opacity: 1;
+    &.arrow-buttons {
+      .previous {
+        @include media-breakpoint-only(md) {
+          left: -$spacing-unit--ll;
+        }
+      }
+      .next {
+        @include media-breakpoint-only(md) {
+          right: -$spacing-unit--ll;
         }
       }
     }
