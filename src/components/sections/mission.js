@@ -51,7 +51,7 @@ class Mission extends Component {
 
   render() {
     const {content, features, scrollTo} = this.props;
-    const {activeIndex} = this.state;
+    const {activeIndex, visible} = this.state;
 
     return (
       <div className="mission">
@@ -63,7 +63,6 @@ class Mission extends Component {
         </div>
         <TrackVisibility alwaysShow className="container" onShow={this.handleShow}>
           <Fragment>
-
             <div className="row">
               <div className="col-12 col-md-6">
                 <div className="mission__copy">
@@ -93,7 +92,7 @@ class Mission extends Component {
               <div className="col-12 col-md-6 col-xl-5 offset-xl-1">
                 <div className={['mission__features', activeIndex > -1 ? 'has-active' : ''].join(' ')}>
                   <Tween
-                    playState={this.state.visible ? 'play' : 'pause'}
+                    playState={visible ? 'play' : 'pause'}
                     staggerFrom={{alpha: 0, y: 10}}
                     staggerTo={{alpha: 1, y: 0}}
                     stagger={0.2}
