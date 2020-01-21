@@ -2,8 +2,8 @@ import {List} from 'immutable';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
-import {Tween} from 'react-gsap';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
+import {spring, StaggeredMotion} from 'react-motion';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
@@ -28,15 +28,16 @@ class Mission extends Component {
       activeIndex: -1
     };
 
-    // This.tween = createRef();
     this.handleShow = this.handleShow.bind(this);
     this.handleFeatureClick = this.handleFeatureClick.bind(this);
   }
 
   handleShow() {
-    this.setState({
-      visible: true
-    });
+    setTimeout(() => {
+      this.setState({
+        visible: true
+      });
+    }, 1000);
   }
 
   handleFeatureClick(index, feature) {
@@ -61,20 +62,11 @@ class Mission extends Component {
             src={canUseWebP() ? '/static/img/mission-bg.webp' : '/static/img/mission-bg.jpg'}
           />
         </div>
-        <TrackVisibility alwaysShow className="container" onShow={this.handleShow}>
+        <TrackVisibility alwaysShow className="container" offset={0.5} onShow={this.handleShow}>
           <Fragment>
             <div className="row">
               <div className="col-12 col-md-6">
                 <div className="mission__copy">
-                  {/* <Tween
-                    playState={this.state.visible ? 'play' : 'pause'}
-                    staggerFrom={{ alpha: 0, y: 10 }}
-                    staggerTo={{ alpha: 1, y: 0 }}
-                    stagger={0.2}
-                    duration={1}
-                    ease="Back.easeOut"
-                    delay={0.5}
-                  > */}
                   <div>
                     <MaIcon icon="maven" className="mission__header-icon" />
                   </div>
@@ -86,59 +78,66 @@ class Mission extends Component {
                       <a className="btn btn--primary-solid">Why BI?</a>
                     </Link>
                   </div>
-                  {/* </Tween> */}
                 </div>
               </div>
               <div className="col-12 col-md-6 col-xl-5 offset-xl-1">
-                <div className={['mission__features', activeIndex > -1 ? 'has-active' : ''].join(' ')}>
-                  <Tween
-                    playState={visible ? 'play' : 'pause'}
-                    staggerFrom={{alpha: 0, y: 10}}
-                    staggerTo={{alpha: 1, y: 0}}
-                    stagger={0.2}
-                    duration={1}
-                    ease="Back.easeOut"
-                    delay={0.5}
-                  >
-                    {features.map((feature, index) => (
-                      <div key={index}>
-                        <MissionFeature
-                          tag="button"
-                          active={index === activeIndex}
-                          title={feature.get('title')}
-                          description={feature.get('description')}
-                          icon={feature.get('icon')}
-                          linkText={feature.get('linkText')}
-                          linkUrl={feature.get('linkUrl')}
-                          onClick={activeIndex > -1 ? noop : this.handleFeatureClick(index, feature)}
-                          onClose={this.handleFeatureClick(-1)}
-                        />
-                      </div>
-                      // <button
-                      //   key={feature.get('title')}
-                      //   className={['mission-feature', index === activeIndex ? 'active' : ''].join(' ')}
-                      //   onClick={}
-                      // >
-                      //   <div className="mission-feature__inner">
-                      //     <span role="button" className="mission-feature__close" onClick={click(this.handleFeatureClick, -1)}>
-                      //       <MaIcon icon="times" />
-                      //     </span>
-                      //     <div className="mission-feature__preview">
-                      //       <MaIcon icon={feature.get('icon')} />
-                      //       <p>{feature.get('title')}</p>
-                      //     </div>
-                      //     <div className="mission-feature__description">
-                      //       <p>{feature.get('description')}</p>
-                      //       <Link href={feature.get('linkUrl')}>
-                      //         <a className="btn btn--primary-solid">{feature.get('linkText')}</a>
-                      //       </Link>
-                      //     </div>
-                      //   </div>
-                      // </button>
-                    ))}
-                  </Tween>
-                </div>
+                <StaggeredMotion
+                  defaultStyles={features.map(() => ({y: 10, opacity: 0})).toJS()}
+                  styles={prevStyles => {
+                    if (visible) {
+                      const easing = {
+                        damping: 30,
+                        stiffnexx: 265
+                      };
 
+                      return prevStyles.map((_, index) => {
+                        if (index === 0) {
+                          return {
+                            y: spring(0, easing),
+                            opacity: spring(1, easing)
+                          };
+                        }
+
+                        return {
+                          y: spring(prevStyles[index - 1].y, easing),
+                          opacity: spring(prevStyles[index - 1].opacity, easing)
+                        };
+                      });
+                    }
+
+                    return prevStyles;
+                  }}
+                >
+                  {styles => (
+                    <div className={['mission__features', activeIndex > -1 ? 'has-active' : ''].join(' ')}>
+                      {styles.map((style, index) => {
+                        const feature = features.get(index);
+
+                        return (
+                          <div
+                            key={index}
+                            style={{
+                              opacity: style.opacity,
+                              transform: `translateY(${style.y}px)`
+                            }}
+                          >
+                            <MissionFeature
+                              tag="button"
+                              active={index === activeIndex}
+                              title={feature.get('title')}
+                              description={feature.get('description')}
+                              icon={feature.get('icon')}
+                              linkText={feature.get('linkText')}
+                              linkUrl={feature.get('linkUrl')}
+                              onClick={activeIndex > -1 ? noop : this.handleFeatureClick(index, feature)}
+                              onClose={this.handleFeatureClick(-1)}
+                            />
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </StaggeredMotion>
               </div>
             </div>
             {scrollTo ? <ScrollToNext target={scrollTo} title="The Maven Method" /> : null}

@@ -1,9 +1,12 @@
 const webpack = require('webpack');
 const withPlugins = require('next-compose-plugins');
 const withSass = require('@zeit/next-sass');
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true'
+});
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
-module.exports = withPlugins([withSass], {
+module.exports = withPlugins([withBundleAnalyzer, withSass], {
   publicRuntimeConfig: {
     HOST_SERVER: process.env.HOST_SERVER,
     THINKIFIC_SUBDOMAIN: process.env.THINKIFIC_SUBDOMAIN,
