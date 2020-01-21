@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const withPlugins = require('next-compose-plugins');
 const withSass = require('@zeit/next-sass');
-// Const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = withPlugins([withSass], {
   publicRuntimeConfig: {
@@ -17,25 +17,25 @@ module.exports = withPlugins([withSass], {
     SENTRY_ENVIRONMENT: process.env.SENTRY_ENVIRONMENT,
     THINKIFIC_HEALTH_CHECK_INTERVAL: process.env.THINKIFIC_HEALTH_CHECK_INTERVAL
   },
-  // Webpack: (config, {isServer}) => {
-  //   if (isServer) {
-  //     return config;
-  //   }
+  webpack: (config, {isServer}) => {
+    if (isServer) {
+      return config;
+    }
 
-  //   var isProduction = config.mode === 'production';
+    var isProduction = config.mode === 'production';
 
-  //   if (isProduction) {
-  //     config.plugins.push(
-  //       new webpack.optimize.LimitChunkCountPlugin({
-  //         maxChunks: 1
-  //       })
-  //     );
+    if (isProduction) {
+      config.plugins.push(
+        new webpack.optimize.LimitChunkCountPlugin({
+          maxChunks: 1
+        })
+      );
 
-  //     config.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}));
-  //   }
+      config.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}));
+    }
 
-  //   return config;
-  // },
+    return config;
+  },
   webpackDevMiddleware: config => {
     // Solve compiling problem via vagrant
     config.watchOptions = {
