@@ -6,7 +6,7 @@
   "scripts": {
     "analyze": "cross-env NODE_ENV=production ANALYZE=true next build src",
     "dev": "cross-env NODE_ENV=development nodemon -L ./server",
-    "build": "next build src",
+    "build": "cross-env NODE_ENV=production ANALYZE=true next build src",
     "start": "cross-env NODE_ENV=production node server.js",
     "test": "cross-env NODE_ENV=test jest"
   },
