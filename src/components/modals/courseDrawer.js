@@ -32,6 +32,7 @@ query CourseById($id: String!) {
     description
     descriptionDetails
     enrollment {
+      id
       percentage_completed
     }
     hours

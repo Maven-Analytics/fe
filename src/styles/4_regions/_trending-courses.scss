@@ -96,15 +96,15 @@
       }
     }
 
-    .flickity-page-dots {
-      bottom: -20px;
-
-      .dot {
-        background: $white;
-        opacity: .45;
-
-        &.is-selected {
-          opacity: 1;
+    &.arrow-buttons {
+      .previous {
+        @include media-breakpoint-only(md) {
+          left: -$spacing-unit--ll;
+        }
+      }
+      .next {
+        @include media-breakpoint-only(md) {
+          right: -$spacing-unit--ll;
         }
       }
     }
