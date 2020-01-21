@@ -102,8 +102,6 @@ class CourseCard extends Component {
 
     const headerImg = <ImageContentful cover onLoad={this.handleImageLoad} image={course.get('thumbnail')} />;
 
-    console.log(progress);
-
     return (
       <div className={classList.join(' ')}>
         <CourseCardBanner
