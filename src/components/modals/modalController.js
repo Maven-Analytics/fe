@@ -19,9 +19,10 @@ import PathDrawer from './pathDrawer';
 import VideoModal from './videoModal';
 
 const ModalController = ({state, actions, hideModals, loginRedirect}) => {
-  Router.events.on('routeChangeComplete', () => {
-    actions.stateReset();
-  });
+  // DON'T DO THIS!!!!!
+  // Router.events.on('routeChangeComplete', () => {
+  //   actions.stateReset();
+  // });
 
   return (
     <Fragment>

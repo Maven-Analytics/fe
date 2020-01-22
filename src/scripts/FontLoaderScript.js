@@ -1,13 +1,10 @@
 import * as FontFaceObserver from 'fontfaceobserver';
+import {memo} from 'react';
 
 import {canUseDOM} from '#root/utils/componentHelpers';
 
 const FontLoaderScript = () => {
   if (!canUseDOM()) {
-    return null;
-  }
-
-  if (document.body.classList.contains('icons-loaded')) {
     return null;
   }
 
@@ -22,4 +19,4 @@ const FontLoaderScript = () => {
   return null;
 };
 
-export default FontLoaderScript;
+export default memo(FontLoaderScript);

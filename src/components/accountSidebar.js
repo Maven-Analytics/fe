@@ -1,7 +1,7 @@
 import {fromJS} from 'immutable';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {memo} from 'react';
 
 const SidebarLinks = fromJS([
   {
@@ -44,4 +44,4 @@ DashboardHeader.propTypes = {
   activeLink: PropTypes.number.isRequired
 };
 
-export default DashboardHeader;
+export default memo(DashboardHeader);

@@ -1,3 +1,4 @@
+import {memo} from 'react';
 import TagManager from 'react-gtm-module';
 
 import accessConfig from '#root/utils/accessConfig';
@@ -13,4 +14,4 @@ const GtagScript = () => {
   return null;
 };
 
-export default GtagScript;
+export default memo(GtagScript);

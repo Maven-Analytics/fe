@@ -7,7 +7,6 @@ import {connect} from 'react-redux';
 import {getCookie} from '#root/utils/cookies';
 
 import {selectors as userSelectors} from '../redux/ducks/user';
-import {reauthenticateSync} from '../services/apiv2';
 
 const withAuthSync = WrappedComponent => {
   class WithAuthSync extends Component {
@@ -72,7 +71,6 @@ export const auth = async ctx => {
   const token = getCookie('token', ctx);
 
   try {
-    await reauthenticateSync(token);
   } catch (error) {
     if (ctx.req) {
       ctx.res.writeHead(302, {Location: '/login'});

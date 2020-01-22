@@ -18,13 +18,6 @@ const apiv2 = ({method = 'get', data = {}, params = {}, url = '', useAuth = true
 
 export default apiv2;
 
-export const reauthenticateSync = async token => {
-  return apiv2({
-    url: '/me',
-    token
-  });
-};
-
 export const getCheckoutUrlAsync = async ctx => {
   const token = getCookie('token', ctx);
   const checkout = getCookie('checkout', ctx);

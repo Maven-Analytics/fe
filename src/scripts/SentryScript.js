@@ -1,4 +1,5 @@
 import * as Sentry from '@sentry/browser';
+import {memo} from 'react';
 
 import accessConfig from '#root/utils/accessConfig';
 
@@ -12,4 +13,4 @@ const SentryScript = () => {
   return null;
 };
 
-export default SentryScript;
+export default memo(SentryScript);
