@@ -6,7 +6,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 });
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
-module.exports = withPlugins([withBundleAnalyzer, withSass], {
+module.exports = withPlugins([withSass], {
   publicRuntimeConfig: {
     HOST_SERVER: process.env.HOST_SERVER,
     THINKIFIC_SUBDOMAIN: process.env.THINKIFIC_SUBDOMAIN,
@@ -20,25 +20,25 @@ module.exports = withPlugins([withBundleAnalyzer, withSass], {
     SENTRY_ENVIRONMENT: process.env.SENTRY_ENVIRONMENT,
     THINKIFIC_HEALTH_CHECK_INTERVAL: process.env.THINKIFIC_HEALTH_CHECK_INTERVAL
   },
-  webpack: (config, {isServer}) => {
-    if (isServer) {
-      return config;
-    }
+  // Webpack: (config, {isServer}) => {
+  //   if (isServer) {
+  //     return config;
+  //   }
 
-    var isProduction = config.mode === 'production';
+  //   var isProduction = config.mode === 'production';
 
-    if (isProduction) {
-      config.plugins.push(
-        new webpack.optimize.LimitChunkCountPlugin({
-          maxChunks: 1
-        })
-      );
+  //   if (isProduction) {
+  //     config.plugins.push(
+  //       new webpack.optimize.LimitChunkCountPlugin({
+  //         maxChunks: 1
+  //       })
+  //     );
 
-      config.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}));
-    }
+  //     config.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}));
+  //   }
 
-    return config;
-  },
+  //   return config;
+  // },
   webpackDevMiddleware: config => {
     // Solve compiling problem via vagrant
     config.watchOptions = {
