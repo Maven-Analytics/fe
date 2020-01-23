@@ -5,6 +5,8 @@ import * as ImmutablePropTypes from 'react-immutable-proptypes';
 
 import {click} from '#root/utils/componentHelpers';
 
+import Markdown from './markdown';
+
 const CourseLessons = ({lessons, showCount}) => {
   const [activeLesson, setActiveLesson] = useState(null);
 
@@ -41,7 +43,13 @@ const CourseLessons = ({lessons, showCount}) => {
                   <li key={l}>{l}</li>
                 ))}
               </ul>
-            ) : null}
+            ) : (
+              <ul>
+                <li>
+                  {lesson.has('content') ? <Markdown className="course-lessons__content" content={lesson.get('text')}/> : null}
+                </li>
+              </ul>
+            )}
           </div>
         </div>
       ))}

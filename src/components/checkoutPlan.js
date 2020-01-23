@@ -29,13 +29,13 @@ const CheckoutPlan = ({selected, eyelash, title, description, onClick, id, price
 };
 
 CheckoutPlan.propTypes = {
-  selected: PropTypes.bool,
-  eyelash: PropTypes.string,
-  title: PropTypes.string,
   description: PropTypes.string,
+  eyelash: PropTypes.string,
   id: PropTypes.number,
   onClick: PropTypes.func.isRequired,
-  price: PropTypes.string
+  price: PropTypes.string,
+  selected: PropTypes.bool,
+  title: PropTypes.string
 };
 
 export default CheckoutPlan;

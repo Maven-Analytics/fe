@@ -62,10 +62,10 @@ class ClickOutside extends Component {
   }
 
   render() {
-    const {children, tag: Tag, ...rest} = this.props;
+    const {children, tag: Tag, onClickOutside, ...rest} = this.props;
 
     return (
-      <Tag ref={this.el} {...fromJS(rest).delete('onClickOutside').toJS()}>
+      <Tag ref={this.el} {...rest}>
         {children}
       </Tag>
     );

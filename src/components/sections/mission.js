@@ -82,7 +82,7 @@ class Mission extends Component {
               </div>
               <div className="col-12 col-md-6 col-xl-5 offset-xl-1">
                 <StaggeredMotion
-                  defaultStyles={features.map(() => ({y: 10, opacity: 0})).toJS()}
+                  defaultStyles={features.reduce(arr => arr.concat([{y: 10, opacity: 0}]), [])}
                   styles={prevStyles => {
                     if (visible) {
                       const easing = {

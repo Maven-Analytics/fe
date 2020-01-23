@@ -14,9 +14,13 @@ const CheckoutPlans = ({plans, checkout, onPlanChange}) => {
         {plans.map(plan => (
           <li key={plan.get('id')}>
             <CheckoutPlan
+              description={plan.get('description')}
+              eyelash={plan.get('eyelash')}
+              id={plan.get('id')}
               onClick={click(onPlanChange, plan)}
+              price={plan.get('price')}
               selected={plan.get('id') === checkout.getIn(['plan', 'id'])}
-              {...plan.toJS()}
+              title={plan.get('title')}
             />
           </li>
         ))}

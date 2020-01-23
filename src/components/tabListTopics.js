@@ -67,7 +67,7 @@ class TabListTopics extends Component {
           </div>
           <div className="col-md-6 col-lg-8">
             <div className="tab-list-topics__active-item">
-              <ItemComponent {...tabs.get(this.state.activeTab).toJS()} />
+              <ItemComponent item={tabs.get(this.state.activeTab)} />
             </div>
           </div>
         </div>

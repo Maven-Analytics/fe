@@ -14,8 +14,6 @@ const Markdown = ({content, className, tag: Tag, ...props}) => {
     return null;
   }
 
-  console.log(content);
-
   const parsed = md.render(content);
 
   // eslint-disable-next-line react/no-danger

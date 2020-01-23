@@ -1,12 +1,13 @@
 import * as PropTypes from 'prop-types';
 import React from 'react';
 
-const TextBox = ({children, className, error, type, register, name, label, id, required, placeholder}) => {
+const TextBox = ({children, className, disabled, error, type, register, name, label, id, required, placeholder}) => {
   return (
     <div className="form-group">
       {label ? <label htmlFor={id}>{label}</label> : null}
       <input
         className={className}
+        disabled={disabled}
         id={id}
         name={name}
         placeholder={placeholder}
@@ -26,6 +27,7 @@ const TextBox = ({children, className, error, type, register, name, label, id, r
 
 TextBox.propTypes = {
   children: PropTypes.any,
+  disabled: PropTypes.bool,
   className: PropTypes.string,
   error: PropTypes.object,
   id: PropTypes.string.isRequired,
@@ -39,6 +41,7 @@ TextBox.propTypes = {
 
 TextBox.defaultProps = {
   className: 'input',
+  disabled: false,
   placeholder: null,
   required: false,
   type: 'text'

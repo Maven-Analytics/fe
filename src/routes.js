@@ -97,7 +97,8 @@ export const footerLinks = fromJS([
     links: [
       {
         text: 'Help Center',
-        url: Routes.HelpCenter
+        url: Routes.HelpCenter,
+        external: true
       },
       {
         text: 'Credentials & Badges',

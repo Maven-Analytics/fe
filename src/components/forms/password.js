@@ -129,12 +129,21 @@ const PasswordResetForm = () => {
   const [updateUser, {error}] = useMutation(updateUserMutation);
   const user = useSelector(userSelectors.getUser);
   const [response, setResponse] = useState(null);
-  const {formState: {isSubmitting, isSubmitted}, handleSubmit, register, errors: formErrors, clearError, watch} = useForm();
+  const {formState: {isSubmitting}, handleSubmit, register, errors: formErrors, watch} = useForm();
 
   const onSubmit = handleSubmit(async ({currentPassword, newPassword, confirmPassword}) => {
     setResponse(null);
     await updateUser({
-      variables: {...user.toJS(), currentPassword, newPassword, confirmPassword}
+      variables: {
+        email: user.get('email'),
+        first_name: user.get('first_name'),
+        last_name: user.get('last_name'),
+        postal_code: user.get('postal_code'),
+        country: user.get('country'),
+        currentPassword,
+        newPassword,
+        confirmPassword
+      }
     });
 
     setResponse('Your password has been reset!');
@@ -144,6 +153,7 @@ const PasswordResetForm = () => {
     <form onSubmit={onSubmit} className="form--light form--account">
       <TextBox
         required
+        disabled={isSubmitting}
         id="currentPassword"
         label="Current password"
         name="currentPassword"
@@ -153,6 +163,7 @@ const PasswordResetForm = () => {
       />
       <TextBox
         required
+        disabled={isSubmitting}
         id="newPassword"
         label="New password"
         name="newPassword"
@@ -162,6 +173,7 @@ const PasswordResetForm = () => {
       />
       <TextBox
         required
+        disabled={isSubmitting}
         id="confirmPassword"
         label="Confirm new password"
         name="confirmPassword"

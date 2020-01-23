@@ -14,7 +14,7 @@ import {actions as pageActions, selectors as pageSelectors} from '../redux/ducks
 import {actions as pathActions, selectors as pathSelectors} from '../redux/ducks/paths';
 
 const CredentialsPage = ({page, courses, paths}) => {
-  const products = fromJS([...courses.toJS(), ...paths.toJS()]);
+  const products = courses.concat(paths);
 
   return (
     <BrochureLayout>

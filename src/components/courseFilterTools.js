@@ -17,13 +17,6 @@ class CourseFilterTools extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  getSetValues() {
-    return fromJS(this.state)
-      .filter(f => f)
-      .keySeq()
-      .toJS();
-  }
-
   handleChange(val) {
     return checked => {
       if (checked) {

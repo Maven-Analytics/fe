@@ -53,7 +53,15 @@ class StudentSpotlights extends Component {
           <Carousel activeIndex={activeIndex} options={{pageDots: false, prevNextButtons: true}} onChange={this.handleNavClick}>
             {spotlights.map(spotlight => (
               <CarouselSlide key={spotlight.get('id')}>
-                <StudentSpotlight {...spotlight.toJS()} />
+                <StudentSpotlight
+                  callout={spotlight.get('callout')}
+                  completedCourses={spotlight.get('completedCourses')}
+                  image={spotlight.get('image')}
+                  location={spotlight.get('location')}
+                  name={spotlight.get('name')}
+                  text={spotlight.get('text')}
+                  title={spotlight.get('title')}
+                />
               </CarouselSlide>
             ))}
           </Carousel>

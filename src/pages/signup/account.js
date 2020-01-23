@@ -186,7 +186,13 @@ const SignupAccount = () => {
   const [registerUser, {error: registerError, client: clientRegister}] = useMutation(registerMutation);
   const [response, setResponse] = useState(null);
   const {formState: {isSubmitting, isSubmitted}, handleSubmit, register, clearError, errors: formErrors, watch} = useForm({
-    defaultValues: user.toJS()
+    defaultValues: {
+      country: user.get('country'),
+      email: user.get('email'),
+      first_name: user.get('first_name'),
+      last_name: user.get('last_name'),
+      postal_code: user.get('postal_code')
+    }
   });
 
   const dispatch = useDispatch();
@@ -339,32 +345,32 @@ SignupAccount.getInitialProps = async ctx => {
   const checkoutPlan = checkout.get('plan');
   const token = getCookie('token', ctx);
 
-  if (!checkoutPlan || checkoutPlan.isEmpty()) {
-    if (res) {
-      res.writeHead(302, {
-        Location: '/signup'
-      });
-      res.end();
-    } else {
-      Router.push('/signup');
-    }
-  }
+  // If (!checkoutPlan || checkoutPlan.isEmpty()) {
+  //   if (res) {
+  //     res.writeHead(302, {
+  //       Location: '/signup'
+  //     });
+  //     res.end();
+  //   } else {
+  //     Router.push('/signup');
+  //   }
+  // }
 
-  if (token) {
-    const checkoutUrl = await getCheckoutUrlAsync(ctx);
-    if (!checkoutUrl) {
-      return {};
-    }
+  // if (token) {
+  //   const checkoutUrl = await getCheckoutUrlAsync(ctx);
+  //   if (!checkoutUrl) {
+  //     return {};
+  //   }
 
-    if (res) {
-      res.writeHead(302, {
-        Location: checkoutUrl
-      });
-      res.end();
-    } else {
-      Router.push(checkoutUrl);
-    }
-  }
+  //   if (res) {
+  //     res.writeHead(302, {
+  //       Location: checkoutUrl
+  //     });
+  //     res.end();
+  //   } else {
+  //     Router.push(checkoutUrl);
+  //   }
+  // }
 
   return {};
 };
