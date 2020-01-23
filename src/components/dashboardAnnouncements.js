@@ -10,12 +10,14 @@ const DashboardAnnouncements = ({announcements}) => (
       {announcements.map(announcement => {
         const date = new Date(announcement.get('date'));
 
+        const month = date.getUTCMonth() + 1;
+
         return (
           <li key={announcement.get('id')}>
             <div className="dashboard-announcements__item">
               <div className="dashboard-announcements__item-meta">
                 <span>
-                  {date.getUTCMonth()}.{date.getUTCDate()}.{date.getUTCFullYear()}
+                  {month < 10 ? `0${month}` : month}.{date.getUTCDate()}.{date.getUTCFullYear()}
                 </span>
                 {announcement.get('pinned') ? <span className="pill pinned">Pinned</span> : null}
                 {announcement.get('new') ? <span className="pill new">New</span> : null}
