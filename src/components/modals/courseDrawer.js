@@ -50,6 +50,7 @@ query CourseById($id: String!) {
     }
     title
     tools
+    url
   }
 }
 ${imageFragment}
