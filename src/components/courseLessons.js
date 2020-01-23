@@ -1,11 +1,11 @@
 import {List} from 'immutable';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import React, {useState} from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
+import * as ImmutablePropTypes from 'react-immutable-proptypes';
 
 import {click} from '#root/utils/componentHelpers';
 
-import RichText from './richText';
+import Markdown from './markdown';
 
 const CourseLessons = ({lessons, showCount}) => {
   const [activeLesson, setActiveLesson] = useState(null);
@@ -46,7 +46,7 @@ const CourseLessons = ({lessons, showCount}) => {
             ) : (
               <ul>
                 <li>
-                  {lesson.has('content') ? <RichText className="course-lessons__content" content={lesson.get('content')}/> : null}
+                  {lesson.has('content') ? <Markdown className="course-lessons__content" content={lesson.get('text')}/> : null}
                 </li>
               </ul>
             )}
@@ -58,7 +58,12 @@ const CourseLessons = ({lessons, showCount}) => {
 };
 
 CourseLessons.propTypes = {
-  lessons: ImmutablePropTypes.list.isRequired,
+  lessons: ImmutablePropTypes.listOf(
+    ImmutablePropTypes.mapContains({
+      lessons: ImmutablePropTypes.list,
+      title: PropTypes.string
+    })
+  ),
   showCount: PropTypes.bool
 };
 

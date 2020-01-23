@@ -75,7 +75,7 @@
       h4 {
         font-size: 1.6rem;
         font-weight: 900;
-        margin: 0 0 $spacing-unit;
+        margin: $spacing-unit--l 0 $spacing-unit;
         text-transform: uppercase;
       }
 
@@ -106,6 +106,10 @@
 
         @include media-breakpoint-up(md) {
           margin: 0 0 $spacing-unit--ll;
+        }
+
+        li {
+          margin: 0 0 $spacing-unit;
         }
       }
     }

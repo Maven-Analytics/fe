@@ -5,13 +5,13 @@ import {connect} from 'react-redux';
 
 import ConsultingForm from '#root/components/forms//consulting';
 import BrochureLayout from '#root/components/layout/brochure';
+import Markdown from '#root/components/markdown';
 import BrochureHero from '#root/components/sections/brochureHero';
 import CtaForm from '#root/components/sections/ctaForm';
 
 import BrochureContent from '../components/brochureContent';
 import CtaQuote from '../components/ctaQuote';
 import Head from '../components/head';
-import RichText from '../components/richText';
 import {actions as pageActions, selectors as pageSelectors} from '../redux/ducks/pages';
 
 const Consulting = ({page}) => {
@@ -32,7 +32,7 @@ const Consulting = ({page}) => {
       />
       <BrochureContent className="page-consulting" title={page.get('brochureTitle')}>
         <div className="page-consulting__content">
-          <RichText content={page.get('content')}/>
+          <Markdown content={page.get('body')}/>
         </div>
         <CtaForm title="Request A Quote" form={ConsultingForm}>
           <CtaQuote

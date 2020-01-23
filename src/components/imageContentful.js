@@ -12,7 +12,10 @@ const ImageContentful = ({image, ...props}) => {
   if (image.has('fields')) {
     image = fromJS({
       id: image.getIn(['sys', 'id']),
-      ...image.get('fields').toJS()
+      file: {
+        url: image.getIn(['fields', 'file', 'url'])
+      },
+      title: image.getIn(['fields', 'title'])
     });
   }
 

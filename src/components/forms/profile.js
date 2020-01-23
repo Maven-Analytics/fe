@@ -91,7 +91,13 @@ const ProfileForm = ({user}) => {
   const [updateUser, {error}] = useMutation(updateUserMutation);
   const [response, setResponse] = useState(null);
   const {formState: {isSubmitting, isSubmitted}, handleSubmit, register, clearError, errors: formErrors} = useForm({
-    defaultValues: user.toJS()
+    defaultValues: {
+      country: user.get('country'),
+      email: user.get('email'),
+      first_name: user.get('first_name'),
+      last_name: user.get('last_name'),
+      postal_code: user.get('postal_code')
+    }
   });
   const dispatch = useDispatch();
 
@@ -112,6 +118,7 @@ const ProfileForm = ({user}) => {
         <div className="col-sm-12">
           <TextBox
             required
+            disabled={isSubmitting}
             error={isSubmitted ? formErrors.email : null}
             id="email"
             label="Email Address"
@@ -126,6 +133,7 @@ const ProfileForm = ({user}) => {
         <div className="col-sm-6">
           <TextBox
             required
+            disabled={isSubmitting}
             error={isSubmitted ? formErrors.first_name : null}
             id="first_name"
             label="First Name"
@@ -136,6 +144,7 @@ const ProfileForm = ({user}) => {
         <div className="col-sm-6">
           <TextBox
             required
+            disabled={isSubmitting}
             error={isSubmitted ? formErrors.last_name : null}
             id="last_name"
             label="Last Name"
@@ -148,6 +157,7 @@ const ProfileForm = ({user}) => {
         <div className="col-sm-6">
           <Select
             required
+            disabled={isSubmitting}
             error={isSubmitted ? formErrors.country : null}
             id="country"
             label="Counrtry"
@@ -159,6 +169,7 @@ const ProfileForm = ({user}) => {
         <div className="col-sm-6">
           <TextBox
             required
+            disabled={isSubmitting}
             error={isSubmitted ? formErrors.postal_code : null}
             id="postal_code"
             label="Postal Code"

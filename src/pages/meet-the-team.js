@@ -19,7 +19,7 @@ const MeetTheTeam = ({page}) => {
         className="brochure-hero--medium"
         eyelash={page.get('heroEyelash')}
         title={page.get('heroTitle')}
-        description={page.get('heroDescription')}
+        description={page.get('heroText')}
         meta={false}
         colClasses={['col-md-6', 'col-md-6']}
         backgroundSources={[

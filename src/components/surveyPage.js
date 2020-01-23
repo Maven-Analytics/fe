@@ -14,7 +14,7 @@ class SurveyPage extends Component {
       o: 0,
       y: 10
     };
-    return [initialStyles, ...this.props.answers.map(() => initialStyles).toJS()];
+    return [initialStyles, ...this.props.answers.reduce(arr => arr.concat([initialStyles]), [])];
   }
 
   styles(prevStyles) {

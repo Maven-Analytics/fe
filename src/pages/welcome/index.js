@@ -110,17 +110,18 @@ class WelcomeSurvey extends Component {
   getStyles() {
     return this.state.questions
       .filter(q => q.get('active'))
-      .map(q => {
-        return {
+      .reduce((arr, q) => {
+        arr.push({
           key: q.get('id'),
           style: {
             opacity: spring(1, presets.gentle),
             z: spring(1)
           },
           data: q
-        };
-      })
-      .toJS();
+        });
+
+        return arr;
+      }, []);
   }
 
   willLeave() {
@@ -150,8 +151,8 @@ class WelcomeSurvey extends Component {
                   <SurveyPage
                     key={style.key}
                     onChange={this.handleChange}
-                    question={style.data.text}
-                    answers={fromJS(style.data.answers)}
+                    question={style.data.get('text')}
+                    answers={style.data.get('answers')}
                     values={this.props.surveyResults}
                     style={{
                       opacity: style.style.opacity,

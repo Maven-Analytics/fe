@@ -8,6 +8,7 @@ import VideoSeriesLayout from '#root/components/layout/videoSeries';
 import {actions as pageActions, selectors as pageSelectors} from '../redux/ducks/pages';
 
 const BiVideoSeriesPage = ({page}) => {
+  console.log(page);
   return <VideoSeriesLayout page={page} />;
 };
 

@@ -15,7 +15,7 @@ const Terms = ({page}) => {
     <BrochureLayout className="global-header--checkout">
       <Head page={page} meta={page.get('meta')}/>
       <BrochureContent title={page.get('brochureTitle')}>
-        <Wysiwyg content={page.get('content')}/>
+        <Wysiwyg content={page.get('body')}/>
       </BrochureContent>
     </BrochureLayout>
   );

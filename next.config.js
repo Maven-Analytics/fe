@@ -4,9 +4,10 @@ const withSass = require('@zeit/next-sass');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true'
 });
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
-module.exports = withPlugins([withSass], {
+const plugins = [withSass];
+
+module.exports = withPlugins(plugins, {
   publicRuntimeConfig: {
     HOST_SERVER: process.env.HOST_SERVER,
     THINKIFIC_SUBDOMAIN: process.env.THINKIFIC_SUBDOMAIN,
@@ -20,25 +21,6 @@ module.exports = withPlugins([withSass], {
     SENTRY_ENVIRONMENT: process.env.SENTRY_ENVIRONMENT,
     THINKIFIC_HEALTH_CHECK_INTERVAL: process.env.THINKIFIC_HEALTH_CHECK_INTERVAL
   },
-  // Webpack: (config, {isServer}) => {
-  //   if (isServer) {
-  //     return config;
-  //   }
-
-  //   var isProduction = config.mode === 'production';
-
-  //   if (isProduction) {
-  //     config.plugins.push(
-  //       new webpack.optimize.LimitChunkCountPlugin({
-  //         maxChunks: 1
-  //       })
-  //     );
-
-  //     config.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}));
-  //   }
-
-  //   return config;
-  // },
   webpackDevMiddleware: config => {
     // Solve compiling problem via vagrant
     config.watchOptions = {

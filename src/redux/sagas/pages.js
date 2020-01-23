@@ -1,7 +1,7 @@
-import {takeEvery, put, all} from 'redux-saga/effects';
+import {all, put, takeEvery} from 'redux-saga/effects';
 
-import {types as pageTypes} from '../ducks/pages';
-import {getPages} from '../../services/contentful';
+import {types as pageTypes} from '#root/redux/ducks/pages';
+import {getPages} from '#root/services/contentful';
 
 export function * watchPages() {
   yield takeEvery(pageTypes.PAGES_GET_REQUEST, onPagesGet);

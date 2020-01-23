@@ -65,42 +65,4 @@ export const selectors = {
     [getThinkificToken],
     t => t
   )
-  // GetRecommendedCourses: createSelector(
-  //   [getRecommendedCourses],
-  //   r => r
-  // ),
-  // getRecommendedPaths: createSelector(
-  //   [getRecommendedPaths],
-  //   r => r
-  // )
-  // GetRecommendedPathsForDisplay: createSelector(
-  //   [getUser, getRecommendedPaths, pathSelectors.getPaths],
-  //   (user, recommended, paths) => {
-  //     recommended = user.get('recommended_paths') && user.get('recommended_paths').count() ? user.get('recommended_paths') : recommended;
-
-  //     return recommended.map(r => {
-  //       const path = paths.find(p => p.get('id') === r.get('id')) || Map();
-  //       return fromJS({
-  //         ...r.toJS(),
-  //         match: r.get('percentage'),
-  //         ...path.toJS()
-  //       });
-  //     });
-  //   }
-  // ),
-  // getRecommendedCoursesForDisplay: createSelector(
-  //   [getUser, getRecommendedCourses, courseSelectors.getCourses],
-  //   (user, recommended, courses) => {
-  //     recommended = user.get('recommended_courses') && user.get('recommended_courses').count() ? user.get('recommended_courses') : recommended;
-
-  //     return recommended.map(r => {
-  //       const course = courses.find(c => c.get('id') === r.get('id')) || Map();
-  //       return fromJS({
-  //         ...r.toJS(),
-  //         match: r.get('percentage'),
-  //         ...course.toJS()
-  //       });
-  //     });
-  //   }
-  // )
 };

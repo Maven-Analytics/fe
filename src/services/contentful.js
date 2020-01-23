@@ -136,7 +136,8 @@ function mapResponseItem(item) {
 
   return {
     id: item.sys.id,
-    ...item.fields
+    ...item.fields,
+    thumbnail: mapResponseImage(item.fields.thumbnail)
   };
 }
 

@@ -14,6 +14,15 @@
         // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526.
         opacity: .2;
       }
+
+      &:disabled,
+      &[readonly] {
+        background-color: $gray-light-3;
+        border-color: $gray-light-3;
+        color: $gray;
+        // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655.
+        opacity: 1;
+      }
     }
 
     label {

@@ -29,9 +29,14 @@ const GlobalFooter = ({description, links}) => {
                   <ul>
                     {col.get('links').map(link => (
                       <li key={link.get('text')}>
-                        <Link href={link.get('url')}>
-                          <a>{link.get('text')}</a>
-                        </Link>
+                        {link.get('external') ? (
+                          <a href={link.get('url')}>{link.get('text')}</a>
+                        ) : (
+                          <Link href={link.get('url')}>
+                            <a>{link.get('text')}</a>
+                          </Link>
+                        )}
+
                       </li>
                     ))}
                   </ul>

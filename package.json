@@ -33,7 +33,6 @@
     "@babel/preset-env": "^7.7.1",
     "@babel/preset-react": "^7.7.0",
     "@babel/register": "^7.4.4",
-    "@contentful/rich-text-react-renderer": "^13.2.0",
     "@hapi/boom": "^7.4.2",
     "@hapi/joi": "^15.0.1",
     "@next/bundle-analyzer": "^9.2.0",

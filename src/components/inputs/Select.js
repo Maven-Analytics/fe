@@ -1,11 +1,12 @@
 import * as PropTypes from 'prop-types';
 import React from 'react';
 
-const Select = ({className, id, label, options, name, register, required}) => {
+const Select = ({className, disabled, id, label, options, name, register, required}) => {
   return (
     <div className="form-group">
       {label ? <label htmlFor={id}>{label}</label> : null}
       <select
+        disabled={disabled}
         required={required}
         ref={register}
         className={className}
@@ -24,6 +25,7 @@ const Select = ({className, id, label, options, name, register, required}) => {
 
 Select.propTypes = {
   className: PropTypes.string,
+  disabled: PropTypes.bool,
   id: PropTypes.string.isRequired,
   label: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.shape({
@@ -37,6 +39,7 @@ Select.propTypes = {
 
 Select.defaultProps = {
   className: 'input',
+  disabled: false,
   required: false
 };
 

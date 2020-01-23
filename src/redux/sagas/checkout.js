@@ -1,7 +1,7 @@
 import {all, put, takeLatest} from 'redux-saga/effects';
 
-import {types as checkoutTypes} from '../ducks/checkout';
 import {setCookie} from '../../utils/cookies';
+import {types as checkoutTypes} from '../ducks/checkout';
 
 export function * watchCheckout() {
   yield takeLatest(checkoutTypes.CHECKOUT_SET_PLAN_REQUEST, onCheckoutRequest);
@@ -12,7 +12,9 @@ function * onCheckoutRequest({payload: {plan, ctx}}) {
     setCookie(
       'checkout',
       {
-        plan: plan.toJS()
+        plan: {
+          id: plan.get('id')
+        }
       },
       ctx
     );

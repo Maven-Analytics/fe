@@ -186,7 +186,13 @@ const SignupAccount = () => {
   const [registerUser, {error: registerError, client: clientRegister}] = useMutation(registerMutation);
   const [response, setResponse] = useState(null);
   const {formState: {isSubmitting, isSubmitted}, handleSubmit, register, clearError, errors: formErrors, watch} = useForm({
-    defaultValues: user.toJS()
+    defaultValues: {
+      country: user.get('country'),
+      email: user.get('email'),
+      first_name: user.get('first_name'),
+      last_name: user.get('last_name'),
+      postal_code: user.get('postal_code')
+    }
   });
 
   const dispatch = useDispatch();
@@ -314,7 +320,7 @@ const SignupAccount = () => {
             >
             I have read and agree to the&nbsp;
               <a href="#" onClick={() => dispatch(stateActions.modalOpen('pageModal', 'terms'))}>Terms of Service</a> and&nbsp;
-              <a href="#" onClick={() => dispatch(stateActions.modalOpen('pageModal', 'privacy-policy'))}>Customer Privacy Policy</a>
+              <a href="#" onClick={() => dispatch(stateActions.modalOpen('pageModal', 'privacy'))}>Customer Privacy Policy</a>
             </Checkbox>
           </div>
           <CheckoutFooter
