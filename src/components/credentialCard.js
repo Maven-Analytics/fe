@@ -1,52 +1,39 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import Link from 'next/link';
 import {Map} from 'immutable';
-import {connect} from 'react-redux';
+import Link from 'next/link';
+import PropTypes from 'prop-types';
+import React, {Component, memo} from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import {connect, useSelector} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import {actions as credentialActions, selectors as credentialSelectors} from '../redux/ducks/credentials';
 import ImageContentful from './imageContentful';
 import ProgressMeter from './progressMeter';
 
-class CredentialCard extends Component {
-  componentDidMount() {
-    // If (this.props.completed) {
-    //   this.props.actions.credentialsGet({
-    //     query: {
-    //       group_id: this.props.accredibleId
-    //     }
-    //   });
-    // }
+const CredentialCard = ({accredibleId, progress, title, image, promoteUrl}) => {
+  const credentials = useSelector(credentialSelectors.getCredentials);
+  const credential = credentials.find(c => c.get('group_id') === accredibleId);
+  const classList = ['credential-card'];
+  const url = credential && credential.has('url') && credential.get('url') !== '' ? credential.get('url') : promoteUrl;
+
+  if (credential || progress >= 1) {
+    classList.push('completed');
   }
 
-  render() {
-    let {progress, title, image, promoteUrl, credential} = this.props;
-    const classList = ['credential-card'];
-    const url = credential && credential.has('url') && credential.get('url') !== '' ? credential.get('url') : promoteUrl;
-
-    if (credential || progress >= 1) {
-      classList.push('completed');
-    }
-
-    return (
-      <div className={classList.join(' ')}>
-        <ImageContentful image={image} />
-        <p>{title}</p>
-        {url ? (
-          <Link href={url}>
-            <a className="btn" target="_blank">
-              See Badge
-            </a>
-          </Link>
-        ) : (
-          <ProgressMeter title="Progress" value={progress} />
-        )}
-      </div>
-    );
-  }
-}
+  return (
+    <div className={classList.join(' ')}>
+      <ImageContentful image={image} />
+      <p>{title}</p>
+      {url ? (
+        <a className="btn" href={url} rel="noopener noreferrer" target="_blank">
+            See Badge
+        </a>
+      ) : (
+        <ProgressMeter title="Progress" value={progress} />
+      )}
+    </div>
+  );
+};
 
 CredentialCard.propTypes = {
   title: PropTypes.string,
@@ -62,20 +49,5 @@ CredentialCard.defaultProps = {
   image: Map()
 };
 
-const mapStateToProps = (state, props) => ({
-  credential: credentialSelectors.getCredentialByGroupId(state, props.accredibleId)
-});
+export default memo(CredentialCard);
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(
-    {
-      ...credentialActions
-    },
-    dispatch
-  )
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CredentialCard);
