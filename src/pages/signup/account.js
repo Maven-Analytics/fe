@@ -345,32 +345,32 @@ SignupAccount.getInitialProps = async ctx => {
   const checkoutPlan = checkout.get('plan');
   const token = getCookie('token', ctx);
 
-  // If (!checkoutPlan || checkoutPlan.isEmpty()) {
-  //   if (res) {
-  //     res.writeHead(302, {
-  //       Location: '/signup'
-  //     });
-  //     res.end();
-  //   } else {
-  //     Router.push('/signup');
-  //   }
-  // }
+  if (!checkoutPlan || checkoutPlan.isEmpty()) {
+    if (res) {
+      res.writeHead(302, {
+        Location: '/signup'
+      });
+      res.end();
+    } else {
+      Router.push('/signup');
+    }
+  }
 
-  // if (token) {
-  //   const checkoutUrl = await getCheckoutUrlAsync(ctx);
-  //   if (!checkoutUrl) {
-  //     return {};
-  //   }
+  if (token) {
+    const checkoutUrl = await getCheckoutUrlAsync(ctx);
+    if (!checkoutUrl) {
+      return {};
+    }
 
-  //   if (res) {
-  //     res.writeHead(302, {
-  //       Location: checkoutUrl
-  //     });
-  //     res.end();
-  //   } else {
-  //     Router.push(checkoutUrl);
-  //   }
-  // }
+    if (res) {
+      res.writeHead(302, {
+        Location: checkoutUrl
+      });
+      res.end();
+    } else {
+      Router.push(checkoutUrl);
+    }
+  }
 
   return {};
 };
