@@ -21,7 +21,7 @@ class TrackVisibility extends Component {
   componentDidMount() {
     this.addListeners();
 
-    this.interval = setInterval(this.handleScroll, 300);
+    // This.interval = setInterval(this.handleScroll, 300);
   }
 
   componentWillUnmount() {
@@ -48,8 +48,8 @@ class TrackVisibility extends Component {
           inView: true
         });
 
-        clearInterval(this.interval);
-        this.interval = null;
+        // ClearInterval(this.interval);
+        // this.interval = null;
 
         this.props.onShow();
       }
