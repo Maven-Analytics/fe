@@ -196,7 +196,7 @@ class CoursesLearningPaths extends PureComponent {
             className="course-hero--large"
             eyelash={page.get('heroEyelash')}
             title={page.get('heroTitle')}
-            description={page.get('heroDescription')}
+            description={page.get('heroText')}
             image={<ImageContentful image={page.get('heroImage')} />}
             colClasses={['col-md-7 col-lg-6 col-xl-5', 'col-md-5 col-lg-6 col-xl-7']}
             backgroundSources={[

@@ -4,9 +4,9 @@ import React from 'react';
 
 import ImageContentful from './imageContentful';
 import MaIcon from './maIcon';
-import RichText from './richText';
+import Markdown from './markdown';
 
-const StudentSpotlight = ({name, title, location, description, completedCourses, callout, image}) => {
+const StudentSpotlight = ({name, title, location, text, completedCourses, callout, image}) => {
   return (
     <div className="student-spotlight">
       <div className="row">
@@ -33,7 +33,7 @@ const StudentSpotlight = ({name, title, location, description, completedCourses,
         </div>
         <div className="col-12 col-md-8">
           <div className="student-spotlight__quote">
-            <RichText content={fromJS(description)}/>
+            <Markdown content={text}/>
           </div>
         </div>
       </div>
@@ -50,7 +50,7 @@ StudentSpotlight.propTypes = {
   name: PropTypes.string,
   title: PropTypes.string,
   location: PropTypes.string,
-  description: PropTypes.object,
+  text: PropTypes.string,
   completedCourses: PropTypes.array,
   callout: PropTypes.string,
   image: PropTypes.object

@@ -12,7 +12,7 @@ import Head from '#root/components/head';
 import ImageContentful from '#root/components/imageContentful';
 import BrochureLayout from '#root/components/layout/brochure';
 import MaIcon from '#root/components/maIcon';
-import RichText from '#root/components/richText';
+import Markdown from '#root/components/markdown';
 import BrochureHero from '#root/components/sections/brochureHero';
 import CtaSurvey from '#root/components/sections/ctaSurvey';
 import {courseHeroBgSources, courseHeroBgSrc} from '#root/constants';
@@ -30,7 +30,7 @@ const Course = ({course, actions, paths}) => {
         <BrochureHero
           eyelash="Self-Paced Course"
           title={course.get('title')}
-          description={course.get('previewDescription')}
+          description={course.get('descriptionPreview')}
           hours={course.get('length')}
           difficulty={course.get('difficulty')}
           tools={course.get('tools')}
@@ -49,14 +49,14 @@ const Course = ({course, actions, paths}) => {
             <section>
               <div>
                 <h4>Course Description</h4>
-                {course.get('description') && course.get('description') !== '' ? <RichText content={course.get('description')}/> : null}
+                {course.get('descriptionFull') && course.get('descriptionFull') !== '' ? <Markdown content={course.get('descriptionFull')}/> : null}
               </div>
               <div>
                 <h4>Course Outline</h4>
                 {course.get('lessons') ? <CourseLessons lessons={course.get('lessons')}/> : null}
               </div>
               <div>
-                {course.get('descriptionDetails') ? <RichText content={course.get('descriptionDetails')}/> : null}
+                {course.get('descriptionDetail') ? <Markdown content={course.get('descriptionDetail')}/> : null}
               </div>
               <div className="course-detail__cta">
                 <h3>Are you ready to become a DATA ROCKSTAR? Start learning today with your FREE 7-Day trial! </h3>
@@ -85,7 +85,7 @@ const Course = ({course, actions, paths}) => {
                   </span>
                 </div>
                 <div className="bio">
-                  {course.hasIn(['author', 'bio']) ? <RichText content={course.getIn(['author', 'bio'])}/> : null}
+                  {course.hasIn(['author', 'bio']) ? <Markdown content={course.getIn(['author', 'biography'])}/> : null}
                 </div>
                 {course.hasIn(['author', 'qualifications']) ? (
                   <div className="qualifications">
@@ -104,7 +104,7 @@ const Course = ({course, actions, paths}) => {
                   {course.has('testimonials') && course.get('testimonials').map(testimonial => (
                     <li key={testimonial.get('id')}>
                       <blockquote>
-                        <RichText content={testimonial.get('quote')}/>
+                        <Markdown content={testimonial.get('text')}/>
                         <footer>
                           <cite>- {testimonial.get('name')}</cite>
                         </footer>

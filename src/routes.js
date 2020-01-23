@@ -25,7 +25,7 @@ export const Routes = {
   Login: '/login',
   Logout: '/logout',
   Path: '/path',
-  PrivacyPolicy: '/privacy-policy',
+  PrivacyPolicy: '/privacy',
   Reset: '/reset',
   SkillsAssessments: '/skills-assessments',
   Signup: '/signup',

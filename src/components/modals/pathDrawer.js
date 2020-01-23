@@ -6,10 +6,11 @@ import {bindActionCreators} from 'redux';
 
 import CloseButton from '#root/components/closeButton';
 import ProductDetail from '#root/components/productDetail';
-import RichText from '#root/components/richText';
 import {selectors as pathSelectors} from '#root/redux/ducks/paths';
 import {actions as stateActions, selectors as stateSelectors} from '#root/redux/ducks/state';
 import {clickAction} from '#root/utils/componentHelpers';
+
+import Markdown from '../markdown';
 
 const PathDrawer = ({actions, state, paths}) => {
   const isOpen = state.getIn(['pathDrawer', 'open']);
@@ -43,7 +44,7 @@ const PathDrawer = ({actions, state, paths}) => {
               instructors={path.get('instructors')}
               id={path.get('id')}
             >
-              {path.get('description') && path.get('description') !== '' ? <RichText content={path.get('description')} /> : null}
+              {path.get('descriptionFull') && path.get('descriptionFull') !== '' ? <Markdown content={path.get('descriptionFull')} /> : null}
             </ProductDetail>
           ) : null}
         </div>

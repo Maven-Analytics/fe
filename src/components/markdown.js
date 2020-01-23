@@ -10,6 +10,12 @@ const md = new Remarkable({
 });
 
 const Markdown = ({content, className, tag: Tag, ...props}) => {
+  if (!content) {
+    return null;
+  }
+
+  console.log(content);
+
   const parsed = md.render(content);
 
   // eslint-disable-next-line react/no-danger

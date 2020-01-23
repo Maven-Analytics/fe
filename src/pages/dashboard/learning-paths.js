@@ -33,7 +33,7 @@ class DashboardLearningPaths extends Component {
                 <DashboardPath
                   title={path.getIn(['title'])}
                   badge={path.getIn(['badge'])}
-                  shortDescription={path.getIn(['shortDescription'])}
+                  descriptionPreview={path.getIn(['descriptionPreview'])}
                   resumeUrl={path.get('resumeUrl')}
                   percentage_completed={path.get('percentage_completed')}
                   match={`${prettyPercent(path.get('match'))}%`}

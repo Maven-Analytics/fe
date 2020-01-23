@@ -38,7 +38,7 @@ class PageModal extends Component {
         <>
           <Loader loading={loading} position="top-center" width={70} height={70} />
           <div className="page-modal">
-            {page ? <Wysiwyg content={page.get('content')}/> : null}
+            {page ? <Wysiwyg content={page.get('body')}/> : null}
           </div>
         </>
       </Modal>

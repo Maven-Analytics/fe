@@ -1,17 +1,17 @@
 import {List, Map} from 'immutable';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import React from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 
 import ImageContentful from './imageContentful';
+import Markdown from './markdown';
 import ProductMeta from './productMeta';
 import ProductMetaItem from './productMetaItem';
 import ProductTools from './productTools';
 import ProgressMeter from './progressMeter';
 import ResumeProduct from './resumeProduct';
-import RichText from './richText';
 
-const DashboardPath = ({title, percentage_completed, onDetailClick, resumeUrl, badge, shortDescription, match, courseCount, hours, tools}) => {
+const DashboardPath = ({title, percentage_completed, onDetailClick, resumeUrl, badge, descriptionPreview, match, courseCount, hours, tools}) => {
   return (
     <div className="dashboard-path">
       <div className="dashboard-path__badge">
@@ -19,7 +19,7 @@ const DashboardPath = ({title, percentage_completed, onDetailClick, resumeUrl, b
       </div>
       <div className="dashboard-path__content">
         <h4>{title}</h4>
-        <RichText content={shortDescription} />
+        <Markdown content={descriptionPreview}/>
         <div className="dashboard-path__footer">
           {resumeUrl ? (
             <ResumeProduct resumeUrl={resumeUrl} productTerm="Path" started={percentage_completed > 0} className="btn btn--primary-solid" />
@@ -50,7 +50,7 @@ DashboardPath.propTypes = {
   onDetailClick: PropTypes.func.isRequired,
   resumeUrl: PropTypes.string,
   badge: ImmutablePropTypes.map,
-  shortDescription: ImmutablePropTypes.map,
+  descriptionPreview: PropTypes.string,
   match: PropTypes.string,
   courseCount: PropTypes.number,
   hours: PropTypes.number,

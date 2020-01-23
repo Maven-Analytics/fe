@@ -1,8 +1,8 @@
+import Link from 'next/link';
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import Link from 'next/link';
 
-import RichText from './richText';
+import Markdown from './markdown';
 
 const DashboardAnnouncements = ({announcements}) => (
   <div className="dashboard-announcements">
@@ -21,7 +21,7 @@ const DashboardAnnouncements = ({announcements}) => (
                 {announcement.get('new') ? <span className="pill new">New</span> : null}
               </div>
               <h4>{announcement.get('title')}</h4>
-              <RichText content={announcement.get('message')} />
+              <Markdown content={announcement.get('body')}/>
               {announcement.get('ctaUrl') ? (
                 <Link href={announcement.get('ctaUrl')}>
                   <button className="btn btn--default">{announcement.get('ctaText') || 'Read More'}</button>

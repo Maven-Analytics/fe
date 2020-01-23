@@ -26,7 +26,7 @@ class VideoSeriesLayout extends Component {
           eyelash={page.get('heroEyelash')}
           title={page.get('heroTitle')}
           video={page.get('heroVideo')}
-          description={page.get('heroDescription')}
+          description={page.get('heroText')}
           onVideoClick={clickAction(actions.modalOpen, 'video', {video: page.get('heroVideo')})}
           thumbnail={page.get('heroImage')}
           meta={false}

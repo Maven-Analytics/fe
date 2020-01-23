@@ -10,8 +10,9 @@ import MaIcon from '#root/components/maIcon';
 import ParallaxBg from '#root/components/parallaxBg';
 import ProductMeta from '#root/components/productMeta';
 import ProductMetaItem from '#root/components/productMetaItem';
-import RichText from '#root/components/richText';
 import {innerHtml} from '#root/utils/componentHelpers';
+
+import Markdown from '../markdown';
 
 const BrochureHero = ({
   image,
@@ -57,13 +58,9 @@ const BrochureHero = ({
             <div className={colClasses[0]}>
               {eyelash ? <p className="brochure-hero__eyelash">{eyelash}</p> : null}
               <h1 dangerouslySetInnerHTML={innerHtml(title)} />
-              {isImmutable(description) ? (
-                <div className="brochure-hero__description">
-                  <RichText content={description} />
-                </div>
-              ) : (
-                <div className="brochure-hero__description" dangerouslySetInnerHTML={innerHtml(description)} />
-              )}
+              <div className="brochure-hero__description">
+                {description && description !== '' ? <Markdown content={description} /> : null}
+              </div>
               {linkHref ? (
                 <Link href={linkHref}>
                   <a className="brochure-hero__link" onClick={onLinkClick}>
@@ -132,7 +129,7 @@ BrochureHero.propTypes = {
   className: PropTypes.string,
   eyelash: PropTypes.string,
   title: PropTypes.string,
-  description: PropTypes.oneOfType([PropTypes.string, ImmutablePropTypes.map]),
+  description: PropTypes.string,
   hours: PropTypes.number,
   skills: ImmutablePropTypes.list,
   tools: ImmutablePropTypes.list,
@@ -154,7 +151,7 @@ BrochureHero.propTypes = {
 
 BrochureHero.defaultProps = {
   skills: List(),
-  description: Map(),
+  description: null,
   tools: List(),
   badge: Map(),
   paths: List(),

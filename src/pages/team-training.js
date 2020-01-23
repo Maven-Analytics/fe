@@ -23,7 +23,7 @@ const TeamTraining = ({page}) => {
         className="brochure-hero--medium"
         eyelash={page.get('heroEyelash')}
         title={page.get('heroTitle')}
-        description={page.get('heroDescription')}
+        description={page.get('heroText')}
         meta={false}
         image={<ImageContentful image={page.get('heroImage')}/>}
         colClasses={['col-md-6', 'col-md-6']}
@@ -34,7 +34,7 @@ const TeamTraining = ({page}) => {
         backgroundSrc={page.getIn(['heroBackgroundSmall', 'file', 'url'])}
       />
       <BrochureContent className="page-training" title={page.get('brochureTitle')}>
-        <Wysiwyg className="page-training__content" content={page.get('content')}/>
+        <Wysiwyg className="page-training__content" content={page.get('body')}/>
         <CtaForm title="Request A Quote" form={TeamTrainingForm}>
           <CtaQuote
             cite="- Patrick O’Donnell, VP of Sales"

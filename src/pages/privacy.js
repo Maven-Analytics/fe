@@ -15,7 +15,7 @@ const PrivacyPolicy = ({page}) => {
     <BrochureLayout className="global-header--checkout">
       <Head page={page} meta={page.get('meta')}/>
       <BrochureContent title={page.get('brochureTitle')}>
-        <Wysiwyg content={page.get('content')}/>
+        <Wysiwyg content={page.get('body')}/>
       </BrochureContent>
     </BrochureLayout>
   );
@@ -24,7 +24,7 @@ const PrivacyPolicy = ({page}) => {
 PrivacyPolicy.getInitialProps = ctx => {
   const {store} = ctx;
 
-  store.dispatch(pageActions.pagesGet({slug: 'privacy-policy'}));
+  store.dispatch(pageActions.pagesGet({slug: 'privacy'}));
   return {};
 };
 
@@ -37,7 +37,7 @@ PrivacyPolicy.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  page: pageSelectors.getPage(state, 'privacy-policy')
+  page: pageSelectors.getPage(state, 'privacy')
 });
 
 export default connect(mapStateToProps)(PrivacyPolicy);

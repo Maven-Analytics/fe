@@ -14,6 +14,7 @@ const spotlightFragment = gql`
     location
     name
     order
+    text
     title
   }
   ${imageFragment}

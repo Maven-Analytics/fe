@@ -11,10 +11,11 @@ import imageFragment from '#root/api/fragments/image';
 import CloseButton from '#root/components/closeButton';
 import CourseLessons from '#root/components/courseLessons';
 import ProductDetail from '#root/components/productDetail';
-import RichText from '#root/components/richText';
 import {actions as stateActions, selectors as stateSelectors} from '#root/redux/ducks/state';
 import {Routes} from '#root/routes';
 import {clickAction} from '#root/utils/componentHelpers';
+
+import Markdown from '../markdown';
 
 const courseQuery = gql`
 query CourseById($id: String!) {
@@ -30,6 +31,8 @@ query CourseById($id: String!) {
       ...image
     }
     description
+    descriptionFull
+    descriptionDetail
     descriptionDetails
     enrollment {
       id
@@ -50,6 +53,7 @@ query CourseById($id: String!) {
     }
     title
     tools
+    url
   }
 }
 ${imageFragment}
@@ -75,6 +79,8 @@ const CourseDrawer = ({actions, state}) => {
     });
 
     course = fromJS(courses[0]);
+
+    console.log(course);
   }
 
   return (
@@ -100,9 +106,9 @@ const CourseDrawer = ({actions, state}) => {
               id={course.get('thinkificCourseId')}
               url={Routes.Course(course.get('slug'))}
             >
-              {course.get('description') && course.get('description') !== '' ? <RichText content={course.get('description')} /> : null}
+              {course.get('descriptionFull') && course.get('descriptionFull') !== '' ? <Markdown content={course.get('descriptionFull')} /> : null}
               {course.get('lessons') ? <CourseLessons lessons={course.get('lessons')} /> : null}
-              {course.get('descriptionDetails') ? <RichText content={course.get('descriptionDetails')} /> : null}
+              {course.get('descriptionDetail') ? <Markdown content={course.get('descriptionDetail')} /> : null}
             </ProductDetail>
           ) : null}
         </div>

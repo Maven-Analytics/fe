@@ -5,8 +5,16 @@
     @include list-unstyled();
 
     li {
+      color: $gray-copy;
+      line-height: 1.5;
+      padding-bottom: 1rem;
+
       &:not(:last-child) {
         border-bottom: 1px solid $gray-light-2;
+      }
+
+      > p {
+        margin: 0;
       }
     }
   }

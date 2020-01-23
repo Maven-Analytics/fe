@@ -1,5 +1,4 @@
 import {fromJS, List, Map} from 'immutable';
-import Link from 'next/link';
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
@@ -24,7 +23,7 @@ const CredentialsPage = ({page, courses, paths}) => {
         className="brochure-hero--medium"
         eyelash={page.get('heroEyelash')}
         title={page.get('heroTitle')}
-        description={page.get('heroDescription')}
+        description={page.get('heroText')}
         meta={false}
         image={<ImageContentful image={page.get('heroImage')}/>}
         colClasses={['col-md-6', 'col-md-6']}
@@ -38,12 +37,10 @@ const CredentialsPage = ({page, courses, paths}) => {
         <ul>
           {products.map(product => (
             <li key={product.get('id')}>
-              <Link href={product.get('badgeUrl')}>
-                <a className="credential" target="_blank">
-                  {product.get('title') ? <div className="tooltip centered">{product.get('title')}</div> : null}
-                  <ImageContentful image={product.get('badge')}/>
-                </a>
-              </Link>
+              <a className="credential" href={product.get('badgeUrl')} target="_blank" rel="noopener noreferrer">
+                {product.get('title') ? <div className="tooltip centered">{product.get('title')}</div> : null}
+                <ImageContentful image={product.get('badge')}/>
+              </a>
             </li>
           ))}
         </ul>

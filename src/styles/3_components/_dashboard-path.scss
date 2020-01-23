@@ -40,7 +40,7 @@
     flex: 1;
     margin-bottom: $spacing-unit--md;
 
-    > h4 {
+    h4 {
       color: $black-2;
       font-family: $font-body;
       font-size: 1.25em;
@@ -48,7 +48,7 @@
       line-height: 1.25;
     }
 
-    > p {
+    p {
       color: $gray-medium-3;
       line-height: 1.5;
       margin: 0 0 $spacing-unit;

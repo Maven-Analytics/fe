@@ -25,7 +25,7 @@ const SkillsAssessments = ({courses, page, actions}) => {
         className="brochure-hero--medium"
         eyelash={page.get('heroEyelash')}
         title={page.get('heroTitle')}
-        description={page.get('heroDescription')}
+        description={page.get('heroText')}
         meta={false}
         image={<ImageContentful image={page.get('heroImage')}/>}
         colClasses={['col-md-6', 'col-md-6']}

@@ -314,7 +314,7 @@ const SignupAccount = () => {
             >
             I have read and agree to the&nbsp;
               <a href="#" onClick={() => dispatch(stateActions.modalOpen('pageModal', 'terms'))}>Terms of Service</a> and&nbsp;
-              <a href="#" onClick={() => dispatch(stateActions.modalOpen('pageModal', 'privacy-policy'))}>Customer Privacy Policy</a>
+              <a href="#" onClick={() => dispatch(stateActions.modalOpen('pageModal', 'privacy'))}>Customer Privacy Policy</a>
             </Checkbox>
           </div>
           <CheckoutFooter
