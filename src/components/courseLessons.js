@@ -46,7 +46,7 @@ const CourseLessons = ({lessons, showCount}) => {
             ) : (
               <ul>
                 <li>
-                  {lesson.has('content') ? <Markdown className="course-lessons__content" content={lesson.get('text')}/> : null}
+                  {lesson.has('text') ? <Markdown className="course-lessons__content" content={lesson.get('text')}/> : null}
                 </li>
               </ul>
             )}
