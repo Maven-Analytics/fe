@@ -85,7 +85,7 @@ const Course = ({course, actions, paths}) => {
                   </span>
                 </div>
                 <div className="bio">
-                  {course.hasIn(['author', 'bio']) ? <Markdown content={course.getIn(['author', 'biography'])}/> : null}
+                  {course.hasIn(['author', 'biography']) ? <Markdown content={course.getIn(['author', 'biography'])}/> : null}
                 </div>
                 {course.hasIn(['author', 'qualifications']) ? (
                   <div className="qualifications">
