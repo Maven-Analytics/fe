@@ -10,7 +10,7 @@ const FontLoaderScript = () => {
 
   const icons = [new FontFaceObserver('maicon')];
 
-  const iconPromises = icons.map(icon => icon.load());
+  const iconPromises = icons.map(icon => icon.load(null, 5000));
 
   Promise.all(iconPromises).then(() => {
     document.body.classList.add('icons-loaded');
