@@ -79,8 +79,6 @@ const CourseDrawer = ({actions, state}) => {
     });
 
     course = fromJS(courses[0]);
-
-    console.log(course);
   }
 
   return (
