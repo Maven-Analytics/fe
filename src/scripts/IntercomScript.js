@@ -2,9 +2,10 @@ import React, {memo} from 'react';
 import Intercom from 'react-intercom';
 import {useSelector} from 'react-redux';
 
+import {selectors as stateSelectors} from '#root/redux/ducks/state';
+import {selectors as userSelectors} from '#root/redux/ducks/user';
 import accessConfig from '#root/utils/accessConfig';
-
-import {selectors as userSelectors} from '../redux/ducks/user';
+import {canUseDOM} from '#root/utils/componentHelpers';
 
 const IntercomScript = () => {
   if (accessConfig('DISABLE_INTERCOM', false)) {
@@ -12,6 +13,11 @@ const IntercomScript = () => {
   }
 
   const user = useSelector(userSelectors.getUser);
+  const state = useSelector(stateSelectors.getState);
+
+  if (state.get('renderIntercom') === false) {
+    return null;
+  }
 
   let userProps = {};
 
