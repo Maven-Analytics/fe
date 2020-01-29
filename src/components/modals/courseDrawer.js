@@ -13,7 +13,7 @@ import CourseLessons from '#root/components/courseLessons';
 import ProductDetail from '#root/components/productDetail';
 import {actions as stateActions, selectors as stateSelectors} from '#root/redux/ducks/state';
 import {Routes} from '#root/routes';
-import {clickAction} from '#root/utils/componentHelpers';
+import {click, clickAction} from '#root/utils/componentHelpers';
 
 import Markdown from '../markdown';
 
@@ -64,7 +64,7 @@ const CourseDrawer = ({actions, state}) => {
   // Const course = courses.find(course => course.get('id') === state.getIn(['courseDrawer', 'data']));
 
   const classList = ['course-drawer'];
-  const close = clickAction(actions.modalClose, 'courseDrawer');
+  const close = click(actions.modalClose, 'courseDrawer');
   let course = null;
 
   if (isOpen) {
@@ -98,6 +98,7 @@ const CourseDrawer = ({actions, state}) => {
               titleTag="h2"
               match={course.get('match')}
               resumeUrl={course.get('url')}
+              onResumeClick={close}
               tools={course.get('tools')}
               hours={course.get('length')}
               instructors={course.get('author')}
