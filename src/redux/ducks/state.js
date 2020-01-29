@@ -14,10 +14,12 @@ export const types = {
   PRODUCT_SORT_RESET: 'PRODUCT_SORT_RESET',
   THINKIFIC_HEALTH_REQUEST: 'THINKIFIC_HEALTH_REQUEST',
   THINKIFIC_HEALTH_SUCCESS: 'THINKIFIC_HEALTH_SUCCESS',
-  THINKIFIC_HEALTH_FAILURE: 'THINKIFIC_HEALTH_FAILURE'
+  THINKIFIC_HEALTH_FAILURE: 'THINKIFIC_HEALTH_FAILURE',
+  RENDER_INTERCOM: 'RENDER_INTERCOM'
 };
 
 export const actions = {
+  renderIntercom: obj => utils.action(types.RENDER_INTERCOM, obj),
   healthSet: (key, healthy) => utils.action(types.HEALTH_SET, {key, healthy}),
   offmenuToggle: obj => utils.action(types.OFFMENU_TOGGLE, obj),
   offmenuClose: obj => utils.action(types.OFFMENU_CLOSE, obj),
@@ -29,6 +31,7 @@ export const actions = {
 };
 
 const initialState = utils.initialState({
+  renderIntercom: false,
   mobileMenu: false,
   headerUser: false,
   pathDrawer: {
@@ -63,6 +66,8 @@ const initialState = utils.initialState({
 
 export default (state = initialState, action) => {
   switch (action.type) {
+  case types.RENDER_INTERCOM:
+    return state.set('renderIntercom', action.payload);
   case types.HEALTH_SET:
     return state.setIn(['health', action.payload.key], action.payload.healthy);
   case types.MODAL_OPEN:
