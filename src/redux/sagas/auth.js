@@ -19,12 +19,12 @@ import {selectors as subscriptionSelectors, types as subscriptionTypes} from '..
 import {selectors as userSelectors, types as userTypes} from '../ducks/user';
 
 export function * watchAuth() {
-  yield takeLatest(authTypes.LOGIN_REQUEST, loginRequest);
-  yield takeLatest(authTypes.REAUTHENTICATE_REQUEST, reauthenticateRequest);
-  yield takeLatest(authTypes.REGISTER_REQUEST, registerRequest);
-  yield takeLatest(authTypes.LOGOUT_REQUEST, logoutRequest);
+  // Yield takeLatest(authTypes.LOGIN_REQUEST, loginRequest);
+  // yield takeLatest(authTypes.REAUTHENTICATE_REQUEST, reauthenticateRequest);
+  // yield takeLatest(authTypes.REGISTER_REQUEST, registerRequest);
+  // yield takeLatest(authTypes.LOGOUT_REQUEST, logoutRequest);
   yield takeLatest(authTypes.SSO_REQUEST, ssoRequest);
-  yield takeLatest(authTypes.ENSURE_ENROLLED_REQUEST, ensureEnrolled);
+  // Yield takeLatest(authTypes.ENSURE_ENROLLED_REQUEST, ensureEnrolled);
   yield takeLatest(authTypes.FORGOT_REQUEST, onForgotRequest);
   yield takeLatest(authTypes.RESET_REQUEST, onResetRequest);
   yield takeLatest(authTypes.LOGIN, login);

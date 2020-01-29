@@ -4,6 +4,7 @@ import {memo} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import UserSettingFragment from '#root/api/fragments/UserSetting';
+import subscriptionStatusQuery from '#root/api/query/subscriptionStatus';
 import {actions as subscriptionActions, selectors as subscriptionSelectors} from '#root/redux/ducks/subscription';
 import {actions as userSettingsActions} from '#root/redux/ducks/userSettings';
 
@@ -16,14 +17,6 @@ const userSettingsQuery = gql`
   }
 }
 ${UserSettingFragment}
-`;
-
-const subscriptionStatusQuery = gql`
-query SubscriptionStatus {
-  subscriptionStatus {
-    subscription_status
-  }
-}
 `;
 
 const Root = memo(({children, user}) => {
