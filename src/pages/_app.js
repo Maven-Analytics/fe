@@ -7,8 +7,9 @@ import withRedux from 'next-redux-wrapper';
 import App from 'next/app';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Provider} from 'react-redux';
+import {connect, Provider} from 'react-redux';
 import {ParallaxProvider} from 'react-scroll-parallax';
+import {bindActionCreators} from 'redux';
 
 import client from '#root/api/graphQlClient';
 import meQuery from '#root/api/query/me';
@@ -22,6 +23,7 @@ import SentryScript from '#root/scripts/SentryScript';
 import {actions as checkoutActions} from '../redux/ducks/checkout';
 import {actions as enrollmentActions} from '../redux/ducks/enrollments';
 import {actions as recommendedActions} from '../redux/ducks/recommended';
+import {actions as stateActions} from '../redux/ducks/state';
 import {actions as subscriptionActions} from '../redux/ducks/subscription';
 import {actions as userActions} from '../redux/ducks/user';
 import initStore from '../redux/store';
@@ -88,6 +90,29 @@ class MavenApp extends App {
     };
   }
 
+  constructor(props) {
+    super(props);
+
+    this.handleDomContentLoad = this.handleDomContentLoad.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener('load', this.handleDomContentLoad);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('load', this.handleDomContentLoad);
+  }
+
+  handleDomContentLoad() {
+    window.removeEventListener('load', this.handleDomContentLoad);
+
+    // Render intercom 10 seconds after page load
+    setTimeout(() => {
+      this.props.actions.renderIntercom(true);
+    }, 10000);
+  }
+
   render() {
     const {Component, pageProps, store} = this.props;
 
@@ -110,10 +135,19 @@ class MavenApp extends App {
 }
 
 MavenApp.propTypes = {
+  actions: PropTypes.objectOf(PropTypes.func),
   store: PropTypes.object.isRequired
 };
+
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    ...stateActions
+  }, dispatch)
+});
 
 export default withRedux(initStore, {
   serializeState: state => state.toJS(),
   deserializeState: state => fromJS(state)
-})(withReduxSaga(withApollo(MavenApp)));
+})(withReduxSaga(withApollo(connect(mapStateToProps, mapDispatchToProps)(MavenApp))));
