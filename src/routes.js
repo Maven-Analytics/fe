@@ -5,6 +5,7 @@ import accessConfig from './utils/accessConfig';
 export const Routes = {
   Home: '/',
   Account: '/dashboard/account',
+  AccountInvoices: '/dashboard/account/invoices',
   AccountPassword: '/dashboard/account/password',
   Badges: '/badges',
   BiVideoSeries: '/bi-video-series',

@@ -1,0 +1,75 @@
+.account-invoice-list {
+  &__header {
+    border-bottom: 1px solid $gray-light-3;
+    display: none;
+    font-size: 1.4rem;
+
+    @include media-breakpoint-only(sm) {
+      font-size: 1.2rem;
+    }
+
+    @include media-breakpoint-up(sm) {
+      display: block;
+    }
+  }
+
+  &__header-label {
+    font-weight: 700;
+  }
+
+  &__item {
+    border-bottom: 1px solid $gray-light-3;
+    font-size: 1.4rem;
+    margin: 0 0 $spacing-unit;
+    padding: $spacing-unit 0;
+
+    @include media-breakpoint-up(sm) {
+      margin: 0;
+      padding: 0;
+    }
+
+    @include media-breakpoint-only(sm) {
+      font-size: 1.2rem;
+    }
+
+    &__block {
+      display: grid;
+      grid-template-columns: 12rem 1fr;
+      margin: 0 0 $spacing-unit--xs;
+
+      @include media-breakpoint-up(sm) {
+        align-items: center;
+        display: flex;
+        height: 50px;
+        margin: 0;
+      }
+
+      @include media-breakpoint-up(md) {
+        height: 40px;
+      }
+
+      &.link {
+        display: block;
+        margin: $spacing-unit--ss 0;
+        
+        @include media-breakpoint-up(sm) {
+          display: none;
+        }
+      }
+    }
+
+    .label {
+      font-weight: 700;
+
+      @include media-breakpoint-up(sm) {
+        display: none;
+      }
+    }
+
+    .value {
+      &.status {
+        text-transform: capitalize;
+      }
+    }
+  }
+}

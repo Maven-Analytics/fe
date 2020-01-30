@@ -261,6 +261,44 @@ export const getTimeOfDay = () => {
   return 'evening';
 };
 
+export const formatDateMMDDYYYY = dateStr => {
+  if (!dateStr) {
+    return null;
+  }
+
+  const date = new Date(dateStr);
+
+  if (!date) {
+    return null;
+  }
+
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const year = date.getFullYear();
+
+  return `${month < 9 ? `0${month}` : month}/${day}/${year}`;
+};
+
+export const centsToDollarString = (cents, prefix = '$') => {
+  if (!cents) {
+    return `${prefix ? prefix : ''}${twoDecimals(0)}`;
+  }
+
+  const dollars = cents / 100;
+
+  return `${prefix ? prefix : ''}${twoDecimals(dollars)}`;
+};
+
+export function twoDecimals(value) {
+  value = parseFloat(value);
+
+  if (value === 0) {
+    return '0.00';
+  }
+
+  return (Math.floor(value * 100) / 100).toFixed(2);
+}
+
 export const canUseWebP = () => {
   if (!canUseDOM()) {
     return false;

@@ -3,14 +3,16 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 import React, {memo} from 'react';
 
+import {Routes} from '#root/routes';
+
 const SidebarLinks = fromJS([
   {
     title: 'Profile',
-    url: '/dashboard/account'
+    url: Routes.Account
   },
   {
     title: 'Password',
-    url: '/dashboard/account/password'
+    url: Routes.AccountPassword
   },
   {
     title: 'Billing',
@@ -18,9 +20,8 @@ const SidebarLinks = fromJS([
     external: true
   },
   {
-    title: 'Order History',
-    url: 'https://mavenanalytics.thinkific.com/account/orders',
-    external: true
+    title: 'Invoice History',
+    url: Routes.AccountInvoices
   }
 ]);
 
@@ -30,9 +31,14 @@ const DashboardHeader = ({activeLink}) => {
       <ul>
         {SidebarLinks.map((link, index) => (
           <li key={link.get('url')}>
-            <Link href={link.get('url')} shallow={link.get('external')}>
-              <a className={index === activeLink ? 'active' : ''}>{link.get('title')}</a>
-            </Link>
+            {link.get('external') ? (
+              <a href={link.get('url')} className={index === activeLink ? 'active' : ''}>{link.get('title')}</a>
+            ) : (
+              <Link href={link.get('url')} shallow={link.get('external')}>
+                <a className={index === activeLink ? 'active' : ''}>{link.get('title')}</a>
+              </Link>
+            )}
+
           </li>
         ))}
       </ul>
