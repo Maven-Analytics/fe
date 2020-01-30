@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 
-import {prettyPercent} from '#root/utils/componentHelpers';
+import {noop, prettyPercent} from '#root/utils/componentHelpers';
 
 import CourseAuthor from './courseAuthor';
 import CourseScores from './courseScores';
@@ -28,6 +28,7 @@ const ProductDetail = ({
   titleTag: TitleTag,
   title,
   resumeUrl,
+  onResumeClick: handleResumeClick,
   id,
   percentage_completed,
   tools,
@@ -57,15 +58,15 @@ const ProductDetail = ({
         {id ? (
           <>
             <LoggedIn>
-              {comingSoon ? null : <ResumeProduct resumeUrl={resumeUrl} productTerm={productTerm} started={percentage_completed > 0} className="btn btn--primary-solid" />}
+              {comingSoon ? null : <ResumeProduct resumeUrl={resumeUrl} onClick={handleResumeClick} productTerm={productTerm} started={percentage_completed > 0} className="btn btn--primary-solid" />}
               {/* <Link href={resumeUrl || '#'}><a className="btn btn--primary-solid">{linkTerm} {productTerm}</a></Link> */}
             </LoggedIn>
             <LoggedOut>
               {url ? (
                 <Link href={url}>
-                  <a className="btn btn--primary-solid">View Full Details</a>
+                  <a className="btn btn--primary-solid" onClick={handleResumeClick}>View Full Details</a>
                 </Link>
-              ) : comingSoon ? null : <ResumeProduct productTerm={productTerm} started={percentage_completed > 0} className="btn btn--primary-solid" />}
+              ) : comingSoon ? null : <ResumeProduct onClick={handleResumeClick} productTerm={productTerm} started={percentage_completed > 0} className="btn btn--primary-solid" />}
             </LoggedOut>
           </>
         ) : null}
@@ -140,6 +141,7 @@ ProductDetail.propTypes = {
   titleTag: PropTypes.string,
   title: PropTypes.string.isRequired,
   resumeUrl: PropTypes.string,
+  onResumeClick: PropTypes.func,
   percentage_completed: PropTypes.number,
   tools: ImmutablePropTypes.list,
   courseCount: PropTypes.number,
@@ -154,11 +156,12 @@ ProductDetail.propTypes = {
 
 ProductDetail.defaultProps = {
   badge: Map(),
-  titleTag: 'h2',
+  children: null,
   description: Map(),
-  tools: List(),
   instructors: Map(),
-  children: null
+  onResumeClick: noop,
+  tools: List(),
+  titleTag: 'h2'
 };
 
 export default ProductDetail;

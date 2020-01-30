@@ -1,16 +1,11 @@
 import {useMutation} from '@apollo/react-hooks';
-import {Map} from 'immutable';
 import Router from 'next/router';
-import PropTypes from 'prop-types';
-import React, {Component, useState} from 'react';
+import React, {useState} from 'react';
 import {useForm} from 'react-hook-form';
-import * as ImmutablePropTypes from 'react-immutable-proptypes';
-import {connect, useDispatch, useSelector} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import registerMutation from '#root/api/mutations/register';
 import updateUserMutation from '#root/api/mutations/updateUser';
-import AccountForm from '#root/components/forms//accountForm';
 import ThinkificDownRedirect from '#root/components/health/ThinkificDownRedirect';
 import Select from '#root/components/inputs/Select';
 import TextBox from '#root/components/inputs/TextBox';
@@ -18,10 +13,6 @@ import Checkout from '#root/components/layout/checkout';
 import LoggedOut from '#root/components/loggedOut';
 import GraphQlError from '#root/components/shared/GraphQlError';
 import {actions as authActions} from '#root/redux/ducks/auth';
-import {actions as checkoutActions, selectors as checkoutSelectors} from '#root/redux/ducks/checkout';
-import {selectors as errorSelectors} from '#root/redux/ducks/error';
-import {selectors as loadingSelectors} from '#root/redux/ducks/loading';
-import {actions as profileActions} from '#root/redux/ducks/profile';
 import {actions as stateActions} from '#root/redux/ducks/state';
 import {actions as userActions, selectors as userSelectors} from '#root/redux/ducks/user';
 import countries from '#root/utils/countries';
@@ -30,7 +21,7 @@ import CheckoutFooter from '../../components/checkoutFooter';
 import Checkbox from '../../components/inputs/checkbox';
 import {Routes} from '../../routes';
 import {getCheckoutUrlAsync} from '../../services/apiv2';
-import {canUseDOM, clickAction, stateCheck} from '../../utils/componentHelpers';
+import {canUseDOM} from '../../utils/componentHelpers';
 import {getCookie} from '../../utils/cookies';
 
 /*
@@ -375,37 +366,5 @@ SignupAccount.getInitialProps = async ctx => {
   return {};
 };
 
-SignupAccount.propTypes = {
-  checkout: ImmutablePropTypes.map,
-  loading: PropTypes.bool.isRequired,
-  error: PropTypes.string.isRequired,
-  profileLoading: PropTypes.bool.isRequired,
-  profileError: PropTypes.string.isRequired,
-  actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  user: ImmutablePropTypes.map
-};
+export default SignupAccount;
 
-SignupAccount.defaultProps = {
-  checkout: Map(),
-  user: Map()
-};
-
-const mapStateToProps = state => ({
-  checkout: checkoutSelectors.getCheckout(state),
-  loading: loadingSelectors.getLoading(['REGISTER'])(state),
-  error: errorSelectors.getError(['REGISTER'])(state),
-  profileLoading: loadingSelectors.getLoading(['PROFILEUPDATE'])(state),
-  profileError: errorSelectors.getError(['PROFILEUPDATE'])(state),
-  user: userSelectors.getUser(state)
-});
-
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    ...checkoutActions,
-    ...authActions,
-    ...profileActions,
-    ...stateActions
-  }, dispatch)
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignupAccount);

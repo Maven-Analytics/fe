@@ -51,7 +51,7 @@ class MavenApp extends App {
 
     if (token && token !== '') {
       store.dispatch(enrollmentActions.enrollmentsGet({token}));
-      store.dispatch(subscriptionActions.subscriptionGet({token}));
+      // Store.dispatch(subscriptionActions.subscriptionGet({token}));
       store.dispatch(userActions.tokenSet(token));
     }
 

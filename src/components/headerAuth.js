@@ -8,7 +8,6 @@ import {bindActionCreators} from 'redux';
 
 import {click} from '#root/utils/componentHelpers';
 
-import {actions as authActions} from '../redux/ducks/auth';
 import {actions as stateActions, selectors as stateSelectors} from '../redux/ducks/state';
 import {Routes} from '../routes';
 import HeaderUser from './headerUser';
@@ -89,8 +88,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    ...stateActions,
-    ...authActions
+    ...stateActions
   }, dispatch)
 });
 

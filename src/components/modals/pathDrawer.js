@@ -8,7 +8,7 @@ import CloseButton from '#root/components/closeButton';
 import ProductDetail from '#root/components/productDetail';
 import {selectors as pathSelectors} from '#root/redux/ducks/paths';
 import {actions as stateActions, selectors as stateSelectors} from '#root/redux/ducks/state';
-import {clickAction} from '#root/utils/componentHelpers';
+import {click, clickAction} from '#root/utils/componentHelpers';
 
 import Markdown from '../markdown';
 
@@ -17,7 +17,7 @@ const PathDrawer = ({actions, state, paths}) => {
   const path = paths.find(p => p.get('id') === state.getIn(['pathDrawer', 'data']));
 
   const classList = ['path-drawer'];
-  const close = clickAction(actions.modalClose, 'pathDrawer');
+  const close = click(actions.modalClose, 'pathDrawer');
 
   if (isOpen) {
     classList.push('open');
@@ -37,6 +37,7 @@ const PathDrawer = ({actions, state, paths}) => {
               titleTag="h2"
               percentage_completed={path.get('percentage_completed')}
               resumeUrl={path.get('resumeUrl')}
+              onResumeClick={close}
               tools={path.get('tools')}
               match={path.get('match')}
               courseCount={path.get('courses').count()}
