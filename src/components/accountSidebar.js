@@ -23,6 +23,11 @@ const SidebarLinks = fromJS([
     title: 'Invoice History',
     url: Routes.AccountInvoices
   }
+  // {
+  //   title: 'Order History',
+  //   url: 'https://mavenanalytics.thinkific.com/account/orders',
+  //   external: true
+  // }
 ]);
 
 const DashboardHeader = ({activeLink}) => {
