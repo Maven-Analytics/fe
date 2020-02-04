@@ -1,2 +1,3 @@
-export {default as AccountList, AccountListLink} from './AccountList';
+export {default} from './AccountList';
+export {default as AccountListLink} from './AccountListLink';
 

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 
-import AccountList from '#root/components/accountList';
+import AccountList from '#root/components/dashboard/AccountList';
 import AccountLayout from '#root/components/layout/account';
 import withAuthSync from '#root/components/withAuthSync';
 import {planIds} from '#root/constants';

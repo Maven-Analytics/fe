@@ -5,9 +5,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 
-import AccountInvoiceList from '#root/components/accountInvoiceList';
+import AccountList, {AccountListLink} from '#root/components/dashboard/AccountList';
 import AccountLayout from '#root/components/layout/account';
 import withAuthSync from '#root/components/withAuthSync';
+import {planIds} from '#root/constants';
+import {centsToDollarString, formatDateMMDDYYYY} from '#root/utils/componentHelpers';
 
 const myInvoiceQuery = gql`
 query MyInvoices {
@@ -31,7 +33,41 @@ const AccountInvoices = () => {
 
   return (
     <AccountLayout title="Invoice History" activeLink={3}>
-      <AccountInvoiceList invoices={myInvoices}/>
+      <div className="account-invoices">
+        <AccountList
+          columns={[
+            {
+            // eslint-disable-next-line react/display-name
+              renderItem: invoice => <AccountListLink external href={invoice.hosted_invoice_url}>{invoice.number}</AccountListLink>,
+              label: 'Invoice #'
+            },
+            {
+              renderItem: invoice => planIds[invoice.plan_id] || invoice.plan_name || invoice.plan_description,
+              label: 'Subscription'
+            },
+            {
+              renderItem: invoice => formatDateMMDDYYYY(invoice.created),
+              label: 'Date'
+            },
+            {
+              renderItem: invoice => invoice.status,
+              label: 'Status'
+            },
+            {
+              renderItem: invoice => centsToDollarString(invoice.amount_paid),
+              label: 'Amount'
+            },
+            {
+            // eslint-disable-next-line react/display-name
+              renderItem: invoice => <AccountListLink isBtn external href={invoice.hosted_invoice_url}>View Invoice</AccountListLink>,
+              itemClass: 'link',
+              label: ''
+            }
+          ]}
+          columnClassList={['col-sm-3', 'col-sm-4', 'col-sm-2', 'col-sm-1', 'col-sm-2', 'col-12']}
+          data={myInvoices}
+        />
+      </div>
     </AccountLayout>
   );
 };
