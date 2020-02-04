@@ -8,7 +8,7 @@ describe('<AccountListHeader/>', () => {
   it('Should match the snapshot', () => {
     const wrapper = shallow(
       <AccountListHeader
-        columns={['col 1']}
+        columns={[{label: 'col 1'}]}
         columnClasses={['class-1']}
       />
     );
@@ -19,7 +19,7 @@ describe('<AccountListHeader/>', () => {
   it('Should render the correct col classes', () => {
     const wrapper = shallow(
       <AccountListHeader
-        columns={['Column 1', 'Column 2']}
+        columns={[{label: 'Column 1'}, {label: 'Column 2'}]}
         columnClasses={['col-1', 'col-2']}
       />
     );

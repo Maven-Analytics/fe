@@ -15,7 +15,7 @@ const AccountList = ({children, columns, columnClassList, data, disabled, showHe
       {title ? <h4 className="account-list__title">{title}</h4> : null}
       {showHeader ? (
         <AccountListHeader
-          columns={columns.map(c => c.label)}
+          columns={columns}
           columnClasses={columnClassList}
         />
       ) : null}

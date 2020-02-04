@@ -86,8 +86,14 @@ const AccountBilling = () => {
       />
       <AccountList
         columns={[
-          {renderItem: subscription => planIds[subscription.plan_id], label: 'Subscription'},
-          {renderItem: subscription => formatDateMMDDYYYY(subscription.current_period_start), label: 'Started At'},
+          {
+            renderItem: subscription => planIds[subscription.plan_id],
+            label: 'Subscription'
+          },
+          {
+            renderItem: subscription => formatDateMMDDYYYY(subscription.current_period_start),
+            label: 'Started At'
+          },
           {
             // eslint-disable-next-line react/display-name
             renderItem: subscription => subscription.canceled_at ? <Pill className="error" style={{margin: '0 auto'}}>Canceled</Pill> : formatDateMMDDYYYY(subscription.current_period_end),

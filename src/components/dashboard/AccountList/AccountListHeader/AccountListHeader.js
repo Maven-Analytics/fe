@@ -17,7 +17,9 @@ const AccountListHeader = ({className, columns, columnClasses}) => (
 
 AccountListHeader.propTypes = {
   className: PropTypes.string,
-  columns: PropTypes.array,
+  columns: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string.isRequired
+  })),
   columnClasses: PropTypes.arrayOf(PropTypes.string)
 };
 
