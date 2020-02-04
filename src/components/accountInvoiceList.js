@@ -37,27 +37,38 @@ const AccountInvoiceList = ({invoices}) => {
     <div className="account-invoice-list">
       <AccountList
         columns={[
-          {accessor: 'hosted_invoice_url', isLink: true, isLinkExternal: true, label: 'Invoice #', textAccessor: 'number'},
-          {accessor: invoice => planIds[invoice.plan_id] || invoice.plan_name || invoice.plan_description, label: 'Subscription'},
-          {accessor: invoice => formatDateMMDDYYYY(invoice.created), label: 'Date'},
-          {accessor: 'status', label: 'Status'},
-          {accessor: invoice => centsToDollarString(invoice.amount_paid), label: 'Amount'}
+          {
+            // eslint-disable-next-line react/display-name
+            renderItem: invoice => <AccountListLink external href={invoice.hosted_invoice_url}>{invoice.number}</AccountListLink>,
+            label: 'Invoice #'
+          },
+          {
+            renderItem: invoice => planIds[invoice.plan_id] || invoice.plan_name || invoice.plan_description,
+            label: 'Subscription'
+          },
+          {
+            renderItem: invoice => formatDateMMDDYYYY(invoice.created),
+            label: 'Date'
+          },
+          {
+            renderItem: invoice => invoice.status,
+            label: 'Status'
+          },
+          {
+            renderItem: invoice => centsToDollarString(invoice.amount_paid),
+            label: 'Amount'
+          },
+          {
+            // eslint-disable-next-line react/display-name
+            renderItem: invoice => <AccountListLink isBtn external href={invoice.hosted_invoice_url}>View Invoice</AccountListLink>,
+            itemClass: 'link',
+            label: ''
+          }
         ]}
-        columnClassList={['col-sm-3', 'col-sm-4', 'col-sm-2', 'col-sm-1', 'col-sm-2']}
+        columnClassList={['col-sm-3', 'col-sm-4', 'col-sm-2', 'col-sm-1', 'col-sm-2', 'col-12']}
         data={invoices.map(i => {
           return {
-            ...i,
-            children: (
-              <div className="col-12">
-                <div className="account-list__item__block link">
-                  <span className="value">
-                    <AccountListLink isBtn external href={i.hosted_invoice_url}>
-                      View Invoice
-                    </AccountListLink>
-                  </span>
-                </div>
-              </div>
-            )
+            ...i
           };
         })}
       />

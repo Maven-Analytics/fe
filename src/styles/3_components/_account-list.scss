@@ -1,6 +1,7 @@
 .account-list {
   &:not(:last-child) {
-    border-bottom: 1px solid $gray-border;
+    border-bottom: 1px solid $gray-light-3;
+    margin-bottom: $spacing-unit--l;
   }
 
   &.disabled {
@@ -60,6 +61,16 @@
 
       @include media-breakpoint-up(md) {
         height: 40px;
+      }
+
+      &.buttons {
+        margin-top: $spacing-unit--ss;
+
+        @include media-breakpoint-up(sm) {
+          display: flex;
+          justify-content: flex-end;
+          margin-top: 0;
+        }
       }
     }
 

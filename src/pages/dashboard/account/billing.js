@@ -11,6 +11,18 @@ import withAuthSync from '#root/components/withAuthSync';
 import {planIds} from '#root/constants';
 import {formatDateMMDDYYYY} from '#root/utils/componentHelpers';
 
+const myPaymentMethodsQuery = gql`
+query MyPaymentMethods {
+  myPaymentMethods {
+    brand
+    id
+    exp_month
+    exp_year
+    last4
+  }
+}
+`;
+
 const mySubscriptionsQuery = gql`
 query MySubscriptions {
   mySubscriptions {
@@ -43,7 +55,8 @@ mutation ResumeMutation($subscriptionId: Int!) {
 `;
 
 const AccountBilling = () => {
-  const {data: {mySubscriptions = []} = {}, loading: isFetching, refetch} = useQuery(mySubscriptionsQuery);
+  const {data: {mySubscriptions = []} = {}, loading: subscriptionsFetching, refetch} = useQuery(mySubscriptionsQuery);
+  const {data: {myPaymentMethods = []} = {}, loading: paymentMethodsFetching} = useQuery(myPaymentMethodsQuery);
   const [cancelSubscription, {loading: isCancelling}] = useMutation(cancelMutation);
   const [resumeSubscription, {loading: isRenewing}] = useMutation(resumeMutation);
 
@@ -63,54 +76,81 @@ const AccountBilling = () => {
 
   return (
     <AccountLayout title="Billing" activeLink={2}>
-      <div className="account-subscription-list">
-        <AccountList
-          columns={[
-            {accessor: subscription => planIds[subscription.plan_id], label: 'Subscription'},
-            {accessor: subscription => formatDateMMDDYYYY(subscription.current_period_start), label: 'Started At'},
-            {accessor: subscription => formatDateMMDDYYYY(subscription.current_period_end), label: 'Renews On'},
-            {label: ''}
-          ]}
-          columnClassList={['col-sm-3', 'col-sm-3', 'col-sm-3']}
-          data={mySubscriptions.map(subscription => {
-            return {
-              ...subscription,
-              children: (
-                <div className="col-sm-3">
-                  <div className="account-list__item__block link">
-                    <span className="value">
-                      {subscription.status === 'canceled' ? (
-                        'canceled'
-                      ) : (
-                        subscription.canceled_at ? (
-                          <button
-                            className="btn btn--sm btn--primary-solid"
-                            onClick={() => handleRenew(subscription.id)}
-                            style={{paddingBottom: 0, paddingTop: 0}}
-                          >
-                            Renew Subscription
-                          </button>
-                        ) : (
-                          <button
-                            className="btn btn--sm btn--default"
-                            disabled={subscription.canceled_at}
-                            onClick={() => handleCancel(subscription.id)}
-                            style={{paddingBottom: 0, paddingTop: 0}}
-                          >
-                            Cancel Subscription
-                          </button>
-                        )
-                      )}
-                    </span>
-                  </div>
-                </div>
-              )
-            };
-          })}
-          disabled={isFetching || isCancelling || isRenewing}
-          title="Subscriptions"
-        />
-      </div>
+      <AccountList
+        columns={[
+          {renderItem: paymentMethod => `${paymentMethod.brand} ending in ${paymentMethod.last4}`, label: ''},
+          // eslint-disable-next-line react/display-name
+          {renderItem: paymentMethod => (
+            <>
+              Expires on <strong>{paymentMethod.exp_month}/{paymentMethod.exp_year}</strong>
+            </>
+          ), label: ''},
+          {
+            // eslint-disable-next-line react/display-name
+            renderItem: paymentMethod => (
+              <span style={{textAlign: 'right'}}>
+                <button
+                  className="btn btn--sm btn--default"
+                  // OnClick={() => handleCancel(paymentMethod.id)}
+                  style={{paddingBottom: 0, paddingTop: 0}}
+                >
+                  Edit
+                </button>
+              </span>
+            ),
+            itemClass: 'buttons',
+            label: ''
+          }
+        ]}
+        columnClassList={['col-sm-4', 'col-sm-4', 'col-sm-4']}
+        data={myPaymentMethods}
+        showHeader={false}
+        title="Credit Cards"
+      />
+      <AccountList
+        columns={[
+          {renderItem: subscription => planIds[subscription.plan_id], label: 'Subscription'},
+          {renderItem: subscription => formatDateMMDDYYYY(subscription.current_period_start), label: 'Started At'},
+          {renderItem: subscription => formatDateMMDDYYYY(subscription.current_period_end), label: 'Renews On'},
+          {
+            // eslint-disable-next-line react/display-name
+            renderItem: subscription => (
+              <>
+                {subscription.status === 'canceled' ? (
+                  <>
+                    Canceled on {formatDateMMDDYYYY(subscription.canceled_at)}
+                  </>
+                ) : (
+                  subscription.canceled_at ? (
+                    <button
+                      className="btn btn--sm btn--primary-solid"
+                      onClick={() => handleRenew(subscription.id)}
+                      style={{paddingBottom: 0, paddingTop: 0}}
+                    >
+                      Renew Subscription
+                    </button>
+                  ) : (
+                    <button
+                      className="btn btn--sm btn--default"
+                      disabled={subscription.canceled_at}
+                      onClick={() => handleCancel(subscription.id)}
+                      style={{paddingBottom: 0, paddingTop: 0}}
+                    >
+                      Cancel Subscription
+                    </button>
+                  )
+                )}
+              </>
+            ),
+            itemClass: 'buttons',
+            label: ''
+          }
+        ]}
+        columnClassList={['col-sm-3', 'col-sm-3', 'col-sm-3', 'col-sm-3']}
+        data={mySubscriptions}
+        disabled={subscriptionsFetching || paymentMethodsFetching || isCancelling || isRenewing}
+        title="Subscriptions"
+      />
     </AccountLayout>
   );
 };
