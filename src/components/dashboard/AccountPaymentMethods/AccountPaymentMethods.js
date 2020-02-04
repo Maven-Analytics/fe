@@ -5,6 +5,7 @@ import React, {useState} from 'react';
 
 import AddCard from '#root/components/shared/AddCard';
 import Pill from '#root/components/shared/Pill/Pill';
+import {leadingZero} from '#root/utils/componentHelpers';
 
 import AccountList from '../AccountList';
 
@@ -102,7 +103,7 @@ export const AccountPaymentMethods = ({fetching, paymentMethods, refetch}) => {
           // eslint-disable-next-line react/display-name
           {renderItem: paymentMethod => (
             <>
-              Expires on <strong>{paymentMethod.exp_month}/{paymentMethod.exp_year}</strong>
+              Expires on <strong>{leadingZero(paymentMethod.exp_month)}/{paymentMethod.exp_year}</strong>
             </>
           ), label: ''},
           {

@@ -287,7 +287,7 @@ export const formatDateMMDDYYYY = dateStr => {
   const day = date.getDate();
   const year = date.getFullYear();
 
-  return `${month < 9 ? `0${month}` : month}/${day < 9 ? `0${day}` : day}/${year}`;
+  return `${leadingZero(month)}/${leadingZero(day)}/${year}`;
 };
 
 export const centsToDollarString = (cents, prefix = '$') => {
@@ -324,4 +324,14 @@ export const canUseWebP = () => {
 
   // Very old browser like IE 8, canvas not supported
   return false;
+};
+
+export const leadingZero = num => {
+  if (!num) {
+    return '00';
+  }
+
+  num = parseFloat(num);
+
+  return num < 9 ? `0${num}` : num;
 };

@@ -57,7 +57,7 @@ const AddCard = ({
     <div className={classList.join(' ')}>
       <form onSubmit={eventPrevent(handleSubmit)}>
         <CardElement disabled={loading} {...cardOpts}/>
-        {error && error.message ? <small className="form-text error"><GraphQlError error={error}/></small> : null}
+        {error && error.message ? <small className="form-text error"><GraphQlError error={error.message}/></small> : null}
         <div className="buttons">
           <button
             className="btn btn--sm btn--default"
