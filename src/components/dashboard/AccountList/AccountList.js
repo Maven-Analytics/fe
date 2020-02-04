@@ -3,7 +3,7 @@ import React from 'react';
 
 import AccountListHeader from './AccountListHeader';
 
-const AccountList = ({columns, columnClassList, data, disabled, showHeader, title}) => {
+const AccountList = ({children, columns, columnClassList, data, disabled, showHeader, title}) => {
   const classList = ['account-list'];
 
   if (disabled) {
@@ -47,11 +47,17 @@ const AccountList = ({columns, columnClassList, data, disabled, showHeader, titl
           );
         })}
       </div>
+      {children ? (
+        <div className="account-list__footer">
+          {children}
+        </div>
+      ) : null}
     </div>
   );
 };
 
 AccountList.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.func, PropTypes.element]),
   columns: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string.isRequired,
     itemClass: PropTypes.string,
@@ -65,6 +71,7 @@ AccountList.propTypes = {
 };
 
 AccountList.defaultProps = {
+  children: null,
   showHeader: true
 };
 

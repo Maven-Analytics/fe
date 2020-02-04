@@ -50,20 +50,24 @@
     margin: 0 0 $spacing-unit--xs;
 
     .pill {
-      border-radius: 10px;
       color: $black;
-      font-size: 0.8em;
-      letter-spacing: 1px;
-      margin-left: $spacing-unit;
-      padding: 0.3rem 0.6rem;
-
-      &.new {
-        background-color: $yellow;
-      }
-
-      &.pinned {
-        background-color: $blue;
-      }
     }
+
+    // .pill {
+    //   border-radius: 10px;
+    //   color: $black;
+    //   font-size: 0.8em;
+    //   letter-spacing: 1px;
+    //   margin-left: $spacing-unit;
+    //   padding: 0.3rem 0.6rem;
+
+    //   &.new {
+    //     background-color: $yellow;
+    //   }
+
+    //   &.pinned {
+    //     background-color: $blue;
+    //   }
+    // }
   }
 }

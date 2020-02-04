@@ -16,6 +16,7 @@ const myPaymentMethodsQuery = gql`
 query MyPaymentMethods {
   myPaymentMethods {
     brand
+    default
     id
     exp_month
     exp_year
@@ -57,7 +58,7 @@ mutation ResumeMutation($subscriptionId: Int!) {
 
 const AccountBilling = () => {
   const {data: {mySubscriptions = []} = {}, loading: subscriptionsFetching, refetch} = useQuery(mySubscriptionsQuery);
-  const {data: {myPaymentMethods = []} = {}, loading: paymentMethodsFetching} = useQuery(myPaymentMethodsQuery);
+  const {data: {myPaymentMethods = []} = {}, loading: paymentMethodsFetching, refetch: refetchPaymentMethods} = useQuery(myPaymentMethodsQuery);
   const [cancelSubscription, {loading: isCancelling}] = useMutation(cancelMutation);
   const [resumeSubscription, {loading: isRenewing}] = useMutation(resumeMutation);
 
@@ -77,7 +78,11 @@ const AccountBilling = () => {
 
   return (
     <AccountLayout title="Billing" activeLink={2}>
-      <AccountPaymentMethods paymentMethods={myPaymentMethods}/>
+      <AccountPaymentMethods
+        fetching={paymentMethodsFetching}
+        paymentMethods={myPaymentMethods}
+        refetch={refetchPaymentMethods}
+      />
       <AccountList
         columns={[
           {renderItem: subscription => planIds[subscription.plan_id], label: 'Subscription'},

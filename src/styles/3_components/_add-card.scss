@@ -9,10 +9,14 @@
       border-radius: 4px;
       display: block;
       flex: 1;
-      margin: 10px 0 20px 0;
+      margin: $spacing-unit--ss 0 $spacing-unit 0;
       min-width: 200px;
       outline: 0;
       padding: 10px 14px;
+    }
+
+    .form-text {
+      margin: 0 0 $spacing-unit;
     }
 
     .buttons {

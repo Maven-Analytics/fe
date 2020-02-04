@@ -8,7 +8,8 @@
     "dev": "cross-env NODE_ENV=development nodemon -L ./server",
     "build": "cross-env NODE_ENV=production ANALYZE=true next build src",
     "start": "cross-env NODE_ENV=production node server.js",
-    "test": "cross-env NODE_ENV=test jest -u"
+    "test": "cross-env NODE_ENV=test jest -u",
+    "test-dev": "cross-env NODE_ENV=test jest"
   },
   "author": "",
   "license": "ISC",
