@@ -287,7 +287,7 @@ export const formatDateMMDDYYYY = dateStr => {
   const day = date.getDate();
   const year = date.getFullYear();
 
-  return `${month < 9 ? `0${month}` : month}/${day}/${year}`;
+  return `${month < 9 ? `0${month}` : month}/${day < 9 ? `0${day}` : day}/${year}`;
 };
 
 export const centsToDollarString = (cents, prefix = '$') => {
