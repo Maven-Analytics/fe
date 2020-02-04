@@ -19,7 +19,8 @@ module.exports = withPlugins(plugins, {
     HOST_PUBLIC_API: process.env.HOST_PUBLIC_API,
     HOST_PUBLIC_GATEWAY: process.env.HOST_PUBLIC_GATEWAY,
     SENTRY_ENVIRONMENT: process.env.SENTRY_ENVIRONMENT,
-    THINKIFIC_HEALTH_CHECK_INTERVAL: process.env.THINKIFIC_HEALTH_CHECK_INTERVAL
+    THINKIFIC_HEALTH_CHECK_INTERVAL: process.env.THINKIFIC_HEALTH_CHECK_INTERVAL,
+    STRIPE_PUBLIC_KEY: process.env.STRIPE_PUBLIC_KEY
   },
   webpackDevMiddleware: config => {
     // Solve compiling problem via vagrant

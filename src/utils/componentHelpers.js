@@ -22,6 +22,17 @@ export function clickPrevent(func, val) {
   };
 }
 
+export function eventPrevent(func) {
+  return e => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    func(e);
+  };
+}
+
 export function clickAction(...arr) {
   return e => {
     e.preventDefault();

@@ -1,6 +1,8 @@
 import * as PropTypes from 'prop-types';
 import React from 'react';
 
+import AccountListHeader from './AccountListHeader';
+
 const AccountList = ({columns, columnClassList, data, disabled, showHeader, title}) => {
   const classList = ['account-list'];
 
@@ -12,17 +14,10 @@ const AccountList = ({columns, columnClassList, data, disabled, showHeader, titl
     <div className={classList.join(' ')}>
       {title ? <h4 className="account-list__title">{title}</h4> : null}
       {showHeader ? (
-        <div className="account-list__header">
-          <div className="row">
-            {columns.map((col, index) => {
-              return (
-                <div key={index} className={columnClassList[index]}>
-                  <p className="account-list__header-label">{col.label}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+        <AccountListHeader
+          columns={columns.map(c => c.label)}
+          columnClasses={columnClassList}
+        />
       ) : null}
 
       <div className="account-list__items">

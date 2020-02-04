@@ -6,6 +6,7 @@ import React from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 
 import AccountList from '#root/components/dashboard/AccountList';
+import AccountPaymentMethods from '#root/components/dashboard/AccountPaymentMethods/AccountPaymentMethods';
 import AccountLayout from '#root/components/layout/account';
 import withAuthSync from '#root/components/withAuthSync';
 import {planIds} from '#root/constants';
@@ -76,37 +77,7 @@ const AccountBilling = () => {
 
   return (
     <AccountLayout title="Billing" activeLink={2}>
-      <AccountList
-        columns={[
-          {renderItem: paymentMethod => `${paymentMethod.brand} ending in ${paymentMethod.last4}`, label: ''},
-          // eslint-disable-next-line react/display-name
-          {renderItem: paymentMethod => (
-            <>
-              Expires on <strong>{paymentMethod.exp_month}/{paymentMethod.exp_year}</strong>
-            </>
-          ), label: ''},
-          {
-            // eslint-disable-next-line react/display-name
-            renderItem: paymentMethod => (
-              <span style={{textAlign: 'right'}}>
-                <button
-                  className="btn btn--sm btn--default"
-                  // OnClick={() => handleCancel(paymentMethod.id)}
-                  style={{paddingBottom: 0, paddingTop: 0}}
-                >
-                  Edit
-                </button>
-              </span>
-            ),
-            itemClass: 'buttons',
-            label: ''
-          }
-        ]}
-        columnClassList={['col-sm-4', 'col-sm-4', 'col-sm-4']}
-        data={myPaymentMethods}
-        showHeader={false}
-        title="Credit Cards"
-      />
+      <AccountPaymentMethods paymentMethods={myPaymentMethods}/>
       <AccountList
         columns={[
           {renderItem: subscription => planIds[subscription.plan_id], label: 'Subscription'},

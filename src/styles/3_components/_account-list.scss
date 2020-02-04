@@ -1,6 +1,5 @@
 .account-list {
   &:not(:last-child) {
-    border-bottom: 1px solid $gray-light-3;
     margin-bottom: $spacing-unit--l;
   }
 
@@ -74,6 +73,15 @@
 
         .btn {
           margin: $spacing-unit--ss 0;
+        }
+      }
+
+      &.card {
+        display: block;
+
+        .value {
+          display: block;
+          width: 100%;
         }
       }
     }
