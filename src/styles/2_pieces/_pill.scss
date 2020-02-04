@@ -14,4 +14,9 @@
   &.pinned {
     background-color: $blue;
   }
+
+  &.error {
+    background-color: $red;
+    color: $white;
+  }
 }

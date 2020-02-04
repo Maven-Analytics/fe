@@ -8,6 +8,7 @@ import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import AccountList from '#root/components/dashboard/AccountList';
 import AccountPaymentMethods from '#root/components/dashboard/AccountPaymentMethods/AccountPaymentMethods';
 import AccountLayout from '#root/components/layout/account';
+import Pill from '#root/components/shared/Pill/Pill';
 import withAuthSync from '#root/components/withAuthSync';
 import {planIds} from '#root/constants';
 import {formatDateMMDDYYYY} from '#root/utils/componentHelpers';
@@ -87,7 +88,11 @@ const AccountBilling = () => {
         columns={[
           {renderItem: subscription => planIds[subscription.plan_id], label: 'Subscription'},
           {renderItem: subscription => formatDateMMDDYYYY(subscription.current_period_start), label: 'Started At'},
-          {renderItem: subscription => formatDateMMDDYYYY(subscription.current_period_end), label: 'Renews On'},
+          {
+            // eslint-disable-next-line react/display-name
+            renderItem: subscription => subscription.canceled_at ? <Pill className="error" style={{margin: '0 auto'}}>Canceled</Pill> : formatDateMMDDYYYY(subscription.current_period_end),
+            label: 'Renews On'
+          },
           {
             // eslint-disable-next-line react/display-name
             renderItem: subscription => (
