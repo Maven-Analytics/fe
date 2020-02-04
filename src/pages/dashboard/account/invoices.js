@@ -26,10 +26,8 @@ query MyInvoices {
 }
 `;
 
-const AccountProfile = () => {
+const AccountInvoices = () => {
   const {data: {myInvoices = []} = {}, loading, fetchMore} = useQuery(myInvoiceQuery);
-
-  console.log(myInvoices);
 
   return (
     <AccountLayout title="Invoice History" activeLink={3}>
@@ -38,15 +36,15 @@ const AccountProfile = () => {
   );
 };
 
-AccountProfile.propTypes = {
+AccountInvoices.propTypes = {
   user: ImmutablePropTypes.map.isRequired,
   actions: PropTypes.objectOf(PropTypes.func)
 };
 
-AccountProfile.defaultProps = {
+AccountInvoices.defaultProps = {
   user: Map(),
   recommendedPaths: List(),
   recommendedCourses: List()
 };
 
-export default withAuthSync(AccountProfile);
+export default withAuthSync(AccountInvoices);

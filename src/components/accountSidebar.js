@@ -16,9 +16,13 @@ const SidebarLinks = fromJS([
   },
   {
     title: 'Billing',
-    url: 'https://mavenanalytics.thinkific.com/account/billing',
-    external: true
+    url: Routes.AccountBilling
   },
+  // {
+  //   title: 'Billing',
+  //   url: 'https://mavenanalytics.thinkific.com/account/billing',
+  //   external: true
+  // },
   {
     title: 'Invoice History',
     url: Routes.AccountInvoices
