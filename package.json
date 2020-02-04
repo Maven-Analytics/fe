@@ -13,16 +13,17 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@testing-library/react": "^9.4.0",
     "babel-eslint": "^10.0.3",
-    "babel-jest": "^24.9.0",
+    "babel-jest": "^25.1.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "enzyme-to-json": "^3.4.4",
     "eslint": "^5.16.0",
     "eslint-config-xo": "^0.26.0",
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-simple-import-sort": "^5.0.0",
-    "jest": "^24.9.0",
+    "jest": "^25.1.0",
     "nodemon": "^1.18.11",
-    "react-test-renderer": "^16.12.0",
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6"
   },
@@ -95,9 +96,15 @@
       "server.js"
     ]
   },
+  "alias": {
+    "#root": "./src"
+  },
   "jest": {
-    "testMatch": [
-      "**/test/**/?(*.)+(spec|test).[jt]s?(x)"
+    "setupFilesAfterEnv": [
+      "<rootDir>src/setupTests.js"
+    ],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
     ]
   }
 }

@@ -1,8 +1,6 @@
 import * as PropTypes from 'prop-types';
 import React from 'react';
 
-import {innerHtml} from '#root/utils/componentHelpers';
-
 export const AccountListLink = ({isBtn, href, external, children}) => {
   const classList = [];
   if (isBtn) {

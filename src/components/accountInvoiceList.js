@@ -4,7 +4,7 @@ import React from 'react';
 import {planIds} from '#root/constants';
 import {centsToDollarString, formatDateMMDDYYYY} from '#root/utils/componentHelpers';
 
-import AccountList, {AccountListLink} from './accountList';
+import {AccountList, AccountListLink} from './dashboard/AccountList';
 
 const InvoiceLink = ({isBtn, href, external, children}) => {
   const classList = [];
