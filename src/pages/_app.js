@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {connect, Provider} from 'react-redux';
 import {ParallaxProvider} from 'react-scroll-parallax';
+import {Elements, StripeProvider} from 'react-stripe-elements';
 import {bindActionCreators} from 'redux';
 
 import client from '#root/api/graphQlClient';
@@ -19,6 +20,7 @@ import FontLoaderScript from '#root/scripts/FontLoaderScript';
 import GtagScript from '#root/scripts/GtagScript';
 import IntercomScript from '#root/scripts/IntercomScript';
 import SentryScript from '#root/scripts/SentryScript';
+import accessConfig from '#root/utils/accessConfig';
 
 import {actions as checkoutActions} from '../redux/ducks/checkout';
 import {actions as enrollmentActions} from '../redux/ducks/enrollments';
@@ -28,6 +30,8 @@ import {actions as subscriptionActions} from '../redux/ducks/subscription';
 import {actions as userActions} from '../redux/ducks/user';
 import initStore from '../redux/store';
 import {getCookie, removeCookie} from '../utils/cookies';
+
+const STRIPE_PUBLIC_KEY = accessConfig('STRIPE_PUBLIC_KEY');
 
 class MavenApp extends App {
   static async getInitialProps({Component, ctx: {apolloClient, ...ctx}}) {
@@ -93,11 +97,24 @@ class MavenApp extends App {
   constructor(props) {
     super(props);
 
+    this.state = {
+      stripe: null
+    };
+
     this.handleDomContentLoad = this.handleDomContentLoad.bind(this);
   }
 
   componentDidMount() {
     window.addEventListener('load', this.handleDomContentLoad);
+
+    if (window.Stripe) {
+      this.setState({stripe: window.Stripe(STRIPE_PUBLIC_KEY)});
+    } else {
+      document.querySelector('#stripe-js').addEventListener('load', () => {
+        // Create Stripe instance once Stripe.js loads
+        this.setState({stripe: window.Stripe(STRIPE_PUBLIC_KEY)});
+      });
+    }
   }
 
   componentWillUnmount() {
@@ -119,15 +136,19 @@ class MavenApp extends App {
     return (
       <ApolloProvider client={client({})}>
         <Provider store={store}>
-          <ParallaxProvider>
-            <Root>
-              <Component {...pageProps} />
-              <SentryScript/>
-              <FontLoaderScript/>
-              <GtagScript/>
-              <IntercomScript />
-            </Root>
-          </ParallaxProvider>
+          <StripeProvider stripe={this.state.stripe}>
+            <Elements>
+              <ParallaxProvider>
+                <Root>
+                  <Component {...pageProps} />
+                  <SentryScript/>
+                  <FontLoaderScript/>
+                  <GtagScript/>
+                  <IntercomScript />
+                </Root>
+              </ParallaxProvider>
+            </Elements>
+          </StripeProvider>
         </Provider>
       </ApolloProvider>
     );

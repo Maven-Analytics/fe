@@ -3,6 +3,7 @@ import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import Markdown from './markdown';
+import Pill from './shared/Pill/Pill';
 
 const DashboardAnnouncements = ({announcements}) => (
   <div className="dashboard-announcements">
@@ -19,8 +20,8 @@ const DashboardAnnouncements = ({announcements}) => (
                 <span>
                   {month < 10 ? `0${month}` : month}.{date.getUTCDate()}.{date.getUTCFullYear()}
                 </span>
-                {announcement.get('pinned') ? <span className="pill pinned">Pinned</span> : null}
-                {announcement.get('new') ? <span className="pill new">New</span> : null}
+                {announcement.get('pinned') ? <Pill className="pinned">Pinned</Pill> : null}
+                {announcement.get('new') ? <Pill className="new">New</Pill> : null}
               </div>
               <h4>{announcement.get('title')}</h4>
               <Markdown content={announcement.get('body')}/>

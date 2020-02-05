@@ -1,0 +1,16 @@
+.account-invoices {
+  .account-list {
+    &__item {
+      &__block {
+        &.link {
+          display: block;
+          margin: $spacing-unit--ss 0;
+          
+          @include media-breakpoint-up(sm) {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

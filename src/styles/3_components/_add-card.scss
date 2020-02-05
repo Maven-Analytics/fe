@@ -1,0 +1,30 @@
+.add-card {
+  form {
+    width: 100%;
+
+    .StripeElement {
+      background: white;
+      box-shadow: rgba(50, 50, 93, 0.14902) 0px 1px 3px, rgba(0, 0, 0, 0.0196078) 0px 1px 0px;
+      border: 0;
+      border-radius: 4px;
+      display: block;
+      flex: 1;
+      margin: $spacing-unit--ss 0 $spacing-unit 0;
+      min-width: 200px;
+      outline: 0;
+      padding: 10px 14px;
+    }
+
+    .form-text {
+      margin: 0 0 $spacing-unit;
+    }
+
+    .buttons {
+      margin: 0 0 $spacing-unit;
+
+      button {
+        margin-right: $spacing-unit--ss;
+      }
+    }
+  }
+}

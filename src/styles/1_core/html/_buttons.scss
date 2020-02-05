@@ -29,6 +29,10 @@
     @extend %btn--empty-yellow-medium;
   }
 
+  &--sm {
+    @extend %btn--sm;
+  }
+
   &--lg {
     @extend %btn--lg;
   }

@@ -1,9 +1,17 @@
-import React from 'react';
 import * as PropTypes from 'prop-types';
+import React from 'react';
 
 const GraphQlError = ({error, showAll}) => {
   if (!error) {
     return null;
+  }
+
+  if (!error.graphQLErrors && typeof error === 'string') {
+    return error;
+  }
+
+  if (!error.graphQLErrors && typeof error.message === 'string') {
+    return error.message;
   }
 
   if (error.graphQLErrors && showAll) {
@@ -16,7 +24,7 @@ const GraphQlError = ({error, showAll}) => {
     );
   }
 
-  if (!error.graphQLErrors[0]) {
+  if (!error.graphQLErrors || !error.graphQLErrors[0]) {
     return null;
   }
 
@@ -24,7 +32,7 @@ const GraphQlError = ({error, showAll}) => {
 };
 
 GraphQlError.propTypes = {
-  error: PropTypes.string,
+  error: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   showAll: PropTypes.bool
 };
 

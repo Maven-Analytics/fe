@@ -46,3 +46,12 @@ export const subscriptionStatuses = {
   paid: 'paid',
   canceled: 'canceled'
 };
+
+export const planIds = {
+  '4c462f2f-66ba-40f7-8928-b5868290b736': 'Individual (Annual)', // With trial
+  '7ad0d38b-39ce-4e1d-bd63-448d6a54720d': 'Individual (Monthly)', // With trial
+  '0275297e-9ae1-46a2-b446-3ecd7ea6da73': 'Individual (Annual)', // No trial version
+  '736932a5-b28f-49c6-bad1-16cd02b8dcfc': 'Individual (Monthly)', // No trial version
+  plan_GcoSiaMBDuMQzQ: 'Individual (Annual)',
+  plan_GcoRd518QBffwP: 'Individual (Monthly)'
+};

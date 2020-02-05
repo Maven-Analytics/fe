@@ -33,8 +33,10 @@ class MyDocument extends Document {
           <link rel="preload" href="/static/fonts/DIN/D-DIN.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
           <link rel="preload" href="/static/fonts/Lato/Lato-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
 
-          {/* Outgrow Script */}
+          {/* Stripe */}
+          <script id="stripe-js" src="https://js.stripe.com/v3/" async></script>
 
+          {/* Outgrow Script */}
           <script async src="//dyv6f9ner1ir9.cloudfront.net/assets/js/nloader.js" />
         </Head>
         <body>
