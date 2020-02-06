@@ -1,4 +1,4 @@
-import {useMutation} from '@apollo/react-hooks';
+import {useMutation, useQuery} from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import Router from 'next/router';
 import * as PropTypes from 'prop-types';
@@ -32,6 +32,19 @@ mutation Checkout($paymentMethod: String, $planId: String!) {
 }
 `;
 
+const myPaymentMethodsQuery = gql`
+query MyPaymentMethods {
+  myPaymentMethods {
+    brand
+    default
+    id
+    exp_month
+    exp_year
+    last4
+  }
+}
+`;
+
 const SignupCheckout = ({planId}) => {
   const user = useSelector(userSelectors.getUser);
   const subscription = useSelector(subscriptionSelectors.getSubscription);
@@ -45,8 +58,11 @@ const SignupCheckout = ({planId}) => {
   const [foreverFree, setForeverFree] = useState(false);
 
   const [paymentMethodError, setPaymentMethodError] = useState();
+  const [defaultPaymentMethod, setDefaultPaymentMethod] = useState();
 
   const [runCheckout, {error: checkoutError}] = useMutation(checkoutMutation);
+  const {data: {myPaymentMethods = []} = {}} = useQuery(myPaymentMethodsQuery);
+  const myDefault = myPaymentMethods.find(p => p.default);
 
   const loginRedirect = canUseDOM() ? window.location.origin + Routes.SignupCheckout : Routes.SignupCheckout;
 
@@ -108,17 +124,27 @@ const SignupCheckout = ({planId}) => {
         />
         {view === 0 ? (
           <AddCardForm
-            foreverFree={foreverFree}
+            foreverFree={foreverFree || Boolean(defaultPaymentMethod)}
             onComplete={handleComplete}
             setError={setPaymentMethodError}
             setLoading={setLoading}
           >
-            {foreverFree ? null : (
-              <AddCard
-                loading={loading}
-                showButtons={false}
-                skin="dark"
-              />
+            {foreverFree || defaultPaymentMethod ? null : (
+              <>
+                {myDefault ? (
+                  <button
+                    className="btn btn--primary-solid"
+                    onClick={() => setDefaultPaymentMethod(myDefault)}
+                  >
+                    Use Saved Card Ending In {myDefault.last4}
+                  </button>
+                ) : null}
+                <AddCard
+                  loading={loading}
+                  showButtons={false}
+                  skin="dark"
+                />
+              </>
             )}
             <a
               href="#"
