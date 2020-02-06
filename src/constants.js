@@ -61,7 +61,9 @@ export const planIds = {
   '0275297e-9ae1-46a2-b446-3ecd7ea6da73': 'Individual (Annual)', // No trial version
   '736932a5-b28f-49c6-bad1-16cd02b8dcfc': 'Individual (Monthly)', // No trial version
   plan_GcoSiaMBDuMQzQ: 'Individual (Annual)',
-  plan_GcoRd518QBffwP: 'Individual (Monthly)'
+  plan_GcoRd518QBffwP: 'Individual (Monthly)',
+  'individual-annual': 'Individual (Annual)',
+  'individual-monthly': 'Individual (Monthly)'
 };
 
 // 7 days in milliseconds
