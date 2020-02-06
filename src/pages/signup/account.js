@@ -32,7 +32,7 @@ const SignupAccount = () => {
   const onSubmit = handleSubmit(async ({email, password, first_name, last_name, postal_code, country}) => {
     clearError();
 
-    const redirectTo = Routes.SignupCheckout;
+    const redirectTo = window.location.origin + Routes.SignupCheckout;
     const {data: {register: loginData}} = await registerUser({
       variables: {email, password, first_name, last_name, postal_code, country}
     });
