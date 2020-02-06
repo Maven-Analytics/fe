@@ -13,7 +13,8 @@ function * onCheckoutRequest({payload: {plan, ctx}}) {
       'checkout',
       {
         plan: {
-          id: plan.get('id')
+          id: plan.get('id'),
+          planId: plan.get('planId')
         }
       },
       ctx

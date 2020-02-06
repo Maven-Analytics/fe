@@ -2,17 +2,25 @@ import {fromJS} from 'immutable';
 
 export const plans = fromJS([
   {
+    amountCents: 2900,
     id: 1,
+    interval: 'month',
     eyelash: 'Monthly',
     title: '7 Day FREE Trial',
+    planId: 'individual-monthly',
+    planName: 'Maven Individual Plan (Monthly)',
     price: 'then <sup>$</sup>29/mo',
     description:
       'Monthly subscription includes a free 7-day, all-access trial. You will be subscribed monthly after the trial period for $29 per month. No obligation, cancel anytime. 100% satisfaction guarantee'
   },
   {
+    amountCents: 29900,
     id: 2,
+    interval: 'year',
     eyelash: 'ANNUAL - SAVE $49 PER YEAR',
     title: '7 Day FREE Trial',
+    planId: 'individual-annual',
+    planName: 'Maven Individual Plan (Annual)',
     price: 'then <sup>$</sup>299/yr',
     description:
       'Annual subscription includes a free 7-day, all-access trial. You will be subscribed annual after the trial period for $299 per year. No obligation, cancel anytime. 100% satisfaction guarantee'
@@ -55,3 +63,6 @@ export const planIds = {
   plan_GcoSiaMBDuMQzQ: 'Individual (Annual)',
   plan_GcoRd518QBffwP: 'Individual (Monthly)'
 };
+
+// 7 days in milliseconds
+export const trialLength = 604800000;

@@ -32,6 +32,7 @@ export const Routes = {
   SkillsAssessments: '/skills-assessments',
   Signup: '/signup',
   SignupAccount: '/signup/account',
+  SignupCheckout: '/signup/checkout',
   SignupThanks: '/signup/thanks',
   Team: '/meet-the-team',
   TeamTraining: '/team-training',

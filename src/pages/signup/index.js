@@ -6,7 +6,7 @@ import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import CheckoutFooter from '#root/components/checkoutFooter';
+import CheckoutFooter from '#root/components/checkout/CheckoutFooter';
 import CheckoutPlans from '#root/components/checkoutPlans';
 import ThinkificDownRedirect from '#root/components/health/ThinkificDownRedirect';
 import Checkout from '#root/components/layout/checkout';
@@ -39,11 +39,12 @@ class SignupIndex extends Component {
     const {user} = this.props;
 
     if (user && user.get('id')) {
-      const redirectTo = await getCheckoutUrlAsync();
+      // Const redirectTo = Routes.SignupCheckout;
 
-      this.props.actions.sso({
-        redirectTo
-      });
+      // This.props.actions.sso({
+      //   redirectTo
+      // });
+      Router.push(Routes.SignupCheckout);
     } else {
       Router.push(Routes.SignupAccount);
     }

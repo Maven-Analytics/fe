@@ -2,6 +2,7 @@ import Link from 'next/link';
 import * as PropTypes from 'prop-types';
 import React from 'react';
 
+import Loader from '#root/components/loader';
 import {Routes} from '#root/routes';
 import {canUseDOM, noop} from '#root/utils/componentHelpers';
 
@@ -13,8 +14,8 @@ const CheckoutFooter = ({disabled, onClick, btnType, error, loading, loginRedire
           <p className="form-text small error">{error}</p>
         </div>
       ) : null}
-      <button type={btnType} onClick={onClick} disabled={disabled || loading} className="btn btn--primary-solid">
-        {btnText}
+      <button type={btnType} onClick={onClick} disabled={disabled || loading} className="btn btn--primary-solid" style={{position: 'relative'}}>
+        {loading ? <Loader id="checkoutFooterLoading" colors={['#252525', '#4F4F4F']} loading={loading}/> : btnText}
       </button>
       <div className="helper-links">
         {showLogin ? (

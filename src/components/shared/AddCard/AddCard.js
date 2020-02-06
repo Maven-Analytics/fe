@@ -2,62 +2,53 @@ import * as PropTypes from 'prop-types';
 import React from 'react';
 import {CardElement, injectStripe} from 'react-stripe-elements';
 
-import {eventPrevent, noop} from '#root/utils/componentHelpers';
+import {noop} from '#root/utils/componentHelpers';
 
 import GraphQlError from '../GraphQlError';
-import addCard from './_addCard';
 
 const AddCard = ({
   className,
-  elements,
   error,
   loading,
   onCancel: handleCancel,
-  onComplete: handleComplete,
-  setError,
-  setLoading,
-  stripe
+  showButtons,
+  skin
 }) => {
-  const handleSubmit = async () => {
-    setLoading(true);
-
-    try {
-      const paymentMethod = await addCard({elements, stripe});
-
-      handleComplete(paymentMethod);
-    } catch (error) {
-      setError(error);
-      setLoading(false);
-    }
-  };
-
   const classList = ['add-card'];
 
   if (className) {
     classList.push(className);
   }
 
+  if (skin) {
+    classList.push(skin);
+  }
+
   const cardOpts = {
     style: {
       base: {
         fontSize: '14px',
-        color: '#252525',
-        fontFamily: '"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
+        color: skin === 'light' ? '#252525' : '#FFFFFF',
+        fontFamily: '"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
+        '::placeholder': {
+          color: skin === 'light' ? 'rgba(0, 0, 0, 0.2)' : 'rgba(255, 255, 255, 0.2)'
+        }
       },
       invalid: {
         color: '#e24d20'
-      },
-      disabled: {
-        color: 'white'
       }
     }
   };
 
   return (
     <div className={classList.join(' ')}>
-      <form onSubmit={eventPrevent(handleSubmit)}>
-        <CardElement disabled={loading} {...cardOpts}/>
-        {error && error.message ? <small className="form-text error"><GraphQlError error={error.message}/></small> : null}
+      <CardElement
+        disabled={loading}
+        hidePostalCode
+        {...cardOpts}
+      />
+      {error && error.message ? <small className="form-text error"><GraphQlError error={error.message}/></small> : null}
+      {showButtons ? (
         <div className="buttons">
           <button
             className="btn btn--sm btn--default"
@@ -65,30 +56,28 @@ const AddCard = ({
             role="button"
             type="button"
           >
-            Cancel
+              Cancel
           </button>
           <button disabled={loading} className="btn btn--sm btn--default" type="submit" role="button">Add Card</button>
         </div>
-      </form>
+      ) : null}
     </div>
   );
 };
 
 AddCard.propTypes = {
   className: PropTypes.string,
-  elements: PropTypes.object,
   error: PropTypes.object,
   loading: PropTypes.bool,
   onCancel: PropTypes.func,
-  onComplete: PropTypes.func,
-  setError: PropTypes.func,
-  setLoading: PropTypes.func,
-  stripe: PropTypes.object
+  showButtons: PropTypes.bool,
+  skin: PropTypes.oneOf(['light', 'dark'])
 };
 
 AddCard.defaultProps = {
   onCancel: noop,
-  onComplete: noop
+  showButtons: true,
+  skin: 'light'
 };
 
 export default injectStripe(AddCard);
