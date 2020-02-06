@@ -48,7 +48,7 @@ it('Should match the snapshot', () => {
 
 test('Should call onComplete when the form is submitted', async () => {
   const onComplete = jest.fn();
-  const addCardMock = jest.fn();
+  const addCardMock = jest.fn(() => 'pm');
   const setLoadingMock = jest.fn();
 
   jest.doMock('./_addCard', () => ({

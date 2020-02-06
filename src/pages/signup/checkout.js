@@ -6,6 +6,7 @@ import React, {useState} from 'react';
 import {useSelector} from 'react-redux';
 
 import subscriptionStatusQuery from '#root/api/query/subscriptionStatus';
+import ApplyCoupon from '#root/components/checkout/ApplyCoupon';
 import CheckoutFooter from '#root/components/checkout/CheckoutFooter';
 import CheckoutSummary from '#root/components/checkout/CheckoutSummary';
 import Checkout from '#root/components/layout/checkout';
@@ -16,14 +17,14 @@ import {plans} from '#root/constants';
 import {actions as subscriptionActions, selectors as subscriptionSelectors} from '#root/redux/ducks/subscription';
 import {selectors as userSelectors} from '#root/redux/ducks/user';
 import {Routes} from '#root/routes';
-import {canUseDOM} from '#root/utils/componentHelpers';
+import {canUseDOM, eventPrevent} from '#root/utils/componentHelpers';
 import {getCookie} from '#root/utils/cookies';
 import getSession from '#root/utils/getSession';
 import redirect from '#root/utils/redirect';
 import {canTrial, findSubscription} from '#root/utils/subscriptionHelpers';
 
 const checkoutMutation = gql`
-mutation Checkout($paymentMethod: String!, $planId: String!) {
+mutation Checkout($paymentMethod: String, $planId: String!) {
   checkout(paymentMethod: $paymentMethod, planId: $planId) {
     id
     plan_id
@@ -35,16 +36,31 @@ const SignupCheckout = ({planId}) => {
   const user = useSelector(userSelectors.getUser);
   const subscription = useSelector(subscriptionSelectors.getSubscription);
 
+  const plan = plans.find(p => p.get('planId') === planId);
+  // Const hasTrial = canTrial(subscription);
+  const hasTrial = false;
+
   const [loading, setLoading] = useState(false);
+  const [view, setView] = useState(0);
+  const [coupon, setCoupon] = useState(null);
+  const [foreverFree, setForeverFree] = useState(false);
+
   const [paymentMethodError, setPaymentMethodError] = useState();
 
   const [runCheckout, {error: checkoutError}] = useMutation(checkoutMutation);
 
-  const plan = plans.find(p => p.get('planId') === planId);
-
-  const hasTrial = canTrial(subscription);
-
   const loginRedirect = canUseDOM() ? window.location.origin + Routes.SignupCheckout : Routes.SignupCheckout;
+
+  const handleCouponApply = coupon => {
+    setView(0);
+    setCoupon(coupon);
+
+    if (coupon.duration === 'forever' && coupon.percent_off === 100) {
+      setForeverFree(true);
+    } else {
+      setForeverFree(false);
+    }
+  };
 
   const handleComplete = async paymentMethod => {
     setPaymentMethodError(null);
@@ -52,8 +68,9 @@ const SignupCheckout = ({planId}) => {
     try {
       await runCheckout({
         variables: {
+          coupon: coupon ? coupon.id : null,
           planId,
-          paymentMethod: paymentMethod.id
+          paymentMethod: paymentMethod ? paymentMethod.id : null
         }
       });
 
@@ -84,31 +101,49 @@ const SignupCheckout = ({planId}) => {
         /> */}
         <CheckoutSummary
           amountToday={hasTrial ? 0 : plan.get('amountCents')}
+          coupon={coupon}
           hasTrial={hasTrial}
           interval={plan.get('interval')}
           planName={plan.get('planName')}
           planPrice={plan.get('amountCents') / 100}
         />
-        <AddCardForm
-          onComplete={handleComplete}
-          setError={setPaymentMethodError}
-          setLoading={setLoading}
-        >
-          <AddCard
-            loading={loading}
-            showButtons={false}
-            skin="dark"
+        {view === 0 ? (
+          <AddCardForm
+            foreverFree={foreverFree}
+            onComplete={handleComplete}
+            setError={setPaymentMethodError}
+            setLoading={setLoading}
+          >
+            {foreverFree ? null : (
+              <AddCard
+                loading={loading}
+                showButtons={false}
+                skin="dark"
+              />
+            )}
+            <a
+              href="#"
+              className="signup-checkout__link"
+              onClick={eventPrevent(() => setView(1))}
+            >
+              Have a coupon?
+            </a>
+            <CheckoutFooter
+              showLogin={user.isEmpty()}
+              error={loading || (!checkoutError && !paymentMethodError) ? null : <GraphQlError error={checkoutError || paymentMethodError}/>}
+              loading={loading}
+              disabled={loading}
+              btnType="submit"
+              btnText="Complete Sign Up"
+              loginRedirect={loginRedirect}
+            />
+          </AddCardForm>
+        ) : (
+          <ApplyCoupon
+            onCancel={() => setView(0)}
+            onComplete={handleCouponApply}
           />
-          <CheckoutFooter
-            showLogin={user.isEmpty()}
-            error={loading || (!checkoutError && !paymentMethodError) ? null : <GraphQlError error={checkoutError || paymentMethodError}/>}
-            loading={loading}
-            disabled={loading}
-            btnType="submit"
-            btnText="Complete Sign Up"
-            loginRedirect={loginRedirect}
-          />
-        </AddCardForm>
+        )}
       </div>
     </Checkout>
   );

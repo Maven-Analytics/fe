@@ -7,6 +7,7 @@ query SubscriptionStatus {
     subscriptions {
       id
       plan_id
+      status
     }
   }
 }

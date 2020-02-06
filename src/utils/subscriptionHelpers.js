@@ -24,8 +24,10 @@ export const canTrial = subscription => {
 export const findSubscription = (planId, subscription) => {
   subscription = isImmutable(subscription) ? subscription : fromJS(subscription);
 
-  return subscription &&
+  const found = subscription &&
   subscription.get('subscriptions') &&
   subscription.get('subscriptions').find(s => s.get('plan_id') === planId);
+
+  return found && (found.get('status') === 'paid' || found.get('status') === 'trial');
 };
 

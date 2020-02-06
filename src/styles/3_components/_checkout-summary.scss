@@ -43,6 +43,11 @@
   &__body-row {
     margin: 0 0 $spacing-unit--mdl;
 
+    &.total {
+      border-top: 1px solid $gray-darker;
+      padding-top: $spacing-unit--mdl;
+    }
+
     .price {
       font-size: 1.28em;
     }
