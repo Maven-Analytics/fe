@@ -37,8 +37,7 @@ const SignupCheckout = ({planId}) => {
   const subscription = useSelector(subscriptionSelectors.getSubscription);
 
   const plan = plans.find(p => p.get('planId') === planId);
-  // Const hasTrial = canTrial(subscription);
-  const hasTrial = false;
+  const hasTrial = canTrial(subscription);
 
   const [loading, setLoading] = useState(false);
   const [view, setView] = useState(0);
