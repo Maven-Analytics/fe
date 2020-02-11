@@ -15,6 +15,7 @@ import {bindActionCreators} from 'redux';
 import client from '#root/api/graphQlClient';
 import meQuery from '#root/api/query/me';
 import {withApollo} from '#root/api/withApollo';
+import {isLg} from '#root/components/mediaQuery';
 import Root from '#root/components/Root';
 import FontLoaderScript from '#root/scripts/FontLoaderScript';
 import GtagScript from '#root/scripts/GtagScript';
@@ -124,10 +125,12 @@ class MavenApp extends App {
   handleDomContentLoad() {
     window.removeEventListener('load', this.handleDomContentLoad);
 
+    const delay = isLg() ? 0 : 10000;
+
     // Render intercom 10 seconds after page load
     setTimeout(() => {
       this.props.actions.renderIntercom(true);
-    }, 10000);
+    }, delay);
   }
 
   render() {
