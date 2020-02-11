@@ -8,18 +8,18 @@ import LoggedIn from './loggedIn';
 import LoggedOut from './loggedOut';
 import MaIcon from './maIcon';
 
-const HeaderAuthMobile = ({loginRedirect}) => {
+const HeaderAuthMobile = ({loginRedirect, onLinkClick: handleLinkClick}) => {
   return (
     <ul>
       <li>
         <Link href={Routes.Contact}>
-          <a>Contact</a>
+          <a onClick={handleLinkClick}>Contact</a>
         </Link>
       </li>
       <LoggedOut>
         <li>
           <Link href={{pathname: Routes.Login, query: {redirectTo: loginRedirect}}}>
-            <a>
+            <a onClick={handleLinkClick}>
               <MaIcon icon="user" />
               Login
             </a>
@@ -27,24 +27,24 @@ const HeaderAuthMobile = ({loginRedirect}) => {
         </li>
         <li>
           <Link href={Routes.Signup}>
-            <a className="btn btn--primary">Sign up</a>
+            <a onClick={handleLinkClick} className="btn btn--primary">Sign up</a>
           </Link>
         </li>
       </LoggedOut>
       <LoggedIn>
         <li>
           <Link href={Routes.Dashboard}>
-            <a>Dashboard</a>
+            <a onClick={handleLinkClick}>Dashboard</a>
           </Link>
         </li>
         <li>
           <Link href={Routes.Account}>
-            <a>My Account</a>
+            <a onClick={handleLinkClick}>My Account</a>
           </Link>
         </li>
         <li>
           <Link href={Routes.Logout}>
-            <a>Logout</a>
+            <a onClick={handleLinkClick}>Logout</a>
           </Link>
         </li>
       </LoggedIn>

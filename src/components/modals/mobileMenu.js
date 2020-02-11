@@ -65,7 +65,7 @@ class MobileMenu extends Component {
             <div ref={ref.call(this, 'menuScroll')} onTouchStart={this.handleTouchStart} onTouchMove={this.handleTouchMove} className="mobile-menu__scroll">
               <div className="mobile-menu__container">
                 <Link href={Routes.Home}>
-                  <a className="mobile-menu__brand">
+                  <a className="mobile-menu__brand" onClick={click(offmenuToggle, 'mobileMenu')}>
                     <Logo height={39} width={157} />
                   </a>
                 </Link>
@@ -74,12 +74,12 @@ class MobileMenu extends Component {
                     {menuLinksMain.map(link => {
                       return (
                         <li key={link.get('title')}>
-                          <Link href={link.get('url')}><a>{link.get('title')}</a></Link>
+                          <Link href={link.get('url')}><a onClick={click(offmenuToggle, 'mobileMenu')}>{link.get('title')}</a></Link>
                         </li>
                       );
                     })}
                   </ul>
-                  <HeaderAuthMobile loginRedirect={loginRedirect} />
+                  <HeaderAuthMobile loginRedirect={loginRedirect} onLinkClick={click(offmenuToggle, 'mobileMenu')} />
                 </nav>
               </div>
             </div>
