@@ -6,7 +6,6 @@ import {useDispatch} from 'react-redux';
 import registerMutation from '#root/api/mutations/register';
 import CheckoutFooter from '#root/components/checkout/CheckoutFooter';
 import ThinkificDownRedirect from '#root/components/health/ThinkificDownRedirect';
-import Checkbox from '#root/components/inputs/checkbox';
 import Select from '#root/components/inputs/Select';
 import TextBox from '#root/components/inputs/TextBox';
 import Checkout from '#root/components/layout/checkout';
@@ -122,23 +121,15 @@ const SignupAccount = () => {
             </div>
           </div>
           <div className="form-group">
-            <Checkbox
-              id="terms"
-              name="terms"
-              style={{marginTop: 30}}
-              register={register({required: true})}
-              checked={watch('terms')}
-              error={isSubmitted ? formErrors.terms : null}
-              label="Terms"
-            >
-            I have read and agree to the&nbsp;
-              <a href="#" onClick={() => dispatch(stateActions.modalOpen('pageModal', 'terms'))}>Terms of Service</a> and&nbsp;
-              <a href="#" onClick={() => dispatch(stateActions.modalOpen('pageModal', 'privacy'))}>Customer Privacy Policy</a>
-            </Checkbox>
+            <span style={{fontSize: '1.4rem', marginTop: 30}}>
+            By continuing I agree to Maven {'Analytics\'s'} &nbsp;
+              <a href="#" style={{color: '#cecece', textDecoration: 'underline'}} onClick={() => dispatch(stateActions.modalOpen('pageModal', 'terms'))}>Terms of Service</a> and&nbsp;
+              <a href="#" style={{color: '#cecece', textDecoration: 'underline'}} onClick={() => dispatch(stateActions.modalOpen('pageModal', 'privacy'))}>Customer Privacy Policy</a>
+            </span>
           </div>
           <CheckoutFooter
             showLogin
-            error={<GraphQlError error={registerError}/>}
+            error={registerError ? <GraphQlError error={registerError}/> : null}
             loading={isSubmitting}
             disabled={isSubmitting}
             btnType="submit"
@@ -154,8 +145,6 @@ const SignupAccount = () => {
 SignupAccount.getInitialProps = async ctx => {
   const session = getSession(ctx);
   const checkout = getCookie('checkout', ctx);
-
-  console.log(checkout);
 
   // If the checkout plan is not set, go to step 1
   if (!checkout || !checkout.plan || !checkout.plan.planId) {
