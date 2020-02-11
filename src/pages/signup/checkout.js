@@ -9,6 +9,7 @@ import subscriptionStatusQuery from '#root/api/query/subscriptionStatus';
 import ApplyCoupon from '#root/components/checkout/ApplyCoupon';
 import CheckoutFooter from '#root/components/checkout/CheckoutFooter';
 import CheckoutSummary from '#root/components/checkout/CheckoutSummary';
+import Image from '#root/components/image';
 import Checkout from '#root/components/layout/checkout';
 import AddCard from '#root/components/shared/AddCard';
 import AddCardForm from '#root/components/shared/AddCardForm';
@@ -161,6 +162,9 @@ const SignupCheckout = ({planId}) => {
               btnType="submit"
               btnText="Complete Sign Up"
               loginRedirect={loginRedirect}
+            />
+            <Image
+              src="/static/img/powered_by_stripe.png"
             />
           </AddCardForm>
         ) : (

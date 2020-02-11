@@ -104,7 +104,7 @@ const SignupAccount = () => {
                 required
                 error={isSubmitted ? formErrors.country : null}
                 id="country"
-                label="Counrtry"
+                label="Country"
                 options={countries}
                 name="country"
                 register={register({required: true})}

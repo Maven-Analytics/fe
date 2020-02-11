@@ -160,7 +160,7 @@ const ProfileForm = ({user}) => {
             disabled={isSubmitting}
             error={isSubmitted ? formErrors.country : null}
             id="country"
-            label="Counrtry"
+            label="Country"
             options={countries}
             name="country"
             register={register({required: true})}
