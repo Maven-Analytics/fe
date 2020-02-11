@@ -1,0 +1,17 @@
+.apply-coupon {
+  position: relative;
+
+  .form-group {
+    margin: 0;
+  }
+
+  .buttons {
+    margin-top: $spacing-unit;
+    
+    button {
+      height: 40px;
+      margin-right: $spacing-unit--ss;
+      position: relative;
+    }
+  }
+}

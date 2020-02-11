@@ -1,0 +1,11 @@
+.signup-checkout {
+  position: relative;
+
+  &__link {
+    &:not(.btn) {
+      color: $yellow;
+      font-size: 1.4rem;
+      text-decoration: underline;
+    }
+  }
+}

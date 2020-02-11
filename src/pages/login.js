@@ -8,7 +8,6 @@ import {connect, useDispatch} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import userFragment from '#root/api/fragments/user';
-import meQuery from '#root/api/query/me';
 import Auth from '#root/components/layout/auth';
 import GraphQlError from '#root/components/shared/GraphQlError';
 
@@ -17,72 +16,7 @@ import {selectors as errorSelectors} from '../redux/ducks/error';
 import {selectors as loadingSelectors} from '../redux/ducks/loading';
 import {selectors as userSelectors} from '../redux/ducks/user';
 import {Routes} from '../routes';
-import {canUseDOM, state} from '../utils/componentHelpers';
-
-// Class Login extends Component {
-//   static async getInitialProps(ctx) {
-//     return {
-//       redirectTo: ctx.query.redirectTo ? `${ctx.query.redirectTo}` : canUseDOM() ? `${window.location.origin}${Routes.Dashboard}` : null
-//     };
-//   }
-
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       email: '',
-//       password: ''
-//     };
-
-//     this.handleChange = this.handleChange.bind(this);
-//     this.handleSubmit = this.handleSubmit.bind(this);
-//   }
-
-//   handleChange(state) {
-//     return state ? this.setState(state) : null;
-//   }
-
-//   handleSubmit(e) {
-//     e.preventDefault();
-//     this.props.actions.login({
-//       email: this.state.email,
-//       password: this.state.password,
-//       redirectTo: this.props.redirectTo && this.props.redirectTo !== '' ? this.props.redirectTo : `${window.location.origin}${Routes.Dashboard}`
-//     });
-//   }
-
-//   render() {
-//     const {email, password} = this.state;
-//     const {loading, error} = this.props;
-//     return (
-//       <Auth>
-//         <form onSubmit={this.handleSubmit}>
-//           <div className="form-group">
-//             <label htmlFor="email">Email address</label>
-//             <input type="text" name="email" id="email" className="input" onChange={state(this.handleChange, 'email')} value={email} required/>
-//           </div>
-//           <div className="form-group">
-//             <label htmlFor="password">Password</label>
-//             <input type="password" name="password" id="password" className="input" onChange={state(this.handleChange, 'password')} value={password} required/>
-//           </div>
-//           {error ? (
-//             <div className="form-message">
-//               <p className="form-text small error">{error}</p>
-//             </div>
-//           ) : null}
-//           <div className="form-footer">
-//             <span className="submit">
-//               <button className="btn btn--primary-solid" type="submit" value="Login" disabled={loading}>Login</button>
-//             </span>
-//             <span className="links">
-//               <Link href={Routes.ForgotPassword}><a>I forgot my password.</a></Link>
-//               <Link href={Routes.Signup}><a>{'I don\'t have an account yet. Sign me Up!'}</a></Link>
-//             </span>
-//           </div>
-//         </form>
-//       </Auth>
-//     );
-//   }
-// }
+import {canUseDOM} from '../utils/componentHelpers';
 
 const mutation = gql`
   mutation($email: String!, $password: String!) {

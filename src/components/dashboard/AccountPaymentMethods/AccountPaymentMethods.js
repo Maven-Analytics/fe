@@ -4,6 +4,7 @@ import * as PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
 import AddCard from '#root/components/shared/AddCard';
+import AddCardForm from '#root/components/shared/AddCardForm';
 import Pill from '#root/components/shared/Pill/Pill';
 import {leadingZero} from '#root/utils/componentHelpers';
 
@@ -157,14 +158,18 @@ export const AccountPaymentMethods = ({fetching, paymentMethods, refetch}) => {
         {
           // eslint-disable-next-line react/display-name
           renderItem: () => (
-            <AddCard
+            <AddCardForm
               error={error || addError}
               loading={loading}
-              onCancel={() => setView('list')}
               onComplete={handleComplete}
               setError={setError}
               setLoading={setLoading}
-            />
+            >
+              <AddCard
+                loading={loading}
+                onCancel={() => setView('list')}
+              />
+            </AddCardForm>
           ),
           itemClass: 'card',
           label: ''

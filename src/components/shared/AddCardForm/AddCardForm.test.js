@@ -1,6 +1,7 @@
-import {shallow} from 'enzyme';
+import {mount, shallow} from 'enzyme';
 import toJSON from 'enzyme-to-json';
 import React from 'react';
+import {act} from 'react-dom/test-utils';
 
 jest.mock('react-stripe-elements', () => {
   return {
@@ -36,31 +37,37 @@ beforeEach(() => {
 });
 
 it('Should match the snapshot', () => {
-  const AddCard = require('./AddCard').default;
+  const AddCardForm = require('./AddCardForm').default;
 
   const wrapper = shallow(
-    <AddCard/>
+    <AddCardForm/>
   );
 
   expect(toJSON(wrapper)).toMatchSnapshot();
 });
 
-it('Should render buttons if showButtons is true', () => {
-  const AddCard = require('./AddCard').default;
+test('Should call onComplete when the form is submitted', async () => {
+  const onComplete = jest.fn();
+  const addCardMock = jest.fn(() => 'pm');
+  const setLoadingMock = jest.fn();
 
-  const wrapper = shallow(
-    <AddCard showButtons={true}/>
-  );
+  jest.doMock('./_addCard', () => ({
+    __esModule: true,
+    default: addCardMock
+  }));
 
-  expect(wrapper.find('.buttons').length).toEqual(1);
-});
+  const AddCardForm = require('./AddCardForm').default;
 
-it('Should not render buttons if showButtons is false', () => {
-  const AddCard = require('./AddCard').default;
+  let wrapper;
 
-  const wrapper = shallow(
-    <AddCard showButtons={false}/>
-  );
+  await act(async () => {
+    wrapper = mount(
+      <AddCardForm onComplete={onComplete} setLoading={setLoadingMock}/>
+    );
+    wrapper.find('form').simulate('submit');
+  });
 
-  expect(wrapper.find('.buttons').length).toEqual(0);
+  expect(addCardMock).toHaveBeenCalled();
+  expect(onComplete).toHaveBeenCalled();
+  expect(setLoadingMock).toHaveBeenCalledTimes(1);
 });

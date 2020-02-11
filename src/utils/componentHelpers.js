@@ -290,6 +290,18 @@ export const formatDateMMDDYYYY = dateStr => {
   return `${leadingZero(month)}/${leadingZero(day)}/${year}`;
 };
 
+export const formatDatePretty = (date = new Date()) => {
+  date = new Date(date);
+
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  const month = months[date.getMonth()];
+  const day = date.getDate();
+  const year = date.getFullYear();
+
+  return `${month} ${day}, ${year}`;
+};
+
 export const centsToDollarString = (cents, prefix = '$') => {
   if (!cents) {
     return `${prefix ? prefix : ''}${twoDecimals(0)}`;
@@ -299,6 +311,8 @@ export const centsToDollarString = (cents, prefix = '$') => {
 
   return `${prefix ? prefix : ''}${twoDecimals(dollars)}`;
 };
+
+export const currencyFormat = (dollars, prefix = '$') => `${prefix ? prefix : ''}${twoDecimals(dollars)}`;
 
 export function twoDecimals(value) {
   value = parseFloat(value);

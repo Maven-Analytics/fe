@@ -40,9 +40,9 @@
 }
 
 .input {
-  background-color: $gray-input;
+  background-color: $matterhorn;
   background-clip: padding-box;
-  border: 1px solid $gray-input;
+  border: 1px solid $matterhorn;
   color: $gray-light;
   display: block;
   font-size: 1.4rem;
@@ -52,7 +52,7 @@
   width: 100%;
 
   &:focus {
-    border-color: $gray-input;
+    border-color: $matterhorn;
   }
 
   // Unstyle the caret on `<select>`s in IE10+.
@@ -89,7 +89,7 @@ select.input {
     // match the appearance of the native widget.
     // See https://github.com/twbs/bootstrap/issues/19398.
     color: $gray-light;
-    background-color: $gray-input;
+    background-color: $matterhorn;
   }
 }
 
@@ -160,7 +160,7 @@ label {
 
   &::before {
     content: ' ';
-    background-color: $gray-input;
+    background-color: $matterhorn;
     height: 22px;
     left: 0;
     position: absolute;

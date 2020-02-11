@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const Loader = ({loading, width, height, center, position, text}) => {
+const Loader = ({colors, id, loading, width, height, center, position, text}) => {
   const classList = ['async-loader'];
 
   if (center) {
@@ -20,16 +20,16 @@ const Loader = ({loading, width, height, center, position, text}) => {
     <div className={classList.join(' ')} style={{width, height: text ? height + 16 : height}}>
       <svg width={width} height={height} viewBox="0 0 100 100">
         <defs>
-          <linearGradient id="Gradient" x1="50%" y1="0%" x2="50%" y2="100%" >
-            <stop offset="0%" stopColor="#7A5FFF">
-              <animate attributeName="stop-color" values="#20E2D7; #20E2D7; #20E2D7" dur="4s" repeatCount="indefinite"></animate>
+          <linearGradient id={id} x1="50%" y1="0%" x2="50%" y2="100%" >
+            <stop offset="0%" stopColor={[colors[0]]}>
+              <animate attributeName="stop-color" values={`${colors[0]};${colors[0]};${colors[0]}`} dur="4s" repeatCount="indefinite"></animate>
             </stop>
-            <stop offset="100%" stopColor="#01FF89">
-              <animate attributeName="stop-color" values="#F9FEA5; #F9FEA5; #F9FEA5" dur="4s" repeatCount="indefinite"></animate>
+            <stop offset="100%" stopColor={[colors[1]]}>
+              <animate attributeName="stop-color" values={`${colors[1]};${colors[1]};${colors[1]}`} dur="4s" repeatCount="indefinite"></animate>
             </stop>
           </linearGradient>
         </defs>
-        <circle className="circle" cx="50" cy="50" r="30" fill="none"></circle>
+        <circle className="circle" cx="50" cy="50" r="30" fill="none" style={{stroke: `url(#${id})`}}></circle>
       </svg>
       {text ? <p>{text}</p> : null}
     </div>
@@ -37,6 +37,8 @@ const Loader = ({loading, width, height, center, position, text}) => {
 };
 
 Loader.propTypes = {
+  id: PropTypes.string,
+  colors: PropTypes.array,
   loading: PropTypes.bool,
   width: PropTypes.number,
   height: PropTypes.number,
@@ -46,6 +48,8 @@ Loader.propTypes = {
 };
 
 Loader.defaultProps = {
+  id: 'loaderGradient',
+  colors: ['#7A5FFF', '#01FF89'],
   width: 45,
   height: 45,
   center: true

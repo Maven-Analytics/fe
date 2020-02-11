@@ -1,0 +1,63 @@
+.checkout-summary {
+  color: $white;
+  font-size: 1.4rem;
+  line-height: 1.2;
+
+  strong {
+    font-weight: 900;
+  }
+
+  &__header,
+  &__body {
+    border-bottom: 1px solid $gray-border;
+  }
+
+  &__header {
+    font-family: $font-heading;
+    font-weight: 900;
+    margin-bottom: $spacing-unit;
+    padding: $spacing-unit--ss $spacing-unit--md;
+  }
+
+  &__body {
+    margin-bottom: 2.25rem;
+    padding: $spacing-unit $spacing-unit--md;
+  }
+
+  &__header-row,
+  &__body-row {
+    @include media-breakpoint-up(sm) {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    >div:nth-child(2) {
+      text-align: right;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+
+  &__body-row {
+    margin: 0 0 $spacing-unit--mdl;
+
+    &.total {
+      border-top: 1px solid $gray-darker;
+      padding-top: $spacing-unit--mdl;
+    }
+
+    .price {
+      font-size: 1.28em;
+    }
+
+    .renews {
+      color: $silver;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

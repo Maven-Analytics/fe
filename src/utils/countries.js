@@ -1,5 +1,10 @@
 export default [
   {
+    value: 'US',
+    label: 'United States of America',
+    selected: true
+  },
+  {
     value: 'AF',
     label: 'Afghanistan'
   },
@@ -938,11 +943,6 @@ export default [
   {
     value: 'GB',
     label: 'United Kingdom of Great Britain and Northern Ireland'
-  },
-  {
-    value: 'US',
-    label: 'United States of America',
-    selected: true
   },
   {
     value: 'UM',
