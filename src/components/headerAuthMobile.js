@@ -3,6 +3,8 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import {noop} from '#root/utils/componentHelpers';
+
 import {Routes} from '../routes';
 import LoggedIn from './loggedIn';
 import LoggedOut from './loggedOut';
@@ -54,11 +56,12 @@ const HeaderAuthMobile = ({loginRedirect, onLinkClick: handleLinkClick}) => {
 
 HeaderAuthMobile.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func),
-  loginRedirect: PropTypes.string
+  loginRedirect: PropTypes.string,
+  onLinkClick: PropTypes.func
 };
 
 HeaderAuthMobile.defaultProps = {
-  user: Map()
+  onLinkClick: noop
 };
 
 export default HeaderAuthMobile;
