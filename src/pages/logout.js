@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 
+import {actions as checkoutActions} from '#root/redux/ducks/checkout';
 import {actions as userActions} from '#root/redux/ducks/user';
 import {Routes} from '#root/routes';
 import {removeCookie} from '#root/utils/cookies';
@@ -36,6 +37,9 @@ LogoutPage.getInitialProps = async ({apolloClient, store, ...ctx}) => {
   // Unset the tokens
   store.dispatch(userActions.tokenSet(null));
   store.dispatch(userActions.thinkificTokenSet(null));
+
+  // Unset the checkout in the state
+  store.dispatch(checkoutActions.checkoutUnset({ctx}));
 
   // Redirect to home page
   redirect(ctx, Routes.Home);

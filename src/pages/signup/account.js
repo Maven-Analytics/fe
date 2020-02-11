@@ -155,6 +155,8 @@ SignupAccount.getInitialProps = async ctx => {
   const session = getSession(ctx);
   const checkout = getCookie('checkout', ctx);
 
+  console.log(checkout);
+
   // If the checkout plan is not set, go to step 1
   if (!checkout || !checkout.plan || !checkout.plan.planId) {
     redirect(ctx, Routes.Signup);

@@ -35,7 +35,7 @@ class SignupIndex extends Component {
     }
   }
 
-  async handleNextClick() {
+  handleNextClick() {
     const {user} = this.props;
 
     if (user && user.get('id')) {

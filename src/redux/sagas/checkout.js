@@ -1,10 +1,11 @@
 import {all, put, takeLatest} from 'redux-saga/effects';
 
-import {setCookie} from '../../utils/cookies';
+import {removeCookie, setCookie} from '../../utils/cookies';
 import {types as checkoutTypes} from '../ducks/checkout';
 
 export function * watchCheckout() {
   yield takeLatest(checkoutTypes.CHECKOUT_SET_PLAN_REQUEST, onCheckoutRequest);
+  yield takeLatest(checkoutTypes.CHECKOUT_UNSET, onCheckoutUnset);
 }
 
 function * onCheckoutRequest({payload: {plan, ctx}}) {
@@ -32,4 +33,10 @@ function * onCheckoutRequest({payload: {plan, ctx}}) {
       payload: error.response ? error.response.data : error.message
     });
   }
+}
+
+function * onCheckoutUnset({payload: {ctx}}) {
+  removeCookie('checkout', ctx);
+
+  return yield null;
 }
