@@ -1,4 +1,5 @@
 import {List, Map} from 'immutable';
+import {Loader} from 'maven-ui';
 import Router, {withRouter} from 'next/router';
 import PropTypes from 'prop-types';
 import qs from 'query-string';
@@ -7,6 +8,7 @@ import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {presets, spring, TransitionMotion} from 'react-motion';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import styled from 'styled-components';
 
 import CourseCard from '#root/components/courseCard';
 import CourseFilters from '#root/components/courseFilters';
@@ -14,7 +16,7 @@ import CoursePathNav from '#root/components/coursePathNav';
 import DashboardGrid from '#root/components/dashboardGrid';
 import ImageContentful from '#root/components/imageContentful';
 import Brochure from '#root/components/layout/brochure';
-import Loader from '#root/components/loader';
+// Import Loader from '#root/components/loader';
 import MaIcon from '#root/components/maIcon';
 import PathListingItem from '#root/components/pathListingItem';
 import BrochureHero from '#root/components/sections/brochureHero';
@@ -113,7 +115,7 @@ class CoursesLearningPaths extends PureComponent {
 
     return (
       <li key="paths" className="courses-learning-paths__tab" style={this.getTabStyle(style)}>
-        <Loader center={false} loading={loadingPaths} position="top-center" width={70} height={70} />
+        <Loader loading={loadingPaths} position="top-center" width={70} height={70} />
 
         {paths.map((path, index) => (
           <PathListingItem key={index} path={path} />
@@ -128,7 +130,7 @@ class CoursesLearningPaths extends PureComponent {
     return (
       <li key="courses" className="courses-learning-paths__tab" style={this.getTabStyle(style)}>
         <DashboardGrid cols={3}>
-          <Loader center={false} loading={loadingCourses} position="top-center" width={70} height={70} />
+          <Loader loading={loadingCourses} position="top-center" width={70} height={70} />
           {courses.map(course => (
             <CourseCard
               full

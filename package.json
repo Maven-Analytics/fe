@@ -16,6 +16,7 @@
   "devDependencies": {
     "babel-eslint": "^10.0.3",
     "babel-jest": "^25.1.0",
+    "babel-plugin-styled-components": "^1.10.7",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "enzyme-to-json": "^3.4.4",
@@ -59,6 +60,7 @@
     "isomorphic-unfetch": "^3.0.0",
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
+    "maven-ui": "^1.0.6",
     "next": "9.1.6",
     "next-compose-plugins": "^2.2.0",
     "next-redux-saga": "^4.0.1",
@@ -84,7 +86,8 @@
     "redux-immutable": "^4.0.0",
     "redux-saga": "^1.0.2",
     "remarkable": "^2.0.0",
-    "reselect": "^4.0.0"
+    "reselect": "^4.0.0",
+    "styled-components": "^5.0.1"
   },
   "nodemonConfig": {
     "ignore": [
