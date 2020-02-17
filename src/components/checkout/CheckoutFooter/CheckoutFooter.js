@@ -1,8 +1,8 @@
+import {Loader} from 'maven-ui';
 import Link from 'next/link';
 import * as PropTypes from 'prop-types';
 import React from 'react';
 
-import Loader from '#root/components/loader';
 import {Routes} from '#root/routes';
 import {canUseDOM, noop} from '#root/utils/componentHelpers';
 

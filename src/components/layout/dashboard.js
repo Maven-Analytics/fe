@@ -1,4 +1,5 @@
 import {isImmutable} from 'immutable';
+import {Loader} from 'maven-ui';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
@@ -12,7 +13,6 @@ import {selectors as userSelectors} from '#root/redux/ducks/user';
 
 import {getTimeOfDay} from '../../utils/componentHelpers';
 import DashboardHeader from '../dashboardHeader';
-import Loader from '../loader';
 import BaseLayout from './base';
 
 class DashboardLayout extends Component {
@@ -42,7 +42,7 @@ class DashboardLayout extends Component {
                   <Sidebar />
                 </aside>
               ) : null}
-              <div className="layout-dashboard__content">{loading ? <Loader width={100} height={100} loading={loading} position="top-center" /> : children}</div>
+              <div className="layout-dashboard__content">{loading ? <Loader width={100} height={100} loading={loading} align="top-center" /> : children}</div>
             </div>
           </div>
         </div>

@@ -14,10 +14,4 @@
     margin: 0;
     position: relative;
   }
-
-  &__tab {
-    .async-loader {
-      z-index: index($globalIndex, loader);
-    }
-  }
 }

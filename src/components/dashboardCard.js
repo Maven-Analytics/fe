@@ -1,5 +1,6 @@
 import {useMutation} from '@apollo/react-hooks';
 import {fromJS} from 'immutable';
+import {Loader} from 'maven-ui';
 import PropTypes from 'prop-types';
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
@@ -10,7 +11,6 @@ import updateUserSettingsMutation from '#root/api/mutations/updateUserSettings';
 import {click} from '#root/utils/componentHelpers';
 
 import {actions as userSettingsActions, selectors as userSettingSelectors} from '../redux/ducks/userSettings';
-import Loader from './loader';
 import MaIcon from './maIcon';
 
 const DashboardCard = ({size, children, title, loading, style, canToggleVisibility, cardVisibility, settingsKey, actions, showClose}) => {

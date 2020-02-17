@@ -1,9 +1,9 @@
 import {useLazyQuery} from '@apollo/react-hooks';
 import gql from 'graphql-tag';
+import {Loader} from 'maven-ui';
 import * as PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
-import Loader from '#root/components/loader';
 import {noop} from '#root/utils/componentHelpers';
 
 const fetchCouponQuery = gql`

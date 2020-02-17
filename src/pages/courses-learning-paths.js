@@ -2,13 +2,11 @@ import {List, Map} from 'immutable';
 import {Loader} from 'maven-ui';
 import Router, {withRouter} from 'next/router';
 import PropTypes from 'prop-types';
-import qs from 'query-string';
 import React, {Fragment, PureComponent} from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {presets, spring, TransitionMotion} from 'react-motion';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import styled from 'styled-components';
 
 import CourseCard from '#root/components/courseCard';
 import CourseFilters from '#root/components/courseFilters';
@@ -16,7 +14,6 @@ import CoursePathNav from '#root/components/coursePathNav';
 import DashboardGrid from '#root/components/dashboardGrid';
 import ImageContentful from '#root/components/imageContentful';
 import Brochure from '#root/components/layout/brochure';
-// Import Loader from '#root/components/loader';
 import MaIcon from '#root/components/maIcon';
 import PathListingItem from '#root/components/pathListingItem';
 import BrochureHero from '#root/components/sections/brochureHero';
@@ -130,7 +127,12 @@ class CoursesLearningPaths extends PureComponent {
     return (
       <li key="courses" className="courses-learning-paths__tab" style={this.getTabStyle(style)}>
         <DashboardGrid cols={3}>
-          <Loader loading={loadingCourses} position="top-center" width={70} height={70} />
+          <Loader
+            align="top-center"
+            height={70}
+            loading={loadingCourses}
+            width={70}
+          />
           {courses.map(course => (
             <CourseCard
               full

@@ -1,10 +1,10 @@
+import {Loader} from 'maven-ui';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import Loader from '#root/components/loader';
 import Wysiwyg from '#root/components/wysiwyg';
 import {selectors as loadingSelectors} from '#root/redux/ducks/loading';
 import {actions as pageActions, selectors as pageSelectors} from '#root/redux/ducks/pages';
@@ -36,7 +36,7 @@ class PageModal extends Component {
     return (
       <Modal open={open} onClose={onClose} className="modal--page" position="top-center">
         <>
-          <Loader loading={loading} position="top-center" width={70} height={70} />
+          <Loader loading={loading} align="top-center" width={70} height={70} />
           <div className="page-modal">
             {page ? <Wysiwyg content={page.get('body')}/> : null}
           </div>

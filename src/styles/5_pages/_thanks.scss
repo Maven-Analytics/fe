@@ -8,14 +8,6 @@
   &__content {
     text-align: center;
 
-    .async-loader {
-      left: 0;
-      margin: 0 auto $spacing-unit--md;
-      position: static;
-      top: 0;
-      transform: none;
-    }
-
     p {
       animation: 2s pulse ease infinite alternate;
       color: $white;

@@ -12,10 +12,6 @@
 
   &.loading {
     @include loadingCoverActive();
-
-    .async-loader {
-      z-index: 1;
-    }
   }
 
   &__header {

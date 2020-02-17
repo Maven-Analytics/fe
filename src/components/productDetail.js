@@ -1,4 +1,5 @@
 import {List, Map} from 'immutable';
+import {Loader} from 'maven-ui';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
@@ -9,7 +10,6 @@ import {noop, prettyPercent} from '#root/utils/componentHelpers';
 import CourseAuthor from './courseAuthor';
 import CourseScores from './courseScores';
 import ImageContentful from './imageContentful';
-import Loader from './loader';
 import LoggedIn from './loggedIn';
 import LoggedOut from './loggedOut';
 import MaIcon from './maIcon';
