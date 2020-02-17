@@ -6165,10 +6165,10 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-maven-ui@^1.0.15:
-  version "1.0.15"
-  resolved "https://registry.yarnpkg.com/maven-ui/-/maven-ui-1.0.15.tgz#5991cac7b85dfc017fdb382cbc22a147b3508a71"
-  integrity sha512-uY5FTWDAvu6GA6dbl2L1VwGuFCIwpG2+tZxFzxzpt8+HMLt1FkKVvVkKjwuJ89gOGczw/gB6MB1i0KCVqKRU/w==
+maven-ui@^1.0.16:
+  version "1.0.16"
+  resolved "https://registry.yarnpkg.com/maven-ui/-/maven-ui-1.0.16.tgz#8fae55f8156df4f461cf2a181352b015de68d262"
+  integrity sha512-2n6SzFVssDISTPl2jCSsyaDO48KIKneRwOkZN9wzvcJUSGH4Uf1XhV1kSNkYkzVzH2ikz+ojxXUYP56WikMp3w==
   dependencies:
     react "^16.12.0"
     react-dom "^16.12.0"
