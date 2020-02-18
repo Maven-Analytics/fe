@@ -1,20 +1,22 @@
 import {useMutation} from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import Link from 'next/link';
+import {LayoutAuth, Login} from 'maven-ui';
+// Import Link from 'next/link';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {useForm} from 'react-hook-form';
-import {connect, useDispatch} from 'react-redux';
-import {bindActionCreators} from 'redux';
+// Import {useForm} from 'react-hook-form';
+import {useDispatch} from 'react-redux';
 
+// Import {bindActionCreators} from 'redux';
 import userFragment from '#root/api/fragments/user';
-import Auth from '#root/components/layout/auth';
-import GraphQlError from '#root/components/shared/GraphQlError';
+// Import Auth from '#root/components/layout/auth';
+// import GraphQlError from '#root/components/shared/GraphQlError';
+import {defaultAuthImages} from '#root/constants';
 
 import {actions as authActions} from '../redux/ducks/auth';
-import {selectors as errorSelectors} from '../redux/ducks/error';
-import {selectors as loadingSelectors} from '../redux/ducks/loading';
-import {selectors as userSelectors} from '../redux/ducks/user';
+// Import {selectors as errorSelectors} from '../redux/ducks/error';
+// import {selectors as loadingSelectors} from '../redux/ducks/loading';
+// import {selectors as userSelectors} from '../redux/ducks/user';
 import {Routes} from '../routes';
 import {canUseDOM} from '../utils/componentHelpers';
 
@@ -27,13 +29,12 @@ const mutation = gql`
   ${userFragment}
 `;
 
-const Login = ({redirectTo}) => {
+const LoginPage = ({redirectTo}) => {
   const [login, {error, client}] = useMutation(mutation);
-  const {formState: {isSubmitting, isSubmitted}, handleSubmit, register, setValue, errors: formErrors, clearError} = useForm();
+  // Const {formState: {isSubmitting, isSubmitted}, handleSubmit, register, setValue, errors: formErrors, clearError} = useForm();
   const dispatch = useDispatch();
 
-  const onSubmit = handleSubmit(async ({email, password}) => {
-    clearError();
+  const onSubmit = async ({email, password}) => {
     const redirect = redirectTo && redirectTo !== '' ? redirectTo : `${window.location.origin}${Routes.Dashboard}`;
 
     const {data: {login: loginData}} = await login({
@@ -44,11 +45,25 @@ const Login = ({redirectTo}) => {
     await client.cache.reset();
 
     dispatch(authActions.login({...loginData, redirectTo: redirect}));
-  });
+  };
 
   return (
-    <Auth>
-      <form onSubmit={onSubmit}>
+    <LayoutAuth images={defaultAuthImages}>
+      <Login
+        error={error}
+        footerLinks={[
+          {
+            title: 'I forgot my password.',
+            url: Routes.ForgotPassword
+          },
+          {
+            title: 'I don\'t have an account yet. Sign me Up!',
+            url: Routes.Signup
+          }
+        ]}
+        onComplete={onSubmit}
+      />
+      {/* <form onSubmit={onSubmit}>
         <div className="form-group">
           <label htmlFor="email">Email address</label>
           <input ref={register({required: true})} disabled={isSubmitting} type="text" name="email" id="email" className="input" required/>
@@ -79,36 +94,22 @@ const Login = ({redirectTo}) => {
             <Link href={Routes.Signup}><a>{'I don\'t have an account yet. Sign me Up!'}</a></Link>
           </span>
         </div>
-      </form>
-    </Auth>
+      </form> */}
+    </LayoutAuth>
   );
 };
 
-Login.getInitialProps = async ctx => {
+LoginPage.getInitialProps = async ctx => {
   return {
     redirectTo: ctx.query.redirectTo ? `${ctx.query.redirectTo}` : canUseDOM() ? `${window.location.origin}${Routes.Dashboard}` : null
   };
 };
 
-const mapStateToProps = state => ({
-  loading: loadingSelectors.getLoading(['LOGIN'])(state),
-  error: errorSelectors.getError(['LOGIN'])(state),
-  user: userSelectors.getUser(state)
-});
-
-const mapDispatchToProps = function (dispatch) {
-  return {
-    actions: bindActionCreators({
-      ...authActions
-    }, dispatch)
-  };
-};
-
-Login.propTypes = {
+LoginPage.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
   redirectTo: PropTypes.string
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default LoginPage;
