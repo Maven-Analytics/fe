@@ -7,6 +7,14 @@ import Subscribe from '#root/components/subscribe';
 import {copyLinks, footerConnectLinks, footerLinks, Routes} from '#root/routes';
 
 const SiteFooter = ({router: {pathname}}) => {
+  const isHideFooter = pathname.includes(Routes.Login) ||
+  pathname.includes(Routes.ForgotPassword) ||
+  pathname.includes(Routes.Reset);
+
+  if (isHideFooter) {
+    return null;
+  }
+
   const isHideMainFooter = pathname.includes(Routes.Signup) ||
   pathname.includes(Routes.WelcomeSurvey);
 
