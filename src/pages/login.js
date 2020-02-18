@@ -106,9 +106,6 @@ LoginPage.getInitialProps = async ctx => {
 };
 
 LoginPage.propTypes = {
-  actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  loading: PropTypes.bool.isRequired,
-  error: PropTypes.string.isRequired,
   redirectTo: PropTypes.string
 };
 
