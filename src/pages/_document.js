@@ -15,7 +15,13 @@ class MyDocument extends Document {
 
       const initialProps = await Document.getInitialProps(ctx);
       return {
-        ...initialProps
+        ...initialProps,
+        styles: (
+          <>
+            {initialProps.styles}
+            {sheet.getStyleElement()}
+          </>
+        )
       };
     } finally {
       sheet.seal();
