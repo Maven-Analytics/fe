@@ -2,9 +2,11 @@ import '../styles/index.scss';
 
 import {ApolloProvider} from '@apollo/react-hooks';
 import {fromJS} from 'immutable';
+import {ComponentProvider, ThemeProvider} from 'maven-ui';
 import withReduxSaga from 'next-redux-saga';
 import withRedux from 'next-redux-wrapper';
 import App from 'next/app';
+import Link from 'next/link';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {connect, Provider} from 'react-redux';
@@ -139,19 +141,23 @@ class MavenApp extends App {
     return (
       <ApolloProvider client={client({})}>
         <Provider store={store}>
-          <StripeProvider stripe={this.state.stripe}>
-            <Elements>
-              <ParallaxProvider>
-                <Root>
-                  <Component {...pageProps} />
-                  <SentryScript/>
-                  <FontLoaderScript/>
-                  <GtagScript/>
-                  <IntercomScript />
-                </Root>
-              </ParallaxProvider>
-            </Elements>
-          </StripeProvider>
+          <ComponentProvider linkComponent={Link} linkKey="href" linkWrap={true}>
+            <ThemeProvider>
+              <StripeProvider stripe={this.state.stripe}>
+                <Elements>
+                  <ParallaxProvider>
+                    <Root>
+                      <Component {...pageProps} />
+                      <SentryScript/>
+                      <FontLoaderScript/>
+                      <GtagScript/>
+                      <IntercomScript />
+                    </Root>
+                  </ParallaxProvider>
+                </Elements>
+              </StripeProvider>
+            </ThemeProvider>
+          </ComponentProvider>
         </Provider>
       </ApolloProvider>
     );

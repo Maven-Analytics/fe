@@ -5,6 +5,7 @@ import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {copyLinks} from '#root/routes';
 
 const Copyright = ({links}) => {
+  return null;
   return (
     <div className="copyright">
       <div className="container container--lg">

@@ -1,3 +1,4 @@
+import {fromJS} from 'immutable';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
@@ -71,7 +72,7 @@ class MobileMenu extends Component {
                 </Link>
                 <nav>
                   <ul>
-                    {menuLinksMain.map(link => {
+                    {fromJS(menuLinksMain).map(link => {
                       return (
                         <li key={link.get('title')}>
                           <Link href={link.get('url')}><a onClick={click(offmenuToggle, 'mobileMenu')}>{link.get('title')}</a></Link>

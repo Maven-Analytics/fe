@@ -15,6 +15,7 @@ import {menuLinksMain, Routes} from '#root/routes';
 import {canUseDOM, click} from '#root/utils/componentHelpers';
 
 const GlobalHeader = ({state, actions, className, loginRedirect, headroomDisabled}) => {
+  return null;
   const classList = ['global-header'];
 
   if (className) {

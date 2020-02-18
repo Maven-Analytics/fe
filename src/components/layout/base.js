@@ -8,12 +8,12 @@ const BaseLayout = ({children, header: Header, footer: Footer, mainClass, hideMo
   return (
     <Fragment>
       <IeWarn />
-      {Header ? <Header loginRedirect={loginRedirect} className={headerClass} headroomDisabled={headroomDisabled}/> : null}
+      {/* {Header ? <Header loginRedirect={loginRedirect} className={headerClass} headroomDisabled={headroomDisabled}/> : null} */}
       <main id="main" className={mainClass}>
         {children}
       </main>
-      <ModalController hideModals={hideModals} loginRedirect={loginRedirect} />
-      {Footer ? <Footer /> : null}
+      {/* <ModalController hideModals={hideModals} loginRedirect={loginRedirect} /> */}
+      {/* {Footer ? <Footer /> : null} */}
     </Fragment>
   );
 };

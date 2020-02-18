@@ -2309,7 +2309,7 @@ boom@7.x.x:
   dependencies:
     hoek "6.x.x"
 
-bootstrap@^4.3.1:
+bootstrap@^4.3.1, bootstrap@^4.4.1:
   version "4.4.1"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.4.1.tgz#8582960eea0c5cd2bede84d8b0baf3789c3e8b01"
 
@@ -4339,7 +4339,7 @@ flatten@^1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.3.tgz#c1283ac9f27b368abc1e36d1ff7b04501a30356b"
 
-flickity@^2.2.0:
+flickity@^2.2.0, flickity@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/flickity/-/flickity-2.2.1.tgz#81126e3d656cb54577358a5f959ffdbda088e670"
   dependencies:
@@ -6165,13 +6165,18 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-maven-ui@^1.0.16:
-  version "1.0.16"
-  resolved "https://registry.yarnpkg.com/maven-ui/-/maven-ui-1.0.16.tgz#8fae55f8156df4f461cf2a181352b015de68d262"
-  integrity sha512-2n6SzFVssDISTPl2jCSsyaDO48KIKneRwOkZN9wzvcJUSGH4Uf1XhV1kSNkYkzVzH2ikz+ojxXUYP56WikMp3w==
+maven-ui@^1.0.27:
+  version "1.0.27"
+  resolved "https://registry.yarnpkg.com/maven-ui/-/maven-ui-1.0.27.tgz#e33b1b6aae5718634413be2b727abfec2e0dc4fe"
+  integrity sha512-MkPbwl27BMllk5R0YK/IM+uqLo745yYDplFIAm6ScYVPu7lwEss62Uo52CQyD8Tx3edeGJhiT0QMu3lh+KCoDA==
   dependencies:
-    react "^16.12.0"
+    bootstrap "^4.4.1"
+    flickity "^2.2.1"
+    lodash.throttle "^4.1.1"
+    prop-types "^15.7.2"
+    react "^16.8.0"
     react-dom "^16.12.0"
+    react-hook-form "^4.9.6"
     styled-components "^5.0.1"
 
 md5.js@^1.3.4:
@@ -8132,6 +8137,11 @@ react-hook-form@^4.4.2:
   version "4.5.2"
   resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-4.5.2.tgz#98034ce9454e804c220bdea21b3a60db76e6d5d0"
 
+react-hook-form@^4.9.6:
+  version "4.9.6"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-4.9.6.tgz#2057b4af7028f09d50c9bd1db46d1ff4e453c046"
+  integrity sha512-t5EQdfATwOOlj0rsBmHYBgf6s5L/dzakPzhzr2kdqTVhRnxSI73ZthJofZ+dYiXrXa6ds0VRso49GCHwDXL66Q==
+
 react-immutable-proptypes@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/react-immutable-proptypes/-/react-immutable-proptypes-2.1.0.tgz#023d6f39bb15c97c071e9e60d00d136eac5fa0b4"
@@ -8191,7 +8201,7 @@ react-test-renderer@^16.0.0-0:
     react-is "^16.8.6"
     scheduler "^0.18.0"
 
-react@^16.12.0:
+react@^16.12.0, react@^16.8.0:
   version "16.12.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.12.0.tgz#0c0a9c6a142429e3614834d5a778e18aa78a0b83"
   dependencies:

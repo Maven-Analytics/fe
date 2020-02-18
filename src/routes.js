@@ -41,7 +41,7 @@ export const Routes = {
   WelcomeResults: '/welcome/results'
 };
 
-export const menuLinksMain = fromJS([
+export const menuLinksMain = [
   {
     title: 'Pricing',
     url: Routes.Signup
@@ -58,9 +58,9 @@ export const menuLinksMain = fromJS([
     title: 'Team Training',
     url: Routes.TeamTraining
   }
-]);
+];
 
-export const menuLinksRegister = fromJS([
+export const menuLinksRegister = [
   {
     title: 'Contact',
     url: Routes.Home
@@ -71,26 +71,42 @@ export const menuLinksRegister = fromJS([
     icon: 'user'
   },
   {
+    className: 'btn btn--primary',
     title: 'Sign Up',
     url: Routes.Signup,
     btn: true
   }
-]);
+];
 
-export const footerLinks = fromJS([
+export const userMenuLinks = [
+  {
+    title: 'Dashboard',
+    url: Routes.Dashboard
+  },
+  {
+    title: 'My Account',
+    url: Routes.Account
+  },
+  {
+    title: 'Sign Out',
+    url: Routes.Logout
+  }
+];
+
+export const footerLinks = [
   {
     title: 'Learn',
     links: [
       {
-        text: 'Match Survey',
+        title: 'Match Survey',
         url: Routes.WelcomeSurvey
       },
       {
-        text: 'Practice Assessments',
+        title: 'Practice Assessments',
         url: Routes.SkillsAssessments
       },
       {
-        text: 'Courses & Paths',
+        title: 'Courses & Paths',
         url: Routes.CoursesPaths
       }
     ]
@@ -99,52 +115,52 @@ export const footerLinks = fromJS([
     title: 'Resources',
     links: [
       {
-        text: 'Help Center',
+        title: 'Help Center',
         url: Routes.HelpCenter,
         external: true
       },
       {
-        text: 'Credentials & Badges',
+        title: 'Credentials & Badges',
         url: Routes.Credentials
       },
       {
-        text: 'Team Training',
+        title: 'Team Training',
         url: Routes.TeamTraining
       },
       {
-        text: 'Consulting',
+        title: 'Consulting',
         url: Routes.Consulting
       },
       {
-        text: 'Why BI?',
+        title: 'Why BI?',
         url: Routes.BiVideoSeries
       }
     ]
   }
-]);
+];
 
-export const footerConnectLinks = fromJS([
+export const footerConnectLinks = [
   {
-    text: 'Meet The Team',
+    title: 'Meet The Team',
     url: Routes.Team
   },
   {
-    text: 'Contact',
+    title: 'Contact',
     url: Routes.Contact
   }
-]);
+];
 
-export const copyLinks = fromJS([
+export const copyLinks = [
   {
     url: Routes.Terms,
-    text: 'Terms & Conditions'
+    title: 'Terms & Conditions'
   },
   {
     url: Routes.PrivacyPolicy,
-    text: 'Privacy'
+    title: 'Privacy'
   },
   {
     url: Routes.Contact,
-    text: 'Contact'
+    title: 'Contact'
   }
-]);
+];

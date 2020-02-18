@@ -10,6 +10,7 @@ import {actions as stateActions, selectors as stateSelectors} from '#root/redux/
 import {Routes} from '#root/routes';
 
 const CheckoutHeader = ({loginRedirect}) => {
+  return null;
   const dispatch = useDispatch();
   const state = useSelector(stateSelectors.getState);
 

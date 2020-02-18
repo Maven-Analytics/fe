@@ -11,6 +11,8 @@ import {footerConnectLinks, footerLinks} from '#root/routes';
 import Copyright from './copyright';
 
 const GlobalFooter = ({description, links}) => {
+  return null;
+
   return (
     <footer className="global-footer">
       <div className="global-footer__inner">

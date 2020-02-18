@@ -18,7 +18,7 @@ import PageModal from './pageModal';
 import PathDrawer from './pathDrawer';
 import VideoModal from './videoModal';
 
-const ModalController = ({state, actions, hideModals, loginRedirect}) => {
+const ModalController = ({state, actions, loginRedirect}) => {
   // DON'T DO THIS!!!!!
   // Router.events.on('routeChangeComplete', () => {
   //   actions.stateReset();
@@ -26,13 +26,11 @@ const ModalController = ({state, actions, hideModals, loginRedirect}) => {
 
   return (
     <Fragment>
-      {hideModals.indexOf('mobileMenu') === -1 ? (
-        <MobileMenu
-          isActive={state.get('mobileMenu')}
-          offmenuToggle={actions.offmenuToggle}
-          loginRedirect={loginRedirect}
-        />
-      ) : null}
+      <MobileMenu
+        isActive={state.get('mobileMenu')}
+        offmenuToggle={actions.offmenuToggle}
+        loginRedirect={loginRedirect}
+      />
       <PathDrawer/>
       <CourseDrawer/>
       <VideoModal
@@ -62,7 +60,6 @@ const ModalController = ({state, actions, hideModals, loginRedirect}) => {
 ModalController.propTypes = {
   state: ImmutablePropTypes.map.isRequired,
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  hideModals: PropTypes.array.isRequired,
   loginRedirect: PropTypes.string
 };
 
