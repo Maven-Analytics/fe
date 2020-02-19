@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
 
 import IeWarn from '#root/components/ieWarn';
-import ModalController from '#root/components/modals/modalController';
 
 const BaseLayout = ({children, header: Header, footer: Footer, mainClass, hideModals, headerClass, loginRedirect, headroomDisabled}) => {
   return (

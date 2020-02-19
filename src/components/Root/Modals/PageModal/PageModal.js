@@ -1,15 +1,26 @@
-import {Loader} from 'maven-ui';
+import {Loader, Modal} from 'maven-ui';
+import {responsive, spacingUnit} from 'maven-ui/lib/helpers';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import styled from 'styled-components';
 
 import Wysiwyg from '#root/components/wysiwyg';
 import {selectors as loadingSelectors} from '#root/redux/ducks/loading';
 import {actions as pageActions, selectors as pageSelectors} from '#root/redux/ducks/pages';
 
-import Modal from './modal';
+const Inner = styled.div``;
+
+const Wrapper = styled.div`
+  background-color: #FFF;
+  padding: ${spacingUnit.md}  ${spacingUnit.default};
+
+  ${responsive.mediaBreakpointUp('lg')} {
+    min-width: 874px;
+  }
+`;
 
 class PageModal extends Component {
   componentDidMount() {
@@ -34,13 +45,13 @@ class PageModal extends Component {
     const {open, onClose, page, loading} = this.props;
 
     return (
-      <Modal open={open} onClose={onClose} className="modal--page" position="top-center">
-        <>
+      <Modal scroll open={open} onClose={onClose} contentStyle={{margin: `${spacingUnit.l} 0`, maxWidth: 992}}>
+        <Wrapper>
           <Loader loading={loading} align="top-center" width={70} height={70} />
-          <div className="page-modal">
+          <Inner>
             {page ? <Wysiwyg content={page.get('body')}/> : null}
-          </div>
-        </>
+          </Inner>
+        </Wrapper>
       </Modal>
     );
   }

@@ -1,6 +1,19 @@
-import React, {Component} from 'react';
+import {Modal} from 'maven-ui';
 import PropTypes from 'prop-types';
-import Modal from './modal';
+import React, {Component} from 'react';
+import styled from 'styled-components';
+
+const Wrapper = styled.div`
+  height: 100vh;
+  margin: 0 auto;
+  max-width: 1132px;
+  overflow: hidden;
+`;
+
+const Inner = styled.div`
+  height: 100vh;
+  overflow: auto;
+`;
 
 class AssessmentModal extends Component {
   componentDidUpdate(prevProps) {
@@ -19,9 +32,9 @@ class AssessmentModal extends Component {
     const {id, open, onClose} = this.props;
 
     return (
-      <Modal open={open} onClose={onClose} size="full" className="modal--assessment">
-        <div className="assessment-modal">
-          <div>
+      <Modal open={open} onClose={onClose}>
+        <Wrapper>
+          <Inner>
             {open ? (
               <div
                 className="op-interactive"
@@ -30,8 +43,8 @@ class AssessmentModal extends Component {
                 data-width="100%"
               />
             ) : null}
-          </div>
-        </div>
+          </Inner>
+        </Wrapper>
       </Modal>
     );
   }

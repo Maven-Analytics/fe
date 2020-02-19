@@ -20,11 +20,11 @@ export function * watchState() {
 function * onOffmenuChange() {
   const state = yield select(stateSelectors.getState);
 
-  if (state.get('mobileMenu')) {
-    document.body.classList.add('mobile-menu-open');
-  } else {
-    document.body.classList.remove('mobile-menu-open');
-  }
+  // If (state.get('mobileMenu')) {
+  //   document.body.classList.add('mobile-menu-open');
+  // } else {
+  //   document.body.classList.remove('mobile-menu-open');
+  // }
 
   if (state.getIn(['pathDrawer', 'open'])) {
     document.body.classList.add('path-drawer-open');

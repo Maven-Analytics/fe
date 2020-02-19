@@ -7,11 +7,11 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import UserSettingFragment from '#root/api/fragments/UserSetting';
 import subscriptionStatusQuery from '#root/api/query/subscriptionStatus';
-import ModalController from '#root/components/modals/modalController';
 import withUser from '#root/components/withUser';
 import {actions as subscriptionActions, selectors as subscriptionSelectors} from '#root/redux/ducks/subscription';
 import {actions as userSettingsActions} from '#root/redux/ducks/userSettings';
 
+import Modals from './Modals';
 import SiteFooter from './SiteFooter';
 import SiteHeader from './SiteHeader';
 
@@ -44,7 +44,7 @@ const Root = ({children, user}) => {
     <>
       <SiteHeader/>
       {children}
-      <ModalController/>
+      <Modals/>
       <SiteFooter/>
     </>
   );

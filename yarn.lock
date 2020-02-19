@@ -5964,6 +5964,11 @@ levn@^0.3.0, levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
+lib@^4.0.5:
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/lib/-/lib-4.0.5.tgz#3564dfb630819ad3eb73643abd535d73e2cbde91"
+  integrity sha512-tDg4tRypj1SxDVUN24UIGjPcrs0ct/3Lv6uuOcDrStzwThvb6P/UbyJh/UM+jBZtTXzHTBUpf4deWTcu6Ya5xA==
+
 load-json-file@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/load-json-file/-/load-json-file-1.1.0.tgz#956905708d58b4bab4c2261b04f59f31c99374c0"
@@ -6165,18 +6170,20 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-maven-ui@^1.0.31:
-  version "1.0.31"
-  resolved "https://registry.yarnpkg.com/maven-ui/-/maven-ui-1.0.31.tgz#d72e5256db45b7139f5639ee4d156df962973f28"
-  integrity sha512-pJ0HjsDdlCM+PXY3ytUgKWe1MzM8SoVgt1rcAPYYODxkW2fqbg21bv90HghEPcA6x22rBOmSaNXBHOM5qOq18w==
+maven-ui@^1.0.38:
+  version "1.0.38"
+  resolved "https://registry.yarnpkg.com/maven-ui/-/maven-ui-1.0.38.tgz#d586ab53d2723691149159382d716387732b3b92"
+  integrity sha512-xKphe7wMXrk4dhuHYL7SyNQGEtbapz/quASjGgvidT1KC1+bvM2Dus1IozNMdVoq8TfP+7eNX3ufPjOrvvKpyQ==
   dependencies:
     bootstrap "^4.4.1"
     flickity "^2.2.1"
+    lib "^4.0.5"
     lodash.throttle "^4.1.1"
     prop-types "^15.7.2"
     react "^16.8.0"
     react-dom "^16.12.0"
     react-hook-form "^4.9.6"
+    react-motion "^0.5.2"
     styled-components "^5.0.1"
 
 md5.js@^1.3.4:
