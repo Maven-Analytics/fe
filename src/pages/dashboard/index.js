@@ -206,7 +206,7 @@ class DashboardPage extends Component {
 
     const BadgeCreds = (
       <DashboardCard settingsKey="credentials" title="Earned badges & credentials" loading={loadingDashboard || loadingCourses}>
-        {loadingDashboard === false && loadingCourses === false && loadingDashboard && credentials.isEmpty() ? (
+        {loadingDashboard === false && loadingCourses === false && loadingDashboard === false && credentials.isEmpty() ? (
           <DashboardNoData
             btnText="View All Badges"
             btnUrl={Routes.DashboardCredentials}
