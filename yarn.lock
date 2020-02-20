@@ -4595,11 +4595,6 @@ gzip-size@5.1.1, gzip-size@^5.0.0:
     duplexer "^0.1.1"
     pify "^4.0.1"
 
-hapi-gate@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/hapi-gate/-/hapi-gate-2.1.0.tgz#503211813c9e4491bace3f09e96d43e3bdea8d52"
-  integrity sha512-GFQixKhAkaduwLHSya3DaZw2MhPYhywqVB5qXZ10AEPtctEtI1qQk1sywTFjnM+rNS1mFZ1DZhbi+krItQIzQw==
-
 hapi@^18.1.0:
   version "18.1.0"
   resolved "https://registry.yarnpkg.com/hapi/-/hapi-18.1.0.tgz#98a2a5a8f37a41eb196bdad9727f66b1fbca5fec"
