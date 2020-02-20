@@ -1,56 +1,56 @@
-import {useQuery} from '@apollo/react-hooks';
-import gql from 'graphql-tag';
-import {fromJS} from 'immutable';
-import PropTypes from 'prop-types';
-import React from 'react';
-
-import imageFragment from '#root/api/fragments/image';
 import CourseLessons from '#root/components/courseLessons';
 import Markdown from '#root/components/markdown';
 import ProductDetail from '#root/components/productDetail';
+import PropTypes from 'prop-types';
+import React from 'react';
 import {Routes} from '#root/routes';
+import {fromJS} from 'immutable';
+import gql from 'graphql-tag';
+import imageFragment from '#root/api/fragments/image';
 import {noop} from '#root/utils/componentHelpers';
+import {useQuery} from '@apollo/react-hooks';
 
 const courseQuery = gql`
-query CourseById($id: String!) {
-  courses(id: $id) {
-    author {
-      name
+  query CourseById($id: String!) {
+    courses(id: $id) {
+      author {
+        name
+        thumbnail {
+          ...image
+        }
+      }
+      cardDescription
+      comingSoon
+      badge {
+        ...image
+      }
+      description
+      descriptionFull
+      descriptionDetail
+      descriptionDetails
+      enrollment {
+        id
+        percentage_completed
+      }
+      hours
+      id
+      length
+      lessons {
+        lessons
+        title
+      }
+      match
+      slug
+      thinkificCourseId
       thumbnail {
         ...image
       }
-    }
-    cardDescription
-    badge {
-      ...image
-    }
-    description
-    descriptionFull
-    descriptionDetail
-    descriptionDetails
-    enrollment {
-      id
-      percentage_completed
-    }
-    hours
-    id
-    length
-    lessons {
-      lessons
       title
+      tools
+      url
     }
-    match
-    slug
-    thinkificCourseId
-    thumbnail {
-      ...image
-    }
-    title
-    tools
-    url
   }
-}
-${imageFragment}
+  ${imageFragment}
 `;
 
 const CourseDetail = ({courseId, onResumeClick: handleResumeClick}) => {
@@ -88,7 +88,9 @@ const CourseDetail = ({courseId, onResumeClick: handleResumeClick}) => {
       id={course.get('thinkificCourseId')}
       url={Routes.Course(course.get('slug'))}
     >
-      {course.get('descriptionFull') && course.get('descriptionFull') !== '' ? <Markdown content={course.get('descriptionFull')} /> : null}
+      {course.get('descriptionFull') && course.get('descriptionFull') !== '' ? (
+        <Markdown content={course.get('descriptionFull')} />
+      ) : null}
       {course.get('lessons') ? <CourseLessons lessons={course.get('lessons')} /> : null}
       {course.get('descriptionDetail') ? <Markdown content={course.get('descriptionDetail')} /> : null}
     </ProductDetail>
