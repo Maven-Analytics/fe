@@ -1,24 +1,14 @@
 {
-  "extends": [
-    "xo",
-    "plugin:react/recommended"
-  ],
+  "extends": ["xo", "plugin:react/recommended"],
   "env": {
     "jest": true
   },
   "parser": "babel-eslint",
-  "plugins": [
-    "react",
-    "simple-import-sort"
-  ],
+  "plugins": ["react", "simple-import-sort"],
   "rules": {
-    "indent": [
-      "error",
-      2
-    ],
+    "indent": ["error", 2],
     "camelcase": "off",
-    "new-cap": "off",
-    "simple-import-sort/sort": "error"
+    "new-cap": "off"
   },
   "globals": {
     "window": true,

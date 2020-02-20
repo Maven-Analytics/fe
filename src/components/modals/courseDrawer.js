@@ -1,62 +1,63 @@
-import {useQuery} from '@apollo/react-hooks';
-import gql from 'graphql-tag';
-import {fromJS} from 'immutable';
-import PropTypes from 'prop-types';
-import React from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
 
-import imageFragment from '#root/api/fragments/image';
+import {click, clickAction} from '#root/utils/componentHelpers';
+import {actions as stateActions, selectors as stateSelectors} from '#root/redux/ducks/state';
+
 import CloseButton from '#root/components/closeButton';
 import CourseLessons from '#root/components/courseLessons';
-import ProductDetail from '#root/components/productDetail';
-import {actions as stateActions, selectors as stateSelectors} from '#root/redux/ducks/state';
-import {Routes} from '#root/routes';
-import {click, clickAction} from '#root/utils/componentHelpers';
-
 import Markdown from '../markdown';
+import ProductDetail from '#root/components/productDetail';
+import PropTypes from 'prop-types';
+import React from 'react';
+import {Routes} from '#root/routes';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {fromJS} from 'immutable';
+import gql from 'graphql-tag';
+import imageFragment from '#root/api/fragments/image';
+import {useQuery} from '@apollo/react-hooks';
 
 const courseQuery = gql`
-query CourseById($id: String!) {
-  courses(id: $id) {
-    author {
-      name
+  query CourseById($id: String!) {
+    courses(id: $id) {
+      author {
+        name
+        thumbnail {
+          ...image
+        }
+      }
+      cardDescription
+      comingSoon
+      badge {
+        ...image
+      }
+      description
+      descriptionFull
+      descriptionDetail
+      descriptionDetails
+      enrollment {
+        id
+        percentage_completed
+      }
+      hours
+      id
+      length
+      lessons {
+        lessons
+        title
+      }
+      match
+      slug
+      thinkificCourseId
       thumbnail {
         ...image
       }
-    }
-    cardDescription
-    badge {
-      ...image
-    }
-    description
-    descriptionFull
-    descriptionDetail
-    descriptionDetails
-    enrollment {
-      id
-      percentage_completed
-    }
-    hours
-    id
-    length
-    lessons {
-      lessons
       title
+      tools
+      url
     }
-    match
-    slug
-    thinkificCourseId
-    thumbnail {
-      ...image
-    }
-    title
-    tools
-    url
   }
-}
-${imageFragment}
+  ${imageFragment}
 `;
 
 const CourseDrawer = ({actions, state}) => {
@@ -94,7 +95,9 @@ const CourseDrawer = ({actions, state}) => {
               comingSoon={course.get('comingSoon')}
               badge={course.get('badge')}
               title={course.get('title')}
-              percentage_completed={course.get('percentage_completed') || course.getIn(['enrollment', 'percentage_completed'])}
+              percentage_completed={
+                course.get('percentage_completed') || course.getIn(['enrollment', 'percentage_completed'])
+              }
               titleTag="h2"
               match={course.get('match')}
               resumeUrl={course.get('url')}
@@ -105,7 +108,9 @@ const CourseDrawer = ({actions, state}) => {
               id={course.get('thinkificCourseId')}
               url={Routes.Course(course.get('slug'))}
             >
-              {course.get('descriptionFull') && course.get('descriptionFull') !== '' ? <Markdown content={course.get('descriptionFull')} /> : null}
+              {course.get('descriptionFull') && course.get('descriptionFull') !== '' ? (
+                <Markdown content={course.get('descriptionFull')} />
+              ) : null}
               {course.get('lessons') ? <CourseLessons lessons={course.get('lessons')} /> : null}
               {course.get('descriptionDetail') ? <Markdown content={course.get('descriptionDetail')} /> : null}
             </ProductDetail>
@@ -134,7 +139,4 @@ const mapDispatchToProps = dispatch => ({
   )
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CourseDrawer);
+export default connect(mapStateToProps, mapDispatchToProps)(CourseDrawer);
