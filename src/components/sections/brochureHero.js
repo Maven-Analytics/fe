@@ -35,7 +35,8 @@ const BrochureHero = ({
   linkContent,
   onLinkClick,
   backgroundSources,
-  backgroundSrc
+  backgroundSrc,
+  imageOverflow
 }) => {
   const classList = ['brochure-hero'];
 
@@ -70,7 +71,11 @@ const BrochureHero = ({
               ) : null}
             </div>
             <div className={colClasses[1]}>
-              <div className={['brochure-hero__video', video ? '' : 'no-video'].filter(c => c !== '').join(' ')}>
+              <div
+                className={['brochure-hero__video', video || imageOverflow === false ? '' : 'no-video']
+                  .filter(c => c !== '')
+                  .join(' ')}
+              >
                 {image ? image : null}
                 {thumbnail ? <ImageContentful image={thumbnail} /> : thumbnail}
                 {video ? (
@@ -85,20 +90,22 @@ const BrochureHero = ({
             <div className="row">
               <div className="col-12">
                 <ProductMeta className="product-meta--course-detail">
-                  <ProductMetaItem label="Course Hours">
-                    {hours} hours
-                  </ProductMetaItem>
+                  <ProductMetaItem label="Course Hours">{hours} hours</ProductMetaItem>
                   <ProductMetaItem label="Skills Learned">
                     <div className="brochure-hero__pills">
                       {skills.map(skill => (
-                        <div key={skill} className="brochure-hero__pill">{skill}</div>
+                        <div key={skill} className="brochure-hero__pill">
+                          {skill}
+                        </div>
                       ))}
                     </div>
                   </ProductMetaItem>
                   <ProductMetaItem label="Tools">
                     <div className="brochure-hero__pills">
                       {tools.map(tool => (
-                        <div key={tool} className="brochure-hero__pill">{tool}</div>
+                        <div key={tool} className="brochure-hero__pill">
+                          {tool}
+                        </div>
                       ))}
                     </div>
                   </ProductMetaItem>
@@ -146,7 +153,8 @@ BrochureHero.propTypes = {
   linkContent: PropTypes.node,
   image: PropTypes.node,
   backgroundSources: PropTypes.array,
-  backgroundSrc: PropTypes.string
+  backgroundSrc: PropTypes.string,
+  imageOverflow: PropTypes.bool
 };
 
 BrochureHero.defaultProps = {
@@ -156,7 +164,8 @@ BrochureHero.defaultProps = {
   badge: Map(),
   paths: List(),
   meta: true,
-  colClasses: ['col-md-6 col-lg-7', 'col-md-6 col-lg-5']
+  colClasses: ['col-md-6 col-lg-7', 'col-md-6 col-lg-5'],
+  imageOverflow: true
 };
 
 export default BrochureHero;

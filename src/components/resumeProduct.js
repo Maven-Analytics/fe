@@ -1,15 +1,13 @@
+import EnrolledUser from './helpers/EnrolledUser';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import {useSelector} from 'react-redux';
-
-import {selectors as stateSelectors} from '#root/redux/ducks/state';
 import {Routes} from '#root/routes';
-import {noop} from '#root/utils/componentHelpers';
-
-import EnrolledUser from './helpers/EnrolledUser';
 import UnenrolledUser from './helpers/UnenrolledUser';
+import {noop} from '#root/utils/componentHelpers';
+import {selectors as stateSelectors} from '#root/redux/ducks/state';
+import {useSelector} from 'react-redux';
 
 const ResumeProduct = ({resumeUrl, productTerm, className, started, onClick: handleClick}) => {
   const state = useSelector(stateSelectors.getState);
@@ -26,7 +24,9 @@ const ResumeProduct = ({resumeUrl, productTerm, className, started, onClick: han
       </EnrolledUser>
       <UnenrolledUser>
         <Link href={thinkificHealthy ? Routes.Signup : Routes.Error}>
-          <a className={className} onClick={handleClick}>Signup</a>
+          <a className={className} onClick={handleClick}>
+            Signup
+          </a>
         </Link>
       </UnenrolledUser>
     </>

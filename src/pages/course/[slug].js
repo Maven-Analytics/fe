@@ -25,9 +25,10 @@ import redirect from '#root/utils/redirect';
 const Course = ({course, actions, paths}) => {
   return (
     <BrochureLayout>
-      <Head meta={course.get('meta')}/>
+      <Head meta={course.get('meta')} />
       <div className="course-detail">
         <BrochureHero
+          imageOverflow={false}
           eyelash="Self-Paced Course"
           title={course.get('title')}
           description={course.get('descriptionPreview')}
@@ -43,31 +44,51 @@ const Course = ({course, actions, paths}) => {
           backgroundSrc={courseHeroBgSrc}
           onVideoClick={clickAction(actions.modalOpen, 'video', {video: course.get('video')})}
         />
-        <CtaSurvey/>
+        <CtaSurvey />
         <div className="container container--lg">
           <div className="course-detail__main">
             <section>
               <div>
                 <h4>Course Description</h4>
-                {course.get('descriptionFull') && course.get('descriptionFull') !== '' ? <Markdown content={course.get('descriptionFull')}/> : null}
+                {course.get('descriptionFull') && course.get('descriptionFull') !== '' ? (
+                  <Markdown content={course.get('descriptionFull')} />
+                ) : null}
               </div>
               <div>
                 <h4>Course Outline</h4>
-                {course.get('lessons') ? <CourseLessons lessons={course.get('lessons')}/> : null}
+                {course.get('lessons') ? <CourseLessons lessons={course.get('lessons')} /> : null}
               </div>
               <div>
-                {course.get('descriptionDetail') ? <Markdown content={course.get('descriptionDetail')}/> : null}
+                {course.get('descriptionDetail') ? <Markdown content={course.get('descriptionDetail')} /> : null}
               </div>
               <div className="course-detail__cta">
                 <h3>Are you ready to become a DATA ROCKSTAR? Start learning today with your FREE 7-Day trial! </h3>
                 <p>Every subscription includes access to the following course materials</p>
                 <ul>
-                  <li><MaIcon icon="check"/>Interactive Project files</li>
-                  <li><MaIcon icon="check"/>Downloadable e-books</li>
-                  <li><MaIcon icon="check"/>Graded quizzes and assessments</li>
-                  <li><MaIcon icon="check"/>1-on-1 Expert support</li>
-                  <li><MaIcon icon="check"/>100% satisfaction guarantee</li>
-                  <li><MaIcon icon="check"/>Verified credentials & accredited badges</li>
+                  <li>
+                    <MaIcon icon="check" />
+                    Interactive Project files
+                  </li>
+                  <li>
+                    <MaIcon icon="check" />
+                    Downloadable e-books
+                  </li>
+                  <li>
+                    <MaIcon icon="check" />
+                    Graded quizzes and assessments
+                  </li>
+                  <li>
+                    <MaIcon icon="check" />
+                    1-on-1 Expert support
+                  </li>
+                  <li>
+                    <MaIcon icon="check" />
+                    100% satisfaction guarantee
+                  </li>
+                  <li>
+                    <MaIcon icon="check" />
+                    Verified credentials & accredited badges
+                  </li>
                 </ul>
                 <Link href="/signup">
                   <a className="btn btn--primary-solid">Sign Up Today</a>
@@ -78,21 +99,26 @@ const Course = ({course, actions, paths}) => {
               <div className="course-detail__author">
                 <h4>Meet Your Instructor</h4>
                 <div className="meta">
-                  <ImageContentful image={course.getIn(['author', 'thumbnail'])}/>
+                  <ImageContentful image={course.getIn(['author', 'thumbnail'])} />
                   <span>
                     <h5>{course.getIn(['author', 'name'])}</h5>
                     <p>{course.getIn(['author', 'position'])}</p>
                   </span>
                 </div>
                 <div className="bio">
-                  {course.hasIn(['author', 'biography']) ? <Markdown content={course.getIn(['author', 'biography'])}/> : null}
+                  {course.hasIn(['author', 'biography']) ? (
+                    <Markdown content={course.getIn(['author', 'biography'])} />
+                  ) : null}
                 </div>
                 {course.hasIn(['author', 'qualifications']) ? (
                   <div className="qualifications">
                     <h5>Qualitifications</h5>
                     <ul>
                       {course.getIn(['author', 'qualifications']).map(q => (
-                        <li key={q}><MaIcon icon="star"/>{q}</li>
+                        <li key={q}>
+                          <MaIcon icon="star" />
+                          {q}
+                        </li>
                       ))}
                     </ul>
                   </div>
@@ -101,16 +127,17 @@ const Course = ({course, actions, paths}) => {
               <div className="course-detail__testimonials">
                 <h4>Testimonials</h4>
                 <ul>
-                  {course.has('testimonials') && course.get('testimonials').map(testimonial => (
-                    <li key={testimonial.get('id')}>
-                      <blockquote>
-                        <Markdown content={testimonial.get('text')}/>
-                        <footer>
-                          <cite>- {testimonial.get('name')}</cite>
-                        </footer>
-                      </blockquote>
-                    </li>
-                  ))}
+                  {course.has('testimonials') &&
+                    course.get('testimonials').map(testimonial => (
+                      <li key={testimonial.get('id')}>
+                        <blockquote>
+                          <Markdown content={testimonial.get('text')} />
+                          <footer>
+                            <cite>- {testimonial.get('name')}</cite>
+                          </footer>
+                        </blockquote>
+                      </li>
+                    ))}
                 </ul>
               </div>
             </aside>
@@ -122,7 +149,9 @@ const Course = ({course, actions, paths}) => {
 };
 
 Course.getInitialProps = async ctx => {
-  const {query: {slug}} = ctx;
+  const {
+    query: {slug}
+  } = ctx;
 
   if (slug) {
     const [course] = await getCourses({
@@ -171,9 +200,12 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    ...stateActions
-  }, dispatch)
+  actions: bindActionCreators(
+    {
+      ...stateActions
+    },
+    dispatch
+  )
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Course);
