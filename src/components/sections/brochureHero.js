@@ -85,20 +85,22 @@ const BrochureHero = ({
             <div className="row">
               <div className="col-12">
                 <ProductMeta className="product-meta--course-detail">
-                  <ProductMetaItem label="Course Hours">
-                    {hours} hours
-                  </ProductMetaItem>
+                  <ProductMetaItem label="Course Hours">{hours} hours</ProductMetaItem>
                   <ProductMetaItem label="Skills Learned">
                     <div className="brochure-hero__pills">
                       {skills.map(skill => (
-                        <div key={skill} className="brochure-hero__pill">{skill}</div>
+                        <div key={skill} className="brochure-hero__pill">
+                          {skill}
+                        </div>
                       ))}
                     </div>
                   </ProductMetaItem>
                   <ProductMetaItem label="Tools">
                     <div className="brochure-hero__pills">
                       {tools.map(tool => (
-                        <div key={tool} className="brochure-hero__pill">{tool}</div>
+                        <div key={tool} className="brochure-hero__pill">
+                          {tool}
+                        </div>
                       ))}
                     </div>
                   </ProductMetaItem>
