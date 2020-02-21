@@ -114,20 +114,20 @@
     margin: $spacing-unit--md 0;
     position: relative;
 
-    // &.no-video {
-    //   @include collapseUp() {
-    //     margin-left: 2vw;
-    //     margin-top: -3.5rem;
-    //   }
+    &.no-video {
+      @include collapseUp() {
+        margin-left: 2vw;
+        margin-top: -3.5rem;
+      }
 
-    //   .image {
-    //     img {
-    //       @include collapseUp() {
-    //         max-width: 135%;
-    //       }
-    //     }
-    //   }
-    // }
+      .image {
+        img {
+          @include collapseUp() {
+            max-width: 135%;
+          }
+        }
+      }
+    }
 
     .image {
       padding-bottom: 56.29%;

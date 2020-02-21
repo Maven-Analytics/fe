@@ -35,7 +35,8 @@ const BrochureHero = ({
   linkContent,
   onLinkClick,
   backgroundSources,
-  backgroundSrc
+  backgroundSrc,
+  imageOverflow
 }) => {
   const classList = ['brochure-hero'];
 
@@ -70,7 +71,11 @@ const BrochureHero = ({
               ) : null}
             </div>
             <div className={colClasses[1]}>
-              <div className={['brochure-hero__video', video ? '' : 'no-video'].filter(c => c !== '').join(' ')}>
+              <div
+                className={['brochure-hero__video', video || imageOverflow === false ? '' : 'no-video']
+                  .filter(c => c !== '')
+                  .join(' ')}
+              >
                 {image ? image : null}
                 {thumbnail ? <ImageContentful image={thumbnail} /> : thumbnail}
                 {video ? (
@@ -148,7 +153,8 @@ BrochureHero.propTypes = {
   linkContent: PropTypes.node,
   image: PropTypes.node,
   backgroundSources: PropTypes.array,
-  backgroundSrc: PropTypes.string
+  backgroundSrc: PropTypes.string,
+  imageOverflow: PropTypes.bool
 };
 
 BrochureHero.defaultProps = {
@@ -158,7 +164,8 @@ BrochureHero.defaultProps = {
   badge: Map(),
   paths: List(),
   meta: true,
-  colClasses: ['col-md-6 col-lg-7', 'col-md-6 col-lg-5']
+  colClasses: ['col-md-6 col-lg-7', 'col-md-6 col-lg-5'],
+  imageOverflow: true
 };
 
 export default BrochureHero;
