@@ -58,19 +58,39 @@ const ProductDetail = ({
         {id ? (
           <>
             <LoggedIn>
-              {comingSoon ? null : <ResumeProduct resumeUrl={resumeUrl} onClick={handleResumeClick} productTerm={productTerm} started={percentage_completed > 0} className="btn btn--primary-solid" />}
+              {comingSoon ? (
+                <button disabled className="btn btn--default">
+                  Coming Soon
+                </button>
+              ) : (
+                <ResumeProduct
+                  resumeUrl={resumeUrl}
+                  onClick={handleResumeClick}
+                  productTerm={productTerm}
+                  started={percentage_completed > 0}
+                  className="btn btn--primary-solid"
+                />
+              )}
               {/* <Link href={resumeUrl || '#'}><a className="btn btn--primary-solid">{linkTerm} {productTerm}</a></Link> */}
             </LoggedIn>
             <LoggedOut>
               {url ? (
                 <Link href={url}>
-                  <a className="btn btn--primary-solid" onClick={handleResumeClick}>View Full Details</a>
+                  <a className="btn btn--primary-solid" onClick={handleResumeClick}>
+                    View Full Details
+                  </a>
                 </Link>
-              ) : comingSoon ? null : <ResumeProduct onClick={handleResumeClick} productTerm={productTerm} started={percentage_completed > 0} className="btn btn--primary-solid" />}
+              ) : comingSoon ? null : (
+                <ResumeProduct
+                  onClick={handleResumeClick}
+                  productTerm={productTerm}
+                  started={percentage_completed > 0}
+                  className="btn btn--primary-solid"
+                />
+              )}
             </LoggedOut>
           </>
         ) : null}
-
       </div>
       <div className="product-detail__content">
         <div className="product-detail__content__main">{children}</div>
@@ -86,16 +106,26 @@ const ProductDetail = ({
             </ProductMetaItem>
             {courseCount ? <ProductMetaItem label="Number of Courses">{courseCount}</ProductMetaItem> : null}
             <ProductMetaItem label="Total Course Hours">{hours}</ProductMetaItem>
-            {match ? <ProductMetaItem label="Your Personal Match Score">{prettyPercent(match) || 0}%</ProductMetaItem> : null}
+            {match ? (
+              <ProductMetaItem label="Your Personal Match Score">{prettyPercent(match) || 0}%</ProductMetaItem>
+            ) : null}
             {List.isList(instructors) ? (
               <ProductMetaItem label="Course Instructors">
                 {instructors.map(instructor => (
-                  <CourseAuthor key={instructor.get('id')} name={instructor.get('name')} thumbnail={instructor.get('thumbnail')} />
+                  <CourseAuthor
+                    key={instructor.get('id')}
+                    name={instructor.get('name')}
+                    thumbnail={instructor.get('thumbnail')}
+                  />
                 ))}
               </ProductMetaItem>
             ) : (
               <ProductMetaItem label="Course Instructor">
-                <CourseAuthor key={instructors.get('id')} name={instructors.get('name')} thumbnail={instructors.get('thumbnail')} />
+                <CourseAuthor
+                  key={instructors.get('id')}
+                  name={instructors.get('name')}
+                  thumbnail={instructors.get('thumbnail')}
+                />
               </ProductMetaItem>
             )}
             <LoggedIn>
