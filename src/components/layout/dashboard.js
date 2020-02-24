@@ -1,5 +1,5 @@
 import {isImmutable} from 'immutable';
-import {Loader} from 'maven-ui';
+import {DashboardHeader, Loader} from 'maven-ui';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
@@ -12,8 +12,27 @@ import {actions as stateActions} from '#root/redux/ducks/state';
 import {selectors as userSelectors} from '#root/redux/ducks/user';
 
 import {getTimeOfDay} from '../../utils/componentHelpers';
-import DashboardHeader from '../dashboardHeader';
 import BaseLayout from './base';
+import {Routes} from '#root/routes';
+
+const dashboardLinks = [
+  {
+    title: 'Dashboard',
+    url: Routes.Dashboard
+  },
+  {
+    title: 'Learning Paths',
+    url: Routes.DashboardPaths
+  },
+  {
+    title: 'Courses',
+    url: Routes.DashboardCourses
+  },
+  {
+    title: 'Credentials',
+    url: Routes.DashboardCredentials
+  }
+];
 
 class DashboardLayout extends Component {
   componentDidMount() {
@@ -27,13 +46,19 @@ class DashboardLayout extends Component {
     const {children, title, activeLink, user, showWelcome, sidebar: Sidebar, loading} = this.props;
 
     return (
-      <BaseLayout header={CheckoutHeader} footer={CopyrightFooter} mainClass="layout-dashboard" hideModals={['mobileMenu']}>
+      <BaseLayout
+        header={CheckoutHeader}
+        footer={CopyrightFooter}
+        mainClass="layout-dashboard"
+        hideModals={['mobileMenu']}
+      >
         {/* @TODO: Show alert if the user is enrolled, but all enrollments are expired */}
         <div className="layout-dashboard__wrap">
           <DashboardHeader
-            welcome={showWelcome && isImmutable(user) ? `Good ${getTimeOfDay()}, ${user.get('first_name')}` : null}
-            title={title}
             activeLink={activeLink}
+            links={dashboardLinks}
+            title={title}
+            welcome={showWelcome && isImmutable(user) ? `Good ${getTimeOfDay()}, ${user.get('first_name')}` : null}
           />
           <div className="container">
             <div className={['layout-dashboard__container', Sidebar ? 'has-sidebar' : ''].join(' ')}>
@@ -42,7 +67,9 @@ class DashboardLayout extends Component {
                   <Sidebar />
                 </aside>
               ) : null}
-              <div className="layout-dashboard__content">{loading ? <Loader width={100} height={100} loading={loading} align="top-center" /> : children}</div>
+              <div className="layout-dashboard__content">
+                {loading ? <Loader width={100} height={100} loading={loading} align="top-center" /> : children}
+              </div>
             </div>
           </div>
         </div>
@@ -73,9 +100,12 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    ...stateActions
-  }, dispatch)
+  actions: bindActionCreators(
+    {
+      ...stateActions
+    },
+    dispatch
+  )
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardLayout);
