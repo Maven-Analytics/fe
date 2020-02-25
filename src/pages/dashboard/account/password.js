@@ -11,7 +11,7 @@ import withAuthSync from '../../../components/withAuthSync';
 const AccountProfile = () => {
   return (
     <AccountLayout title="Change Your Password" activeLink={1}>
-      <PasswordForm/>
+      <PasswordForm />
     </AccountLayout>
   );
 };

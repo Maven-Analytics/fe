@@ -8,7 +8,7 @@ import withAuthSync from '../../../components/withAuthSync';
 const AccountProfile = () => {
   return (
     <AccountLayout title="Your Profile" activeLink={0}>
-      <ProfileForm/>
+      <ProfileForm />
     </AccountLayout>
   );
 };

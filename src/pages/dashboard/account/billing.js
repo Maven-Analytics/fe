@@ -14,52 +14,56 @@ import {planIds} from '#root/constants';
 import {formatDateMMDDYYYY} from '#root/utils/componentHelpers';
 
 const myPaymentMethodsQuery = gql`
-query MyPaymentMethods {
-  myPaymentMethods {
-    brand
-    default
-    id
-    exp_month
-    exp_year
-    last4
+  query MyPaymentMethods {
+    myPaymentMethods {
+      brand
+      default
+      id
+      exp_month
+      exp_year
+      last4
+    }
   }
-}
 `;
 
 const mySubscriptionsQuery = gql`
-query MySubscriptions {
-  mySubscriptions {
-    id
-    canceled_at
-    current_period_end
-    current_period_start
-    plan_id
-    status
+  query MySubscriptions {
+    mySubscriptions {
+      id
+      canceled_at
+      current_period_end
+      current_period_start
+      plan_id
+      status
+    }
   }
-}
 `;
 
 const cancelMutation = gql`
-mutation CancelMutation($subscriptionId: Int!) {
-  subscriptionCancel(subscriptionId: $subscriptionId) {
-    id
+  mutation CancelMutation($subscriptionId: Int!) {
+    subscriptionCancel(subscriptionId: $subscriptionId) {
+      id
+    }
   }
-}
 `;
 
 const resumeMutation = gql`
-mutation ResumeMutation($subscriptionId: Int!) {
-  subscriptionResume(subscriptionId: $subscriptionId) {
-    id
-    status
-    canceled_at
+  mutation ResumeMutation($subscriptionId: Int!) {
+    subscriptionResume(subscriptionId: $subscriptionId) {
+      id
+      status
+      canceled_at
+    }
   }
-}
 `;
 
 const AccountBilling = () => {
   const {data: {mySubscriptions = []} = {}, loading: subscriptionsFetching, refetch} = useQuery(mySubscriptionsQuery);
-  const {data: {myPaymentMethods = []} = {}, loading: paymentMethodsFetching, refetch: refetchPaymentMethods} = useQuery(myPaymentMethodsQuery);
+  const {
+    data: {myPaymentMethods = []} = {},
+    loading: paymentMethodsFetching,
+    refetch: refetchPaymentMethods
+  } = useQuery(myPaymentMethodsQuery);
   const [cancelSubscription, {loading: isCancelling}] = useMutation(cancelMutation);
   const [resumeSubscription, {loading: isRenewing}] = useMutation(resumeMutation);
 
@@ -96,7 +100,14 @@ const AccountBilling = () => {
           },
           {
             // eslint-disable-next-line react/display-name
-            renderItem: subscription => subscription.canceled_at ? <Pill className="error" style={{margin: '0 auto'}}>Canceled</Pill> : formatDateMMDDYYYY(subscription.current_period_end),
+            renderItem: subscription =>
+              subscription.canceled_at ? (
+                <Pill className="error" style={{margin: '0 auto'}}>
+                  Canceled
+                </Pill>
+              ) : (
+                formatDateMMDDYYYY(subscription.current_period_end)
+              ),
             label: 'Renews On'
           },
           {
@@ -104,28 +115,24 @@ const AccountBilling = () => {
             renderItem: subscription => (
               <>
                 {subscription.status === 'canceled' ? (
-                  <>
-                    Canceled on {formatDateMMDDYYYY(subscription.canceled_at)}
-                  </>
+                  <>Canceled on {formatDateMMDDYYYY(subscription.canceled_at)}</>
+                ) : subscription.canceled_at ? (
+                  <button
+                    className="btn btn--sm btn--primary-solid"
+                    onClick={() => handleRenew(subscription.id)}
+                    style={{paddingBottom: 0, paddingTop: 0}}
+                  >
+                    Renew Subscription
+                  </button>
                 ) : (
-                  subscription.canceled_at ? (
-                    <button
-                      className="btn btn--sm btn--primary-solid"
-                      onClick={() => handleRenew(subscription.id)}
-                      style={{paddingBottom: 0, paddingTop: 0}}
-                    >
-                      Renew Subscription
-                    </button>
-                  ) : (
-                    <button
-                      className="btn btn--sm btn--default"
-                      disabled={subscription.canceled_at}
-                      onClick={() => handleCancel(subscription.id)}
-                      style={{paddingBottom: 0, paddingTop: 0}}
-                    >
-                      Cancel Subscription
-                    </button>
-                  )
+                  <button
+                    className="btn btn--sm btn--default"
+                    disabled={subscription.canceled_at}
+                    onClick={() => handleCancel(subscription.id)}
+                    style={{paddingBottom: 0, paddingTop: 0}}
+                  >
+                    Cancel Subscription
+                  </button>
                 )}
               </>
             ),
