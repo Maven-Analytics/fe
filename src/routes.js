@@ -10,6 +10,7 @@ export const Routes = {
   AccountPassword: '/dashboard/account/password',
   Badges: '/badges',
   BiVideoSeries: '/bi-video-series',
+  Blog: '/blog',
   Contact: '/contact',
   Consulting: '/consulting',
   CoursesPaths: '/courses-learning-paths',

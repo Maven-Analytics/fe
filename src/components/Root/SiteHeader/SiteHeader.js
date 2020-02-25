@@ -17,12 +17,12 @@ import {canUseDOM} from '#root/utils/componentHelpers';
 const Wrapper = styled.header`
   ${responsive.mediaBreakpointUp('lg')} {
     left: 0;
-    position: ${props => props.static ? 'static' : 'absolute'};
+    position: ${props => (props.static ? 'static' : 'absolute')};
     top: 0;
     width: 100%;
   }
 
-  .headroom-wrapper{
+  .headroom-wrapper {
     background-color: ${props => props.theme.nero};
     height: 50px !important;
     max-height: 50px;
@@ -56,26 +56,23 @@ const SiteHeader = ({router: {pathname}}) => {
 
   const fullName = user && user.get('id') ? `${user.get('first_name')} ${user.get('last_name').charAt(0)}` : null;
 
-  const isNoHeader = pathname.includes(Routes.Login) ||
-    pathname.includes(Routes.ForgotPassword) ||
-    pathname.includes(Routes.Reset);
+  const isNoHeader = pathname.includes(Routes.Login) || pathname.includes(Routes.ForgotPassword) || pathname.includes(Routes.Reset);
 
   if (isNoHeader) {
     return null;
   }
 
-  const isHideMainLinks = pathname.includes(Routes.Dashboard) ||
-  pathname.includes(Routes.WelcomeSurvey) ||
-  pathname.includes(Routes.Signup);
+  const isHideMainLinks = pathname.includes(Routes.Dashboard) || pathname.includes(Routes.WelcomeSurvey) || pathname.includes(Routes.Signup);
 
-  const isStaticHeader = pathname.includes(Routes.Dashboard) ||
-  pathname.includes(Routes.WelcomeSurvey) ||
-  pathname.includes(Routes.Signup) ||
-  pathname.includes(Routes.Terms) ||
-  pathname.includes(Routes.PrivacyPolicy);
+  const isStaticHeader =
+    pathname.includes(Routes.Dashboard) ||
+    pathname.includes(Routes.WelcomeSurvey) ||
+    pathname.includes(Routes.Signup) ||
+    pathname.includes(Routes.Terms) ||
+    pathname.includes(Routes.PrivacyPolicy) ||
+    pathname.includes(Routes.Blog);
 
-  const isSignupOrWelcome = pathname.includes(Routes.Signup) ||
-  pathname.includes(Routes.WelcomeSurvey);
+  const isSignupOrWelcome = pathname.includes(Routes.Signup) || pathname.includes(Routes.WelcomeSurvey);
 
   const HeaderComp = isStaticHeader ? HeaderStatic : Header;
 
@@ -84,17 +81,11 @@ const SiteHeader = ({router: {pathname}}) => {
   return (
     <Wrapper static={isStaticHeader}>
       <Headroom disable={canUseDOM() === false || isStaticHeader}>
-        <HeaderComp
-          el="div"
-          hamburgerActive={state.get('mobileMenu')}
-          onHamburgerClick={() => dispatch(stateActions.offmenuToggle('mobileMenu'))}
-        >
-          <LinkList
-            links={isHideMainLinks ? [] : menuLinksMain}
-          />
+        <HeaderComp el="div" hamburgerActive={state.get('mobileMenu')} onHamburgerClick={() => dispatch(stateActions.offmenuToggle('mobileMenu'))}>
+          <LinkList links={isHideMainLinks ? [] : menuLinksMain} />
           <LoggedOut>
             <LinkList
-              links={isSignupOrWelcome ? [{url: `${Routes.Login}?redirectTo=${loginRedirect}`, icon: 'user', title: 'Login'}] : menuLinksRegister }
+              links={isSignupOrWelcome ? [{url: `${Routes.Login}?redirectTo=${loginRedirect}`, icon: 'user', title: 'Login'}] : menuLinksRegister}
             />
           </LoggedOut>
           <LoggedIn>
