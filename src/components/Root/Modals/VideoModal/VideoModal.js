@@ -4,17 +4,17 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Video = styled.div`
-  overflow:hidden;
-  padding-bottom:56.25%;
-  position:relative;
-  height:0;
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  position: relative;
+  height: 0;
 
-  iframe{
-    left:0;
-    top:0;
-    height:100%;
-    width:100%;
-    position:absolute;
+  iframe {
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
   }
 `;
 
@@ -25,16 +25,11 @@ const Wrapper = styled.div`
 
 const VideoModal = ({onClose, open, video}) => {
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal align="top-center" open={open} onClose={onClose}>
       <Wrapper>
         <Video>
           {video ? (
-            <iframe
-              src={video}
-              frameBorder="0"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
+            <iframe src={video} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
           ) : null}
         </Video>
       </Wrapper>
