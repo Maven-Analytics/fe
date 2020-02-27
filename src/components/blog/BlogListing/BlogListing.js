@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 
+import BlogBanner from './BlogBanner/BlogBanner';
+import BlogFeed from './BlogFeed';
 import FeaturedBlogCarousel from './FeaturedBlogCarousel';
 
 const Wrapper = styled.div``;
@@ -41,9 +43,9 @@ const featuredBlogsQuery = gql`
 const perPage = 1;
 
 const BlogListing = ({category}) => {
-  const {data: {blogPosts: {total, skip, items: posts}} = {blogPosts: {}}, fetchMore} = useQuery(blogsQuery, {
+  const {data: {blogPosts: {total, skip, items: posts}} = {blogPosts: {}}, fetchMore, loading} = useQuery(blogsQuery, {
     variables: {
-      category,
+      category: category && category.slug,
       limit: perPage,
       skip: 0
     }
@@ -51,7 +53,7 @@ const BlogListing = ({category}) => {
 
   const isMainFeed = Boolean(category) === false;
 
-  const {data: {featuredBlogs} = {}} = useQuery(featuredBlogsQuery, {skip: isMainFeed});
+  const {data: {featuredBlogs: {items: featuredPosts}} = {featuredBlogs: {}}} = useQuery(featuredBlogsQuery);
 
   const hasMore = posts && total > posts.length;
 
@@ -80,9 +82,11 @@ const BlogListing = ({category}) => {
 
   return (
     <Wrapper>
-      <FeaturedBlogCarousel />
+      {isMainFeed ? <FeaturedBlogCarousel blogs={featuredPosts || []} /> : <BlogBanner eyelash="Blog/Category" title={category && category.title} />}
       <div className="container">
-        <ListingContent>Blog Listing</ListingContent>
+        <ListingContent>
+          <BlogFeed blogs={posts} loading={loading} />
+        </ListingContent>
         {hasMore ? <button onClick={onLoadMore}>Load More</button> : null}
       </div>
     </Wrapper>
@@ -90,7 +94,11 @@ const BlogListing = ({category}) => {
 };
 
 BlogListing.propTypes = {
-  category: PropTypes.string
+  category: PropTypes.object
+};
+
+BlogListing.defaultProps = {
+  category: null
 };
 
 export default BlogListing;

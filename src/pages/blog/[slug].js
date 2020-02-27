@@ -4,6 +4,7 @@ import React from 'react';
 
 import BlogDetail from '#root/components/blog/BlogDetail';
 import MainLayout from '#root/components/layout/main';
+import CtaSection from '#root/components/sections/ctaSection';
 
 const postQuery = gql`
   query BlogPost($slug: String!) {
@@ -18,6 +19,7 @@ const BlogDetailPage = ({post}) => {
   return (
     <MainLayout>
       <BlogDetail />
+      <CtaSection />
     </MainLayout>
   );
 };
