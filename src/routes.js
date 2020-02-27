@@ -74,8 +74,7 @@ export const menuLinksRegister = [
   {
     className: 'btn btn--primary',
     title: 'Sign Up',
-    url: Routes.Signup,
-    btn: true
+    url: Routes.Signup
   }
 ];
 

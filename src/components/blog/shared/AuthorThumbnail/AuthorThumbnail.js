@@ -37,10 +37,10 @@ const Name = styled.span`
 const ImageWrap = styled.span`
   border-radius: 50%;
   background: ${props => props.theme.brandGradient};
-  height: 40px;
+  height: ${props => props.imageSize}px;
   margin-right: ${spacingUnit.md};
   overflow: hidden;
-  width: 40px;
+  width: ${props => props.imageSize}px;
 `;
 
 const Wrapper = styled.div`
@@ -62,10 +62,10 @@ const Wrapper = styled.div`
   }}
 `;
 
-const AuthorThumbnail = ({className, extra, image, name, row}) => {
+const AuthorThumbnail = ({className, extra, image, imageSize, name, row}) => {
   return (
     <Wrapper className={className} row={row}>
-      <ImageWrap>
+      <ImageWrap imageSize={imageSize}>
         <ImageContentful image={image} wrapStyle={{height: 0, paddingTop: '100%'}} style={{height: 40, width: 40}} />
       </ImageWrap>
       {name ? (
@@ -87,11 +87,13 @@ AuthorThumbnail.propTypes = {
   extra: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   name: PropTypes.string,
   image: PropTypes.object,
+  imageSize: PropTypes.number,
   row: PropTypes.bool
 };
 
 AuthorThumbnail.defaultProps = {
-  image: {}
+  image: {},
+  imageSize: 40
 };
 
 export default AuthorThumbnail;

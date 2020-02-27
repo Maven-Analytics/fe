@@ -22,7 +22,6 @@ const blogPostsQuery = gql`
 const BlogDetail = () => {
   return (
     <Wrapper>
-      {/* <FeaturedBlog /> */}
       <div className="container">
         <h1>Blog Detail</h1>
       </div>

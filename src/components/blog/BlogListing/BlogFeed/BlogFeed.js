@@ -2,6 +2,8 @@ import {Loader} from 'maven-ui';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import {Routes} from '#root/routes';
+
 import BlogCard from '../../shared/BlogCard';
 
 const BlogFeed = ({blogs, loading}) => {
@@ -11,7 +13,14 @@ const BlogFeed = ({blogs, loading}) => {
       {blogs.map((blog, index) => {
         return (
           <div key={index}>
-            <BlogCard title={blog.title} />
+            <BlogCard
+              authorImage={blog.author && blog.author.thumbnail}
+              authorName={blog.author && `By ${blog.author.name}`}
+              category={blog.category && blog.category.title}
+              image={blog.featuredImage}
+              link={`${Routes.Blog}/${blog.slug}`}
+              title={blog.title}
+            />
           </div>
         );
       })}
