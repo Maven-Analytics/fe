@@ -13,6 +13,7 @@ import {actions as stateActions, selectors as stateSelectors} from '#root/redux/
 import {selectors as userSelectors} from '#root/redux/ducks/user';
 import {menuLinksMain, menuLinksRegister, Routes, userMenuLinks} from '#root/routes';
 import {canUseDOM} from '#root/utils/componentHelpers';
+import {headerHeightDesktop, headerHeightMobile} from '#root/utils/styles';
 
 const Wrapper = styled.header`
   ${responsive.mediaBreakpointUp('lg')} {
@@ -24,12 +25,12 @@ const Wrapper = styled.header`
 
   .headroom-wrapper {
     background-color: ${props => props.theme.nero};
-    height: 50px !important;
-    max-height: 50px;
+    height: ${headerHeightMobile}px !important;
+    max-height: ${headerHeightMobile}px;
 
     ${responsive.mediaBreakpointUp('lg')} {
       background-color: transparent;
-      height: auto !important;
+      height: ${headerHeightDesktop} !important;
       max-height: none;
     }
   }
@@ -69,8 +70,7 @@ const SiteHeader = ({router: {pathname}}) => {
     pathname.includes(Routes.WelcomeSurvey) ||
     pathname.includes(Routes.Signup) ||
     pathname.includes(Routes.Terms) ||
-    pathname.includes(Routes.PrivacyPolicy) ||
-    pathname.includes(Routes.Blog);
+    pathname.includes(Routes.PrivacyPolicy);
 
   const isSignupOrWelcome = pathname.includes(Routes.Signup) || pathname.includes(Routes.WelcomeSurvey);
 

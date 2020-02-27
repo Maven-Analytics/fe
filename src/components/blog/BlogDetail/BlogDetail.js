@@ -3,8 +3,6 @@ import gql from 'graphql-tag';
 import React from 'react';
 import styled from 'styled-components';
 
-import FeaturedBlog from '../shared/FeaturedBlog/FeaturedBlog';
-
 const Wrapper = styled.div``;
 
 const blogPostsQuery = gql`
@@ -24,7 +22,7 @@ const blogPostsQuery = gql`
 const BlogDetail = () => {
   return (
     <Wrapper>
-      <FeaturedBlog />
+      {/* <FeaturedBlog /> */}
       <div className="container">
         <h1>Blog Detail</h1>
       </div>

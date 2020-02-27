@@ -1,4 +1,5 @@
-import {fromJS, Map} from 'immutable';
+import {fromJS, isImmutable, Map} from 'immutable';
+import * as PropTypes from 'prop-types';
 import React from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 
@@ -7,6 +8,10 @@ import Image from './image';
 const ImageContentful = ({image, ...props}) => {
   if (!image) {
     return null;
+  }
+
+  if (!isImmutable(image)) {
+    image = fromJS(image);
   }
 
   if (image.has('fields')) {
@@ -23,7 +28,7 @@ const ImageContentful = ({image, ...props}) => {
 };
 
 ImageContentful.propTypes = {
-  image: ImmutablePropTypes.map.isRequired
+  image: PropTypes.oneOfType([ImmutablePropTypes.map, PropTypes.object]).isRequired
 };
 
 ImageContentful.defaultProps = {

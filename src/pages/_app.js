@@ -23,6 +23,7 @@ import FontLoaderScript from '#root/scripts/FontLoaderScript';
 import GtagScript from '#root/scripts/GtagScript';
 import IntercomScript from '#root/scripts/IntercomScript';
 import SentryScript from '#root/scripts/SentryScript';
+import theme from '#root/theme';
 import accessConfig from '#root/utils/accessConfig';
 
 import {actions as checkoutActions} from '../redux/ducks/checkout';
@@ -48,7 +49,9 @@ class MavenApp extends App {
 
     if (!ctx.pathname.includes('logout')) {
       try {
-        const {data: {me}} = await apolloClient.query({query: meQuery, fetchPolicy: 'no-cache'});
+        const {
+          data: {me}
+        } = await apolloClient.query({query: meQuery, fetchPolicy: 'no-cache'});
 
         store.dispatch(userActions.userSet(me));
       } catch (error) {
@@ -71,17 +74,21 @@ class MavenApp extends App {
     }
 
     if (recommendedPaths && Array.isArray(recommendedPaths) && recommendedCourses && Array.isArray(recommendedCourses)) {
-      store.dispatch(recommendedActions.recommendedInit({
-        paths: recommendedPaths,
-        courses: recommendedCourses
-      }));
+      store.dispatch(
+        recommendedActions.recommendedInit({
+          paths: recommendedPaths,
+          courses: recommendedCourses
+        })
+      );
 
       if (token) {
-        store.dispatch(recommendedActions.recommendedSet({
-          paths: recommendedPaths,
-          courses: recommendedCourses,
-          token
-        }));
+        store.dispatch(
+          recommendedActions.recommendedSet({
+            paths: recommendedPaths,
+            courses: recommendedCourses,
+            token
+          })
+        );
         removeCookie('recommendedPaths', ctx);
         removeCookie('recommendedCourses', ctx);
       }
@@ -90,9 +97,7 @@ class MavenApp extends App {
     return {
       isServer,
       pageProps: {
-        ...(Component.getInitialProps ?
-          await Component.getInitialProps({...ctx, apolloClient}) :
-          {})
+        ...(Component.getInitialProps ? await Component.getInitialProps({...ctx, apolloClient}) : {})
       }
     };
   }
@@ -142,15 +147,15 @@ class MavenApp extends App {
       <ApolloProvider client={client({})}>
         <Provider store={store}>
           <ComponentProvider linkComponent={Link} linkKey="href" linkWrap={true}>
-            <ThemeProvider>
+            <ThemeProvider theme={theme}>
               <StripeProvider stripe={this.state.stripe}>
                 <Elements>
                   <ParallaxProvider>
                     <Root>
                       <Component {...pageProps} />
-                      <SentryScript/>
-                      <FontLoaderScript/>
-                      <GtagScript/>
+                      <SentryScript />
+                      <FontLoaderScript />
+                      <GtagScript />
                       <IntercomScript />
                     </Root>
                   </ParallaxProvider>
@@ -172,9 +177,12 @@ MavenApp.propTypes = {
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    ...stateActions
-  }, dispatch)
+  actions: bindActionCreators(
+    {
+      ...stateActions
+    },
+    dispatch
+  )
 });
 
 export default withRedux(initStore, {

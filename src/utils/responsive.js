@@ -1,0 +1,19 @@
+const gridBreakpoints = {
+  xs: 0,
+  sm: 576,
+  md: 768,
+  lg: 992,
+  xl: 1200
+};
+
+export const mediaBreakpointUp = name => {
+  const min = gridBreakpoints[name];
+
+  if (min) {
+    return `@media (min-width: ${min}px)`;
+  }
+};
+
+export const collapseUp = () => {
+  return `@media (min-width: ${gridBreakpoints.lg}px)`;
+};

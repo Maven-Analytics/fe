@@ -34,6 +34,38 @@ const featuredBlogsQuery = gql`
       skip
       items {
         id
+        author {
+          name
+          thumbnail {
+            file {
+              url
+              details {
+                image {
+                  height
+                  width
+                }
+              }
+            }
+          }
+        }
+        body
+        category {
+          slug
+          title
+        }
+        featuredImage {
+          id
+          file {
+            url
+            details {
+              image {
+                height
+                width
+              }
+            }
+          }
+        }
+        slug
         title
       }
     }

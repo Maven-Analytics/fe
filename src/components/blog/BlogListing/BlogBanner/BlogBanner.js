@@ -1,8 +1,9 @@
+import {GradientText} from 'maven-ui';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 const BlogBanner = () => {
-  return <div> blog banner</div>;
+  return <GradientText isRead="true"> blog banner</GradientText>;
 };
 
 BlogBanner.propTypes = {
