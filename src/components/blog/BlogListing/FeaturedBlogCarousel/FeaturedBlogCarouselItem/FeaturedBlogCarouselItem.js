@@ -11,7 +11,14 @@ import btnFixed from '#root/utils/btnFixed';
 import {mediaBreakpointUp} from '#root/utils/responsive';
 import spacingUnit from '#root/utils/spacingUnit';
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  margin: 0 auto;
+  max-width: 265px;
+
+  ${mediaBreakpointUp('md')} {
+    max-width: none;
+  }
+`;
 
 const Author = styled(AuthorThumbnail)`
   color: #fff;
