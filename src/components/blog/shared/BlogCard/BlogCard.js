@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import ImageContentful from '#root/components/imageContentful';
-import {mediaBreakpointUp} from '#root/utils/responsive';
+import {mediaBreakpointOnly, mediaBreakpointUp} from '#root/utils/responsive';
 import spacingUnit from '#root/utils/spacingUnit';
 
 import AuthorThumbnail from '../AuthorThumbnail';
@@ -15,6 +15,7 @@ const Card = styled.a`
   box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.1);
   display: grid;
   grid-template-columns: 1fr;
+  margin: 0 auto;
   max-width: 265px;
   padding: 0;
   outline: none !important;
@@ -33,8 +34,12 @@ const Card = styled.a`
     }
   }
 
-  ${mediaBreakpointUp('md')} {
+  ${mediaBreakpointUp('me')} {
+  }
+
+  ${mediaBreakpointUp('lg')} {
     grid-template-columns: 40% 60%;
+    margin: 0;
     max-width: 564px;
   }
 `;
@@ -42,7 +47,7 @@ const Card = styled.a`
 const Content = styled.div`
   padding: 2rem 2.6rem 3rem 2.4rem;
 
-  ${mediaBreakpointUp('md')} {
+  ${mediaBreakpointUp('lg')} {
     padding: 2.2rem 3.8rem 3rem 4.6rem;
   }
 `;
@@ -57,6 +62,7 @@ const ImageWrap = styled.div``;
 const Author = styled(AuthorThumbnail)`
   color: ${props => props.theme.darkGray};
   font-size: 1rem;
+  height: 3rem;
 
   > *:first-child {
     margin-right: ${spacingUnit.ss};
@@ -74,7 +80,12 @@ const Category = styled.p`
 const Title = styled.h4`
   font-size: 2.2rem;
   font-weight: 900;
+  line-height: 1.09;
   margin: 0 0 ${spacingUnit.md};
+
+  ${mediaBreakpointOnly('md')} {
+    /* font-size: 1.8rem; */
+  }
 `;
 
 const BlogCard = ({authorImage, authorName, category, image, link, title}) => {

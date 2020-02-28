@@ -14,6 +14,22 @@ export const mediaBreakpointUp = name => {
   }
 };
 
+export const mediaBreakpointOnly = name => {
+  const min = gridBreakpoints[name];
+  const keys = Object.keys(gridBreakpoints);
+  const index = keys.indexOf(name);
+
+  const max = gridBreakpoints[keys[index + 1]] - 1 || null;
+
+  let query = `@media(min-width: ${min}px)`;
+
+  if (max) {
+    query += `and (max-width: ${max}px)`;
+  }
+
+  return query;
+};
+
 export const collapseUp = () => {
   return `@media (min-width: ${gridBreakpoints.lg}px)`;
 };

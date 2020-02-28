@@ -12,10 +12,15 @@ const Grid = styled.div`
   grid-row-gap: ${spacingUnit.l};
   grid-template-columns: 1fr;
 
-  ${mediaBreakpointUp('md')} {
+  ${mediaBreakpointUp('sm')} {
+    grid-column-gap: ${spacingUnit.l};
+    grid-row-gap: ${spacingUnit.ll};
+    grid-template-columns: 1fr 1fr;
+  }
+
+  ${mediaBreakpointUp('lg')} {
     grid-column-gap: ${spacingUnit.lmm};
     grid-row-gap: ${spacingUnit.xlx};
-    grid-template-columns: 1fr 1fr;
   }
 `;
 

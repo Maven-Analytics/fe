@@ -20,10 +20,10 @@ const Cta = styled(BlogCta)`
 `;
 
 const Grid = styled(FeedGrid)`
-  margin: ${spacingUnit.md} ${spacingUnit.xlx};
+  margin: ${spacingUnit.md} 0 ${spacingUnit.xlx};
 
   ${mediaBreakpointUp('md')} {
-    margin: ${spacingUnit.l} ${spacingUnit.xlx};
+    margin: ${spacingUnit.l} 0 ${spacingUnit.xlx};
   }
 `;
 

@@ -30,6 +30,7 @@ const Name = styled.span`
 const ImageWrap = styled.span`
   border-radius: 50%;
   background: ${props => props.theme.brandGradient};
+  flex: 0 0 ${props => props.imageSize}px;
   height: ${props => props.imageSize}px;
   margin-right: ${spacingUnit.md};
   overflow: hidden;
@@ -50,7 +51,7 @@ const Wrapper = styled.div`
   ${props => {
     if (props.row) {
       return `
-        align-itemc: center;
+        align-items: center;
         display: flex;
       `;
     }
