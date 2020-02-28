@@ -55,7 +55,7 @@ const blogsQuery = gql`
   }
 `;
 
-const perPage = 1; // 12;
+const perPage = 12; // 12;
 
 const BlogListing = ({category}) => {
   const {data: {blogPosts: {total, skip, items: posts}} = {blogPosts: {}}, fetchMore, loading} = useQuery(blogsQuery, {
