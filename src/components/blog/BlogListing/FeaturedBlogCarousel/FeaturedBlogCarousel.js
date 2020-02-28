@@ -20,11 +20,19 @@ const Slide = styled(FeaturedBlogCarouselItem)`
 `;
 
 const Wrapper = styled.div`
-  /* min-height: 100vh; */
+  min-height: 527px;
   position: relative;
 
   ${mediaBreakpointUp('md')} {
-    /* min-height: 0; */
+    min-height: 337px;
+  }
+
+  ${mediaBreakpointUp('lg')} {
+    min-height: 499px;
+  }
+
+  ${mediaBreakpointUp('xl')} {
+    min-height: 614px;
   }
 `;
 
@@ -99,6 +107,7 @@ const Inner = styled.div`
 `;
 
 const FeaturedBlogCarousel = ({blogs}) => {
+  console.log(blogs);
   return (
     <Wrapper>
       <HeroBg />

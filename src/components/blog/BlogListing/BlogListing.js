@@ -4,9 +4,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 
-import BlogBanner from './BlogBanner/BlogBanner';
 import BlogFeed from './BlogFeed';
-import FeaturedBlogCarousel from './FeaturedBlogCarousel';
 
 const Wrapper = styled.div``;
 
@@ -57,52 +55,6 @@ const blogsQuery = gql`
   }
 `;
 
-const featuredBlogsQuery = gql`
-  query FeaturedBlogsQuery {
-    featuredBlogs: blogPosts(featured: true, limit: 10, order: "-fields.date", skip: 0) {
-      total
-      limit
-      skip
-      items {
-        id
-        author {
-          name
-          thumbnail {
-            file {
-              url
-              details {
-                image {
-                  height
-                  width
-                }
-              }
-            }
-          }
-        }
-        body
-        category {
-          slug
-          title
-        }
-        featuredImage {
-          id
-          file {
-            url
-            details {
-              image {
-                height
-                width
-              }
-            }
-          }
-        }
-        slug
-        title
-      }
-    }
-  }
-`;
-
 const perPage = 12;
 
 const BlogListing = ({category}) => {
@@ -113,10 +65,6 @@ const BlogListing = ({category}) => {
       skip: 0
     }
   });
-
-  const isMainFeed = Boolean(category) === false;
-
-  const {data: {featuredBlogs: {items: featuredPosts}} = {featuredBlogs: {}}} = useQuery(featuredBlogsQuery);
 
   const hasMore = posts && total > posts.length;
 
@@ -145,7 +93,6 @@ const BlogListing = ({category}) => {
 
   return (
     <Wrapper>
-      {isMainFeed ? <FeaturedBlogCarousel blogs={featuredPosts || []} /> : <BlogBanner eyelash="Blog/Category" title={category && category.title} />}
       <ListingContent>
         <BlogFeed blogs={posts} loading={loading} />
       </ListingContent>
