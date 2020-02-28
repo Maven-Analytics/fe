@@ -13,6 +13,7 @@ const Card = styled.a`
   background: none;
   border: none;
   box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.1);
+  cursor: pointer;
   display: grid;
   grid-template-columns: 1fr;
   margin: 0 auto;

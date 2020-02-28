@@ -10,33 +10,64 @@ const postQuery = gql`
   query BlogPost($slug: String!) {
     blogPost(slug: $slug) {
       id
+      author {
+        name
+        thumbnail {
+          file {
+            url
+            details {
+              image {
+                height
+                width
+              }
+            }
+          }
+        }
+      }
+      body
+      category {
+        slug
+        title
+      }
+      date
+      featuredImage {
+        id
+        file {
+          url
+          details {
+            image {
+              height
+              width
+            }
+          }
+        }
+      }
+      slug
       title
     }
   }
 `;
 
-const BlogDetailPage = ({post}) => {
+const BlogDetailPage = ({blog}) => {
   return (
     <MainLayout>
-      <BlogDetail />
+      <BlogDetail blog={blog} />
       <CtaSection />
     </MainLayout>
   );
 };
 
 BlogDetailPage.propTypes = {
-  post: PropTypes.object
+  blog: PropTypes.object
 };
 
 BlogDetailPage.getInitialProps = async ({apolloClient, query}) => {
   const {slug} = query;
 
-  const {
-    data: {blogPost: post}
-  } = await apolloClient.query({query: postQuery, variables: {slug}, fetchPolicy: 'no-cache'});
+  const {data: {blogPost: blog} = {}} = await apolloClient.query({query: postQuery, variables: {slug}, fetchPolicy: 'no-cache'});
 
   return {
-    post
+    blog
   };
 };
 

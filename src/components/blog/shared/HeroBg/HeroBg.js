@@ -31,31 +31,43 @@ const BackgroundDark = styled(BackgroundEl)`
   background-color: ${props => props.theme.nero};
   height: 100%;
 
-  ${mediaBreakpointUp('lg')} {
+  /* ${mediaBreakpointUp('lg')} {
     height: calc(100% - 60px);
-  }
+  } */
 `;
 
 const BackgroundImage = styled.div`
   background-image: url('/static/img/hexagon-grid-dark.png');
   background-size: cover;
   height: 100%;
-  opacity: 0.1;
+  opacity: 0.08;
+  z-index: -1;
 `;
 
-const HeroBg = ({className}) => {
+const HeroBg = ({breakpoint, className}) => {
+  const Dark = styled(BackgroundDark)`
+    ${mediaBreakpointUp(breakpoint)} {
+      height: calc(100% - 60px);
+    }
+  `;
+
   return (
     <Background className={className}>
       <BackgroundLight />
-      <BackgroundDark>
+      <Dark>
         <BackgroundImage />
-      </BackgroundDark>
+      </Dark>
     </Background>
   );
 };
 
 HeroBg.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
+  breakpoint: PropTypes.string
+};
+
+HeroBg.defaultProps = {
+  breakpoint: 'lg'
 };
 
 export default HeroBg;

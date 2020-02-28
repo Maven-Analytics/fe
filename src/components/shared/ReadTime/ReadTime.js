@@ -17,7 +17,7 @@ const ReadTime = ({content, isMarkdown}) => {
 
   const {humanizedDuration} = readTimeEstimage(content);
 
-  return humanizedDuration;
+  return humanizedDuration.replace('minutes', 'min').replace('minute', 'min');
 };
 
 ReadTime.propTypes = {

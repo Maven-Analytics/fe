@@ -20,7 +20,7 @@ const Name = styled.span`
     if (!props.row) {
       return `
         display: block;
-        margin-top: 1.2rem;
+        margin-top: 1rem;
         width: 100%;
       `;
     }
@@ -57,6 +57,7 @@ const Wrapper = styled.div`
     }
 
     return `
+      align-items: flex-start;
       display: flex;
       flex-direction: column;
     `;
@@ -71,12 +72,7 @@ const AuthorThumbnail = ({className, extra, image, imageSize, name, row}) => {
       </ImageWrap>
       {name ? (
         <Name row={row}>
-          {name}{' '}
-          {extra ? (
-            <span>
-              /<span>{extra}</span>
-            </span>
-          ) : null}
+          {name} {extra ? extra : null}
         </Name>
       ) : null}
     </Wrapper>

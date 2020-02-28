@@ -15,6 +15,10 @@ const Wrapper = styled.div`
   margin: 0 auto;
   max-width: 265px;
 
+  ${mediaBreakpointUp('sm')} {
+    max-width: 400px;
+  }
+
   ${mediaBreakpointUp('md')} {
     max-width: none;
   }
@@ -30,7 +34,6 @@ const Author = styled(AuthorThumbnail)`
 `;
 
 const Btn = styled.button`
-  ${btnFixed(155, 46, 19.5)};
   color: #fff;
   max-width: none;
 `;
@@ -41,7 +44,20 @@ const FeaturedBlogCarouselItem = ({authorImage, authorName, body, className, eye
       <FeaturedGrid image={image}>
         <div>
           <BlogMeta eyelash={eyelash} title={title} />
-          <Author row extra={<ReadTime isMarkdown content={body || ''} />} image={authorImage} name={`By ${authorName}`} />
+          <Author
+            row
+            extra={
+              <>
+                <span>/</span>
+                <span>
+                  <ReadTime isMarkdown content={body || ''} />
+                  read
+                </span>
+              </>
+            }
+            image={authorImage}
+            name={`By ${authorName}`}
+          />
           <Link href={link}>
             <Btn className="btn btn--primary">Read Article</Btn>
           </Link>
