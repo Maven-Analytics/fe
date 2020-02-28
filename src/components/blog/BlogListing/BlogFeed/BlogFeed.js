@@ -28,6 +28,17 @@ const Grid = styled(FeedGrid)`
   }
 `;
 
+const LoadMore = styled.div`
+  text-align: center;
+
+  button {
+    font-size: 1.1rem;
+    font-weight: 700;
+    height: 40px;
+    position: relative;
+  }
+`;
+
 const Subscribe = styled(BlogSubscribe)`
   margin: ${spacingUnit.xlx} auto ${spacingUnit.xl};
 
@@ -36,20 +47,30 @@ const Subscribe = styled(BlogSubscribe)`
   }
 `;
 
-const BlogFeed = ({blogs, loading}) => {
+const BlogFeed = ({blogs, hasMore, loading, onLoadMore}) => {
   const first6 = blogs.slice(0, 6);
   const other = blogs.slice(6);
+
+  const btn = (
+    <LoadMore>
+      <button className="btn btn--default" disabled={loading} onClick={onLoadMore}>
+        {loading ? <Loader id="blogLoadMoreBtn" colors={['#252525', '#000']} height={30} loading={loading} width={30} /> : 'Load more articles'}
+      </button>
+    </LoadMore>
+  );
 
   return (
     <Wrapper>
       {loading ? <Loader align="top-center" loading={loading} position="relative" /> : null}
       <div className="container container--lg">
         <Grid blogs={first6} />
+        {hasMore && (!other || !other.length) ? btn : null}
       </div>
       <Cta />
       {other && other.length ? (
         <div className="container container--lg">
           <Grid blogs={other} />
+          {hasMore ? btn : null}
         </div>
       ) : null}
       <Subscribe />
@@ -59,11 +80,14 @@ const BlogFeed = ({blogs, loading}) => {
 
 BlogFeed.propTypes = {
   blogs: PropTypes.arrayOf(PropTypes.object),
-  loading: PropTypes.bool
+  hasMore: PropTypes.bool,
+  loading: PropTypes.bool,
+  onLoadMore: PropTypes.func
 };
 
 BlogFeed.defaultProps = {
-  blogs: []
+  blogs: [],
+  onLoadMore: () => {}
 };
 
 export default BlogFeed;

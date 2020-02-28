@@ -55,7 +55,7 @@ const blogsQuery = gql`
   }
 `;
 
-const perPage = 12;
+const perPage = 1; // 12;
 
 const BlogListing = ({category}) => {
   const {data: {blogPosts: {total, skip, items: posts}} = {blogPosts: {}}, fetchMore, loading} = useQuery(blogsQuery, {
@@ -94,7 +94,7 @@ const BlogListing = ({category}) => {
   return (
     <Wrapper>
       <ListingContent>
-        <BlogFeed blogs={posts} loading={loading} />
+        <BlogFeed blogs={posts} hasMore={hasMore} loading={loading} onLoadMore={onLoadMore} />
       </ListingContent>
       {hasMore ? <button onClick={onLoadMore}>Load More</button> : null}
     </Wrapper>
