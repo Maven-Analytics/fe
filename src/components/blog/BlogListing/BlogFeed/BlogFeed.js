@@ -7,6 +7,7 @@ import {mediaBreakpointUp} from '#root/utils/responsive';
 import spacingUnit from '#root/utils/spacingUnit';
 
 import BlogCta from '../../shared/BlogCta';
+import BlogSubscribe from '../../shared/BlogSubscribe';
 import FeedGrid from './FeedGrid';
 
 const Wrapper = styled.div``;
@@ -27,6 +28,14 @@ const Grid = styled(FeedGrid)`
   }
 `;
 
+const Subscribe = styled(BlogSubscribe)`
+  margin: ${spacingUnit.xlx} auto ${spacingUnit.xl};
+
+  ${mediaBreakpointUp('md')} {
+    margin: ${spacingUnit.xxml} auto ${spacingUnit.xxml};
+  }
+`;
+
 const BlogFeed = ({blogs, loading}) => {
   const first6 = blogs.slice(0, 6);
   const other = blogs.slice(6);
@@ -43,6 +52,7 @@ const BlogFeed = ({blogs, loading}) => {
           <Grid blogs={other} />
         </div>
       ) : null}
+      <Subscribe />
     </Wrapper>
   );
 };

@@ -8,6 +8,14 @@ const posts = [{title: '1'}, {title: '2'}, {title: '3'}, {title: '4'}, {title: '
 
 const otherPosts = [{title: '7'}, {title: '8'}, {title: '9'}];
 
+jest.mock('../../shared/BlogSubscribe', () => {
+  return {
+    __esModule: true,
+    // eslint-disable-next-line react/display-name
+    default: () => <div>subscribe</div>
+  };
+});
+
 it('Should match the snapshot', () => {
   const wrapper = shallow(<BlogFeed />);
 
@@ -72,6 +80,20 @@ it('Should render a BlogCta in between grids', () => {
       .dive()
       .type()
   ).toEqual(FeedGrid);
+});
+
+it('Should render a BlogSubscribe as the last child', () => {
+  const wrapper = shallow(<BlogFeed loading={false} blogs={[...posts, ...otherPosts]} />);
+
+  const BlogSubscribe = require('../../shared/BlogSubscribe').default;
+
+  expect(
+    wrapper
+      .children()
+      .last()
+      .dive()
+      .type()
+  ).toEqual(BlogSubscribe);
 });
 
 it('Should render a <Loader/> if the loading props is true', () => {

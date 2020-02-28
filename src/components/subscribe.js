@@ -41,13 +41,27 @@ class Subscribe extends Component {
   }
 
   render() {
-    const {helperText, loading, response, error} = this.props;
+    const {className, helperText, loading, placeholder, response, error} = this.props;
+
+    const classList = ['subscribe'];
+
+    if (className) {
+      classList.push(className);
+    }
 
     return (
-      <div className="subscribe">
-        <Mailchimp onSubmit={this.handleSubmit.bind(this)} onChange={state(this.handleChange.bind(this), 'email')} email={this.state.email} loading={loading}/>
+      <div className={classList.join(' ')}>
+        <Mailchimp
+          email={this.state.email}
+          loading={loading}
+          onSubmit={this.handleSubmit.bind(this)}
+          onChange={state(this.handleChange.bind(this), 'email')}
+          placeholder={placeholder}
+        />
         {error ? <small className="form-text error">{error}</small> : null}
-        <small className="form-text" style={{display: 'block'}}>{response || ''}</small>
+        <small className="form-text" style={{display: 'block'}}>
+          {response || ''}
+        </small>
         {helperText ? <small className="form-text">{helperText}</small> : null}
 
         {/* <form onSubmit={this.handleSubmit}>
@@ -73,10 +87,12 @@ class Subscribe extends Component {
 }
 
 Subscribe.propTypes = {
+  className: PropTypes.string,
   helperText: PropTypes.string,
   email: PropTypes.string,
   actions: PropTypes.objectOf(PropTypes.func),
   loading: PropTypes.bool,
+  placeholder: PropTypes.string,
   error: PropTypes.string,
   response: PropTypes.string
 };
@@ -87,11 +103,14 @@ const mapStateToProps = state => ({
   response: responseSelectors.getResponse(['SUBSCRIBE'])(state)
 });
 
-const mapDispatchToProps = function (dispatch) {
+const mapDispatchToProps = function(dispatch) {
   return {
-    actions: bindActionCreators({
-      ...subscribeActions
-    }, dispatch)
+    actions: bindActionCreators(
+      {
+        ...subscribeActions
+      },
+      dispatch
+    )
   };
 };
 

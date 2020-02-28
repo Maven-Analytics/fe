@@ -1,4 +1,4 @@
-const gridBreakpoints = {
+export const gridBreakpoints = {
   xs: 0,
   sm: 576,
   md: 768,
