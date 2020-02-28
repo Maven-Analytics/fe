@@ -7,14 +7,7 @@ import {mediaBreakpointUp} from '#root/utils/responsive';
 import spacingUnit from '#root/utils/spacingUnit';
 
 const Name = styled.span`
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 1.2;
   text-transform: uppercase;
-
-  ${mediaBreakpointUp('md')} {
-    font-size: 1.2rem;
-  }
 
   span {
     font-weight: 400;
@@ -46,6 +39,13 @@ const ImageWrap = styled.span`
 const Wrapper = styled.div`
   align-items: center;
   display: flex;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+
+  ${mediaBreakpointUp('md')} {
+    font-size: 1.2rem;
+  }
 
   ${props => {
     if (props.row) {
@@ -66,7 +66,7 @@ const AuthorThumbnail = ({className, extra, image, imageSize, name, row}) => {
   return (
     <Wrapper className={className} row={row}>
       <ImageWrap imageSize={imageSize}>
-        <ImageContentful image={image} wrapStyle={{height: 0, paddingTop: '100%'}} style={{height: 40, width: 40}} />
+        <ImageContentful image={image} wrapStyle={{height: 0, paddingTop: '100%'}} style={{height: imageSize, width: imageSize}} />
       </ImageWrap>
       {name ? (
         <Name row={row}>

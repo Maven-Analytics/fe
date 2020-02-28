@@ -17,6 +17,7 @@ const spacingUnit = {
   xlx: `${baseSize * 3.33333}rem`, // ~ 50px
   xl: `${baseSize * 4}rem`, // ~ 60px
   xll: `${baseSize * 5}rem`, // 75px
+  xxml: `${baseSize * 6}rem`, // 90px
   xxl: `${baseSize * 8}rem`, // 120px
   xxxl: `${baseSize * 10}rem` // 150px
 };

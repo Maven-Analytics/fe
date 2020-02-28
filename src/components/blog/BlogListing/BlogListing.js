@@ -20,6 +20,37 @@ const blogsQuery = gql`
       skip
       items {
         id
+        author {
+          name
+          thumbnail {
+            file {
+              url
+              details {
+                image {
+                  height
+                  width
+                }
+              }
+            }
+          }
+        }
+        category {
+          slug
+          title
+        }
+        featuredImage {
+          id
+          file {
+            url
+            details {
+              image {
+                height
+                width
+              }
+            }
+          }
+        }
+        slug
         title
       }
     }
@@ -72,7 +103,7 @@ const featuredBlogsQuery = gql`
   }
 `;
 
-const perPage = 1;
+const perPage = 12;
 
 const BlogListing = ({category}) => {
   const {data: {blogPosts: {total, skip, items: posts}} = {blogPosts: {}}, fetchMore, loading} = useQuery(blogsQuery, {
@@ -115,12 +146,10 @@ const BlogListing = ({category}) => {
   return (
     <Wrapper>
       {isMainFeed ? <FeaturedBlogCarousel blogs={featuredPosts || []} /> : <BlogBanner eyelash="Blog/Category" title={category && category.title} />}
-      <div className="container">
-        <ListingContent>
-          <BlogFeed blogs={posts} loading={loading} />
-        </ListingContent>
-        {hasMore ? <button onClick={onLoadMore}>Load More</button> : null}
-      </div>
+      <ListingContent>
+        <BlogFeed blogs={posts} loading={loading} />
+      </ListingContent>
+      {hasMore ? <button onClick={onLoadMore}>Load More</button> : null}
     </Wrapper>
   );
 };

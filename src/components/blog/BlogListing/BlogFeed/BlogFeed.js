@@ -1,30 +1,49 @@
 import {Loader} from 'maven-ui';
 import PropTypes from 'prop-types';
 import React from 'react';
+import styled from 'styled-components';
 
-import {Routes} from '#root/routes';
+import {mediaBreakpointUp} from '#root/utils/responsive';
+import spacingUnit from '#root/utils/spacingUnit';
 
-import BlogCard from '../../shared/BlogCard';
+import BlogCta from '../../shared/BlogCta';
+import FeedGrid from './FeedGrid';
+
+const Wrapper = styled.div``;
+
+const Cta = styled(BlogCta)`
+  margin: ${spacingUnit.xll} 0;
+
+  ${mediaBreakpointUp('md')} {
+    margin: ${spacingUnit.xxml} 0;
+  }
+`;
+
+const Grid = styled(FeedGrid)`
+  margin: ${spacingUnit.md} ${spacingUnit.xlx};
+
+  ${mediaBreakpointUp('md')} {
+    margin: ${spacingUnit.l} ${spacingUnit.xlx};
+  }
+`;
 
 const BlogFeed = ({blogs, loading}) => {
+  const first6 = blogs.slice(0, 6);
+  const other = blogs.slice(6);
+
   return (
-    <div>
+    <Wrapper>
       {loading ? <Loader align="top-center" loading={loading} position="relative" /> : null}
-      {blogs.map((blog, index) => {
-        return (
-          <div key={index}>
-            <BlogCard
-              authorImage={blog.author && blog.author.thumbnail}
-              authorName={blog.author && `By ${blog.author.name}`}
-              category={blog.category && blog.category.title}
-              image={blog.featuredImage}
-              link={`${Routes.Blog}/${blog.slug}`}
-              title={blog.title}
-            />
-          </div>
-        );
-      })}
-    </div>
+      <div className="container container--lg">
+        <Grid blogs={first6} />
+      </div>
+      <Cta />
+      {other && other.length ? (
+        <div className="container container--lg">
+          <Grid blogs={other} />
+        </div>
+      ) : null}
+    </Wrapper>
   );
 };
 
