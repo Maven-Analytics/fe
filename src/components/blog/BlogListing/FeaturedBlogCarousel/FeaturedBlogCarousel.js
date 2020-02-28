@@ -107,7 +107,6 @@ const Inner = styled.div`
 `;
 
 const FeaturedBlogCarousel = ({blogs}) => {
-  console.log(blogs);
   return (
     <Wrapper>
       <HeroBg />

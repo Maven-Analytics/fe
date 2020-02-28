@@ -28,7 +28,7 @@ class Image extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return ((nextState.loaded && !this.state.loaded) || (nextProps.style !== this.props.style || nextProps.src !== this.props.src));
+    return (nextState.loaded && !this.state.loaded) || nextProps.style !== this.props.style || nextProps.src !== this.props.src;
   }
 
   handleLoad() {
@@ -37,7 +37,7 @@ class Image extends Component {
   }
 
   getWrapClassList() {
-    const {cover, modifier} = this.props;
+    const {className, cover, modifier} = this.props;
     const {loaded} = this.state;
 
     const classList = ['image'];
@@ -52,6 +52,10 @@ class Image extends Component {
 
     if (cover) {
       classList.push('image--cover');
+    }
+
+    if (className) {
+      classList.push(className);
     }
 
     return classList.join(' ');
@@ -85,14 +89,7 @@ class Image extends Component {
         return null;
       }
 
-      return (
-        <source
-          key={`sources-${index}`}
-          srcSet={source.srcSet}
-          media={source.media}
-          type={source.type}
-        />
-      );
+      return <source key={`sources-${index}`} srcSet={source.srcSet} media={source.media} type={source.type} />;
     });
 
     // IE9 requires the sources to be wrapped around an <audio> tag.
@@ -110,10 +107,10 @@ class Image extends Component {
 
     return (
       <Comp className={this.getWrapClassList()} style={this.getWrapStyle()}>
-        {showLoader ? <div className="loader" style={{backgroundColor: placeholderColor}}/> : null}
+        {showLoader ? <div className="loader" style={{backgroundColor: placeholderColor}} /> : null}
         <picture>
           {this.renderSources()}
-          {src ? <img ref={this.img} onLoad={this.handleLoad} style={style} src={src} alt={alt} srcSet={srcSet}/> : null}
+          {src ? <img ref={this.img} onLoad={this.handleLoad} style={style} src={src} alt={alt} srcSet={srcSet} /> : null}
         </picture>
       </Comp>
     );
@@ -121,6 +118,7 @@ class Image extends Component {
 }
 
 Image.propTypes = {
+  className: PropTypes.string,
   src: PropTypes.string,
   modifier: PropTypes.string,
   alt: PropTypes.string,

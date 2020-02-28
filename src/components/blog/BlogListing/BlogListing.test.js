@@ -15,11 +15,3 @@ it('Should match the snapshot', () => {
 
   expect(toJSON(wrapper)).toMatchSnapshot();
 });
-
-it('Should render 1 featured carousel', () => {
-  const wrapper = shallow(<BlogListing />);
-
-  const FeaturedBlogCarousel = require('./FeaturedBlogCarousel').default;
-
-  expect(wrapper.find(FeaturedBlogCarousel).length).toEqual(1);
-});
