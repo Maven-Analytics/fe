@@ -21,7 +21,7 @@ const Eyelash = styled(GradientText)`
   }
 `;
 
-const Title = styled.h2`
+const Title = styled.h1`
   color: #fff;
   font-size: 3.5rem;
   font-weight: 900;

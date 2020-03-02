@@ -116,7 +116,7 @@ const Meta = styled(BlogMeta)`
     padding-top: ${spacingUnit.xlx};
   }
 
-  h2 {
+  h1 {
     margin-bottom: 0.4rem;
 
     ${mediaBreakpointUp('lg')} {
