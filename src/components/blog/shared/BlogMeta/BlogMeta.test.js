@@ -10,11 +10,11 @@ it('Should match the snapshot', () => {
   expect(toJSON(wrapper)).toMatchSnapshot();
 });
 
-it('Should render 1 span and 1 h2', () => {
+it('Should render 1 span and 1 h1', () => {
   const wrapper = mount(<BlogMeta eyelash="test" title="Test Title" />);
 
   expect(wrapper.find('span').length).toEqual(1);
-  expect(wrapper.find('h2').length).toEqual(1);
+  expect(wrapper.find('h1').length).toEqual(1);
 });
 
 it('Should render a className if passed in', () => {
