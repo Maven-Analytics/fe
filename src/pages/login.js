@@ -1,6 +1,7 @@
 import {useMutation} from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import Link from 'next/link';
+import {useRouter} from 'next/router';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {useForm} from 'react-hook-form';
@@ -29,14 +30,25 @@ const mutation = gql`
 
 const Login = ({redirectTo}) => {
   const [login, {error, client}] = useMutation(mutation);
-  const {formState: {isSubmitting, isSubmitted}, handleSubmit, register, setValue, errors: formErrors, clearError} = useForm();
+  const {
+    formState: {isSubmitting, isSubmitted},
+    handleSubmit,
+    register,
+    setValue,
+    errors: formErrors,
+    clearError
+  } = useForm();
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const onSubmit = handleSubmit(async ({email, password}) => {
     clearError();
-    const redirect = redirectTo && redirectTo !== '' ? redirectTo : `${window.location.origin}${Routes.Dashboard}`;
+    const redirect =
+      redirectTo && redirectTo !== '' ? redirectTo.replace(window.location.origin, '') : Routes.Dashboard;
 
-    const {data: {login: loginData}} = await login({
+    const {
+      data: {login: loginData}
+    } = await login({
       variables: {email, password}
     });
 
@@ -44,6 +56,7 @@ const Login = ({redirectTo}) => {
     await client.cache.reset();
 
     dispatch(authActions.login({...loginData, redirectTo: redirect}));
+    router.push(redirect);
   });
 
   return (
@@ -51,11 +64,28 @@ const Login = ({redirectTo}) => {
       <form onSubmit={onSubmit}>
         <div className="form-group">
           <label htmlFor="email">Email address</label>
-          <input ref={register({required: true})} disabled={isSubmitting} type="text" name="email" id="email" className="input" required/>
+          <input
+            ref={register({required: true})}
+            disabled={isSubmitting}
+            type="text"
+            name="email"
+            id="email"
+            className="input"
+            required
+          />
         </div>
         <div className="form-group">
           <label htmlFor="password">Password</label>
-          <input ref={register({required: true, minLength: 6})} disabled={isSubmitting} type="password" name="password" id="password" className="input" onKeyUp={e => setValue('password', e.target.value, true)} required/>
+          <input
+            ref={register({required: true, minLength: 6})}
+            disabled={isSubmitting}
+            type="password"
+            name="password"
+            id="password"
+            className="input"
+            onKeyUp={e => setValue('password', e.target.value, true)}
+            required
+          />
           {isSubmitted && formErrors.password ? (
             <p className="form-text small error">
               {formErrors.password.type === 'minLength' ? 'Password must be at least 6 characters in length.' : null}
@@ -66,17 +96,23 @@ const Login = ({redirectTo}) => {
         {error ? (
           <div className="form-message">
             <p className="form-text small error">
-              <GraphQlError error={error}/>
+              <GraphQlError error={error} />
             </p>
           </div>
         ) : null}
         <div className="form-footer">
           <span className="submit">
-            <button className="btn btn--primary-solid" type="submit" value="Login" disabled={isSubmitting}>Login</button>
+            <button className="btn btn--primary-solid" type="submit" value="Login" disabled={isSubmitting}>
+              Login
+            </button>
           </span>
           <span className="links">
-            <Link href={Routes.ForgotPassword}><a>I forgot my password.</a></Link>
-            <Link href={Routes.Signup}><a>{'I don\'t have an account yet. Sign me Up!'}</a></Link>
+            <Link href={Routes.ForgotPassword}>
+              <a>I forgot my password.</a>
+            </Link>
+            <Link href={Routes.Signup}>
+              <a>{"I don't have an account yet. Sign me Up!"}</a>
+            </Link>
           </span>
         </div>
       </form>
@@ -86,7 +122,11 @@ const Login = ({redirectTo}) => {
 
 Login.getInitialProps = async ctx => {
   return {
-    redirectTo: ctx.query.redirectTo ? `${ctx.query.redirectTo}` : canUseDOM() ? `${window.location.origin}${Routes.Dashboard}` : null
+    redirectTo: ctx.query.redirectTo
+      ? `${ctx.query.redirectTo}`
+      : canUseDOM()
+      ? `${window.location.origin}${Routes.Dashboard}`
+      : null
   };
 };
 
@@ -96,11 +136,14 @@ const mapStateToProps = state => ({
   user: userSelectors.getUser(state)
 });
 
-const mapDispatchToProps = function (dispatch) {
+const mapDispatchToProps = function(dispatch) {
   return {
-    actions: bindActionCreators({
-      ...authActions
-    }, dispatch)
+    actions: bindActionCreators(
+      {
+        ...authActions
+      },
+      dispatch
+    )
   };
 };
 

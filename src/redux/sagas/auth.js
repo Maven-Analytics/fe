@@ -1,4 +1,3 @@
-
 import {fromJS} from 'immutable';
 import {all, call, delay, put, select, take, takeLatest} from 'redux-saga/effects';
 
@@ -18,7 +17,7 @@ import {types as scoreTypes} from '../ducks/scores';
 import {selectors as subscriptionSelectors, types as subscriptionTypes} from '../ducks/subscription';
 import {selectors as userSelectors, types as userTypes} from '../ducks/user';
 
-export function * watchAuth() {
+export function* watchAuth() {
   // Yield takeLatest(authTypes.LOGIN_REQUEST, loginRequest);
   // yield takeLatest(authTypes.REAUTHENTICATE_REQUEST, reauthenticateRequest);
   // yield takeLatest(authTypes.REGISTER_REQUEST, registerRequest);
@@ -30,7 +29,7 @@ export function * watchAuth() {
   yield takeLatest(authTypes.LOGIN, login);
 }
 
-function * login({payload: {user, token, thinkificToken, redirectTo}}) {
+function* login({payload: {user, token, thinkificToken, redirectTo}}) {
   setCookie('token', token);
   setCookie('thinkificToken', thinkificToken);
 
@@ -49,12 +48,12 @@ function * login({payload: {user, token, thinkificToken, redirectTo}}) {
     })
   ]);
 
-  if (redirectTo) {
-    ssoRedirect(thinkificToken, redirectTo);
-  }
+  // If (redirectTo) {
+  //   ssoRedirect(thinkificToken, redirectTo);
+  // }
 }
 
-function * loginRequest({payload: {redirectTo, ...data}}) {
+function* loginRequest({payload: {redirectTo, ...data}}) {
   try {
     const res = yield apiv2({
       method: 'post',
@@ -78,7 +77,7 @@ function * loginRequest({payload: {redirectTo, ...data}}) {
   }
 }
 
-function * logoutRequest({payload: {ctx}}) {
+function* logoutRequest({payload: {ctx}}) {
   removeCookie('token', ctx);
   removeCookie('thinkificToken', ctx);
 
@@ -117,13 +116,13 @@ function * logoutRequest({payload: {ctx}}) {
   ]);
 }
 
-function * ssoRequest({payload: {redirectTo}}) {
+function* ssoRequest({payload: {redirectTo}}) {
   const thinkificToken = yield select(userSelectors.getThinkificToken);
 
   ssoRedirect(thinkificToken, redirectTo);
 }
 
-function * registerRequest({payload: {redirectTo, ...data}}) {
+function* registerRequest({payload: {redirectTo, ...data}}) {
   try {
     const recommendedCourses = yield select(recommendedSelectors.getRecommendedCourses);
     const recommendedPaths = yield select(recommendedSelectors.getRecommendedPaths);
@@ -153,7 +152,7 @@ function * registerRequest({payload: {redirectTo, ...data}}) {
   }
 }
 
-function * doLogin({token, thinkificToken, ...user}, doRedirect, redirectTo) {
+function* doLogin({token, thinkificToken, ...user}, doRedirect, redirectTo) {
   setCookie('token', token);
   setCookie('thinkificToken', thinkificToken);
 
@@ -177,7 +176,7 @@ function * doLogin({token, thinkificToken, ...user}, doRedirect, redirectTo) {
   }
 }
 
-function * reauthenticateRequest({payload: {token, ctx}}) {
+function* reauthenticateRequest({payload: {token, ctx}}) {
   if (!token) {
     return;
   }
@@ -210,7 +209,7 @@ function * reauthenticateRequest({payload: {token, ctx}}) {
   }
 }
 
-function * ensureEnrolled() {
+function* ensureEnrolled() {
   try {
     const subscription = yield select(subscriptionSelectors.getCurrentSubscription);
 
@@ -251,7 +250,7 @@ function * ensureEnrolled() {
   }
 }
 
-function * checkRecommended(ctx) {
+function* checkRecommended(ctx) {
   const paths = getCookie('recommendedPaths', ctx);
   const courses = getCookie('recommendedCourses', ctx);
 
@@ -273,7 +272,7 @@ function * checkRecommended(ctx) {
   }
 }
 
-function * onForgotRequest({payload}) {
+function* onForgotRequest({payload}) {
   try {
     yield call(apiv2, {
       url: '/public/auth/forgot',
@@ -297,7 +296,7 @@ function * onForgotRequest({payload}) {
   }
 }
 
-function * onResetRequest({payload}) {
+function* onResetRequest({payload}) {
   try {
     yield call(apiv2, {
       url: '/public/auth/reset',
