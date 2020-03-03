@@ -25,25 +25,25 @@ import redirect from '#root/utils/redirect';
 import {canTrial, findSubscription} from '#root/utils/subscriptionHelpers';
 
 const checkoutMutation = gql`
-mutation Checkout($paymentMethod: String, $planId: String!) {
-  checkout(paymentMethod: $paymentMethod, planId: $planId) {
-    id
-    plan_id
+  mutation Checkout($coupon: String, $paymentMethod: String, $planId: String!) {
+    checkout(coupon: $coupon, paymentMethod: $paymentMethod, planId: $planId) {
+      id
+      plan_id
+    }
   }
-}
 `;
 
 const myPaymentMethodsQuery = gql`
-query MyPaymentMethods {
-  myPaymentMethods {
-    brand
-    default
-    id
-    exp_month
-    exp_year
-    last4
+  query MyPaymentMethods {
+    myPaymentMethods {
+      brand
+      default
+      id
+      exp_month
+      exp_year
+      last4
+    }
   }
-}
 `;
 
 const SignupCheckout = ({planId}) => {
@@ -100,7 +100,6 @@ const SignupCheckout = ({planId}) => {
         }
       });
     } catch (error) {
-
     } finally {
       setLoading(false);
     }
@@ -133,45 +132,33 @@ const SignupCheckout = ({planId}) => {
             {foreverFree || defaultPaymentMethod ? null : (
               <>
                 {myDefault ? (
-                  <button
-                    className="btn btn--primary-solid"
-                    onClick={() => setDefaultPaymentMethod(myDefault)}
-                  >
+                  <button className="btn btn--primary-solid" onClick={() => setDefaultPaymentMethod(myDefault)}>
                     Use Saved Card Ending In {myDefault.last4}
                   </button>
                 ) : null}
-                <AddCard
-                  loading={loading}
-                  showButtons={false}
-                  skin="dark"
-                />
+                <AddCard loading={loading} showButtons={false} skin="dark" />
               </>
             )}
-            <a
-              href="#"
-              className="signup-checkout__link"
-              onClick={eventPrevent(() => setView(1))}
-            >
+            <a href="#" className="signup-checkout__link" onClick={eventPrevent(() => setView(1))}>
               Have a coupon?
             </a>
             <CheckoutFooter
               showLogin={user.isEmpty()}
-              error={loading || (!checkoutError && !paymentMethodError) ? null : <GraphQlError error={checkoutError || paymentMethodError}/>}
+              error={
+                loading || (!checkoutError && !paymentMethodError) ? null : (
+                  <GraphQlError error={checkoutError || paymentMethodError} />
+                )
+              }
               loading={loading}
               disabled={loading}
               btnType="submit"
               btnText="Complete Sign Up"
               loginRedirect={loginRedirect}
             />
-            <Image
-              src="/static/img/powered_by_stripe.png"
-            />
+            <Image src="/static/img/powered_by_stripe.png" />
           </AddCardForm>
         ) : (
-          <ApplyCoupon
-            onCancel={() => setView(0)}
-            onComplete={handleCouponApply}
-          />
+          <ApplyCoupon onCancel={() => setView(0)} onComplete={handleCouponApply} />
         )}
       </div>
     </Checkout>
@@ -193,7 +180,9 @@ SignupCheckout.getInitialProps = async ctx => {
     return {};
   }
 
-  const {data: {subscriptionStatus}} = await apolloClient.query({query: subscriptionStatusQuery, fetchPolicy: 'no-cache'});
+  const {
+    data: {subscriptionStatus}
+  } = await apolloClient.query({query: subscriptionStatusQuery, fetchPolicy: 'no-cache'});
 
   store.dispatch(subscriptionActions.subscriptionSet(subscriptionStatus));
 
@@ -210,4 +199,3 @@ SignupCheckout.getInitialProps = async ctx => {
 };
 
 export default SignupCheckout;
-
