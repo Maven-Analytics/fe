@@ -1,6 +1,7 @@
 @font-face {
   font-family: 'maicon';
-  src: url('/static/fonts/maicon/fonts/maicon.woff2?1qo22k') format('woff2'), url('/static/fonts/maicon/fonts/maicon.woff?1qo22k') format('woff');
+  src: url('/static/fonts/maicon/fonts/maicon.woff2?1qo22k') format('woff2'),
+    url('/static/fonts/maicon/fonts/maicon.woff?1qo22k') format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -25,11 +26,14 @@
     visibility: visible;
   }
 }
+.maicon-tableau:before {
+  content: '\e920';
+}
 .maicon-cogs:before {
-  content: "\e91f";
+  content: '\e91f';
 }
 .maicon-eye-slash:before {
-  content: "\e91e";
+  content: '\e91e';
 }
 .maicon-long-arrow-alt-left:before {
   content: '\e91d';
