@@ -11,8 +11,8 @@ const Wrapper = styled.div``;
 const ListingContent = styled.div``;
 
 const blogsQuery = gql`
-  query BlogPosts($category: String, $featured: Boolean, $limit: Float, $order: String, $skip: Float) {
-    blogPosts(category: $category, featured: $featured, limit: $limit, order: $order, skip: $skip) {
+  query BlogPosts($category: String, $featured: Boolean, $limit: Float, $order: String, $search: String, $skip: Float) {
+    blogPosts(category: $category, featured: $featured, limit: $limit, order: $order, search: $search, skip: $skip) {
       total
       limit
       skip
@@ -57,11 +57,12 @@ const blogsQuery = gql`
 
 const perPage = 12; // 12;
 
-const BlogListing = ({category}) => {
+const BlogListing = ({category, search}) => {
   const {data: {blogPosts: {total, skip, items: posts}} = {blogPosts: {}}, fetchMore, loading} = useQuery(blogsQuery, {
     variables: {
       category: category && category.slug,
       limit: perPage,
+      search,
       skip: 0
     }
   });
@@ -102,7 +103,8 @@ const BlogListing = ({category}) => {
 };
 
 BlogListing.propTypes = {
-  category: PropTypes.object
+  category: PropTypes.object,
+  search: PropTypes.string
 };
 
 BlogListing.defaultProps = {

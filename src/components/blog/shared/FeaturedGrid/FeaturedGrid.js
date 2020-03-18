@@ -8,6 +8,10 @@ import {mediaBreakpointUp} from '#root/utils/responsive';
 const Image = styled(ImageContentful)`
   height: 0;
   padding-top: 100%;
+
+  ${mediaBreakpointUp('lg')} {
+    box-shadow: 10px 10px 20px 0 rgba(0, 0, 0, 0.1);
+  }
 `;
 
 const Wrapper = styled.div``;

@@ -10,7 +10,10 @@ import BlogCta from '../../shared/BlogCta';
 import BlogSubscribe from '../../shared/BlogSubscribe';
 import FeedGrid from './FeedGrid';
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  min-height: 400px;
+  position: relative;
+`;
 
 const Cta = styled(BlogCta)`
   margin: ${spacingUnit.xll} 0;
@@ -26,6 +29,17 @@ const Grid = styled(FeedGrid)`
   ${mediaBreakpointUp('md')} {
     margin: ${spacingUnit.l} 0 ${spacingUnit.xlx};
   }
+`;
+
+const LoadingOverlay = styled.div`
+  background-color: #fff;
+  height: 100%;
+  left: 0;
+  opacity: 0.4;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 1;
 `;
 
 const LoadMore = styled.div`
@@ -61,8 +75,9 @@ const BlogFeed = ({blogs, hasMore, loading, onLoadMore}) => {
 
   return (
     <Wrapper>
-      {loading ? <Loader align="top-center" loading={loading} position="relative" /> : null}
-      <div className="container container--lg">
+      {loading ? <Loader align="top-center" height={70} loading={loading} width={70} /> : null}
+      {loading ? <LoadingOverlay /> : null}
+      <div className="container container--lg" style={{minHeight: loading ? 225 : 0}}>
         <Grid blogs={first6} />
         {hasMore && (!other || !other.length) ? btn : null}
       </div>

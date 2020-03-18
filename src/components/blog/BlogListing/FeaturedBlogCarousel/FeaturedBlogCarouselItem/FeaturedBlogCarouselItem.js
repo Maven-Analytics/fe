@@ -7,7 +7,6 @@ import AuthorThumbnail from '#root/components/blog/shared/AuthorThumbnail';
 import BlogMeta from '#root/components/blog/shared/BlogMeta';
 import FeaturedGrid from '#root/components/blog/shared/FeaturedGrid';
 import ReadTime from '#root/components/shared/ReadTime/ReadTime';
-import btnFixed from '#root/utils/btnFixed';
 import {mediaBreakpointUp} from '#root/utils/responsive';
 import spacingUnit from '#root/utils/spacingUnit';
 
