@@ -5,7 +5,7 @@ import React from 'react';
 import BlogDetail from './BlogDetail';
 
 it('Should match the snapshot', () => {
-  const wrapper = shallow(<BlogDetail />);
+  const wrapper = shallow(<BlogDetail author={{biography: 'Author bio'}} />);
 
   expect(toJSON(wrapper)).toMatchSnapshot();
 });
