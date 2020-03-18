@@ -19,6 +19,7 @@ const Form = styled(Subscribe)`
 
     ${mediaBreakpointUp('lg')} {
       display: flex;
+      flex-wrap: wrap;
       height: 45px;
     }
   }
@@ -52,10 +53,6 @@ const Form = styled(Subscribe)`
       margin-right: ${spacingUnit.default};
       max-width: none;
     }
-
-    ${mediaBreakpointUp('lg')} {
-      margin-bottom: 0;
-    }
   }
 
   button {
@@ -75,6 +72,10 @@ const Form = styled(Subscribe)`
 
     &:hover {
       border: 1px solid ${props => props.theme.nero};
+    }
+
+    ${mediaBreakpointUp('md')} {
+      margin-bottom: 1rem;
     }
   }
 
@@ -138,7 +139,7 @@ const Wrapper = styled.div`
   }
 
   ${mediaBreakpointUp('lg')} {
-    padding: ${spacingUnit.lmm} 12vw ${spacingUnit.xlx};
+    padding: ${spacingUnit.lmm} 6.3rem ${spacingUnit.xlx};
   }
 `;
 

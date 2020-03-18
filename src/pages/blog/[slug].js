@@ -11,6 +11,7 @@ const postQuery = gql`
     blogPost(slug: $slug) {
       id
       author {
+        biography
         name
         thumbnail {
           file {

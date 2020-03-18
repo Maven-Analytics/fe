@@ -7,13 +7,27 @@ import {mediaBreakpointUp} from '#root/utils/responsive';
 import spacingUnit from '#root/utils/spacingUnit';
 
 import BlogHero from './BlogHero';
+import BlogSubscribe from '../shared/BlogSubscribe';
+import AuthorBanner from './AuthorBanner';
+
+const Author = styled(AuthorBanner)`
+  margin: 3.8rem 0 3.2rem;
+
+  ${mediaBreakpointUp('md')} {
+    margin: 5rem 0 5.6rem;
+  }
+`;
+
+const Container = styled.div`
+  margin: 0 auto;
+  max-width: 710px;
+`;
 
 const Content = styled.div`
   color: ${props => props.theme.nero};
   font-size: 1.4rem;
   line-height: 1.7;
   margin: 8.5rem auto 4.5rem;
-  max-width: 710px;
 
   ${mediaBreakpointUp('md')} {
     font-size: 1.8rem;
@@ -253,6 +267,35 @@ const Content = styled.div`
   }
 `;
 
+const Subscribe = styled(BlogSubscribe)`
+  margin: ${spacingUnit.xlx} auto ${spacingUnit.xl};
+
+  ${mediaBreakpointUp('md')} {
+    display: block;
+    padding: 4.2rem 2.7rem 2rem;
+    margin: 5rem auto;
+  }
+
+  ${mediaBreakpointUp('lg')} {
+    padding: 4.2rem 6.3rem 2rem;
+  }
+
+  .form-group {
+    display: block;
+    height: auto;
+
+    ${mediaBreakpointUp('lg')} {
+      display: block;
+    }
+  }
+
+  .form-text {
+    &:empty {
+      display: none !important;
+    }
+  }
+`;
+
 const Wrapper = styled.div``;
 
 const BlogDetail = ({blog}) => {
@@ -268,9 +311,10 @@ const BlogDetail = ({blog}) => {
         title={blog.title}
       />
       <div className="container">
-        <Content>
-          <Markdown content={blog.body} />
-          {/* <p>
+        <Container>
+          <Content>
+            <Markdown content={blog.body} />
+            {/* <p>
             Utilising user engagement to in turn take this offline. Utilising customer journeys and finally funnel users. Creating first party data
             and above all, create actionable insights. Leverage empathy maps while <a href="/">this is a inline text link</a> remembering to go viral.
             Leverage best in class but maximise share of voice. Repurpose stakeholder engagement so that as an end result, we be CMSable.
@@ -337,7 +381,10 @@ const BlogDetail = ({blog}) => {
             Utilising user engagement to in turn take this offline. Utilising customer journeys and finally funnel users. Creating first party data
             and above all, create actionable insights.
           </p> */}
-        </Content>
+          </Content>
+          <Subscribe />
+          {blog && blog.author ? <Author description={blog.author.biography} image={blog.author.thumbnail} name={blog.author.name} /> : null}
+        </Container>
       </div>
     </Wrapper>
   );
