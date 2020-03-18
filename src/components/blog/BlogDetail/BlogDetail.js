@@ -9,6 +9,7 @@ import spacingUnit from '#root/utils/spacingUnit';
 import BlogHero from './BlogHero';
 import BlogSubscribe from '../shared/BlogSubscribe';
 import AuthorBanner from './AuthorBanner';
+import RelatedPosts from './RelatedPosts';
 
 const Author = styled(AuthorBanner)`
   margin: 3.8rem 0 3.2rem;
@@ -296,6 +297,14 @@ const Subscribe = styled(BlogSubscribe)`
   }
 `;
 
+const OtherPosts = styled(RelatedPosts)`
+  margin: 3.2rem 0 4.2rem;
+
+  ${mediaBreakpointUp('md')} {
+    margin: 5.6rem 0 10.9rem;
+  }
+`;
+
 const Wrapper = styled.div``;
 
 const BlogDetail = ({blog}) => {
@@ -385,6 +394,7 @@ const BlogDetail = ({blog}) => {
           <Subscribe />
           {blog && blog.author ? <Author description={blog.author.biography} image={blog.author.thumbnail} name={blog.author.name} /> : null}
         </Container>
+        <OtherPosts category={blog.category} />
       </div>
     </Wrapper>
   );

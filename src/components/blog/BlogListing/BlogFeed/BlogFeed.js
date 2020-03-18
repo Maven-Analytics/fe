@@ -11,7 +11,6 @@ import BlogSubscribe from '../../shared/BlogSubscribe';
 import FeedGrid from './FeedGrid';
 
 const Wrapper = styled.div`
-  min-height: 400px;
   position: relative;
 `;
 
@@ -61,7 +60,7 @@ const Subscribe = styled(BlogSubscribe)`
   }
 `;
 
-const BlogFeed = ({blogs, hasMore, loading, onLoadMore}) => {
+const BlogFeed = ({blogs, hasMore, loading, onLoadMore, showCta, showSubscribe}) => {
   const first6 = blogs.slice(0, 6);
   const other = blogs.slice(6);
 
@@ -81,14 +80,14 @@ const BlogFeed = ({blogs, hasMore, loading, onLoadMore}) => {
         <Grid blogs={first6} />
         {hasMore && (!other || !other.length) ? btn : null}
       </div>
-      <Cta />
+      {showCta ? <Cta /> : null}
       {other && other.length ? (
         <div className="container container--lg">
           <Grid blogs={other} />
           {hasMore ? btn : null}
         </div>
       ) : null}
-      <Subscribe />
+      {showSubscribe ? <Subscribe /> : null}
     </Wrapper>
   );
 };
@@ -97,12 +96,16 @@ BlogFeed.propTypes = {
   blogs: PropTypes.arrayOf(PropTypes.object),
   hasMore: PropTypes.bool,
   loading: PropTypes.bool,
-  onLoadMore: PropTypes.func
+  onLoadMore: PropTypes.func,
+  showCta: PropTypes.bool,
+  showSubscribe: PropTypes.bool
 };
 
 BlogFeed.defaultProps = {
   blogs: [],
-  onLoadMore: () => {}
+  onLoadMore: () => {},
+  showCta: true,
+  showSubscribe: false
 };
 
 export default BlogFeed;
