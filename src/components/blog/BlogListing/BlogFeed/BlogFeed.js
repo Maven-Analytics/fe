@@ -105,7 +105,7 @@ BlogFeed.defaultProps = {
   blogs: [],
   onLoadMore: () => {},
   showCta: true,
-  showSubscribe: false
+  showSubscribe: true
 };
 
 export default BlogFeed;
