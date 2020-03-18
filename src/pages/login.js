@@ -1,6 +1,7 @@
 import {useMutation} from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import {LayoutAuth, Login} from 'maven-ui';
+import {useRouter} from 'next/router';
 // Import Link from 'next/link';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -33,11 +34,14 @@ const LoginPage = ({redirectTo}) => {
   const [login, {error, client}] = useMutation(mutation);
   // Const {formState: {isSubmitting, isSubmitted}, handleSubmit, register, setValue, errors: formErrors, clearError} = useForm();
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const onSubmit = async ({email, password}) => {
-    const redirect = redirectTo && redirectTo !== '' ? redirectTo : `${window.location.origin}${Routes.Dashboard}`;
+    const redirect = redirectTo && redirectTo !== '' ? redirectTo.replace(window.location.origin, '') : Routes.Dashboard;
 
-    const {data: {login: loginData}} = await login({
+    const {
+      data: {login: loginData}
+    } = await login({
       variables: {email, password}
     });
 
@@ -45,6 +49,7 @@ const LoginPage = ({redirectTo}) => {
     await client.cache.reset();
 
     dispatch(authActions.login({...loginData, redirectTo: redirect}));
+    router.push(redirect);
   };
 
   return (
@@ -57,7 +62,8 @@ const LoginPage = ({redirectTo}) => {
             url: Routes.ForgotPassword
           },
           {
-            title: 'I don\'t have an account yet. Sign me Up!',
+            // eslint-disable-next-line quotes
+            title: "I don't have an account yet. Sign me Up!",
             url: Routes.Signup
           }
         ]}

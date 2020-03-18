@@ -2,6 +2,7 @@ import {useMutation} from '@apollo/react-hooks';
 import React from 'react';
 import {useForm} from 'react-hook-form';
 import {useDispatch} from 'react-redux';
+import {useRouter} from 'next/router';
 
 import registerMutation from '#root/api/mutations/register';
 import CheckoutFooter from '#root/components/checkout/CheckoutFooter';
@@ -24,15 +25,25 @@ const SignupAccount = () => {
   const loginRedirect = canUseDOM() ? window.location.origin + Routes.SignupAccount : Routes.SignupAccount;
 
   const [registerUser, {error: registerError, client: clientRegister}] = useMutation(registerMutation);
-  const {formState: {isSubmitting, isSubmitted}, handleSubmit, register, clearError, errors: formErrors, watch} = useForm();
+  const {
+    formState: {isSubmitting, isSubmitted},
+    handleSubmit,
+    register,
+    clearError,
+    errors: formErrors,
+    watch
+  } = useForm();
 
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const onSubmit = handleSubmit(async ({email, password, first_name, last_name, postal_code, country}) => {
     clearError();
 
-    const redirectTo = window.location.origin + Routes.SignupCheckout;
-    const {data: {register: loginData}} = await registerUser({
+    const redirectTo = Routes.SignupCheckout;
+    const {
+      data: {register: loginData}
+    } = await registerUser({
       variables: {email, password, first_name, last_name, postal_code, country}
     });
 
@@ -40,6 +51,7 @@ const SignupAccount = () => {
     await clientRegister.cache.reset();
 
     dispatch(authActions.login({...loginData, redirectTo}));
+    router.push(redirectTo);
   });
 
   return (
@@ -122,14 +134,27 @@ const SignupAccount = () => {
           </div>
           <div className="form-group">
             <span style={{fontSize: '1.4rem', marginTop: 30}}>
-            By continuing I agree to Maven {'Analytics\'s'} &nbsp;
-              <a href="#" style={{color: '#cecece', textDecoration: 'underline'}} onClick={() => dispatch(stateActions.modalOpen('pageModal', 'terms'))}>Terms of Service</a> and&nbsp;
-              <a href="#" style={{color: '#cecece', textDecoration: 'underline'}} onClick={() => dispatch(stateActions.modalOpen('pageModal', 'privacy'))}>Customer Privacy Policy</a>
+              By continuing I agree to Maven {"Analytics's"} &nbsp;
+              <a
+                href="#"
+                style={{color: '#cecece', textDecoration: 'underline'}}
+                onClick={() => dispatch(stateActions.modalOpen('pageModal', 'terms'))}
+              >
+                Terms of Service
+              </a>{' '}
+              and&nbsp;
+              <a
+                href="#"
+                style={{color: '#cecece', textDecoration: 'underline'}}
+                onClick={() => dispatch(stateActions.modalOpen('pageModal', 'privacy'))}
+              >
+                Customer Privacy Policy
+              </a>
             </span>
           </div>
           <CheckoutFooter
             showLogin
-            error={registerError ? <GraphQlError error={registerError}/> : null}
+            error={registerError ? <GraphQlError error={registerError} /> : null}
             loading={isSubmitting}
             disabled={isSubmitting}
             btnType="submit"
@@ -162,4 +187,3 @@ SignupAccount.getInitialProps = async ctx => {
 };
 
 export default SignupAccount;
-
