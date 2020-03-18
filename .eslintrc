@@ -8,7 +8,8 @@
   "rules": {
     "indent": ["error", 2, {"SwitchCase": 1}],
     "camelcase": "off",
-    "new-cap": "off"
+    "new-cap": "off",
+    "operator-linebreak": "off"
   },
   "globals": {
     "window": true,
