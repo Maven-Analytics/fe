@@ -6,7 +6,6 @@ import {selectors as userSelectors} from './user';
 import {selectors as stateSelectors} from './state';
 import {selectors as courseSelectors} from './courses';
 import {List} from 'immutable';
-import {Map} from 'immutable';
 
 export const types = {
   PATHS_GET_REQUEST: 'PATHS_GET_REQUEST',
@@ -41,12 +40,14 @@ export const selectors = {
       userSelectors.getUser,
       stateSelectors.getState
     ],
+    // eslint-disable-next-line max-params
     (paths, courses, enrollments, user, state) => {
       paths = paths.map(path => {
         const pathCourses =
-          (path.get('courses') &&
-            path.get('courses').map(pathCourse => courses.find(c => c.get('id') === pathCourse.get('id')))) ||
-          List();
+          (
+            path.get('courses') &&
+            path.get('courses').map(pathCourse => courses.find(c => c.get('id') === pathCourse.get('id')))
+          ).filter(c => c) || List();
         // Set basic info
         path = path
           .set(
