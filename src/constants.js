@@ -14,7 +14,7 @@ export const env = {
 };
 
 Object.keys(env).forEach(e => {
-  if (!env[e]) {
+  if (typeof env[e] === 'undefined') {
     throw new Error(`${e} not defined!`);
   }
 });
