@@ -171,28 +171,32 @@ const Home = ({spotlights, page}) => {
           {
             title: 'Self-Paced Courses',
             icon: 'play',
-            description: 'Stay ahead of the curve with our award-winning, self-paced courses and paths. Our training is designed to help you quickly build the most practical, in-demand analytics and business intelligence skills',
+            description:
+              'Stay ahead of the curve with our award-winning, self-paced courses and paths. Our training is designed to help you quickly build the most practical, in-demand analytics and business intelligence skills',
             linkText: 'Explore Courses & Paths',
             linkUrl: Routes.CoursesPaths
           },
           {
             title: 'Skills Assessments',
             icon: 'quiz',
-            description: 'Labels like “beginner” and “expert” mean different things to different people. That’s why our courses include preliminary assessments to benchmark your skills, along with final assessments to prove how far you’ve come',
+            description:
+              'Labels like “beginner” and “expert” mean different things to different people. That’s why our courses include preliminary assessments to benchmark your skills, along with final assessments to prove how far you’ve come',
             linkText: 'Try A Practice Assessment',
             linkUrl: Routes.SkillsAssessments
           },
           {
             title: 'Verified Credentials',
             icon: 'badge',
-            description: 'Instead of traditional certificates, we issue secure digital credentials (in the form of badges) to validate your skills. They even link directly to real-time job postings, to help you turn your new skills into a new career',
+            description:
+              'Instead of traditional certificates, we issue secure digital credentials (in the form of badges) to validate your skills. They even link directly to real-time job postings, to help you turn your new skills into a new career',
             linkText: 'View Credentials',
             linkUrl: Routes.Credentials
           },
           {
             title: 'Student Dashboard',
             icon: 'dashboard',
-            description: 'Your student dashboard allows you to track your progress towards courses and paths, manage your credentials, explore new content, and share your achievements with the world',
+            description:
+              'Your student dashboard allows you to track your progress towards courses and paths, manage your credentials, explore new content, and share your achievements with the world',
             linkText: 'Sign Up For Free',
             linkUrl: Routes.Signup
           }
@@ -228,12 +232,16 @@ const pageQuery = gql`
 `;
 
 Home.getInitialProps = async ({apolloClient}) => {
-  const {data: {page}} = await apolloClient.query({
+  const {
+    data: {page}
+  } = await apolloClient.query({
     query: pageQuery,
     variables: {slug: 'home'}
   });
 
-  const {data: {spotlights}} = await apolloClient.query({
+  const {
+    data: {spotlights}
+  } = await apolloClient.query({
     query: spotlightQuery
   });
 

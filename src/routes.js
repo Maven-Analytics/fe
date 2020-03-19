@@ -1,6 +1,6 @@
 import {fromJS} from 'immutable';
 
-import accessConfig from './utils/accessConfig';
+const THINKIFIC_SUBDOMAIN = process.env.THINKIFIC_SUBDOMAIN || 'mavenanalytics';
 
 export const Routes = {
   Home: '/',
@@ -15,7 +15,7 @@ export const Routes = {
   Consulting: '/consulting',
   CoursesPaths: '/courses-learning-paths',
   Course: slug => `/course/${slug}`,
-  CourseTake: `http://${accessConfig('THINKIFIC_SUBDOMAIN', 'mavenanalytics')}.thinkific.com/courses/take`,
+  CourseTake: `http://${THINKIFIC_SUBDOMAIN}.thinkific.com/courses/take`,
   Credentials: '/credentials',
   Dashboard: '/dashboard',
   DashboardPaths: '/dashboard/learning-paths',

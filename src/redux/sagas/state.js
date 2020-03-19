@@ -1,15 +1,15 @@
 import {all, call, delay, put, select, takeLatest} from 'redux-saga/effects';
 
 import gatewayService from '#root/services/gateway';
-import accessConfig from '#root/utils/accessConfig';
 import {canUseDOM} from '#root/utils/componentHelpers';
 
 import {selectors as stateSelectors, types as stateTypes} from '../ducks/state';
+import {env} from '#root/constants';
 
 // 5 mins
-const THINKIFIC_HEALTH_CHECK_INTERVAL = parseInt(accessConfig('THINKIFIC_HEALTH_CHECK_INTERVAL', 50000), 10);
+const THINKIFIC_HEALTH_CHECK_INTERVAL = parseInt(env.THINKIFIC_HEALTH_CHECK_INTERVAL, 10);
 
-export function * watchState() {
+export function* watchState() {
   yield takeLatest(stateTypes.OFFMENU_TOGGLE, onOffmenuChange);
   yield takeLatest(stateTypes.MODAL_OPEN, onOffmenuChange);
   yield takeLatest(stateTypes.MODAL_CLOSE, onOffmenuChange);
@@ -17,7 +17,7 @@ export function * watchState() {
   yield call(thinkificHealthCheck);
 }
 
-function * onOffmenuChange() {
+function* onOffmenuChange() {
   const state = yield select(stateSelectors.getState);
 
   // If (state.get('mobileMenu')) {
@@ -51,13 +51,13 @@ function * onOffmenuChange() {
   }
 }
 
-function * onStateReset() {
+function* onStateReset() {
   document.body.classList.remove('mobile-menu-open');
 
   return yield true;
 }
 
-function * thinkificHealthCheck() {
+function* thinkificHealthCheck() {
   if (!canUseDOM()) {
     return;
   }
@@ -66,7 +66,8 @@ function * thinkificHealthCheck() {
     yield put({
       type: stateTypes.THINKIFIC_HEALTH_REQUEST
     });
-    const {errors, data} = yield call(gatewayService, {query: `
+    const {errors, data} = yield call(gatewayService, {
+      query: `
     {
       thinkificHealth {
         id

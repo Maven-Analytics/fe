@@ -1,8 +1,8 @@
 import Axios from 'axios';
 
-import accessConfig from '#root/utils/accessConfig';
+import {env} from '#root/constants';
 
-const GATEWAY_URL = accessConfig('HOST_PUBLIC_GATEWAY');
+const GATEWAY_URL = env.HOST_PUBLIC_GATEWAY;
 
 const gatewayService = async ({query}) => {
   const res = await Axios.post(`${GATEWAY_URL}/graphql`, {query});

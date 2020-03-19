@@ -24,7 +24,6 @@ import GtagScript from '#root/scripts/GtagScript';
 import IntercomScript from '#root/scripts/IntercomScript';
 import SentryScript from '#root/scripts/SentryScript';
 import theme from '#root/theme';
-import accessConfig from '#root/utils/accessConfig';
 
 import {actions as checkoutActions} from '../redux/ducks/checkout';
 import {actions as enrollmentActions} from '../redux/ducks/enrollments';
@@ -34,8 +33,9 @@ import {actions as subscriptionActions} from '../redux/ducks/subscription';
 import {actions as userActions} from '../redux/ducks/user';
 import initStore from '../redux/store';
 import {getCookie, removeCookie} from '../utils/cookies';
+import {env} from '#root/constants';
 
-const STRIPE_PUBLIC_KEY = accessConfig('STRIPE_PUBLIC_KEY');
+const STRIPE_PUBLIC_KEY = env.STRIPE_PUBLIC_KEY;
 
 class MavenApp extends App {
   static async getInitialProps({Component, ctx: {apolloClient, ...ctx}}) {

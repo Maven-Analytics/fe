@@ -1,11 +1,13 @@
 import axios from 'axios';
 
-import accessConfig from '#root/utils/accessConfig';
 import {getCookie} from '#root/utils/cookies';
+import {env} from '#root/constants';
+
+const HOST_PUBLIC_API = env.HOST_PUBLIC_API;
 
 const apiv2 = ({method = 'get', data = {}, params = {}, url = '', useAuth = true, token = getCookie('token') || ''}) => {
   return axios({
-    baseURL: `${accessConfig('HOST_PUBLIC_API')}/v2`,
+    baseURL: `${HOST_PUBLIC_API}/v2`,
     method,
     data,
     params,
