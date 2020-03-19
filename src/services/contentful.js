@@ -1,15 +1,11 @@
 import * as contentful from 'contentful';
 
-import {env} from '#root/constants';
+import accessConfig from '#root/utils/accessConfig';
 
-const CONTENTFUL_SPACE = env.CONTENTFUL_SPACE;
-const CONTENTFUL_ACCESS_TOKEN = env.CONTENTFUL_ACCESS_TOKEN;
-
-const getContentfulClient = () =>
-  contentful.createClient({
-    space: CONTENTFUL_SPACE,
-    accessToken: CONTENTFUL_ACCESS_TOKEN
-  });
+const getContentfulClient = () => contentful.createClient({
+  space: accessConfig('CONTENTFUL_SPACE'),
+  accessToken: accessConfig('CONTENTFUL_ACCESS_TOKEN')
+});
 
 export async function getPaths({query = {}, include = 10}) {
   try {

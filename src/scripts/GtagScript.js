@@ -1,17 +1,15 @@
 import {memo} from 'react';
 import TagManager from 'react-gtm-module';
 
+import accessConfig from '#root/utils/accessConfig';
 import {canUseDOM} from '#root/utils/componentHelpers';
-import {env} from '#root/constants';
-
-const DISABLE_GTAG = env.DISABLE_GTAG;
 
 const GtagScript = () => {
   if (!canUseDOM()) {
     return null;
   }
 
-  if (!DISABLE_GTAG) {
+  if (!accessConfig('DISABLE_GTAG', false)) {
     TagManager.initialize({
       gtmId: 'GTM-M5F3PPK'
     });

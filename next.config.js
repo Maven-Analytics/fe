@@ -1,5 +1,4 @@
-const isDev = process.env.NODE_ENV === 'development';
-
+const webpack = require('webpack');
 const withPlugins = require('next-compose-plugins');
 const withSass = require('@zeit/next-sass');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
@@ -8,23 +7,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 const plugins = [withSass];
 
-if (isDev) {
-  require('dotenv').config();
-}
-
 module.exports = withPlugins(plugins, {
-  env: {
-    DISABLE_INTERCOM: process.env.DISABLE_INTERCOM,
-    DISABLE_GTAG: process.env.DISABLE_GTAG,
-    CONTENTFUL_ACCESS_TOKEN: process.env.CONTENTFUL_ACCESS_TOKEN,
-    CONTENTFUL_SPACE: process.env.CONTENTFUL_SPACE,
-    HOST_PUBLIC_API: process.env.HOST_PUBLIC_API,
-    HOST_PUBLIC_GATEWAY: process.env.HOST_PUBLIC_GATEWAY,
-    SENTRY_ENVIRONMENT: process.env.SENTRY_ENVIRONMENT,
-    STRIPE_PUBLIC_KEY: process.env.STRIPE_PUBLIC_KEY,
-    THINKIFIC_HEALTH_CHECK_INTERVAL: process.env.THINKIFIC_HEALTH_CHECK_INTERVAL,
-    THINKIFIC_SUBDOMAIN: process.env.THINKIFIC_SUBDOMAIN
-  },
   publicRuntimeConfig: {
     HOST_SERVER: process.env.HOST_SERVER,
     THINKIFIC_SUBDOMAIN: process.env.THINKIFIC_SUBDOMAIN,

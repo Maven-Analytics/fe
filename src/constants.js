@@ -1,24 +1,5 @@
 import {fromJS} from 'immutable';
 
-export const env = {
-  DISABLE_INTERCOM: process.env.DISABLE_INTERCOM || false,
-  DISABLE_GTAG: process.env.DISABLE_GTAG || false,
-  CONTENTFUL_ACCESS_TOKEN: process.env.CONTENTFUL_ACCESS_TOKEN,
-  CONTENTFUL_SPACE: process.env.CONTENTFUL_SPACE,
-  HOST_PUBLIC_API: process.env.HOST_PUBLIC_API,
-  HOST_PUBLIC_GATEWAY: process.env.HOST_PUBLIC_GATEWAY,
-  SENTRY_ENVIRONMENT: process.env.SENTRY_ENVIRONMENT || 'production',
-  STRIPE_PUBLIC_KEY: process.env.STRIPE_PUBLIC_KEY,
-  THINKIFIC_HEALTH_CHECK_INTERVAL: process.env.THINKIFIC_HEALTH_CHECK_INTERVAL || 50000,
-  THINKIFIC_SUBDOMAIN: process.env.THINKIFIC_SUBDOMAIN || 'mavenanalytics'
-};
-
-Object.keys(env).forEach(e => {
-  if (!env[e]) {
-    throw new Error(`${e} not defined!`);
-  }
-});
-
 export const plans = fromJS([
   {
     amountCents: 2900,
@@ -88,4 +69,7 @@ export const planIds = {
 // 7 days in milliseconds
 export const trialLength = 604800000;
 
-export const defaultAuthImages = ['/static/img/auth-bg-1440.jpg 1440w', '/static/img/auth-bg-2880.jpg 2880w'];
+export const defaultAuthImages = [
+  '/static/img/auth-bg-1440.jpg 1440w',
+  '/static/img/auth-bg-2880.jpg 2880w'
+];
