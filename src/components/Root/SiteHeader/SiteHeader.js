@@ -30,7 +30,7 @@ const Wrapper = styled.header`
 
     ${responsive.mediaBreakpointUp('lg')} {
       background-color: transparent;
-      height: ${headerHeightDesktop} !important;
+      height: ${headerHeightDesktop}px !important;
       max-height: none;
     }
   }
