@@ -3,8 +3,13 @@ import {useSelector} from 'react-redux';
 
 import {selectors as userSelectors} from '#root/redux/ducks/user';
 import accessConfig from '#root/utils/accessConfig';
+import {canUseDOM} from '#root/utils/componentHelpers';
 
 const SessionStackScript = () => {
+  if (!canUseDOM()) {
+    return null;
+  }
+
   if (accessConfig('DISABLE_SS', false)) {
     return null;
   }
