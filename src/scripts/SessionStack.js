@@ -22,9 +22,9 @@ const SessionStackScript = () => {
       email: user.get('email'),
       userId: user.get('id')
     });
-  }, []);
+  }, [user.get('id')]);
 
   return null;
 };
 
-export default memo(SessionStackScript);
+export default SessionStackScript;
