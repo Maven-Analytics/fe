@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {ProfileForm} from 'maven-ui';
 import {useMutation} from '@apollo/react-hooks';
+import {useSelector, useDispatch} from 'react-redux';
 
 import AccountLayout from '#root/components/layout/account';
 
 import withAuthSync from '#root/components/withAuthSync';
-import {useSelector, useDispatch} from 'react-redux';
 import {actions as userActions, selectors as userSelectors} from '#root/redux/ducks/user';
 import updateUserMutation from '#root/api/mutations/updateUser';
 
