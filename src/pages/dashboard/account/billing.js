@@ -4,8 +4,8 @@ import {List, Map} from 'immutable';
 import PropTypes from 'prop-types';
 import React from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
+import {AccountList} from 'maven-ui';
 
-import AccountList from '#root/components/dashboard/AccountList';
 import AccountPaymentMethods from '#root/components/dashboard/AccountPaymentMethods/AccountPaymentMethods';
 import AccountLayout from '#root/components/layout/account';
 import Pill from '#root/components/shared/Pill/Pill';
@@ -59,11 +59,7 @@ const resumeMutation = gql`
 
 const AccountBilling = () => {
   const {data: {mySubscriptions = []} = {}, loading: subscriptionsFetching, refetch} = useQuery(mySubscriptionsQuery);
-  const {
-    data: {myPaymentMethods = []} = {},
-    loading: paymentMethodsFetching,
-    refetch: refetchPaymentMethods
-  } = useQuery(myPaymentMethodsQuery);
+  const {data: {myPaymentMethods = []} = {}, loading: paymentMethodsFetching, refetch: refetchPaymentMethods} = useQuery(myPaymentMethodsQuery);
   const [cancelSubscription, {loading: isCancelling}] = useMutation(cancelMutation);
   const [resumeSubscription, {loading: isRenewing}] = useMutation(resumeMutation);
 
@@ -83,11 +79,7 @@ const AccountBilling = () => {
 
   return (
     <AccountLayout title="Billing" activeLink={2}>
-      <AccountPaymentMethods
-        fetching={paymentMethodsFetching}
-        paymentMethods={myPaymentMethods}
-        refetch={refetchPaymentMethods}
-      />
+      <AccountPaymentMethods fetching={paymentMethodsFetching} paymentMethods={myPaymentMethods} refetch={refetchPaymentMethods} />
       <AccountList
         columns={[
           {

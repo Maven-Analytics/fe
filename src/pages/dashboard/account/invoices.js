@@ -4,8 +4,8 @@ import {List, Map} from 'immutable';
 import PropTypes from 'prop-types';
 import React from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
+import {AccountList, AccountListLink} from 'maven-ui';
 
-import AccountList, {AccountListLink} from '#root/components/dashboard/AccountList';
 import AccountLayout from '#root/components/layout/account';
 import withAuthSync from '#root/components/withAuthSync';
 import {planIds} from '#root/constants';
