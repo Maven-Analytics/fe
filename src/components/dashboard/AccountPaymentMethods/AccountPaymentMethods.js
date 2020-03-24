@@ -2,36 +2,35 @@ import {useMutation} from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import * as PropTypes from 'prop-types';
 import React, {useState} from 'react';
+import {AccountList} from 'maven-ui';
 
 import AddCard from '#root/components/shared/AddCard';
 import AddCardForm from '#root/components/shared/AddCardForm';
 import Pill from '#root/components/shared/Pill/Pill';
 import {leadingZero} from '#root/utils/componentHelpers';
 
-import AccountList from '../AccountList';
-
 const paymentMethodAddMutation = gql`
-mutation PaymentMethodAdd($paymentMethod: String!) {
-  paymentMethodAdd(paymentMethod: $paymentMethod) {
-    id
+  mutation PaymentMethodAdd($paymentMethod: String!) {
+    paymentMethodAdd(paymentMethod: $paymentMethod) {
+      id
+    }
   }
-}
 `;
 
 const paymentMethodUpdateMutation = gql`
-mutation PaymentMethodUpdate($paymentMethod: String!, $defaultMethod: Boolean!) {
-  paymentMethodUpdate(paymentMethod: $paymentMethod, defaultMethod: $defaultMethod) {
-    id
+  mutation PaymentMethodUpdate($paymentMethod: String!, $defaultMethod: Boolean!) {
+    paymentMethodUpdate(paymentMethod: $paymentMethod, defaultMethod: $defaultMethod) {
+      id
+    }
   }
-}
 `;
 
 const paymentMethodRemoveMutation = gql`
-mutation PaymentMethodRemove($paymentMethod: String!) {
-  paymentMethodRemove(paymentMethod: $paymentMethod) {
-    id
+  mutation PaymentMethodRemove($paymentMethod: String!) {
+    paymentMethodRemove(paymentMethod: $paymentMethod) {
+      id
+    }
   }
-}
 `;
 
 export const AccountPaymentMethods = ({fetching, paymentMethods, refetch}) => {
@@ -96,17 +95,28 @@ export const AccountPaymentMethods = ({fetching, paymentMethods, refetch}) => {
             // eslint-disable-next-line react/display-name
             renderItem: paymentMethod => (
               <span style={{alignItems: 'center', display: 'flex'}}>
-                {paymentMethod.brand} ending in {paymentMethod.last4} {paymentMethod.default ? <Pill className="pinned" style={{fontSize: '0.9rem', verticalAlign: 'middle'}}>Default</Pill> : null}
+                {paymentMethod.brand} ending in {paymentMethod.last4}{' '}
+                {paymentMethod.default ? (
+                  <Pill className="pinned" style={{fontSize: '0.9rem', verticalAlign: 'middle'}}>
+                    Default
+                  </Pill>
+                ) : null}
               </span>
             ),
             label: ''
           },
           // eslint-disable-next-line react/display-name
-          {renderItem: paymentMethod => (
-            <>
-              Expires on <strong>{leadingZero(paymentMethod.exp_month)}/{paymentMethod.exp_year}</strong>
-            </>
-          ), label: ''},
+          {
+            renderItem: paymentMethod => (
+              <>
+                Expires on{' '}
+                <strong>
+                  {leadingZero(paymentMethod.exp_month)}/{paymentMethod.exp_year}
+                </strong>
+              </>
+            ),
+            label: ''
+          },
           {
             // eslint-disable-next-line react/display-name
             renderItem: paymentMethod => (
@@ -118,7 +128,7 @@ export const AccountPaymentMethods = ({fetching, paymentMethods, refetch}) => {
                     disabled={paymentMethod.default || loading || fetching}
                     onClick={() => handleUpdate(paymentMethod.id)}
                   >
-                  Set as Default
+                    Set as Default
                   </button>
                 ) : null}
 
@@ -141,10 +151,7 @@ export const AccountPaymentMethods = ({fetching, paymentMethods, refetch}) => {
         title="Credit Cards"
       >
         <>
-          <button
-            className="btn btn--sm btn--default"
-            onClick={() => setView('edit')}
-          >
+          <button className="btn btn--sm btn--default" onClick={() => setView('edit')}>
             Add New Card
           </button>
         </>
@@ -158,17 +165,8 @@ export const AccountPaymentMethods = ({fetching, paymentMethods, refetch}) => {
         {
           // eslint-disable-next-line react/display-name
           renderItem: () => (
-            <AddCardForm
-              error={error || addError}
-              loading={loading}
-              onComplete={handleComplete}
-              setError={setError}
-              setLoading={setLoading}
-            >
-              <AddCard
-                loading={loading}
-                onCancel={() => setView('list')}
-              />
+            <AddCardForm error={error || addError} loading={loading} onComplete={handleComplete} setError={setError} setLoading={setLoading}>
+              <AddCard loading={loading} onCancel={() => setView('list')} />
             </AddCardForm>
           ),
           itemClass: 'card',
