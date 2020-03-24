@@ -2,19 +2,44 @@ import React, {useState} from 'react';
 import {ImageUpload, ProfileForm} from 'maven-ui';
 import {useMutation} from '@apollo/react-hooks';
 import {useSelector, useDispatch} from 'react-redux';
-import gql from 'graphql-tag';
+import styled from 'styled-components';
 
 import AccountLayout from '#root/components/layout/account';
 import withAuthSync from '#root/components/withAuthSync';
 import {actions as userActions, selectors as userSelectors} from '#root/redux/ducks/user';
 import updateUserMutation from '#root/api/mutations/updateUser';
-import userFragment from '#root/api/fragments/user';
+import GatewayService from '#root/services/GatewayService';
+import {mediaBreakpointUp} from '#root/utils/responsive';
+import Image from '#root/components/image';
+import spacingUnit from '#root/utils/spacingUnit';
 
-const avatarUploadMutation = gql`
-  mutation AvatarUpload($file: Upload!) {
-    avatarUpload(file: $file) {
-      id
-    }
+const AvatarPreview = styled.div`
+  border-radius: 50%;
+  height: 110px;
+  margin: 0 0 ${spacingUnit.default};
+  overflow: hidden;
+  width: 110px;
+
+  ${mediaBreakpointUp('sm')} {
+    margin: 0 ${spacingUnit.mdl} 0 0;
+  }
+`;
+
+const AvatarSection = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  margin: 0 0 ${spacingUnit.default};
+
+  ${mediaBreakpointUp('sm')} {
+    flex-flow: row nowrap;
+  }
+`;
+
+const AvatarUpload = styled.div`
+  flex: 0 0 100%;
+
+  ${mediaBreakpointUp('sm')} {
+    flex: auto;
   }
 `;
 
@@ -22,7 +47,7 @@ const AccountProfile = () => {
   const dispatch = useDispatch();
   const user = useSelector(userSelectors.getUser);
 
-  const [uploadAvatar, {}] = useMutation(avatarUploadMutation);
+  const [avatarLoading, setAvatarLoading] = useState(false);
   const [updateUser, {error}] = useMutation(updateUserMutation);
   const [response, setResponse] = useState();
 
@@ -38,44 +63,31 @@ const AccountProfile = () => {
     dispatch(userActions.userSet(updatedUser));
   };
 
+  const uploadAvatar = async blob => {
+    setAvatarLoading(true);
+    const data = await GatewayService.uploadAvatar(blob);
+    setAvatarLoading(false);
+    dispatch(userActions.userSet(data));
+  };
+
   return (
     <AccountLayout title="Your Profile" activeLink={0}>
-      <input
-        type="file"
-        onChange={e => {
-          console.log(e.target.files[0]);
+      <AvatarSection>
+        <AvatarPreview>
+          <Image circle src={user.get('avatar_url')} wrapperStyle={{paddingBottom: '100%', maxWidth: 110}} />
+        </AvatarPreview>
+        <AvatarUpload>
+          <ImageUpload
+            note="Note: Photos must be JPG or PNG file format and no larger than 2MB"
+            loading={avatarLoading}
+            onUpload={async ({blob}) => {
+              await uploadAvatar(blob);
+            }}
+            title="Profile Photo"
+          />
+        </AvatarUpload>
+      </AvatarSection>
 
-          uploadAvatar({
-            variables: {
-              file: e.target.files[0]
-            }
-          }).then(res => {
-            console.log(res);
-          });
-        }}
-      />
-      <ImageUpload
-        note="Note: Photos must be JPG or PNG file format and no larger than 2MB"
-        onUpload={async ({url, blob}) => {
-          return new Promise(resolve => {
-            const fd = new window.FormData();
-            fd.set('file', blob);
-
-            console.log(fd.get('file'));
-
-            uploadAvatar({
-              variables: {
-                file: fd.get('file')
-              }
-            }).then(res => {
-              console.log(res);
-
-              resolve();
-            });
-          });
-        }}
-        title="Profile Photo"
-      />
       <ProfileForm
         error={error}
         defaultValues={{
