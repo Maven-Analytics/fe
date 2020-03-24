@@ -7,6 +7,12 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 const plugins = [withSass];
 
+const isDev = process.env.NODE_ENV === 'development';
+
+if (isDev) {
+  require('dotenv').config();
+}
+
 module.exports = withPlugins(plugins, {
   publicRuntimeConfig: {
     HOST_SERVER: process.env.HOST_SERVER,
