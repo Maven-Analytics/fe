@@ -24,6 +24,7 @@ import GtagScript from '#root/scripts/GtagScript';
 import IntercomScript from '#root/scripts/IntercomScript';
 import SentryScript from '#root/scripts/SentryScript';
 import theme from '#root/theme';
+import SessionStack from '#root/scripts/SessionStack';
 import accessConfig from '#root/utils/accessConfig';
 
 import {actions as checkoutActions} from '../redux/ducks/checkout';
@@ -157,6 +158,7 @@ class MavenApp extends App {
                       <FontLoaderScript />
                       <GtagScript />
                       <IntercomScript />
+                      <SessionStack />
                     </Root>
                   </ParallaxProvider>
                 </Elements>
