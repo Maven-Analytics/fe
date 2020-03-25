@@ -54,16 +54,6 @@ class MyDocument extends Document {
           <link rel="preload" href="/static/fonts/DIN/D-DIN.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
           <link rel="preload" href="/static/fonts/Lato/Lato-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
 
-          {/* Gitlab review apps script */}
-          <script
-            defer
-            data-project-id="15440625"
-            data-project-path="mavenanalytics/fe"
-            data-mr-url="https://gitlab.com"
-            id="review-app-toolbar-script"
-            src="https://gitlab.com/assets/webpack/visual_review_toolbar.js"
-          ></script>
-
           {/* Stripe */}
           <script id="stripe-js" src="https://js.stripe.com/v3/" async></script>
 
