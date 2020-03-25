@@ -211,7 +211,7 @@ const DashboardPage = ({
   const RecommendedPath = (
     <DashboardCard showWelcome settingsKey="recommendedPath" loading={loadingPaths}>
       <DashboardCardHeader title="Your Recommended Path" />
-      <DashboardCardBody>
+      <DashboardCardBody style={{position: loadingPaths ? 'relative' : 'static'}}>
         {(!recommendedPath || recommendedPath.isEmpty()) && loadingPaths === false ? (
           <DashboardNoData
             btnText="Take Survey"
