@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {ImageUpload, ProfileForm} from 'maven-ui';
+import {Avatar, ImageUpload, ProfileForm} from 'maven-ui';
 import {useMutation} from '@apollo/react-hooks';
 import {useSelector, useDispatch} from 'react-redux';
 import styled from 'styled-components';
@@ -10,14 +10,11 @@ import {actions as userActions, selectors as userSelectors} from '#root/redux/du
 import updateUserMutation from '#root/api/mutations/updateUser';
 import GatewayService from '#root/services/GatewayService';
 import {mediaBreakpointUp} from '#root/utils/responsive';
-import Image from '#root/components/image';
 import spacingUnit from '#root/utils/spacingUnit';
 
-const AvatarPreview = styled.div`
-  border-radius: 50%;
+const AvatarPreview = styled(Avatar)`
   height: 110px;
   margin: 0 0 ${spacingUnit.default};
-  overflow: hidden;
   width: 110px;
 
   ${mediaBreakpointUp('sm')} {
@@ -73,9 +70,7 @@ const AccountProfile = () => {
   return (
     <AccountLayout title="Your Profile" activeLink={0}>
       <AvatarSection>
-        <AvatarPreview>
-          <Image circle src={user.get('avatar_url')} wrapperStyle={{paddingBottom: '100%', maxWidth: 110}} />
-        </AvatarPreview>
+        <AvatarPreview image={user.get('avatar_url')} />
         <AvatarUpload>
           <ImageUpload
             note="Note: Photos must be JPG or PNG file format and no larger than 2MB"

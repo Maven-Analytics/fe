@@ -95,6 +95,7 @@ const SiteHeader = ({router: {pathname}}) => {
                   children: (
                     <>
                       <HeaderUser
+                        avatar={user.get('avatar_url')}
                         links={userMenuLinks}
                         onClick={() => dispatch(stateActions.offmenuToggle('headerUser'))}
                         open={state.get('headerUser')}
