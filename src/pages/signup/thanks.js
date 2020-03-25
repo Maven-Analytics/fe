@@ -1,14 +1,25 @@
 import {useQuery} from '@apollo/react-hooks';
+import {Loader} from 'maven-ui';
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import styled from 'styled-components';
 
 import subscriptionStatusQuery from '#root/api/query/subscriptionStatus';
 import CheckoutThanks from '#root/components/checkoutThanks';
 import Checkout from '#root/components/layout/checkout';
-import Loader from '#root/components/loader';
 import {actions as subscriptionActions} from '#root/redux/ducks/subscription';
 import {selectors as userSelectors} from '#root/redux/ducks/user';
 import {subscriptionEnrolled} from '#root/utils/subscriptionHelpers';
+
+const PageContent = styled.div`
+  ${Loader} {
+    left: 0;
+    margin: 0 auto 2rem;
+    position: static;
+    top: 0;
+    transform: none;
+  }
+`;
 
 const SignupThanks = () => {
   const dispatch = useDispatch();
@@ -30,7 +41,7 @@ const SignupThanks = () => {
           <CheckoutThanks />
         ) : (
           <div className="checkout-thanks thanks-page__content ">
-            <Loader center loading={loading || !enrolled} width={100} height={100} />
+            <Loader align="top-center" position="relative" loading={loading || !enrolled} width={100} height={100} />
             <p>{'Hang Tight, Creating your Account...'}</p>
           </div>
         )}

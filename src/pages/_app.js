@@ -2,9 +2,11 @@ import '../styles/index.scss';
 
 import {ApolloProvider} from '@apollo/react-hooks';
 import {fromJS} from 'immutable';
+import {ComponentProvider, ThemeProvider} from 'maven-ui';
 import withReduxSaga from 'next-redux-saga';
 import withRedux from 'next-redux-wrapper';
 import App from 'next/app';
+import Link from 'next/link';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {connect, Provider} from 'react-redux';
@@ -21,6 +23,7 @@ import FontLoaderScript from '#root/scripts/FontLoaderScript';
 import GtagScript from '#root/scripts/GtagScript';
 import IntercomScript from '#root/scripts/IntercomScript';
 import SentryScript from '#root/scripts/SentryScript';
+import theme from '#root/theme';
 import SessionStack from '#root/scripts/SessionStack';
 import accessConfig from '#root/utils/accessConfig';
 
@@ -71,12 +74,7 @@ class MavenApp extends App {
       store.dispatch(checkoutActions.checkoutSetPlan(fromJS(checkoutCookie.plan)));
     }
 
-    if (
-      recommendedPaths &&
-      Array.isArray(recommendedPaths) &&
-      recommendedCourses &&
-      Array.isArray(recommendedCourses)
-    ) {
+    if (recommendedPaths && Array.isArray(recommendedPaths) && recommendedCourses && Array.isArray(recommendedCourses)) {
       store.dispatch(
         recommendedActions.recommendedInit({
           paths: recommendedPaths,
@@ -149,20 +147,24 @@ class MavenApp extends App {
     return (
       <ApolloProvider client={client({})}>
         <Provider store={store}>
-          <StripeProvider stripe={this.state.stripe}>
-            <Elements>
-              <ParallaxProvider>
-                <Root>
-                  <Component {...pageProps} />
-                  <SentryScript />
-                  <FontLoaderScript />
-                  <GtagScript />
-                  <IntercomScript />
-                  <SessionStack />
-                </Root>
-              </ParallaxProvider>
-            </Elements>
-          </StripeProvider>
+          <ComponentProvider linkComponent={Link} linkKey="href" linkWrap={true}>
+            <ThemeProvider theme={theme}>
+              <StripeProvider stripe={this.state.stripe}>
+                <Elements>
+                  <ParallaxProvider>
+                    <Root>
+                      <Component {...pageProps} />
+                      <SentryScript />
+                      <FontLoaderScript />
+                      <GtagScript />
+                      <IntercomScript />
+                      <SessionStack />
+                    </Root>
+                  </ParallaxProvider>
+                </Elements>
+              </StripeProvider>
+            </ThemeProvider>
+          </ComponentProvider>
         </Provider>
       </ApolloProvider>
     );

@@ -1,24 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {AccountPage, AccountPageBody, AccountPageSidebar} from 'maven-ui';
 
 import DashboardLayout from './dashboard';
-import DashboardCard from '#root/components/dashboardCard';
-import AccountSidebar from '#root/components/accountSidebar';
+import {Routes} from '#root/routes';
+
+const sidebarLinks = [
+  {
+    title: 'Profile',
+    url: Routes.Account
+  },
+  {
+    title: 'Password',
+    url: Routes.AccountPassword
+  },
+  {
+    title: 'Billing',
+    url: Routes.AccountBilling
+  },
+  {
+    title: 'Invoice History',
+    url: Routes.AccountInvoices
+  }
+];
 
 const AccountLayout = ({children, title, activeLink}) => {
   return (
     <DashboardLayout title="My Account" activeLink={-1}>
-      <DashboardCard size="lg">
-        <div className="layout-account">
-          <aside className="layout-account__sidebar">
-            <AccountSidebar activeLink={activeLink}/>
-          </aside>
-          <div className="layout-account__content">
-            <h4>{title}</h4>
-            {children}
-          </div>
-        </div>
-      </DashboardCard>
+      <AccountPage>
+        <AccountPageSidebar activeLink={activeLink} links={sidebarLinks} />
+        <AccountPageBody title={title}>{children}</AccountPageBody>
+      </AccountPage>
     </DashboardLayout>
   );
 };

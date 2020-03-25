@@ -1,5 +1,6 @@
 import Document, {Head, Html, Main, NextScript} from 'next/document';
 import React from 'react';
+import {ServerStyleSheet} from 'styled-components';
 import {innerHtml} from '#root/utils/componentHelpers';
 
 const SESSION_STACK_JS = `!function(a,b){var c=window;c.SessionStackKey=a,c[a]=c[a]||{t:b,
@@ -11,8 +12,28 @@ const SESSION_STACK_JS = `!function(a,b){var c=window;c.SessionStackKey=a,c[a]=c
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
-    const initialProps = await Document.getInitialProps(ctx);
-    return {...initialProps};
+    const sheet = new ServerStyleSheet();
+    const originalRenderPage = ctx.renderPage;
+
+    try {
+      ctx.renderPage = () =>
+        originalRenderPage({
+          enhanceApp: App => props => sheet.collectStyles(<App {...props} />)
+        });
+
+      const initialProps = await Document.getInitialProps(ctx);
+      return {
+        ...initialProps,
+        styles: (
+          <>
+            {initialProps.styles}
+            {sheet.getStyleElement()}
+          </>
+        )
+      };
+    } finally {
+      sheet.seal();
+    }
   }
 
   render() {
@@ -37,27 +58,9 @@ class MyDocument extends Document {
 
           <meta name="viewport" content="initial-scale=1.0, width=device-width" key="viewport" />
 
-          <link
-            rel="preload"
-            href="/static/fonts/maicon/fonts/maicon.woff2?1qo22k"
-            as="font"
-            type="font/woff2"
-            crossOrigin="anonymous"
-          />
-          <link
-            rel="preload"
-            href="/static/fonts/DIN/D-DIN.woff2"
-            as="font"
-            type="font/woff2"
-            crossOrigin="anonymous"
-          />
-          <link
-            rel="preload"
-            href="/static/fonts/Lato/Lato-Regular.woff2"
-            as="font"
-            type="font/woff2"
-            crossOrigin="anonymous"
-          />
+          <link rel="preload" href="/static/fonts/maicon/fonts/maicon.woff2?1qo22k" as="font" type="font/woff2" crossOrigin="anonymous" />
+          <link rel="preload" href="/static/fonts/DIN/D-DIN.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+          <link rel="preload" href="/static/fonts/Lato/Lato-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
 
           {/* Stripe */}
           <script id="stripe-js" src="https://js.stripe.com/v3/" async></script>

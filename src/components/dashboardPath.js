@@ -19,7 +19,7 @@ const DashboardPath = ({title, percentage_completed, onDetailClick, resumeUrl, b
       </div>
       <div className="dashboard-path__content">
         <h4>{title}</h4>
-        <Markdown content={descriptionPreview}/>
+        <Markdown content={descriptionPreview} />
         <div className="dashboard-path__footer">
           {resumeUrl ? (
             <ResumeProduct resumeUrl={resumeUrl} productTerm="Path" started={percentage_completed > 0} className="btn btn--primary-solid" />

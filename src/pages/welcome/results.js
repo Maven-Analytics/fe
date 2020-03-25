@@ -1,4 +1,5 @@
 import {fromJS, Map} from 'immutable';
+import {Loader} from 'maven-ui';
 import {withRouter} from 'next/router';
 import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
@@ -16,7 +17,6 @@ import {selectors as recommendedSelectors} from '#root/redux/ducks/recommended';
 import {actions as surveyResultActions, selectors as surveyResultSelectors} from '#root/redux/ducks/surveyResult';
 import {actions as userActions} from '#root/redux/ducks/user';
 
-import Loader from '../../components/loader';
 import MaIcon from '../../components/maIcon';
 import PathBanner from '../../components/pathBanner';
 import {Routes} from '../../routes';
@@ -95,7 +95,7 @@ class WelcomeSurveyResults extends Component {
   renderLoading(style) {
     return (
       <div key="loading" className="welcome-survey-results__loading" style={this.getDivStyle(style)}>
-        <Loader loading position="relative top-center" width={70} height={70} center={false} />
+        <Loader loading align="top-center" position="relative" width={70} height={70} />
         <p>Just one moment, we’re finding the best courses and learning paths for your goals</p>
       </div>
     );

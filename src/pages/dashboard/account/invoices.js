@@ -4,32 +4,32 @@ import {List, Map} from 'immutable';
 import PropTypes from 'prop-types';
 import React from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
+import {AccountList, AccountListLink} from 'maven-ui';
 
-import AccountList, {AccountListLink} from '#root/components/dashboard/AccountList';
 import AccountLayout from '#root/components/layout/account';
 import withAuthSync from '#root/components/withAuthSync';
 import {planIds} from '#root/constants';
 import {centsToDollarString, formatDateMMDDYYYY} from '#root/utils/componentHelpers';
 
 const myInvoiceQuery = gql`
-query MyInvoices {
-  myInvoices {
-    id
-    amount_paid
-    created
-    hosted_invoice_url
-    invoice_pdf
-    number
-    plan_description
-    plan_id
-    plan_nickname
-    status
+  query MyInvoices {
+    myInvoices {
+      id
+      amount_paid
+      created
+      hosted_invoice_url
+      invoice_pdf
+      number
+      plan_description
+      plan_id
+      plan_nickname
+      status
+    }
   }
-}
 `;
 
 const AccountInvoices = () => {
-  const {data: {myInvoices = []} = {}, loading, fetchMore} = useQuery(myInvoiceQuery);
+  const {data: {myInvoices = []} = {}} = useQuery(myInvoiceQuery);
 
   return (
     <AccountLayout title="Invoice History" activeLink={3}>
@@ -37,8 +37,12 @@ const AccountInvoices = () => {
         <AccountList
           columns={[
             {
-            // eslint-disable-next-line react/display-name
-              renderItem: invoice => <AccountListLink external href={invoice.hosted_invoice_url}>{invoice.number}</AccountListLink>,
+              // eslint-disable-next-line react/display-name
+              renderItem: invoice => (
+                <AccountListLink external href={invoice.hosted_invoice_url}>
+                  {invoice.number}
+                </AccountListLink>
+              ),
               label: 'Invoice #'
             },
             {
@@ -58,8 +62,12 @@ const AccountInvoices = () => {
               label: 'Amount'
             },
             {
-            // eslint-disable-next-line react/display-name
-              renderItem: invoice => <AccountListLink isBtn external href={invoice.hosted_invoice_url}>View Invoice</AccountListLink>,
+              // eslint-disable-next-line react/display-name
+              renderItem: invoice => (
+                <AccountListLink isBtn external href={invoice.hosted_invoice_url}>
+                  View Invoice
+                </AccountListLink>
+              ),
               itemClass: 'link',
               label: ''
             }

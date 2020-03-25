@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import {DashboardCardXl, DashboardCardBody} from 'maven-ui';
 
 import DashboardLayout from '#root/components/layout/dashboard';
 import {selectors as errorSelectors} from '#root/redux/ducks/error';
@@ -10,7 +11,6 @@ import {selectors as loadingSelectors} from '#root/redux/ducks/loading';
 import {actions as pathActions, selectors as pathSelectors} from '#root/redux/ducks/paths';
 import {actions as stateActions} from '#root/redux/ducks/state';
 
-import DashboardCard from '../../components/dashboardCard';
 import DashboardGrid from '../../components/dashboardGrid';
 import DashboardPath from '../../components/dashboardPath';
 import withAuthSync from '../../components/withAuthSync';
@@ -29,20 +29,22 @@ class DashboardLearningPaths extends Component {
         <DashboardGrid vertical>
           {paths.map(path => {
             return (
-              <DashboardCard key={path.get('id')} size="xl" style={{margin: 0}}>
-                <DashboardPath
-                  title={path.getIn(['title'])}
-                  badge={path.getIn(['badge'])}
-                  descriptionPreview={path.getIn(['descriptionPreview'])}
-                  resumeUrl={path.get('resumeUrl')}
-                  percentage_completed={path.get('percentage_completed')}
-                  match={`${prettyPercent(path.get('match'))}%`}
-                  courseCount={path.getIn(['courses']).count()}
-                  tools={path.getIn(['tools'])}
-                  onDetailClick={clickAction(actions.modalOpen, 'pathDrawer', path.get('id'))}
-                  hours={path.get('length')}
-                />
-              </DashboardCard>
+              <DashboardCardXl key={path.get('id')} style={{margin: 0}}>
+                <DashboardCardBody>
+                  <DashboardPath
+                    title={path.getIn(['title'])}
+                    badge={path.getIn(['badge'])}
+                    descriptionPreview={path.getIn(['descriptionPreview'])}
+                    resumeUrl={path.get('resumeUrl')}
+                    percentage_completed={path.get('percentage_completed')}
+                    match={`${prettyPercent(path.get('match'))}%`}
+                    courseCount={path.getIn(['courses']).count()}
+                    tools={path.getIn(['tools'])}
+                    onDetailClick={clickAction(actions.modalOpen, 'pathDrawer', path.get('id'))}
+                    hours={path.get('length')}
+                  />
+                </DashboardCardBody>
+              </DashboardCardXl>
             );
           })}
         </DashboardGrid>
@@ -64,12 +66,15 @@ const mapStateToProps = state => ({
   error: errorSelectors.getError(['PATHS_GET'])(state)
 });
 
-const mapDispatchToProps = function (dispatch) {
+const mapDispatchToProps = dispatch => {
   return {
-    actions: bindActionCreators({
-      ...stateActions,
-      ...pathActions
-    }, dispatch)
+    actions: bindActionCreators(
+      {
+        ...stateActions,
+        ...pathActions
+      },
+      dispatch
+    )
   };
 };
 

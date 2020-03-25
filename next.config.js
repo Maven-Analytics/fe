@@ -1,9 +1,8 @@
-const webpack = require('webpack');
 const withPlugins = require('next-compose-plugins');
 const withSass = require('@zeit/next-sass');
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true'
-});
+// Const withBundleAnalyzer = require('@next/bundle-analyzer')({
+//   enabled: process.env.ANALYZE === 'true'
+// });
 
 const plugins = [withSass];
 

@@ -1,4 +1,5 @@
 import {List, Map} from 'immutable';
+import {Loader} from 'maven-ui';
 import {withRouter} from 'next/router';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
@@ -24,7 +25,6 @@ import {
 import CourseFilterChecks from './courseFilterChecks';
 import CourseFilterTools from './courseFilterTools';
 import MinMaxInput from './inputs/minmax';
-import Loader from './loader';
 import LoggedIn from './loggedIn';
 import MaIcon from './maIcon';
 

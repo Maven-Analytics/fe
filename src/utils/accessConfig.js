@@ -10,7 +10,7 @@ const accessConfig = (key, defaultValue) => {
       return defaultValue;
     }
 
-    throw new Error(`${key} not found in publicRuntimeConfig!`);
+    console.warn(`${key} not found in publicRuntimeConfig!`);
   }
 
   if (cache[key]) {

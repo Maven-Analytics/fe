@@ -68,3 +68,8 @@ export const planIds = {
 
 // 7 days in milliseconds
 export const trialLength = 604800000;
+
+export const defaultAuthImages = [
+  '/static/img/auth-bg-1440.jpg 1440w',
+  '/static/img/auth-bg-2880.jpg 2880w'
+];
