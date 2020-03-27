@@ -9,6 +9,7 @@ import DashboardLayout from '#root/components/layout/dashboard';
 import {selectors as errorSelectors} from '#root/redux/ducks/error';
 import {selectors as loadingSelectors} from '#root/redux/ducks/loading';
 import {actions as pathActions, selectors as pathSelectors} from '#root/redux/ducks/paths';
+import {actions as courseActions} from '#root/redux/ducks/courses';
 import {actions as stateActions} from '#root/redux/ducks/state';
 
 import DashboardGrid from '../../components/dashboardGrid';
@@ -19,6 +20,7 @@ import {clickAction, prettyPercent} from '../../utils/componentHelpers';
 class DashboardLearningPaths extends Component {
   componentDidMount() {
     this.props.actions.pathsGet();
+    this.props.actions.coursesGet();
   }
 
   render() {
@@ -71,7 +73,8 @@ const mapDispatchToProps = dispatch => {
     actions: bindActionCreators(
       {
         ...stateActions,
-        ...pathActions
+        ...pathActions,
+        ...courseActions
       },
       dispatch
     )

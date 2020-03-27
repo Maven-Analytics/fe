@@ -106,26 +106,16 @@ const ProductDetail = ({
             </ProductMetaItem>
             {courseCount ? <ProductMetaItem label="Number of Courses">{courseCount}</ProductMetaItem> : null}
             <ProductMetaItem label="Total Course Hours">{hours}</ProductMetaItem>
-            {match ? (
-              <ProductMetaItem label="Your Personal Match Score">{prettyPercent(match) || 0}%</ProductMetaItem>
-            ) : null}
+            {match ? <ProductMetaItem label="Your Personal Match Score">{prettyPercent(match) || 0}%</ProductMetaItem> : null}
             {List.isList(instructors) ? (
               <ProductMetaItem label="Course Instructors">
                 {instructors.map(instructor => (
-                  <CourseAuthor
-                    key={instructor.get('id')}
-                    name={instructor.get('name')}
-                    thumbnail={instructor.get('thumbnail')}
-                  />
+                  <CourseAuthor key={instructor.get('id')} name={instructor.get('name')} thumbnail={instructor.get('thumbnail')} />
                 ))}
               </ProductMetaItem>
             ) : (
               <ProductMetaItem label="Course Instructor">
-                <CourseAuthor
-                  key={instructors.get('id')}
-                  name={instructors.get('name')}
-                  thumbnail={instructors.get('thumbnail')}
-                />
+                <CourseAuthor key={instructors.get('id')} name={instructors.get('name')} thumbnail={instructors.get('thumbnail')} />
               </ProductMetaItem>
             )}
             <LoggedIn>
