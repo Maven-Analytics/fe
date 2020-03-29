@@ -12,7 +12,7 @@ import {useQuery} from '@apollo/react-hooks';
 
 const courseQuery = gql`
   query CourseById($id: String!) {
-    courses(id: $id) {
+    course(id: $id) {
       author {
         name
         thumbnail {
@@ -58,17 +58,17 @@ const CourseDetail = ({courseId, onResumeClick: handleResumeClick}) => {
     return null;
   }
 
-  const {data: {courses = []} = {}} = useQuery(courseQuery, {
+  let {data: {course} = {}} = useQuery(courseQuery, {
     variables: {
       id: courseId
     }
   });
 
-  if (!courses.length) {
+  if (!course) {
     return null;
   }
 
-  const course = fromJS(courses[0]);
+  course = fromJS(course);
 
   return (
     <ProductDetail
@@ -88,9 +88,7 @@ const CourseDetail = ({courseId, onResumeClick: handleResumeClick}) => {
       id={course.get('thinkificCourseId')}
       url={Routes.Course(course.get('slug'))}
     >
-      {course.get('descriptionFull') && course.get('descriptionFull') !== '' ? (
-        <Markdown content={course.get('descriptionFull')} />
-      ) : null}
+      {course.get('descriptionFull') && course.get('descriptionFull') !== '' ? <Markdown content={course.get('descriptionFull')} /> : null}
       {course.get('lessons') ? <CourseLessons lessons={course.get('lessons')} /> : null}
       {course.get('descriptionDetail') ? <Markdown content={course.get('descriptionDetail')} /> : null}
     </ProductDetail>
