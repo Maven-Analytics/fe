@@ -275,7 +275,7 @@ const DashboardPage = ({
     <DashboardCard settingsKey="credentials" loading={loadingDashboard || loadingCourses}>
       <DashboardCardHeader title="Earned badges & credentials" />
       <DashboardCardBody>
-        {loadingDashboard === false && loadingCourses === false && loadingDashboard === false && credentials.isEmpty() ? (
+        {loadingDashboard === false && loadingCourses === false && loadingDashboard === false && credentials.isEmpty() && completed.isEmpty() ? (
           <DashboardNoData
             btnText="View All Badges"
             btnUrl={Routes.DashboardCredentials}
