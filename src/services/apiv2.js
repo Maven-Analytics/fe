@@ -11,7 +11,7 @@ const apiv2 = ({method = 'get', data = {}, params = {}, url = '', useAuth = true
     params,
     url,
     headers: {
-      authorization: useAuth ? token : ''
+      Authorization: useAuth ? token : ''
     }
   }).then(res => res.data);
 };
