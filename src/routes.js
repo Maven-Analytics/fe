@@ -64,7 +64,7 @@ export const menuLinksMain = [
 export const menuLinksRegister = [
   {
     title: 'Contact',
-    url: Routes.Home
+    url: Routes.Contact
   },
   {
     title: 'Login',
