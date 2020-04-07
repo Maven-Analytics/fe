@@ -134,6 +134,7 @@ const SignupAccount = () => {
           </div>
           <div className="form-group">
             <span style={{fontSize: '1.4rem', marginTop: 30}}>
+              {/* eslint-disable-next-line quotes */}
               By continuing I agree to Maven {"Analytics's"} &nbsp;
               <a
                 href="#"
