@@ -57,20 +57,17 @@ class SignupIndex extends Component {
     const loginRedirect = canUseDOM() ? window.location.origin + Routes.Signup : Routes.Signup;
 
     return (
-      <Checkout
-        activeStep={0}
-        loginRedirect={loginRedirect}
-        title="SELECT A MEMBERSHIP PLAN"
-      >
+      <Checkout activeStep={0} loginRedirect={loginRedirect} title="SELECT A MEMBERSHIP PLAN">
         <ThinkificDownRedirect>
           <CheckoutPlans plans={plans} checkout={checkout} onPlanChange={actions.checkoutSetPlan} />
           <CheckoutFooter
-            showLogin={user.isEmpty()}
-            error={error}
-            loading={loading}
+            btnText="PROCEED TO ACCOUNT SETUP"
             btnType="button"
             disabled={btnDisabled}
+            error={error}
+            loading={loading}
             onClick={this.handleNextClick}
+            showLogin={user.isEmpty()}
           />
         </ThinkificDownRedirect>
       </Checkout>
@@ -102,10 +99,13 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    ...checkoutActions,
-    ...authActions
-  }, dispatch)
+  actions: bindActionCreators(
+    {
+      ...checkoutActions,
+      ...authActions
+    },
+    dispatch
+  )
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignupIndex);

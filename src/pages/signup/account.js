@@ -154,10 +154,11 @@ const SignupAccount = () => {
           </div>
           <CheckoutFooter
             showLogin
+            btnText="PROCEED TO CHECKOUT"
+            btnType="submit"
+            disabled={isSubmitting}
             error={registerError ? <GraphQlError error={registerError} /> : null}
             loading={isSubmitting}
-            disabled={isSubmitting}
-            btnType="submit"
             loginRedirect={loginRedirect}
             onClick={onSubmit}
           />
