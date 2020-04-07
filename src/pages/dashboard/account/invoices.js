@@ -77,7 +77,7 @@ const AccountInvoices = () => {
               label: ''
             }
           ]}
-          columnClassList={['col-sm-2', 'col-sm-3', 'col-sm-2', 'col-sm-1', 'col-sm-2', 'col-sm-1', 'col-12']}
+          columnClassList={['col-sm-2', 'col-sm-2', 'col-sm-2', 'col-sm-1', 'col-sm-2', 'col-sm-2', 'col-12']}
           data={myInvoices}
         />
       </div>
