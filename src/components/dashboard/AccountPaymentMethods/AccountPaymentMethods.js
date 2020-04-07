@@ -105,8 +105,8 @@ export const AccountPaymentMethods = ({fetching, paymentMethods, refetch}) => {
             ),
             label: ''
           },
-          // eslint-disable-next-line react/display-name
           {
+            // eslint-disable-next-line react/display-name
             renderItem: paymentMethod => (
               <>
                 Expires on{' '}

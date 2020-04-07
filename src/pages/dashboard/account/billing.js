@@ -58,7 +58,7 @@ const resumeMutation = gql`
 `;
 
 const AccountBilling = () => {
-  const {data: {mySubscriptions = []} = {}, loading: subscriptionsFetching, refetch} = useQuery(mySubscriptionsQuery);
+  const {data: {mySubscriptions = []} = {mySubscriptions: []}, loading: subscriptionsFetching, refetch} = useQuery(mySubscriptionsQuery);
   const {data: {myPaymentMethods = []} = {}, loading: paymentMethodsFetching, refetch: refetchPaymentMethods} = useQuery(myPaymentMethodsQuery);
   const [cancelSubscription, {loading: isCancelling}] = useMutation(cancelMutation);
   const [resumeSubscription, {loading: isRenewing}] = useMutation(resumeMutation);

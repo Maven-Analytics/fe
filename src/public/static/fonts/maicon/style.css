@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'maicon';
-  src:  url('fonts/maicon.eot?9halac');
-  src:  url('fonts/maicon.eot?9halac#iefix') format('embedded-opentype'),
-    url('fonts/maicon.woff2?9halac') format('woff2'),
-    url('fonts/maicon.ttf?9halac') format('truetype'),
-    url('fonts/maicon.woff?9halac') format('woff'),
-    url('fonts/maicon.svg?9halac#maicon') format('svg');
+  src:  url('fonts/maicon.eot?62dbv0');
+  src:  url('fonts/maicon.eot?62dbv0#iefix') format('embedded-opentype'),
+    url('fonts/maicon.woff2?62dbv0') format('woff2'),
+    url('fonts/maicon.ttf?62dbv0') format('truetype'),
+    url('fonts/maicon.woff?62dbv0') format('woff'),
+    url('fonts/maicon.svg?62dbv0#maicon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -26,6 +26,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.maicon-exclamation-circle:before {
+  content: "\e923";
+}
 .maicon-caret-down:before {
   content: "\e922";
 }

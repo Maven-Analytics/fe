@@ -52,7 +52,8 @@ export const subscriptionStatuses = {
   prospect: 'prospect',
   trial: 'trial',
   paid: 'paid',
-  canceled: 'canceled'
+  canceled: 'canceled',
+  past_due: 'past_due'
 };
 
 export const planIds = {
@@ -69,7 +70,4 @@ export const planIds = {
 // 7 days in milliseconds
 export const trialLength = 604800000;
 
-export const defaultAuthImages = [
-  '/static/img/auth-bg-1440.jpg 1440w',
-  '/static/img/auth-bg-2880.jpg 2880w'
-];
+export const defaultAuthImages = ['/static/img/auth-bg-1440.jpg 1440w', '/static/img/auth-bg-2880.jpg 2880w'];

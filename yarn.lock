@@ -6521,10 +6521,10 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-maven-ui@^1.0.80:
-  version "1.0.80"
-  resolved "https://registry.yarnpkg.com/maven-ui/-/maven-ui-1.0.80.tgz#f858aa2b33d73b9d60037f3d69b24a4a09ab4f3b"
-  integrity sha512-JbHJI2VkURTqPVDoRl1Tt3ZwVHw55X5zthLr7lwfgPvmYGCIsR4vsnWWR4hGUiC+bysSUIZ63qRYNOZarZYeaA==
+maven-ui@^1.0.104:
+  version "1.0.104"
+  resolved "https://registry.yarnpkg.com/maven-ui/-/maven-ui-1.0.104.tgz#743f257d3a110bc3a844b654e9796b9c112cc5c3"
+  integrity sha512-3U/RoREoJmqd0wlIkLbPjDrpApmjfk5rd6N1fKmbZfLsHRjwXpUXGZdHtDbiw26HDaEY33LTFoBEkOi0G6ttlw==
   dependencies:
     bootstrap "^4.4.1"
     flickity "^2.2.1"

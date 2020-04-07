@@ -14,7 +14,7 @@ import Checkout from '#root/components/layout/checkout';
 import AddCard from '#root/components/shared/AddCard';
 import AddCardForm from '#root/components/shared/AddCardForm';
 import GraphQlError from '#root/components/shared/GraphQlError';
-import {plans} from '#root/constants';
+import {plans, subscriptionStatuses} from '#root/constants';
 import {actions as subscriptionActions, selectors as subscriptionSelectors} from '#root/redux/ducks/subscription';
 import {selectors as userSelectors} from '#root/redux/ducks/user';
 import {Routes} from '#root/routes';
@@ -23,6 +23,7 @@ import {getCookie} from '#root/utils/cookies';
 import getSession from '#root/utils/getSession';
 import redirect from '#root/utils/redirect';
 import {canTrial, findSubscription} from '#root/utils/subscriptionHelpers';
+import {List} from 'immutable';
 
 const checkoutMutation = gql`
   mutation Checkout($coupon: String, $paymentMethod: String, $planId: String!) {
@@ -144,11 +145,7 @@ const SignupCheckout = ({planId}) => {
             </a>
             <CheckoutFooter
               showLogin={user.isEmpty()}
-              error={
-                loading || (!checkoutError && !paymentMethodError) ? null : (
-                  <GraphQlError error={checkoutError || paymentMethodError} />
-                )
-              }
+              error={loading || (!checkoutError && !paymentMethodError) ? null : <GraphQlError error={checkoutError || paymentMethodError} />}
               loading={loading}
               disabled={loading}
               btnType="submit"
@@ -188,7 +185,12 @@ SignupCheckout.getInitialProps = async ctx => {
 
   const planId = checkout.plan.planId;
 
-  if (findSubscription(planId, subscriptionStatus)) {
+  if (findSubscription(planId, subscriptionStatus, List([subscriptionStatuses.paid, subscriptionStatuses.trial]))) {
+    redirect(ctx, `${Routes.Dashboard}?notice=existing_subscription`);
+    return {};
+  }
+
+  if (findSubscription(planId, subscriptionStatus, List([subscriptionStatuses.past_due]))) {
     redirect(ctx, Routes.Dashboard);
     return {};
   }

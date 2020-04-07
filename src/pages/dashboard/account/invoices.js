@@ -4,7 +4,7 @@ import {List, Map} from 'immutable';
 import PropTypes from 'prop-types';
 import React from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
-import {AccountList, AccountListLink} from 'maven-ui';
+import {AccountList} from 'maven-ui';
 
 import AccountLayout from '#root/components/layout/account';
 import withAuthSync from '#root/components/withAuthSync';
@@ -15,6 +15,7 @@ const myInvoiceQuery = gql`
   query MyInvoices {
     myInvoices {
       id
+      amount_due
       amount_paid
       created
       hosted_invoice_url
@@ -29,7 +30,7 @@ const myInvoiceQuery = gql`
 `;
 
 const AccountInvoices = () => {
-  const {data: {myInvoices = []} = {}} = useQuery(myInvoiceQuery);
+  const {data: {myInvoices = []} = {myInvoices: []}} = useQuery(myInvoiceQuery);
 
   return (
     <AccountLayout title="Invoice History" activeLink={3}>
@@ -39,9 +40,9 @@ const AccountInvoices = () => {
             {
               // eslint-disable-next-line react/display-name
               renderItem: invoice => (
-                <AccountListLink external href={invoice.hosted_invoice_url}>
+                <a href={invoice.hosted_invoice_url} rel="noopener noreferrer" target="_blank">
                   {invoice.number}
-                </AccountListLink>
+                </a>
               ),
               label: 'Invoice #'
             },
@@ -58,21 +59,25 @@ const AccountInvoices = () => {
               label: 'Status'
             },
             {
+              renderItem: invoice => centsToDollarString(invoice.amount_due),
+              label: 'Amount Due'
+            },
+            {
               renderItem: invoice => centsToDollarString(invoice.amount_paid),
-              label: 'Amount'
+              label: 'Amount Paid'
             },
             {
               // eslint-disable-next-line react/display-name
               renderItem: invoice => (
-                <AccountListLink isBtn external href={invoice.hosted_invoice_url}>
+                <a className="btn btn--default" href={invoice.hosted_invoice_url} rel="noopener noreferrer" target="_blank">
                   View Invoice
-                </AccountListLink>
+                </a>
               ),
               itemClass: 'link',
               label: ''
             }
           ]}
-          columnClassList={['col-sm-3', 'col-sm-4', 'col-sm-2', 'col-sm-1', 'col-sm-2', 'col-12']}
+          columnClassList={['col-sm-2', 'col-sm-3', 'col-sm-2', 'col-sm-1', 'col-sm-2', 'col-sm-1', 'col-12']}
           data={myInvoices}
         />
       </div>
