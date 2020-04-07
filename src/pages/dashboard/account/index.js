@@ -25,7 +25,7 @@ const AvatarPreview = styled(Avatar)`
 const AvatarSection = styled.div`
   display: flex;
   flex-flow: row wrap;
-  margin: 0 0 ${spacingUnit.default};
+  margin: ${spacingUnit.default} 0;
 
   ${mediaBreakpointUp('sm')} {
     flex-flow: row nowrap;
