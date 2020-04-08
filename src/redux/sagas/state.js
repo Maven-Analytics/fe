@@ -9,7 +9,7 @@ import {selectors as stateSelectors, types as stateTypes} from '../ducks/state';
 // 5 mins
 const THINKIFIC_HEALTH_CHECK_INTERVAL = parseInt(accessConfig('THINKIFIC_HEALTH_CHECK_INTERVAL', 50000), 10);
 
-export function * watchState() {
+export function* watchState() {
   yield takeLatest(stateTypes.OFFMENU_TOGGLE, onOffmenuChange);
   yield takeLatest(stateTypes.MODAL_OPEN, onOffmenuChange);
   yield takeLatest(stateTypes.MODAL_CLOSE, onOffmenuChange);
@@ -17,7 +17,7 @@ export function * watchState() {
   yield call(thinkificHealthCheck);
 }
 
-function * onOffmenuChange() {
+function* onOffmenuChange() {
   const state = yield select(stateSelectors.getState);
 
   // If (state.get('mobileMenu')) {
@@ -51,13 +51,13 @@ function * onOffmenuChange() {
   }
 }
 
-function * onStateReset() {
+function* onStateReset() {
   document.body.classList.remove('mobile-menu-open');
 
   return yield true;
 }
 
-function * thinkificHealthCheck() {
+function* thinkificHealthCheck() {
   if (!canUseDOM()) {
     return;
   }
@@ -66,7 +66,8 @@ function * thinkificHealthCheck() {
     yield put({
       type: stateTypes.THINKIFIC_HEALTH_REQUEST
     });
-    const {errors, data} = yield call(gatewayService, {query: `
+    const {errors, data} = yield call(gatewayService, {
+      query: `
     {
       thinkificHealth {
         id
@@ -105,6 +106,6 @@ function * thinkificHealthCheck() {
     }
 
     // Wait and then try again
-    yield delay(THINKIFIC_HEALTH_CHECK_INTERVAL);
+    yield delay(errors ? 0 : THINKIFIC_HEALTH_CHECK_INTERVAL);
   }
 }
