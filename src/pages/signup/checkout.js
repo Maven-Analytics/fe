@@ -24,6 +24,7 @@ import getSession from '#root/utils/getSession';
 import redirect from '#root/utils/redirect';
 import {canTrial, findSubscription} from '#root/utils/subscriptionHelpers';
 import {List} from 'immutable';
+import ThinkificDownRedirect from '#root/components/health/ThinkificDownRedirect';
 
 const checkoutMutation = gql`
   mutation Checkout($coupon: String, $paymentMethod: String, $planId: String!) {
@@ -108,56 +109,58 @@ const SignupCheckout = ({planId}) => {
 
   return (
     <Checkout activeStep={2} title="Payment Information" loginRedirect={loginRedirect}>
-      <div className="signup-checkout">
-        {/* <Loader
+      <ThinkificDownRedirect>
+        <div className="signup-checkout">
+          {/* <Loader
           height={70}
           loading={subscriptionLoading}
           position="top-center"
           width={70}
         /> */}
-        <CheckoutSummary
-          amountToday={hasTrial ? 0 : plan.get('amountCents')}
-          coupon={coupon}
-          hasTrial={hasTrial}
-          interval={plan.get('interval')}
-          planName={plan.get('planName')}
-          planPrice={plan.get('amountCents') / 100}
-        />
-        {view === 0 ? (
-          <AddCardForm
-            foreverFree={foreverFree || Boolean(defaultPaymentMethod)}
-            onComplete={handleComplete}
-            setError={setPaymentMethodError}
-            setLoading={setLoading}
-          >
-            {foreverFree || defaultPaymentMethod ? null : (
-              <>
-                {myDefault ? (
-                  <button className="btn btn--primary-solid" onClick={() => setDefaultPaymentMethod(myDefault)}>
-                    Use Saved Card Ending In {myDefault.last4}
-                  </button>
-                ) : null}
-                <AddCard loading={loading} showButtons={false} skin="dark" />
-              </>
-            )}
-            <a href="#" className="signup-checkout__link" onClick={eventPrevent(() => setView(1))}>
-              Have a coupon?
-            </a>
-            <CheckoutFooter
-              showLogin={user.isEmpty()}
-              error={loading || (!checkoutError && !paymentMethodError) ? null : <GraphQlError error={checkoutError || paymentMethodError} />}
-              loading={loading}
-              disabled={loading}
-              btnType="submit"
-              btnText="Complete Sign Up"
-              loginRedirect={loginRedirect}
-            />
-            <Image src="/static/img/powered_by_stripe.png" />
-          </AddCardForm>
-        ) : (
-          <ApplyCoupon onCancel={() => setView(0)} onComplete={handleCouponApply} />
-        )}
-      </div>
+          <CheckoutSummary
+            amountToday={hasTrial ? 0 : plan.get('amountCents')}
+            coupon={coupon}
+            hasTrial={hasTrial}
+            interval={plan.get('interval')}
+            planName={plan.get('planName')}
+            planPrice={plan.get('amountCents') / 100}
+          />
+          {view === 0 ? (
+            <AddCardForm
+              foreverFree={foreverFree || Boolean(defaultPaymentMethod)}
+              onComplete={handleComplete}
+              setError={setPaymentMethodError}
+              setLoading={setLoading}
+            >
+              {foreverFree || defaultPaymentMethod ? null : (
+                <>
+                  {myDefault ? (
+                    <button className="btn btn--primary-solid" onClick={() => setDefaultPaymentMethod(myDefault)}>
+                      Use Saved Card Ending In {myDefault.last4}
+                    </button>
+                  ) : null}
+                  <AddCard loading={loading} showButtons={false} skin="dark" />
+                </>
+              )}
+              <a href="#" className="signup-checkout__link" onClick={eventPrevent(() => setView(1))}>
+                Have a coupon?
+              </a>
+              <CheckoutFooter
+                showLogin={user.isEmpty()}
+                error={loading || (!checkoutError && !paymentMethodError) ? null : <GraphQlError error={checkoutError || paymentMethodError} />}
+                loading={loading}
+                disabled={loading}
+                btnType="submit"
+                btnText="Complete Sign Up"
+                loginRedirect={loginRedirect}
+              />
+              <Image src="/static/img/powered_by_stripe.png" />
+            </AddCardForm>
+          ) : (
+            <ApplyCoupon onCancel={() => setView(0)} onComplete={handleCouponApply} />
+          )}
+        </div>
+      </ThinkificDownRedirect>
     </Checkout>
   );
 };
