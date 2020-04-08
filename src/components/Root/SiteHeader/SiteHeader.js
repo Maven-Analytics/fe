@@ -50,6 +50,7 @@ const Wrapper = styled.header`
   }
 `;
 
+// eslint-disable-next-line complexity
 const SiteHeader = ({router: {pathname}}) => {
   const dispatch = useDispatch();
   const state = useSelector(stateSelectors.getState);
@@ -63,16 +64,21 @@ const SiteHeader = ({router: {pathname}}) => {
     return null;
   }
 
-  const isHideMainLinks = pathname.includes(Routes.Dashboard) || pathname.includes(Routes.WelcomeSurvey) || pathname.includes(Routes.Signup);
+  const isHideMainLinks =
+    pathname.includes(Routes.Dashboard) ||
+    pathname.includes(Routes.WelcomeSurvey) ||
+    pathname.includes(Routes.Signup) ||
+    pathname.includes(Routes.Enterprise);
 
   const isStaticHeader =
     pathname.includes(Routes.Dashboard) ||
     pathname.includes(Routes.WelcomeSurvey) ||
     pathname.includes(Routes.Signup) ||
     pathname.includes(Routes.Terms) ||
-    pathname.includes(Routes.PrivacyPolicy);
+    pathname.includes(Routes.PrivacyPolicy) ||
+    pathname.includes(Routes.Enterprise);
 
-  const isSignupOrWelcome = pathname.includes(Routes.Signup) || pathname.includes(Routes.WelcomeSurvey);
+  const isSignupOrWelcome = pathname.includes(Routes.Signup) || pathname.includes(Routes.WelcomeSurvey) || pathname.includes(Routes.Enterprise);
 
   const HeaderComp = isStaticHeader ? HeaderStatic : Header;
 

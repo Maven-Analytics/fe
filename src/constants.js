@@ -2,6 +2,7 @@ import {fromJS} from 'immutable';
 
 export const plans = fromJS([
   {
+    showOnSignup: true,
     amountCents: 2900,
     id: 1,
     interval: 'month',
@@ -14,6 +15,7 @@ export const plans = fromJS([
       'Monthly subscription includes a free 7-day, all-access trial. You will be subscribed monthly after the trial period for $29 per month. No obligation, cancel anytime. 100% satisfaction guarantee'
   },
   {
+    showOnSignup: true,
     amountCents: 29900,
     id: 2,
     interval: 'year',
@@ -24,6 +26,16 @@ export const plans = fromJS([
     price: 'then <sup>$</sup>299/yr',
     description:
       'Annual subscription includes a free 7-day, all-access trial. You will be subscribed annual after the trial period for $299 per year. No obligation, cancel anytime. 100% satisfaction guarantee'
+  },
+  {
+    showOnSignup: false,
+    amountCents: 65000,
+    id: 3,
+    interval: 'month',
+    eyelash: 'Monthly',
+    title: 'Custom Enterprise Plan',
+    planId: 'adamsaii',
+    planName: 'Custom Enterprise Plan'
   }
 ]);
 
@@ -64,7 +76,8 @@ export const planIds = {
   plan_GcoSiaMBDuMQzQ: 'Individual (Annual)',
   plan_GcoRd518QBffwP: 'Individual (Monthly)',
   'individual-annual': 'Individual (Annual)',
-  'individual-monthly': 'Individual (Monthly)'
+  'individual-monthly': 'Individual (Monthly)',
+  adamsaii: 'Custom Enterprise (Monthly)'
 };
 
 // 7 days in milliseconds

@@ -56,10 +56,12 @@ class SignupIndex extends Component {
 
     const loginRedirect = canUseDOM() ? window.location.origin + Routes.Signup : Routes.Signup;
 
+    const checkoutPlans = plans.filter(p => p.get('showOnSignup'));
+
     return (
       <Checkout activeStep={0} loginRedirect={loginRedirect} title="SELECT A MEMBERSHIP PLAN">
         <ThinkificDownRedirect>
-          <CheckoutPlans plans={plans} checkout={checkout} onPlanChange={actions.checkoutSetPlan} />
+          <CheckoutPlans plans={checkoutPlans} checkout={checkout} onPlanChange={actions.checkoutSetPlan} />
           <CheckoutFooter
             btnText="PROCEED TO ACCOUNT SETUP"
             btnType="button"
