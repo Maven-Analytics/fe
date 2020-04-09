@@ -27,8 +27,8 @@ import {List} from 'immutable';
 import ThinkificDownRedirect from '#root/components/health/ThinkificDownRedirect';
 
 const checkoutMutation = gql`
-  mutation Checkout($coupon: String, $paymentMethod: String, $planId: String!) {
-    checkout(coupon: $coupon, paymentMethod: $paymentMethod, planId: $planId) {
+  mutation CheckoutV2($canTrial: Boolean!, $coupon: String, $paymentMethod: String, $planId: String!) {
+    checkoutV2(canTrial: $canTrial, coupon: $coupon, paymentMethod: $paymentMethod, planId: $planId) {
       id
       plan_id
     }
@@ -53,7 +53,7 @@ const SignupCheckout = ({planId}) => {
   const subscription = useSelector(subscriptionSelectors.getSubscription);
 
   const plan = plans.find(p => p.get('planId') === planId);
-  const hasTrial = canTrial(subscription);
+  const canUserTrial = plan.get('hasTrial') && canTrial(subscription);
 
   const [loading, setLoading] = useState(false);
   const [view, setView] = useState(0);
@@ -86,6 +86,7 @@ const SignupCheckout = ({planId}) => {
     try {
       await runCheckout({
         variables: {
+          canTrial: canUserTrial,
           coupon: coupon ? coupon.id : null,
           planId,
           paymentMethod: paymentMethod ? paymentMethod.id : null
@@ -118,9 +119,9 @@ const SignupCheckout = ({planId}) => {
           width={70}
         /> */}
           <CheckoutSummary
-            amountToday={hasTrial ? 0 : plan.get('amountCents')}
+            amountToday={canUserTrial ? 0 : plan.get('amountCents')}
             coupon={coupon}
-            hasTrial={hasTrial}
+            hasTrial={canUserTrial}
             interval={plan.get('interval')}
             planName={plan.get('planName')}
             planPrice={plan.get('amountCents') / 100}
