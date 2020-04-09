@@ -92,15 +92,19 @@ const SignupCheckout = ({planId}) => {
         }
       });
 
-      Router.push({
-        pathname: Routes.EnterpriseSignupThanks(planId),
-        query: {
-          user_id: user.get('email'),
-          product_name: plan.get('planName'),
-          bundle_id: plan.get('planId'),
-          pricing_plan: plan.get('amountCents') / 100
-        }
-      });
+      if (plan.get('thanksRedirect')) {
+        window.location.href = plan.get('thanksRedirect');
+      } else {
+        Router.push({
+          pathname: Routes.EnterpriseSignupThanks(planId),
+          query: {
+            user_id: user.get('email'),
+            product_name: plan.get('planName'),
+            bundle_id: plan.get('planId'),
+            pricing_plan: plan.get('amountCents') / 100
+          }
+        });
+      }
     } catch (error) {
     } finally {
       setLoading(false);

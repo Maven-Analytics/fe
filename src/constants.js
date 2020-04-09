@@ -38,7 +38,8 @@ export const plans = fromJS([
     eyelash: 'Monthly',
     title: 'Custom Enterprise Plan',
     planId: 'adamsaii',
-    planName: 'Custom Enterprise Plan'
+    planName: 'Custom Enterprise Plan',
+    thanksRedirect: 'https://adamsoacts.mavenanalytics.io'
   }
 ]);
 
