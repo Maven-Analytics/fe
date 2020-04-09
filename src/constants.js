@@ -2,6 +2,7 @@ import {fromJS} from 'immutable';
 
 export const plans = fromJS([
   {
+    hasTrial: true,
     showOnSignup: true,
     amountCents: 2900,
     id: 1,
@@ -15,6 +16,7 @@ export const plans = fromJS([
       'Monthly subscription includes a free 7-day, all-access trial. You will be subscribed monthly after the trial period for $29 per month. No obligation, cancel anytime. 100% satisfaction guarantee'
   },
   {
+    hasTrial: true,
     showOnSignup: true,
     amountCents: 29900,
     id: 2,
@@ -28,6 +30,7 @@ export const plans = fromJS([
       'Annual subscription includes a free 7-day, all-access trial. You will be subscribed annual after the trial period for $299 per year. No obligation, cancel anytime. 100% satisfaction guarantee'
   },
   {
+    hasTrial: false,
     showOnSignup: false,
     amountCents: 65000,
     id: 3,
