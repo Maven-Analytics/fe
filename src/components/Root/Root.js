@@ -1,8 +1,7 @@
 import {useQuery} from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import * as PropTypes from 'prop-types';
-import React from 'react';
-import * as ImmutablePropTypes from 'react-immutable-proptypes';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import UserSettingFragment from '#root/api/fragments/UserSetting';
@@ -32,15 +31,17 @@ const Root = ({children}) => {
   const {data: {subscriptionStatus} = {}} = useQuery(subscriptionStatusQuery);
   const {data: {userSettings} = {}} = useQuery(userSettingsQuery);
 
-  if (user && user.get('id') && subscriptionStatus) {
-    if (!subscription.get('subscription_status')) {
-      dispatch(subscriptionActions.subscriptionSet(subscriptionStatus));
+  useEffect(() => {
+    if (user && user.get('id') && subscriptionStatus) {
+      if (!subscription.get('subscription_status')) {
+        dispatch(subscriptionActions.subscriptionSet(subscriptionStatus));
+      }
     }
-  }
 
-  if (user && user.get('id') && userSettings) {
-    dispatch(userSettingsActions.userSettingsSet(userSettings));
-  }
+    if (user && user.get('id') && userSettings) {
+      dispatch(userSettingsActions.userSettingsSet(userSettings));
+    }
+  }, [user, subscriptionStatus, userSettings]);
 
   return (
     <>
@@ -53,8 +54,7 @@ const Root = ({children}) => {
 };
 
 Root.propTypes = {
-  children: PropTypes.any,
-  user: ImmutablePropTypes.map
+  children: PropTypes.any
 };
 
 export default Root;
