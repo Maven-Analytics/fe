@@ -147,24 +147,24 @@ class MavenApp extends App {
     return (
       <ApolloProvider client={client({})}>
         <Provider store={store}>
-          <ComponentProvider linkComponent={Link} linkKey="href" linkWrap={true}>
-            <ThemeProvider theme={theme}>
-              <StripeProvider stripe={this.state.stripe}>
-                <Elements>
-                  <ParallaxProvider>
+          <ParallaxProvider>
+            <ComponentProvider linkComponent={Link} linkKey="href" linkWrap={true}>
+              <ThemeProvider theme={theme}>
+                <StripeProvider stripe={this.state.stripe}>
+                  <Elements>
                     <Root>
                       <Component {...pageProps} />
                       <SentryScript />
                       <FontLoaderScript />
                       <GtagScript />
                       <IntercomScript />
-                      <SessionStack />
+                      {/* <SessionStack /> */}
                     </Root>
-                  </ParallaxProvider>
-                </Elements>
-              </StripeProvider>
-            </ThemeProvider>
-          </ComponentProvider>
+                  </Elements>
+                </StripeProvider>
+              </ThemeProvider>
+            </ComponentProvider>
+          </ParallaxProvider>
         </Provider>
       </ApolloProvider>
     );

@@ -85,7 +85,7 @@
     "react-intercom": "^1.0.15",
     "react-motion": "^0.5.2",
     "react-redux": "^7.0.2",
-    "react-scroll-parallax": "2.1.0",
+    "react-scroll-parallax": "2.3.2",
     "react-stripe-elements": "^6.0.1",
     "read-time-estimate": "^0.0.2",
     "redux": "^4.0.1",
