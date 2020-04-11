@@ -7,26 +7,28 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import UserSettingFragment from '#root/api/fragments/UserSetting';
 import subscriptionStatusQuery from '#root/api/query/subscriptionStatus';
-import withUser from '#root/components/withUser';
 import {actions as subscriptionActions, selectors as subscriptionSelectors} from '#root/redux/ducks/subscription';
 import {actions as userSettingsActions} from '#root/redux/ducks/userSettings';
+import {selectors as userSelectors} from '#root/redux/ducks/user';
 
 import Modals from './Modals';
 import SiteFooter from './SiteFooter';
 import SiteHeader from './SiteHeader';
 
 const userSettingsQuery = gql`
-{
-  userSettings {
-    ...UserSetting
+  {
+    userSettings {
+      ...UserSetting
+    }
   }
-}
-${UserSettingFragment}
+  ${UserSettingFragment}
 `;
 
-const Root = ({children, user}) => {
+const Root = ({children}) => {
   const dispatch = useDispatch();
   const subscription = useSelector(subscriptionSelectors.getSubscription);
+  const user = useSelector(userSelectors.getUser);
+
   const {data: {subscriptionStatus} = {}} = useQuery(subscriptionStatusQuery);
   const {data: {userSettings} = {}} = useQuery(userSettingsQuery);
 
@@ -42,10 +44,10 @@ const Root = ({children, user}) => {
 
   return (
     <>
-      <SiteHeader/>
+      <SiteHeader />
       {children}
-      <Modals/>
-      <SiteFooter/>
+      <Modals />
+      <SiteFooter />
     </>
   );
 };
@@ -55,4 +57,4 @@ Root.propTypes = {
   user: ImmutablePropTypes.map
 };
 
-export default withUser(Root);
+export default Root;
