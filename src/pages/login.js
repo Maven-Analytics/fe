@@ -45,8 +45,8 @@ const LoginPage = ({redirectTo}) => {
       variables: {email, password}
     });
 
-    await client.resetStore();
-    await client.cache.reset();
+    client.resetStore();
+    client.cache.reset();
 
     dispatch(authActions.login({...loginData, redirectTo: redirect}));
     router.push(redirect);
