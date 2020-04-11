@@ -158,7 +158,7 @@ class MavenApp extends App {
                       <FontLoaderScript />
                       <GtagScript />
                       <IntercomScript />
-                      <SessionStack />
+                      {/* <SessionStack /> */}
                     </Root>
                   </ParallaxProvider>
                 </Elements>
