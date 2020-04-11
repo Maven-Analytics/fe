@@ -6,36 +6,59 @@ export const SurveyQuestions = fromJS([
     text: 'On a scale of 1-10, how interested are you in mastering the following tools?	',
     answers: [
       {id: '1a', text: 'Excel Formulas & Functions'},
-      {id: '1b', text: 'Pivot Tables & Pivot Charts'},
+      {id: '1b', text: 'PivotTables & Pivot Charts'},
       {id: '1c', text: 'Excel Charts & Graphs'},
       {id: '1d', text: 'Power Query & Power Pivot'},
       {id: '1e', text: 'Microsoft Power BI'},
       {id: '1f', text: 'Data Analysis Expressions (DAX)'},
       {id: '1g', text: 'MySQL'},
-      {id: '1h', text: 'Visual Basic (VBA) for Excel'}
+      {id: '1h', text: 'Visual Basic (VBA)'}
     ]
   },
   {
     id: 'question-2',
     text: 'On a scale of 1-10, how interested are you in developing the following skills?',
     answers: [
-      {id: '2a', text: 'General Productivity', className: 'has-note', note: '(Efficiently managing data and information stored in spreadsheets)', icon: 'productivity'},
-      {id: '2b', text: 'Data Analysis', className: 'has-note', note: '(Exploring and analyzing raw data to expose insights and trends)', icon: 'analytics'},
-      {id: '2c', text: 'Data Visualization', className: 'has-note', note: '(Using charts, graphs, and dashboards to bring data to life)', icon: 'visualisation'},
-      {id: '2d', text: 'Database Design & Modeling', className: 'has-note', note: '(Building and analyzing relational models from multiple data sources)', icon: 'database'}
+      {
+        id: '2a',
+        text: 'General Productivity',
+        className: 'has-note',
+        note: '(Efficiently managing data and information stored in spreadsheets)',
+        icon: 'productivity'
+      },
+      {
+        id: '2b',
+        text: 'Data Analysis',
+        className: 'has-note',
+        note: '(Exploring and analyzing raw data to expose insights and trends)',
+        icon: 'analytics'
+      },
+      {
+        id: '2c',
+        text: 'Data Visualization',
+        className: 'has-note',
+        note: '(Using charts, graphs, and dashboards to bring data to life)',
+        icon: 'visualisation'
+      },
+      {
+        id: '2d',
+        text: 'Database Design & Modeling',
+        className: 'has-note',
+        note: '(Building and analyzing relational models from multiple data sources)',
+        icon: 'database'
+      }
     ]
   },
   {
     id: 'question-3',
     text: 'On a scale of 1-10, how often do you perform (or expect to perform) the following types of tasks?',
     answers: [
-      {id: '3a', text: 'Exploring & analyzing small datasets (<1mm rows)'},
-      {id: '3b', text: 'Exploring & analyzing large tables, data models or databases'},
-      {id: '3c', text: 'Creating charts or graphs for use in presentations or reports'},
-      {id: '3d', text: 'Prepping or maintaining data stored in spreadsheets'},
-      {id: '3e', text: 'Developing dashboards to integrate multiple data sources'},
-      {id: '3f', text: 'Administering reports for clients or internal teams'},
-      {id: '3g', text: 'Building custom spreadsheet tools (forecasts, reports, etc.)'}
+      {id: '3a', text: 'Exploring & analyzing small datasets (<100,000 rows)'},
+      {id: '3b', text: 'Exploring & analyzing large tables or databases'},
+      {id: '3c', text: 'Creating charts and visuals for reports or dashboards'},
+      {id: '3d', text: 'Blending & analyzing data across multiple sources'},
+      {id: '3e', text: 'Managing or administering reports or databases'},
+      {id: '3f', text: 'Building custom spreadsheet models or forecasts'}
     ]
   },
   {
@@ -55,15 +78,17 @@ export const SurveyQuestions = fromJS([
 
 export const PathMappings = fromJS({
   // Excel Master
-  '5zIjquxoY1dZd6VBr6acMc': ['1a', '1b', '1c', '1d', '1h', '2a', '2b', '2d', '3a', '3b', '3c', '3e', '3g'],
+  '5zIjquxoY1dZd6VBr6acMc': ['1a', '1b', '1c', '1d', '1f', '1h', '2a', '2b', '2d', '3a', '3b', '3c', '3d', '3f'],
   // Excel Specialist
-  '1QUR8rdENS66YvUT10Cmzr': ['1a', '1b', '1c', '2a', '2b', '2c', '3a', '3c', '3d', '3g'],
+  '1QUR8rdENS66YvUT10Cmzr': ['1a', '1b', '1c', '2a', '2b', '2c', '3a', '3c', '3f'],
   // Data Visualization
-  '2wuKJAP6uHm0bORm57Vktu': ['1c', '2c', '3a', '3c', '3g'],
+  '2wuKJAP6uHm0bORm57Vktu': ['1c', '2c', '3a', '3c', '3f'],
   // BI Analyst
-  '1BcqY8yWvxVypYaAsPT2d3': ['1b', '1d', '1e', '1f', '1g', '2b', '2d', '3b', '3e', '3f'],
+  '1BcqY8yWvxVypYaAsPT2d3': ['1b', '1d', '1e', '1f', '1g', '2b', '2d', '3b', '3d', '3e'],
+  // MySQL Specialist
+  '73qPugrw5qAVHo0SSyydsf': ['1g', '2b', '2d', '3a', '3b', '3e'],
   // Power BI Specialist
-  '3rdFZV7FvTW7xrYOmhQdXL': ['1d', '1e', '1f', '2b', '2d', '3b', '3e', '3f']
+  '3rdFZV7FvTW7xrYOmhQdXL': ['1d', '1e', '1f', '2b', '2d', '3b', '3d', '3e']
 });
 
 // Count each answer for each of the paths and multiply it by the maximum value
@@ -71,35 +96,37 @@ export const PathMappingTotals = PathMappings.map(p => p.count() * 10);
 
 export const CourseMappings = fromJS({
   // Microsoft Excel: Formulas & Functions,
-  '15zmpaevEdRHp1hTeswVOu': ['1a', '2a', '3a', '3d', '3g'],
+  '15zmpaevEdRHp1hTeswVOu': ['1a', '2a', '2b', '3a', '3f'],
   // Microsoft Excel: Charts & Graphs
-  '2knpeDXkFdHz8cJ7DGXKbs': ['1c', '2a', '2c', '3a', '3c', '3g'],
+  '2knpeDXkFdHz8cJ7DGXKbs': ['1c', '2a', '2c', '3a', '3c', '3f'],
   // Microsoft Excel: Pivot Tables & Pivot Charts
-  '5wNOPBePhki9EKFCxsdriO': ['1b', '2a', '2b', '3a', '3g'],
+  '5wNOPBePhki9EKFCxsdriO': ['1b', '2a', '2b', '3a', '3f'],
   // Microsoft Excel: Power Query, Power Pivot & DAX
-  '2BAO2FLUUoaWvkl5tlhLjn': ['1b', '1d', '1f', '2b', '2d', '3b', '3e'],
+  '2BAO2FLUUoaWvkl5tlhLjn': ['1b', '1d', '1f', '2b', '2d', '3b', '3d'],
   // Excel Pro Tips: Productivity
-  '49MnZCKlk87B2eN76JeVze': ['1a', '2a', '3a', '3d'],
+  '49MnZCKlk87B2eN76JeVze': ['1a', '2a', '3a', '3f'],
   // Excel Pro Tips: Formatting
-  '6tbYSRwgCu7W2ZQZUVs4iK': ['1c', '2a', '2c', '3c', '3d'],
+  '6tbYSRwgCu7W2ZQZUVs4iK': ['1c', '2a', '2c', '3c', '3f'],
   // Excel Pro Tips: Formulas
-  '7TX0pQMraQmT7ygdvOA2f': ['1a', '2a', '2b', '3a', '3d', '3g'],
+  '7TX0pQMraQmT7ygdvOA2f': ['1a', '2a', '2b', '3a', '3f'],
   // Excel Pro Tips: Data Visualization
   '4RxoRiBklddAhmtylz5J3v': ['1c', '2b', '2c', '3a', '3c'],
   // Excel Pro Tips: PivotTables
-  'IEZlo5bQl7NNd7ogNPhI9': ['1b', '2b', '3a', '3e'], // eslint-disable-line quote-props
+  IEZlo5bQl7NNd7ogNPhI9: ['1b', '2b', '3e'], // eslint-disable-line quote-props
   // Excel Pro Tips: Analytics
-  '2McdlQZZE3e06PEkqQ1Krj': ['1d', '2b', '2d', '3b', '3g'],
+  '2McdlQZZE3e06PEkqQ1Krj': ['1d', '2b', '2d', '3b', '3f'],
   // Microsoft Excel: VBA & Macros
-  '6n1XAYPr2lhRINHWINfTon': ['1h', '2a', '3d', '3g'],
+  '6n1XAYPr2lhRINHWINfTon': ['1h', '2a', '3f'],
   // Microsoft Power BI: Up & Running with Power BI Desktop,
-  '3zOwFCA3aBkPOANV5DxmZl': ['1d', '1e', '1f', '2b', '2c', '2d', '3b', '3c', '3e'],
+  '3zOwFCA3aBkPOANV5DxmZl': ['1d', '1e', '1f', '2b', '2c', '2d', '3b', '3c', '3d'],
   // Microsoft Power BI: Publishing to Power BI Service
-  '205FN5BVSKzWteSPxocOxk': ['1d', '1e', '2b', '2c', '3b', '3e', '3f'],
+  '205FN5BVSKzWteSPxocOxk': ['1d', '1e', '2b', '2c', '3b', '3d', '3e'],
   // MySQL for Data Analysis
   '4KnXuUga0siTQ81rYWLcsx': ['1g', '2b', '2d', '3b'],
   // Advanced MySQL for Data Analysis
-  '399GpujXI2dtopCfRO6G1w': ['1g', '2b', '2d', '3b']
+  '399GpujXI2dtopCfRO6G1w': ['1g', '2b', '2d', '3b'],
+  // MySQL Database Administration
+  '1mMyKNU1nNQsTK586TTlzH': ['1g', '2d', '3b', '3e']
 });
 
 // Count each answer for each of the paths and multiply it by the maximum value
