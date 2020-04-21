@@ -1,97 +1,66 @@
-import PropTypes from 'prop-types';
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React, {useState} from 'react';
+import {useForm} from 'react-hook-form';
+import {FormSubmissionError, TextArea, TextBox} from 'maven-ui';
+import styled from 'styled-components';
 
-import {actions as contactActions} from '#root/redux/ducks/contact';
-import {selectors as errorSelectors} from '#root/redux/ducks/error';
-import {selectors as loadingSelectors} from '#root/redux/ducks/loading';
-import {selectors as responseSelectors} from '#root/redux/ducks/response';
+import FormSuccess from '../shared/FormSuccess';
+import zapier from '#root/services/zapier';
 
-import {state} from '../../utils/componentHelpers';
-
-class ContactForm extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      name: '',
-      email: '',
-      message: '',
-      hook: 'https://hooks.zapier.com/hooks/catch/4268756/obkw25k/'
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+const ContactFormWrap = styled.div`
+  .input {
+    &.error {
+      border-width: 2px;
+    }
   }
 
-  handleChange(state) {
-    return state ? this.setState(state) : null;
+  textarea {
+    height: 170px;
+  }
+`;
+
+const ContactForm = () => {
+  const [complete, setComplete] = useState(false);
+  const {
+    errors,
+    formState: {isSubmitting},
+    handleSubmit,
+    register
+  } = useForm();
+
+  if (complete) {
+    return <FormSuccess />;
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    this.props.actions.contactSend(this.state);
-  }
+  const handleFormSubmit = handleSubmit(async data => {
+    await zapier('https://hooks.zapier.com/hooks/catch/4268756/obkw25k/', data);
 
-  render() {
-    const {error, loading, response} = this.props;
+    setComplete(data);
+  });
 
-    return (
-      <div className="contact-form">
-        <form className="form form--light" onSubmit={this.handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="name">Full name</label>
-            <input type="text" name="name" id="name" className="input" onChange={state(this.handleChange, 'name')} value={this.state.name} required/>
-          </div>
-          <div className="form-group">
-            <label htmlFor="email">Email address</label>
-            <input type="email" name="email" id="email" className="input" onChange={state(this.handleChange, 'email')} value={this.state.email} required/>
-          </div>
-          <div className="form-group">
-            <label htmlFor="message">Message</label>
-            <textarea name="message" id="message" className="input" onChange={state(this.handleChange, 'message')} value={this.state.message} required/>
-          </div>
-          {error || response ? (
-            <div className="form-message">
-              {error ? (
-                <p className="form-text small error">{error}</p>
-              ) : null}
-              {response ? (
-                <p className="form-text small success">{response}</p>
-              ) : null}
-            </div>
+  return (
+    <ContactFormWrap className="contact-form">
+      <form className="form form--light" onSubmit={handleFormSubmit}>
+        <TextBox hasError={Boolean(errors.name)} id="name" label="Full name" name="name" ref={register({required: true})} />
+        <TextBox hasError={Boolean(errors.email)} id="email" label="Email address" name="email" ref={register({required: true})} />
+        <TextArea hasError={Boolean(errors.message)} id="message" label="Message" name="message" ref={register({required: true})} />
+
+        <div className="form-footer">
+          <span className="submit">
+            <button className="btn btn--primary-solid" type="submit" value="Login" disabled={isSubmitting}>
+              Submit
+            </button>
+          </span>
+          {Object.keys(errors).length ? (
+            <>
+              {errors.name ? <FormSubmissionError>Your name is required.</FormSubmissionError> : null}
+              {errors.email ? <FormSubmissionError>Your email is required.</FormSubmissionError> : null}
+              {errors.message ? <FormSubmissionError>A message is required.</FormSubmissionError> : null}
+            </>
           ) : null}
-          <div className="form-footer">
-            <span className="submit">
-              <button className="btn btn--primary-solid" type="submit" value="Login" disabled={loading}>Submit</button>
-            </span>
-          </div>
-        </form>
-      </div>
-    );
-  }
-}
-
-ContactForm.propTypes = {
-  actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  error: PropTypes.string,
-  loading: PropTypes.bool,
-  response: PropTypes.string
+        </div>
+      </form>
+    </ContactFormWrap>
+  );
 };
 
-const mapStateToProps = state => ({
-  loading: loadingSelectors.getLoading(['CONTACT_SEND'])(state),
-  error: errorSelectors.getError(['CONTACT_SEND'])(state),
-  response: responseSelectors.getResponse(['CONTACT_SEND'])(state)
-});
-
-const mapDispatchToProps = function (dispatch) {
-  return {
-    actions: bindActionCreators({
-      ...contactActions
-    }, dispatch)
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
+export default ContactForm;

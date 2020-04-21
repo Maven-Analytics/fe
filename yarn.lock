@@ -2384,7 +2384,7 @@ boom@7.x.x:
   dependencies:
     hoek "6.x.x"
 
-bootstrap@^4.3.1, bootstrap@^4.4.1:
+bootstrap@^4.3.1:
   version "4.4.1"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.4.1.tgz#8582960eea0c5cd2bede84d8b0baf3789c3e8b01"
 
@@ -4593,7 +4593,7 @@ flatten@^1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.3.tgz#c1283ac9f27b368abc1e36d1ff7b04501a30356b"
 
-flickity@2.2.1, flickity@^2.2.1:
+flickity@2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/flickity/-/flickity-2.2.1.tgz#81126e3d656cb54577358a5f959ffdbda088e670"
   dependencies:
@@ -6273,11 +6273,6 @@ levn@^0.3.0, levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-lib@^4.0.5:
-  version "4.0.5"
-  resolved "https://registry.yarnpkg.com/lib/-/lib-4.0.5.tgz#3564dfb630819ad3eb73643abd535d73e2cbde91"
-  integrity sha512-tDg4tRypj1SxDVUN24UIGjPcrs0ct/3Lv6uuOcDrStzwThvb6P/UbyJh/UM+jBZtTXzHTBUpf4deWTcu6Ya5xA==
-
 load-json-file@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/load-json-file/-/load-json-file-1.1.0.tgz#956905708d58b4bab4c2261b04f59f31c99374c0"
@@ -6521,24 +6516,10 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-maven-ui@1.0.105:
-  version "1.0.105"
-  resolved "https://registry.yarnpkg.com/maven-ui/-/maven-ui-1.0.105.tgz#817e434d5e74f2c527412dc52fec37a3388eb959"
-  integrity sha512-PjrZFBMfopLzye9EJaHKBxLxWqZSma/VtMdbZvbFL3/WCFp/s0+EnthKzDwLGO5ZrO9h44pVMS2o9O0LSGlPvA==
-  dependencies:
-    bootstrap "^4.4.1"
-    flickity "^2.2.1"
-    lib "^4.0.5"
-    lodash.throttle "^4.1.1"
-    prop-types "^15.7.2"
-    react "^16.13.1"
-    react-dom "^16.13.1"
-    react-dropzone "^10.2.1"
-    react-hook-form "^4.9.6"
-    react-image-crop "^8.5.0"
-    react-motion "^0.5.2"
-    remarkable "^2.0.0"
-    styled-components "^5.0.1"
+maven-ui@1.0.111:
+  version "1.0.111"
+  resolved "https://registry.yarnpkg.com/maven-ui/-/maven-ui-1.0.111.tgz#51bceca8d56d8ffdca8ffc1aad1461fd531d1d7e"
+  integrity sha512-LzZwa6ZMa/y9Koc/UW0wKXcR3PAlyFNAQv2DPKoGK4yvmSa6GqVUgoL4npM7tucwg+lMVsb8iCP4wNlKuTG7ww==
 
 md5.js@^1.3.4:
   version "1.3.5"
@@ -8547,11 +8528,6 @@ react-hook-form@^4.4.2:
   version "4.5.2"
   resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-4.5.2.tgz#98034ce9454e804c220bdea21b3a60db76e6d5d0"
 
-react-hook-form@^4.9.6:
-  version "4.9.6"
-  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-4.9.6.tgz#2057b4af7028f09d50c9bd1db46d1ff4e453c046"
-  integrity sha512-t5EQdfATwOOlj0rsBmHYBgf6s5L/dzakPzhzr2kdqTVhRnxSI73ZthJofZ+dYiXrXa6ds0VRso49GCHwDXL66Q==
-
 react-image-crop@^8.5.0:
   version "8.5.0"
   resolved "https://registry.yarnpkg.com/react-image-crop/-/react-image-crop-8.5.0.tgz#566539844c40ad73ed40339c938c3b4eb029c2ef"
@@ -8620,6 +8596,13 @@ react-test-renderer@^16.0.0-0:
     prop-types "^15.6.2"
     react-is "^16.8.6"
     scheduler "^0.18.0"
+
+react-visibility-sensor@^5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/react-visibility-sensor/-/react-visibility-sensor-5.1.1.tgz#5238380960d3a0b2be0b7faddff38541e337f5a9"
+  integrity sha512-cTUHqIK+zDYpeK19rzW6zF9YfT4486TIgizZW53wEZ+/GPBbK7cNS0EHyJVyHYacwFEvvHLEKfgJndbemWhB/w==
+  dependencies:
+    prop-types "^15.7.2"
 
 react@^16.13.1:
   version "16.13.1"

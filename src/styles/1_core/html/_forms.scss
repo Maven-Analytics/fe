@@ -12,7 +12,7 @@
       &::placeholder {
         color: $black-alt;
         // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526.
-        opacity: .2;
+        opacity: 0.2;
       }
 
       &:disabled,
@@ -32,7 +32,7 @@
   }
 
   &--account {
-    button[type="submit"] {
+    button[type='submit'] {
       @include btnFixed(40px, 100px, 20px);
       font-size: 1.1rem;
     }
@@ -65,7 +65,7 @@
   &::placeholder {
     color: $white;
     // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526.
-    opacity: .2;
+    opacity: 0.2;
   }
 
   // Disabled and read-only inputs
@@ -120,7 +120,7 @@ label {
   background-color: transparent !important;
   color: $red !important;
   font-size: 1.2rem !important;
-  margin: .2rem 0 !important;
+  margin: 0.2rem 0 !important;
 }
 
 #mc_embed_signup {
@@ -156,7 +156,7 @@ label {
   min-height: 22px;
   padding-left: 35px;
   position: relative;
-  margin-top: .3rem;
+  margin-top: 0.3rem;
 
   &::before {
     content: ' ';
@@ -178,7 +178,7 @@ label {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    transition: opacity .2s ease-in-out;
+    transition: opacity 0.2s ease-in-out;
   }
 
   &:focus-within {
@@ -274,7 +274,7 @@ label {
     opacity: 0;
     position: absolute;
     top: 6px;
-    transition: opacity .2s ease-in-out;
+    transition: opacity 0.2s ease-in-out;
     width: $circleSizeSmall;
   }
 
