@@ -3,6 +3,10 @@
 
   .input {
     border-color: transparent;
+
+    &.error {
+      border-color: $outrageousOrange;
+    }
   }
 
   label {

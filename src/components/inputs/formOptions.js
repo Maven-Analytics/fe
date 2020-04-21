@@ -29,16 +29,20 @@ class FormOptions extends Component {
     return (
       <div className="form-options">
         <ul>
-          {this.props.options.map(option => {
+          {this.props.options.map((option, index) => {
             const classList = [];
 
             if (option === this.state.value) {
               classList.push('active');
             }
 
+            const spacing = index + 1 === this.props.options.length ? 0 : '1.5rem';
+
             return (
-              <li key={option} className={classList.join(' ')}>
-                <button type="button" role="button" onClick={click(this.handleChange, option)}>{option}</button>
+              <li key={option} className={classList.join(' ')} style={{marginBottom: '0.5rem', marginRight: spacing}}>
+                <button type="button" role="button" onClick={click(this.handleChange, option)}>
+                  {option}
+                </button>
               </li>
             );
           })}
