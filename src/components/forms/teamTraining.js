@@ -1,13 +1,15 @@
 import React, {useState} from 'react';
 import {useForm} from 'react-hook-form';
-import {FormSubmissionError, TextBox} from 'maven-ui';
+import {FormSubmissionError, TextArea, TextBox} from 'maven-ui';
 import styled from 'styled-components';
 
 import FormOptions from '../inputs/formOptions';
 import FormSuccess from '../shared/FormSuccess';
 import zapier from '#root/services/zapier';
 
-const TeamTrainingFormWrap = styled.div`
+const TeamTrainingFormWrap = styled.div.attrs({
+  className: 'contact-form'
+})`
   .form-group {
     &.error {
       border: 2px solid ${props => props.theme.outrageousOrange};
@@ -18,6 +20,10 @@ const TeamTrainingFormWrap = styled.div`
     &.error {
       border-width: 2px;
     }
+  }
+
+  textarea {
+    height: 170px;
   }
 `;
 
@@ -36,21 +42,18 @@ const TeamTrainingForm = () => {
     return <FormSuccess />;
   }
 
-  const handleFormSubmit = handleSubmit(async data => {
-    await zapier({
-      data,
-      hook: 'https://hooks.zapier.com/hooks/catch/4268756/obkw9mh/'
-    });
+  const handleFormSubmit = async data => {
+    await zapier('https://hooks.zapier.com/hooks/catch/4268756/obkw9mh/', data);
 
     setComplete(data);
-  });
+  };
 
   return (
-    <TeamTrainingFormWrap className="contact-form">
-      <form className="form form--light" onSubmit={handleFormSubmit}>
-        <TextBox hasError={errors.name} id="name" label="Full name" name="name" ref={register({required: true})} />
-        <TextBox hasError={errors.email} id="email" label="Email address" name="email" ref={register({required: true})} />
-        <TextBox hasError={errors.company} id="company" label="Company" name="company" ref={register({required: true})} />
+    <TeamTrainingFormWrap>
+      <form className="form form--light" onSubmit={handleSubmit(handleFormSubmit)}>
+        <TextBox hasError={Boolean(errors.name)} id="name" label="Full name" name="name" ref={register({required: true})} />
+        <TextBox hasError={Boolean(errors.email)} id="email" label="Email address" name="email" ref={register({required: true})} />
+        <TextBox hasError={Boolean(errors.company)} id="company" label="Company" name="company" ref={register({required: true})} />
         <div className={['form-group', errors.team_size ? 'error' : ''].join(' ')}>
           <label htmlFor="size">Team size</label>
           <input type="hidden" name="team_size" ref={register({required: true})} />
@@ -60,7 +63,7 @@ const TeamTrainingForm = () => {
             value={watch('team_size')}
           />
         </div>
-        <TextBox hasError={errors.message} id="message" label="How can we help you?" name="message" ref={register({required: true})} />
+        <TextArea hasError={Boolean(errors.message)} id="message" label="How can we help you?" name="message" ref={register({required: true})} />
 
         {/* <div className="form-group">
           <label htmlFor="name">Full name</label>
