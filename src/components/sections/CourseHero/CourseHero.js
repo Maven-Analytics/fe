@@ -146,7 +146,7 @@ const CourseHero = ({course, actions, paths}) => {
     <BrochureHero
       backgroundSources={courseHeroBgSources}
       backgroundSrc={courseHeroBgSrc}
-      contentLeft={<BrochureHeroContent eyelash="Learning Paths" description={course.get('descriptionPreview')} title={course.get('title')} />}
+      contentLeft={<BrochureHeroContent eyelash="Self-Paced Course" description={course.get('descriptionPreview')} title={course.get('title')} />}
       contentRight={
         <BrochureHeroMedia
           image={contentfulImageSrc(course.get('thumbnail') && course.get('thumbnail').toJS())}
