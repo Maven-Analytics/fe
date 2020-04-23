@@ -10,6 +10,7 @@ import BrochureHero from '#root/components/sections/BrochureHero';
 import BrochureHeroContent from '#root/components/sections/BrochureHero/BrochureHeroContent';
 import BrochureHeroMedia from '#root/components/sections/BrochureHero/BrochureHeroMedia';
 import BrochureHeroMeta, {MetaItem, MetaItemIcons} from '#root/components/sections/BrochureHero/BrochureHeroMeta';
+import CtaSurvey from '#root/components/sections/CtaSurvey';
 import {mediaBreakpointUp} from '#root/utils/responsive';
 
 const PLACEHOLDER_ILLUSTRATION = '/static/img/path-image-placeholder.png';
@@ -75,6 +76,12 @@ const PathPageToolMetaItem = styled(MetaItem)`
   }
 `;
 
+const PathHeroContent = styled(BrochureHeroContent)`
+  ${mediaBreakpointUp('lg')} {
+    max-width: 540px;
+  }
+`;
+
 const PathPage = ({errorCode, path: {cardDescription, courses, hours, meta, title, tools}}) => {
   if (errorCode === 404) {
     return <NotFoundPage statusCode={errorCode} />;
@@ -90,7 +97,7 @@ const PathPage = ({errorCode, path: {cardDescription, courses, hours, meta, titl
         backgroundSrc="/static/img/hexagon-grid-dark.png"
         columnClasses={['col-lg-7', 'col-lg-5']}
         contentLeft={
-          <BrochureHeroContent eyelash="Learning Paths" description={cardDescription} title={title}>
+          <PathHeroContent eyelash="Learning Paths" description={cardDescription} title={title}>
             <BrochureHeroMeta>
               <MetaItem label="Courses">{courses.length}</MetaItem>
               <MetaItem label="Hours">{hours} hours</MetaItem>
@@ -98,10 +105,11 @@ const PathPage = ({errorCode, path: {cardDescription, courses, hours, meta, titl
                 <ToolsMetaIcons icons={tools.map(t => t.toLowerCase().replace(' ', '-'))} />
               </PathPageToolMetaItem>
             </BrochureHeroMeta>
-          </BrochureHeroContent>
+          </PathHeroContent>
         }
-        contentRight={<BrochureHeroMedia image={PLACEHOLDER_ILLUSTRATION} />}
+        contentRight={<BrochureHeroMedia image={PLACEHOLDER_ILLUSTRATION} imageProps={{wrapStyle: {paddingBottom: '100%'}}} />}
       />
+      <CtaSurvey />
     </PathPageWrap>
   );
 };

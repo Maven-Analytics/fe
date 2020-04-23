@@ -13,7 +13,7 @@ import ImageContentful from '#root/components/imageContentful';
 import BrochureLayout from '#root/components/layout/brochure';
 import MaIcon from '#root/components/maIcon';
 import Markdown from '#root/components/markdown';
-import CtaSurvey from '#root/components/sections/ctaSurvey';
+import CtaSurvey from '#root/components/sections/CtaSurvey';
 import {actions as stateActions} from '#root/redux/ducks/state';
 import {Routes} from '#root/routes';
 import {getCourses, getPaths} from '#root/services/contentful';

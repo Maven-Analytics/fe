@@ -18,7 +18,7 @@ import PathListingItem from '#root/components/pathListingItem';
 import BrochureHero from '#root/components/sections/BrochureHero';
 import BrochureHeroContent, {BrochureHeroContentLink} from '#root/components/sections/BrochureHero/BrochureHeroContent';
 import BrochureHeroMedia from '#root/components/sections/BrochureHero/BrochureHeroMedia';
-import CtaSurvey from '#root/components/sections/ctaSurvey';
+import CtaSurvey from '#root/components/sections/CtaSurvey';
 import {actions as activeFitlerActions} from '#root/redux/ducks/activeFilters';
 import {actions as courseActions, selectors as courseSelectors} from '#root/redux/ducks/courses';
 import {selectors as loadingSelectors} from '#root/redux/ducks/loading';
