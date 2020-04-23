@@ -15,9 +15,9 @@ import MaIcon from '#root/components/maIcon';
 import Markdown from '#root/components/markdown';
 import CtaSurvey from '#root/components/sections/CtaSurvey';
 import {actions as stateActions} from '#root/redux/ducks/state';
-import CourseHero from '#root/components/sections/CourseHero';
 import gql from 'graphql-tag';
 import NotFound from '../404';
+import CourseDetailHero from './CourseDetailHero';
 
 const courseQuery = gql`
   query CourseBySlug($slug: String!) {
@@ -99,7 +99,7 @@ const CourseDetail = ({errorCode, course, actions}) => {
     <BrochureLayout>
       <Head meta={course.get('meta')} />
       <div className="course-detail">
-        <CourseHero actions={actions} course={course} paths={course.get('paths')} />
+        <CourseDetailHero actions={actions} course={course} paths={course.get('paths')} />
         <CtaSurvey />
         <div className="container container--lg">
           <div className="course-detail__main">

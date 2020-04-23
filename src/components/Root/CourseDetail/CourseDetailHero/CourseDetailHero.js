@@ -141,7 +141,7 @@ const HeroPills = styled.div`
   } */
 `;
 
-const CourseHero = ({course, actions, paths}) => {
+const CourseDetailHero = ({course, actions, paths}) => {
   return (
     <BrochureHero
       backgroundSources={courseHeroBgSources}
@@ -195,15 +195,15 @@ const CourseHero = ({course, actions, paths}) => {
   );
 };
 
-CourseHero.propTypes = {
+CourseDetailHero.propTypes = {
   course: ImmutablePropTypes.map.isRequired,
   paths: ImmutablePropTypes.list.isRequired,
   actions: PropTypes.objectOf(PropTypes.func).isRequired
 };
 
-CourseHero.defaultProps = {
+CourseDetailHero.defaultProps = {
   course: Map(),
   paths: List()
 };
 
-export default CourseHero;
+export default CourseDetailHero;
