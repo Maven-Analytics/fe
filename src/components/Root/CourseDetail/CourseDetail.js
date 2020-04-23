@@ -15,11 +15,9 @@ import MaIcon from '#root/components/maIcon';
 import Markdown from '#root/components/markdown';
 import CtaSurvey from '#root/components/sections/CtaSurvey';
 import {actions as stateActions} from '#root/redux/ducks/state';
-import {Routes} from '#root/routes';
-import {getCourses, getPaths} from '#root/services/contentful';
-import redirect from '#root/utils/redirect';
 import CourseHero from '#root/components/sections/CourseHero';
 import gql from 'graphql-tag';
+import NotFound from '../404';
 
 const courseQuery = gql`
   query CourseBySlug($slug: String!) {
@@ -92,8 +90,11 @@ const courseQuery = gql`
   }
 `;
 
-const CourseDetail = ({course, actions, paths}) => {
-  console.log(course.toJS());
+const CourseDetail = ({errorCode, course, actions}) => {
+  if (errorCode === 404) {
+    return <NotFound statusCode={errorCode} />;
+  }
+
   return (
     <BrochureLayout>
       <Head meta={course.get('meta')} />

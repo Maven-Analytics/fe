@@ -1,3 +1,3 @@
-import NotFound from './404';
+import NotFoundPage from './404';
 
-export default NotFound;
+export default NotFoundPage;
