@@ -13,54 +13,32 @@ import ImageContentful from '#root/components/imageContentful';
 import BrochureLayout from '#root/components/layout/brochure';
 import MaIcon from '#root/components/maIcon';
 import Markdown from '#root/components/markdown';
-import BrochureHero from '#root/components/sections/brochureHero';
 import CtaSurvey from '#root/components/sections/ctaSurvey';
-import {courseHeroBgSources, courseHeroBgSrc} from '#root/constants';
 import {actions as stateActions} from '#root/redux/ducks/state';
 import {Routes} from '#root/routes';
 import {getCourses, getPaths} from '#root/services/contentful';
-import {clickAction} from '#root/utils/componentHelpers';
 import redirect from '#root/utils/redirect';
+import CourseHero from '#root/components/sections/CourseHero';
 
-const Course = ({course, actions, paths}) => {
+const CoursePage = ({course, actions, paths}) => {
   return (
     <BrochureLayout>
       <Head meta={course.get('meta')} />
       <div className="course-detail">
-        <BrochureHero
-          imageOverflow={false}
-          eyelash="Self-Paced Course"
-          title={course.get('title')}
-          description={course.get('descriptionPreview')}
-          hours={course.get('length')}
-          difficulty={course.get('difficulty')}
-          tools={course.get('tools')}
-          skills={course.get('skills')}
-          badge={course.get('badge')}
-          paths={paths}
-          thumbnail={course.get('thumbnail')}
-          video={course.get('video')}
-          backgroundSources={courseHeroBgSources}
-          backgroundSrc={courseHeroBgSrc}
-          onVideoClick={clickAction(actions.modalOpen, 'video', {video: course.get('video')})}
-        />
+        <CourseHero actions={actions} course={course} paths={paths} />
         <CtaSurvey />
         <div className="container container--lg">
           <div className="course-detail__main">
             <section>
               <div>
                 <h4>Course Description</h4>
-                {course.get('descriptionFull') && course.get('descriptionFull') !== '' ? (
-                  <Markdown content={course.get('descriptionFull')} />
-                ) : null}
+                {course.get('descriptionFull') && course.get('descriptionFull') !== '' ? <Markdown content={course.get('descriptionFull')} /> : null}
               </div>
               <div>
                 <h4>Course Outline</h4>
                 {course.get('lessons') ? <CourseLessons lessons={course.get('lessons')} /> : null}
               </div>
-              <div>
-                {course.get('descriptionDetail') ? <Markdown content={course.get('descriptionDetail')} /> : null}
-              </div>
+              <div>{course.get('descriptionDetail') ? <Markdown content={course.get('descriptionDetail')} /> : null}</div>
               <div className="course-detail__cta">
                 <h3>Are you ready to become a DATA ROCKSTAR? Start learning today with your FREE 7-Day trial! </h3>
                 <p>Every subscription includes access to the following course materials</p>
@@ -106,9 +84,7 @@ const Course = ({course, actions, paths}) => {
                   </span>
                 </div>
                 <div className="bio">
-                  {course.hasIn(['author', 'biography']) ? (
-                    <Markdown content={course.getIn(['author', 'biography'])} />
-                  ) : null}
+                  {course.hasIn(['author', 'biography']) ? <Markdown content={course.getIn(['author', 'biography'])} /> : null}
                 </div>
                 {course.hasIn(['author', 'qualifications']) ? (
                   <div className="qualifications">
@@ -148,7 +124,7 @@ const Course = ({course, actions, paths}) => {
   );
 };
 
-Course.getInitialProps = async ctx => {
+CoursePage.getInitialProps = async ctx => {
   const {
     query: {slug}
   } = ctx;
@@ -180,14 +156,14 @@ Course.getInitialProps = async ctx => {
   return redirect(ctx, Routes.Home);
 };
 
-Course.propTypes = {
+CoursePage.propTypes = {
   course: ImmutablePropTypes.map.isRequired,
   paths: ImmutablePropTypes.list.isRequired,
   slug: PropTypes.string.isRequired,
   actions: PropTypes.objectOf(PropTypes.func)
 };
 
-Course.defaultProps = {
+CoursePage.defaultProps = {
   course: Map(),
   paths: List()
 };
@@ -208,4 +184,4 @@ const mapDispatchToProps = dispatch => ({
   )
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Course);
+export default connect(mapStateToProps, mapDispatchToProps)(CoursePage);

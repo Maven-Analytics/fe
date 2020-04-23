@@ -4,7 +4,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import BrochureHero from '#root/components/sections/brochureHero';
+import BrochureHero from '#root/components/sections/brochureHero.old';
 import {actions as stateActions} from '#root/redux/ducks/state';
 
 import {clickAction} from '../../utils/componentHelpers';
@@ -63,7 +63,4 @@ const mapDispatchToProps = dispatch => ({
   )
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(VideoSeriesLayout);
+export default connect(mapStateToProps, mapDispatchToProps)(VideoSeriesLayout);

@@ -13,6 +13,7 @@ if (isDev) {
 }
 
 module.exports = withPlugins(plugins, {
+  distDir: '../.next',
   publicRuntimeConfig: {
     HOST_SERVER: process.env.HOST_SERVER,
     THINKIFIC_SUBDOMAIN: process.env.THINKIFIC_SUBDOMAIN,
@@ -26,14 +27,13 @@ module.exports = withPlugins(plugins, {
     SENTRY_ENVIRONMENT: process.env.SENTRY_ENVIRONMENT,
     THINKIFIC_HEALTH_CHECK_INTERVAL: process.env.THINKIFIC_HEALTH_CHECK_INTERVAL,
     STRIPE_PUBLIC_KEY: process.env.STRIPE_PUBLIC_KEY
-  },
-  webpackDevMiddleware: config => {
-    // Solve compiling problem via vagrant
-    config.watchOptions = {
-      poll: 1000,
-      aggregateTimeout: 300
-    };
-    return config;
-  },
-  distDir: '../.next'
+  }
+  // WebpackDevMiddleware: config => {
+  //   // Solve compiling problem via vagrant
+  //   config.watchOptions = {
+  //     poll: 1000,
+  //     aggregateTimeout: 300
+  //   };
+  //   return config;
+  // },
 });

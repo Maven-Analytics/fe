@@ -12,11 +12,9 @@
       "styled-components",
       {
         "ssr": true,
-        "displayName": false
+        "displayName": true
       }
     ]
   ],
-  "presets": [
-    "next/babel"
-  ]
+  "presets": ["next/babel"]
 }
