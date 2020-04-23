@@ -10,7 +10,7 @@ import {isLg, isSm, isXl} from '#root/components/mediaQuery';
 import withWindowSize from '#root/components/withWindowSize';
 import {prettyPercent} from '#root/utils/componentHelpers';
 
-const CourseCarousel = ({courses, title, eyelash, description, helperText, separator, largeCols, hideOffscreenSlides}) => {
+const CourseCarousel = ({carouselOpts, courses, title, eyelash, description, helperText, separator, largeCols, hideOffscreenSlides}) => {
   if (!courses || !courses.count()) {
     return null;
   }
@@ -31,7 +31,8 @@ const CourseCarousel = ({courses, title, eyelash, description, helperText, separ
         options={{
           pageDots: false,
           groupCells: isXl() ? 3 : isLg() ? largeCols : isSm() ? 2 : 1,
-          prevNextButtons: true
+          prevNextButtons: true,
+          ...carouselOpts
         }}
       >
         {courses.map(course => {
@@ -54,6 +55,7 @@ const CourseCarousel = ({courses, title, eyelash, description, helperText, separ
 };
 
 CourseCarousel.propTypes = {
+  carouselOpts: PropTypes.object,
   title: PropTypes.string,
   eyelash: PropTypes.string,
   description: PropTypes.string,
@@ -66,6 +68,7 @@ CourseCarousel.propTypes = {
 };
 
 CourseCarousel.defaultProps = {
+  carouselOpts: {},
   courses: List(),
   largeCols: 3
 };
