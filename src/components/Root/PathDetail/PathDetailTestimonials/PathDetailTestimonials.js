@@ -115,15 +115,16 @@ const PathDetailTestimonials = ({testimonials, title, ...props}) => {
       <CarouselWrap>
         <PathDetailContainer>
           <Carousel className="arrow-buttons" options={{cellAlign: 'center', pageDots: false, prevNextButtons: true}}>
-            {testimonials.map(testimonial => (
-              <CarouselSlide key={testimonial.id}>
-                <Testimonial>
-                  <QuoteMarker>&#8220;</QuoteMarker>
-                  <Markdown content={testimonial.text} />
-                  <Name>- {testimonial.name}</Name>
-                </Testimonial>
-              </CarouselSlide>
-            ))}
+            {testimonials &&
+              testimonials.map(testimonial => (
+                <CarouselSlide key={testimonial.id}>
+                  <Testimonial>
+                    <QuoteMarker>&#8220;</QuoteMarker>
+                    <Markdown content={testimonial.text} />
+                    <Name>- {testimonial.name}</Name>
+                  </Testimonial>
+                </CarouselSlide>
+              ))}
           </Carousel>
         </PathDetailContainer>
       </CarouselWrap>
