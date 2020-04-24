@@ -11,9 +11,12 @@ import PathDetailHero from './PathDetailHero';
 import spacingUnit from '#root/utils/spacingUnit';
 import {collapseUp} from '#root/utils/responsive';
 import PathDetailContentBlock from './PathDetailContentBlock';
-import CourseCarousel from '#root/components/sections/courseCarousel';
 import PathDetailCourses from './PathDetailCourses';
 import PathDetailInstructors from './PathDetailInstructors';
+import PathDetailTestimonials from './PathDetailTestimonials';
+import PathDetailCardSection from './PathDetailCardSection';
+import {Routes} from '#root/routes';
+import contentfulImageSrc from '#root/utils/contentfulImageSrc';
 
 const PLACEHOLDER_ILLUSTRATION = '/static/img/path-image-placeholder.png';
 
@@ -76,6 +79,22 @@ const pathQuery = gql`
         keywords
         title
       }
+      otherPaths(limit: 2, order: "-fields.surveyWeight") {
+        id
+        badge {
+          id
+          file {
+            url
+          }
+        }
+        description: cardDescription
+        title
+      }
+      testimonials {
+        id
+        name
+        text
+      }
       title
       tools
     }
@@ -129,7 +148,10 @@ const PathDetailContentWrap = styled.div`
 
 const Wrapper = styled.div``;
 
-const PathDetail = ({errorCode, path: {authors, cardDescription, descriptionDetail, descriptionPreview, courses, hours, meta, title, tools}}) => {
+const PathDetail = ({
+  errorCode,
+  path: {authors, cardDescription, descriptionDetail, descriptionPreview, courses, hours, meta, otherPaths, testimonials, title, tools}
+}) => {
   if (errorCode === 404) {
     return <NotFoundPage statusCode={errorCode} />;
   }
@@ -160,6 +182,17 @@ const PathDetail = ({errorCode, path: {authors, cardDescription, descriptionDeta
         </PathDetailSection>
         <PathDetailSection>
           <PathDetailInstructors instructors={authors} title="Meet Your Instructors" />
+        </PathDetailSection>
+        <PathDetailSection>
+          <PathDetailTestimonials testimonials={testimonials} title="Testimonials" />
+        </PathDetailSection>
+        <PathDetailSection>
+          <PathDetailCardSection
+            eyelash="Want To Keep Exploring?"
+            link={{href: Routes.CoursesPaths, text: 'View All Learning Paths'}}
+            paths={otherPaths && otherPaths.map(path => ({...path, badge: contentfulImageSrc(path.badge)}))}
+            title="Check Out These Other Learning Paths"
+          />
         </PathDetailSection>
       </PathDetailContentWrap>
     </Wrapper>

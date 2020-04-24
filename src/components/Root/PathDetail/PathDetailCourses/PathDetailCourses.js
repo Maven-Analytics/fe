@@ -13,7 +13,11 @@ const CarouselContainer = styled.div`
   position: relative;
 
   .course-carousel {
-    margin: 0;
+    margin: 0 0 6rem;
+
+    ${mediaBreakpointUp('lg')} {
+      margin: 0 0 9rem;
+    }
   }
 
   .course-card {
@@ -24,11 +28,7 @@ const CarouselContainer = styled.div`
 `;
 
 const Wrapper = styled.div`
-  margin: 0 0 6rem;
-
-  ${mediaBreakpointUp('lg')} {
-    margin: 0 0 9rem;
-  }
+  overflow: hidden;
 `;
 
 const PathDetailCourses = ({courses, title, ...props}) => {
