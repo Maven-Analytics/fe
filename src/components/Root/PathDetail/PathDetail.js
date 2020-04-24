@@ -92,6 +92,7 @@ const pathQuery = gql`
           }
         }
         description: cardDescription
+        slug
         title
       }
       testimonials {

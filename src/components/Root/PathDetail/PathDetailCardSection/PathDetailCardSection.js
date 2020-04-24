@@ -6,19 +6,31 @@ import Link from 'next/link';
 import {mediaBreakpointUp} from '#root/utils/responsive';
 import Image from '#root/components/image';
 import Markdown from '#root/components/markdown';
+import {Routes} from '#root/routes';
 
 const CtaWrap = styled.div`
   margin: 4rem 0 0;
   text-align: center;
 `;
 
-const PathCard = styled.div`
+const PathCard = styled.a`
   box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.1);
-  color: ${props => props.theme.gray};
+  cursor: pointer;
   font-size: 1.4rem;
   line-height: 1.64;
   padding: 3rem 2.6rem;
   text-align: center;
+  transition: box-shadow 0.2s ease-in-out;
+
+  &:not(.btn) {
+    color: ${props => props.theme.gray};
+
+    &:hover {
+      box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
+      color: ${props => props.theme.gray};
+      text-decoration: none;
+    }
+  }
 
   ${mediaBreakpointUp('md')} {
     display: grid;
@@ -118,15 +130,17 @@ const PathDetailCardSection = ({eyelash, paths, link, title, ...props}) => {
         <Paths>
           {paths &&
             paths.map((path, index) => (
-              <PathCard key={index}>
-                <PathCardBadge>
-                  <PathCardBadgeImg src={path.badge} />
-                </PathCardBadge>
-                <PathCardContent>
-                  <h5>{path.title}</h5>
-                  <Markdown content={path.description} />
-                </PathCardContent>
-              </PathCard>
+              <Link key={index} href={Routes.Path(path.slug)}>
+                <PathCard>
+                  <PathCardBadge>
+                    <PathCardBadgeImg src={path.badge} />
+                  </PathCardBadge>
+                  <PathCardContent>
+                    <h5>{path.title}</h5>
+                    <Markdown content={path.description} />
+                  </PathCardContent>
+                </PathCard>
+              </Link>
             ))}
         </Paths>
         <CtaWrap>
@@ -145,6 +159,7 @@ PathDetailCardSection.propTypes = {
     PropTypes.shape({
       badge: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
+      slug: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired
     })
   ),
