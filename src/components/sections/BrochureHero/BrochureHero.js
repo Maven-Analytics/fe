@@ -48,6 +48,16 @@ const BrochureHeroWrap = styled.div`
     font-size: 1.8rem;
   }
 
+  &.brochure-hero--small {
+    ${BrochureHeroInner} {
+      padding: 3vh 0;
+
+      ${collapseUp()} {
+        padding: ${() => `calc(1vh + ${headerHeightDesktop}px) 0 10vh`};
+      }
+    }
+  }
+
   &.brochure-hero--medium {
     ${BrochureHeroInner} {
       padding: 5vh 0;

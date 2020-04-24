@@ -18,8 +18,6 @@ import PathDetailCardSection from './PathDetailCardSection';
 import {Routes} from '#root/routes';
 import contentfulImageSrc from '#root/utils/contentfulImageSrc';
 
-const PLACEHOLDER_ILLUSTRATION = '/static/img/path-image-placeholder.png';
-
 const pathQuery = gql`
   query PathBySlug($slug: String!) {
     path(slug: $slug) {
@@ -67,6 +65,12 @@ const pathQuery = gql`
       descriptionDetail
       descriptionPreview
       hours
+      image {
+        id
+        file {
+          url
+        }
+      }
       meta {
         id
         description
@@ -150,7 +154,7 @@ const Wrapper = styled.div``;
 
 const PathDetail = ({
   errorCode,
-  path: {authors, cardDescription, descriptionDetail, descriptionPreview, courses, hours, meta, otherPaths, testimonials, title, tools}
+  path: {authors, cardDescription, descriptionDetail, descriptionPreview, courses, hours, image, meta, otherPaths, testimonials, title, tools}
 }) => {
   if (errorCode === 404) {
     return <NotFoundPage statusCode={errorCode} />;
@@ -165,7 +169,7 @@ const PathDetail = ({
         description={cardDescription}
         courseCount={courses.length}
         hours={hours}
-        image={PLACEHOLDER_ILLUSTRATION}
+        image={contentfulImageSrc(image)}
         title={title}
         tools={tools}
       />

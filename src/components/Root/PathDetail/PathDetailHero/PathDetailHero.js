@@ -41,8 +41,30 @@ const PathPageToolMetaItem = styled(MetaItem)`
 `;
 
 const PathHeroContent = styled(BrochureHeroContent)`
+  ${mediaBreakpointUp('md')} {
+    max-width: 600px;
+  }
   ${mediaBreakpointUp('lg')} {
-    max-width: 540px;
+    margin-top: 6rem;
+  }
+`;
+
+const PathHeroMedia = styled(BrochureHeroMedia)`
+  > div {
+    padding-bottom: 86%;
+
+    ${mediaBreakpointUp('md')} {
+      padding-bottom: 110%;
+    }
+  }
+  img {
+    margin: 0 auto;
+    max-width: 320px;
+
+    ${mediaBreakpointUp('md')} {
+      max-width: 100%;
+      width: 470px;
+    }
   }
 `;
 
@@ -52,7 +74,8 @@ const PathDetailHero = ({description, courseCount, hours, image, title, tools}) 
   return (
     <BrochureHero
       backgroundSrc="/static/img/hexagon-grid-dark.png"
-      columnClasses={['col-lg-7', 'col-lg-5']}
+      className="brochure-hero--small"
+      columnClasses={['col-md-7', 'col-md-5']}
       contentLeft={
         <PathHeroContent eyelash="Learning Paths" description={description} title={title}>
           <BrochureHeroMeta>
@@ -64,7 +87,7 @@ const PathDetailHero = ({description, courseCount, hours, image, title, tools}) 
           </BrochureHeroMeta>
         </PathHeroContent>
       }
-      contentRight={<BrochureHeroMedia image={image} imageProps={{wrapStyle: {paddingBottom: '100%'}}} />}
+      contentRight={<PathHeroMedia image={image} imageProps={{style: {width: 470}}} />}
     />
   );
 };
