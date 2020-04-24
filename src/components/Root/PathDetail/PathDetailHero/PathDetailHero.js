@@ -86,7 +86,7 @@ const PathDetailHero = ({description, courseCount, hours, image, title, tools}) 
     <BrochureHero
       backgroundProps={{strength: 0}}
       backgroundSrc="/static/img/hexagon-grid-dark.png"
-      className="brochure-hero--small"
+      className="brochure-hero--path"
       columnClasses={['col-md-7', 'col-md-5']}
       contentLeft={
         <PathHeroContent eyelash="Learning Paths" description={description} title={title}>

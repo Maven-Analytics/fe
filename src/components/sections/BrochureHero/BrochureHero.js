@@ -48,12 +48,12 @@ const BrochureHeroWrap = styled.div`
     font-size: 1.8rem;
   }
 
-  &.brochure-hero--small {
+  &.brochure-hero--path {
     ${BrochureHeroInner} {
       padding: 3vh 0;
 
       ${collapseUp()} {
-        padding: ${() => `calc(1vh + ${headerHeightDesktop}px) 0 5vh`};
+        padding: ${() => `calc(1vh + ${headerHeightDesktop}px) 0 12rem`};
       }
     }
   }
