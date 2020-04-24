@@ -31,7 +31,7 @@ export const Routes = {
   HelpCenter: 'https://help.mavenanalytics.io',
   Login: '/login',
   Logout: '/logout',
-  Path: '/path',
+  Path: slug => `/path/${slug}`,
   PrivacyPolicy: '/privacy',
   Reset: '/reset',
   SkillsAssessments: '/skills-assessments',
