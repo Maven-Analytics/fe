@@ -48,7 +48,7 @@ const BrochureHeroWrap = styled.div`
     font-size: 1.8rem;
   }
 
-  .brochure-hero--medium {
+  &.brochure-hero--medium {
     ${BrochureHeroInner} {
       padding: 5vh 0;
 
@@ -58,7 +58,7 @@ const BrochureHeroWrap = styled.div`
     }
   }
 
-  .brochure-hero--large {
+  &.brochure-hero--large {
     ${BrochureHeroInner} {
       padding: 5vh 0 10vh;
 
