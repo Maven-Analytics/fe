@@ -78,6 +78,8 @@ const HeroBadge = styled(Image)`
 
   ${mediaBreakpointUp('lg')} {
     height: 5vw;
+    max-height: 80px;
+    max-width: 80px;
     width: 5vw;
   }
 `;
