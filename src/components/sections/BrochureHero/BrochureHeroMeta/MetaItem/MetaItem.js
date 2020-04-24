@@ -12,7 +12,7 @@ const Label = styled.span`
   text-transform: uppercase;
   white-space: nowrap;
 
-  ${mediaBreakpointUp('md')} {
+  ${mediaBreakpointUp('lg')} {
     font-size: 1.3rem;
   }
 `;
@@ -22,7 +22,7 @@ const Value = styled.span`
   font-size: 1.8rem;
   font-weight: 900;
 
-  ${mediaBreakpointUp('md')} {
+  ${mediaBreakpointUp('lg')} {
     font-size: 2.4rem;
     white-space: nowrap;
   }
@@ -49,12 +49,15 @@ const Wrapper = styled.div`
   }
 
   ${mediaBreakpointUp('md')} {
+    text-align: left;
+  }
+
+  ${mediaBreakpointUp('lg')} {
     padding: 2rem 3.9rem 3rem;
   }
 
   ${collapseUp()} {
     padding: 2rem 3.9rem 5rem;
-    text-align: left;
   }
 
   &:not(:last-child) {

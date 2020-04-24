@@ -148,6 +148,7 @@ const CourseDetailHero = ({course, actions, paths}) => {
     <BrochureHero
       backgroundSources={courseHeroBgSources}
       backgroundSrc={courseHeroBgSrc}
+      columnClasses={['col-md-7', 'col-md-5']}
       contentLeft={<BrochureHeroContent eyelash="Self-Paced Course" description={course.get('descriptionPreview')} title={course.get('title')} />}
       contentRight={
         <BrochureHeroMedia

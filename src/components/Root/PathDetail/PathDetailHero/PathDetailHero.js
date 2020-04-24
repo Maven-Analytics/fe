@@ -9,11 +9,14 @@ import BrochureHeroMeta, {MetaItem, MetaItemIcons} from '#root/components/sectio
 import {mediaBreakpointUp} from '#root/utils/responsive';
 
 const ToolsMetaIcons = styled(MetaItemIcons)`
+  left: 0;
+  margin: 0 auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
   ${mediaBreakpointUp('md')} {
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
+    margin: 0;
   }
 `;
 
@@ -24,18 +27,14 @@ const PathPageToolMetaItem = styled(MetaItem)`
 
   > div {
     > span:first-child {
-      ${mediaBreakpointUp('md')} {
-        display: block;
-        min-width: 125px;
-      }
+      display: block;
+      min-width: 125px;
     }
 
     > span:nth-child(2) {
-      ${mediaBreakpointUp('md')} {
-        display: block;
-        position: relative;
-        width: 100%;
-      }
+      display: block;
+      position: relative;
+      width: 100%;
     }
   }
 `;
@@ -45,49 +44,62 @@ const PathHeroContent = styled(BrochureHeroContent)`
     max-width: 600px;
   }
   ${mediaBreakpointUp('lg')} {
-    margin-top: 6rem;
+    margin-top: 1rem;
+  }
+  ${mediaBreakpointUp('xl')} {
+    margin-top: 4rem;
   }
 `;
 
 const PathHeroMedia = styled(BrochureHeroMedia)`
   > div {
-    padding-bottom: 86%;
+    height: auto;
+    padding-bottom: 0;
+    text-align: center;
 
     ${mediaBreakpointUp('md')} {
-      padding-bottom: 110%;
+      text-align: left;
     }
   }
   img {
     margin: 0 auto;
-    max-width: 320px;
+    position: relative;
+    max-width: 100%;
+    width: 320px;
 
     ${mediaBreakpointUp('md')} {
-      max-width: 100%;
-      width: 470px;
+      width: auto;
     }
   }
 `;
 
-const PathDetailHero = ({description, courseCount, hours, image, title, tools}) => {
-  tools = [...tools.filter((t, i) => i < tools.length - 1)];
+const PathHeroMeta = styled(BrochureHeroMeta)`
+  margin-top: 1.7rem;
 
+  ${mediaBreakpointUp('lg')} {
+    margin-top: 4.5rem;
+  }
+`;
+
+const PathDetailHero = ({description, courseCount, hours, image, title, tools}) => {
   return (
     <BrochureHero
+      backgroundProps={{strength: 0}}
       backgroundSrc="/static/img/hexagon-grid-dark.png"
       className="brochure-hero--small"
       columnClasses={['col-md-7', 'col-md-5']}
       contentLeft={
         <PathHeroContent eyelash="Learning Paths" description={description} title={title}>
-          <BrochureHeroMeta>
+          <PathHeroMeta>
             <MetaItem label="Courses">{courseCount}</MetaItem>
             <MetaItem label="Hours">{hours} hours</MetaItem>
             <PathPageToolMetaItem label="Tools">
               <ToolsMetaIcons icons={tools.map(t => t.toLowerCase().replace(' ', '-'))} />
             </PathPageToolMetaItem>
-          </BrochureHeroMeta>
+          </PathHeroMeta>
         </PathHeroContent>
       }
-      contentRight={<PathHeroMedia image={image} imageProps={{style: {width: 470}}} />}
+      contentRight={<PathHeroMedia image={image} />}
     />
   );
 };

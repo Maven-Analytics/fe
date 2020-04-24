@@ -8,14 +8,17 @@ const Icon = styled(MaIcon)`
   display: flex;
   font-size: 2rem;
 
-  ${mediaBreakpointUp('md')} {
+  ${mediaBreakpointUp('lg')} {
+    font-size: 2.5rem;
+  }
+
+  ${mediaBreakpointUp('lg')} {
     font-size: 3.8rem;
   }
 `;
 
 const IconWrap = styled.div`
   ${Icon} {
-    display: block;
     flex: 1 1 auto;
   }
 `;
@@ -23,9 +26,9 @@ const IconWrap = styled.div`
 const Wrapper = styled.div`
   display: flex;
   flex-flow: row wrap;
-  max-width: 50px;
+  max-width: 70px;
 
-  ${mediaBreakpointUp('md')} {
+  ${mediaBreakpointUp('lg')} {
     max-width: none;
   }
 
@@ -48,7 +51,6 @@ const Wrapper = styled.div`
 
 const MetaItemIcons = ({icons, ...props}) => {
   const iconCount = Array.isArray(icons) ? icons.length : 1;
-
   return (
     <Wrapper {...props} iconCount={iconCount} icons={icons}>
       {icons &&

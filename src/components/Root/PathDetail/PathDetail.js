@@ -116,6 +116,7 @@ const PathDetailSection = styled.section`
 const PathDetailContentWrap = styled.div`
   color: #7e7e7e;
   font-size: 1.6rem;
+  line-height: 1.625;
   padding: ${spacingUnit.ll} 0;
 
   ${collapseUp()} {
@@ -146,6 +147,10 @@ const PathDetailContentWrap = styled.div`
       ${collapseUp()} {
         margin-bottom: ${spacingUnit.ll};
       }
+
+      li {
+        margin-bottom: ${spacingUnit.ss};
+      }
     }
   }
 `;
@@ -159,8 +164,6 @@ const PathDetail = ({
   if (errorCode === 404) {
     return <NotFoundPage statusCode={errorCode} />;
   }
-
-  tools = [...tools.filter((t, i) => i < tools.length - 1)];
 
   return (
     <Wrapper>

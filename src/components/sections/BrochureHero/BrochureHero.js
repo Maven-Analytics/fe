@@ -53,7 +53,7 @@ const BrochureHeroWrap = styled.div`
       padding: 3vh 0;
 
       ${collapseUp()} {
-        padding: ${() => `calc(1vh + ${headerHeightDesktop}px) 0 10vh`};
+        padding: ${() => `calc(1vh + ${headerHeightDesktop}px) 0 5vh`};
       }
     }
   }
@@ -79,10 +79,21 @@ const BrochureHeroWrap = styled.div`
   }
 `;
 
-const BrochureHero = ({backgroundSources, backgroundSrc, children, className, columnClasses, contentLeft, contentRight, title, ...props}) => {
+const BrochureHero = ({
+  backgroundProps,
+  backgroundSources,
+  backgroundSrc,
+  children,
+  className,
+  columnClasses,
+  contentLeft,
+  contentRight,
+  title,
+  ...props
+}) => {
   return (
     <BrochureHeroWrap className={className} {...props}>
-      <Background sources={backgroundSources} src={backgroundSrc} />
+      <Background {...backgroundProps} sources={backgroundSources} src={backgroundSrc} />
       <BackgroundOverlay />
       <BrochureHeroInner>
         <div className="container container--lg">
@@ -98,6 +109,7 @@ const BrochureHero = ({backgroundSources, backgroundSrc, children, className, co
 };
 
 BrochureHero.propTypes = {
+  backgroundProps: PropTypes.object,
   backgroundSources: PropTypes.array,
   backgroundSrc: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
@@ -109,6 +121,7 @@ BrochureHero.propTypes = {
 };
 
 BrochureHero.defaultProps = {
+  backgroundProps: {},
   columnClasses: ['col-md-6 col-lg-7', 'col-md-6 col-lg-5']
 };
 
