@@ -25,7 +25,8 @@ const PathCard = styled.a`
   &:not(.btn) {
     color: ${props => props.theme.gray};
 
-    &:hover {
+    &:hover,
+    &:focus {
       box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
       color: ${props => props.theme.gray};
       text-decoration: none;
