@@ -117,7 +117,7 @@
 
       &__content {
         p {
-          display: none;
+          // display: none;
 
           @include media-breakpoint-up(lg) {
             display: block;
