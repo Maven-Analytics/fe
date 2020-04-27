@@ -146,7 +146,7 @@ const PathDetailHero = ({badge, description, courseCount, hours, image, title, t
       className="brochure-hero--path"
       columnClasses={['col-md-8 col-lg-7', 'col-md-4 col-lg-5']}
       contentLeft={
-        <PathHeroContent eyelash="Learning Paths" description={description} title={title}>
+        <PathHeroContent eyelash="Learning Path" description={description} title={title}>
           <PathHeroBadge src={badge} />
           <PathHeroMeta>
             <MetaItem label="Courses">{courseCount}</MetaItem>
