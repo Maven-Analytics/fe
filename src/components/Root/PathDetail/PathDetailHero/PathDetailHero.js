@@ -7,47 +7,73 @@ import BrochureHeroContent from '#root/components/sections/BrochureHero/Brochure
 import BrochureHeroMedia from '#root/components/sections/BrochureHero/BrochureHeroMedia';
 import BrochureHeroMeta, {MetaItem, MetaItemIcons} from '#root/components/sections/BrochureHero/BrochureHeroMeta';
 import {mediaBreakpointUp} from '#root/utils/responsive';
+import Image from '#root/components/image';
 
-const ToolsMetaIcons = styled(MetaItemIcons)`
+const badgeSizeMobile = 6;
+const badgeSizeTablet = 6;
+const badgeSizeDesktop = 11;
+
+const PathHeroBadge = styled(Image)`
+  height: ${badgeSizeMobile}rem;
   left: 0;
-  margin: 0 auto;
   position: absolute;
+  margin: 0 auto;
   right: 0;
   top: 0;
-  width: 100%;
+  width: ${badgeSizeMobile}rem;
+
   ${mediaBreakpointUp('md')} {
+    height: ${badgeSizeTablet}rem;
+    left: -1.2rem;
     margin: 0;
-  }
-`;
-
-const PathPageToolMetaItem = styled(MetaItem)`
-  ${mediaBreakpointUp('md')} {
-    position: relative;
+    width: ${badgeSizeTablet}rem;
   }
 
-  > div {
-    > span:first-child {
-      display: block;
-      min-width: 125px;
-    }
-
-    > span:nth-child(2) {
-      display: block;
-      position: relative;
-      width: 100%;
-    }
+  ${mediaBreakpointUp('lg')} {
+    height: ${badgeSizeDesktop}rem;
+    left: -1.2rem;
+    margin: 0;
+    width: ${badgeSizeDesktop}rem;
   }
 `;
 
 const PathHeroContent = styled(BrochureHeroContent)`
+  margin-top: 0.8rem;
+  padding-top: ${badgeSizeMobile}rem;
+  position: relative;
+  text-align: center;
+
   ${mediaBreakpointUp('md')} {
+    padding-left: ${badgeSizeTablet}rem;
+    padding-top: 0;
     max-width: 600px;
+    text-align: initial;
   }
   ${mediaBreakpointUp('lg')} {
+    padding-left: ${badgeSizeDesktop}rem;
     margin-top: 1rem;
   }
   ${mediaBreakpointUp('xl')} {
     margin-top: 4rem;
+  }
+
+  > h1 {
+    margin-bottom: 0.8rem;
+    padding-bottom: 0;
+
+    ${mediaBreakpointUp('md')} {
+      margin-bottom: 0.3em;
+      line-height: 1;
+      padding-bottom: 0.3em;
+    }
+
+    &::after {
+      content: none;
+
+      ${mediaBreakpointUp('md')} {
+        content: ' ';
+      }
+    }
   }
 `;
 
@@ -81,20 +107,52 @@ const PathHeroMeta = styled(BrochureHeroMeta)`
   }
 `;
 
-const PathDetailHero = ({description, courseCount, hours, image, title, tools}) => {
+const PathPageToolMetaItem = styled(MetaItem)`
+  ${mediaBreakpointUp('md')} {
+    position: relative;
+  }
+
+  > div {
+    > span:first-child {
+      display: block;
+      min-width: 125px;
+    }
+
+    > span:nth-child(2) {
+      display: block;
+      position: relative;
+      width: 100%;
+    }
+  }
+`;
+
+const ToolIcons = styled(MetaItemIcons)`
+  left: 0;
+  margin: 0 auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  ${mediaBreakpointUp('md')} {
+    margin: 0;
+  }
+`;
+
+const PathDetailHero = ({badge, description, courseCount, hours, image, title, tools}) => {
   return (
     <BrochureHero
       backgroundProps={{strength: 0}}
       backgroundSrc="/static/img/hexagon-grid-dark.png"
       className="brochure-hero--path"
-      columnClasses={['col-md-7', 'col-md-5']}
+      columnClasses={['col-md-8 col-lg-7', 'col-md-4 col-lg-5']}
       contentLeft={
         <PathHeroContent eyelash="Learning Paths" description={description} title={title}>
+          <PathHeroBadge src={badge} />
           <PathHeroMeta>
             <MetaItem label="Courses">{courseCount}</MetaItem>
             <MetaItem label="Hours">{hours} hours</MetaItem>
             <PathPageToolMetaItem label="Tools">
-              <ToolsMetaIcons icons={tools.map(t => t.toLowerCase().replace(' ', '-'))} />
+              <ToolIcons icons={tools.map(t => t.toLowerCase().replace(' ', '-'))} />
             </PathPageToolMetaItem>
           </PathHeroMeta>
         </PathHeroContent>
@@ -105,6 +163,7 @@ const PathDetailHero = ({description, courseCount, hours, image, title, tools}) 
 };
 
 PathDetailHero.propTypes = {
+  badge: PropTypes.string,
   description: PropTypes.string,
   courseCount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   hours: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),

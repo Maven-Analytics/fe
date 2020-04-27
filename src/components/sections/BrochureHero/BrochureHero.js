@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import {collapseUp} from '#root/utils/responsive';
+import {collapseUp, mediaBreakpointUp} from '#root/utils/responsive';
 import ParallaxBg from '#root/components/parallaxBg';
 import {headerHeightDesktop} from '#root/utils/styles';
 
@@ -50,7 +50,11 @@ const BrochureHeroWrap = styled.div`
 
   &.brochure-hero--path {
     ${BrochureHeroInner} {
-      padding: 3vh 0;
+      padding: 2.5rem 0 4.7rem;
+
+      ${mediaBreakpointUp('md')} {
+        padding: 3vh 0 6rem;
+      }
 
       ${collapseUp()} {
         padding: ${() => `calc(1vh + ${headerHeightDesktop}px) 0 12rem`};

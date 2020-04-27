@@ -33,6 +33,12 @@ const pathQuery = gql`
           }
         }
       }
+      badge {
+        id
+        file {
+          url
+        }
+      }
       cardDescription
       courses {
         id
@@ -160,7 +166,7 @@ const Wrapper = styled.div``;
 
 const PathDetail = ({
   errorCode,
-  path: {authors, cardDescription, descriptionDetail, descriptionPreview, courses, hours, image, meta, otherPaths, testimonials, title, tools}
+  path: {authors, badge, cardDescription, descriptionDetail, descriptionPreview, courses, hours, image, meta, otherPaths, testimonials, title, tools}
 }) => {
   if (errorCode === 404) {
     return <NotFoundPage statusCode={errorCode} />;
@@ -170,6 +176,7 @@ const PathDetail = ({
     <Wrapper>
       <Head meta={fromJS(meta)} />
       <PathDetailHero
+        badge={contentfulImageSrc(badge)}
         description={cardDescription}
         courseCount={courses.length}
         hours={hours}
