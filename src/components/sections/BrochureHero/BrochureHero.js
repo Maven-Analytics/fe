@@ -28,7 +28,7 @@ const BackgroundOverlay = styled.div`
   opacity: 0.9;
   position: absolute;
   width: 100%;
-  z-index: -1;
+  z-index: 0;
 `;
 
 const BrochureHeroInner = styled.div`
