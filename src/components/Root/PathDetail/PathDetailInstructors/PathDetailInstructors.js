@@ -123,11 +123,13 @@ const PathDetailInstructors = ({instructors, title, ...props}) => {
 };
 
 PathDetailInstructors.propTypes = {
-  instructors: PropTypes.arrayOf({
-    biography: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    thumbnail: PropTypes.object.isRequired
-  }),
+  instructors: PropTypes.arrayOf(
+    PropTypes.shape({
+      biography: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      thumbnail: PropTypes.object.isRequired
+    })
+  ),
   title: PropTypes.string
 };
 

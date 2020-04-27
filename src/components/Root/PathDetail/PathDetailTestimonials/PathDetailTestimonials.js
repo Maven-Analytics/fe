@@ -26,10 +26,18 @@ const CarouselWrap = styled.div`
 
     .carousel-slide {
       opacity: 0.5;
-      width: 100%;
+      width: 261px;
 
       &.is-selected {
         opacity: 1;
+      }
+
+      ${mediaBreakpointUp('sm')} {
+        width: 460px;
+      }
+
+      ${mediaBreakpointUp('md')} {
+        width: 600px;
       }
 
       ${mediaBreakpointUp('lg')} {
@@ -84,7 +92,7 @@ const Testimonial = styled.div`
 
   ${mediaBreakpointUp('sm')} {
     max-width: none;
-    width: calc(100% - 120px);
+    width: calc(100% - 60px);
   }
 
   ${mediaBreakpointUp('md')} {
@@ -92,6 +100,7 @@ const Testimonial = styled.div`
     line-height: 1.88;
     padding-top: 6rem;
     text-align: left;
+    width: calc(100% - 120px);
   }
 
   ${mediaBreakpointUp('lg')} {
@@ -114,7 +123,7 @@ const PathDetailTestimonials = ({testimonials, title, ...props}) => {
       </PathDetailContainer>
       <CarouselWrap>
         <PathDetailContainer>
-          <Carousel className="arrow-buttons" options={{cellAlign: 'center', pageDots: false, prevNextButtons: true}}>
+          <Carousel isStatic className="arrow-buttons" options={{cellAlign: 'center', initialIndex: 1, pageDots: false, prevNextButtons: true}}>
             {testimonials &&
               testimonials.map(testimonial => (
                 <CarouselSlide key={testimonial.id}>

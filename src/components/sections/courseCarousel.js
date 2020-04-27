@@ -8,7 +8,7 @@ import CarouselSlide from '#root/components/carouselSlide';
 import CourseCard from '#root/components/courseCard';
 import {isLg, isSm, isXl} from '#root/components/mediaQuery';
 import withWindowSize from '#root/components/withWindowSize';
-import {prettyPercent} from '#root/utils/componentHelpers';
+import {prettyPercent, canUseDOM} from '#root/utils/componentHelpers';
 
 const CourseCarousel = ({carouselOpts, courses, title, eyelash, description, helperText, separator, largeCols, hideOffscreenSlides}) => {
   if (!courses || !courses.count()) {
@@ -28,6 +28,7 @@ const CourseCarousel = ({carouselOpts, courses, title, eyelash, description, hel
       </header>
       <Carousel
         className="arrow-buttons"
+        isStatic={canUseDOM()}
         options={{
           pageDots: false,
           groupCells: isXl() ? 3 : isLg() ? largeCols : isSm() ? 2 : 1,

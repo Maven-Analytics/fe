@@ -97,11 +97,12 @@ class Carousel extends Component {
       ...this.props.options,
       on: {
         ready: () => {
-          setTimeout(() => {
-            if (this.flickity) {
-              this.flickity.resize();
-            }
-          }, 200);
+          // SetTimeout(() => {
+          //   if (this.flickity) {
+          //     this.flickity.reloadCells();
+          //     this.flickity.resize();
+          //   }
+          // }, 200);
         }
       }
     });
