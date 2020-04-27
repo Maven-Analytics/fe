@@ -4,6 +4,7 @@ import {withRouter} from 'next/router';
 import * as PropTypes from 'prop-types';
 import React from 'react';
 import Headroom from 'react-headroom';
+import Link from 'next/link';
 import {useDispatch, useSelector} from 'react-redux';
 import styled from 'styled-components';
 
@@ -87,7 +88,20 @@ const SiteHeader = ({router: {pathname}}) => {
   return (
     <Wrapper static={isStaticHeader}>
       <Headroom disable={canUseDOM() === false || isStaticHeader}>
-        <HeaderComp el="div" hamburgerActive={state.get('mobileMenu')} onHamburgerClick={() => dispatch(stateActions.offmenuToggle('mobileMenu'))}>
+        <HeaderComp
+          el="div"
+          hamburgerActive={state.get('mobileMenu')}
+          mobileCta={
+            <>
+              <LoggedOut>
+                <Link href={Routes.Signup}>
+                  <a className="btn btn--sm btn--primary">Sign Up</a>
+                </Link>
+              </LoggedOut>
+            </>
+          }
+          onHamburgerClick={() => dispatch(stateActions.offmenuToggle('mobileMenu'))}
+        >
           <LinkList links={isHideMainLinks ? [] : menuLinksMain} />
           <LoggedOut>
             <LinkList
