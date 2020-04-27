@@ -79,6 +79,14 @@ const Instructors = styled.div`
   }
 `;
 
+const SectionTitle = styled.h4`
+  text-align: center;
+
+  ${mediaBreakpointUp('md')} {
+    text-align: left;
+  }
+`;
+
 const Wrapper = styled.div`
   border-bottom: 1px solid ${props => props.theme.veryLightGray3};
   border-top: 1px solid ${props => props.theme.veryLightGray3};
@@ -93,7 +101,7 @@ const PathDetailInstructors = ({instructors, title, ...props}) => {
   return (
     <PathDetailContainer>
       <Wrapper {...props}>
-        <h4>{title}</h4>
+        <SectionTitle>{title}</SectionTitle>
         <Instructors>
           {instructors.map((instructor, index) => {
             return (

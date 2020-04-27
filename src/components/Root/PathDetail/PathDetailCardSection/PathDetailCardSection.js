@@ -61,7 +61,9 @@ const PathCard = styled.a`
   }
 `;
 
-const PathCardBadge = styled.div``;
+const PathCardBadge = styled.div`
+  margin: 0 0 0.7rem;
+`;
 
 const PathCardBadgeImg = styled(Image)`
   height: 50px;

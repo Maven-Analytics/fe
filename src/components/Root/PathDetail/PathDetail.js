@@ -9,7 +9,7 @@ import Head from '#root/components/head';
 import CtaSurvey from '#root/components/sections/CtaSurvey';
 import PathDetailHero from './PathDetailHero';
 import spacingUnit from '#root/utils/spacingUnit';
-import {collapseUp} from '#root/utils/responsive';
+import {collapseUp, mediaBreakpointUp} from '#root/utils/responsive';
 import PathDetailContentBlock from './PathDetailContentBlock';
 import PathDetailCourses from './PathDetailCourses';
 import PathDetailInstructors from './PathDetailInstructors';
@@ -120,6 +120,16 @@ const PathDetailSection = styled.section`
   }
 `;
 
+const PathDetailContentBlockDetail = styled(PathDetailContentBlock)`
+  h4 {
+    text-align: center;
+
+    ${mediaBreakpointUp('md')} {
+      text-align: left;
+    }
+  }
+`;
+
 const PathDetailContentWrap = styled.div`
   color: #7e7e7e;
   font-size: 1.6rem;
@@ -193,7 +203,7 @@ const PathDetail = ({
           <PathDetailCourses courses={courses} title="Included Courses" />
         </PathDetailSection>
         <PathDetailSection>
-          <PathDetailContentBlock>{descriptionDetail}</PathDetailContentBlock>
+          <PathDetailContentBlockDetail>{descriptionDetail}</PathDetailContentBlockDetail>
         </PathDetailSection>
         <PathDetailSection>
           <PathDetailInstructors instructors={authors} title="Meet Your Instructors" />
