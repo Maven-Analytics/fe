@@ -29,7 +29,7 @@ export function* watchAuth() {
   yield takeLatest(authTypes.LOGIN, login);
 }
 
-function* login({payload: {user, token, thinkificToken, redirectTo}}) {
+function* login({payload: {token, thinkificToken, redirectTo, ...user}}) {
   setCookie('token', token);
   setCookie('thinkificToken', thinkificToken);
 
