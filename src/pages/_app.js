@@ -13,8 +13,11 @@ import {connect, Provider} from 'react-redux';
 import {ParallaxProvider} from 'react-scroll-parallax';
 import {Elements, StripeProvider} from 'react-stripe-elements';
 import {bindActionCreators} from 'redux';
+import gql from 'graphql-tag';
 
 import client from '#root/api/graphQlClient';
+import UserSettingFragment from '#root/api/fragments/UserSetting';
+import subscriptionStatusQuery from '#root/api/query/subscriptionStatus';
 import meQuery from '#root/api/query/me';
 import {withApollo} from '#root/api/withApollo';
 import {isLg} from '#root/components/mediaQuery';
@@ -32,11 +35,21 @@ import {actions as enrollmentActions} from '../redux/ducks/enrollments';
 import {actions as recommendedActions} from '../redux/ducks/recommended';
 import {actions as stateActions} from '../redux/ducks/state';
 import {actions as subscriptionActions} from '../redux/ducks/subscription';
+import {actions as userSettingsActions} from '#root/redux/ducks/userSettings';
 import {actions as userActions} from '../redux/ducks/user';
 import initStore from '../redux/store';
 import {getCookie, removeCookie} from '../utils/cookies';
 
 const STRIPE_PUBLIC_KEY = accessConfig('STRIPE_PUBLIC_KEY');
+
+const userSettingsQuery = gql`
+  {
+    userSettings {
+      ...UserSetting
+    }
+  }
+  ${UserSettingFragment}
+`;
 
 class MavenApp extends App {
   static async getInitialProps({Component, ctx: {apolloClient, ...ctx}}) {
@@ -55,6 +68,22 @@ class MavenApp extends App {
         } = await apolloClient.query({query: meQuery, fetchPolicy: 'no-cache'});
 
         store.dispatch(userActions.userSet(me));
+
+        const {
+          data: {subscriptionStatus}
+        } = await apolloClient.query({query: subscriptionStatusQuery, fetchPolicy: 'no-cache'});
+
+        const {
+          data: {userSettings}
+        } = await apolloClient.query({query: userSettingsQuery, fetchPolicy: 'no-cache'});
+
+        if (subscriptionStatus) {
+          store.dispatch(subscriptionActions.subscriptionSet(subscriptionStatus));
+        }
+
+        if (userSettings) {
+          store.dispatch(userSettingsActions.userSettingsSet(userSettings));
+        }
       } catch (error) {
         console.log('Not logged in');
       }
