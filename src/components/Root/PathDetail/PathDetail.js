@@ -208,9 +208,11 @@ const PathDetail = ({
         <PathDetailSection>
           <PathDetailInstructors instructors={authors} title="Meet Your Instructors" />
         </PathDetailSection>
-        <PathDetailSection>
-          <PathDetailTestimonials testimonials={testimonials} title="Testimonials" />
-        </PathDetailSection>
+        {testimonials && testimonials.length ? (
+          <PathDetailSection>
+            <PathDetailTestimonials testimonials={testimonials} title="Testimonials" />
+          </PathDetailSection>
+        ) : null}
         <PathDetailSection>
           <PathDetailCardSection
             eyelash="Want To Keep Exploring?"
