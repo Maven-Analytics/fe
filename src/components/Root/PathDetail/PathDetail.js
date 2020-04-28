@@ -174,13 +174,26 @@ const PathDetailContentWrap = styled.div`
 
 const Wrapper = styled.div``;
 
-const PathDetail = ({
-  errorCode,
-  path: {authors, badge, cardDescription, descriptionDetail, descriptionPreview, courses, hours, image, meta, otherPaths, testimonials, title, tools}
-}) => {
+const PathDetail = ({errorCode, path}) => {
   if (errorCode === 404) {
     return <NotFoundPage statusCode={errorCode} />;
   }
+
+  const {
+    authors,
+    badge,
+    cardDescription,
+    descriptionDetail,
+    descriptionPreview,
+    courses,
+    hours,
+    image,
+    meta,
+    otherPaths,
+    testimonials,
+    title,
+    tools
+  } = path || {};
 
   return (
     <Wrapper>
@@ -241,7 +254,7 @@ PathDetail.getInitialProps = async ({apolloClient, query: {slug}}) => {
     });
 
     return {path};
-  } catch {
+  } catch (err) {
     return {
       errorCode: 404
     };
