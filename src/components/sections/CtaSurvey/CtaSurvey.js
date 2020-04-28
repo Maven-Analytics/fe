@@ -79,7 +79,7 @@ export const CtaSurvey = () => {
           <div className="row">
             <div className="col-md-7 col-lg-9">
               <h2>Not Sure Which COURSE or PATH is right for you?</h2>
-              <p>Take our customized survey to find the perfect courses & paths for your skill level and learning goals!</p>
+              <p>Take our customized survey to find the perfect courses & paths for your skill level and goals!</p>
             </div>
             <div className="col-md-5 col-lg-3">
               <div className="button">
