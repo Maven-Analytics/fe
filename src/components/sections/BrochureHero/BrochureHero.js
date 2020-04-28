@@ -92,13 +92,14 @@ const BrochureHero = ({
   columnClasses,
   contentLeft,
   contentRight,
+  showOverlay,
   title,
   ...props
 }) => {
   return (
     <BrochureHeroWrap className={className} {...props}>
       <Background {...backgroundProps} sources={backgroundSources} src={backgroundSrc} />
-      <BackgroundOverlay />
+      {showOverlay ? <BackgroundOverlay /> : null}
       <BrochureHeroInner>
         <div className="container container--lg">
           <div className="row">
@@ -121,12 +122,14 @@ BrochureHero.propTypes = {
   columnClasses: PropTypes.arrayOf(PropTypes.string),
   contentLeft: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   contentRight: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+  showOverlay: PropTypes.bool,
   title: PropTypes.string
 };
 
 BrochureHero.defaultProps = {
   backgroundProps: {},
-  columnClasses: ['col-md-6 col-lg-7', 'col-md-6 col-lg-5']
+  columnClasses: ['col-md-6 col-lg-7', 'col-md-6 col-lg-5'],
+  showOverlay: true
 };
 
 export default BrochureHero;

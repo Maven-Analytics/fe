@@ -142,7 +142,7 @@ const PathDetailHero = ({badge, description, courseCount, hours, image, title, t
   return (
     <BrochureHero
       backgroundProps={{strength: 0}}
-      backgroundSrc="/static/img/hexagon-grid-dark.png"
+      backgroundSrc="/static/img/grid-bg-dark.jpg"
       className="brochure-hero--path"
       columnClasses={['col-md-8 col-lg-7', 'col-md-4 col-lg-5']}
       contentLeft={
@@ -158,6 +158,7 @@ const PathDetailHero = ({badge, description, courseCount, hours, image, title, t
         </PathHeroContent>
       }
       contentRight={<PathHeroMedia image={image} />}
+      showOverlay={false}
     />
   );
 };
