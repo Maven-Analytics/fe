@@ -141,7 +141,6 @@ const ToolIcons = styled(MetaItemIcons)`
 const PathDetailHero = ({badge, description, courseCount, hours, image, title, tools}) => {
   return (
     <BrochureHero
-      backgroundProps={{strength: 0}}
       backgroundSrc="/static/img/grid-bg-dark.jpg"
       className="brochure-hero--path"
       columnClasses={['col-md-8 col-lg-7', 'col-md-4 col-lg-5']}
