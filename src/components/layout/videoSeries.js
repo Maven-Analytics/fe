@@ -4,7 +4,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import BrochureHero from '#root/components/sections/brochureHero';
+import BrochureHero from '#root/components/sections/BrochureHero';
 import {actions as stateActions} from '#root/redux/ducks/state';
 
 import {clickAction} from '../../utils/componentHelpers';
@@ -13,6 +13,9 @@ import Head from '../head';
 import TabListTopics from '../tabListTopics';
 import TopicPreview from '../topicPreview';
 import BrochureLayout from './brochure';
+import BrochureHeroContent, {BrochureHeroContentLink} from '../sections/BrochureHero/BrochureHeroContent';
+import contentfulImageSrc from '#root/utils/contentfulImageSrc';
+import BrochureHeroMedia from '../sections/BrochureHero/BrochureHeroMedia';
 
 class VideoSeriesLayout extends Component {
   render() {
@@ -23,18 +26,18 @@ class VideoSeriesLayout extends Component {
         <Head meta={page.get('meta')} />
         <BrochureHero
           className="brochure-hero--medium"
-          eyelash={page.get('heroEyelash')}
-          title={page.get('heroTitle')}
-          video={page.get('heroVideo')}
-          description={page.get('heroText')}
-          onVideoClick={clickAction(actions.modalOpen, 'video', {video: page.get('heroVideo')})}
-          thumbnail={page.get('heroImage')}
-          meta={false}
           backgroundSources={[
             {srcSet: `${page.getIn(['heroBackground', 'file', 'url'])} 768w`, type: page.getIn(['heroBackground', 'file', 'contentType'])},
             {srcSet: `${page.getIn(['heroBackgroundSmall', 'file', 'url'])}`, type: page.getIn(['heroBackgroundSmall', 'file', 'contentType'])}
           ]}
-          backgroundSrc={page.getIn(['heroBackgroundSmall', 'file', 'url'])}
+          backgroundSrc={page.getIn(['heroBackground', 'file', 'url'])}
+          contentLeft={<BrochureHeroContent description={page.get('heroText')} eyelash={page.get('heroEyelash')} title={page.get('heroTitle')} />}
+          contentRight={
+            <BrochureHeroMedia
+              image={contentfulImageSrc(page.get('heroImage') && page.get('heroImage').toJS())}
+              onVideoClick={clickAction(actions.modalOpen, 'video', {video: page.get('heroVideo')})}
+            />
+          }
         />
         <BrochureContent className="page-video-series">
           <div className="page-video-series__content">
@@ -63,7 +66,4 @@ const mapDispatchToProps = dispatch => ({
   )
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(VideoSeriesLayout);
+export default connect(mapStateToProps, mapDispatchToProps)(VideoSeriesLayout);

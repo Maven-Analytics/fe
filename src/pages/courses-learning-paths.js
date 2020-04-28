@@ -1,8 +1,8 @@
 import {List, Map} from 'immutable';
-import {Loader} from 'maven-ui';
+import {GradientText, Loader} from 'maven-ui';
 import Router, {withRouter} from 'next/router';
 import PropTypes from 'prop-types';
-import React, {Fragment, PureComponent} from 'react';
+import React, {PureComponent} from 'react';
 import * as ImmutablePropTypes from 'react-immutable-proptypes';
 import {presets, spring, TransitionMotion} from 'react-motion';
 import {connect} from 'react-redux';
@@ -12,12 +12,13 @@ import CourseCard from '#root/components/courseCard';
 import CourseFilters from '#root/components/courseFilters';
 import CoursePathNav from '#root/components/coursePathNav';
 import DashboardGrid from '#root/components/dashboardGrid';
-import ImageContentful from '#root/components/imageContentful';
 import Brochure from '#root/components/layout/brochure';
 import MaIcon from '#root/components/maIcon';
 import PathListingItem from '#root/components/pathListingItem';
-import BrochureHero from '#root/components/sections/brochureHero';
-import CtaSurvey from '#root/components/sections/ctaSurvey';
+import BrochureHero from '#root/components/sections/BrochureHero';
+import BrochureHeroContent, {BrochureHeroContentLink} from '#root/components/sections/BrochureHero/BrochureHeroContent';
+import BrochureHeroMedia from '#root/components/sections/BrochureHero/BrochureHeroMedia';
+import CtaSurvey from '#root/components/sections/CtaSurvey';
 import {actions as activeFitlerActions} from '#root/redux/ducks/activeFilters';
 import {actions as courseActions, selectors as courseSelectors} from '#root/redux/ducks/courses';
 import {selectors as loadingSelectors} from '#root/redux/ducks/loading';
@@ -26,6 +27,7 @@ import {actions as pathActions, selectors as pathSelectors} from '#root/redux/du
 import {actions as stateActions} from '#root/redux/ducks/state';
 import {click, handleScrollIntoView} from '#root/utils/componentHelpers';
 import pathToQuery from '#root/utils/pathToQuery';
+import contentfulImageSrc from '#root/utils/contentfulImageSrc';
 
 const PAGE_SLUG = 'courses-learning-paths';
 
@@ -127,12 +129,7 @@ class CoursesLearningPaths extends PureComponent {
     return (
       <li key="courses" className="courses-learning-paths__tab" style={this.getTabStyle(style)}>
         <DashboardGrid cols={3}>
-          <Loader
-            align="top-center"
-            height={70}
-            loading={loadingCourses}
-            width={70}
-          />
+          <Loader align="top-center" height={70} loading={loadingCourses} width={70} />
           {courses.map(course => (
             <CourseCard
               full
@@ -150,13 +147,6 @@ class CoursesLearningPaths extends PureComponent {
   render() {
     const {actions, page} = this.props;
     const {activeItem} = this.state;
-
-    const scrollTo = (
-      <Fragment>
-        View courses & paths
-        <MaIcon icon="long-arrow-alt-right" />
-      </Fragment>
-    );
 
     // Const heroImg = (
     //   <Image
@@ -196,21 +186,26 @@ class CoursesLearningPaths extends PureComponent {
         <div className="courses-learning-paths">
           <CourseFilters className="course-filters--offmenu" />
           <BrochureHero
-            meta={false}
             className="course-hero--large"
-            eyelash={page.get('heroEyelash')}
-            title={page.get('heroTitle')}
-            description={page.get('heroText')}
-            image={<ImageContentful image={page.get('heroImage')} />}
-            colClasses={['col-md-7 col-lg-6 col-xl-5', 'col-md-5 col-lg-6 col-xl-7']}
             backgroundSources={[
               {srcSet: `${page.getIn(['heroBackground', 'file', 'url'])} 768w`, type: page.getIn(['heroBackground', 'file', 'contentType'])},
               {srcSet: `${page.getIn(['heroBackgroundSmall', 'file', 'url'])}`, type: page.getIn(['heroBackgroundSmall', 'file', 'contentType'])}
             ]}
             backgroundSrc={page.getIn(['heroBackground', 'file', 'url'])}
-            linkContent={scrollTo}
-            linkHref="#"
-            onLinkClick={handleScrollIntoView('#courses-paths-main')}
+            contentLeft={
+              <BrochureHeroContent description={page.get('heroText')} eyelash={page.get('heroEyelash')} title={page.get('heroTitle')}>
+                <BrochureHeroContentLink href="#" onClick={handleScrollIntoView('#courses-paths-main')}>
+                  <GradientText>
+                    View courses & paths
+                    <MaIcon icon="long-arrow-alt-right" />
+                  </GradientText>
+                </BrochureHeroContentLink>
+              </BrochureHeroContent>
+            }
+            contentRight={
+              <BrochureHeroMedia overflow image={contentfulImageSrc(page.get('heroImage') && page.get('heroImage').toJS())}></BrochureHeroMedia>
+            }
+            columnClasses={['col-md-7 col-lg-6 col-xl-5', 'col-md-5 col-lg-6 col-xl-7']}
           />
           <CtaSurvey />
           <div className="container container--lg">
@@ -289,7 +284,4 @@ const mapDispatchToProps = dispatch => ({
   )
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(CoursesLearningPaths));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CoursesLearningPaths));

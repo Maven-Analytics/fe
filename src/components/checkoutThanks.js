@@ -5,14 +5,14 @@ import React from 'react';
 import {Routes} from '../routes';
 import MaIcon from './maIcon';
 
-const CheckoutThanks = ({icon, linkHref, linkText, style, subtitle, subtitleFirst, title}) => {
+const CheckoutThanks = ({className, icon, linkHref, linkText, style, subtitle, subtitleFirst, title}) => {
   return (
-    <div className="checkout-thanks" style={style}>
+    <div className={['checkout-thanks', className ? className : ''].join(' ')} style={style}>
       <MaIcon icon={icon} />
       {subtitleFirst ? (
         <>
-         <h2>{subtitle}</h2>
-         <h1>{title}</h1>
+          <h2>{subtitle}</h2>
+          <h1>{title}</h1>
         </>
       ) : (
         <>
@@ -30,6 +30,7 @@ const CheckoutThanks = ({icon, linkHref, linkText, style, subtitle, subtitleFirs
 };
 
 CheckoutThanks.propTypes = {
+  className: PropTypes.string,
   icon: PropTypes.string,
   linkHref: PropTypes.string,
   linkText: PropTypes.string,
@@ -43,7 +44,7 @@ CheckoutThanks.defaultProps = {
   icon: 'maven',
   linkHref: Routes.Dashboard,
   linkText: 'Take Me To My Dashboard',
-  subtitle: 'Now Let\'s Get Started!',
+  subtitle: "Now Let's Get Started!",
   title: 'Welcome to Maven Analytics'
 };
 

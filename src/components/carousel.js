@@ -37,6 +37,11 @@ class Carousel extends Component {
       this.goToSlide(activeIndex);
     }
 
+    if (this.props.options.prevNextButtons !== prevProps.options.prevNextButtons) {
+      console.log('prevnext change');
+      this.initCarousel();
+    }
+
     if (this.props.options.groupCells !== prevProps.options.groupCells) {
       this.initCarousel();
     }
@@ -99,6 +104,8 @@ class Carousel extends Component {
         ready: () => {
           setTimeout(() => {
             if (this.flickity) {
+              console.log('onready');
+              this.flickity.reloadCells();
               this.flickity.resize();
             }
           }, 200);

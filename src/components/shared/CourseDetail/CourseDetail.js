@@ -14,6 +14,7 @@ const courseQuery = gql`
   query CourseById($id: String!) {
     course(id: $id) {
       author {
+        id
         name
         thumbnail {
           ...image

@@ -10,29 +10,30 @@ import Carousel from '#root/components/carousel';
 import CarouselSlide from '#root/components/carouselSlide';
 import CourseCard from '#root/components/courseCard';
 import {isLg, isMd} from '#root/components/mediaQuery';
+import withWindowSize from '../withWindowSize';
 
 const trendingQuery = gql`
-{
-  courses(trending: true) {
-    author {
-      name
+  {
+    courses(trending: true) {
+      author {
+        name
+        thumbnail {
+          ...image
+        }
+      }
+      cardDescription
+      badge {
+        ...image
+      }
+      id
+      length
       thumbnail {
         ...image
       }
+      title
     }
-    cardDescription
-    badge {
-      ...image
-    }
-    id
-    length
-    thumbnail {
-      ...image
-    }
-    title
   }
-}
-${imageFragment}
+  ${imageFragment}
 `;
 
 const TrendingCourses = () => {
@@ -51,7 +52,6 @@ const TrendingCourses = () => {
           <h2>Trending Courses</h2>
         </header>
         <div className="trending-courses__inner">
-
           <Carousel
             className="arrow-buttons"
             options={{
@@ -62,11 +62,7 @@ const TrendingCourses = () => {
           >
             {courses.map(course => (
               <CarouselSlide key={course.get('id')}>
-                <CourseCard
-                  full
-                  course={course}
-                  recommended={course.get('recommended') ? 'Recommended for you' : null}
-                />
+                <CourseCard full course={course} recommended={course.get('recommended') ? 'Recommended for you' : null} />
               </CarouselSlide>
             ))}
           </Carousel>
@@ -76,4 +72,4 @@ const TrendingCourses = () => {
   );
 };
 
-export default TrendingCourses;
+export default withWindowSize(TrendingCourses);

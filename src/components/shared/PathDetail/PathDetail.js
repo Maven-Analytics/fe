@@ -6,6 +6,7 @@ import Markdown from '#root/components/markdown';
 import ProductDetail from '#root/components/productDetail';
 import {selectors as pathSelectors} from '#root/redux/ducks/paths';
 import {noop} from '#root/utils/componentHelpers';
+import {Routes} from '#root/routes';
 
 const PathDetail = ({pathId, onResumeClick: handleResumeClick}) => {
   const paths = useSelector(pathSelectors.getPaths);
@@ -17,19 +18,20 @@ const PathDetail = ({pathId, onResumeClick: handleResumeClick}) => {
 
   return (
     <ProductDetail
-      productTerm="Path"
       badge={path.get('badge')}
-      title={path.get('title')}
-      titleTag="h2"
-      percentage_completed={path.get('percentage_completed')}
-      resumeUrl={path.get('resumeUrl')}
-      onResumeClick={handleResumeClick}
-      tools={path.get('tools')}
-      match={path.get('match')}
       courseCount={path.get('courses').count()}
       hours={path.get('length')}
-      instructors={path.get('instructors')}
       id={path.get('id')}
+      instructors={path.get('instructors')}
+      match={path.get('match')}
+      onResumeClick={handleResumeClick}
+      percentage_completed={path.get('percentage_completed')}
+      productTerm="Path"
+      resumeUrl={path.get('resumeUrl')}
+      title={path.get('title')}
+      titleTag="h2"
+      tools={path.get('tools')}
+      url={Routes.Path(path.get('slug'))}
     >
       {path.get('descriptionFull') && path.get('descriptionFull') !== '' ? <Markdown content={path.get('descriptionFull')} /> : null}
     </ProductDetail>
@@ -46,4 +48,3 @@ PathDetail.defaultProps = {
 };
 
 export default PathDetail;
-

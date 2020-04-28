@@ -10,7 +10,8 @@
     "camelcase": "off",
     "new-cap": "off",
     "operator-linebreak": "off",
-    "generator-star-spacing": "off"
+    "generator-star-spacing": "off",
+    "no-mixed-operators": "off"
   },
   "globals": {
     "window": true,
