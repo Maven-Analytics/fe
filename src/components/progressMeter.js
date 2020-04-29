@@ -1,16 +1,16 @@
 import PropTypes from 'prop-types';
-import React, {Fragment} from 'react';
+import React from 'react';
+import VisibilitySensor from 'react-visibility-sensor';
 
 import {prettyPercent} from '#root/utils/componentHelpers';
 
 import CountUp from './countup';
-import TrackVisibility from './trackVisibility';
 
 const ProgressMeter = ({value, title, barHeight, animationDuration}) => {
   return (
-    <TrackVisibility alwaysShow className="progress-meter">
-      {inView => (
-        <Fragment>
+    <VisibilitySensor>
+      {({isVisible}) => (
+        <div className="progress-meter">
           {title ? <p>{title}</p> : null}
           <div className="progress-meter__inner">
             <div
@@ -22,18 +22,18 @@ const ProgressMeter = ({value, title, barHeight, animationDuration}) => {
               <div
                 className="progress-meter__value"
                 style={{
-                  width: inView ? `${value * 100}%` : 0,
+                  width: isVisible ? `${value * 100}%` : 0,
                   transitionDuration: `${animationDuration}ms`
                 }}
               />
             </div>
             <span className="progress-meter__readout">
-              <CountUp disabled={!inView} value={prettyPercent(value)} duration={animationDuration}/>%
+              <CountUp disabled={!isVisible} value={prettyPercent(value)} duration={animationDuration} />%
             </span>
           </div>
-        </Fragment>
+        </div>
       )}
-    </TrackVisibility>
+    </VisibilitySensor>
   );
 };
 
