@@ -255,6 +255,8 @@ PathDetail.getInitialProps = async ({apolloClient, query: {slug}}) => {
 
     return {path};
   } catch (err) {
+    console.log('error getting path', err);
+    console.log(err);
     return {
       errorCode: 404
     };
