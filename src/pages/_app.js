@@ -61,68 +61,68 @@ class MavenApp extends App {
     const recommendedPaths = getCookie('recommendedPaths', ctx);
     const recommendedCourses = getCookie('recommendedCourses', ctx);
 
-    // If (!ctx.pathname.includes('logout')) {
-    //   try {
-    //     const {
-    //       data: {me}
-    //     } = await apolloClient.query({query: meQuery, fetchPolicy: 'no-cache'});
+    if (!ctx.pathname.includes('logout')) {
+      try {
+        const {
+          data: {me}
+        } = await apolloClient.query({query: meQuery, fetchPolicy: 'no-cache'});
 
-    //     store.dispatch(userActions.userSet(me));
+        store.dispatch(userActions.userSet(me));
 
-    //     const {
-    //       data: {subscriptionStatus}
-    //     } = await apolloClient.query({query: subscriptionStatusQuery, fetchPolicy: 'no-cache'});
+        // Const {
+        //   data: {subscriptionStatus}
+        // } = await apolloClient.query({query: subscriptionStatusQuery, fetchPolicy: 'no-cache'});
 
-    //     const {
-    //       data: {userSettings}
-    //     } = await apolloClient.query({query: userSettingsQuery, fetchPolicy: 'no-cache'});
+        const {
+          data: {userSettings}
+        } = await apolloClient.query({query: userSettingsQuery, fetchPolicy: 'no-cache'});
 
-    //     if (subscriptionStatus) {
-    //       store.dispatch(subscriptionActions.subscriptionSet(subscriptionStatus));
-    //     }
+        // If (subscriptionStatus) {
+        //   store.dispatch(subscriptionActions.subscriptionSet(subscriptionStatus));
+        // }
 
-    //     if (userSettings) {
-    //       store.dispatch(userSettingsActions.userSettingsSet(userSettings));
-    //     }
-    //   } catch (error) {
-    //     console.log('Not logged in');
-    //   }
-    // }
+        if (userSettings) {
+          store.dispatch(userSettingsActions.userSettingsSet(userSettings));
+        }
+      } catch (error) {
+        console.log('Not logged in');
+      }
+    }
 
-    // if (token && token !== '') {
-    //   store.dispatch(enrollmentActions.enrollmentsGet({token}));
-    //   // Store.dispatch(subscriptionActions.subscriptionGet({token}));
-    //   store.dispatch(userActions.tokenSet(token));
-    // }
+    if (token && token !== '') {
+      store.dispatch(enrollmentActions.enrollmentsGet({token}));
+      // Store.dispatch(subscriptionActions.subscriptionGet({token}));
+      store.dispatch(userActions.tokenSet(token));
+    }
 
-    // if (thinkificToken) {
-    //   store.dispatch(userActions.thinkificTokenSet(thinkificToken));
-    // }
+    if (thinkificToken) {
+      store.dispatch(userActions.thinkificTokenSet(thinkificToken));
+    }
 
-    // if (checkoutCookie && checkoutCookie !== '') {
-    //   store.dispatch(checkoutActions.checkoutSetPlan(fromJS(checkoutCookie.plan)));
-    // }
+    if (checkoutCookie && checkoutCookie !== '') {
+      store.dispatch(checkoutActions.checkoutSetPlan(fromJS(checkoutCookie.plan)));
+    }
 
-    // if (recommendedPaths && Array.isArray(recommendedPaths) && recommendedCourses && Array.isArray(recommendedCourses)) {
-    //   store.dispatch(
-    //     recommendedActions.recommendedInit({
-    //       paths: recommendedPaths,
-    //       courses: recommendedCourses
-    //     })
-    //   );
+    if (recommendedPaths && Array.isArray(recommendedPaths) && recommendedCourses && Array.isArray(recommendedCourses)) {
+      store.dispatch(
+        recommendedActions.recommendedInit({
+          paths: recommendedPaths,
+          courses: recommendedCourses
+        })
+      );
 
-    //   if (token) {
-    //     store.dispatch(
-    //       recommendedActions.recommendedSet({
-    //         paths: recommendedPaths,
-    //         courses: recommendedCourses,
-    //         token
-    //       })
-    //     );
-    //     removeCookie('recommendedPaths', ctx);
-    //     removeCookie('recommendedCourses', ctx);
-    //   }
-    // }
+      if (token) {
+        store.dispatch(
+          recommendedActions.recommendedSet({
+            paths: recommendedPaths,
+            courses: recommendedCourses,
+            token
+          })
+        );
+        removeCookie('recommendedPaths', ctx);
+        removeCookie('recommendedCourses', ctx);
+      }
+    }
 
     return {
       isServer,
