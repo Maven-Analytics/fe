@@ -69,17 +69,17 @@ class MavenApp extends App {
 
         store.dispatch(userActions.userSet(me));
 
-        // Const {
-        //   data: {subscriptionStatus}
-        // } = await apolloClient.query({query: subscriptionStatusQuery, fetchPolicy: 'no-cache'});
+        const {
+          data: {subscriptionStatus}
+        } = await apolloClient.query({query: subscriptionStatusQuery, fetchPolicy: 'no-cache'});
 
         const {
           data: {userSettings}
         } = await apolloClient.query({query: userSettingsQuery, fetchPolicy: 'no-cache'});
 
-        // If (subscriptionStatus) {
-        //   store.dispatch(subscriptionActions.subscriptionSet(subscriptionStatus));
-        // }
+        if (subscriptionStatus) {
+          store.dispatch(subscriptionActions.subscriptionSet(subscriptionStatus));
+        }
 
         if (userSettings) {
           store.dispatch(userSettingsActions.userSettingsSet(userSettings));
