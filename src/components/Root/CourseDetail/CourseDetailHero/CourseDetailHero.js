@@ -9,12 +9,12 @@ import BrochureHero from '#root/components/sections/BrochureHero';
 import BrochureHeroContent from '#root/components/sections/BrochureHero/BrochureHeroContent';
 import BrochureHeroMedia from '#root/components/sections/BrochureHero/BrochureHeroMedia';
 import BrochureHeroMeta, {MetaItem} from '#root/components/sections/BrochureHero/BrochureHeroMeta';
-import {courseHeroBgSources, courseHeroBgSrc} from '#root/constants';
 import {clickAction} from '#root/utils/componentHelpers';
 import contentfulImageSrc from '#root/utils/contentfulImageSrc';
 import {mediaBreakpointUp, collapseUp} from '#root/utils/responsive';
 import DifficultyMeter from '#root/components/difficultyMeter';
 import Image from '#root/components/image';
+import spacingUnit from '#root/utils/spacingUnit';
 
 const aThird = 100 / 3;
 
@@ -64,17 +64,24 @@ const CourseHeroMetaWrapper = styled(BrochureHeroMeta)`
   grid-row-gap: 1rem;
   grid-template-columns: ${() => `repeat(3, ${aThird}%)`};
   grid-template-rows: 1fr;
+  margin: ${spacingUnit.default} 0 0;
 
   ${collapseUp()} {
     grid-column-gap: 2.9rem;
     grid-template-columns: auto auto auto auto auto auto;
+    margin: 3.5rem 0 0;
   }
 `;
 
 const HeroBadge = styled(Image)`
   display: inline-block;
-  height: 70px;
-  width: 70px;
+  height: 50px;
+  width: 50px;
+
+  ${mediaBreakpointUp('md')} {
+    height: 70px;
+    width: 70px;
+  }
 
   ${mediaBreakpointUp('lg')} {
     height: 5vw;
@@ -146,8 +153,7 @@ const HeroPills = styled.div`
 const CourseDetailHero = ({course, actions, paths}) => {
   return (
     <BrochureHero
-      backgroundSources={courseHeroBgSources}
-      backgroundSrc={courseHeroBgSrc}
+      backgroundSrc="/static/img/grid-bg-dark.jpg"
       columnClasses={['col-md-7', 'col-md-5']}
       contentLeft={<BrochureHeroContent eyelash="Self-Paced Course" description={course.get('descriptionPreview')} title={course.get('title')} />}
       contentRight={
@@ -156,6 +162,7 @@ const CourseDetailHero = ({course, actions, paths}) => {
           onVideoClick={clickAction(actions.modalOpen, 'video', {video: course.get('video')})}
         />
       }
+      showOverlay={false}
     >
       <CourseHeroMetaWrapper>
         <CourseHeroMetaItem label="Course Hours">{course.get('length')} hours</CourseHeroMetaItem>
