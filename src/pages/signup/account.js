@@ -1,5 +1,5 @@
 import {useMutation} from '@apollo/react-hooks';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useForm} from 'react-hook-form';
 import {useDispatch} from 'react-redux';
 import {useRouter} from 'next/router';
@@ -20,6 +20,7 @@ import {getCookie} from '#root/utils/cookies';
 import countries from '#root/utils/countries';
 import getSession from '#root/utils/getSession';
 import redirect from '#root/utils/redirect';
+import Sentry from '#root/utils/sentry';
 
 const SignupAccount = () => {
   const loginRedirect = canUseDOM() ? window.location.origin + Routes.SignupAccount : Routes.SignupAccount;
@@ -40,19 +41,41 @@ const SignupAccount = () => {
   const onSubmit = handleSubmit(async ({email, password, first_name, last_name, postal_code, country}) => {
     clearError();
 
-    const redirectTo = Routes.SignupCheckout;
-    const {
-      data: {register: loginData}
-    } = await registerUser({
-      variables: {email, password, first_name, last_name, postal_code, country}
-    });
+    const createUserStartTime = new Date().getTime();
+    Sentry.addBreadcrumb({message: `Starting create user ${createUserStartTime}`});
+    Sentry.addBreadcrumb({message: `User input data ${email}, ${first_name}, ${last_name}, ${postal_code}, ${country}`});
 
-    await clientRegister.resetStore();
-    await clientRegister.cache.reset();
+    try {
+      const redirectTo = Routes.SignupCheckout;
+      const {
+        data: {register: loginData}
+      } = await registerUser({
+        variables: {email, password, first_name, last_name, postal_code, country}
+      });
 
-    dispatch(authActions.login({...loginData, redirectTo}));
-    router.push(redirectTo);
+      Sentry.addBreadcrumb({message: `Creating user took ${new Date().getTime() - createUserStartTime} milliseconds`});
+
+      const startResetTime = new Date().getTime();
+      Sentry.addBreadcrumb({message: `Starting store reset ${startResetTime}`});
+      await clientRegister.resetStore();
+      await clientRegister.cache.reset();
+      Sentry.addBreadcrumb({message: `Store reset took ${new Date().getTime() - startResetTime}`});
+
+      Sentry.captureMessage('Successfully created user');
+
+      dispatch(authActions.login({...loginData, redirectTo}));
+      router.push(redirectTo);
+    } catch (error) {
+      Sentry.addBreadcrumb({message: 'Error registering user'});
+      Sentry.captureException(error);
+    }
   });
+
+  useEffect(() => {
+    if (registerError) {
+      Sentry.captureException(registerError);
+    }
+  }, [registerError]);
 
   return (
     <Checkout activeStep={1} title="Tell us about yourself" loginRedirect={loginRedirect}>
