@@ -68,6 +68,14 @@ export function sortProducts(products, state) {
     const order = state.getIn(['productSort', 'order']);
 
     if (order === 'DESC') {
+      if (!productA.get(key)) {
+        return 1;
+      }
+
+      if (!productB.get(key)) {
+        return -1;
+      }
+
       return productB.get(key) - productA.get(key);
     }
 
