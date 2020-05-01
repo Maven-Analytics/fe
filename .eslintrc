@@ -11,7 +11,14 @@
     "new-cap": "off",
     "operator-linebreak": "off",
     "generator-star-spacing": "off",
-    "no-mixed-operators": "off"
+    "no-mixed-operators": "off",
+    "quotes": [
+      "error",
+      "single",
+      {
+        "avoidEscape": true
+      }
+    ]
   },
   "globals": {
     "window": true,
