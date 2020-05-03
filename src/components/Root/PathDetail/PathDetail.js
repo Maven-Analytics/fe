@@ -250,6 +250,7 @@ PathDetail.getInitialProps = async ({apolloClient, query: {slug}}) => {
       data: {path}
     } = await apolloClient.query({
       query: pathQuery,
+      fetchPolicy: 'no-cache',
       variables: {slug}
     });
 
