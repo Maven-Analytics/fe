@@ -14,6 +14,13 @@ const Image = styled(ImageContentful)`
   }
 `;
 
+const ImageWrap = styled.div`
+
+    margin: 0 auto;
+    max-width: 90%;
+  }
+`;
+
 const Wrapper = styled.div``;
 
 const Grid = styled.div`
@@ -38,7 +45,9 @@ const FeaturedGrid = ({children, className, image}) => {
     <Wrapper className={className}>
       <Grid>
         <Left>
-          <Image image={image} wrapStyle={{height: 0, paddingTop: '100%'}} style={{height: '100%', objectFit: 'cover'}} />
+          <ImageWrap>
+            <Image image={image} wrapStyle={{height: 0, paddingTop: '100%'}} style={{height: '100%', objectFit: 'cover'}} />
+          </ImageWrap>
         </Left>
         <Right>{children}</Right>
       </Grid>
