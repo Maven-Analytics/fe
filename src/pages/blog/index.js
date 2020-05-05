@@ -54,7 +54,7 @@ const BlogListingQuery = gql`
         title
       }
     }
-    categories: blogCategories {
+    categories: blogCategories(order: "fields.title") {
       id
       slug
       title

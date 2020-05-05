@@ -50,7 +50,7 @@ const FeaturedBlogCarouselItem = ({authorImage, authorName, body, className, eye
                 <span>/</span>
                 <span>
                   <ReadTime isMarkdown content={body || ''} />
-                  read
+                  &nbsp;read
                 </span>
               </>
             }
