@@ -81,6 +81,16 @@ const BrochureHeroWrap = styled.div`
       }
     }
   }
+
+  &.brochure-hero--blog-category {
+    ${BrochureHeroInner} {
+      padding: 1.5rem 0 3rem;
+
+      ${collapseUp()} {
+        padding: ${headerHeightDesktop + 35}px 0 6.5rem;
+      }
+    }
+  }
 `;
 
 const BrochureHero = ({
