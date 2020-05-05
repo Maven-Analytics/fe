@@ -14,16 +14,24 @@ import FeaturedBlogCarouselItem from './FeaturedBlogCarouselItem';
 
 const Slide = styled(FeaturedBlogCarouselItem)`
   ${mediaBreakpointUp('md')} {
+    margin: 0 auto 1.5rem;
+    /* max-width: 85%; */
+  }
+
+  ${mediaBreakpointUp('lg')} {
+    margin: 0 auto 7.3rem;
+  }
+
+  ${mediaBreakpointUp('xl')} {
     margin: 0 auto;
-    max-width: 85%;
   }
 `;
 
 const Wrapper = styled.div`
-  min-height: 527px;
+  /* min-height: 527px; */
   position: relative;
 
-  ${mediaBreakpointUp('md')} {
+  /* ${mediaBreakpointUp('md')} {
     min-height: 337px;
   }
 
@@ -33,7 +41,7 @@ const Wrapper = styled.div`
 
   ${mediaBreakpointUp('xl')} {
     min-height: 614px;
-  }
+  } */
 `;
 
 const Inner = styled.div`

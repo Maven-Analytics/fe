@@ -119,6 +119,10 @@ export const footerLinks = [
     title: 'Resources',
     links: [
       {
+        title: 'Maven Blog',
+        url: Routes.Blog
+      },
+      {
         title: 'Help Center',
         url: Routes.HelpCenter,
         external: true
